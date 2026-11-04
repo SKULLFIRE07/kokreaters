@@ -1,0 +1,1351 @@
+
+
+WEBSITE DESIGN AND CONTENT BRIEF
+KoKreaters.com
+The thinking of McKinsey. The clarity of Google. The warmth of Unilever.
+
+This brief gives the designer and developer everything needed to build the KoKreaters website: the brand idea, the visual system, the sitemap, ready-to-use page copy, and the technical standard the finished site must meet. It is written to be edited. Change anything that does not feel right.
+Prepared for
+Website designer and developer
+Prepared by
+Ganeaysh Kulkarni, Founder, KoKreaters
+Website
+www.kokreaters.com
+Version and date
+Version 1.0, 4 November 2026
+Status
+Draft for build. Items marked [CONFIRM] are to be signed off by Ganeaysh before launch.
+
+CONTENTS
+What is inside
+1
+Brand foundations
+Who KoKreaters is, the name, the promise, the personality
+2
+The aura
+What we borrow from McKinsey, Google and Unilever, and what we avoid
+3
+Visual identity
+Logo, colour, typography, the node motif, imagery, icons, motion
+4
+UI system
+Grid, spacing, components, states
+5
+Sitemap and navigation
+Pages, URLs and menus
+6
+Pages and copy
+Section-by-section layout with ready-to-paste text
+7
+Voice and microcopy
+How we write, plus buttons, forms and messages
+8
+SEO and discoverability
+Keywords, page titles, structured data
+9
+Technical specification
+Platform, performance, accessibility, privacy, email and DNS
+10
+Delivery plan
+Phases, deliverables, acceptance checklist
+11
+Open items
+Decisions and material Ganeaysh needs to provide
+A, B
+Appendices
+Design tokens (CSS) and reference websites
+
+How to use this brief
+Designer: start with Sections 1 to 4. They define the look and feel. Section 6 tells you what goes on every page and in what order.
+Developer: Sections 5, 8 and 9 set the structure and the technical bar. Appendix A has the colour and type values as CSS tokens.
+Copy: the text in the shaded copy blocks is final draft copy. Paste it as written unless Ganeaysh changes it. Headline options are offered where a choice is needed; option A is the recommendation.
+Yellow tags: anything marked [CONFIRM: like this] needs Ganeaysh’s sign-off before launch. Section 11 lists them all in one place.
+
+THE BRIEF IN ONE LINE
+Think like McKinsey. Work like Google. Care like Unilever.
+If a design decision is unclear, test it against this line. McKinsey gives us authority through ideas. Google gives us clarity, speed and a playful use of colour. Unilever gives us purpose, warmth and real human stories. KoKreaters sits where the three meet.
+
+SECTION 1 · WHO WE ARE
+1. Brand foundations
+Positioning
+KoKreaters is an independent technical and strategy consultancy for food, feed, non-food and specialty-ingredient businesses. It is founded and led by Ganeaysh Kulkarni, who brings 25 years of hands-on leadership in edible oils, specialty fats and food ingredients at Wilmar and Cargill, across India, Indonesia, Ukraine, Türkiye and the Netherlands.
+What makes KoKreaters different is range. Most consultants are either plant engineers or strategists. KoKreaters works from the plant floor to the boardroom: designing a product, fixing a process, passing a customer audit, valuing an acquisition and writing the business plan, all with the same person who has done it inside global companies.
+POSITIONING STATEMENT
+KoKreaters helps food, nutrition and specialty-ingredient companies design better products, run better plants and make bolder decisions, by co-creating with their teams from the plant floor to the boardroom.
+
+The name and the tagline
+Ko stands for together: co-creation, collaboration, community. Kreaters are the people who make things happen. In Ganeaysh’s words, the work has “co-creation and creativity at its soul, at a global level”. The tagline in the logo spells out the method: Connect · Collaborate · Create.
+Spelling is deliberate. Always “KoKreaters”: capital K, capital K, “-eaters” ending. Never “KoCreators”, “Kokreaters” or “Ko-Kreaters”. Add it to the CMS spell-check dictionary so editors are not prompted to “correct” it.
+Trademark. A trademark application for KoKreaters is being filed. Use ™ after the name in the footer only. Do not use ® until registration is granted. [CONFIRM: filing status and when ® may be used]
+Protect the name online. Consider also registering the common misspellings kocreaters.com and kokreators.com and redirecting them to kokreaters.com.
+Brand promise
+Deep expertise, shared ownership, measurable results. We do not hand over a report and leave. We build the answer with your people, so it still works after we have gone.
+Personality
+Trait
+What it means
+What it does not mean
+Expert
+Specific, technical, evidence-led. We name the process, the number, the risk.
+Lecturing, showing off, jargon for its own sake
+Warm
+Human, generous, easy to talk to. A partner, not a vendor.
+Casual, jokey, over-familiar
+Clear
+Short sentences. One idea at a time. Plain English first, technical term second.
+Simplistic or vague
+Global
+Comfortable in Mundra, Medan, Odessa and Amsterdam. Respects local context.
+Generic, placeless corporate
+Curious
+Asks the next question. Brings ideas from one industry into another.
+Unfocused, chasing trends
+
+Audiences
+Who
+What they need to find fast
+Primary action
+Owners, CEOs and MDs of mid-size oils, fats and food companies (India, Asia, Africa, Europe)
+Proof of hands-on results; that KoKreaters understands their plant and market; how an engagement works
+Book a call
+R&amp;D, technical, quality and operations heads
+Depth on specific topics: specialty fats, contaminants, refining, audits
+Read an insight, then contact
+Multinational procurement and quality teams
+Audit and supplier-development capability; independence; FSQR background
+Contact
+Investors, M&amp;A teams and industrial companies entering food markets
+Feasibility, technical due diligence, Go/No-Go materials
+Contact
+Expert networks and research firms
+Credentials, sectors, languages
+Contact or LinkedIn
+
+SECTION 2 · LOOK AND FEEL
+2. The aura: McKinsey × Google × Unilever
+The site should feel as credible as a top-tier consultancy, as easy as a Google product, and as human as a purpose-led consumer company. Borrow principles, not looks: nothing should be copied from any of these sites, and none of their names, logos or assets may appear on ours.
+Reference
+What we borrow
+How it shows up on KoKreaters
+What we avoid
+McKinsey
+Authority through ideas
+Ideas as the product. Editorial serif headlines. Insight articles that lead the homepage. Confident restraint and lots of white space. One deep anchor colour.
+Elegant serif headlines (Fraunces). Imperial Purple and Sapphire as the deep anchors. An Insights section with long-form articles, pull quotes and numbered “Exhibit” charts in brand colours.
+Cold, grey, corporate tone. Walls of text. Consultant jargon.
+Google
+Clarity and play
+Radical simplicity. Speed. Colour dots as a friendly signal. Rounded, tactile components. Helpful micro-interactions. Accessibility built in.
+The coloured nodes in our logo play the role of Google’s dots: each expertise pillar owns one colour for wayfinding. Pill buttons, 16 px card corners, fast pages, clear focus states.
+Toy-like visuals. Too many bright colours at once. Flat, characterless layouts.
+Unilever
+Purpose and warmth
+A logo built from meaningful symbols. Rich, warm colour. Stories about everyday impact. Real people and real products.
+Our logo is a story of connections, and the site animates it. Rich jewel tones (violet, orchid, saffron). Real photography of people, ingredients and plants. Impact stories told as outcomes.
+Consumer-brand cuteness. Vague sustainability claims. Stock-photo clichés.
+
+The blend
+Use this as a rough recipe when making trade-offs:
+Share
+Source
+Applies to
+40%
+McKinsey
+Structure, typography, the Insights section, the tone of the copy
+30%
+Google
+Interaction, navigation, components, performance, accessibility
+30%
+Unilever
+Colour, photography, storytelling, the human presence of the founder
+
+Five design principles
+Light first, rich accents. Mostly white and soft Cloud backgrounds, with deep Imperial Purple bands for emphasis and jewel colours used sparingly, like accessories on a well-cut suit.
+Ideas lead. Every page opens with a point of view, not a list of services.
+Show the network. The node-and-line motif from the logo connects sections, illustrates the method and animates the hero. It is the visual signature.
+Proof over adjectives. Numbers, places and outcomes instead of “world-class” and “cutting-edge”.
+Effortless. Any visitor should reach the contact form in two clicks from anywhere, on any device.
+
+SECTION 3 · LOGO, COLOUR, TYPE, IMAGERY
+3. Visual identity
+3.1  Logo
+The logo has three parts: the node cluster (five connected circles over three soft overlapping discs), the wordmark with its rising arrow, and the tagline Connect · Collaborate · Create. Use them as follows.
+Version
+Use it for
+Minimum size
+Full lockup (cluster + wordmark + tagline)
+Footer, About page, social share images, email signature
+220 px wide on screen
+Horizontal (cluster + wordmark, no tagline)
+Site header, mobile menu
+140 px wide
+Node cluster only
+Favicon, app icon, LinkedIn avatar, loading animation, watermark
+24 px (favicon 32 px source)
+Reversed (white wordmark, nodes keep colour)
+On Imperial Purple, Sapphire or dark photography
+As above. To be created
+
+Clear space: keep a margin equal to the height of the yellow centre node on all sides.
+Do not recolour the nodes, stretch, rotate, add shadows or outlines, place on busy photos, or retype the wordmark in another font.
+Files needed: only a 1200 dpi JPG exists today. The designer should obtain or redraw the logo as SVG (full, horizontal, cluster, reversed) before build. [CONFIRM: who supplies the vector logo]
+3.2  Colour palette
+The palette starts from the five colours already in the logo and extends them with the rich jewel tones requested: violet, purple, mauve and pink. All values were sampled from the logo file or chosen to sit with it. Contrast ratios are calculated against white to WCAG 2.2.
+Core colours (from the logo)
+
+Name
+HEX
+RGB
+Role
+Text on white (WCAG)
+
+KK Sapphire
+#2C509E
+44, 80, 158
+Primary brand colour (wordmark). Headlines, primary buttons, links on light backgrounds
+7.6 : 1  Yes
+
+KK Cobalt
+#306FE0
+48, 111, 224
+“Ko” in the logo. Links, hover states, focus rings
+4.7 : 1  Yes
+
+KK Sky
+#4C9BE8
+76, 155, 232
+Illustration, charts, node accents
+2.9 : 1  No
+
+KK Saffron
+#F4C841
+244, 200, 65
+Highlights, numbers on dark bands, CTA on dark, underline accents
+1.6 : 1  No (8.8 : 1 on Imperial)
+
+KK Coral
+#E5494D
+229, 73, 77
+Logo node only, plus error messages. Never decorative
+3.9 : 1  Large text only
+
+Jewel colours (the rich extension)
+
+Name
+HEX
+RGB
+Role
+Text on white (WCAG)
+
+Imperial Purple
+#3A1C5C
+58, 28, 92
+Deep anchor. Dark bands, footer, hero overlays, large headlines
+14.0 : 1  Yes
+
+Royal Violet
+#5B2A86
+91, 42, 134
+Secondary headlines, pillar colour, gradient middle
+9.9 : 1  Yes
+
+Amethyst
+#7B4BC4
+123, 75, 196
+Charts, icons, tags, hover on violet elements
+5.8 : 1  Yes
+
+Mauve
+#8C5B88
+140, 91, 136
+Quiet accent, captions, pillar colour, sophisticated detailing
+5.3 : 1  Yes
+
+Orchid Pink
+#C8457E
+200, 69, 126
+Overlines, tags, gradient end, pillar colour. The “spark”
+4.6 : 1  Yes (just)
+
+Tints (from the soft discs in the logo)
+
+Name
+HEX
+RGB
+Role
+Text on white (WCAG)
+
+Lavender Mist
+#EADCFF
+234, 220, 255
+From the logo. Background blobs, callouts, cards
+Background only
+
+Ice Blue
+#D6E2FA
+214, 226, 250
+From the logo. Background blobs, image placeholders
+Background only
+
+Butter
+#FFEEB0
+255, 238, 176
+From the logo. Highlights, notes, warm cards
+Background only
+
+Blush
+#F6DCE8
+246, 220, 232
+Soft pink surface for quotes and people stories
+Background only
+
+Neutrals
+
+Name
+HEX
+RGB
+Role
+Text on white (WCAG)
+
+Midnight Ink
+#121833
+18, 24, 51
+Body text, footer base
+17.4 : 1  Yes
+
+Graphite
+#4A5068
+74, 80, 104
+Secondary text, metadata
+8.0 : 1  Yes
+
+Cloud
+#F8F6FC
+248, 246, 252
+Alternate section background (a violet-tinted white)
+Background only
+
+White
+#FFFFFF
+255, 255, 255
+Main background
+n/a
+
+Hairline
+#E4E0EE
+228, 224, 238
+Dividers, card borders, input borders
+Lines only
+
+Proportions
+Keep the site elegant by holding colour back. Roughly: 60% White and Cloud, 25% deep anchors (Imperial Purple and Sapphire), 10% jewel accents (Violet, Amethyst, Mauve, Orchid), 5% Saffron highlights. Coral appears only in the logo and in error states.
+Signature gradients
+Name
+Stops
+Use
+Aurora
+Sapphire #2C509E → Royal Violet #5B2A86 → Orchid #C8457E (left to right, 100°)
+Primary call-to-action band, social banners, section headers
+Twilight
+Imperial #3A1C5C → Sapphire #2C509E (top to bottom)
+Dark hero variant, footer, image overlays at 70–85% opacity
+Sunrise
+Amethyst #7B4BC4 → Orchid #C8457E → Saffron #F4C841 (135°)
+Rare highlights only: a single stat, a feature card, the 404 page
+
+Colour-coded expertise (the “Google dots” idea)
+Each of the six expertise pillars owns one colour. It appears as the top bar of its card, its icon colour, its page header accent and its tag in Insights. Visitors learn the colour language without being told.
+Pillar
+Colour
+HEX
+Product and Category Innovation
+KK Sapphire
+#2C509E
+Process Design and Plant Performance
+Royal Violet
+#5B2A86
+Food Safety, Quality and Contaminants
+Orchid Pink
+#C8457E
+Strategy, Feasibility and Market Entry
+KK Saffron (with Ink text)
+#F4C841
+M&amp;A, Due Diligence and Partnerships
+Mauve
+#8C5B88
+Capability, Leadership and Transformation
+KK Sky (with Ink text)
+#4C9BE8
+
+RULES
+Accessibility rules for colour
+Body text: Midnight Ink or Graphite only.
+Coloured text on white: Sapphire, Cobalt, Imperial, Royal Violet, Amethyst, Mauve and Orchid pass AA for normal text.
+Never use Saffron, Sky or any tint as text on a light background. Saffron text is welcome on Imperial Purple or Midnight Ink.
+Never rely on colour alone to carry meaning (for example pillar tags also carry the pillar name).
+3.3  Typography
+Two typefaces, both free under the SIL Open Font Licence and available from Google Fonts. Self-host the font files (see Section 9) rather than loading them from Google’s servers.
+Role
+Typeface
+Why
+Weights
+Display and headlines
+Fraunces (variable serif)
+A soft, high-contrast serif with real elegance. Gives the editorial authority of a top consultancy without feeling old.
+300, 400, 600; optical size on; italic for pull quotes
+Body, UI, numbers
+Plus Jakarta Sans
+A clean geometric sans with friendly rounded details that echo the rounded letters of the logo. Very readable on screens.
+400, 500, 600, 700
+Fallback stacks
+Georgia, serif / system-ui, Segoe UI, Arial, sans-serif
+Shown while web fonts load. Use font-display: swap.
+
+
+Type scale
+Token
+Font
+Desktop size / line height
+Mobile
+Use
+display
+Fraunces 300
+72 / 76 px
+44 / 48 px
+Homepage hero only
+h1
+Fraunces 400
+56 / 62 px
+38 / 44 px
+Page titles
+h2
+Fraunces 400
+40 / 48 px
+30 / 36 px
+Section titles
+h3
+Plus Jakarta Sans 600
+24 / 32 px
+21 / 28 px
+Card titles, sub-sections
+h4
+Plus Jakarta Sans 600
+19 / 28 px
+18 / 26 px
+Small headings
+lead
+Plus Jakarta Sans 400
+21 / 34 px
+19 / 30 px
+Intro paragraphs
+body
+Plus Jakarta Sans 400
+17 / 28 px
+16 / 26 px
+Running text (max 70 characters per line)
+small
+Plus Jakarta Sans 500
+14 / 22 px
+14 / 22 px
+Captions, metadata
+overline
+Plus Jakarta Sans 700
+13 px, caps, 0.12 em tracking
+12 px
+Labels above headings, in Orchid
+stat
+Fraunces 300
+64 / 64 px
+44 / 44 px
+Big numbers, in Saffron on dark
+
+Headlines in sentence case, never all caps. Overlines are the only uppercase text.
+Key words in a headline may be underlined with the hand-drawn arrow swoosh from the logo (SVG, Sapphire, drawn in on scroll).
+Pull quotes: Fraunces italic, 32 px, Imperial Purple, with a Saffron opening quote mark.
+3.4  The node motif: our visual signature
+The logo’s network of connected nodes is the brand’s most distinctive asset. Build a small graphic system from it and use it throughout.
+Element
+How to use it
+Hero network
+An SVG or canvas network of 12 to 20 ringed nodes in the core colours, joined by Sapphire lines. Nodes drift slowly; lines draw in as the page loads; the cursor gently attracts nearby nodes. Pause when off-screen. Static image when the visitor prefers reduced motion. Keep under 150 KB.
+Connector lines
+Thin Sapphire lines with a node at each end link sections down the page (for example from the method steps into the impact cards). Draw in on scroll.
+Ringed bullets
+Replace standard list bullets with small ringed nodes (8 px circle, 2 px white ring, pillar colour).
+Soft discs
+The three translucent overlapping discs (Lavender, Ice, Butter at 60–70% opacity) as background shapes behind heroes, portraits and stats.
+Method diagram
+Connect → Collaborate → Create as three large ringed nodes joined by the rising arrow.
+Rising arrow
+The swoosh under the wordmark becomes the underline for key words and the hover animation on text links.
+Loader and favicon
+The node cluster, nodes lighting up in sequence.
+
+3.5  Photography
+Photography carries the Unilever warmth. It should feel real, warm and close-up, never staged.
+Use
+Avoid
+Hands holding oil samples, golden oils in lab glassware, refining columns and tank farms at golden hour
+Handshakes, people pointing at screens, suits laughing at salads
+Chocolate, bakery, dairy and snack close-ups that show texture
+Over-saturated or obviously AI-generated food images
+Mixed teams in conversation around a table, on a plant floor, in a lab (with correct PPE)
+Plants or labs without proper safety gear
+Raw materials and origins: palm, soy, sunflower, rice, cocoa, shea, sal and mango kernels
+Logos or recognisable sites of former employers or clients
+Natural light, slightly warm grade; optional Twilight duotone overlay for section headers
+Cold blue corporate filters, heavy vignettes
+
+Founder portraits: commission a professional session with two looks: a clean studio portrait on Cloud or soft Lavender, and an environmental portrait in a lab or plant setting. [CONFIRM: photographer and date]
+Sources: licensed stock (Adobe Stock, Getty) or free libraries (Unsplash, Pexels), checking each licence. Never use client plant photos without written permission.
+3.6  Icons and illustration
+Use Google’s Material Symbols Rounded (free, Apache 2.0) at weight 300, 24 px grid, or a custom set drawn to the same rules: 1.75 px stroke, round caps and joins, a single small node dot as the accent. Icons take their pillar colour. Illustrations, where needed, are built from the node motif and soft discs, not from people cartoons.
+3.7  Motion
+Purposeful and calm: 150–300 ms, ease-out. Nothing bounces.
+Sections fade up 16 px as they enter the viewport, once only.
+Big numbers count up when first seen.
+The arrow swoosh draws under key words; connector lines draw between sections.
+Honour prefers-reduced-motion: switch every animation to a simple fade or none.
+
+SECTION 4 · BUILDING BLOCKS
+4. UI system and components
+Layout
+Setting
+Value
+Grid
+12 columns. Content max width 1240 px; text columns max 720 px
+Gutters
+24 px desktop, 16 px mobile; page side margin at least 16 px on phones
+Breakpoints
+360, 768, 1024, 1280, 1440 px
+Spacing scale (8-point)
+4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px. Sections: 96–128 px vertical padding desktop, 64 px mobile
+Corner radius
+Cards 16 px; images 16 px; inputs 10 px; buttons and chips fully rounded (pill)
+Shadows
+Soft and violet-tinted: 0 8px 24px rgba(58, 28, 92, 0.08). Hover: 0 12px 32px rgba(58, 28, 92, 0.14)
+Borders
+1 px Hairline #E4E0EE
+
+Components
+Component
+Specification
+Header
+Sticky. White at 85% opacity with background blur; hairline bottom border after scrolling. Logo left; menu centre-right; primary pill button “Start a conversation” far right. Mobile: logo plus menu icon opening a full-screen Cloud panel.
+Expertise menu
+Hover or click opens a panel listing the six pillars, each with its colour dot, name and one-line promise, plus a featured insight.
+Buttons
+Primary: Sapphire fill, white text, pill, 48 px tall; hover darkens to Imperial with the arrow sliding right. Secondary: 2 px Sapphire outline. On dark: Saffron fill with Imperial text. Text link: Cobalt with animated arrow underline.
+Hero
+Two variants. Light (default): Cloud background, soft discs and animated network on the right, headline left. Dark: Twilight gradient with duotone photo, used on Impact and Insights.
+Proof band
+Imperial Purple band; four big Saffron numbers in Fraunces with short labels in Lavender.
+Pillar card
+Cloud surface, 6 px top bar in pillar colour, ringed icon, title, one-line promise, “Learn more →”. Lifts 4 px on hover.
+Impact card
+Image or colour-tint top, context label, outcome headline, three-line summary, place and role tags.
+Insight card
+Image, pillar tag, Fraunces title, reading time and date, author avatar.
+Method stepper
+Three ringed nodes joined by the arrow; each expands to show what happens in that step.
+Quote block
+Blush or Lavender surface, Fraunces italic quote, portrait in a ring with a Saffron border.
+CTA band
+Aurora gradient, one sentence in Fraunces, Saffron pill button.
+Footer
+Midnight Ink. Full logo (reversed), sitemap columns, contact details, LinkedIn, newsletter field, legal links, ™ notice, company registration details.
+Forms
+Labels above fields; 10 px radius; Hairline border, Cobalt focus ring (3 px, offset 2 px); inline validation in Coral with an icon and text; success state in Sapphire.
+Chips and tags
+Pill, 13 px semibold, pillar-colour tint background with the darker pillar colour as text.
+
+States
+Design hover, focus, active, disabled, loading, empty and error states for every interactive component. Focus must always be visible (Cobalt ring on light, Saffron ring on dark).
+Homepage wireframe
+A first layout to react to. Section order and copy are detailed in Section 6.1.
+
+Figure 1. Desktop homepage wireframe in brand colours. Illustrative, not final design.
+
+SECTION 5 · STRUCTURE
+5. Sitemap and navigation
+Main menu
+Expertise   ·   Industries   ·   Approach   ·   Impact   ·   Insights   ·   About   ·   [Start a conversation]
+Pages and URLs
+Page
+URL
+Purpose
+Home
+/
+Position, prove, guide to expertise, convert
+Expertise (overview)
+/expertise
+The six pillars at a glance
+  Product and Category Innovation
+/expertise/product-innovation
+Pillar page
+  Process Design and Plant Performance
+/expertise/process-design
+Pillar page
+  Food Safety, Quality and Contaminants
+/expertise/food-safety-quality
+Pillar page
+  Strategy, Feasibility and Market Entry
+/expertise/strategy-feasibility
+Pillar page
+  M&amp;A, Due Diligence and Partnerships
+/expertise/due-diligence
+Pillar page
+  Capability, Leadership and Transformation
+/expertise/capability
+Pillar page
+Industries
+/industries
+One page with anchored sections per sector
+Approach
+/approach
+Connect · Collaborate · Create, principles, engagement models
+Impact
+/impact
+Track record and case stories
+Insights
+/insights
+Articles hub with filters by pillar and format
+  Article
+/insights/[slug]
+Article template
+About
+/about
+Founder, story of the name, values
+Contact
+/contact
+Form, booking link, direct details
+Privacy, Cookies, Terms
+/privacy, /cookies, /terms
+Legal (see Section 9)
+404
+/404
+Friendly error page
+
+Footer menu
+Column 1: Expertise (six pillars). Column 2: Company (Approach, Impact, About, Insights). Column 3: Contact (email, WhatsApp, LinkedIn, base location). Bottom row: © 2026 KoKreaters™ · Privacy · Cookies · Terms · company registration details.
+
+SECTION 6 · WHAT GOES WHERE
+6. Pages and copy
+Each page is described top to bottom. Copy in the shaded blocks is ready to paste. All facts about Ganeaysh’s career come from his own CVs and profiles; please do not add claims, numbers or client names that are not in this brief.
+Rule on past results
+The four headline results were achieved while Ganeaysh was employed at Wilmar and Cargill. Always present them as the founder’s track record (“From our founder’s career”), never as KoKreaters projects, and never use those companies’ logos.
+
+6.1  Home
+Section 1 · Hero
+COPY · HERO
+Overline
+Independent technical and strategy consulting · Food, feed and specialty ingredients
+Headline (option A, recommended)
+Where deep expertise meets shared ambition.
+Headline (option B)
+We connect what you know with what you could create.
+Headline (option C)
+Twenty-five years of making ingredients work. Now working with you.
+Sub-headline
+KoKreaters helps food, nutrition and specialty-ingredient businesses design better products, run better plants and make bolder decisions, with 25 years of plant-to-boardroom leadership behind every recommendation.
+Primary button
+Start a conversation → /contact
+Secondary button
+Explore our expertise → /expertise
+Visual
+Light hero: Cloud background, soft discs and the animated node network on the right.
+
+Section 2 · Proof band
+COPY · PROOF BAND (IMPERIAL BAND, SAFFRON NUMBERS)
+Stat 1
+25  |  years in oils, fats and food ingredients
+Stat 2
+5  |  countries of plant and operational leadership
+Stat 3
+3  |  regions of teams led: Americas, EMEA, Asia-Pacific
+Stat 4
+WHO  |  Director-General recognition for trans-fat elimination work
+
+Section 3 · What we do
+COPY · EXPERTISE PILLARS
+Overline
+What we do
+Headline
+Six ways we create value, together.
+Intro
+From the first idea to the last audit, we work wherever technology and business meet.
+Cards
+Product and Category Innovation: From unmet need to a product that scales.
+Process Design and Plant Performance: Plants that run better, cost less and grow with you.
+Food Safety, Quality and Contaminants: Pass the audit. Protect the brand. Stay ahead of the regulation.
+Strategy, Feasibility and Market Entry: Clear answers for Go/No-Go decisions.
+M&amp;A, Due Diligence and Partnerships: See what is really behind the deal.
+Capability, Leadership and Transformation: Leave stronger teams behind.
+
+Section 4 · The KoKreaters way
+COPY · METHOD
+Overline
+The KoKreaters way
+Headline
+Connect. Collaborate. Create.
+Step 1 · Connect
+We start where the problem lives: on your plant floor, in your lab, with your customers. We listen first, then diagnose.
+Step 2 · Collaborate
+We design the answer with your teams, not around them, so the people who will run it own it.
+Step 3 · Create
+We build, test and scale the solution, then hand it over with the measures to prove it works.
+Link
+How we work → /approach
+
+Section 5 · Impact highlights
+COPY · IMPACT CARDS
+Overline
+Impact · From our founder’s career
+Headline
+Results that started on the plant floor.
+Card 1
+India’s first world-class integrated specialty fats facility, built and activated. (Wilmar, India)
+Card 2
+21% growth in Indonesia by reshaping manufacturing operations. (Wilmar, Indonesia)
+Card 3
+Ukraine’s first cold-climate crude palm oil refinery, commissioned at –25 °C, cost structure improved by 15%. (Wilmar, Ukraine)
+Card 4
+Trans-fat (iTFA) elimination work publicly recognised by the WHO Director-General. (Cargill)
+Link
+See the impact → /impact
+
+Section 6 · Industries strip
+COPY · INDUSTRIES
+Headline
+Where we work
+Chips
+Confectionery · Bakery · Dairy and specialised nutrition · Plant-based · Snacks and food service · Edible oils and specialty fats · Personal care and oleochemicals · Pet food and animal nutrition · Industrial minerals and process inputs
+
+Section 7 · Insights teaser
+Three latest articles from the Insights hub (automated from the CMS), with the overline “Insights” and the headline “Ideas from the plant floor and the boardroom.”
+Section 8 · Founder
+COPY · FOUNDER QUOTE
+Quote
+“Co-creation and creativity are at the soul of everything we do. We do not just advise. We create with you.”
+Attribution
+Ganeaysh Kulkarni, Founder
+Link
+Meet Ganeaysh → /about
+Note
+[CONFIRM: quote wording]
+
+Section 9 · Call to action
+COPY · CTA BAND (AURORA GRADIENT)
+Headline
+Have a challenge worth solving together?
+Body
+Tell us about your product, your plant or your decision. The first conversation is on us.
+Button
+Book a 30-minute call
+Note
+[CONFIRM: free first call]
+
+6.2  Expertise
+COPY · EXPERTISE OVERVIEW · /EXPERTISE
+Headline
+Expertise that connects science, plants and strategy.
+Intro
+Most problems in food and ingredients do not respect departmental lines. A texture defect may start in the refinery; an audit failure may start in the business model. Our six areas of expertise are designed to work together.
+Layout
+Six large pillar cards (2 × 3 grid), each opening its own page. Below: a short “Not sure where you fit? Start a conversation” prompt.
+
+Each pillar page follows the same layout: hero with pillar colour accent, intro, “What we help with” list with ringed bullets, typical deliverables, related impact and insights, CTA band.
+6.2.1  Product and Category Innovation
+PILLAR PAGE · /EXPERTISE/PRODUCT-INNOVATION
+Pillar colour
+#2C509E
+Headline
+From unmet need to a product that scales.
+Intro
+We turn consumer and customer needs into clear technical briefs, then into products your plants can make profitably. Our roots are in oils and fats, so we are at our best where fat functionality decides whether a product succeeds: texture, bloom, shelf life, mouthfeel and cost.
+What we help with
+•  Specialty fats: cocoa butter equivalents (CBE), confectionery and filling fats, bakery shortenings, margarines and laminating fats
+•  Plant-based, dairy and specialised nutrition applications
+•  Reformulation and renovation: trans-fat elimination, saturated fat reduction, cleaner labels, cost-in-use
+•  Sensory evaluation, consumer insight and foresight
+•  Technical road-mapping and innovation pipelines
+Typical deliverables
+Innovation roadmaps · technical briefs · formulation and prototype plans · lab-to-plant scale-up plans · launch support
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.2.2  Process Design and Plant Performance
+PILLAR PAGE · /EXPERTISE/PROCESS-DESIGN
+Pillar colour
+#5B2A86
+Headline
+Plants that run better, cost less and grow with you.
+Intro
+We have designed, commissioned and run oils and fats plants in four very different countries, from tropical Indonesia to a refinery operating at –25 °C in Ukraine. We bring that experience to your process, whether you are building new, expanding or fixing what you have.
+What we help with
+•  Refining, fractionation, interesterification and blending process design
+•  Greenfield and brownfield projects, commissioning and start-up
+•  Debottlenecking: throughput, yield, utilities and cost
+•  Technology scouting and transfer, including enzymatic processing
+•  Asset-light and tolling models for faster, lower-capital growth
+Typical deliverables
+Process design basis · plant assessments · debottlenecking plans · commissioning support · technology transfer packages
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.2.3  Food Safety, Quality and Contaminants
+PILLAR PAGE · /EXPERTISE/FOOD-SAFETY-QUALITY
+Pillar colour
+#C8457E
+Headline
+Pass the audit. Protect the brand. Stay ahead of the regulation.
+Intro
+Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at Cargill, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.
+What we help with
+•  Process contaminant mitigation: 3-MCPD and glycidyl esters, trans fats, mineral oil hydrocarbons
+•  Plant and supplier audits; readiness for multinational customer pre-approval audits
+•  Building FSQR systems, teams and culture
+•  Packaging-related contaminants, product integrity and shelf life
+•  Regulatory horizon scanning for India and Europe
+Typical deliverables
+Audit reports with photographic evidence · gap analyses · corrective action plans · mitigation programmes · training
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.2.4  Strategy, Feasibility and Market Entry
+PILLAR PAGE · /EXPERTISE/STRATEGY-FEASIBILITY
+Pillar colour
+KK Saffron #F4C841
+Headline
+Clear answers for Go/No-Go decisions.
+Intro
+Before you commit capital, you need to know whether the market is real, whether the technology works and whether the numbers hold. We combine market analysis with technical judgement to give boards and investors a decision they can defend.
+What we help with
+•  Market analysis, product-market fit and competitive landscapes
+•  Feasibility studies and business plans for new plants and product lines
+•  Market entry and go-to-market strategy, including India and Asia
+•  Business–technology alignment plans and technical roadmaps
+•  Investor-grade reports and presentations
+Typical deliverables
+Feasibility reports · business plans with scenarios · market entry strategies · investor decks
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.2.5  M&amp;A, Due Diligence and Partnerships
+PILLAR PAGE · /EXPERTISE/DUE-DILIGENCE
+Pillar colour
+#8C5B88
+Headline
+See what is really behind the deal.
+Intro
+Spreadsheets do not show a tired refinery, a fragile quality system or a technology that will not transfer. We give buyers, investors and partners an independent technical view, then help make the integration work.
+What we help with
+•  Technical due diligence of plants, products, R&amp;D and quality systems
+•  Post-acquisition integration planning
+•  Joint ventures, partner and channel selection
+•  Technology licensing and transfer assessments
+Typical deliverables
+Due diligence reports · red-flag summaries · integration plans · partner assessments
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.2.6  Capability, Leadership and Transformation
+PILLAR PAGE · /EXPERTISE/CAPABILITY
+Pillar colour
+#4C9BE8
+Headline
+Leave stronger teams behind.
+Intro
+Lasting change comes from people. We train technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.
+What we help with
+•  Technical training: oils and fats, specialty fats, applications, FSQR
+•  Technology transfer and site start-up coaching
+•  Leadership development for technical leaders
+•  Organisation design for R&amp;D, technical services and quality
+•  Interim technical leadership
+Typical deliverables
+Training programmes · academies · transfer playbooks · organisation designs · interim roles
+Related
+Two or three linked Insights tagged with this pillar, one Impact card, then the CTA band.
+
+6.3  Industries
+One page with anchored sections. Each sector gets a colour-tint panel, a photo, two to three lines and links to relevant pillars.
+Sector
+Copy
+Confectionery
+Cocoa butter equivalents, filling and coating fats, bloom resistance and cost-in-use for chocolate and sugar confectionery.
+Bakery
+Shortenings, margarines and laminating fats that perform on the line and in the bite, with lower trans and saturated fat.
+Dairy and specialised nutrition
+Fat systems and contaminant control for infant, medical and adult nutrition, where quality has no margin.
+Plant-based
+Fat functionality that delivers the melt, bite and juiciness consumers expect.
+Snacks and food service
+Frying oils, stability and cost for high-volume operations.
+Edible oils and specialty fats
+Refining, fractionation and specialty fats, from crude oil to customer specification.
+Personal care and oleochemicals
+Ingredient functionality and manufacturing processes for beauty and oleochemical products.
+Pet food and animal nutrition
+Product development and process improvement tailored to species-specific needs and regulations.
+Industrial minerals and process inputs
+Market entry, feasibility and application know-how for the inputs the oils industry depends on, such as bleaching earths.
+
+6.4  Approach
+COPY · APPROACH · /APPROACH
+Headline
+We create with you, not for you.
+Intro
+The best answers come from people who know the plant, the product and the market. Our role is to connect that knowledge, add 25 years of global experience, and help your teams create something that lasts.
+Method
+The Connect → Collaborate → Create stepper (as on Home), with each step expanded: what we do, what you get, typical duration.
+
+Principles
+Principle
+Copy
+Plant floor to boardroom
+We are as comfortable in a control room as in a board meeting, and we connect the two.
+Your team owns the result
+We build capability as we go, so you do not depend on us afterwards.
+Global playbook, local execution
+Lessons from Asia, Europe and the Americas, adapted to your market, your raw materials and your people.
+Evidence before opinion
+Data, trials and plant observation first; recommendations second.
+Confidential by default
+Your formulations, processes and plans stay yours. We sign NDAs as standard.
+
+Ways to work with us
+Model
+Typical shape
+Good for
+Diagnostic or audit
+2–5 days on site, report within two weeks
+Plant audits, customer pre-approval readiness, contaminant risk reviews
+Project
+Fixed scope, 4–16 weeks
+New products or processes, feasibility studies, business plans, due diligence
+Advisory retainer
+A set number of days each month
+Ongoing technical and strategic counsel, R&amp;D steering, board advisory
+Interim leadership
+Part-time or full-time for a defined period
+Covering a technical director or R&amp;D lead role
+Workshops and training
+Half a day to two days
+Oils and fats academies, innovation sprints, technology transfer
+[CONFIRM: engagement models and durations]
+6.5  Impact
+Two parts: the founder’s track record (the four results, each as a full case card) and KoKreaters engagements (anonymised). Use a consistent card template:
+Field
+Example (Card 3)
+Context label
+Process design · Ukraine · From our founder’s career (Wilmar)
+Outcome headline
+Ukraine’s first cold-climate crude palm oil refinery
+The challenge
+Design and build a continuous refinery able to operate in extreme winter conditions, down to –25 °C.
+What was done
+Full design-to-execution leadership of the facility, from process design to commissioning.
+The result
+The first refinery of its kind in Ukraine; overall cost structure improved by 15%.
+Tags
+Process Design and Plant Performance · Edible oils
+
+KoKreaters engagements (anonymised)
+Feasibility study and business plan for a European industrial-minerals company entering a new market.
+Multinational-customer pre-approval readiness audit for an Indian specialty fats manufacturer. [CONFIRM: client consent, even anonymised]
+Contaminant mitigation and portfolio development programme for a North Indian edible oils company. [CONFIRM: client consent, even anonymised]
+Add testimonials here when available: two to four short quotes from clients or former colleagues, with name, role and written permission.
+6.6  Insights
+The McKinsey heart of the site. A hub with a featured article, filters by pillar (colour tags) and format, and a newsletter sign-up. Article template: hero with title in Fraunces, overline with pillar, reading time, author box, body at 720 px width, pull quotes, numbered “Exhibit” charts in brand colours, key takeaways box, related articles, CTA.
+Format
+Description
+Point of view
+1,200–2,000 words. A clear argument on a topic that matters to owners and technical leaders.
+Field notes
+400–700 words. A practical lesson from the plant floor.
+Explainer
+A plain-English guide to a technical topic, for non-specialists such as investors.
+
+First six articles (suggested)
+3-MCPD and glycidyl esters: a practical playbook for refiners
+Cocoa butter equivalents in India: the opportunity and the traps
+Refining palm oil at –25 °C: lessons from a cold-climate refinery
+Trans-fat elimination: what it really takes inside a plant
+Passing a multinational customer’s pre-approval audit: what auditors actually look for
+Bleaching earth: a small input with a big effect on oil quality and cost
+Cadence: two articles a month at launch, then at least one. Insights must be editable by Ganeaysh in the CMS without developer help.
+6.7  About
+COPY · ABOUT · /ABOUT
+Headline
+Built on 25 years of making ingredients work.
+Intro
+KoKreaters is the consultancy Ganeaysh Kulkarni wished he could call when he was running plants and R&amp;D teams: someone who has done the work, understands the business and builds the answer with you.
+
+Founder biography (long, for the About page)
+LONG BIO · APPROX. 260 WORDS
+Ganeaysh Kulkarni founded KoKreaters in 2026 after 25 years building and leading technical organisations in edible oils, specialty fats and food ingredients.
+He began his career at Wilmar in 2001, rising from Technical Head Specialties to Technical Director. There he built and activated India’s first world-class integrated specialty fats facility, reshaped manufacturing operations in Indonesia to deliver 21% growth, and commissioned Ukraine’s first cold-climate crude palm oil refinery, operating at –25 °C and improving the cost structure by 15%.
+In 2012 he joined Cargill. Over the next fourteen years he led Technical Services, Applications, R&amp;D and Food Safety, Quality and Regulatory (FSQR) teams; served as Regional Technical Lead and Bakery Technology Transfer Leader, supporting technical due diligence for acquisitions; led Category R&amp;D for Confectionery and Plant-Based; and was Global Product and Process Design Director from 2023 to 2026. His trans-fat elimination work at Cargill was publicly recognised by the Director-General of the World Health Organization.
+His career has taken him across India, Indonesia, Ukraine, Türkiye and the Netherlands, leading teams in the Americas, EMEA and Asia-Pacific and working with global leaders in nutrition, food, personal care and pet food.
+Ganeaysh holds a postgraduate degree in Food Technology from CFTRI Mysore and a degree in Chemistry from the University of Pune, and has completed programmes in Creativity and Innovation at IIM Ahmedabad and the EDGE Founder’s Bootcamp at UC Berkeley. He works in English, Hindi and Marathi, with conversational Bahasa Indonesia and basic Russian. He is based in the Netherlands and works with clients worldwide.
+
+Founder biography (short, for cards, speaker notes, LinkedIn)
+SHORT BIO · APPROX. 60 WORDS
+Ganeaysh Kulkarni is the founder of KoKreaters. A food technologist with 25 years at Wilmar and Cargill, he has built specialty fats facilities, commissioned refineries, led global R&amp;D and FSQR teams and supported acquisitions across Asia, Europe and the Americas. He now helps food and ingredient companies co-create better products, plants and decisions.
+
+Rest of the About page
+Career timeline: horizontal on desktop, vertical on mobile, as a line of connected nodes: CFTRI Mysore (1999–2001) → Wilmar (2001–2012) → Cargill (2012–2026) → KoKreaters (2026).
+Map: a stylised world map with nodes at Mundra, Kakinada, Gurugram, Pune, Medan, Odessa, Balikesir and Amsterdam, joined by Sapphire arcs.
+The name: a short panel explaining Ko + Kreaters and Connect · Collaborate · Create.
+Education and languages: compact two-column list.
+Client names: by default show sectors, not company names or logos. [CONFIRM: whether to name companies he has worked with, and permission for any logos]
+6.8  Contact
+COPY · CONTACT · /CONTACT
+Headline
+Let’s create something together.
+Intro
+Tell us a little about your challenge. Ganeaysh reads every message personally and replies within one working day.
+Form fields
+Name* · Company* · Role · Email* · Phone or WhatsApp · Country* · Area of interest* (select: the six pillars, or “Not sure yet”) · Message* · How did you hear about us? · Consent checkbox* (“I agree to KoKreaters storing my details to respond to this enquiry, as described in the Privacy Policy.”)
+Booking
+Book a 30-minute call (Google Calendar appointment schedule or Calendly)
+Direct details
+Email: office@kokreaters.com · WhatsApp: +31 6 2215 7910 · LinkedIn: linkedin.com/in/ganeayshkulkarni · Based in the Netherlands, working worldwide
+Note
+[CONFIRM: public email address, reply-time promise, booking tool]
+
+6.9  Legal pages and 404
+Privacy Policy, Cookie Policy and Terms of Use, written or reviewed by a lawyer (see Section 9).
+404 page: Sunrise gradient, the node cluster with one node “disconnected”, headline “This page hasn’t been created yet.”, button “Take me home”.
+
+SECTION 7 · HOW WE WRITE
+7. Voice and microcopy
+Writing rules
+British English (optimise, colour, programme). The founder is based in Europe and works with India, where British spelling is standard.
+Write to “you”; speak as “we”. Use “Ganeaysh” by name on the About and Contact pages.
+Short sentences. One idea per paragraph. Lead with the outcome, then the method.
+Name things precisely: “3-MCPD and glycidyl esters”, not “contaminants issues”.
+Explain acronyms on first use on each page (CBE, FSQR, iTFA, 3-MCPD).
+Use numbers and places from this brief. No superlatives that cannot be proved.
+Prefer
+Avoid
+co-create, build, design, prove, scale, run
+leverage, synergise, best-in-class, world-class, cutting-edge
+plant floor, lab, line, customer, market
+ecosystem (unless literal), paradigm, holistic
+“We commissioned a refinery at –25 °C.”
+“We deliver innovative end-to-end solutions.”
+
+Microcopy bank
+Where
+Text
+Primary CTA
+Start a conversation
+Booking CTA
+Book a 30-minute call
+Pillar link
+Learn more →
+Insights link
+Read the insight →
+Impact link
+See the impact →
+Newsletter
+Field notes from the plant floor and the boardroom. Once a month. No noise.
+Newsletter button
+Subscribe
+Form success
+Thank you. Your message is with us and Ganeaysh will reply within one working day.
+Form error
+Something went wrong. Please try again, or email office@kokreaters.com.
+Required field
+Please fill this in so we can reply.
+Cookie banner
+We use essential cookies to run this site and, with your consent, analytics cookies to improve it. [Accept all] [Reject non-essential] [Settings]
+404
+This page hasn’t been created yet. Let’s connect you back.
+
+SECTION 8 · BEING FOUND
+8. SEO and discoverability
+Target search terms
+Build pages and articles around these phrases. Use them naturally in headings and copy.
+specialty fats consultant; oils and fats consultant; edible oil refining consultant
+cocoa butter equivalent (CBE) development; bakery shortening and margarine development
+3-MCPD and glycidyl ester reduction; trans fat elimination consultant
+food safety audit for oils and fats suppliers; supplier pre-approval audit readiness
+technical due diligence food ingredients; feasibility study food ingredients plant
+palm oil refinery commissioning; fractionation and interesterification consulting
+food ingredients market entry India; oleochemicals consulting
+Page titles and meta descriptions
+Page
+Title (≤ 60 characters)
+Meta description (≤ 155 characters)
+Home
+KoKreaters | Oils, Fats and Food Ingredients Consulting
+Independent technical and strategy consulting for food, nutrition and specialty-ingredient businesses. 25 years of plant-to-boardroom leadership.
+Expertise
+Expertise | Product, Process, Quality, Strategy | KoKreaters
+Six connected areas of expertise: innovation, process design, food safety and contaminants, feasibility, due diligence and capability building.
+Approach
+Our Approach: Connect, Collaborate, Create | KoKreaters
+We create with you, not for you. See how KoKreaters works and the ways you can engage us, from audits to advisory retainers.
+Impact
+Impact and Track Record | KoKreaters
+From India’s first integrated specialty fats facility to a refinery at –25 °C: the results behind KoKreaters.
+Insights
+Insights on Oils, Fats and Food Ingredients | KoKreaters
+Points of view and field notes on specialty fats, refining, contaminants, audits and growth in food and ingredients.
+About
+About Ganeaysh Kulkarni, Founder | KoKreaters
+Food technologist and former Cargill and Wilmar technical leader. Founder of KoKreaters, based in the Netherlands, working worldwide.
+Contact
+Contact KoKreaters | Start a Conversation
+Tell us about your product, plant or decision. Ganeaysh replies personally within one working day.
+
+Technical SEO
+Structured data (JSON-LD): Organization and ProfessionalService on Home; Person on About; Article and BreadcrumbList on Insights.
+One H1 per page; logical H2/H3 order; descriptive alt text on every image.
+XML sitemap, robots.txt, canonical URLs, clean slugs as in Section 5.
+Open Graph and LinkedIn share images (1200 × 627 px) in brand style: Twilight or Aurora background, Fraunces headline, node motif. Template per page type.
+Register the site in Google Search Console and Bing Webmaster Tools. Link the site from the LinkedIn profile and a LinkedIn company page.
+Architecture ready for more languages later (hreflang), English only at launch.
+
+SECTION 9 · THE STANDARD THE BUILD MUST MEET
+9. Technical specification
+Platform
+Option
+Strengths
+Watch-outs
+Webflow (recommended if the designer leads)
+Pixel-precise design, built-in CMS for Insights and Impact, hosting and SSL included, easy editing for Ganeaysh
+Monthly plan cost; custom animations need care to stay fast
+WordPress with a block theme
+Huge ecosystem, full ownership, low running cost
+Needs disciplined plugin choice, updates and security hardening
+Next.js with a headless CMS (e.g. Sanity)
+Best performance and animation control
+Needs a developer for most changes
+Final choice to be agreed between Ganeaysh and the developer. Whatever the platform, Ganeaysh must be able to add and edit Insights, Impact cards and testimonials himself.
+Domain, email and DNS
+Domain: kokreaters.com (primary, with www redirecting to the bare domain or vice versa, consistently).
+Email already runs on Google Workspace on this domain (office@ and ganeayshkulkarni@kokreaters.com). When pointing the domain at the web host, keep the existing MX records and add SPF, DKIM and DMARC so form notifications and replies are not marked as spam.
+Website form notifications go to office@kokreaters.com with an automatic reply to the sender.
+Performance budget
+Measure
+Target
+Largest Contentful Paint (LCP)
+≤ 2.5 s on mobile (Google’s “good” threshold)
+Interaction to Next Paint (INP)
+≤ 200 ms
+Cumulative Layout Shift (CLS)
+≤ 0.1
+Homepage weight
+≤ 1.5 MB on first load, including the hero animation
+Images
+AVIF or WebP with responsive sizes; lazy-load below the fold
+Fonts
+Self-hosted WOFF2, subset to Latin, preload the two main weights, font-display: swap
+Lighthouse
+90+ for Performance, Accessibility, Best Practices and SEO on mobile
+
+Accessibility
+WCAG 2.2 level AA throughout, using the colour rules in Section 3.2.
+Full keyboard navigation, visible focus, skip-to-content link, semantic HTML landmarks.
+Text resizable to 200% without loss; touch targets at least 44 × 44 px.
+Animations respect prefers-reduced-motion; no autoplaying video with sound.
+Privacy and legal (EU and the Netherlands)
+GDPR compliance: Privacy Policy, Cookie Policy, Terms of Use; consent recorded for forms and newsletter.
+Cookie consent before any non-essential cookies or analytics load, with an equally easy “Reject” option.
+Self-host fonts and avoid third-party embeds that send visitor data without consent.
+Analytics: a privacy-friendly tool (Plausible or Matomo) or Google Analytics 4 with Consent Mode.
+Business details in the footer as required for the registered entity (for a Dutch business: KvK number, and VAT number where applicable). [CONFIRM: legal entity name, registration numbers and registered address, checked with the accountant]
+™ after KoKreaters until the trademark is registered.
+Forms, security and operations
+Spam protection: honeypot field plus Cloudflare Turnstile or reCAPTCHA v3.
+HTTPS everywhere with HSTS; security headers; automatic daily backups; update plan for the CMS.
+Uptime monitoring and a simple monthly report (visits, enquiries, top pages).
+Handover: admin access for Ganeaysh, a short video walkthrough of editing, and all source files.
+
+SECTION 10 · FROM BRIEF TO LAUNCH
+10. Delivery plan and acceptance
+Phases (indicative, about ten weeks)
+Week
+Phase
+Output
+Sign-off
+1
+Discovery
+Questions on this brief, moodboard, platform decision, content gaps
+Ganeaysh
+2–3
+Design direction
+Design tokens and two homepage concepts (light-led and dark-led) in Figma
+Ganeaysh chooses one
+4–5
+Full design
+All page templates, desktop and mobile, component library, states, hero animation prototype
+Ganeaysh
+5–8
+Build
+Staging site on the chosen platform, CMS set up for Insights and Impact
+Weekly reviews
+9
+Content and QA
+Copy loaded, first articles live, cross-browser and device testing, accessibility and performance checks
+Checklist below
+10
+Launch
+DNS switch, Search Console, analytics, redirects, handover
+Go-live
+
+Design deliverables
+Figma file with tokens (colour, type, spacing), components and all pages at 1440 px and 375 px.
+Logo set in SVG and PNG: full, horizontal, cluster only, reversed; favicon and app icons.
+Hero network animation (Lottie or SVG/JS) with reduced-motion fallback.
+Social share templates, LinkedIn banner (1584 × 396 px), email signature in brand style.
+Acceptance checklist
+Check
+Pass when
+Brand
+Colours, type and logo usage match Sections 3 and 4; “KoKreaters” spelt correctly everywhere
+Content
+All copy from this brief in place; every [CONFIRM] item resolved; no claims beyond this brief
+Responsive
+Correct on 360, 768, 1024, 1280 and 1440 px; no horizontal scrolling
+Browsers
+Latest Chrome, Safari, Edge and Firefox; iOS Safari and Android Chrome
+Performance
+Targets in Section 9 met on the homepage and one article page
+Accessibility
+Automated check (axe or Lighthouse) clean; keyboard-only walkthrough passes
+Forms
+Test enquiries arrive at office@kokreaters.com, auto-reply works, not in spam
+SEO
+Titles, descriptions, structured data, sitemap and share images verified
+Legal
+Privacy, cookie and terms pages live; consent banner works; business details shown
+CMS
+Ganeaysh can publish an article and an impact card unaided
+
+SECTION 11 · TO DECIDE OR PROVIDE
+11. Open items for Ganeaysh
+#
+Item
+Why it matters
+Needed by
+1
+Vector logo files (SVG) and a reversed version
+The JPG cannot be used sharply on the web
+Week 1
+2
+Choose headline option A, B or C
+Sets the tone for the whole site
+Week 2
+3
+Professional portrait session
+The founder is the brand; the About page and quote need real photos
+Week 4
+4
+Approve founder quote wording
+It appears on the homepage
+Week 4
+5
+Decide whether to name companies worked with, and get permission for any logos
+Avoids implying endorsement
+Week 4
+6
+Client consent for the two anonymised Indian engagements
+Even anonymised stories can identify a client
+Week 6
+7
+Confirm CBE and other specialty-fats wording
+CBE is offered as a service; it is not named in the CVs as a past result
+Week 4
+8
+Two to four testimonials with written permission
+Social proof for Impact and Home
+Week 8
+9
+Public email address, reply-time promise, booking tool, free first call
+Contact page and CTAs
+Week 4
+10
+Engagement models and durations
+Approach page
+Week 4
+11
+Legal entity, registration numbers, registered address
+Footer and legal pages
+Week 8
+12
+Trademark filing status
+™ vs ® usage
+Week 8
+13
+Confirm “founded in 2026” and the career dates in the bio
+About page accuracy
+Week 4
+14
+First two Insights articles (drafts)
+Insights must not launch empty
+Week 8
+
+APPENDIX A · FOR THE DEVELOPER
+Appendix A: Design tokens
+Starting values as CSS custom properties. Rename to suit the platform; keep the values.
+:root {
+  /* Core (from logo) */
+  --kk-sapphire: #2C509E;   --kk-cobalt: #306FE0;   --kk-sky: #4C9BE8;
+  --kk-saffron:  #F4C841;   --kk-coral:  #E5494D;
+  /* Jewel */
+  --kk-imperial: #3A1C5C;   --kk-violet: #5B2A86;   --kk-amethyst: #7B4BC4;
+  --kk-mauve:    #8C5B88;   --kk-orchid: #C8457E;
+  /* Tints */
+  --kk-lavender: #EADCFF;   --kk-ice: #D6E2FA;   --kk-butter: #FFEEB0;   --kk-blush: #F6DCE8;
+  /* Neutrals */
+  --kk-ink: #121833;   --kk-graphite: #4A5068;   --kk-cloud: #F8F6FC;
+  --kk-white: #FFFFFF;   --kk-hairline: #E4E0EE;
+ 
+  /* Gradients */
+  --kk-aurora:   linear-gradient(100deg, #2C509E 0%, #5B2A86 50%, #C8457E 100%);
+  --kk-twilight: linear-gradient(180deg, #3A1C5C 0%, #2C509E 100%);
+  --kk-sunrise:  linear-gradient(135deg, #7B4BC4 0%, #C8457E 55%, #F4C841 100%);
+ 
+  /* Pillars */
+  --kk-pillar-innovation: var(--kk-sapphire);   --kk-pillar-process: var(--kk-violet);
+  --kk-pillar-quality:    var(--kk-orchid);     --kk-pillar-strategy: var(--kk-saffron);
+  --kk-pillar-deals:      var(--kk-mauve);      --kk-pillar-capability: var(--kk-sky);
+ 
+  /* Type */
+  --kk-font-display: &apos;Fraunces&apos;, Georgia, serif;
+  --kk-font-body: &apos;Plus Jakarta Sans&apos;, system-ui, &apos;Segoe UI&apos;, Arial, sans-serif;
+ 
+  /* Shape and depth */
+  --kk-radius-card: 16px;   --kk-radius-input: 10px;   --kk-radius-pill: 999px;
+  --kk-shadow: 0 8px 24px rgba(58, 28, 92, 0.08);
+  --kk-shadow-hover: 0 12px 32px rgba(58, 28, 92, 0.14);
+ 
+  /* Spacing (8-point) */
+  --kk-space-1: 4px;  --kk-space-2: 8px;  --kk-space-3: 12px; --kk-space-4: 16px;
+  --kk-space-5: 24px; --kk-space-6: 32px; --kk-space-7: 48px; --kk-space-8: 64px;
+  --kk-space-9: 96px; --kk-space-10: 128px;
+  --kk-motion: 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+APPENDIX B · WHAT TO STUDY, NOT COPY
+Appendix B: Reference websites
+Site
+Look at
+Take away
+mckinsey.com
+Homepage, Featured Insights, a long-form article page
+How ideas lead the page; serif headlines; generous spacing; exhibit charts; author and reading-time patterns
+about.google and design.google
+Colour use, illustration, component simplicity, motion
+Primary colours used as friendly accents on white; rounded, calm UI; clarity of navigation
+unilever.com
+Homepage and brand and purpose storytelling sections
+Warm, human photography; rich colour; purpose told through real impact
+
+Sources for this brief
+Career facts come from Ganeaysh Kulkarni’s CVs, Professional Spotlight and career fact base. Service scope comes from his KoKreaters business description (November 2026). Colour values were sampled from the KoKreaters logo file; contrast ratios were calculated to the WCAG 2.2 formula. Performance targets follow Google’s published Core Web Vitals thresholds.
+
