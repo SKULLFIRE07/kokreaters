@@ -154,8 +154,7 @@ function initMobileMenu(onOpen: () => void) {
     btn.setAttribute('aria-expanded', 'true');
     if (label) label.textContent = labelClose;
     document.documentElement.classList.add('menu-open');
-    document.body.style.overflow = 'hidden';
-    lenis()?.stop();
+    lockScroll();
     for (const el of outside()) el.inert = true;
     document.addEventListener('keydown', trap);
     const firstLink = menu.querySelector<HTMLElement>('a[href], button');
@@ -168,8 +167,7 @@ function initMobileMenu(onOpen: () => void) {
     btn.setAttribute('aria-expanded', 'false');
     if (label) label.textContent = labelOpen;
     document.documentElement.classList.remove('menu-open');
-    document.body.style.overflow = '';
-    lenis()?.start();
+    unlockScroll();
     for (const el of outside()) el.inert = false;
     document.removeEventListener('keydown', trap);
     hideTimer = window.setTimeout(() => { if (!isOpen) menu.hidden = true; }, menuCloseMs());
@@ -200,6 +198,20 @@ function initMobileMenu(onOpen: () => void) {
   if (w.__kkMenuPending) { w.__kkMenuPending = false; if (!desktopQuery.matches) open(); }
 
   return { close };
+}
+
+let lockedY = 0;
+function lockScroll() {
+  lockedY = window.scrollY;
+  const b = document.body.style;
+  b.position = 'fixed'; b.top = `-${lockedY}px`; b.left = '0'; b.right = '0'; b.width = '100%';
+}
+function unlockScroll() {
+  const b = document.body.style;
+  b.position = ''; b.top = ''; b.left = ''; b.right = ''; b.width = '';
+  window.scrollTo(0, lockedY);
+  (lenis() as unknown as { scrollTo?: (y: number, o: { immediate: boolean; force?: boolean }) => void } | undefined)
+    ?.scrollTo?.(lockedY, { immediate: true, force: true });
 }
 
 let booted = false;
