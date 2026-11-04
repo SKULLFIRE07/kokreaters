@@ -1,0 +1,10 @@
+---
+// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 9).
+import { microcopy } from '@/data/microcopy';
+interface Props { items: string[]; }
+const { items } = Astro.props;
+---
+<aside class="takeaways" aria-labelledby="takeaways-h">
+  <h2 id="takeaways-h" class="t-h4">{microcopy.keyTakeaways}</h2>
+  <ul>{items.map((i) => <li>{i}</li>)}</ul>
+</aside>

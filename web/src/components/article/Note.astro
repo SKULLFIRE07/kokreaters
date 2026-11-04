@@ -1,0 +1,7 @@
+---
+// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 5).
+// Exists only so the draft MDX in src/content/insights resolves its import at build time.
+interface Props { n: number | string; }
+const { n } = Astro.props;
+---
+<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote t-meta" role="note"><slot /></span>

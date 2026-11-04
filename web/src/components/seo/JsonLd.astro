@@ -1,0 +1,10 @@
+---
+/** One JSON-LD block holding the page graph (DESIGN-SPEC 3.7 item 10). */
+import type { GraphNode } from './schema';
+interface Props { graph: GraphNode[] }
+const { graph } = Astro.props;
+const json = graph.length
+  ? JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')
+  : '';
+---
+{json && <script is:inline type="application/ld+json" set:html={json} />}

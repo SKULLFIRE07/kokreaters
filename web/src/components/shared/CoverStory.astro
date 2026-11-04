@@ -1,0 +1,52 @@
+---
+/** The lead insight (5.0.11): editorial cover, never a placeholder image. */
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import PillarDot from '../ui/PillarDot.astro';
+import DraftRibbon from '../ui/DraftRibbon.astro';
+import RingedNode from '../brand/RingedNode.astro';
+import { pillars } from '@/data/pillars';
+import { microcopy, formatLabels } from '@/data/microcopy';
+import { formatDate, isoDate, fill } from '@/lib/format';
+import { readingTime } from '@/lib/reading-time';
+import avatar from '@/assets/photos/ganeaysh-square.png';
+interface Props { entry: CollectionEntry<'insights'>; size?: 'home' | 'hub'; class?: string; headingLevel?: 'h2' | 'h3'; }
+const { entry, size = 'home', class: cls, headingLevel } = Astro.props;
+const d = entry.data;
+const pillar = pillars.find((p) => p.key === d.pillar);
+const mins = readingTime(entry.body);
+const isDraft = d.status === 'draft' || d.review === 'pending';
+const H = headingLevel ?? (size === 'hub' ? 'h2' : 'h3');
+const href = `/insights/${entry.id}`;
+---
+<article class:list={['cover', `cover--${size}`, cls]} data-pillar={d.pillar} data-reveal>
+  {d.image && (
+    <a href={href} class="cover__media" tabindex="-1" aria-hidden="true">
+      <Image src={d.image} alt={d.imageAlt ?? ''} widths={[480, 720, 960]} sizes="(min-width: 1024px) 58vw, 100vw" loading="lazy" decoding="async" />
+    </a>
+  )}
+  {isDraft && <DraftRibbon size="sm" class="cover__draft" />}
+  <p class="t-dateline cover__format">{formatLabels[d.format]}</p>
+  <p class="t-meta cover__pillar"><PillarDot pillar={d.pillar} size={10} />{pillar?.name}</p>
+  <H class="t-h1 cover__title"><a href={href}>{d.title}</a></H>
+  {d.standfirst && <p class="t-standfirst cover__standfirst">{d.standfirst}</p>}
+  <p class="cover__byline t-meta">
+    <RingedNode image={avatar} size={40} ring="var(--kk-saffron)" alt="" />
+    <span>Ganeaysh Kulkarni{mins > 0 && <> · <span class="tnum">{fill(microcopy.readingTime, { n: mins })}</span></>}{d.date && <> · <time class="tnum" datetime={isoDate(d.date)}>{formatDate(d.date)}</time></>}</span>
+  </p>
+</article>
+<style>
+  .cover { display: flex; flex-direction: column; gap: var(--s-4); }
+  .cover p { margin: 0; }
+  .cover :global(.cover__draft) { align-self: flex-start; }
+  .cover__pillar { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--c-meta); }
+  .cover__title { margin: 0; max-width: 18ch; }
+  .cover__title a { color: inherit; text-decoration: none; }
+  .cover__title a:is(:hover, :focus-visible) { color: var(--c-link); }
+  .cover__standfirst { max-width: 34em; }
+  .cover__byline { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); }
+  .cover__media { display: block; overflow: hidden; border-radius: var(--r-image); aspect-ratio: 3 / 2; }
+  .cover__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 300ms var(--ease-out); }
+  .cover__media:hover :global(img) { transform: scale(1.03); }
+  @media (prefers-reduced-motion: reduce) { .cover__media :global(img) { transition: none; } }
+</style>

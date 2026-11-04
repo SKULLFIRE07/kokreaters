@@ -1,0 +1,30 @@
+/* src/styles/utilities.css (DESIGN-SPEC 1.5) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important; clip-path: inset(50%) !important;
+  white-space: nowrap !important; border: 0 !important;
+}
+.nowrap { white-space: nowrap; }
+.measure { max-width: var(--measure); }
+.flow > * + * { margin-top: var(--flow, 1em); }
+
+.skip-link {
+  position: absolute; top: 0; left: 0;
+  width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link:focus, .skip-link:focus-visible {
+  position: fixed; top: var(--s-4); left: var(--s-4); z-index: 1000;
+  width: auto; height: auto; overflow: visible; clip-path: none;
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0 var(--s-5);
+  border-radius: var(--r-pill);
+  background: var(--c-action); color: var(--kk-white);
+  font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; letter-spacing: 0.005em;
+  text-decoration: none;
+}
+
+[hidden] { display: none !important; }

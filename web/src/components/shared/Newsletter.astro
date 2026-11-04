@@ -1,0 +1,44 @@
+---
+/** Newsletter line (5.0.14). No provider → mailto fallback. With an endpoint → a consented form. */
+import { site } from '@/config/site';
+import { microcopy } from '@/data/microcopy';
+import TextLink from '../ui/TextLink.astro';
+import Button from '../ui/Button.astro';
+interface Props { variant?: 'fold' | 'footer'; class?: string; }
+const { variant = 'fold', class: cls } = Astro.props;
+const uid = `nl-${variant}`;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(microcopy.newsletterMailtoSubject)}`;
+---
+<div class:list={['newsletter', `newsletter--${variant}`, cls]}>
+  <p class:list={['newsletter__text', variant === 'fold' ? 't-h3' : 't-meta']}>{microcopy.newsletter}</p>
+  {site.newsletterEndpoint ? (
+    <form class="newsletter__form" method="post" action={site.newsletterEndpoint} novalidate data-newsletter>
+      <div class="newsletter__fields">
+        <label class="visually-hidden" for={`${uid}-email`}>{microcopy.emailLabel}</label>
+        <input class="newsletter__input" id={`${uid}-email`} name="email" type="email" autocomplete="email" required aria-describedby={`${uid}-email-error`} />
+        <Button type="submit" variant={variant === 'footer' ? 'on-dark' : 'primary'}>{microcopy.newsletterButton}</Button>
+      </div>
+      <p class="field-error" id={`${uid}-email-error`} hidden></p>
+      <label class="newsletter__consent t-meta">
+        <input type="checkbox" name="consent" required />
+        <span>{microcopy.newsletterConsent.split('Privacy Policy')[0]}<a href="/privacy">Privacy Policy</a>{microcopy.newsletterConsent.split('Privacy Policy')[1]}</span>
+      </label>
+    </form>
+  ) : (
+    <TextLink href={mailto}>{microcopy.newsletterButton}</TextLink>
+  )}
+</div>
+<style>
+  .newsletter { display: flex; flex-direction: column; gap: var(--s-3); align-items: flex-start; }
+  .newsletter__text { margin: 0; max-width: 34em; }
+  .newsletter--fold .newsletter__text { color: var(--c-heading); }
+  .newsletter--footer .newsletter__text { color: var(--c-on-dark-muted); }
+  .newsletter__form { display: flex; flex-direction: column; gap: var(--s-3); width: 100%; max-width: 460px; }
+  .newsletter__fields { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+  .newsletter__input {
+    flex: 1 1 200px; height: 48px; padding: 0 var(--s-4);
+    border: 1px solid var(--kk-field-border); border-radius: var(--r-input); background: var(--kk-white); color: var(--kk-ink);
+  }
+  .newsletter__consent { display: flex; gap: var(--s-2); align-items: flex-start; }
+  .newsletter__consent input { margin-top: 0.3em; width: 18px; height: 18px; flex: none; }
+</style>

@@ -1,0 +1,39 @@
+---
+/** A founder-career result as an index row (5.0.9). Figures in Sapphire Fraunces 300; −25 °C gets data-frost. */
+import type { FounderResult } from '@/data/types';
+import { figHtml, abbreviations } from '@/lib/typography';
+interface Props { result: FounderResult; size?: 'home' | 'compact'; class?: string; as?: 'li' | 'div'; }
+const { result, size = 'home', class: cls, as: Tag = 'div' } = Astro.props;
+let html = figHtml(result.homeLine, result.emphasis);
+const hasItfa = html.includes('iTFA');
+if (hasItfa) html = html.replace('iTFA', `<abbr title="${abbreviations.iTFA.title}">iTFA</abbr>`);
+---
+<Tag class:list={['impact-row', `impact-row--${size}`, cls]} data-result={result.id}>
+  <span class="impact-row__rule" data-rule aria-hidden="true"></span>
+  <div class="impact-row__grid grid">
+    <p class="impact-row__dateline t-dateline c-1-3">{result.dateline}</p>
+    <div class="impact-row__body c-4-12" data-reveal>
+      <p class:list={['impact-row__line', size === 'compact' ? 't-h3' : 't-index']} set:html={html} />
+      {hasItfa && <p class="impact-row__note t-meta">{abbreviations.iTFA.note}</p>}
+    </div>
+  </div>
+</Tag>
+<style>
+  .impact-row { position: relative; display: block; list-style: none; }
+  .impact-row__rule { display: block; height: 1px; background: var(--c-rule); }
+  .impact-row__grid { padding-block: var(--s-6); row-gap: var(--s-3); }
+  .impact-row--compact .impact-row__grid { padding-block: var(--s-5); }
+  .impact-row__dateline { margin: 0; padding-top: 0.6em; }
+  .impact-row__line { margin: 0; color: var(--c-heading); font-family: var(--font-serif); }
+  .impact-row__note { margin: var(--s-2) 0 0; }
+  .impact-row__line :global(.fig) {
+    font-weight: 300; color: var(--c-line); white-space: nowrap;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .impact-row__line :global(abbr) { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; }
+  @media (max-width: 767px) { .impact-row__dateline { padding-top: 0; } }
+</style>
+<style>
+  /* keep the frost figure inline so following punctuation never wraps away from it */
+  .impact-row__line :global([data-frost]) { display: inline; }
+</style>

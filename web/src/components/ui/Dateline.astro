@@ -1,0 +1,10 @@
+---
+/** Overline / dateline: sans 600 12/16 caps, Mauve (Lavender on dark). Source text stays sentence case. */
+interface Props { as?: 'p' | 'span' | 'div' | 'h2' | 'h3' | 'dt' | 'time'; class?: string; text?: string; [key: string]: unknown; }
+const { as: Tag = 'p', class: cls, text, ...rest } = Astro.props;
+---
+<Tag class:list={['t-dateline', 'dateline', cls]} {...rest}>{text ?? <slot />}</Tag>
+<style>
+  .dateline { margin: 0; display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+  span.dateline, time.dateline { display: inline-flex; }
+</style>

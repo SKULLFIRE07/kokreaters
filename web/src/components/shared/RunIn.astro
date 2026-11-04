@@ -1,0 +1,19 @@
+---
+/** Run-in list: inline items separated by aria-hidden middots, Fraunces h3 Imperial (5.0.7). */
+interface Props { items: { label: string; href?: string }[]; size?: 'h3' | 'lead'; class?: string; label?: string; }
+const { items, size = 'h3', class: cls, label } = Astro.props;
+---
+<ul class:list={['run-in', `run-in--${size}`, cls]} aria-label={label}>
+  {items.map((it, i) => (
+    <li>{it.href ? <a href={it.href}>{it.label}</a> : it.label}{i < items.length - 1 && <span class="run-in__sep" aria-hidden="true"> · </span>}</li>
+  ))}
+</ul>
+<style>
+  .run-in { list-style: none; margin: 0; padding: 0; max-width: 26em; color: var(--c-heading); }
+  .run-in li { display: inline; }
+  .run-in--h3 { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.45; font-weight: var(--wght-h3); letter-spacing: var(--track-h3); }
+  .run-in--lead { font-family: var(--font-sans); font-size: var(--fs-lead); line-height: var(--lh-lead); max-width: var(--measure-lead); }
+  .run-in__sep { color: var(--c-rule); font-weight: 400; }
+  .run-in a { color: inherit; text-decoration: none; text-underline-offset: 6px; text-decoration-thickness: 1px; text-decoration-color: var(--c-link); }
+  .run-in a:is(:hover, :focus-visible) { text-decoration-line: underline; color: var(--c-heading); }
+</style>

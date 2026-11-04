@@ -1,0 +1,97 @@
+---
+/**
+ * Full-screen Cloud menu below the header, < 1024px (DESIGN-SPEC 3.4).
+ * chrome.ts opens it, sets `inert` on main/footer, stops Lenis and traps focus.
+ */
+import PillarDot from '@/components/ui/PillarDot.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { pillars } from '@/data/pillars';
+import { mobile, main } from '@/data/nav';
+import { microcopy } from '@/data/microcopy';
+import { site } from '@/config/site';
+
+const xp = main.find((l) => l.panel);
+---
+<div id="mobile-menu" class="m-menu" hidden data-lenis-prevent>
+  <div class="m-menu__inner container">
+    <nav aria-label="Menu">
+      <ul class="m-menu__list" role="list">
+        {xp && (
+          <li class="m-menu__item">
+            <button type="button" class="m-menu__link m-menu__group" aria-expanded="false" aria-controls="m-menu-xp" data-menu-group>
+              <span>{xp.label}</span>
+              <span class="m-menu__chev"><Icon name="chevron" /></span>
+            </button>
+            <ul id="m-menu-xp" class="m-menu__pillars" role="list" hidden>
+              {pillars.map((p) => (
+                <li>
+                  <a class="m-menu__pillar" href={`/expertise/${p.slug}`}>
+                    <PillarDot pillar={p.key} size={10} />
+                    <span>{p.name}</span>
+                  </a>
+                </li>
+              ))}
+              <li><a class="m-menu__pillar m-menu__all" href={xp.href}>{microcopy.allExpertise}</a></li>
+            </ul>
+          </li>
+        )}
+        {mobile.map((l) => (
+          <li class="m-menu__item"><a class="m-menu__link" href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="m-menu__cta">
+      <Button href="/contact" variant="primary">{microcopy.primaryCta}</Button>
+    </div>
+    <ul class="m-menu__details t-meta" role="list">
+      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li><a href={site.whatsapp.href} rel="noopener">WhatsApp: {site.whatsapp.display}</a></li>
+      <li><a href={site.linkedin.href} rel="me noopener">LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
+    </ul>
+  </div>
+</div>
+
+<style is:global>
+  .m-menu {
+    position: absolute; top: 100%; left: 0; right: 0;
+    height: calc(100dvh - var(--bar-h, var(--header-h)));
+    overflow-y: auto; overscroll-behavior: contain;
+    background: var(--c-ground-alt);
+    border-top: 1px solid var(--c-rule);
+    box-shadow: var(--shadow-panel);
+    opacity: 0;
+    transition: opacity var(--d-ui-out) var(--ease-in);
+  }
+  .m-menu.is-open { opacity: 1; transition-duration: var(--d-ui-in); transition-timing-function: var(--ease-out); }
+  @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open { transition: none; } }
+  @media (min-width: 1024px) { .m-menu { display: none !important; } }
+
+  .m-menu__inner { padding-block: var(--s-5) var(--s-8); }
+  .m-menu__list { list-style: none; margin: 0; padding: 0; }
+  .m-menu__item { border-bottom: 1px solid var(--c-rule); }
+  .m-menu__link {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    padding: 12px 0; border: 0; background: none; cursor: pointer; text-align: left;
+    font-family: var(--font-serif); font-weight: 360; font-size: 2rem; line-height: 2.375rem;
+    font-optical-sizing: auto; letter-spacing: -0.015em;
+    color: var(--c-heading); text-decoration: none;
+  }
+  .m-menu__link:hover { color: var(--c-action); }
+  .m-menu__chev { display: inline-flex; width: 24px; height: 24px; }
+  .m-menu__chev svg { width: 24px; height: 24px; }
+  .m-menu__group[aria-expanded="true"] .m-menu__chev { transform: rotate(180deg); }
+  .m-menu__pillars { list-style: none; margin: 0; padding: 0 0 var(--s-4); }
+  .m-menu__pillar {
+    display: flex; align-items: center; gap: var(--s-3);
+    min-height: 44px; padding-block: 6px;
+    font-size: var(--fs-body); line-height: 1.4; color: var(--c-text); text-decoration: none;
+  }
+  .m-menu__pillar:hover { color: var(--c-action); }
+  .m-menu__all { padding-left: 22px; color: var(--c-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .m-menu__cta { margin-top: var(--s-6); }
+  .m-menu__cta > * { width: 100%; justify-content: center; }
+  .m-menu__details { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-1); color: var(--c-meta); }
+  .m-menu__details a { display: inline-block; padding-block: 10px; color: var(--c-meta); text-decoration: none; }
+  .m-menu__details a:hover, .m-menu__details a:focus-visible { color: var(--c-link); text-decoration: underline; }
+</style>

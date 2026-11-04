@@ -1,0 +1,58 @@
+---
+/**
+ * Connect · Collaborate · Create line (5.0.13): 1px Sapphire line, three 24px rings at the column
+ * starts, rising-arrow head at the end. Horizontal ≥768px, vertical down the left edge below.
+ * Ships drawn and filled. Hooks for initMethodLine (W2-home): [data-method-line] root,
+ * [data-method-path] (one per orientation; the hidden one has display:none), [data-ring] inner dots
+ * in step order, [data-method-head] arrow heads. Steps go in named slots step-1..step-3.
+ */
+interface Props { orientation?: 'auto'; scrub?: boolean; class?: string; }
+const { scrub = false, class: cls } = Astro.props;
+const steps = [1, 2, 3] as const;
+const hasSteps = Astro.slots.has('step-1');
+---
+<div class:list={['method-line', { 'method-line--steps': hasSteps }, cls]} data-method-line data-scrub={scrub ? '' : undefined}>
+  <svg class="ml-path ml-path--h" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path data-method-path d="M0 1 H1000" /></svg>
+  <svg class="ml-path ml-path--v" viewBox="0 0 2 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path data-method-path d="M1 0 V1000" /></svg>
+  <svg class="ml-head ml-head--h" viewBox="0 0 16 24" aria-hidden="true" focusable="false"><path data-method-head d="M2 4 L14 12 L4 20" /></svg>
+  <svg class="ml-head ml-head--v" viewBox="0 0 24 16" aria-hidden="true" focusable="false"><path data-method-head d="M4 2 L12 14 L20 4" /></svg>
+  <div class="ml-steps">
+    {steps.map((n) => (
+      <div class="ml-step" data-step={n}>
+        <svg class="ml-ring" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="11.25" fill="#fff" stroke="var(--c-line)" stroke-width="1.5" />
+          <circle data-ring cx="12" cy="12" r="6" fill="var(--c-line)" />
+        </svg>
+        {hasSteps && <div class="ml-step__body"><slot name={`step-${n}`} /></div>}
+      </div>
+    ))}
+  </div>
+</div>
+<style>
+  .method-line { position: relative; --ring: 24px; }
+  .ml-path, .ml-head { position: absolute; overflow: visible; fill: none; stroke: var(--c-line); stroke-width: 1px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+  .ml-path path { vector-effect: non-scaling-stroke; }
+  .ml-head path { stroke-width: 1.5px; }
+  .ml-ring { position: relative; z-index: 1; display: block; overflow: visible; }
+  .ml-ring circle[data-ring] { transform-box: fill-box; transform-origin: center; }
+  .ml-steps { display: grid; gap: var(--s-6); }
+  .ml-step__body { margin-top: var(--s-5); }
+
+  /* Vertical (mobile) */
+  .ml-path--h, .ml-head--h { display: none; }
+  .ml-path--v { left: 11.5px; top: 12px; bottom: 16px; width: 1px; height: calc(100% - 28px); }
+  .ml-head--v { left: 0; bottom: 0; width: 24px; height: 16px; }
+  .ml-steps { padding-bottom: var(--s-6); }
+  .method-line--steps .ml-step { display: grid; grid-template-columns: var(--ring) minmax(0, 1fr); column-gap: var(--s-4); }
+  .method-line--steps .ml-step__body { margin-top: 0; }
+
+  @media (min-width: 768px) {
+    .ml-path--v, .ml-head--v { display: none; }
+    .ml-path--h, .ml-head--h { display: block; }
+    .ml-path--h { left: 12px; right: 14px; top: 11.5px; height: 1px; width: calc(100% - 26px); }
+    .ml-head--h { right: 0; top: 0; width: 16px; height: 24px; }
+    .ml-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gutter); padding-bottom: 0; }
+    .method-line--steps .ml-step { display: block; }
+    .method-line--steps .ml-step__body { margin-top: var(--s-5); padding-right: var(--s-5); }
+  }
+</style>

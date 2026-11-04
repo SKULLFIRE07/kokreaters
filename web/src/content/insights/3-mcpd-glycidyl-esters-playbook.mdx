@@ -1,0 +1,88 @@
+---
+title: "3-MCPD and glycidyl esters: a practical playbook for refiners"
+standfirst: "Process contaminants are not a laboratory problem. They are made in the refinery, step by step, and they can be unmade the same way."
+description: "Where 3-MCPD esters and glycidyl esters form in refining, how to measure them, and the order in which to act: raw material, bleaching, deodorisation."
+pillar: quality
+format: point-of-view
+status: draft
+review: pending
+date: 2026-11-04
+---
+import Note from '@/components/article/Note.astro';
+import Exhibit from '@/components/article/Exhibit.astro';
+import ProcessChain from '@/components/article/ProcessChain.astro';
+import PullQuote from '@/components/article/PullQuote.astro';
+import Takeaways from '@/components/article/Takeaways.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+
+Most refiners first meet 3-MCPD as a number on a customer’s specification sheet. A buyer asks for lower values. The laboratory reports a result. Someone in the plant is asked to fix it. Six months later the number has hardly moved, and everyone is frustrated.
+
+The problem is rarely effort. It is where the effort goes. 3-MCPD esters and glycidyl esters are process contaminants. They form inside the refinery, from things that arrive with the crude oil and from the conditions we create to refine it. That means they can be managed like any other process outcome: by understanding where they form, measuring the right things, and changing the process in the right order.
+
+Regulators in Europe have set maximum levels, and multinational customers often specify their own, tighter limits. <Confirm id="C-14" note="AUTHOR CHECK: cite the current EU regulation and any India requirement" />
+
+This is the playbook we use.
+
+## First, name the two problems
+
+The two families are usually discussed together, but they behave differently.<Note n={1}>3-MCPD: 3-monochloropropane-1,2-diol. GE: glycidyl esters. DAG: diacylglycerols. FFA: free fatty acids.</Note>
+
+3-MCPD esters need three things: a source of chlorine, the glycerides of the oil, and heat. The chlorine-containing precursors arrive with the crude oil. They come from the fruit, the mill and the water used along the way.
+
+Glycidyl esters form mainly from diacylglycerols at the high temperatures used in deodorisation. How much forms depends heavily on temperature and time.
+
+The difference matters. A refiner who treats them as one problem often fixes one and makes the other worse. Each needs its own levers and its own measures.
+
+## Agree how you measure before you argue about results
+
+Before changing the process, agree the analytical method with your customer. Several official methods exist, and they do not always give the same answer on the same sample. Plants and customers can spend months debating results when the real disagreement is about the method.
+
+So the first step is simple. Write down which method, which laboratory and which sampling points count. Then build a baseline: crude oil, after bleaching, after deodorisation and finished product, over enough batches to see the spread, not only the average.
+
+## The four places to act
+
+<Exhibit n={1} title="Each lever acts at a different point in the refining chain" subtitle="Where 3-MCPD esters and glycidyl esters can be reduced, in the order we act" source="KoKreaters">
+  <ProcessChain steps={[
+    { name: 'Raw material and crude oil', note: 'Chlorine precursors, FFA and DAG' },
+    { name: 'Degumming and neutralisation', note: 'Washing, acid choice, precursor removal' },
+    { name: 'Bleaching', note: 'Earth type, dose and acidity' },
+    { name: 'Deodorisation', note: 'Temperature and time; most GE forms here', highlight: true },
+    { name: 'Post-refining', note: 'Adsorbents or a second, milder step' },
+  ]} />
+</Exhibit>
+
+**1. Raw material and crude oil.** The cheapest contaminant is the one that never enters the plant. Fresh fruit handling, mill practice and the water used upstream all affect the chlorine precursors and the diacylglycerol content of the crude. Crude oil with high free fatty acids usually carries more diacylglycerols, and more diacylglycerols mean more potential for glycidyl esters. Where you can influence supply, specify it. Where you cannot, measure it and segregate it.
+
+**2. Degumming and neutralisation.** Washing the crude oil can remove part of the water-soluble chlorine precursors. Chemical neutralisation also lowers precursors, but it changes yield and effluent, so judge it on the whole cost, not only on contaminant values. Acid dosing in degumming deserves attention too: the choice and amount of acid can affect what forms later.
+
+**3. Bleaching.** Bleaching earth is not only there for colour. Its type, dose and acidity influence what forms downstream. A more acidic earth may give a beautiful colour and a worse 3-MCPD result. Change one variable at a time, and follow the oil all the way through deodorisation, because the effect of bleaching often shows only at the end.
+
+**4. Deodorisation.** This is where most glycidyl esters form, and where the temperature–time profile is the main lever. Lower temperatures and shorter residence times reduce them, but they also change free fatty acid stripping, colour and flavour. Some plants use two temperature zones: a short, hotter step, then a longer, cooler one for stripping. The right answer depends on the equipment you have, the oil you refine and the specification you must meet.
+
+Where the numbers still miss a demanding specification, there are post-refining options, such as treatment with specific adsorbents or a second, milder deodorisation. They work, but they add cost. They belong at the end of the playbook, not the beginning.
+
+<PullQuote>A contaminant that forms in the process can be managed like any other process outcome.</PullQuote>
+
+## Where to start
+
+If you are starting from a customer complaint, resist the urge to change everything at once. Begin with two weeks of disciplined measurement at every step. Rank the batches from best to worst and compare what was different about them: the crude oil, the bleaching earth, the deodoriser temperature, the time in each vessel. The best batches usually show you the first lever to pull. Trial that one change, measure it the same way, and only then move to the next.
+
+## Treat it as a system, not a task
+
+The levers sit in different departments. Procurement owns the crude. Production owns bleaching and deodorisation. Quality owns the laboratory. Sales owns the customer conversation. When the target belongs to only one of them, progress stalls.
+
+What works is one programme with one owner, one baseline and one set of measures, reviewed at the same rhythm as yield and cost. Each change is trialled, measured at every step and then written into the operating procedures, so the result survives a change of shift or a change of manager.
+
+## What a good programme leaves behind
+
+A good mitigation programme does not end with a report. It leaves behind a baseline that everyone trusts, a short list of process changes proven in plant trials, updated specifications for incoming crude oil, and people on every shift who understand why the changes matter.
+
+That is how we work on contaminant mitigation: on the plant floor, with your team, until the improvement is part of how the plant runs.
+
+<Takeaways items={[
+  '3-MCPD esters and glycidyl esters form in different ways. Manage them separately.',
+  'Agree the analytical method and sampling points with your customer first.',
+  'Act in order: raw material, degumming and neutralisation, bleaching, deodorisation, then post-refining.',
+  'Trial one change at a time and follow the oil through to finished product.',
+  'Give the programme one owner, and write every proven change into the procedures.',
+]} />

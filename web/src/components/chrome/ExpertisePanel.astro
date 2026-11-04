@@ -1,0 +1,116 @@
+---
+/**
+ * Expertise disclosure panel (DESIGN-SPEC 3.3). Server-rendered `hidden`;
+ * chrome.ts toggles it. Not an ARIA menu: plain links in a region.
+ */
+import PillarDot from '@/components/ui/PillarDot.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import DraftRibbon from '@/components/ui/DraftRibbon.astro';
+import { pillars } from '@/data/pillars';
+import { microcopy } from '@/data/microcopy';
+import { fill, formatDate, isoDate } from '@/lib/format';
+import { visibleInsights, formatLabel, insightReadingTime, insightHref, isDraft } from '@/lib/insights';
+import { isStaging } from '@/lib/mode';
+
+const [featured] = await visibleInsights();
+const minutes = featured ? insightReadingTime(featured) : 0;
+---
+<div id="expertise-panel" class="xp-panel" hidden>
+  <div class="xp-panel__grid">
+    <div class="xp-panel__pillars">
+      <ul class="xp-panel__list" role="list">
+        {pillars.map((p) => (
+          <li>
+            <a class="xp-row" href={`/expertise/${p.slug}`}>
+              <span class="xp-row__dot"><PillarDot pillar={p.key} size={10} /></span>
+              <span class="xp-row__text">
+                <span class="xp-row__name">{p.name}</span>
+                <span class="xp-row__promise">{p.promise}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="xp-panel__all">
+        <TextLink href="/expertise">{microcopy.allExpertise}</TextLink>
+      </div>
+    </div>
+    <div class="xp-panel__feature">
+      <p class="t-dateline">{microcopy.featuredInsight}</p>
+      {featured ? (
+        <article class="xp-feature">
+          <p class="xp-feature__format t-meta">{formatLabel(featured)}</p>
+          {isStaging && isDraft(featured) && <DraftRibbon size="sm" />}
+          <p class="xp-feature__title t-h3">
+            <a href={insightHref(featured)}>{featured.data.title}</a>
+          </p>
+          <p class="xp-feature__meta t-meta">
+            {minutes > 0 && <span>{fill(microcopy.readingTime, { n: minutes })}</span>}
+            {featured.data.date && <span> · <time datetime={isoDate(featured.data.date)}>{formatDate(featured.data.date)}</time></span>}
+          </p>
+          <TextLink href={insightHref(featured)}>{microcopy.insightsLink}</TextLink>
+        </article>
+      ) : (
+        <p class="xp-feature__newsletter t-meta">{microcopy.newsletter}</p>
+      )}
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .xp-panel {
+    position: absolute; top: 100%;
+    left: max(var(--side), calc((100% - var(--content-max)) / 2));
+    right: max(var(--side), calc((100% - var(--content-max)) / 2));
+    z-index: 60;
+    background: var(--c-ground);
+    border-top: 1px solid var(--c-rule);
+    border-radius: 0 0 var(--r-card) var(--r-card);
+    box-shadow: var(--shadow-panel);
+    padding: 40px;
+    opacity: 0; transform: translateY(-8px);
+    transition: opacity var(--d-ui-out) var(--ease-in), transform var(--d-ui-out) var(--ease-in);
+  }
+  .xp-panel.is-open {
+    opacity: 1; transform: none;
+    transition-duration: var(--d-ui-in); transition-timing-function: var(--ease-out);
+  }
+  @media (prefers-reduced-motion: reduce) { .xp-panel, .xp-panel.is-open { transition: none; transform: none; } }
+
+  .xp-panel__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+  .xp-panel__pillars { grid-column: 1 / span 8; }
+  .xp-panel__feature {
+    grid-column: 9 / span 4;
+    padding-left: var(--s-6);
+    border-left: 1px solid var(--c-rule);
+    display: flex; flex-direction: column; gap: var(--s-3);
+  }
+  .xp-panel__list {
+    list-style: none; margin: 0 0 0 -12px; padding: 0;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); grid-auto-flow: column;
+    gap: var(--s-1) var(--s-5);
+  }
+  .xp-row {
+    display: grid; grid-template-columns: 22px 1fr; align-items: start;
+    padding: 12px; border-radius: 10px;
+    color: inherit; text-decoration: none;
+    transition: background-color var(--d-colour) var(--ease-out);
+  }
+  .xp-row:hover, .xp-row:focus-visible { background: var(--c-ground-alt); }
+  .xp-row__dot { display: inline-flex; padding-top: 8px; }
+  .xp-row__text { display: flex; flex-direction: column; gap: 2px; }
+  .xp-row__name {
+    font-family: var(--font-serif); font-weight: 420; font-size: 1.25rem; line-height: 1.625rem;
+    font-optical-sizing: auto; color: var(--c-heading); letter-spacing: -0.005em; text-wrap: balance;
+  }
+  .xp-row__promise { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); text-wrap: pretty; }
+  .xp-panel__all { margin-top: var(--s-4); }
+
+  .xp-feature { display: flex; flex-direction: column; gap: var(--s-2); align-items: flex-start; }
+  .xp-feature__format { color: var(--c-meta); margin: 0; }
+  .xp-feature__title { margin: 0; }
+  .xp-feature__title a { color: var(--c-heading); text-decoration: none; }
+  .xp-feature__title a:hover, .xp-feature__title a:focus-visible { color: var(--c-action); }
+  .xp-feature__meta { margin: 0; color: var(--c-meta); font-variant-numeric: tabular-nums; }
+  .xp-feature__newsletter { margin: 0; max-width: 28ch; }
+</style>

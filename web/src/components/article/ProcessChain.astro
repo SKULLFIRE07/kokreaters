@@ -1,0 +1,14 @@
+---
+// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 7).
+interface Step { name: string; note: string; highlight?: boolean; }
+interface Props { steps: Step[]; }
+const { steps } = Astro.props;
+---
+<ol class="process-chain">
+  {steps.map((s) => (
+    <li data-highlight={s.highlight ? '' : undefined}>
+      <p class="t-h4">{s.name}</p>
+      <p class="t-meta">{s.note}</p>
+    </li>
+  ))}
+</ol>

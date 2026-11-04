@@ -1,0 +1,77 @@
+---
+/**
+ * Page shell (DESIGN-SPEC 3.1). Order: SkipLink, Header, <main>, Footer,
+ * CookieConsent, then the one motion bundle. The CtaField is rendered here,
+ * at the end of <main>, on every page except contact, legal and 404 (3.5).
+ */
+import '@/styles/global.css';
+import SeoHead from '@/components/seo/SeoHead.astro';
+import { breadcrumbs as breadcrumbNode, organization, professionalService, website, type SeoProps, type Crumb } from '@/components/seo/schema';
+import SkipLink from '@/components/chrome/SkipLink.astro';
+import Header from '@/components/chrome/Header.astro';
+import Footer from '@/components/chrome/Footer.astro';
+import CookieConsent from '@/components/chrome/CookieConsent.astro';
+import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import CtaField from '@/components/shared/CtaField.astro';
+import { pillarStyle } from '@/lib/pillars';
+import type { PillarKey } from '@/data/types';
+
+type Page = 'home' | 'expertise' | 'pillar' | 'industries' | 'approach' | 'impact' | 'insights' | 'article' | 'about' | 'contact' | 'legal' | 'notfound';
+interface Props {
+  page: Page;
+  seo: SeoProps;
+  pillar?: PillarKey;
+  breadcrumbs?: Crumb[];
+  ground?: 'white' | 'cloud';
+  /** Render the visible breadcrumb trail at the top of <main> (default true when breadcrumbs are given). */
+  showCrumbs?: boolean;
+  /** Override the CtaField default (on, except contact / legal / notfound). */
+  cta?: boolean;
+}
+const { page, seo, pillar, breadcrumbs = [], ground = 'white', showCrumbs = true, cta } = Astro.props;
+
+const showCta = cta ?? !['contact', 'legal', 'notfound'].includes(page);
+const noindex = page === 'notfound' ? true : seo.noindex;
+
+// JSON-LD per 3.7: home carries org + service + website by default; breadcrumb trail added when given.
+const graph = [...(seo.jsonLd ?? [])];
+if (page === 'home' && graph.length === 0) graph.push(organization(), professionalService(), website());
+if (breadcrumbs.length && !graph.some((n) => n['@type'] === 'BreadcrumbList')) graph.push(breadcrumbNode(breadcrumbs));
+const seoFinal: SeoProps = { ...seo, noindex, jsonLd: graph };
+const bodyStyle = pillar ? pillarStyle(pillar) : undefined;
+---
+<!doctype html>
+<html lang="en-GB" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+(function(d,w){var h=d.documentElement;h.classList.remove('no-js');h.classList.add('js');
+var r=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!r){h.classList.add('motion');w.setTimeout(function(){if(!h.classList.contains('motion-booted'))h.classList.add('motion-failed');},3000);}
+})(document,window);
+    </script>
+    <SeoHead seo={seoFinal} />
+  </head>
+  <body data-page={page} data-ground={ground} data-pillar={pillar} style={bodyStyle}>
+    <SkipLink />
+    <Header page={page} />
+    <main id="main" tabindex="-1">
+      {showCrumbs && breadcrumbs.length > 0 && (
+        <div class="page-crumbs container"><Breadcrumbs items={breadcrumbs} /></div>
+      )}
+      <slot />
+      {showCta && <CtaField />}
+    </main>
+    <Footer />
+    <CookieConsent />
+    <script>import '@/scripts/motion/index.ts';</script>
+  </body>
+</html>
+
+<style is:global>
+  body { background: var(--c-ground); }
+  body[data-ground="cloud"] { background: var(--c-ground-alt); }
+  main:focus { outline: none; }
+  .page-crumbs { padding-top: var(--s-5); }
+</style>

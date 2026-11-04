@@ -1,0 +1,37 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   motion.css · W1-motion (DESIGN-SPEC 6.4)
+   Gating applies ONLY while html.motion is set and html.motion-failed is not.
+   With no JS, under reduced motion, or after the 3 s failure timer, every rule
+   below is inert and the server-rendered final state shows.
+   .is-revealed / .is-drawn are added by reveal.ts when a tween finishes.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+html.motion:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(.is-revealed) { opacity: 0; transform: translateY(12px); }
+html.motion:not(.motion-failed) [data-reveal="lines"] { visibility: hidden; }   /* split.ts sets visible after split */
+html.motion:not(.motion-failed) [data-rule]:not(.is-drawn) { transform: scaleX(0); transform-origin: 0 50%; }
+html.motion:not(.motion-failed) [data-hero-hide] { opacity: 0; }
+
+/* Never gate the H1 or anything inside it (0.2.6). */
+html.motion h1[data-reveal], html.motion h1 [data-reveal] { opacity: 1; transform: none; visibility: visible; }
+
+/* SplitText line masks: keep descenders and the RisingArrow from being clipped oddly */
+[data-reveal="lines"] .split-mask, [data-reveal="lines"] [class*="-mask"] { padding-bottom: 0.08em; margin-bottom: -0.08em; }
+
+/* ── data-frost: 1px Ice underline 3px below the baseline (graft 8) ──
+   Base drawn state at :where() specificity so ImpactRow / CaseEntry may restyle it. */
+:where([data-frost]) { position: relative; display: inline-block; }
+:where([data-frost])::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+  background: var(--kk-ice); transform-origin: 0 50%; pointer-events: none;
+}
+html.motion:not(.motion-failed) [data-frost].frost-ready:not(.is-frosted)::after { transform: scaleX(0); }
+html.motion:not(.motion-failed) [data-frost].is-frosted::after { transition: transform 900ms var(--ease-draw); }
+
+/* Counters never jitter while counting */
+[data-count] { font-variant-numeric: lining-nums tabular-nums; }
+
+/* ── Reduced motion: final state, always ── */
+@media (prefers-reduced-motion: reduce) {
+  html [data-reveal], html [data-rule], html [data-hero-hide] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  html [data-frost]::after { transform: none !important; transition: none !important; }
+}

@@ -1,0 +1,64 @@
+---
+/** Pill button / link (DESIGN-SPEC 5.0.1). No scale, no magnet. */
+import Arrow from './Arrow.astro';
+import type { HTMLAttributes } from 'astro/types';
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'on-dark' | 'ghost-on-dark';
+  size?: 'sm' | 'md';
+  type?: 'button' | 'submit' | 'reset';
+  arrow?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = 'primary', size = 'md', type = 'button', arrow = false, disabled = false, loading = false, class: cls, ...rest } = Astro.props;
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, cls];
+---
+{href && !disabled ? (
+  <a href={href} class:list={classes} aria-busy={loading ? 'true' : undefined} {...rest as HTMLAttributes<'a'>}>
+    <span class="btn__label"><slot /></span>
+    {arrow && <Arrow size={16} class="btn__arrow" />}
+  </a>
+) : (
+  <button type={type} class:list={classes} disabled={disabled} aria-busy={loading ? 'true' : undefined} {...rest as HTMLAttributes<'button'>}>
+    <span class="btn__label"><slot /></span>
+    {arrow && <Arrow size={16} class="btn__arrow" />}
+    <span class="btn__spinner" aria-hidden="true"></span>
+  </button>
+)}
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+    height: 48px; padding: 0 var(--s-5);
+    border: 0; border-radius: var(--r-pill);
+    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; letter-spacing: 0.005em; line-height: 1;
+    text-decoration: none; white-space: nowrap; cursor: pointer;
+    transition: background-color var(--d-ui-in) var(--ease-out), color var(--d-ui-in) var(--ease-out), box-shadow var(--d-ui-in) var(--ease-out), filter var(--d-ui-in) var(--ease-out);
+  }
+  .btn--sm { height: 44px; }
+  .btn :global(.btn__arrow) { transition: transform var(--d-ui-in) var(--ease-out); }
+  .btn:is(:hover, :focus-visible) :global(.btn__arrow) { transform: translateX(4px); }
+
+  .btn--primary { background: var(--c-action); color: var(--kk-white); }
+  .btn--primary:is(:hover, :focus-visible) { background: var(--c-action-hover); color: var(--kk-white); }
+
+  .btn--secondary { background: transparent; color: var(--c-action); box-shadow: inset 0 0 0 2px var(--c-action); }
+  .btn--secondary:is(:hover, :focus-visible) { background: var(--c-ground-alt); color: var(--c-action); }
+
+  .btn--on-dark, :global(.on-dark) .btn--on-dark { background: var(--kk-saffron); color: var(--kk-imperial); }
+  .btn--on-dark:is(:hover, :focus-visible) { filter: brightness(0.95); color: var(--kk-imperial); }
+
+  .btn--ghost-on-dark, :global(.on-dark) .btn--ghost-on-dark { background: transparent; color: var(--kk-white); box-shadow: inset 0 0 0 2px var(--kk-white-20); }
+  .btn--ghost-on-dark:is(:hover, :focus-visible) { box-shadow: inset 0 0 0 2px var(--kk-white); color: var(--kk-white); }
+
+  .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+
+  .btn__spinner { display: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid currentColor; border-right-color: transparent; }
+  .btn[aria-busy="true"] .btn__spinner { display: inline-block; animation: btn-spin 800ms linear infinite; }
+  .btn[aria-busy="true"] :global(.btn__arrow) { display: none; }
+  .btn--secondary .btn__spinner { border-color: var(--c-action); border-right-color: transparent; }
+  @keyframes btn-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .btn[aria-busy="true"] .btn__spinner { animation: none; } }
+</style>

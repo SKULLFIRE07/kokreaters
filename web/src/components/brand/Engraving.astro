@@ -1,0 +1,45 @@
+---
+/**
+ * The node-cluster geometry as line-work (5.0.15): 1px lines, 1px rings with a 2px knockout,
+ * disc outlines in Hairline (8% Lavender on the largest). Decorative, aria-hidden.
+ * tone light: Sapphire on White. tone dark: Sky on Imperial.
+ */
+interface Props { variant?: 'hero' | 'cluster' | 'pillar-map' | '404'; tone?: 'light' | 'dark'; opacity?: number; size?: number | string; class?: string; }
+const { variant = 'cluster', tone = 'light', opacity = 1, size = '100%', class: cls } = Astro.props;
+const showDiscs = variant === 'hero' || variant === 'cluster';
+const nodes = [
+  { k: 'sapphire', x: 144, y: 184 }, { k: 'coral', x: 416, y: 135 }, { k: 'saffron', x: 291, y: 316 },
+  { k: 'sky', x: 480, y: 431 }, { k: 'cobalt', x: 211, y: 500 },
+];
+const lines = ['M144 184 L205 498', 'M144 184 L291 316', 'M291 316 L196 418', 'M291 316 L416 135', 'M291 316 L480 431'];
+const w = typeof size === 'number' ? `${size}px` : size;
+---
+<svg class:list={['engraving', `engraving--${variant}`, `engraving--${tone}`, cls]} viewBox="20 15 570 570" style={`--eng-opacity:${opacity};width:${w}`} aria-hidden="true" focusable="false">
+  {showDiscs && (
+    <g class="engraving__discs">
+      <circle cx="262" cy="208" r="185" class="engraving__disc engraving__disc--fill" />
+      <circle cx="210" cy="392" r="185" class="engraving__disc" />
+      <circle cx="396" cy="356" r="180" class="engraving__disc" />
+    </g>
+  )}
+  <g class="engraving__lines">{lines.map((d) => <path d={d} data-engraving-line />)}</g>
+  <g class="engraving__nodes">
+    {nodes.map((n) => (
+      <g data-engraving-node={n.k}>
+        <circle cx={n.x} cy={n.y} r="22" class="engraving__knockout" />
+        <circle cx={n.x} cy={n.y} r="16" class="engraving__ring" />
+      </g>
+    ))}
+  </g>
+</svg>
+<style>
+  .engraving { display: block; height: auto; aspect-ratio: 1; overflow: visible; opacity: var(--eng-opacity); }
+  .engraving path, .engraving circle { vector-effect: non-scaling-stroke; }
+  .engraving__lines path { fill: none; stroke: var(--eng-line); stroke-width: 1px; stroke-linecap: round; }
+  .engraving__ring { fill: var(--eng-ground); stroke: var(--eng-line); stroke-width: 1px; }
+  .engraving__knockout { fill: var(--eng-ground); stroke: none; }
+  .engraving__disc { fill: none; stroke: var(--eng-disc); stroke-width: 1px; }
+  .engraving__disc--fill { fill: rgb(234 220 255 / 0.08); }
+  .engraving--light { --eng-line: var(--c-line); --eng-ground: var(--kk-white); --eng-disc: var(--c-rule); }
+  .engraving--dark { --eng-line: var(--kk-sky); --eng-ground: var(--kk-imperial); --eng-disc: var(--kk-white-20); }
+</style>

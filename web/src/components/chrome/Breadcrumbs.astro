@@ -1,0 +1,32 @@
+---
+/** Visible breadcrumb trail. JSON-LD for the same trail is added by BaseLayout. */
+import { withHome, type Crumb } from '@/components/seo/schema';
+interface Props { items: Crumb[]; tone?: 'light' | 'dark' }
+const { items, tone = 'light' } = Astro.props;
+const trail = withHome(items);
+---
+{trail.length > 0 && (
+  <nav class:list={['crumbs', tone === 'dark' && 'crumbs--dark']} aria-label="Breadcrumb">
+    <ol class="crumbs__list">
+      {trail.map((c, i) => (
+        <li class="crumbs__item">
+          {i === trail.length - 1
+            ? <span aria-current="page">{c.label}</span>
+            : <a href={c.href}>{c.label}</a>}
+          {i < trail.length - 1 && <span class="crumbs__sep" aria-hidden="true">/</span>}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+<style>
+  .crumbs { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); font-weight: 500; }
+  .crumbs__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-2); }
+  .crumbs__item { display: inline-flex; align-items: center; gap: var(--s-2); }
+  .crumbs a { color: var(--c-meta); text-decoration: none; padding-block: 12px; }
+  .crumbs a:hover, .crumbs a:focus-visible { color: var(--c-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .crumbs [aria-current] { color: var(--c-text); }
+  .crumbs__sep { color: var(--kk-field-border); }
+  .crumbs--dark, .crumbs--dark a, .crumbs--dark .crumbs__sep { color: var(--c-on-dark-muted); }
+  .crumbs--dark [aria-current] { color: var(--c-on-dark); }
+</style>

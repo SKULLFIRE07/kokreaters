@@ -1,0 +1,66 @@
+---
+/**
+ * KoKreaters logo (DESIGN-SPEC 3.2, 3.5, 7). The wordmark is raster only, always at 2x (CONFIRM 1:
+ * swap these internals when the vector logo arrives). Clear space: padding 0.19 × cluster height.
+ * - horizontal: NodeCluster 32px (in the [data-dock-slot]) + wordmark 120px. No link unless `href` is given
+ *   (the Header wraps it in its own labelled home link).
+ * - full-reversed: NodeCluster (discs 0.9, normal blend) + white tagline lockup, 220px total.
+ * - full: the full raster lockup, 220px, for the About name panel.
+ */
+import { Picture, Image } from 'astro:assets';
+import NodeCluster from './NodeCluster.astro';
+import wordmark from '@/assets/brand/wordmark.png';
+import lockupWhite from '@/assets/brand/lockup-tagline-white.png';
+import logoFull from '@/assets/brand/logo-full.png';
+interface Props {
+  variant?: 'horizontal' | 'full-reversed' | 'full';
+  href?: string | null;          // optional: render the logo as its own labelled link
+  label?: string;                // accessible name of the link
+  width?: number;                // full / full-reversed total width (default 220)
+  class?: string;
+  alt?: string;                  // full variant standalone alt
+}
+const { variant = 'horizontal', label = 'KoKreaters home', width = 220, class: cls,
+  alt = 'KoKreaters: Connect · Collaborate · Create' } = Astro.props;
+const href = Astro.props.href ?? null;
+const Tag = href ? 'a' : 'span';
+// full-reversed geometry: cluster + 10px gap + lockup (aspect from the trimmed raster)
+const lockupRatio = lockupWhite.width / lockupWhite.height;
+const clusterPx = Math.round(width * 0.25);
+const lockupPx = width - clusterPx - 10;
+const lockupH = Math.round(lockupPx / lockupRatio);
+const fullH = Math.round(width * (logoFull.height / logoFull.width));
+const wmH = Math.round(120 * (wordmark.height / wordmark.width));
+const reversedA11y: Record<string, string> = href ? {} : { role: 'img', 'aria-label': alt };
+---
+{variant === 'horizontal' && (
+  <Tag href={href ?? undefined} class:list={['logo', 'logo--horizontal', cls]} aria-label={href ? label : undefined} style="--cluster:32px">
+    <span class="header-cluster" data-dock-slot><NodeCluster size={32} id="header-cluster" /></span>
+    <Picture src={wordmark} alt="" width={120} height={wmH} widths={[120, 240]} sizes="120px" formats={['avif', 'webp']} fallbackFormat="png" loading="eager" decoding="async" class="logo__wordmark" />
+  </Tag>
+)}
+{variant === 'full-reversed' && (
+  <Tag href={href ?? undefined} class:list={['logo', 'logo--reversed', cls]} aria-label={href ? label : undefined} style={`--cluster:${clusterPx}px;width:${width}px`} {...reversedA11y}>
+    <NodeCluster size={clusterPx} reversed />
+    <Image src={lockupWhite} alt="" width={lockupPx} height={lockupH} widths={[lockupPx, lockupPx * 2]} sizes={`${lockupPx}px`} loading="lazy" decoding="async" class="logo__lockup" />
+  </Tag>
+)}
+{variant === 'full' && (
+  <Tag href={href ?? undefined} class:list={['logo', 'logo--full', cls]} aria-label={href ? label : undefined} style={`--cluster:${fullH}px`}>
+    <Image src={logoFull} alt={href ? '' : alt} width={width} height={fullH} widths={[width, width * 2]} sizes={`${width}px`} loading="lazy" decoding="async" class="logo__full" />
+  </Tag>
+)}
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 8px; padding: calc(var(--cluster) * 0.19); margin: calc(var(--cluster) * -0.19); text-decoration: none; color: inherit; }
+  .logo--reversed { gap: 10px; box-sizing: content-box; }
+  .header-cluster { display: inline-block; width: 32px; height: 32px; flex: none; }
+  .logo :global(img) { display: block; height: auto; max-width: none; }
+  .logo__wordmark, .logo :global(.logo__wordmark) { width: 120px; }
+  /* Home dock: hidden until dock.ts docks the hero cluster (6.5). Space always reserved. */
+  @media (min-width: 1024px) {
+    :global(html.motion:not(.motion-failed) body[data-page="home"]) [data-dock-slot] { visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html body[data-page="home"]) [data-dock-slot] { visibility: visible; }
+  }
+</style>

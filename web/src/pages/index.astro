@@ -1,0 +1,93 @@
+---
+// STUB (W1-scaffold). A type specimen of every .t-* class on the tokens.
+// W2-home replaces this file with the real home page (DESIGN-SPEC 5.1).
+// GATE 1: now wrapped in BaseLayout so the wave-1 chrome, CtaField, consent and motion bundle are exercised together.
+// Every sample string is brief copy (research/BRIEF.txt); the specimen labels are developer-only.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { pageSeo } from '@/lib/seo';
+
+const minus25 = '−25 °C';
+const samples: { cls: string; tag: string; text: string }[] = [
+  { cls: 't-display', tag: 'h1', text: 'Where deep expertise meets shared ambition.' },
+  { cls: 't-h1', tag: 'p', text: 'Built on 25 years of making ingredients work.' },
+  { cls: 't-h2', tag: 'h2', text: 'Results that started on the plant floor.' },
+  { cls: 't-index', tag: 'p', text: '21% growth in Indonesia by reshaping manufacturing operations.' },
+  { cls: 't-h3', tag: 'p', text: 'Ideas from the plant floor and the boardroom.' },
+  { cls: 't-h4', tag: 'p', text: 'Plant floor to boardroom' },
+  { cls: 't-lead', tag: 'p', text: 'KoKreaters helps food, nutrition and specialty-ingredient businesses design better products, run better plants and make bolder decisions, with 25 years of plant-to-boardroom leadership behind every recommendation.' },
+  { cls: 't-body', tag: 'p', text: 'What makes KoKreaters different is range. Most consultants are either plant engineers or strategists. KoKreaters works from the plant floor to the boardroom: designing a product, fixing a process, passing a customer audit, valuing an acquisition and writing the business plan, all with the same person who has done it inside global companies.' },
+  { cls: 't-meta', tag: 'p', text: 'Ganeaysh Kulkarni, Founder' },
+  { cls: 't-dateline', tag: 'p', text: 'Impact · From our founder’s career' },
+  { cls: 't-standfirst', tag: 'p', text: 'We create with you, not for you.' },
+  { cls: 't-quote', tag: 'p', text: '“Co-creation and creativity are at the soul of everything we do. We do not just advise. We create with you.”' },
+  { cls: 't-pull', tag: 'p', text: 'The best answers come from people who know the plant, the product and the market.' },
+];
+---
+<BaseLayout page="home" seo={pageSeo('home')}>
+      <section class="band">
+        <div class="container">
+          <div class="grid">
+            <p class="t-dateline c-1-12 spec-folio">Stub · Type specimen · Replaced by W2-home</p>
+            <div class="c-1-12 specimen">
+              {samples.map((s) => (
+                <div class="spec-row grid">
+                  <code class="t-meta spec-label c-1-2" style="--span-sm: 1 / -1">.{s.cls}</code>
+                  <div class="c-3-12" style="--span-sm: 1 / -1">
+                    <Fragment set:html={`<${s.tag} class="${s.cls}">${s.text}</${s.tag}>`} />
+                  </div>
+                </div>
+              ))}
+              <div class="spec-row grid">
+                <code class="t-meta spec-label c-1-2" style="--span-sm: 1 / -1">.t-stat</code>
+                <div class="c-3-12 spec-figs" style="--span-sm: 1 / -1">
+                  <span class="t-stat">25</span>
+                  <span class="t-stat nowrap">21%</span>
+                  <span class="t-stat nowrap">15%</span>
+                </div>
+              </div>
+              <div class="spec-row grid">
+                <code class="t-meta spec-label c-1-2" style="--span-sm: 1 / -1">.t-figure</code>
+                <div class="c-3-12" style="--span-sm: 1 / -1">
+                  <span class="t-figure nowrap">{minus25}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--alt">
+        <div class="container">
+          <div class="grid">
+            <p class="t-dateline c-1-12">Grid · 12 columns, 4 below 768px</p>
+            <div class="c-1-7 spec-col" style="--span-sm: 1 / -1"><p class="t-meta">.c-1-7</p></div>
+            <div class="c-8-12 spec-col" style="--span-sm: 1 / -1"><p class="t-meta">.c-8-12</p></div>
+            <div class="c-1-3 spec-col" style="--span-sm: 1 / 3"><p class="t-meta">.c-1-3</p></div>
+            <div class="c-4-12 spec-col" style="--span-sm: 3 / 5"><p class="t-meta">.c-4-12</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="container">
+          <div class="prose">
+            <p>KoKreaters is an independent technical and strategy consultancy for food, feed, non-food and specialty-ingredient businesses. It is founded and led by Ganeaysh Kulkarni, who brings 25 years of hands-on leadership in edible oils, specialty fats and food ingredients at Wilmar and Cargill, across India, Indonesia, Ukraine, Türkiye and the Netherlands.</p>
+            <h2 data-reveal="lines">The name</h2>
+            <p>Ko stands for together: co-creation, collaboration, community. Kreaters are the people who make things happen. The tagline in the logo spells out the method: Connect · Collaborate · Create.</p>
+            <ul>
+              <li>Connect</li>
+              <li>Collaborate</li>
+              <li>Create</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+</BaseLayout>
+
+<style>
+  .spec-folio { padding-bottom: var(--s-6); border-bottom: 1px solid var(--c-rule); margin-bottom: var(--s-6); }
+  .spec-row { padding-block: var(--s-5); border-bottom: 1px solid var(--c-rule); row-gap: var(--s-2); align-items: baseline; }
+  .spec-label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; }
+  .spec-figs { display: flex; flex-wrap: wrap; gap: var(--s-7); }
+  .spec-col { padding: var(--s-4); border: 1px solid var(--c-rule); background: var(--c-ground); margin-top: var(--s-4); }
+</style>

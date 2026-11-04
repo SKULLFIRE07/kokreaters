@@ -1,0 +1,162 @@
+---
+/**
+ * Sticky site header (DESIGN-SPEC 3.2). The only motion is the .is-scrolled
+ * class toggle (chrome.ts). The outer <header> keeps --header-h in flow so the
+ * compact state never shifts layout; the visible bar shrinks inside it.
+ */
+import Logo from '@/components/brand/Logo.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import ExpertisePanel from './ExpertisePanel.astro';
+import MobileMenu from './MobileMenu.astro';
+import { main } from '@/data/nav';
+import { microcopy } from '@/data/microcopy';
+
+interface Props { page?: string }
+const { page = '' } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+const xpCurrent = page === 'expertise' || page === 'pillar' || isCurrent('/expertise');
+const links = main.filter((l) => !l.panel);
+const xp = main.find((l) => l.panel);
+---
+<header class="site-header" data-header>
+  <div class="site-header__bar">
+    <div class="site-header__inner container">
+      <Logo variant="horizontal" href="/" label="KoKreaters home" class="site-header__logo" />
+
+      <nav class="site-nav" aria-label="Main">
+        <ul class="site-nav__list" role="list">
+          {xp && (
+            <li class="site-nav__item site-nav__item--xp" data-xp-scope>
+              <button
+                type="button"
+                class:list={['site-nav__link', 'site-nav__xp', 'js-only', xpCurrent && 'is-current']}
+                aria-expanded="false"
+                aria-controls="expertise-panel"
+                data-xp-toggle
+              >
+                <span class="site-nav__label">{xp.label}</span>
+                <span class="site-nav__chev"><Icon name="chevron" /></span>
+              </button>
+              <a
+                class:list={['site-nav__link', 'nojs-only', xpCurrent && 'is-current']}
+                href={xp.href}
+                aria-current={path === xp.href ? 'page' : undefined}
+              ><span class="site-nav__label">{xp.label}</span></a>
+              <ExpertisePanel />
+            </li>
+          )}
+          {links.map((l) => (
+            <li class="site-nav__item">
+              <a
+                class:list={['site-nav__link', isCurrent(l.href) && 'is-current']}
+                href={l.href}
+                aria-current={isCurrent(l.href) ? 'page' : undefined}
+              ><span class="site-nav__label">{l.label}</span></a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="site-header__actions">
+        <span class="site-header__cta">
+          <Button href="/contact" variant="primary" size="sm">{microcopy.primaryCta}</Button>
+        </span>
+        <button
+          type="button"
+          class="menu-btn js-only"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          data-menu-toggle
+          data-label-open={microcopy.menu}
+          data-label-close={microcopy.close}
+        >
+          <span class="menu-btn__icon menu-btn__icon--menu"><Icon name="menu" /></span>
+          <span class="menu-btn__icon menu-btn__icon--close"><Icon name="close" /></span>
+          <span class="visually-hidden" data-menu-label>{microcopy.menu}</span>
+        </button>
+        <a class="menu-btn menu-btn--link nojs-only" href="#site-footer">
+          <span class="menu-btn__icon menu-btn__icon--menu"><Icon name="menu" /></span>
+          <span class="visually-hidden">{microcopy.menu}</span>
+        </a>
+      </div>
+    </div>
+    <MobileMenu />
+  </div>
+</header>
+
+<style is:global>
+  /* no-JS fallbacks: the disclosure buttons need JS, so plain links stand in. */
+  html.no-js .js-only { display: none !important; }
+  html:not(.no-js) .nojs-only { display: none !important; }
+
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    height: var(--header-h);
+    pointer-events: none;                 /* the strip under the compact bar never blocks the page */
+  }
+  .site-header__bar {
+    --bar-h: var(--header-h);
+    position: relative;
+    height: var(--bar-h);
+    pointer-events: auto;
+    background: rgb(255 255 255 / 0.85);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border-bottom: 1px solid transparent;
+    transition: height var(--d-ui-in) var(--ease-out), border-color var(--d-ui-in) var(--ease-out);
+  }
+  .site-header.is-scrolled .site-header__bar { --bar-h: var(--header-h-compact); border-bottom-color: var(--c-rule); }
+  html.menu-open .site-header__bar { background: var(--c-ground-alt); }
+
+  .site-header__inner { height: 100%; display: flex; align-items: center; gap: var(--s-5); }
+  .site-header__logo { display: inline-flex; align-items: center; flex: none; color: inherit; text-decoration: none; border-radius: 6px; }
+
+  /* Dock slot (6.5): reserved space, hidden on home until the dock runs. */
+  @media (min-width: 1024px) {
+    html.motion:not(.motion-failed) body[data-page="home"] [data-dock-slot] { visibility: hidden; }
+  }
+
+  .site-nav { display: none; margin-left: auto; }
+  .site-nav__list { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; }
+  @media (min-width: 1280px) { .site-nav__list { gap: 28px; } }
+  @media (min-width: 1024px) { .site-nav { display: block; } }
+
+  .site-nav__link {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+    font: 500 var(--fs-nav)/1 var(--font-sans);
+    color: var(--c-text); text-decoration: none;
+    transition: color var(--d-colour) var(--ease-out);
+  }
+  .site-nav__link:hover, .site-nav__link[aria-expanded="true"] { color: var(--c-action); }
+  .site-nav__label { position: relative; display: inline-block; }
+  /* current page: 2px Sapphire bar under the label, 6px below the baseline */
+  .site-nav__link.is-current .site-nav__label::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 2px;
+    background: var(--c-line); border-radius: 1px;
+  }
+  .site-nav__chev { display: inline-flex; width: 14px; height: 14px; }
+  .site-nav__chev svg { width: 14px; height: 14px; }
+  .site-nav__xp[aria-expanded="true"] .site-nav__chev { transform: rotate(180deg); }
+
+  .site-header__actions { display: flex; align-items: center; gap: var(--s-3); margin-left: auto; flex: none; }
+  @media (min-width: 1024px) { .site-header__actions { margin-left: 0; } }
+  .site-header__cta { display: none; }
+  @media (min-width: 480px) { .site-header__cta { display: inline-flex; } }
+
+  .menu-btn {
+    display: inline-grid; place-items: center;
+    width: 44px; height: 44px; margin-right: -10px;
+    padding: 0; border: 0; border-radius: 10px; background: transparent; cursor: pointer;
+    color: var(--c-heading);
+  }
+  .menu-btn__icon { grid-area: 1 / 1; display: inline-flex; width: 24px; height: 24px; }
+  .menu-btn__icon svg { width: 24px; height: 24px; }
+  .menu-btn__icon--close { visibility: hidden; }
+  .menu-btn[aria-expanded="true"] .menu-btn__icon--close { visibility: visible; }
+  .menu-btn[aria-expanded="true"] .menu-btn__icon--menu { visibility: hidden; }
+  @media (min-width: 1024px) { .menu-btn { display: none !important; } }
+</style>

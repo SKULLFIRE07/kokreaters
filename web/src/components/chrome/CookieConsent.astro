@@ -1,0 +1,90 @@
+---
+/**
+ * Cookie settings dialog, plus a consent bar only when PUBLIC_ANALYTICS=1
+ * (DESIGN-SPEC 3.6, C-6). With analytics unset there is no banner and nothing is stored.
+ * Behaviour: src/scripts/consent.ts.
+ */
+import { microcopy } from '@/data/microcopy';
+import { site } from '@/config/site';
+const analytics = site.analytics;
+---
+<dialog id="cookie-settings" class="cookie-dialog" aria-labelledby="cookie-settings-title">
+  <form method="dialog" class="cookie-dialog__body">
+    <h2 id="cookie-settings-title" class="cookie-dialog__title">{microcopy.cookieSettings}</h2>
+    <div class="cookie-dialog__row">
+      <input id="consent-essential" type="checkbox" checked disabled />
+      <label for="consent-essential">{microcopy.essentialOn}</label>
+    </div>
+    <div class="cookie-dialog__row">
+      {analytics ? (
+        <>
+          <input id="consent-analytics" type="checkbox" data-consent-analytics />
+          <label for="consent-analytics">Analytics</label>
+        </>
+      ) : (
+        <>
+          <input id="consent-analytics" type="checkbox" disabled />
+          <label for="consent-analytics">{microcopy.analyticsNotInUse}</label>
+        </>
+      )}
+    </div>
+    <p class="cookie-dialog__more t-meta"><a href="/cookies">Cookies</a></p>
+    <div class="cookie-dialog__actions">
+      <button type="submit" class="cookie-btn" data-dialog-close>{microcopy.close}</button>
+    </div>
+  </form>
+</dialog>
+
+{analytics && (
+  <section class="cookie-bar" role="region" aria-label="Cookie consent" data-cookie-bar hidden>
+    <p class="cookie-bar__text">{microcopy.cookieBanner}</p>
+    <div class="cookie-bar__actions">
+      <button type="button" class="cookie-btn" data-consent-accept>{microcopy.cookieAccept}</button>
+      <button type="button" class="cookie-btn" data-consent-reject>{microcopy.cookieReject}</button>
+      <button type="button" class="cookie-btn" data-consent-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettingsButton}</button>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  .cookie-dialog {
+    margin: auto;
+    width: min(440px, calc(100vw - 2 * var(--s-4)));
+    padding: 0; border: 1px solid var(--c-rule); border-radius: var(--r-card);
+    background: var(--c-ground); color: var(--c-text);
+    box-shadow: var(--shadow-panel);
+  }
+  .cookie-dialog::backdrop { background: rgb(18 24 51 / 0.32); }
+  .cookie-dialog__body { padding: var(--s-5); display: grid; gap: var(--s-4); }
+  .cookie-dialog__title {
+    margin: 0; font-family: var(--font-serif); font-weight: 420; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    color: var(--c-heading); letter-spacing: var(--track-h3);
+  }
+  .cookie-dialog__row { display: flex; align-items: center; gap: var(--s-3); min-height: 44px; }
+  .cookie-dialog__row input { width: 20px; height: 20px; margin: 0; accent-color: var(--kk-sapphire); flex: none; }
+  .cookie-dialog__row label { font-size: var(--fs-body); }
+  .cookie-dialog__row input:disabled + label { color: var(--c-meta); }
+  .cookie-dialog__more { margin: 0; }
+  .cookie-dialog__actions { display: flex; justify-content: flex-end; }
+
+  .cookie-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 0 20px; border-radius: var(--r-pill);
+    border: 0; box-shadow: inset 0 0 0 2px var(--c-action);
+    background: var(--c-ground); color: var(--c-action);
+    font: 600 var(--fs-button)/1 var(--font-sans); cursor: pointer;
+    transition: background-color var(--d-colour) var(--ease-out);
+  }
+  .cookie-btn:hover { background: var(--c-ground-alt); }
+
+  .cookie-bar {
+    position: fixed; left: var(--s-4); bottom: var(--s-4); z-index: 70;
+    width: min(420px, calc(100vw - 2 * var(--s-4)));
+    max-height: 40vh; overflow-y: auto;
+    background: var(--c-ground); border: 1px solid var(--c-rule); border-radius: var(--r-card);
+    box-shadow: var(--shadow-panel); padding: var(--s-5);
+  }
+  .cookie-bar__text { margin: 0 0 var(--s-4); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-text); }
+  .cookie-bar__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .cookie-bar__actions .cookie-btn { flex: 1 1 auto; padding: 0 14px; font-size: var(--fs-meta); }
+</style>

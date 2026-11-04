@@ -1,0 +1,44 @@
+---
+/** One insight in a list (5.0.10). */
+import type { CollectionEntry } from 'astro:content';
+import PillarDot from '../ui/PillarDot.astro';
+import DraftRibbon from '../ui/DraftRibbon.astro';
+import { pillars } from '@/data/pillars';
+import { microcopy, formatLabels } from '@/data/microcopy';
+import { formatDate, isoDate, fill } from '@/lib/format';
+import { readingTime } from '@/lib/reading-time';
+interface Props { entry: CollectionEntry<'insights'>; dense?: boolean; class?: string; }
+const { entry, dense = false, class: cls } = Astro.props;
+const d = entry.data;
+const pillar = pillars.find((p) => p.key === d.pillar);
+const mins = readingTime(entry.body);
+const isDraft = d.status === 'draft' || d.review === 'pending';
+---
+<li class:list={['insight-row', { 'insight-row--dense': dense }, cls]} data-pillar={d.pillar} data-format={d.format}>
+  <span class="insight-row__rule" data-rule aria-hidden="true"></span>
+  <a class="insight-row__link" href={`/insights/${entry.id}`}>
+    <span class="insight-row__meta">
+      {d.date && <time class="t-meta tnum" datetime={isoDate(d.date)}>{formatDate(d.date)}</time>}
+      <span class="t-dateline">{formatLabels[d.format]}</span>
+      {isDraft && <DraftRibbon size="sm" />}
+    </span>
+    <span class="insight-row__title t-h3">{d.title}</span>
+    {!dense && d.standfirst && <span class="insight-row__standfirst t-meta">{d.standfirst}</span>}
+    <span class="insight-row__foot t-meta">
+      <span class="insight-row__pillar"><PillarDot pillar={d.pillar} size={8} />{pillar?.shortLabel}</span>
+      {mins > 0 && <span class="tnum">{fill(microcopy.readingTime, { n: mins })}</span>}
+    </span>
+  </a>
+</li>
+<style>
+  .insight-row { list-style: none; position: relative; }
+  .insight-row__rule { display: block; height: 1px; background: var(--c-rule); }
+  .insight-row__link { display: flex; flex-direction: column; gap: var(--s-2); padding-block: var(--s-5); color: inherit; text-decoration: none; }
+  .insight-row--dense .insight-row__link { padding-block: var(--s-4); }
+  .insight-row__meta, .insight-row__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+  .insight-row__meta .t-dateline { margin: 0; }
+  .insight-row__title { transition: color var(--d-colour) var(--ease-out); }
+  .insight-row__link:is(:hover, :focus-visible) .insight-row__title { color: var(--c-link); }
+  .insight-row__standfirst { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+  .insight-row__pillar { display: inline-flex; align-items: center; gap: var(--s-2); }
+</style>

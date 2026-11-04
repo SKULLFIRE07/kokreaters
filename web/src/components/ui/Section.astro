@@ -1,0 +1,31 @@
+---
+/** A fold: <section class="band"> with an optional Folio row (DESIGN-SPEC 5, shared fold anatomy). */
+import Folio from './Folio.astro';
+interface Props {
+  id?: string;
+  ground?: 'white' | 'cloud' | 'dark';
+  folio?: { n?: string; label: string; right?: string };
+  labelledby?: string;
+  class?: string;
+  container?: boolean;   // default true: wraps the content in .container
+  [key: string]: unknown;
+}
+const { id, ground = 'white', folio, labelledby, class: cls, container = true, ...rest } = Astro.props;
+---
+<section id={id} aria-labelledby={labelledby} class:list={['band', 'fold', { 'band--alt': ground === 'cloud', 'band--dark on-dark': ground === 'dark' }, cls]} {...rest}>
+  {container ? (
+    <div class="container">
+      {folio && <Folio {...folio} />}
+      <slot />
+    </div>
+  ) : (
+    <>
+      {folio && <div class="container"><Folio {...folio} /></div>}
+      <slot />
+    </>
+  )}
+</section>
+<style>
+  .fold { position: relative; }
+  .band:not(.band--alt):not(.band--dark) { background: var(--c-ground); }
+</style>

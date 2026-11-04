@@ -1,0 +1,16 @@
+---
+/** [CONFIRM] marker (DESIGN-SPEC 0.4): a Butter pill in staging, nothing in production. */
+import { isStaging } from '@/lib/mode';
+interface Props { id: number | string; note?: string; }
+const { id, note } = Astro.props;
+---
+{isStaging && <span class="confirm" data-confirm-id={id}>CONFIRM {id}{note && `: ${note}`}</span>}
+<style>
+  .confirm {
+    display: inline-flex; align-items: center; vertical-align: middle;
+    margin-inline: 4px; padding: 2px 8px; border-radius: var(--r-pill);
+    background: var(--kk-butter); color: var(--kk-ink);
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 0.02em;
+    font-style: normal; text-transform: none; white-space: normal;
+  }
+</style>

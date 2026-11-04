@@ -1,0 +1,141 @@
+/* src/styles/prose.css: article typography (DESIGN-SPEC 5.8) and legal typography (5.11).
+   Owned by W1-scaffold; W2-insights may append article rules below the marked line. */
+
+/* ════════ Article mode: <div class="prose"> ════════ */
+.prose {
+  --margin-col: 220px;              /* sidenote column width at ≥ 1280px (Note.astro) */
+  max-width: var(--measure-article);
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: var(--fs-article);
+  line-height: var(--lh-article);
+  font-weight: var(--wght-article);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  color: var(--c-text);
+}
+.prose > * + * { margin-top: 1em; }
+
+/* Journal lead-in: first line of the first paragraph in sans caps. No drop cap. */
+.prose > p:first-of-type::first-line {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .82em;
+}
+
+.prose h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem; line-height: 2.5rem;            /* 32/40 */
+  font-weight: var(--wght-h2);
+  letter-spacing: var(--track-h2);
+  color: var(--c-heading);
+  margin-top: 72px;
+  font-variant-numeric: lining-nums;
+}
+.prose h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem; line-height: 2rem;            /* 24/32 */
+  font-weight: var(--wght-h3);
+  letter-spacing: var(--track-h3);
+  color: var(--c-heading);
+  margin-top: 48px;
+  font-variant-numeric: lining-nums;
+}
+.prose h2 + *, .prose h3 + * { margin-top: 0.6em; }
+@media (max-width: 767px) {
+  .prose h2 { font-size: 1.75rem; line-height: 2.25rem; margin-top: 56px; }  /* 28/36 on phones */
+  .prose h3 { font-size: 1.375rem; line-height: 1.875rem; }
+}
+
+.prose a { text-decoration-line: underline; }
+
+/* Run-in heads: "1. Raw material…" — a strong that opens a paragraph */
+.prose p > strong:first-child {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92em;
+  color: var(--c-heading);
+  font-variant-numeric: lining-nums;
+}
+
+/* Lists: ringed bullets (a 1.5px Sapphire ring with a White fill) */
+.prose ul, .prose ol { padding-left: 1.5em; }
+.prose ul { list-style: none; }
+.prose ul > li { position: relative; }
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.25em; top: calc(0.5lh - 5px);
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: var(--line-work) solid var(--c-line);
+  background: var(--kk-white);
+}
+.prose ol > li::marker { font-family: var(--font-sans); font-weight: 600; font-size: 0.85em; color: var(--c-meta); font-variant-numeric: lining-nums tabular-nums; }
+.prose li + li { margin-top: 0.4em; }
+
+.prose blockquote:not([class]) {
+  padding-left: var(--s-5);
+  border-left: 1px solid var(--c-line);
+  font-style: italic;
+  color: var(--c-heading);
+}
+
+.prose hr { border: 0; height: 1px; background: var(--c-rule); margin-block: var(--s-8); }
+
+.prose abbr[title] { text-decoration: underline dotted 1px; text-underline-offset: 0.15em; cursor: help; }
+
+.prose sup { font-size: 0.7em; line-height: 0; font-variant-numeric: lining-nums; }
+
+/* Tables (also inside Exhibit): Hairline rules, sans 15/22, tabular figures */
+.prose table {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem; line-height: 1.375rem;      /* 15/22 */
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+  border-top: 1px solid var(--c-rule);
+}
+.prose th, .prose td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--s-3) var(--s-4) var(--s-3) 0;
+  border-bottom: 1px solid var(--c-rule);
+}
+.prose th { font-weight: 600; color: var(--c-heading); }
+.prose thead th { font-size: var(--fs-meta); color: var(--c-meta); font-weight: 600; }
+.prose td.num, .prose th.num { text-align: right; }
+.prose .table-wrap { overflow-x: auto; max-width: 100%; }
+
+.prose figure { margin-block: var(--s-7); }
+.prose figcaption { font-family: var(--font-sans); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); margin-top: var(--s-3); }
+
+.prose img { border-radius: var(--r-image); }
+
+/* ════════ Legal mode: <div class="prose prose--legal"> (sans 17/28, h2 24/32 Fraunces) ════════ */
+.prose--legal {
+  max-width: var(--measure);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem; line-height: 1.75rem;       /* 17/28 */
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+}
+.prose--legal > p:first-of-type::first-line {
+  font-family: inherit; font-weight: inherit; text-transform: none; letter-spacing: normal; font-size: inherit;
+}
+.prose--legal h2 {
+  font-size: 1.5rem; line-height: 2rem;             /* 24/32 */
+  margin-top: var(--s-7);
+}
+.prose--legal h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600;
+  letter-spacing: 0;
+  margin-top: var(--s-6);
+}
+@media (max-width: 767px) {
+  .prose--legal h2 { font-size: 1.375rem; line-height: 1.875rem; margin-top: var(--s-6); }
+}
+
+/* ──────── W2-insights: append article rules below this line ──────── */

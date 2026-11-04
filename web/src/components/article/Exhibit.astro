@@ -1,0 +1,13 @@
+---
+// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 6).
+import { microcopy } from '@/data/microcopy';
+interface Props { n: number | string; title: string; subtitle?: string; source: string; }
+const { n, title, subtitle, source } = Astro.props;
+---
+<figure class="exhibit">
+  <p class="t-dateline">{microcopy.exhibit} {n}</p>
+  <p class="t-h4">{title}</p>
+  {subtitle && <p class="t-meta">{subtitle}</p>}
+  <slot />
+  <figcaption class="t-meta">{microcopy.source}: {source}</figcaption>
+</figure>

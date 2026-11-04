@@ -1,0 +1,12 @@
+---
+/** Margin note in meta Graphite. In a 12-col grid at ≥1280px it takes columns 1–3; below, inline above its paragraph. */
+interface Props { id?: string; class?: string; }
+const { id, class: cls } = Astro.props;
+---
+<aside id={id} class:list={['sidenote', 't-meta', cls]}><slot /></aside>
+<style>
+  .sidenote { margin: 0 0 var(--s-3); color: var(--c-meta); }
+  @media (min-width: 1280px) {
+    :global(.grid) > .sidenote { grid-column: 1 / 4; margin: 0; padding-top: 0.35em; }
+  }
+</style>

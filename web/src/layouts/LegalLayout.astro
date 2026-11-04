@@ -1,0 +1,65 @@
+---
+/**
+ * Legal pages (DESIGN-SPEC 5.11, 4.14). Used as the MDX `layout:` for
+ * privacy.mdx, cookies.mdx and terms.mdx. Frontmatter: title, description,
+ * updated, reviewed?. The review banner shows in both modes until reviewed: true.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import { microcopy } from '@/data/microcopy';
+import { pageSeo } from '@/lib/seo';
+import { fill, formatDate, isoDate } from '@/lib/format';
+import type { SeoKey } from '@/data/seo';
+
+interface Frontmatter { title: string; description?: string; updated?: string | Date; reviewed?: boolean; seoKey?: SeoKey }
+interface Props { frontmatter?: Frontmatter; title?: string; description?: string; updated?: string | Date; reviewed?: boolean }
+
+const fm: Frontmatter = Astro.props.frontmatter ?? {
+  title: Astro.props.title ?? '',
+  description: Astro.props.description,
+  updated: Astro.props.updated,
+  reviewed: Astro.props.reviewed,
+};
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const key = (fm.seoKey ?? path.slice(1)) as SeoKey;
+let seo;
+try { seo = pageSeo(key); } catch { seo = undefined; }
+const seoProps = seo ?? { title: `${fm.title} | KoKreaters`, description: fm.description ?? '', path };
+const crumbs = [{ label: fm.title, href: path }];
+const updated = fm.updated ? (typeof fm.updated === 'string' ? new Date(fm.updated) : fm.updated) : undefined;
+---
+<BaseLayout page="legal" seo={seoProps} breadcrumbs={crumbs} showCrumbs={false}>
+  <article class="legal band">
+    <div class="container">
+      <div class="legal__col">
+        <Breadcrumbs items={crumbs} />
+        <p class="t-dateline legal__dateline">{microcopy.legalDateline}</p>
+        <h1 class="t-h1 legal__title">{fm.title}</h1>
+        {updated && (
+          <p class="t-meta legal__updated">
+            {fill(microcopy.lastUpdated, { date: '' }).trim()} <time datetime={isoDate(updated)}>{formatDate(updated)}</time>
+          </p>
+        )}
+        {!fm.reviewed && <p class="legal__banner" role="note">{microcopy.legalBanner}</p>}
+        <div class="prose prose--legal legal__body">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal { padding-top: var(--s-6); }
+  .legal__col { max-width: var(--measure); }
+  .legal__dateline { margin: var(--s-6) 0 var(--s-3); }
+  .legal__title { margin: 0; }
+  .legal__updated { margin: var(--s-3) 0 0; color: var(--c-meta); font-variant-numeric: tabular-nums; }
+  .legal__banner {
+    margin: var(--s-6) 0 0; padding: var(--s-3) var(--s-4);
+    background: var(--kk-butter); color: var(--kk-ink);
+    border-radius: var(--r-input);
+    font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 500;
+  }
+  .legal__body { margin-top: var(--s-7); }
+</style>

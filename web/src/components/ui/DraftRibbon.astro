@@ -1,0 +1,17 @@
+---
+/** Staging only: Butter strip, Ink text, 12px caps (5.0.20). */
+import { isStaging } from '@/lib/mode';
+import { microcopy } from '@/data/microcopy';
+interface Props { size?: 'sm' | 'md'; class?: string; }
+const { size = 'md', class: cls } = Astro.props;
+---
+{isStaging && <p class:list={['draft-ribbon', `draft-ribbon--${size}`, cls]} data-draft>{microcopy.draftRibbon}</p>}
+<style>
+  .draft-ribbon {
+    margin: 0; display: block; padding: 8px var(--s-4);
+    background: var(--kk-butter); color: var(--kk-ink);
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 16px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .draft-ribbon--sm { display: inline-block; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.08em; }
+</style>

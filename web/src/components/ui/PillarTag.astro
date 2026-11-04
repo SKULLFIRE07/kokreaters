@@ -1,0 +1,26 @@
+---
+/** Pillar chip: 28px pill, 13px semibold, tint background, darkened pillar text, PillarDot 8. Never on home. */
+import PillarDot from './PillarDot.astro';
+import { pillars } from '@/data/pillars';
+import type { PillarKey } from '@/data/types';
+interface Props { pillar: PillarKey; href?: string; label?: string; class?: string; current?: boolean; }
+const { pillar, href, label, class: cls, current = false } = Astro.props;
+const p = pillars.find((x) => x.key === pillar);
+const text = label ?? p?.name ?? pillar;
+const Tag = href ? 'a' : 'span';
+const style = `--tag-bg:var(--pillar-${pillar}-tint);--tag-fg:var(--pillar-${pillar}-text)`;
+---
+<Tag class:list={['pillar-tag', cls]} href={href} style={style} aria-current={current ? 'page' : undefined}><PillarDot pillar={pillar} size={8} /><span>{text}</span></Tag>
+<style>
+  .pillar-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    min-height: 28px; padding: 0 12px 0 8px; border-radius: var(--r-pill);
+    background: var(--tag-bg); color: var(--tag-fg);
+    font-family: var(--font-sans); font-size: 13px; font-weight: 600; line-height: 1.2;
+    text-decoration: none;
+  }
+  a.pillar-tag { position: relative; transition: box-shadow var(--d-colour) var(--ease-out); }
+  /* 44px hit area without changing the 28px visual */
+  a.pillar-tag::after { content: ""; position: absolute; inset: -8px 0; }
+  a.pillar-tag:hover { color: var(--tag-fg); box-shadow: inset 0 0 0 1px var(--tag-fg); }
+</style>

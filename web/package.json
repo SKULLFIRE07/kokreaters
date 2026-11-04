@@ -1,0 +1,45 @@
+{
+  "name": "kokreaters-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.23.4" },
+  "scripts": {
+    "fonts": "node scripts/copy-fonts.mjs",
+    "assets": "node scripts/copy-fonts.mjs && node scripts/prepare-brand.mjs && node scripts/build-globe.mjs",
+    "predev": "node scripts/copy-fonts.mjs",
+    "dev": "astro dev --host 127.0.0.1 --port 4321",
+    "prebuild": "node scripts/copy-fonts.mjs",
+    "build": "astro build",
+    "build:prod": "PUBLIC_SITE_MODE=production astro build",
+    "preview": "astro preview --host 127.0.0.1 --port 4322",
+    "check": "astro check",
+    "og": "node scripts/og.mjs",
+    "verify": "node scripts/csp-hash.mjs && node scripts/check-budget.mjs",
+    "test": "playwright test",
+    "lhci": "lhci autorun"
+  },
+  "dependencies": {
+    "astro": "^7.4.4",
+    "@astrojs/mdx": "^8.1.2",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/markdown-remark": "^7.3.5",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.27",
+    "three": "^0.187.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3",
+    "@types/three": "^0.187.0",
+    "world-atlas": "^2.0.2",
+    "topojson-client": "^3.1.0",
+    "d3-geo": "^3.1.2",
+    "@playwright/test": "^1.64.1",
+    "@axe-core/playwright": "^4.14.0",
+    "@lhci/cli": "^0.16.0"
+  }
+}
