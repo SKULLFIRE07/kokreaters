@@ -8,7 +8,6 @@ import { initDraws } from './draw';
 import { initCounts } from './countup';
 import { initSplits } from './split';
 import type { MotionContext } from './context';
-import { initChrome } from '../chrome';
 import { initConsent } from '../consent';
 
 gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
@@ -19,8 +18,7 @@ const pageModules = import.meta.glob<PageModule>('../pages/*.ts');
 const isFailed = () => html.classList.contains('motion-failed');
 
 async function boot() {
-  // Header scroll state, expertise panel, mobile menu and consent run in ALL modes.
-  try { initChrome(); } catch (e) { console.warn('[chrome]', e); }
+  // Header, expertise panel and mobile menu boot from their own entry (scripts/chrome.ts), before this bundle.
   try { initConsent(); } catch (e) { console.warn('[consent]', e); }
 
   const page = document.body.dataset.page ?? '';

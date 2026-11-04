@@ -109,6 +109,10 @@ function initExpertisePanel(onOpen: () => void): { close: (focus?: boolean) => v
   });
   desktopQuery.addEventListener('change', (e) => { if (!e.matches) close(false); });
 
+  // A tap that landed before this script ran (recorded by the inline head snippet) opens the menu now.
+  const w = window as unknown as { __kkMenuPending?: boolean };
+  if (w.__kkMenuPending) { w.__kkMenuPending = false; if (!desktopQuery.matches) open(); }
+
   return { close };
 }
 
@@ -202,4 +206,8 @@ export function initChrome(): void {
   let menuApi: { close: (f?: boolean) => void } | undefined;
   const xp = initExpertisePanel(() => menuApi?.close(false));
   menuApi = initMobileMenu(() => xp?.close(false)) ?? undefined;
+  document.documentElement.classList.add('chrome-ready');
 }
+
+// Own entry (loaded before the motion bundle) so the menu never waits on GSAP/Lenis.
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initChrome, { once: true }); else initChrome();
