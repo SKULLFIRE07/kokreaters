@@ -1,0 +1,42 @@
+---
+/** /expertise (DESIGN-SPEC 5.2). CtaField + Footer come from BaseLayout. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import ExpertiseIndex from '@/components/shared/ExpertiseIndex.astro';
+import PromptRow from '@/components/expertise/PromptRow.astro';
+import { expertiseOverview } from '@/data/pillars';
+import { pageSeo } from '@/lib/seo';
+
+const crumbs = [{ label: 'Expertise', href: '/expertise' }];
+---
+<BaseLayout page="expertise" seo={pageSeo('expertise')} breadcrumbs={crumbs} showCrumbs={false}>
+  <section class="band x-head" aria-labelledby="expertise-title">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <div class="grid x-head__grid">
+        <div class="c-1-7">
+          <p class="t-dateline x-head__dateline">{expertiseOverview.overline}</p>
+          <h1 id="expertise-title" class="t-h1 x-head__title">{expertiseOverview.headline}</h1>
+          <p class="t-lead x-head__intro">{expertiseOverview.intro}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="band x-body" aria-label={expertiseOverview.overline}>
+    <div class="container">
+      <ExpertiseIndex size="overview" showHelp />
+      <div class="x-body__prompt"><PromptRow /></div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .x-head { padding-top: var(--s-5); padding-bottom: 0; }
+  .x-head__grid { margin-top: var(--s-9); }
+  .x-head__dateline { margin: 0 0 var(--s-5); }
+  .x-head__title { margin: 0; max-width: 18ch; }
+  .x-head__intro { margin: var(--s-6) 0 0; color: var(--c-meta); }
+  .x-body { padding-top: var(--s-9); }
+  .x-body__prompt { margin-top: var(--s-9); }
+  .x-body__prompt :global(.prompt) { border-top: 0; padding-top: 0; }
+  @media (max-width: 767px) { .x-head__grid { margin-top: var(--s-7); } .x-body { padding-top: var(--s-7); } .x-body__prompt { margin-top: var(--s-8); } }
+</style>

@@ -1,0 +1,26 @@
+---
+/** Article route (DESIGN-SPEC 5.8). Built from visibleInsights() only: coming-soon stubs have no page. */
+import { render } from 'astro:content';
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { visibleInsights, insightReadingTime, type Insight } from '@/lib/insights';
+
+export async function getStaticPaths() {
+  const list = await visibleInsights();
+  return list.map((entry) => {
+    // Related: three other visible insights, the same pillar first (then newest first).
+    const others = list.filter((e) => e.id !== entry.id);
+    const related = [
+      ...others.filter((e) => e.data.pillar === entry.data.pillar),
+      ...others.filter((e) => e.data.pillar !== entry.data.pillar),
+    ].slice(0, 3);
+    return { params: { slug: entry.id }, props: { entry, related } };
+  });
+}
+interface Props { entry: Insight; related: Insight[]; }
+const { entry, related } = Astro.props;
+const { Content, headings } = await render(entry);
+const minutes = insightReadingTime(entry);
+---
+<ArticleLayout entry={entry} headings={headings} minutes={minutes} related={related}>
+  <Content />
+</ArticleLayout>

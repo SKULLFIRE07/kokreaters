@@ -1,0 +1,46 @@
+---
+/**
+ * Related insights (DESIGN-SPEC 5.3 item 5): up to three dense InsightRows for this pillar; if none
+ * is visible, the pillar's coming-soon titles (unlinked) under "In preparation". The page omits the
+ * whole block when both lists are empty.
+ */
+import InsightRow from '../shared/InsightRow.astro';
+import { microcopy } from '@/data/microcopy';
+import type { Insight } from '@/lib/insights';
+
+interface Props { visible: Insight[]; coming: Insight[] }
+const { visible, coming } = Astro.props;
+const rows = visible.slice(0, 3);
+---
+{(rows.length > 0 || coming.length > 0) && (
+  <div class="related grid">
+    <h2 id="related-title" class="t-h2 related__title c-1-4" data-reveal="lines">{microcopy.relatedInsights}</h2>
+    <div class="related__body c-5-12">
+      {rows.length > 0 ? (
+        <ul class="related__list">
+          {rows.map((e) => <InsightRow entry={e} dense />)}
+          <li class="related__end" aria-hidden="true"><span data-rule></span></li>
+        </ul>
+      ) : (
+        <div data-reveal>
+          <p class="t-dateline related__prep">{microcopy.inPreparation}</p>
+          <ul class="related__coming">
+            {coming.map((e) => <li>{e.data.title}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+<style>
+  .related { row-gap: var(--s-6); }
+  .related__title { margin: 0; }
+  .related__list, .related__coming { list-style: none; margin: 0; padding: 0; }
+  .related__end span { display: block; height: 1px; background: var(--c-rule); }
+  .related__prep { margin: 0 0 var(--s-4); }
+  .related__coming li {
+    font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.75rem; font-weight: 380; color: var(--c-meta);
+    padding-block: var(--s-3); border-top: 1px solid var(--c-rule); text-wrap: balance;
+  }
+  .related__coming li:last-child { border-bottom: 1px solid var(--c-rule); }
+</style>

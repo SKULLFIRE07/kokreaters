@@ -1,0 +1,97 @@
+---
+/**
+ * Approach method (DESIGN-SPEC 5.5.2): the scrubbed MethodLine at full width (initMethodLine, 6.5),
+ * then one section per step: dateline "Step n", h2 name, lead copy and a 3/9 <dl>
+ * (What we do · What you get · Typical duration). Null values → <Confirm id={10}/> in staging;
+ * in production null rows are omitted, and the <dl> too when nothing is left.
+ */
+import MethodLine from '@/components/shared/MethodLine.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { steps, stepLabels } from '@/data/approach';
+import { isStaging } from '@/lib/mode';
+
+const fields = ['whatWeDo', 'whatYouGet', 'duration'] as const;
+const slug = (name: string) => name.toLowerCase();
+const rowsFor = (s: (typeof steps)[number]) =>
+  fields
+    .map((f) => ({ key: f, label: stepLabels[f], value: s[f] }))
+    .filter((r) => r.value !== null || isStaging);
+---
+<div class="band method-steps">
+  <div class="container">
+    <nav class="method-steps__line" data-method-fold aria-label={steps.map((s) => s.name).join(', ')}>
+      <MethodLine scrub>
+        {steps.map((s) => (
+          <a slot={`step-${s.n}`} class="method-steps__jump" href={`#${slug(s.name)}`}>
+            <span class="t-dateline tnum">{stepLabels.step} {s.n}</span>
+            <span class="method-steps__jump-name">{s.name}</span>
+          </a>
+        ))}
+      </MethodLine>
+    </nav>
+
+    <div class="method-steps__list">
+      {steps.map((s) => {
+        const rows = rowsFor(s);
+        return (
+          <section id={slug(s.name)} class="step" aria-labelledby={`step-${s.n}-title`}>
+            <span class="step__rule rule" data-rule aria-hidden="true"></span>
+            <div class="step__grid grid">
+              <p class="step__dateline t-dateline tnum c-1-3">{stepLabels.step} {s.n}</p>
+              <div class="step__head c-4-12">
+                <h2 id={`step-${s.n}-title`} class="t-h2 step__title" data-reveal="lines">{s.name}</h2>
+                <p class="t-lead step__copy" data-reveal>{s.copy}</p>
+              </div>
+              {rows.length > 0 && (
+                <dl class="step__dl c-1-12" data-reveal>
+                  {rows.map((r) => (
+                    <div class="step__row grid">
+                      <dt class="t-dateline c-1-3">{r.label}</dt>
+                      <dd class="c-4-12">{r.value ?? <Confirm id={10} />}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</div>
+<style>
+  .method-steps { padding-top: 0; }
+  .method-steps__line { margin-bottom: var(--s-9); }
+  .method-steps__jump {
+    display: inline-flex; flex-direction: column; gap: var(--s-1);
+    min-height: 44px; padding-block: 2px;
+    color: var(--c-heading); text-decoration: none;
+  }
+  .method-steps__jump-name {
+    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: var(--wght-h3); letter-spacing: var(--track-h3);
+    transition: color var(--d-colour) var(--ease-out);
+  }
+  .method-steps__jump:hover .method-steps__jump-name,
+  .method-steps__jump:focus-visible .method-steps__jump-name { color: var(--c-link); }
+
+  .step { position: relative; }
+  .step__rule { display: block; }
+  .step__grid { padding-block: var(--s-7) var(--s-8); row-gap: var(--s-4); align-items: start; }
+  .step__dateline { margin: 0; padding-top: 0.9em; }
+  .step__title { margin: 0; }
+  .step__copy { margin: var(--s-4) 0 0; color: var(--c-text); }
+  .step__dl { margin: var(--s-5) 0 0; }
+  .step__row { padding-block: var(--s-4); border-top: 1px solid var(--c-rule); align-items: baseline; }
+  .step__row dt { margin: 0; }
+  .step__row dd { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); }
+  .step__row dd :global(.confirm) { margin-inline: 0; }
+  /* the inner <dl> rows sit on the same 12 columns as the page grid */
+  .step__dl .grid { column-gap: var(--gutter); }
+
+  @media (max-width: 767px) {
+    .method-steps__line { margin-bottom: var(--s-8); }
+    .step__dateline { padding-top: 0; }
+    .step__row { row-gap: var(--s-1); }
+  }
+</style>

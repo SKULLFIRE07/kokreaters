@@ -1,0 +1,32 @@
+---
+/** AuthorBox (DESIGN-SPEC 5.8 item 10): short bio, 72px avatar with a Saffron ring, "Meet Ganeaysh". */
+import RingedNode from '@/components/brand/RingedNode.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import { shortBio, founderName, founderRole } from '@/data/founder';
+import { founderQuote } from '@/data/home';
+import avatar from '@/assets/photos/ganeaysh-square.png';
+---
+<section class="author" aria-labelledby="author-h" data-reveal>
+  <RingedNode image={avatar} size={72} ring="var(--kk-saffron)" alt="" class="author__avatar" />
+  <div class="author__text">
+    <h2 id="author-h" class="author__name">{founderName}<span class="author__role t-meta">{founderRole}</span></h2>
+    <p class="author__bio">{shortBio}</p>
+    <TextLink href={founderQuote.link.href}>{founderQuote.link.label}</TextLink>
+  </div>
+</section>
+<style>
+  .author {
+    display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-5);
+    align-items: start;
+    padding-top: var(--s-6); border-top: 1px solid var(--c-rule);
+  }
+  .author__name {
+    margin: 0 0 var(--s-2);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3);
+    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--wght-h3);
+    letter-spacing: var(--track-h3); color: var(--c-heading);
+  }
+  .author__role { font-family: var(--font-sans); letter-spacing: 0; color: var(--c-meta); font-weight: 500; }
+  .author__bio { margin: 0; max-width: 60ch; color: var(--c-text); }
+  @media (max-width: 479px) { .author { grid-template-columns: minmax(0, 1fr); } }
+</style>

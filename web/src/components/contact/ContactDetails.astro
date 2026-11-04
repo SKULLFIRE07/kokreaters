@@ -1,0 +1,67 @@
+---
+/**
+ * Contact, left column (DESIGN-SPEC 5.10): dateline, the page H1, intro, direct details in an
+ * <address>, then the page's one primary pill. Copy from @/data/contact and @/config/site (brief 6.8).
+ */
+import Dateline from '@/components/ui/Dateline.astro';
+import Button from '@/components/ui/Button.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { contact } from '@/data/contact';
+import { microcopy } from '@/data/microcopy';
+import { site } from '@/config/site';
+
+const bookingIsForm = site.bookingUrl === '/contact#form';
+const bookingHref = bookingIsForm ? '#form' : site.bookingUrl;
+const bookingExternal = !bookingIsForm && /^https?:/i.test(site.bookingUrl);
+---
+<div class="cd">
+  <Dateline text={contact.overline} />
+  <h1 class="t-h1 cd__title" id="contact-title">{contact.headline}</h1>
+  <p class="t-lead cd__intro">{contact.intro}<Confirm id={9} /></p>
+
+  <address class="cd__address">
+    <dl class="cd__list">
+      <div class="cd__item">
+        <dt class="t-dateline">{contact.details.email}</dt>
+        <dd class="t-lead"><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      </div>
+      <div class="cd__item">
+        <dt class="t-dateline">{contact.details.whatsapp}</dt>
+        <dd class="t-lead"><a href={site.whatsapp.href} rel="noopener"><span class="nowrap">{site.whatsapp.display}</span></a></dd>
+      </div>
+      <div class="cd__item">
+        <dt class="t-dateline">{contact.details.linkedin}</dt>
+        <dd class="t-lead">
+          <a href={site.linkedin.href} rel="noopener me">{site.linkedin.display}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="external" size={16} class="cd__ext" /></a>
+        </dd>
+      </div>
+    </dl>
+    <p class="t-lead cd__base">{site.base}</p>
+  </address>
+
+  <div class="cd__cta">
+    <Button href={bookingHref} variant="primary" arrow data-booking={bookingIsForm ? 'form' : 'external'} {...(bookingExternal ? { rel: 'noopener' } : {})}>{contact.booking}</Button>
+    <Confirm id={9} />
+  </div>
+</div>
+
+<style>
+  .cd__title { margin: var(--s-4) 0 0; text-wrap: balance; }
+  .cd__intro { margin: var(--s-5) 0 0; color: var(--c-text); text-wrap: pretty; }
+  .cd__address { font-style: normal; margin-top: var(--s-8); }
+  .cd__list { margin: 0; display: grid; gap: var(--s-5); }
+  .cd__item { display: grid; gap: var(--s-1); padding-top: var(--s-4); border-top: 1px solid var(--c-rule); }
+  .cd__item dt { margin: 0; }
+  .cd__item dd { margin: 0; overflow-wrap: anywhere; }
+  .cd__item a {
+    color: var(--c-link); text-decoration: none;
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
+    background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-repeat: no-repeat; background-position: 0 calc(100% - 8px);
+    transition: background-size var(--d-ui-in) var(--ease-out);
+  }
+  .cd__item a:is(:hover, :focus-visible) { background-size: 100% 1px; }
+  .cd__item :global(.cd__ext) { color: var(--c-meta); }
+  .cd__base { margin: var(--s-5) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--c-rule); color: var(--c-meta); }
+  .cd__cta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+</style>

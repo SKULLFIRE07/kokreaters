@@ -1,0 +1,32 @@
+---
+/**
+ * Education and languages (DESIGN-SPEC 5.9.6): h2 over a two-column <dl> in lead, then the
+ * "worked with" line in sectors only (CONFIRM 5: no company names, no logos).
+ */
+import Confirm from '@/components/ui/Confirm.astro';
+import { educationHeading, educationLabel, languagesLabel, education, languages, workedWith } from '@/data/founder';
+---
+<section class="band edu" aria-labelledby="edu-title">
+  <div class="container">
+    <h2 id="edu-title" class="t-h2 edu__h2" data-reveal="lines">{educationHeading}</h2>
+    <dl class="grid edu__dl" data-reveal-group>
+      <div class="edu__col c-1-6" data-reveal>
+        <dt class="t-dateline edu__dt">{educationLabel}</dt>
+        {education.map((e) => <dd class="t-lead edu__dd">{e}</dd>)}
+      </div>
+      <div class="edu__col c-7-12" data-reveal>
+        <dt class="t-dateline edu__dt">{languagesLabel}</dt>
+        {languages.map((l) => <dd class="t-lead edu__dd">{l}</dd>)}
+      </div>
+    </dl>
+    <p class="t-lead edu__worked" data-reveal>{workedWith}<Confirm id={5} note="sectors only, no company names" /></p>
+  </div>
+</section>
+<style>
+  .edu__h2 { margin: 0 0 var(--s-7); }
+  .edu__dl { margin: 0; row-gap: var(--s-7); }
+  .edu__col { border-top: 1px solid var(--c-rule); padding-top: var(--s-4); }
+  .edu__dt { margin: 0 0 var(--s-4); }
+  .edu__dd { margin: 0; padding-block: var(--s-2); }
+  .edu__worked { margin: var(--s-8) 0 0; color: var(--c-meta); }
+</style>

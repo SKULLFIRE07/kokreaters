@@ -1,0 +1,44 @@
+---
+/**
+ * Sector index (DESIGN-SPEC 5.4): sticky <nav aria-label="Industries"> at ≥1024px with a 2px Sapphire
+ * bar beside the current sector (industries.ts sets aria-current via IntersectionObserver and moves
+ * the bar). Below 1024px it is a wrapped row of anchor links at the top.
+ */
+import { industries } from '@/data/industries';
+import { pad2 } from '@/lib/format';
+---
+<nav class="sector-index" aria-label="Industries" data-sector-index>
+  <span class="sector-index__bar" data-sector-bar aria-hidden="true"></span>
+  <ol class="sector-index__list">
+    {industries.map((i) => (
+      <li><a class="sector-index__link t-meta" href={`#${i.slug}`} data-sector-link={i.slug}><span class="sector-index__n tnum" aria-hidden="true">{pad2(i.n)}</span><span>{i.name}</span></a></li>
+    ))}
+  </ol>
+</nav>
+<style>
+  .sector-index { position: relative; }
+  .sector-index__list { list-style: none; margin: 0; padding: 0; }
+  .sector-index__link {
+    display: flex; gap: var(--s-3); align-items: baseline; min-height: 44px; padding-block: 11px;
+    color: var(--c-meta); text-decoration: none; transition: color var(--d-colour) var(--ease-out);
+  }
+  .sector-index__link:is(:hover, :focus-visible) { color: var(--c-link); }
+  .sector-index__link[aria-current] { color: var(--c-heading); font-weight: 600; }
+  .sector-index__n { color: var(--c-meta); font-weight: 500; min-width: 2ch; }
+  .sector-index__bar { display: none; }
+  @media (min-width: 1024px) {
+    .sector-index { position: sticky; top: calc(var(--header-h) + 24px); padding-left: var(--s-5); border-left: 1px solid var(--c-rule); }
+    .sector-index__bar {
+      display: block; position: absolute; left: -1px; top: 0; width: 2px; height: 44px;
+      background: var(--c-line); opacity: 0;
+      transition: top 200ms var(--ease-out), height 200ms var(--ease-out), opacity 200ms var(--ease-out);
+    }
+    .sector-index.has-current .sector-index__bar { opacity: 1; }
+  }
+  @media (max-width: 1023px) {
+    .sector-index__list { display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
+    .sector-index__link { color: var(--c-link); }
+    .sector-index__n { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sector-index__bar { transition: none; } }
+</style>

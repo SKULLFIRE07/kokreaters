@@ -1,14 +1,63 @@
 ---
-// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 7).
+/**
+ * ProcessChain (DESIGN-SPEC 5.8 item 7): station nodes on a 1px Sapphire line,
+ * horizontal at ≥ 768px, vertical below. A highlighted station is Saffron with an Ink ring.
+ * The horizontal line ships drawn; data-draw draws it once on enter (900 ms) when motion is allowed.
+ * Below 768px the connectors are static CSS segments between stations.
+ */
 interface Step { name: string; note: string; highlight?: boolean; }
 interface Props { steps: Step[]; }
 const { steps } = Astro.props;
 ---
-<ol class="process-chain">
-  {steps.map((s) => (
-    <li data-highlight={s.highlight ? '' : undefined}>
-      <p class="t-h4">{s.name}</p>
-      <p class="t-meta">{s.note}</p>
-    </li>
-  ))}
-</ol>
+<div class="pc" style={`--pc-n:${steps.length}`}>
+  <svg class="pc__line pc__line--h" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 1H1000" data-draw data-draw-duration=".9" /></svg>
+  <ol class="pc__list">
+    {steps.map((s, i) => (
+      <li class:list={['pc__step', { 'pc__step--hl': s.highlight }]}>
+        <span class="pc__node" aria-hidden="true"></span>
+        <span class="pc__num tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <span class="pc__name">{s.name}</span>
+        <span class="pc__note">{s.note}</span>
+      </li>
+    ))}
+  </ol>
+</div>
+<style>
+  .pc { --node: 16px; position: relative; font-family: var(--font-sans); }
+  .pc__list { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: var(--s-5); }
+  .pc__list > li::before { content: none !important; }
+  .pc__step { position: relative; display: flex; flex-direction: column; gap: 2px; padding-left: calc(var(--node) + var(--s-4)); margin: 0 !important; }
+  .pc__node {
+    position: absolute; left: 0; top: 4px;
+    width: var(--node); height: var(--node); border-radius: 50%;
+    background: var(--kk-white); border: var(--line-work) solid var(--c-line);
+    box-shadow: 0 0 0 3px var(--kk-white);
+  }
+  .pc__step--hl .pc__node { background: var(--kk-saffron); border: 1px solid var(--kk-ink); }
+  .pc__num { font-size: var(--fs-dateline); line-height: var(--lh-dateline); font-weight: 600; letter-spacing: var(--track-dateline); color: var(--c-dateline); }
+  .pc__name { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600; color: var(--c-heading); text-wrap: balance; }
+  .pc__note { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); text-wrap: pretty; }
+
+  .pc__line { position: absolute; overflow: visible; fill: none; }
+  .pc__line path { stroke: var(--c-line); stroke-width: 1px; }
+  /* vertical (default, < 768px): a 1px segment from each node to the next */
+  .pc__step:not(:last-child)::after {
+    content: ""; position: absolute; z-index: -1;
+    left: calc(var(--node) / 2 - 0.5px); top: calc(4px + var(--node) / 2);
+    width: 1px; height: calc(100% + var(--s-5)); background: var(--c-line);
+  }
+  .pc__list { z-index: 0; }
+  .pc__line--h { display: none; }
+
+  @media (min-width: 768px) {
+    .pc__list { grid-template-columns: repeat(var(--pc-n), minmax(0, 1fr)); gap: var(--s-4); }
+    .pc__step { padding-left: 0; padding-top: calc(var(--node) + var(--s-4)); }
+    .pc__node { top: 0; }
+    .pc__step:not(:last-child)::after { content: none; }
+    .pc__line--h {
+      display: block; top: calc(var(--node) / 2 - 1px); height: 2px;
+      left: calc(var(--node) / 2);
+      width: calc((100% - (var(--pc-n) - 1) * var(--s-4)) * (var(--pc-n) - 1) / var(--pc-n) + (var(--pc-n) - 1) * var(--s-4));
+    }
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+/**
+ * About hero (DESIGN-SPEC 5.9.1). Cloud ground, grid 7/5: dateline, the page's one H1 and the intro
+ * on the left; the 4:5 portrait in a half-stadium mask over hairline disc outlines on the right.
+ * Nothing here animates: the H1 is never hidden, and the founder photo is never animated (6.1).
+ */
+import { Picture } from 'astro:assets';
+import portrait from '@/assets/photos/ganeaysh-portrait.png';
+import Discs from '@/components/brand/Discs.astro';
+import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import Dateline from '@/components/ui/Dateline.astro';
+import type { Crumb } from '@/components/seo/schema';
+import { about, portraitAlt } from '@/data/founder';
+interface Props { crumbs?: Crumb[]; }
+const { crumbs = [] } = Astro.props;
+---
+<section class="band band--alt about-hero" aria-labelledby="about-title">
+  <div class="container">
+    {crumbs.length > 0 && <div class="about-hero__crumbs"><Breadcrumbs items={crumbs} /></div>}
+    <div class="grid about-hero__grid">
+      <div class="about-hero__text c-1-7">
+        <Dateline text={about.overline} />
+        <h1 id="about-title" class="t-h1 about-hero__h1">{about.headline}</h1>
+        <p class="t-lead about-hero__intro">{about.intro}</p>
+      </div>
+      <figure class="about-hero__figure c-8-12">
+        <div class="about-hero__frame">
+          <Discs mode="outline" set="logo" class="about-hero__discs" />
+          <Picture
+            src={portrait}
+            alt={portraitAlt.about}
+            formats={['avif', 'webp']}
+            widths={[360, 480, 720, 960]}
+            sizes="(min-width: 1024px) 420px, 90vw"
+            width={960}
+            height={1200}
+            loading="eager"
+            fetchpriority="auto"
+            decoding="async"
+            class="about-hero__img"
+          />
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+<style>
+  .about-hero { padding-top: var(--s-5); }
+  .about-hero__crumbs { margin-bottom: clamp(var(--s-7), 6vw, var(--s-9)); }
+  .about-hero__grid { align-items: center; row-gap: var(--s-8); }
+  .about-hero__h1 { margin: var(--s-4) 0 var(--s-5); max-width: 15ch; }
+  .about-hero__intro { margin: 0; color: var(--c-text); }
+  .about-hero__figure { margin: 0; justify-self: center; width: 100%; max-width: 420px; }
+  .about-hero__frame { position: relative; aspect-ratio: 4 / 5; isolation: isolate; }
+  /* The logo's three disc outlines sit behind the mask, a little larger than it (graft 7, C-21: outlines only). */
+  .about-hero__frame :global(.about-hero__discs) { inset: -14% -18% -10% -18%; width: auto; height: auto; z-index: -1; }
+  .about-hero__frame :global(picture) { display: block; width: 100%; height: 100%; }
+  .about-hero__frame :global(.about-hero__img) {
+    display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%;
+    border-radius: 999px 999px 16px 16px; background: var(--kk-white);
+  }
+  @media (min-width: 768px) {
+    .about-hero__figure { max-width: 380px; }
+  }
+  @media (max-width: 767px) {
+    .about-hero__figure { max-width: 320px; }
+    .about-hero__frame :global(.about-hero__discs) { inset: -8% -10% -6% -10%; }
+  }
+  @media (min-width: 1024px) {
+    .about-hero__figure { justify-self: end; max-width: 420px; }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+/** ComingSoon (DESIGN-SPEC 5.7 item 5): "In preparation" titles with format and PillarDot, unlinked (no thin pages). */
+import type { CollectionEntry } from 'astro:content';
+import PillarDot from '@/components/ui/PillarDot.astro';
+import { getPillar } from '@/lib/pillars';
+import { microcopy, formatLabels } from '@/data/microcopy';
+interface Props { entries: CollectionEntry<'insights'>[]; }
+const { entries } = Astro.props;
+---
+{entries.length > 0 && (
+  <div class="soon">
+    <h2 class="soon__h t-dateline" id="soon-h">{microcopy.inPreparation}</h2>
+    <ul class="soon__list" aria-labelledby="soon-h" data-reveal-group>
+      {entries.map((e) => (
+        <li class="soon__item" data-reveal>
+          <span class="soon__meta t-meta"><span class="t-dateline">{formatLabels[e.data.format]}</span><span class="soon__pillar"><PillarDot pillar={e.data.pillar} size={8} />{getPillar(e.data.pillar).shortLabel}</span></span>
+          <span class="soon__title">{e.data.title}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+<style>
+  .soon__h { margin: 0 0 var(--s-5); }
+  .soon__list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--c-rule); }
+  .soon__item { display: flex; flex-direction: column; gap: var(--s-2); padding-block: var(--s-5); border-top: 1px solid var(--c-rule); }
+  .soon__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); color: var(--c-meta); }
+  .soon__meta .t-dateline { margin: 0; }
+  .soon__pillar { display: inline-flex; align-items: center; gap: var(--s-2); }
+  .soon__title {
+    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--wght-h3);
+    letter-spacing: var(--track-h3); color: var(--c-meta); text-wrap: balance; max-width: 32em;
+    font-variant-numeric: lining-nums;
+  }
+</style>

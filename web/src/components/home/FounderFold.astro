@@ -1,0 +1,82 @@
+---
+/**
+ * Fold 9 · Founder (DESIGN-SPEC 5.1, graft 7). White, grid 5/7. The portrait sits on two flat
+ * filled discs; its Saffron ring draws once (data-draw, 1.2 s). The quote fades in as ONE block.
+ */
+import { Picture } from 'astro:assets';
+import Section from '@/components/ui/Section.astro';
+import Discs from '@/components/brand/Discs.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { founderQuote } from '@/data/home';
+import { shortBio } from '@/data/founder';
+import { abbreviations } from '@/lib/typography';
+import portrait from '@/assets/photos/ganeaysh-square.png';
+
+// FSQR on first use: <abbr> plus its note (4.4 acronym rule).
+const [bioBefore, bioAfter] = shortBio.split('FSQR');
+---
+<Section ground="white" folio={{ n: '06', label: founderQuote.folio }} labelledby="founder-heading" class="founder-fold">
+  <h2 id="founder-heading" class="visually-hidden">{founderQuote.attribution}</h2>
+  <div class="grid founder-fold__grid">
+    <div class="c-1-5 founder-fold__media">
+      <div class="founder-fold__portrait">
+        <Discs mode="filled" set="portrait" size={260} />
+        <Picture
+          src={portrait}
+          formats={['avif', 'webp']}
+          widths={[240, 300, 480, 600]}
+          sizes="(min-width: 768px) 300px, 240px"
+          width={300}
+          height={300}
+          alt="Ganeaysh Kulkarni, founder of KoKreaters"
+          loading="lazy"
+          decoding="async"
+          class="founder-fold__img"
+        />
+        <svg class="founder-fold__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+          <circle data-draw data-draw-duration="1.2" cx="50" cy="50" r="49" transform="rotate(-90 50 50)" />
+        </svg>
+      </div>
+    </div>
+    <figure class="c-6-12 founder-fold__quote" data-reveal>
+      <blockquote class="founder-fold__bq">
+        <p class="t-quote"><span class="founder-fold__mark hang" aria-hidden="true">“</span>{founderQuote.quote}<span aria-hidden="true">”</span></p>
+      </blockquote>
+      <figcaption class="t-meta founder-fold__cite">{founderQuote.attribution}</figcaption>
+      <p class="t-body founder-fold__bio">{bioAfter !== undefined ? <>{bioBefore}<abbr title={abbreviations.FSQR.title}>FSQR</abbr>{bioAfter}</> : shortBio}</p>
+      {bioAfter !== undefined && <p class="t-meta founder-fold__note">{abbreviations.FSQR.note}</p>}
+      <div class="founder-fold__link">
+        <TextLink href={founderQuote.link.href}>{founderQuote.link.label}</TextLink>
+        <Confirm id={4} />
+      </div>
+    </figure>
+  </div>
+</Section>
+
+<style>
+  .founder-fold__grid { row-gap: var(--s-8); align-items: center; }
+  .founder-fold__media { display: flex; justify-content: center; }
+  .founder-fold__portrait { position: relative; width: 240px; height: 240px; flex: none; margin-block: var(--s-6); }
+  .founder-fold__portrait :global(.discs) { z-index: 0; }
+  .founder-fold__portrait :global(picture), .founder-fold__portrait :global(img) {
+    position: relative; z-index: 1; display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+  }
+  .founder-fold__ring { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; z-index: 2; overflow: visible; pointer-events: none; }
+  .founder-fold__ring circle { fill: none; stroke: var(--kk-saffron); stroke-width: 1; }
+  .founder-fold__quote { margin: 0; }
+  .founder-fold__bq { margin: 0; }
+  .founder-fold__bq p { margin: 0; color: var(--c-heading); max-width: 24em; }
+  .founder-fold__mark { color: var(--kk-saffron); }
+  .founder-fold__cite { margin-top: var(--s-5); color: var(--c-meta); }
+  .founder-fold__bio { margin: var(--s-6) 0 0; color: var(--c-meta); max-width: 60ch; }
+  .founder-fold__bio abbr { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; }
+  .founder-fold__note { margin: var(--s-2) 0 0; color: var(--c-meta); }
+  .founder-fold__link { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-top: var(--s-3); }
+  @media (min-width: 768px) {
+    .founder-fold__portrait { width: 300px; height: 300px; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .founder-fold__grid > * { grid-column: 1 / 13; }
+  }
+</style>

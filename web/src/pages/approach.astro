@@ -1,0 +1,36 @@
+---
+/** /approach (DESIGN-SPEC 5.5). CtaField is rendered by BaseLayout. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RisingArrow from '@/components/brand/RisingArrow.astro';
+import MethodSteps from '@/components/approach/MethodSteps.astro';
+import Principles from '@/components/approach/Principles.astro';
+import EngagementTable from '@/components/approach/EngagementTable.astro';
+import { approach } from '@/data/approach';
+import { pageSeo } from '@/lib/seo';
+
+const [before, rest = ''] = approach.headline.split(approach.swooshPhrase);
+// keep the punctuation that follows the swoosh on its line (", not for you.")
+const punct = rest.match(/^[,.;:!?’”]+/)?.[0] ?? '';
+const after = rest.slice(punct.length);
+---
+<BaseLayout page="approach" seo={pageSeo('approach')} breadcrumbs={[{ label: approach.overline, href: '/approach' }]}>
+  <div class="approach-hero">
+    <div class="container grid">
+      <div class="approach-hero__text c-1-9">
+        <p class="t-dateline approach-hero__dateline">{approach.overline}</p>
+        <h1 class="t-h1 approach-hero__title">{before}<span class="nowrap"><RisingArrow phrase={approach.swooshPhrase} />{punct}</span>{after}</h1>
+        <p class="t-lead approach-hero__intro">{approach.intro}</p>
+      </div>
+    </div>
+  </div>
+  <MethodSteps />
+  <Principles />
+  <EngagementTable />
+</BaseLayout>
+<style>
+  .approach-hero { padding-block: var(--s-9) var(--s-9); }
+  .approach-hero__dateline { margin: 0 0 var(--s-5); }
+  .approach-hero__title { margin: 0; max-width: 16em; }
+  .approach-hero__intro { margin: var(--s-6) 0 0; color: var(--c-text); }
+  @media (max-width: 767px) { .approach-hero { padding-block: var(--s-8) var(--s-8); } }
+</style>

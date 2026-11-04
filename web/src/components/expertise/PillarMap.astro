@@ -1,0 +1,134 @@
+---
+/**
+ * PillarMap (DESIGN-SPEC 5.3 item 1, graft 4): the six pillar nodes at the hero-bloom angles,
+ * rescaled around (280,240) at radius 180. The current pillar is a 48px node with a 1px line to
+ * each of the other five. The SVG is decoration (aria-hidden); the five real links sit over it in
+ * <nav aria-label="Other expertise">. Below 768px the SVG is hidden and the links become chips.
+ * Motion (expertise.ts): the lines draw out from the current node, 700ms, stagger 80ms.
+ */
+import { pillars } from '@/data/pillars';
+import PillarDot from '../ui/PillarDot.astro';
+import type { PillarKey } from '@/data/types';
+
+interface Props { current: PillarKey; class?: string }
+const { current, class: cls } = Astro.props;
+
+// Hero pillar node positions (5.1) relative to the Saffron centre (333,308): only the angles are kept.
+const HERO: Record<PillarKey, [number, number]> = {
+  innovation: [85, 274], process: [303, 96], quality: [553, 191],
+  strategy: [630, 350], deals: [405, 532], capability: [116, 433],
+};
+const CX = 280, CY = 240, R = 180, W = 560, H = 480;
+const nodes = pillars.map((p) => {
+  const [hx, hy] = HERO[p.key];
+  const a = Math.atan2(hy - 308, hx - 333);
+  const x = Math.round((CX + R * Math.cos(a)) * 10) / 10;
+  const y = Math.round((CY + R * Math.sin(a)) * 10) / 10;
+  return { p, x, y, isCurrent: p.key === current };
+});
+const here = nodes.find((n) => n.isCurrent)!;
+const others = nodes.filter((n) => !n.isCurrent);
+const pct = (v: number, of: number) => `${Math.round((v / of) * 10000) / 100}%`;
+---
+<div class:list={['pmap', cls]} style={`--here:var(--pillar-${current})`}>
+  <svg class="pmap__svg" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+    <circle class="pmap__orbit" cx={CX} cy={CY} r={R} />
+    <g class="pmap__lines" data-hero-hide data-pmap-lines>
+      {others.map((n) => (
+        <line class="pmap__line" data-line={n.p.key} x1={here.x} y1={here.y} x2={n.x} y2={n.y} style={`--to:var(--pillar-${n.p.key})`} />
+      ))}
+    </g>
+    <g class="pmap__nodes">
+      {others.map((n) => (
+        <g class="pmap__node" data-node={n.p.key} style={`--pc:var(--pillar-${n.p.key})`}>
+          <circle class="pmap__outer" cx={n.x} cy={n.y} r="9.5" style={n.p.inkText ? 'stroke:var(--kk-ink)' : undefined} />
+          <circle class="pmap__knock" cx={n.x} cy={n.y} r="8" />
+          <circle class="pmap__dot" cx={n.x} cy={n.y} r="6" />
+        </g>
+      ))}
+      <g class="pmap__node pmap__node--here" data-node={here.p.key} data-here>
+        {here.p.inkText && <circle class="pmap__here-ring" cx={here.x} cy={here.y} r="26.5" />}
+        <circle class="pmap__here-knock" cx={here.x} cy={here.y} r="25.5" />
+        <circle class="pmap__here" cx={here.x} cy={here.y} r="24" />
+      </g>
+    </g>
+  </svg>
+  <nav class="pmap__nav" aria-label="Other expertise">
+    <ul class="pmap__list">
+      {nodes.map((n) => (
+        <li
+          class:list={['pmap__item', { 'pmap__item--here': n.isCurrent, 'pmap__item--up': n.y < CY - 20 }]}
+          data-to={n.p.key}
+          style={`--x:${pct(n.x, W)};--y:${pct(n.y, H)};--tag-bg:var(--pillar-${n.p.key}-tint);--tag-fg:var(--pillar-${n.p.key}-text)`}
+        >
+          {n.isCurrent
+            ? <span class="pmap__label pmap__label--here" aria-current="page">{n.p.shortLabel}</span>
+            : <a class="pmap__label" href={`/expertise/${n.p.slug}`}><PillarDot pillar={n.p.key} size={8} class="pmap__chipdot" /><span>{n.p.shortLabel}</span></a>}
+        </li>
+      ))}
+    </ul>
+  </nav>
+</div>
+<style>
+  .pmap { position: relative; width: 100%; max-width: 560px; margin-inline: auto; }
+  .pmap__svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .pmap__orbit { fill: none; stroke: var(--c-rule); stroke-width: 1; }
+  .pmap__line {
+    stroke: var(--here); stroke-width: 1.25; stroke-linecap: round;
+    transition: stroke 300ms var(--ease-out), stroke-width 300ms var(--ease-out);
+  }
+  .pmap__outer { fill: none; stroke: var(--pc); stroke-width: 1; }
+  .pmap__knock { fill: var(--kk-white); }
+  .pmap__dot { fill: var(--pc); }
+  .pmap__here { fill: var(--here); }
+  .pmap__here-knock { fill: var(--kk-white); }
+  .pmap__here-ring { fill: none; stroke: var(--kk-ink); stroke-width: 1; }
+
+  /* Hover / focus on a link: its line takes that pillar's colour (CSS only, 300ms). */
+  .pmap:has(.pmap__item[data-to="innovation"] a:is(:hover, :focus-visible)) .pmap__line[data-line="innovation"],
+  .pmap:has(.pmap__item[data-to="process"] a:is(:hover, :focus-visible)) .pmap__line[data-line="process"],
+  .pmap:has(.pmap__item[data-to="quality"] a:is(:hover, :focus-visible)) .pmap__line[data-line="quality"],
+  .pmap:has(.pmap__item[data-to="strategy"] a:is(:hover, :focus-visible)) .pmap__line[data-line="strategy"],
+  .pmap:has(.pmap__item[data-to="deals"] a:is(:hover, :focus-visible)) .pmap__line[data-line="deals"],
+  .pmap:has(.pmap__item[data-to="capability"] a:is(:hover, :focus-visible)) .pmap__line[data-line="capability"] {
+    stroke: var(--to); stroke-width: 2;
+  }
+
+  .pmap__list { list-style: none; margin: 0; padding: 0; }
+  /* Desktop: labels sit just under their nodes, in meta Ink. */
+  @media (min-width: 768px) {
+    .pmap__nav { position: absolute; inset: 0; }
+    .pmap__item { position: absolute; left: var(--x); top: calc(var(--y) + 4px); transform: translateX(-50%); }
+    .pmap__item--here { top: calc(var(--y) + 18px); }
+    /* Nodes in the upper part of the orbit take their label above, away from the lines. */
+    .pmap__item--up { top: auto; bottom: calc(100% - var(--y) + 4px); }
+    .pmap__item--up.pmap__item--here { bottom: calc(100% - var(--y) + 18px); }
+    .pmap__item--up .pmap__label { padding-top: 0; padding-bottom: 8px; align-items: flex-end; }
+    .pmap__label {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 8px 6px 0; align-items: flex-start;
+      font-family: var(--font-sans); font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 500;
+      color: var(--c-text); text-decoration: none; white-space: nowrap;
+      /* a Cloud halo so the label reads cleanly where a line passes under it */
+      text-shadow: 0 0 3px var(--c-ground-alt), 0 0 3px var(--c-ground-alt), 0 0 6px var(--c-ground-alt), 0 0 6px var(--c-ground-alt);
+    }
+    .pmap__label :global(.pmap__chipdot) { display: none; }
+    a.pmap__label:is(:hover, :focus-visible) { color: var(--c-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+    .pmap__label--here { font-weight: 600; color: var(--c-heading); padding-top: 12px; }
+  }
+  /* Mobile: the SVG goes; five wrapped PillarTag-style chips. */
+  @media (max-width: 767px) {
+    .pmap { max-width: none; }
+    .pmap__svg { display: none; }
+    .pmap__list { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-2); }
+    .pmap__item--here { display: none; }
+    .pmap__label {
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      min-height: 28px; padding: 0 12px 0 8px; border-radius: var(--r-pill);
+      background: var(--tag-bg); color: var(--tag-fg);
+      font-family: var(--font-sans); font-size: 13px; font-weight: 600; line-height: 1.2; text-decoration: none;
+    }
+    .pmap__label::after { content: ""; position: absolute; inset: -8px 0; }
+    a.pmap__label:hover { box-shadow: inset 0 0 0 1px var(--tag-fg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .pmap__line { transition: none; } }
+</style>

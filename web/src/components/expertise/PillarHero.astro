@@ -1,0 +1,53 @@
+---
+/**
+ * Pillar page hero (DESIGN-SPEC 5.3 item 1), on Cloud. The pillar colour shows here only in the
+ * 4px top bar, the dateline dot and the map node. The H1 is never animated or hidden.
+ */
+import Breadcrumbs from '../chrome/Breadcrumbs.astro';
+import PillarDot from '../ui/PillarDot.astro';
+import Sidenote from '../ui/Sidenote.astro';
+import PillarMap from './PillarMap.astro';
+import { pillarNumber } from '@/lib/pillars';
+import type { Pillar } from '@/data/types';
+import type { Crumb } from '@/components/seo/schema';
+
+interface Props { pillar: Pillar; crumbs: Crumb[]; introHtml: string; introNotes?: string[] }
+const { pillar, crumbs, introHtml, introNotes = [] } = Astro.props;
+---
+<section class="band band--alt p-hero" aria-labelledby="pillar-title">
+  <span class="p-hero__bar" aria-hidden="true"></span>
+  <div class="container">
+    <Breadcrumbs items={crumbs} />
+    <div class="grid p-hero__grid">
+      <div class="p-hero__text c-1-7">
+        <p class="t-dateline p-hero__dateline">
+          <PillarDot pillar={pillar.key} size={10} />
+          <span><span class="tnum">{pillarNumber(pillar)}</span> of <span class="tnum">06</span> · Expertise</span>
+        </p>
+        <p class="t-h4 p-hero__eyebrow">{pillar.name}</p>
+        <h1 id="pillar-title" class="t-h1 p-hero__title">{pillar.headline}</h1>
+        <p class="t-lead p-hero__intro" set:html={introHtml} />
+        {introNotes.map((n) => <Sidenote class="p-hero__note">{n}</Sidenote>)}
+      </div>
+      <div class="p-hero__map c-8-12">
+        <PillarMap current={pillar.key} />
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .p-hero { position: relative; padding-top: var(--s-5); }
+  .p-hero__bar { position: absolute; left: 0; right: 0; top: 0; height: var(--pillar-bar); background: var(--pillar); }
+  .p-hero__grid { margin-top: var(--s-8); row-gap: var(--s-8); align-items: center; }
+  .p-hero__dateline { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5); }
+  .p-hero__eyebrow { margin: 0 0 var(--s-4); color: var(--c-heading); }
+  .p-hero__title { margin: 0; max-width: 16ch; }
+  .p-hero__intro { margin: var(--s-6) 0 0; color: var(--c-meta); }
+  .p-hero__intro :global(abbr), :global(.help__text abbr) { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; white-space: nowrap; }
+  .p-hero__text :global(.p-hero__note) { margin: var(--s-4) 0 0; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .p-hero__text, .p-hero__map { grid-column: 1 / -1; }
+    .p-hero__map { max-width: 520px; }
+  }
+  @media (max-width: 767px) { .p-hero__grid { margin-top: var(--s-6); row-gap: var(--s-6); } }
+</style>

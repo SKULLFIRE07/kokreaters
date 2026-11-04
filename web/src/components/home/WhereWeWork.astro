@@ -1,0 +1,22 @@
+---
+/** Fold 7 · Where we work (DESIGN-SPEC 5.1). The nine industries as a run-in list. */
+import Section from '@/components/ui/Section.astro';
+import RunIn from '@/components/shared/RunIn.astro';
+import { industries as fold } from '@/data/home';
+import { industries } from '@/data/industries';
+const items = industries.map((i) => ({ label: i.name, href: `/industries#${i.slug}` }));
+---
+<Section ground="white" folio={{ n: '04', label: fold.overline }} labelledby="industries-heading" class="where-fold">
+  <div class="grid where-fold__grid">
+    <h2 id="industries-heading" class="t-h2 c-1-5" data-reveal="lines">{fold.headline}</h2>
+    <div class="c-6-12" data-reveal>
+      <RunIn items={items} size="h3" class="where-fold__list" />
+    </div>
+  </div>
+</Section>
+
+<style>
+  :global(.where-fold) { padding-top: 0; }
+  .where-fold__grid { row-gap: var(--s-6); align-items: start; }
+  .where-fold__grid h2 { margin: 0; }
+</style>

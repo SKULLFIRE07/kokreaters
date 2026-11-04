@@ -1,0 +1,39 @@
+---
+/** One sector (DESIGN-SPEC 5.4): rule, dateline 0{n}, h2, brief copy in lead, "Relevant expertise" chips. */
+import { Image } from 'astro:assets';
+import PillarTag from '../ui/PillarTag.astro';
+import { industriesPage } from '@/data/industries';
+import { pillarHref } from '@/lib/pillars';
+import { pad2 } from '@/lib/format';
+import type { Industry } from '@/data/types';
+
+interface Props { industry: Industry }
+const { industry: i } = Astro.props;
+---
+<section id={i.slug} class="sector" aria-labelledby={`${i.slug}-title`} data-sector={i.slug}>
+  <span class="sector__rule" data-rule aria-hidden="true"></span>
+  <p class="t-dateline tnum sector__n">{pad2(i.n)}</p>
+  <h2 id={`${i.slug}-title`} class="t-h2 sector__title" data-reveal="lines">{i.name}</h2>
+  <div class="sector__body" data-reveal>
+    <p class="t-lead sector__copy">{i.copy}</p>
+    {i.image && (
+      <Image class="sector__img" src={i.image} alt={i.imageAlt ?? ''} widths={[480, 720, 960]} sizes="(min-width: 1024px) 60vw, 100vw" loading="lazy" decoding="async" />
+    )}
+    <p class="t-dateline sector__label">{industriesPage.relevantExpertise}</p>
+    <ul class="sector__tags">
+      {i.pillars.map((k) => <li><PillarTag pillar={k} href={pillarHref(k)} /></li>)}
+    </ul>
+  </div>
+</section>
+<style>
+  .sector { padding-bottom: var(--s-9); }
+  .sector__rule { display: block; height: 1px; background: var(--c-rule); }
+  .sector__n { margin: var(--s-4) 0 var(--s-4); }
+  .sector__title { margin: 0; }
+  .sector__copy { margin: var(--s-4) 0 0; color: var(--c-text); }
+  .sector__img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-image); margin-top: var(--s-6); }
+  .sector__label { margin: var(--s-6) 0 var(--s-3); }
+  .sector__tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-3); }
+  .sector:last-child { padding-bottom: 0; }
+  @media (max-width: 767px) { .sector { padding-bottom: var(--s-8); } }
+</style>

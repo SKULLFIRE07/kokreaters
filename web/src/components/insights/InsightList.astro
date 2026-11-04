@@ -1,0 +1,13 @@
+---
+/** InsightList (DESIGN-SPEC 5.7 item 4): chronological <ol> of InsightRows carrying data-pillar / data-format. */
+import type { CollectionEntry } from 'astro:content';
+import InsightRow from '@/components/shared/InsightRow.astro';
+interface Props { entries: CollectionEntry<'insights'>[]; }
+const { entries } = Astro.props;
+---
+<ol class="insight-list" data-insight-list>
+  {entries.map((e) => <InsightRow entry={e} />)}
+</ol>
+<style>
+  .insight-list { list-style: none; margin: 0; padding: 0; position: relative; border-bottom: 1px solid var(--c-rule); }
+</style>

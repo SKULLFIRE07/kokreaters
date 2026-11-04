@@ -1,0 +1,28 @@
+---
+/** Fold 3 · Positioning (DESIGN-SPEC 5.1, graft 9). White, split 5/7, the standard reveal. */
+import Section from '@/components/ui/Section.astro';
+import { positioning } from '@/data/home';
+// Brief 1 "Positioning" first paragraph, graft 9. Rendered once W1-content adds `positioning.about` (build-log request).
+const about = (positioning as { about?: string }).about;
+---
+<Section ground="white" folio={{ label: positioning.folio }} labelledby="promise-heading" class="positioning">
+  <div class="grid positioning__grid">
+    <h2 id="promise-heading" class="t-h2 c-1-5" data-reveal="lines">{positioning.headline}</h2>
+    <div class="c-6-12 positioning__body" data-reveal>
+      <p class="t-lead positioning__promise">{positioning.promise}</p>
+      {about && <p class="t-body positioning__range">{about}</p>}
+      <p class="t-body positioning__range">{positioning.range}</p>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .positioning__grid { row-gap: var(--s-6); align-items: start; }
+  .positioning__grid h2 { margin: 0; }
+  .positioning__promise { margin: 0; color: var(--c-text); }
+  .positioning__range { margin: var(--s-5) 0 0; color: var(--c-meta); max-width: 60ch; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .positioning__grid > .c-1-5 { grid-column: 1 / 13; }
+    .positioning__grid > .c-6-12 { grid-column: 3 / 13; }
+  }
+</style>

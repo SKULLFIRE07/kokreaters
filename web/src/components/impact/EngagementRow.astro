@@ -1,0 +1,47 @@
+---
+/**
+ * An anonymised KoKreaters engagement (DESIGN-SPEC 5.6.3): dateline "KoKreaters engagement",
+ * the brief text in .t-h3. Pending rows render only in staging, with "Pending client consent".
+ * The page filters; this component also refuses to render a pending row in production.
+ */
+import Confirm from '@/components/ui/Confirm.astro';
+import type { Engagement } from '@/data/types';
+import { impactPage } from '@/data/impact';
+import { microcopy } from '@/data/microcopy';
+import { isStaging } from '@/lib/mode';
+
+interface Props { engagement: Engagement; }
+const { engagement } = Astro.props;
+const pending = engagement.consent !== 'cleared';
+const show = !pending || isStaging;
+// CONFIRM 6 is the brief's consent item for the two Indian engagements; the European one is held by C-12.
+const confirmId = engagement.id === 'eu-minerals' ? 'C-12' : 6;
+---
+{show && (
+  <li class="eng" data-engagement={engagement.id} data-consent={engagement.consent}>
+    <span class="eng__rule rule" data-rule aria-hidden="true"></span>
+    <div class="eng__grid grid">
+      <div class="eng__meta c-1-3">
+        <p class="t-dateline eng__dateline">{impactPage.engagementDateline}</p>
+        {pending && (
+          <p class="eng__pending"><span class="eng__pill">{microcopy.pendingConsent}</span><Confirm id={confirmId} /></p>
+        )}
+      </div>
+      <p class="eng__text t-h3 c-4-12" data-reveal>{engagement.text}</p>
+    </div>
+  </li>
+)}
+<style>
+  .eng { list-style: none; }
+  .eng__rule { display: block; }
+  .eng__grid { padding-block: var(--s-6); row-gap: var(--s-3); align-items: baseline; }
+  .eng__dateline { margin: 0; }
+  .eng__pending { margin: var(--s-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--s-1); }
+  .eng__pending :global(.confirm) { margin-inline: 0; }
+  .eng__pill {
+    display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--r-pill);
+    border: 1px solid var(--kk-field-border); color: var(--kk-ink);
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 16px;
+  }
+  .eng__text { margin: 0; color: var(--c-heading); max-width: 30em; }
+</style>

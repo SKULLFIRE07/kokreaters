@@ -1,13 +1,50 @@
 ---
-// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 6).
+/**
+ * Exhibit (DESIGN-SPEC 5.8 item 6): numbered figure. Title states the finding; the source
+ * is the figcaption. Qualitative only until the author supplies data (4.13).
+ */
 import { microcopy } from '@/data/microcopy';
 interface Props { n: number | string; title: string; subtitle?: string; source: string; }
 const { n, title, subtitle, source } = Astro.props;
+const tid = `exhibit-${n}-title`;
 ---
-<figure class="exhibit">
-  <p class="t-dateline">{microcopy.exhibit} {n}</p>
-  <p class="t-h4">{title}</p>
-  {subtitle && <p class="t-meta">{subtitle}</p>}
-  <slot />
-  <figcaption class="t-meta">{microcopy.source}: {source}</figcaption>
+<figure class="exhibit" aria-labelledby={tid} data-reveal>
+  <div class="exhibit__head">
+    <p class="exhibit__n t-dateline">{microcopy.exhibit} <span class="tnum">{n}</span></p>
+    <p class="exhibit__title" id={tid}>{title}</p>
+    {subtitle && <p class="exhibit__subtitle t-meta">{subtitle}</p>}
+  </div>
+  <div class="exhibit__body table-wrap"><slot /></div>
+  <figcaption class="exhibit__source">{microcopy.source}: {source}</figcaption>
 </figure>
+<style>
+  .exhibit {
+    margin-block: var(--s-8) var(--s-8);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--c-heading);
+    font-family: var(--font-sans);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .exhibit p { margin: 0; }
+  .exhibit__head { display: flex; flex-direction: column; gap: var(--s-1); margin-bottom: var(--s-5); }
+  .exhibit__n { color: var(--c-dateline); }
+  .exhibit__title {
+    font-family: var(--font-sans); font-weight: 600;
+    font-size: 1.25rem; line-height: 1.75rem;   /* 20/28 */
+    color: var(--c-heading); text-wrap: balance;
+  }
+  .exhibit__subtitle { color: var(--c-meta); }
+  .exhibit__body { overflow-x: auto; max-width: 100%; }
+  .exhibit__body :global(table) { min-width: 520px; margin: 0; }
+  .exhibit__body :global(thead th) { white-space: nowrap; }
+  .exhibit__body :global(td:first-child) { font-weight: 600; color: var(--c-heading); }
+  .exhibit__source {
+    margin-top: var(--s-4);
+    font-family: var(--font-sans); font-size: var(--fs-meta); line-height: var(--lh-meta);
+    color: var(--c-meta);
+  }
+  /* measure + 120px, centred on the body column, once there is room */
+  @media (min-width: 900px) {
+    .exhibit { margin-inline: -60px; }
+  }
+</style>

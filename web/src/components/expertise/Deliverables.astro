@@ -1,0 +1,18 @@
+---
+/** "Typical deliverables" (DESIGN-SPEC 5.3 item 3): RunIn size h3, no links. */
+import RunIn from '../shared/RunIn.astro';
+import { pillarPage } from '@/data/pillars';
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+<div class="deliv grid">
+  <h2 id="deliverables-title" class="t-h2 deliv__title c-1-4" data-reveal="lines">{pillarPage.deliverables}</h2>
+  <div class="deliv__body c-5-12" data-reveal>
+    <RunIn items={items.map((label) => ({ label }))} size="h3" />
+  </div>
+</div>
+<style>
+  .deliv { row-gap: var(--s-6); }
+  .deliv__title { margin: 0; }
+  .deliv__body :global(.run-in) { max-width: 28em; }
+</style>

@@ -1,0 +1,91 @@
+---
+/**
+ * The hero network (DESIGN-SPEC 5.1 fold 1, graft 1). Ships FULLY DRAWN: no-JS and reduced
+ * motion see the finished network. hero.ts blooms it; dock.ts flies the cluster to the header.
+ * Layers, back to front, each with a data-hero hook: discs, cluster, branches, pillars, stations.
+ * 6 pillar nodes + 3 stations + the 5 logo nodes = 14 nodes (brief: 12–20).
+ */
+import NodeCluster from '@/components/brand/NodeCluster.astro';
+import { pillars, heroNodeLabels } from '@/data/pillars';
+import type { PillarKey } from '@/data/types';
+
+const CENTRE = { x: 333, y: 308 };   // the Saffron node of the logo cluster, in hero space
+const at: Record<PillarKey, { x: number; y: number }> = {
+  innovation: { x: 85, y: 274 },
+  process: { x: 303, y: 96 },
+  quality: { x: 553, y: 191 },
+  strategy: { x: 630, y: 350 },
+  deals: { x: 405, y: 532 },
+  capability: { x: 116, y: 433 },
+};
+const stations: { from: PillarKey; x: number; y: number }[] = [
+  { from: 'process', x: 178, y: 58 },
+  { from: 'strategy', x: 694, y: 468 },
+  { from: 'capability', x: 52, y: 560 },
+];
+// Label placement: 14px below the node, anchored away from the branch; above where the branch comes from below.
+const place: Record<PillarKey, { dx: number; above?: boolean; anchor: 'start' | 'middle' | 'end' }> = {
+  innovation: { dx: 0, above: true, anchor: 'middle' },
+  process: { dx: 0, above: true, anchor: 'middle' },
+  quality: { dx: -6, anchor: 'start' },
+  strategy: { dx: 6, anchor: 'end' },
+  deals: { dx: 0, anchor: 'middle' },
+  capability: { dx: -2, anchor: 'start' },
+};
+const nodes = pillars.map((p) => ({ key: p.key, ink: p.inkText, label: heroNodeLabels[p.key], ...at[p.key] }));
+// Logo discs at the cluster's scale (300 / 570 = 0.526), offset by the nested svg origin (190, 150).
+const k = 300 / 570;
+const disc = (cx: number, cy: number, r: number) => ({ cx: +(190 + (cx - 20) * k).toFixed(1), cy: +(150 + (cy - 15) * k).toFixed(1), r: +(r * k).toFixed(1) });
+const discs = [
+  { ...disc(262, 208, 185), fill: 'var(--kk-lavender)' },
+  { ...disc(210, 392, 185), fill: 'var(--kk-ice)' },
+  { ...disc(396, 356, 180), fill: 'var(--kk-butter)' },
+];
+---
+<svg class="hero-network" viewBox="0 0 720 640" aria-hidden="true" focusable="false" data-hero-network>
+  <g data-hero="discs">
+    {discs.map((d) => <circle cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} fill-opacity="0.6" />)}
+  </g>
+
+  <g data-hero="cluster" transform="translate(190 150)">
+    <NodeCluster size={300} discs={false} class="hero-network__cluster" />
+  </g>
+
+  <g data-hero="branches" data-hero-hide class="hn-branches">
+    {nodes.map((n) => <line data-branch={n.key} x1={CENTRE.x} y1={CENTRE.y} x2={n.x} y2={n.y} />)}
+  </g>
+
+  <g data-hero="stations" data-hero-hide class="hn-stations">
+    {stations.map((s) => <line class="hn-station-line" x1={at[s.from].x} y1={at[s.from].y} x2={s.x} y2={s.y} />)}
+    {stations.map((s) => <circle class="hn-station" cx={s.x} cy={s.y} r="3.75" />)}
+  </g>
+
+  <g data-hero="pillars" data-hero-hide class="hn-pillars">
+    {nodes.map((n) => (
+      <g class="hn-pillar" data-p={n.key} style={`--pc:var(--pillar-${n.key})`}>
+        <g class="hn-node">
+          <circle class="hn-ring" cx={n.x} cy={n.y} r="8.5" stroke={n.ink ? 'var(--kk-ink)' : `var(--pillar-${n.key})`} />
+          <circle cx={n.x} cy={n.y} r="7" fill="#fff" />
+          <circle cx={n.x} cy={n.y} r="6" fill={`var(--pillar-${n.key})`} />
+        </g>
+        <text class="node-label" x={n.x + place[n.key].dx} y={place[n.key].above ? n.y - 18 : n.y + 14 + 13} text-anchor={place[n.key].anchor}>{n.label}</text>
+      </g>
+    ))}
+  </g>
+</svg>
+
+<style>
+  .hero-network { display: block; width: 100%; height: auto; overflow: visible; }
+  .hn-branches line { stroke: var(--c-line); stroke-width: 1.5; stroke-linecap: round; fill: none; }
+  .hn-station-line { stroke: var(--c-line); stroke-opacity: 0.55; stroke-width: 1; stroke-linecap: round; fill: none; }
+  .hn-station { fill: #fff; stroke: var(--c-line); stroke-width: 1.5; }
+  .hn-ring { fill: none; stroke-width: 1; }
+  .hn-node { transform-box: fill-box; transform-origin: center; }
+  .node-label {
+    font-family: var(--font-sans); font-weight: 500; font-size: 14px; letter-spacing: 0;
+    fill: var(--kk-graphite); fill-opacity: 0.7;
+  }
+  @media (max-width: 767px) {
+    .node-label, .hn-stations { display: none; }
+  }
+</style>

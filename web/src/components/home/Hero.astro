@@ -1,0 +1,83 @@
+---
+/**
+ * Fold 1 · Hero (DESIGN-SPEC 5.1). Cloud field. The H1 is the LCP element and is never hidden
+ * or animated; only the swoosh under "shared ambition" draws (hero.ts, beat B3).
+ */
+import { hero } from '@/data/home';
+import RisingArrow from '@/components/brand/RisingArrow.astro';
+import Button from '@/components/ui/Button.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import HeroNetwork from './HeroNetwork.astro';
+
+// "Where deep expertise | meets shared ambition." The line break follows "expertise" (5.1).
+const [beforeSwoosh, afterSwoosh] = hero.headline.split(hero.swooshPhrase);
+// The overline wraps at its middle dot, never mid-phrase.
+const overline = hero.overline.split(' · ');
+---
+<section class="hero" aria-labelledby="hero-heading" data-hero-root>
+  <div class="hero__inner container">
+    <div class="hero__grid grid">
+      <div class="hero__text c-1-7">
+        <p class="t-dateline hero__overline">{overline.map((part, i) => <><span class="hero__ov-part">{part}</span>{i < overline.length - 1 && ' · '}</>)}</p>
+        <h1 id="hero-heading" class="t-display hero__h1">{beforeSwoosh}<RisingArrow phrase={hero.swooshPhrase} manual />{afterSwoosh}</h1>
+        <p class="t-lead hero__sub">{hero.sub}</p>
+        <div class="hero__actions">
+          <Button href={hero.primary.href} variant="primary" arrow>{hero.primary.label}</Button>
+          <TextLink href={hero.secondary.href} data-hero-explore>{hero.secondary.label}</TextLink>
+        </div>
+      </div>
+      <div class="hero__art c-8-12">
+        <HeroNetwork />
+      </div>
+    </div>
+    <div class="hero__foot">
+      <div class="rule" aria-hidden="true"></div>
+      <div class="hero__foot-row t-meta">
+        <p>{hero.footLeft}</p>
+        <p class="hero__places">{hero.footRight.join(' · ')}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative; overflow: clip;
+    background: var(--c-ground-alt);
+    min-height: min(100svh, 940px);
+    display: flex;
+  }
+  .hero__inner { display: flex; flex-direction: column; padding-top: var(--hero-top); padding-bottom: var(--s-6); }
+  .hero__grid { flex: 1 0 auto; align-items: start; row-gap: var(--s-7); }
+  .hero__text { position: relative; z-index: 1; }
+  .hero__overline { margin: 0 0 var(--s-5); }
+  @media (min-width: 768px) { .hero__ov-part { white-space: nowrap; } }
+  .hero__h1 { margin: 0; max-width: 13ch; text-wrap: balance; }
+  .hero__sub { margin: var(--s-6) 0 0; color: var(--c-meta); max-width: var(--measure-lead); }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--s-5); row-gap: var(--s-3); margin-top: var(--s-7); }
+
+  .hero__art { position: relative; align-self: center; }
+  .hero__foot { margin-top: var(--s-8); }
+  .hero__foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2) var(--s-5); padding-top: var(--s-4); color: var(--c-meta); }
+  .hero__foot-row p { margin: 0; }
+
+  /* The swoosh ships drawn; with motion it waits for beat B3 (hero.ts adds .is-swooshed). */
+  :global(html.motion:not(.motion-failed)) .hero:not(.is-swooshed) :global(.swoosh__svg) { clip-path: inset(-50% 100% -50% 0%); }
+  :global(html.motion:not(.motion-failed)) .hero:not(.is-swooshed) :global(.swoosh__head) { opacity: 0; }
+
+  @media (min-width: 768px) {
+    /* The network sits in columns 8–12 and bleeds 72px past the right content edge (clipped by the band).
+       Below 1440 the side margin is narrower than 72px, so the bleed stops at the viewport edge and the labels stay whole. */
+    .hero__art { margin-right: calc(-1 * min(72px, var(--side))); }
+    .hero__art :global(.hero-network) { width: min(46vw, 680px); margin-left: auto; }
+    .hero__h1 { max-width: 11.5ch; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero__grid > .hero__text { grid-column: 1 / 13; }
+    .hero__grid > .hero__art { grid-column: 4 / 13; }
+  }
+  @media (max-width: 767px) {
+    .hero__art :global(.hero-network) { width: 100%; height: 300px; }
+    .hero__grid { row-gap: var(--s-6); }
+  }
+</style>

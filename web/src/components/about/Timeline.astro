@@ -1,0 +1,56 @@
+---
+/**
+ * Career timeline (DESIGN-SPEC 5.9.3, 6.9): four nodes on a 1px Sapphire line, horizontal at ≥ 768px
+ * and vertical below. Each node is a 24px ring with an inner fill, the label in h4 type and the years in
+ * meta tnum. Organisation names are text only. Ships drawn and filled; about.ts draws the line (1200 ms)
+ * and fills each ring as the line reaches it. CONFIRM 13 covers the dates.
+ */
+import RingedNode from '@/components/brand/RingedNode.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { timeline } from '@/data/founder';
+---
+<div class="timeline-wrap" data-timeline>
+  <ol class="timeline">
+    {timeline.map((t) => (
+      <li class="timeline__item">
+        <RingedNode size={24} class="timeline__ring" />
+        <p class="t-h4 timeline__label">{t.label}</p>
+        <p class="t-meta tnum timeline__years">{t.years}</p>
+      </li>
+    ))}
+  </ol>
+  <svg class="timeline__line timeline__line--h" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path data-timeline-path d="M0 1 H100" />
+  </svg>
+  <svg class="timeline__line timeline__line--v" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path data-timeline-path d="M1 0 V100" />
+  </svg>
+  <p class="timeline__confirm"><Confirm id={13} note="career dates" /></p>
+</div>
+<style>
+  .timeline-wrap { position: relative; margin-top: var(--s-9); --ring: 24px; --row: 76px; }
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
+  .timeline__item { position: relative; display: grid; grid-template-columns: var(--ring) 1fr; column-gap: var(--s-4); align-content: start; height: var(--row); }
+  .timeline__item :global(.timeline__ring) { grid-row: 1 / span 2; display: block; }
+  .timeline__label { margin: 0; color: var(--c-heading); line-height: var(--ring); }
+  .timeline__years { margin: 0; color: var(--c-meta); grid-column: 2; }
+  .timeline__item :global([data-ring]) { transform-box: fill-box; transform-origin: center; }
+
+  .timeline__line { position: absolute; z-index: 0; overflow: visible; pointer-events: none; }
+  .timeline__line path { fill: none; stroke: var(--c-line); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+  /* vertical (< 768px): from ring 1 centre to ring 4 centre; every row is one --row tall */
+  .timeline__line--v { left: calc(var(--ring) / 2 - 1px); top: calc(var(--ring) / 2); width: 2px; height: calc(3 * var(--row)); }
+  .timeline__line--h { display: none; }
+  .timeline__confirm { margin: var(--s-3) 0 0; }
+  .timeline__confirm:empty { display: none; }
+
+  @media (min-width: 768px) {
+    .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
+    .timeline__item { display: flex; flex-direction: column; gap: var(--s-1); height: auto; }
+    .timeline__item :global(.timeline__ring) { margin-bottom: var(--s-4); }
+    .timeline__label { line-height: var(--lh-h4); }
+    /* horizontal: ring 1 centre to ring 4 centre = 3 column steps = 75% of the list + 0.75 gutter */
+    .timeline__line--h { display: block; left: calc(var(--ring) / 2); top: calc(var(--ring) / 2 - 1px); height: 2px; width: calc(75% + 0.75 * var(--gutter)); }
+    .timeline__line--v { display: none; }
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+/**
+ * The name (DESIGN-SPEC 5.9.5). Cloud fold: h2, the Ko / Kreaters copy and the quote + tagline as two
+ * short paragraphs, then the full lockup at 220px (2x) — the only body-content appearance of it.
+ */
+import { Image } from 'astro:assets';
+import logoFull from '@/assets/brand/logo-full.png';
+import { name } from '@/data/founder';
+---
+<section class="band band--alt name-panel" aria-labelledby="name-title">
+  <div class="container grid name-panel__grid">
+    <div class="name-panel__text c-1-7">
+      <h2 id="name-title" class="t-h2 name-panel__h2" data-reveal="lines">{name.heading}</h2>
+      <div class="name-panel__copy" data-reveal-group>
+        <p class="t-lead" data-reveal>{name.ko} {name.kreaters}</p>
+        <p class="t-lead" data-reveal>{name.quote} {name.tagline}</p>
+      </div>
+    </div>
+    <div class="name-panel__logo c-8-12" data-reveal>
+      <Image
+        src={logoFull}
+        alt={name.lockupAlt}
+        width={220}
+        widths={[220, 440]}
+        sizes="220px"
+        loading="lazy"
+        decoding="async"
+        class="name-panel__img"
+      />
+    </div>
+  </div>
+</section>
+<style>
+  .name-panel__grid { align-items: center; row-gap: var(--s-8); }
+  .name-panel__h2 { margin: 0 0 var(--s-6); }
+  .name-panel__copy p { margin: 0; }
+  .name-panel__copy p + p { margin-top: var(--s-5); }
+  .name-panel__logo { justify-self: start; padding: var(--s-4); }
+  .name-panel__logo :global(.name-panel__img) { display: block; width: 220px; max-width: 100%; height: auto; }
+  @media (min-width: 1024px) { .name-panel__logo { justify-self: end; } }
+</style>

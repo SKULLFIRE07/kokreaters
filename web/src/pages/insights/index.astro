@@ -1,0 +1,60 @@
+---
+/** Insights hub (DESIGN-SPEC 5.7). Production with no approved insight still renders "In preparation" and the newsletter. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/ui/Section.astro';
+import CoverStory from '@/components/shared/CoverStory.astro';
+import Newsletter from '@/components/shared/Newsletter.astro';
+import Filters from '@/components/insights/Filters.astro';
+import InsightList from '@/components/insights/InsightList.astro';
+import ComingSoon from '@/components/insights/ComingSoon.astro';
+import { visibleInsights, comingSoon, featuredInsight } from '@/lib/insights';
+import { pageSeo } from '@/lib/seo';
+import { insights as insightsCopy } from '@/data/home';
+import { microcopy } from '@/data/microcopy';
+
+const seo = pageSeo('insights');
+const list = await visibleInsights();
+const featured = await featuredInsight();
+const soon = await comingSoon();
+const crumbs = [{ label: 'Insights', href: '/insights' }];
+---
+<BaseLayout page="insights" seo={seo} breadcrumbs={crumbs}>
+  <div class="hub-head container">
+    <p class="t-dateline">{insightsCopy.overline}</p>
+    <h1 class="t-h1 hub-head__title">{insightsCopy.headline}</h1>
+    <p class="t-lead hub-head__lead">{seo.description}</p>
+  </div>
+
+  {featured && (
+    <Section folio={{ label: microcopy.featuredInsight }} class="hub-featured">
+      <CoverStory entry={featured} size="hub" />
+    </Section>
+  )}
+
+  {list.length > 0 && (
+    <Section class="hub-list" labelledby="hub-list-h">
+      <h2 id="hub-list-h" class="visually-hidden">{insightsCopy.overline}</h2>
+      <Filters total={list.length} />
+      <InsightList entries={list} />
+    </Section>
+  )}
+
+  <Section class="hub-soon">
+    <ComingSoon entries={soon} />
+  </Section>
+
+  <Section ground="cloud" class="hub-newsletter">
+    <Newsletter variant="fold" />
+  </Section>
+</BaseLayout>
+<style>
+  .hub-head { padding-block: var(--s-8) var(--s-7); }
+  .hub-head p { margin: 0; }
+  .hub-head__title { margin: var(--s-4) 0 var(--s-5); max-width: 18ch; }
+  .hub-head__lead { color: var(--c-meta); }
+  :global(.hub-featured) { padding-top: var(--s-7); }
+  :global(.hub-list), :global(.hub-soon) { padding-top: 0; }
+  @media (min-width: 1024px) {
+    .hub-head { padding-block: var(--s-9) var(--s-8); }
+  }
+</style>

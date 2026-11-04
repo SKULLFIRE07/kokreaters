@@ -1,0 +1,43 @@
+---
+/** ArticleHeader (DESIGN-SPEC 5.8 item 3). The H1 is never hidden or animated. */
+import type { CollectionEntry } from 'astro:content';
+import DraftRibbon from '@/components/ui/DraftRibbon.astro';
+import PillarTag from '@/components/ui/PillarTag.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import RingedNode from '@/components/brand/RingedNode.astro';
+import { pillarHref } from '@/lib/pillars';
+import { isDraft } from '@/lib/insights';
+import { microcopy } from '@/data/microcopy';
+import { founderName } from '@/data/founder';
+import { formatDate, isoDate, fill } from '@/lib/format';
+import avatar from '@/assets/photos/ganeaysh-square.png';
+interface Props { entry: CollectionEntry<'insights'>; minutes: number; }
+const { entry, minutes } = Astro.props;
+const d = entry.data;
+---
+<div class="a-head">
+  {isDraft(entry) && <DraftRibbon class="a-head__draft" />}
+  <p class="a-head__tag"><PillarTag pillar={d.pillar} href={pillarHref(d.pillar)} /></p>
+  <h1 class="t-h1 a-head__title">{d.title}</h1>
+  {d.standfirst && <p class="t-standfirst a-head__standfirst">{d.standfirst}</p>}
+  <p class="a-head__byline t-meta">
+    <RingedNode image={avatar} size={40} alt="" />
+    <span>
+      <span class="a-head__author">{founderName}</span>
+      <span aria-hidden="true"> · </span>
+      {d.date ? <time class="tnum" datetime={isoDate(d.date)}>{formatDate(d.date)}</time> : <Confirm id="C-14" note="publication date" />}
+      {minutes > 0 && <><span aria-hidden="true"> · </span><span class="tnum nowrap">{fill(microcopy.readingTime, { n: minutes })}</span></>}
+    </span>
+  </p>
+  <div class="a-head__rule rule" data-rule aria-hidden="true"></div>
+</div>
+<style>
+  .a-head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-5); }
+  .a-head p { margin: 0; }
+  .a-head :global(.a-head__draft) { align-self: stretch; }
+  .a-head__title { margin: 0; max-width: 20ch; }
+  .a-head__standfirst { max-width: 34em; }
+  .a-head__byline { display: flex; align-items: center; gap: var(--s-3); color: var(--c-meta); }
+  .a-head__author { color: var(--c-text); font-weight: 600; }
+  .a-head__rule { align-self: stretch; margin-top: var(--s-3); }
+</style>

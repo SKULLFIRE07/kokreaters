@@ -1,0 +1,59 @@
+---
+/**
+ * Long bio (DESIGN-SPEC 5.9.2): six paragraphs, verbatim from brief 6.7, on a 3/9 grid with the
+ * dated sidenotes in the left column (≥ 1280px; inline above the paragraph below that).
+ * Paragraph 1 is Fraunces 26/36 Imperial; the rest sans 19/31 Ink at 64ch. CONFIRM 13 follows paragraph 1.
+ */
+import Sidenote from '@/components/ui/Sidenote.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { longBio, bioSidenotes } from '@/data/founder';
+
+/** Keep the brief's figures on one line (0.2.3): 21% and 15% get .nowrap; −25 °C already carries U+202F. */
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const withFigures = (s: string) => esc(s).replace(/(\d+%)/g, '<span class="nowrap tnum">$1</span>');
+const paras = longBio.map((text, i) => ({
+  html: withFigures(text),
+  notes: bioSidenotes.filter((n) => n.at === i + 1).map((n) => n.text),
+}));
+---
+<div class="grid bio" data-reveal-group>
+  {paras.map((p, i) => (
+    <>
+      {p.notes.length > 0 && (
+        <Sidenote class="bio__note">
+          {p.notes.map((t) => <span class="bio__note-line tnum">{t}</span>)}
+        </Sidenote>
+      )}
+      <p class:list={['bio__p', i === 0 ? 'bio__p--lede' : 'bio__p--body']} data-reveal>
+        <Fragment set:html={p.html} />
+        {i === 0 && <Confirm id={13} note="founded in 2026 and career dates" />}
+      </p>
+    </>
+  ))}
+</div>
+<style>
+  .bio { row-gap: 0; }
+  .bio__p { margin: 0 0 var(--s-5); max-width: 64ch; text-wrap: pretty; }
+  .bio__p--lede {
+    font-family: var(--font-serif); font-optical-sizing: auto;
+    font-size: clamp(1.375rem, 1.282rem + 0.381vw, 1.625rem);   /* 22 → 26 */
+    line-height: 1.385;                                          /* 26/36 */
+    font-weight: var(--wght-h3); letter-spacing: -0.005em; color: var(--c-heading);
+    max-width: 30em; margin-bottom: var(--s-7);
+  }
+  .bio__p--body {
+    font-size: clamp(1.0625rem, 1.016rem + 0.1905vw, 1.1875rem); /* 17 → 19 */
+    line-height: 1.632;                                          /* 19/31 */
+    color: var(--c-text);
+  }
+  .bio :global(.bio__note) { grid-column: 1 / -1; display: flex; flex-direction: column; gap: var(--s-1); margin-bottom: var(--s-2); }
+  .bio__note-line { display: block; }
+  .bio > :global(*) { grid-column: 1 / -1; }
+  @media (min-width: 768px) {
+    .bio > .bio__p { grid-column: 1 / 11; }
+  }
+  @media (min-width: 1280px) {
+    .bio > .bio__p { grid-column: 4 / 13; }
+    .bio > :global(.bio__note) { grid-column: 1 / 4; padding-top: 0.3em; margin-bottom: 0; padding-right: var(--s-5); }
+  }
+</style>

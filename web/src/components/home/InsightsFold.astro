@@ -1,0 +1,70 @@
+---
+/**
+ * Fold 8 · Insights (DESIGN-SPEC 5.1). Cloud, the largest fold. Cover story for the newest visible
+ * entry, the next two as rows. With fewer than three, an unlinked "In preparation" list fills in.
+ * Production with nothing approved: h2, the "In preparation" list and the newsletter. No dummy cards.
+ */
+import Section from '@/components/ui/Section.astro';
+import CoverStory from '@/components/shared/CoverStory.astro';
+import InsightRow from '@/components/shared/InsightRow.astro';
+import Newsletter from '@/components/shared/Newsletter.astro';
+import { insights as fold } from '@/data/home';
+import { microcopy } from '@/data/microcopy';
+import { visibleInsights, comingSoon } from '@/lib/insights';
+
+const visible = await visibleInsights();
+const [cover, ...others] = visible;
+const rows = others.slice(0, 2);
+const soon = visible.length < 3 ? (await comingSoon()).slice(0, 3) : [];
+---
+<Section ground="cloud" folio={{ n: '05', label: fold.overline }} labelledby="insights-heading" class="insights-fold">
+  <h2 id="insights-heading" class="t-h2 insights-fold__h" data-reveal="lines">{fold.headline}</h2>
+  <div class="grid insights-fold__grid">
+    {cover && (
+      <div class="c-1-7 insights-fold__cover">
+        <CoverStory entry={cover} size="home" headingLevel="h3" />
+      </div>
+    )}
+    <div class:list={['insights-fold__side', cover ? 'c-8-12' : 'c-1-7']}>
+      {rows.length > 0 && (
+        <ul class="insights-fold__rows" role="list">
+          {rows.map((e) => <InsightRow entry={e} />)}
+        </ul>
+      )}
+      {soon.length > 0 && (
+        <div class="insights-fold__soon" data-reveal>
+          <h3 class="t-dateline insights-fold__soon-h">{microcopy.inPreparation}</h3>
+          <ul class="insights-fold__soon-list" role="list">
+            {soon.map((e) => <li>{e.data.title}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </div>
+  <div class="insights-fold__newsletter">
+    <div class="rule" data-rule aria-hidden="true"></div>
+    <Newsletter variant="fold" class="insights-fold__nl" />
+  </div>
+</Section>
+
+<style>
+  .insights-fold__h { margin: 0 0 var(--s-8); max-width: 20ch; }
+  .insights-fold__grid { row-gap: var(--s-7); align-items: start; }
+  .insights-fold__rows { list-style: none; margin: 0; padding: 0; }
+  .insights-fold__rows + .insights-fold__soon { margin-top: var(--s-6); }
+  .insights-fold__soon { border-top: 1px solid var(--c-rule); padding-top: var(--s-5); }
+  .insights-fold__soon-h { margin: 0 0 var(--s-4); }
+  .insights-fold__soon-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+  .insights-fold__soon-list li {
+    font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.4; font-weight: 400;
+    color: var(--c-meta); text-wrap: balance;
+  }
+  .insights-fold__newsletter { margin-top: var(--s-9); }
+  .insights-fold__newsletter :global(.insights-fold__nl) { padding-top: var(--s-6); }
+  @media (min-width: 1024px) {
+    .insights-fold__side { padding-left: var(--s-5); }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .insights-fold__grid > * { grid-column: 1 / 13; }
+  }
+</style>

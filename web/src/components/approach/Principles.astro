@@ -1,0 +1,42 @@
+---
+/** Approach principles (DESIGN-SPEC 5.5.3): h2 "Principles", five index-style rows. */
+import { principles, principlesHeading } from '@/data/approach';
+---
+<section class="band principles" aria-labelledby="principles-title">
+  <div class="container">
+    <div class="grid principles__head">
+      <h2 id="principles-title" class="t-h2 c-1-12" data-reveal="lines">{principlesHeading}</h2>
+    </div>
+    <ol class="principles__list">
+      {principles.map((p, i) => (
+        <li class="principle">
+          <span class="principle__rule rule" data-rule aria-hidden="true"></span>
+          <div class="principle__grid grid">
+            <span class="principle__n t-meta tnum c-1-1" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="principle__name t-h3 c-2-4">{p.name}</h3>
+            <p class="principle__copy t-lead c-5-12" data-reveal>{p.copy}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <span class="principles__end rule" data-rule aria-hidden="true"></span>
+  </div>
+</section>
+<style>
+  .principles { padding-top: var(--s-8); }
+  .principles__head { margin-bottom: var(--s-7); }
+  .principles__head h2 { margin: 0; }
+  .principles__list { list-style: none; margin: 0; padding: 0; }
+  .principle__rule, .principles__end { display: block; }
+  .principle__grid { padding-block: var(--s-6); row-gap: var(--s-2); align-items: baseline; }
+  .principle__n { padding-top: 0.2em; }
+  .principle__name { margin: 0; }
+  .principle__copy { margin: 0; color: var(--c-meta); max-width: none; }
+  @media (max-width: 767px) {
+    .principle__grid { row-gap: var(--s-2); }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .principle__name { grid-column: 2 / 6; }
+    .principle__copy { grid-column: 6 / 13; }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+/** "Not sure where you fit? Start a conversation" (DESIGN-SPEC 5.2, 5.3 item 6). */
+import TextLink from '../ui/TextLink.astro';
+import { expertiseOverview } from '@/data/pillars';
+const { prompt } = expertiseOverview;
+---
+<div class="prompt" data-reveal>
+  <p class="t-h3 prompt__text">{prompt.text}</p>
+  <TextLink href={prompt.link.href}>{prompt.link.label}</TextLink>
+</div>
+<style>
+  .prompt { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-5); padding-top: var(--s-6); border-top: 1px solid var(--c-rule); }
+  .prompt__text { margin: 0; }
+</style>

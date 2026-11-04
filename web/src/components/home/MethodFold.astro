@@ -1,0 +1,27 @@
+---
+/** Fold 5 · The KoKreaters way (DESIGN-SPEC 5.1). Cloud. The method line is scrubbed by home.ts (no pin). */
+import Section from '@/components/ui/Section.astro';
+import MethodLine from '@/components/shared/MethodLine.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import { method } from '@/data/home';
+import { steps, stepLabels } from '@/data/approach';
+---
+<Section ground="cloud" folio={{ n: '02', label: method.overline }} labelledby="method-heading" class="method-fold" data-method-fold>
+  <h2 id="method-heading" class="t-h2 method-fold__h" data-reveal="lines">{method.headline}</h2>
+  <MethodLine scrub class="method-fold__line">
+    {steps.map((s) => (
+      <div slot={`step-${s.n}`} class="method-fold__step">
+        <p class="t-dateline method-fold__label">{stepLabels.step} <span class="tnum">{s.n}</span> · {s.name}</p>
+        <p class="t-lead method-fold__copy">{s.copy}</p>
+      </div>
+    ))}
+  </MethodLine>
+  <div class="method-fold__link"><TextLink href={method.link.href}>{method.link.label}</TextLink></div>
+</Section>
+
+<style>
+  .method-fold__h { margin: 0 0 var(--s-8); }
+  .method-fold__label { margin: 0 0 var(--s-3); }
+  .method-fold__copy { margin: 0; color: var(--c-text); }
+  .method-fold__link { margin-top: var(--s-7); }
+</style>

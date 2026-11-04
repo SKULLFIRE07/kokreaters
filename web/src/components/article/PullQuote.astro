@@ -1,4 +1,21 @@
 ---
-// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 8).
+/** PullQuote (DESIGN-SPEC 5.8 item 8): Fraunces italic Imperial, hung Saffron “, 1px Sapphire rule. One per 1,000 words at most. */
 ---
-<blockquote class="pull t-pull"><slot /></blockquote>
+<blockquote class="pull" data-reveal><p class="t-pull pull__text"><slot /></p></blockquote>
+<style>
+  .pull {
+    position: relative;
+    margin-block: var(--s-8);
+    padding: var(--s-1) 0 var(--s-1) var(--s-6);
+    border-left: 1px solid var(--c-line);
+  }
+  .pull__text { margin: 0; color: var(--c-heading); font-variant-numeric: lining-nums; max-width: 26em; }
+  .pull__text::before {
+    content: "\201C";
+    position: absolute; left: calc(var(--s-6) - 0.42em); top: var(--s-1);
+    color: var(--kk-saffron);
+    font-style: normal; font-weight: 400;
+    -webkit-text-stroke: 0.5px var(--kk-ink);   /* Ink edge for Saffron on light (graft 10) */
+  }
+  :global(.prose) .pull__text { font-size: var(--fs-pull); line-height: var(--lh-pull); }
+</style>

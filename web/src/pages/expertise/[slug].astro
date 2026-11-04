@@ -1,0 +1,78 @@
+---
+/**
+ * /expertise/[slug] (DESIGN-SPEC 5.3): one template, six pages at the brief slugs.
+ * The pillar colour appears only in the top bar, the dateline dot, the bullets, the map node and chips.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/ui/Section.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import Dateline from '@/components/ui/Dateline.astro';
+import ImpactRow from '@/components/shared/ImpactRow.astro';
+import PillarHero from '@/components/expertise/PillarHero.astro';
+import HelpList from '@/components/expertise/HelpList.astro';
+import Deliverables from '@/components/expertise/Deliverables.astro';
+import RelatedInsights from '@/components/expertise/RelatedInsights.astro';
+import PromptRow from '@/components/expertise/PromptRow.astro';
+import { createAbbreviator } from '@/components/expertise/abbr';
+import { pillars, pillarPage } from '@/data/pillars';
+import { founderResults } from '@/data/impact';
+import { microcopy } from '@/data/microcopy';
+import { byPillar, comingSoonByPillar } from '@/lib/insights';
+import { pageSeo } from '@/lib/seo';
+import type { Pillar } from '@/data/types';
+
+export const getStaticPaths = (() => pillars.map((p) => ({ params: { slug: p.slug }, props: { pillar: p } }))) satisfies GetStaticPaths;
+
+interface Props { pillar: Pillar }
+const { pillar } = Astro.props;
+
+const crumbs = [
+  { label: 'Expertise', href: '/expertise' },
+  { label: pillar.name, href: `/expertise/${pillar.slug}` },
+];
+const expand = createAbbreviator();
+const intro = expand(pillar.intro);
+const help = pillar.helpWith.map((t) => expand(t));
+const result = pillar.impactId ? founderResults.find((r) => r.id === pillar.impactId) : undefined;
+const related = await byPillar(pillar.key);
+const coming = await comingSoonByPillar(pillar.key);
+const hasRelated = related.length > 0 || coming.length > 0;
+---
+<BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs} showCrumbs={false}>
+  <PillarHero pillar={pillar} crumbs={crumbs} introHtml={intro.html} introNotes={intro.notes} />
+
+  <Section class="p-work" labelledby="help-title">
+    <HelpList pillar={pillar.key} items={help} />
+    <div class="p-work__gap" aria-hidden="true"><span class="rule" data-rule></span></div>
+    <Deliverables items={pillar.deliverables} />
+  </Section>
+
+  {result && (
+    <Section class="p-record" ground="cloud" aria-label={pillarPage.fromTheRecord}>
+      <Dateline class="p-record__dateline">{pillarPage.fromTheRecord}</Dateline>
+      <ImpactRow result={result} size="compact" />
+      <span class="rule" data-rule aria-hidden="true"></span>
+      <div class="p-record__link"><TextLink href={`/impact#${result.id}`}>{microcopy.impactLink}</TextLink></div>
+    </Section>
+  )}
+
+  {hasRelated && (
+    <Section class="p-related" labelledby="related-title">
+      <RelatedInsights visible={related} coming={coming} />
+    </Section>
+  )}
+
+  <Section class={hasRelated ? 'p-prompt p-prompt--tight' : 'p-prompt'}>
+    <PromptRow />
+  </Section>
+</BaseLayout>
+<style>
+  .p-work__gap { padding-block: var(--s-9); }
+  .p-work__gap .rule { display: block; }
+  :global(.p-record) :global(.p-record__dateline) { margin-bottom: var(--s-5); }
+  .p-record__link { margin-top: var(--s-4); }
+  :global(.p-prompt--tight) { padding-top: 0; }
+  :global(.p-prompt) :global(.prompt) { padding-top: var(--s-6); }
+  @media (max-width: 767px) { .p-work__gap { padding-block: var(--s-8); } }
+</style>

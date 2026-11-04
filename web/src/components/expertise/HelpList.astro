@@ -1,0 +1,47 @@
+---
+/**
+ * "What we help with" (DESIGN-SPEC 5.3 item 2): ringed list, PillarDot 8 bullets hung in the margin,
+ * a 1px Hairline connector through the dots (drawn on enter over 900ms by expertise.ts).
+ * Items arrive as HTML with first-use <abbr> already applied (abbr.ts).
+ */
+import PillarDot from '../ui/PillarDot.astro';
+import { pillarPage } from '@/data/pillars';
+import type { PillarKey } from '@/data/types';
+import type { Expanded } from './abbr';
+
+interface Props { pillar: PillarKey; items: Expanded[] }
+const { pillar, items } = Astro.props;
+---
+<div class="help grid">
+  <h2 id="help-title" class="t-h2 help__title c-1-4" data-reveal="lines">{pillarPage.helpWith}</h2>
+  <div class="help__body c-5-12">
+    <div class="ringed-wrap">
+    <span class="ringed__connector" data-connector aria-hidden="true"></span>
+    <ul class="ringed" data-reveal-group>
+      {items.map((it) => (
+        <li class="ringed__item" data-reveal>
+          <PillarDot pillar={pillar} size={8} class="ringed__dot" />
+          <span class="help__text" set:html={it.html} />
+          {it.notes.map((n) => <span class="help__note t-meta">{n}</span>)}
+        </li>
+      ))}
+    </ul>
+    </div>
+  </div>
+</div>
+<style>
+  .help { row-gap: var(--s-6); }
+  .help__title { margin: 0; }
+  .ringed-wrap { position: relative; }
+  .ringed { position: relative; list-style: none; margin: 0; padding: 0 0 0 36px; }
+  .ringed__connector {
+    position: absolute; left: 3.5px; top: calc(var(--s-3) + 15px); bottom: calc(var(--s-3) + 15px); width: 1px;
+    background: var(--c-rule); transform-origin: 50% 0;
+  }
+  .ringed__item { position: relative; padding-block: var(--s-3); font-size: 1.1875rem; line-height: 30px; color: var(--c-text); max-width: 40em; }
+  .ringed__item + .ringed__item { margin-top: var(--s-2); }
+  .ringed__item :global(.ringed__dot) { position: absolute; left: -36px; top: calc(var(--s-3) + 11px); }
+  .help__text { display: block; text-wrap: pretty; }
+  .help__note { display: block; margin-top: var(--s-1); color: var(--c-meta); }
+  @media (max-width: 767px) { .ringed__item { font-size: 1.0625rem; line-height: 28px; } .ringed__item :global(.ringed__dot) { top: calc(var(--s-3) + 10px); } }
+</style>

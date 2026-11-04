@@ -1,7 +1,40 @@
 ---
-// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 5).
-// Exists only so the draft MDX in src/content/insights resolves its import at build time.
+/**
+ * Sidenote (DESIGN-SPEC 5.8 item 5). The ref is a superscript link; the note itself is a
+ * <span role="note"> rather than an <aside>, because MDX places it inside a <p> and the HTML
+ * parser would otherwise split the paragraph. At ≥ 1280px it floats into the left margin
+ * (cols 1–3); below that it stays in reading order as an indented meta block.
+ */
 interface Props { n: number | string; }
 const { n } = Astro.props;
 ---
-<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote t-meta" role="note"><slot /></span>
+<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote note" role="note"><span class="note__n tnum" aria-hidden="true">{n}</span><span class="note__text"><slot /></span></span>
+<style>
+  .note-ref { font-family: var(--font-sans); font-weight: 600; font-size: 0.68em; line-height: 0; vertical-align: super; margin-left: 1px; }
+  .note-ref a { display: inline-block; padding: 0 2px; color: var(--c-link); text-decoration: none; }
+  .note-ref a:hover, .note-ref a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
+
+  .note {
+    display: flex; gap: var(--s-2);
+    margin: var(--s-4) 0 var(--s-2);
+    padding: 2px 0 2px var(--s-4);
+    border-left: 1px solid var(--c-rule);
+    font-family: var(--font-sans); font-style: normal; font-weight: 400;
+    font-size: var(--fs-meta); line-height: var(--lh-meta); letter-spacing: 0.005em;
+    font-variant-numeric: lining-nums;
+    color: var(--c-meta);
+    text-transform: none;
+  }
+  .note__n { flex: none; font-weight: 600; color: var(--c-heading); min-width: 1ch; }
+  .note:target { border-left-color: var(--c-line); }
+
+  @media (min-width: 1280px) {
+    .note {
+      float: left; clear: left;
+      width: var(--margin-col, 220px);
+      margin: 0.35em 0 var(--s-4) calc(-1 * (var(--margin-col, 220px) + var(--gutter)));
+      padding: var(--s-3) 0 0; border-left: 0; border-top: 1px solid var(--c-rule);
+    }
+    .note:target { border-top-color: var(--c-line); }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+/**
+ * Fold 2 · Proof band (DESIGN-SPEC 5.1, graft 2). Imperial field. One Sky line with a station
+ * node at each column start; Saffron numerals. Ships in its final, lit state; home.ts runs the
+ * line, the nodes and the counts. Only these three integers ever count (C-18).
+ */
+import Section from '@/components/ui/Section.astro';
+import { proof, proofSource } from '@/data/home';
+---
+<Section ground="dark" folio={{ label: proofSource }} class="proof-band" labelledby="proof-heading" data-proof>
+  <h2 id="proof-heading" class="visually-hidden">{proofSource}</h2>
+  <div class="proof">
+    <div class="proof__line" data-proof-line aria-hidden="true"></div>
+    <ul class="proof__grid" role="list">
+      {proof.map((p) => (
+        <li class="proof__item">
+          <span class="proof__node" data-proof-node aria-hidden="true"></span>
+          <p class="t-stat proof__num">
+            {p.count !== undefined
+              ? <><span data-count={p.count} aria-hidden="true">{p.value}</span><span class="visually-hidden">{p.value}</span></>
+              : <span data-proof-word>{p.value}</span>}
+          </p>
+          <p class="proof__label">{p.label}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .proof { position: relative; }
+  .proof__line {
+    position: absolute; left: 0; right: 0; top: 5.25px; height: 1.5px;
+    background: var(--kk-sky); transform-origin: 0 50%;
+  }
+  .proof__grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-7);
+  }
+  .proof__item { position: relative; min-width: 0; padding-right: var(--s-4); }
+  .proof__node {
+    display: block; width: 12px; height: 12px; border-radius: 50%; box-sizing: border-box;
+    background: var(--kk-saffron); border: 2px solid var(--kk-saffron);
+    position: relative; z-index: 1; margin-bottom: var(--s-6);
+  }
+  .proof__num { margin: 0; }
+  :global(.on-dark) .proof__num { color: var(--kk-saffron); }
+  .proof__num span { display: inline-block; }
+  /* "WHO": at display opsz Fraunces' H crossbar is a sub-pixel hairline and the word reads "WI IO".
+     A text optical size keeps the crossbar visible; same family, weight and size. */
+  .proof__num [data-proof-word] { font-optical-sizing: none; font-variation-settings: "opsz" 18; letter-spacing: -0.01em; }
+  .proof__label {
+    margin: var(--s-3) 0 0; max-width: 22ch;
+    font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; color: var(--c-on-dark-muted);
+  }
+  @media (max-width: 767px) {
+    .proof__line { display: none; }
+    .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .proof__node { margin-bottom: var(--s-4); }
+  }
+</style>

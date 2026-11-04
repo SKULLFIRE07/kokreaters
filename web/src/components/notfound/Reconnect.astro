@@ -1,0 +1,71 @@
+---
+/**
+ * The 404 reconnect (DESIGN-SPEC 5.12). The five-node engraving in 1px Sapphire line-work,
+ * with the top-right node displaced 48px outward on a dashed line. Its dot is the site's only
+ * Sunrise fill (C-19). The node is a focusable button; scripts/pages/notfound.ts moves it home.
+ * With no JS it stays displaced and "Take me home" is a plain link.
+ */
+import { microcopy } from '@/data/microcopy';
+
+// Engraving geometry (viewBox space of assets/logo/kokreaters-node-cluster.svg, 20 15 570 570)
+const nodes = [
+  { k: 'sapphire', x: 144, y: 184 }, { k: 'saffron', x: 291, y: 316 },
+  { k: 'sky', x: 480, y: 431 }, { k: 'cobalt', x: 211, y: 500 },
+];
+const lines = ['M144 184 L205 498', 'M144 184 L291 316', 'M291 316 L196 418', 'M291 316 L480 431'];
+const hub = { x: 291, y: 316 };
+const home = { x: 416, y: 135 };          // the Coral position, rescaled to engraving space
+const VB = { x: 0, y: -20, w: 600, h: 600 };
+const SIZE = 360;
+const shift = (48 * VB.w) / SIZE;          // 48 rendered px outward, in viewBox units
+const len = Math.hypot(home.x - hub.x, home.y - hub.y);
+const dx = +(((home.x - hub.x) / len) * shift).toFixed(2);
+const dy = +(((home.y - hub.y) / len) * shift).toFixed(2);
+const ux = 1;                              // stroke width in user units ≈ 1px after non-scaling
+---
+<div class="rc" data-reconnect data-dx={dx} data-dy={dy} data-home-x={home.x} data-home-y={home.y} data-hub-x={hub.x} data-hub-y={hub.y} data-vb-w={VB.w}>
+  <svg class="rc__svg" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} width={SIZE} height={SIZE} focusable="false">
+    <defs>
+      <linearGradient id="sunrise" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7B4BC4" />
+        <stop offset="0.55" stop-color="#C8457E" />
+        <stop offset="1" stop-color="#F4C841" />
+      </linearGradient>
+    </defs>
+    <g aria-hidden="true">
+      <circle cx={home.x} cy={home.y} r="16" class="rc__socket" data-socket />
+      {lines.map((d) => <path d={d} class="rc__line" />)}
+      <line x1={hub.x} y1={hub.y} x2={home.x + dx} y2={home.y + dy} class="rc__line rc__line--loose" data-loose-line stroke-width={ux} />
+      {nodes.map((n) => (
+        <g>
+          <circle cx={n.x} cy={n.y} r="22" class="rc__knockout" />
+          <circle cx={n.x} cy={n.y} r="16" class="rc__ring" />
+        </g>
+      ))}
+    </g>
+    <g class="rc__node" tabindex="0" role="button" aria-label={microcopy.reconnect} data-loose-node transform={`translate(${dx} ${dy})`}>
+      <circle cx={home.x} cy={home.y} r="40" class="rc__hit" />
+      <circle cx={home.x} cy={home.y} r="30" class="rc__focus" />
+      <circle cx={home.x} cy={home.y} r="22" class="rc__knockout" />
+      <circle cx={home.x} cy={home.y} r="16" class="rc__ring" />
+      <circle cx={home.x} cy={home.y} r="10" fill="url(#sunrise)" class="rc__dot" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .rc { display: flex; justify-content: center; }
+  .rc__svg { display: block; width: min(360px, 100%); height: auto; overflow: visible; touch-action: none; }
+  .rc__svg :is(path, line, circle) { vector-effect: non-scaling-stroke; }
+  .rc__line { fill: none; stroke: var(--c-line); stroke-width: 1px; stroke-linecap: round; }
+  .rc__line--loose { stroke-dasharray: 4 6; }
+  .rc[data-state="home"] .rc__line--loose { stroke-dasharray: none; }
+  .rc__ring { fill: var(--kk-white); stroke: var(--c-line); stroke-width: 1px; }
+  .rc__knockout { fill: var(--kk-white); }
+  .rc__socket { fill: none; stroke: var(--c-rule); stroke-width: 1px; stroke-dasharray: 2 4; }
+  .rc__hit { fill: transparent; }
+  .rc__focus { fill: none; stroke: var(--c-focus); stroke-width: 3px; opacity: 0; }
+  .rc__node { cursor: grab; outline: none; }
+  .rc__node:active { cursor: grabbing; }
+  .rc__node:focus-visible .rc__focus { opacity: 1; }
+</style>

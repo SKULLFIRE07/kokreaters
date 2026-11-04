@@ -1,0 +1,29 @@
+---
+/**
+ * Testimonials (DESIGN-SPEC 5.6.4). Renders nothing while `testimonials` is empty (CONFIRM 8).
+ * Only quotes with written permission are ever added to the data.
+ */
+import { testimonials } from '@/data/impact';
+const items = testimonials.filter((t) => t.permission === true);
+---
+{items.length > 0 && (
+  <section class="band testimonials">
+    <div class="container">
+      <ul class="testimonials__list" role="list">
+        {items.map((t) => (
+          <li class="testimonial grid">
+            <figure class="c-2-11" data-reveal>
+              <blockquote class="t-quote testimonial__quote"><p class="hang">“{t.quote}”</p></blockquote>
+              <figcaption class="t-meta testimonial__by">{t.name}, {t.role}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+<style>
+  .testimonials__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-9); }
+  .testimonial figure, .testimonial blockquote, .testimonial p { margin: 0; }
+  .testimonial__by { margin-top: var(--s-4); }
+</style>

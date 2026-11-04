@@ -1,10 +1,34 @@
 ---
-// GATE-1 SEAM STUB. W2-insights owns this file and replaces it (DESIGN-SPEC 5.8 item 9).
+/** Key takeaways (DESIGN-SPEC 5.8 item 9): the page's one box. */
 import { microcopy } from '@/data/microcopy';
 interface Props { items: string[]; }
 const { items } = Astro.props;
 ---
-<aside class="takeaways" aria-labelledby="takeaways-h">
-  <h2 id="takeaways-h" class="t-h4">{microcopy.keyTakeaways}</h2>
-  <ul>{items.map((i) => <li>{i}</li>)}</ul>
+<aside class="takeaways" aria-labelledby="takeaways-h" data-reveal>
+  <h2 id="takeaways-h" class="takeaways__h">{microcopy.keyTakeaways}</h2>
+  <ul class="takeaways__list">{items.map((i) => <li>{i}</li>)}</ul>
 </aside>
+<style>
+  .takeaways {
+    margin-block: var(--s-8) 0;
+    padding: var(--s-6);
+    border: 1px solid var(--c-rule);
+    border-radius: var(--r-card);
+    background: var(--kk-white);
+    font-family: var(--font-sans);
+  }
+  .takeaways .takeaways__h {
+    margin: 0 0 var(--s-4);
+    font-family: var(--font-sans); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600;
+    letter-spacing: 0; color: var(--c-heading);
+  }
+  .takeaways__list { margin: 0; padding-left: 1.5em; list-style: none; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); font-variant-numeric: lining-nums; }
+  .takeaways__list li { position: relative; margin: 0; }
+  .takeaways__list li + li { margin-top: var(--s-2); }
+  .takeaways__list li::before {
+    content: ""; position: absolute; left: -1.5em; top: calc(0.5lh - 5px);
+    width: 10px; height: 10px; border-radius: 50%;
+    border: var(--line-work) solid var(--c-line); background: var(--kk-white);
+  }
+  @media (max-width: 767px) { .takeaways { padding: var(--s-5); } }
+</style>

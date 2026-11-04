@@ -1,0 +1,46 @@
+---
+/**
+ * The connection moment (graft 5, DESIGN-SPEC 5.10 / 6.9). Decorative 2-node SVG above the form:
+ * the visitor's station node (labelled with their typed Name, fallback "You") and Ganeaysh's
+ * 48px person node with a 3px Saffron ring. The solid Sapphire line ships at 0% and is drawn
+ * only on a successful submit (scripts/pages/contact.ts).
+ */
+import { getImage } from 'astro:assets';
+import portrait from '@/assets/photos/ganeaysh-square.png';
+import { contact } from '@/data/contact';
+
+const img = await getImage({ src: portrait, width: 96, height: 96, format: 'webp' });
+const W = 320, H = 88;
+const left = { x: 16, y: 32 };
+const right = { x: W - 30, y: 32, r: 24 };
+const x1 = left.x + 9, x2 = right.x - right.r - 6;
+---
+<div class="cm" aria-hidden="true">
+  <svg class="cm__svg" viewBox={`0 0 ${W} ${H}`} width={W} height={H} focusable="false" data-connection>
+    <defs>
+      <clipPath id="cm-clip"><circle cx={right.x} cy={right.y} r={right.r} /></clipPath>
+    </defs>
+    <line class="cm__dash" x1={x1} y1={left.y} x2={x2} y2={right.y} />
+    <line class="cm__line" x1={x1} y1={left.y} x2={x2} y2={right.y} pathLength="1" data-connection-line />
+    <g class="cm__station">
+      <circle cx={left.x} cy={left.y} r="10" class="cm__ring" />
+      <circle cx={left.x} cy={left.y} r="4" class="cm__dot" />
+    </g>
+    <text x={left.x - 10} y={left.y + 40} class="cm__label" data-visitor-label data-fallback={contact.visitorFallback}>{contact.visitorFallback}</text>
+    <circle cx={right.x} cy={right.y} r={right.r + 2 + 3 / 2} class="cm__saffron" />
+    <circle cx={right.x} cy={right.y} r={right.r + 1} fill="#fff" />
+    <image href={img.src} x={right.x - right.r} y={right.y - right.r} width={right.r * 2} height={right.r * 2} clip-path="url(#cm-clip)" preserveAspectRatio="xMidYMid slice" />
+  </svg>
+</div>
+
+<style>
+  .cm { margin-bottom: var(--s-6); max-width: 100%; }
+  .cm__svg { display: block; width: 320px; max-width: 100%; height: auto; overflow: visible; }
+  .cm__dash { stroke: var(--c-rule); stroke-width: 1; stroke-dasharray: 4 6; }
+  .cm__line { stroke: var(--c-line); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .cm.is-connected .cm__line { stroke-dashoffset: 0; }
+  .cm__ring { fill: #fff; stroke: var(--c-line); stroke-width: 1.5; }
+  .cm__dot { fill: var(--c-line); }
+  .cm__saffron { fill: none; stroke: var(--kk-saffron); stroke-width: 3; }
+  .cm__label { font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; fill: var(--c-meta); }
+</style>

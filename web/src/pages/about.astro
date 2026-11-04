@@ -1,0 +1,35 @@
+---
+/**
+ * About /about (DESIGN-SPEC 5.9). Fold order: hero (Cloud) → long bio + timeline → the map (globe) →
+ * the name (Cloud) → education and languages → CtaField (rendered by BaseLayout) → footer.
+ * JSON-LD: Person + BreadcrumbList (3.7). The Person image is the absolute 4:5 portrait WebP.
+ */
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AboutHero from '@/components/about/AboutHero.astro';
+import LongBio from '@/components/about/LongBio.astro';
+import Timeline from '@/components/about/Timeline.astro';
+import GlobeSection from '@/components/about/GlobeSection.astro';
+import NamePanel from '@/components/about/NamePanel.astro';
+import EducationLanguages from '@/components/about/EducationLanguages.astro';
+import portrait from '@/assets/photos/ganeaysh-portrait.png';
+import { person } from '@/components/seo/schema';
+import { pageSeo } from '@/lib/seo';
+import { about } from '@/data/founder';
+
+const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
+const crumbs = [{ label: about.overline, href: '/about' }];
+const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
+---
+<BaseLayout page="about" seo={seo} breadcrumbs={crumbs} showCrumbs={false}>
+  <AboutHero crumbs={crumbs} />
+  <section class="band about-story" aria-label={about.overline}>
+    <div class="container">
+      <LongBio />
+      <Timeline />
+    </div>
+  </section>
+  <GlobeSection />
+  <NamePanel />
+  <EducationLanguages />
+</BaseLayout>

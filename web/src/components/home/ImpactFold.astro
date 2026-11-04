@@ -1,0 +1,22 @@
+---
+/** Fold 6 · Impact, from the founder’s career (DESIGN-SPEC 5.1). Words only in the datelines; no logos. */
+import Section from '@/components/ui/Section.astro';
+import ImpactRow from '@/components/shared/ImpactRow.astro';
+import TextLink from '@/components/ui/TextLink.astro';
+import { impact } from '@/data/home';
+import { founderResults } from '@/data/impact';
+---
+<Section ground="white" folio={{ n: '03', label: impact.overline }} labelledby="impact-heading" class="impact-fold">
+  <h2 id="impact-heading" class="t-h2 impact-fold__h" data-reveal="lines">{impact.headline}</h2>
+  <ul class="impact-fold__list" role="list">
+    {founderResults.map((r) => <ImpactRow result={r} as="li" />)}
+  </ul>
+  <div class="rule" data-rule aria-hidden="true"></div>
+  <div class="impact-fold__link"><TextLink href={impact.link.href}>{impact.link.label}</TextLink></div>
+</Section>
+
+<style>
+  .impact-fold__h { margin: 0 0 var(--s-7); max-width: 18ch; }
+  .impact-fold__list { list-style: none; margin: 0; padding: 0; }
+  .impact-fold__link { margin-top: var(--s-6); }
+</style>
