@@ -8,6 +8,8 @@ void MODE;
 
 export default defineConfig({
   site: 'https://kokreaters.com',          // bare domain canonical; www → bare at the host. C-3
+  // GitHub Pages project sites live under /<repo>; BASE_PATH is set only by the Pages workflow.
+  ...(process.env.BASE_PATH ? { base: process.env.BASE_PATH } : {}),
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'auto' },
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
