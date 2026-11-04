@@ -1,5 +1,5 @@
 ---
-/** A founder-career result as an index row (5.0.9). Figures in Sapphire Fraunces 300; −25 °C gets data-frost. */
+/** A founder-career result as an index row (v1 5.0.9, v2 7.8 compact uses). −25 °C gets data-frost. */
 import type { FounderResult } from '@/data/types';
 import { figHtml, abbreviations } from '@/lib/typography';
 interface Props { result: FounderResult; size?: 'home' | 'compact'; class?: string; as?: 'li' | 'div'; }
@@ -19,15 +19,16 @@ if (hasItfa) html = html.replace('iTFA', `<abbr title="${abbreviations.iTFA.titl
   </div>
 </Tag>
 <style>
+  /* v2 7.8: kept for compact uses: mono dateline + Bricolage .t-index line, figures in the ground accent, 800 */
   .impact-row { position: relative; display: block; list-style: none; }
-  .impact-row__rule { display: block; height: 1px; background: var(--c-rule); }
+  .impact-row__rule { display: block; height: 0; border-top: 1.5px dashed var(--fg); opacity: .45; }
   .impact-row__grid { padding-block: var(--s-6); row-gap: var(--s-3); }
   .impact-row--compact .impact-row__grid { padding-block: var(--s-5); }
   .impact-row__dateline { margin: 0; padding-top: 0.6em; }
-  .impact-row__line { margin: 0; color: var(--c-heading); font-family: var(--font-serif); }
+  .impact-row__line { margin: 0; color: var(--head); }
   .impact-row__note { margin: var(--s-2) 0 0; }
   .impact-row__line :global(.fig) {
-    font-weight: 300; color: var(--c-line); white-space: nowrap;
+    font-weight: 800; color: var(--accent); white-space: nowrap;
     font-variant-numeric: lining-nums tabular-nums;
   }
   .impact-row__line :global(abbr) { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; }

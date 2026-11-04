@@ -1,7 +1,7 @@
 ---
 /**
- * The logo node cluster, inline, in its true colours (5.0.16). Copied from
- * assets/logo/kokreaters-node-cluster.svg (a draft rebuilt from the raster, CONFIRM 1).
+ * The logo node cluster, inline, in its true colours (5.0.16). Geometry and colours identical to
+ * assets/logo/vector/kokreaters-node-cluster.svg (the vector master, v2 5.1).
  * Never recoloured. Each node group keeps its own <g> (data-node) for the hero B1 beat.
  */
 interface Props { size: number; id?: string; discs?: boolean; reversed?: boolean; class?: string; label?: string; }
@@ -32,5 +32,5 @@ const a11y: Record<string, string> = label ? { role: 'img', 'aria-label': label 
   </g>
 </svg>
 <style>
-  .node-cluster { display: block; flex: none; overflow: visible; }
+  .node-cluster { display: block; flex: none; overflow: visible; isolation: isolate; }
 </style>

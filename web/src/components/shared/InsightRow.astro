@@ -31,15 +31,24 @@ const isDraft = d.status === 'draft' || d.review === 'pending';
   </a>
 </li>
 <style>
+  /* v2 7.8: a notebook row: date mono, title Bricolage, pillar chip, reading time; hover shifts 8px and draws a hand arrow */
   .insight-row { list-style: none; position: relative; }
-  .insight-row__rule { display: block; height: 1px; background: var(--c-rule); }
-  .insight-row__link { display: flex; flex-direction: column; gap: var(--s-2); padding-block: var(--s-5); color: inherit; text-decoration: none; }
+  .insight-row__rule { display: block; height: 0; border-top: 1.5px dashed var(--fg); opacity: .45; }
+  .insight-row__link { position: relative; display: flex; flex-direction: column; gap: var(--s-2); padding: var(--s-5) 56px var(--s-5) 0; color: inherit; text-decoration: none; transition: translate var(--d-ui) var(--ease-expo); }
   .insight-row--dense .insight-row__link { padding-block: var(--s-4); }
+  .insight-row__link:is(:hover, :focus-visible) { translate: 8px 0; }
+  .insight-row__link::after {
+    content: ""; position: absolute; right: 4px; top: 50%; width: 40px; height: 14px; translate: 0 -50%;
+    background: currentColor; clip-path: inset(0 100% 0 0); transition: clip-path 300ms var(--ease-quart);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30'%3E%3Cpath d='M4 16 C 40 13, 80 18, 112 14 M100 6 L 114 14 L 101 23' fill='none' stroke='%23000' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30'%3E%3Cpath d='M4 16 C 40 13, 80 18, 112 14 M100 6 L 114 14 L 101 23' fill='none' stroke='%23000' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  .insight-row__link:is(:hover, :focus-visible)::after { clip-path: inset(0 0 0 0); }
   .insight-row__meta, .insight-row__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
   .insight-row__meta .t-dateline { margin: 0; }
-  .insight-row__title { transition: color var(--d-colour) var(--ease-out); }
-  .insight-row__link:is(:hover, :focus-visible) .insight-row__title { color: var(--c-link); }
-  /* Full standfirst (brief copy is never truncated, W3-tests finding 4); one line where the row is wide enough. */
-  .insight-row__standfirst { display: block; max-width: 72ch; text-wrap: pretty; }
-  .insight-row__pillar { display: inline-flex; align-items: center; gap: var(--s-2); }
+  .insight-row__title { color: var(--head); }
+  .insight-row__link:is(:hover, :focus-visible) .insight-row__title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .12em; }
+  .insight-row__standfirst { display: block; max-width: 72ch; text-wrap: pretty; font-family: var(--font-sans); font-size: 1rem; }
+  .insight-row__pillar { display: inline-flex; align-items: center; gap: var(--s-2); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; }
+  @media (prefers-reduced-motion: reduce) { .insight-row__link { transition: none; } .insight-row__link:is(:hover, :focus-visible) { translate: none; } }
 </style>

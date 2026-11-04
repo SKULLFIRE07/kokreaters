@@ -1,37 +1,70 @@
 /* ───────────────────────────────────────────────────────────────────────────
-   motion.css · W1-motion (DESIGN-SPEC 6.4)
+   motion.css · DESIGN-SPEC v2 8 (v1 6.4 gates kept)
    Gating applies ONLY while html.motion is set and html.motion-failed is not.
    With no JS, under reduced motion, or after the 3 s failure timer, every rule
    below is inert and the server-rendered final state shows.
    .is-revealed / .is-drawn are added by reveal.ts when a tween finishes.
+   Kit gates (data-note, data-note-draw, data-scribble, data-sticker) live in
+   components/notes/notes.css.
    ─────────────────────────────────────────────────────────────────────────── */
 
-html.motion:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(.is-revealed) { opacity: 0; transform: translateY(12px); }
-html.motion:not(.motion-failed) [data-reveal="lines"] { visibility: hidden; }   /* split.ts sets visible after split */
+html.motion:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(.is-revealed) { opacity: 0; transform: translateY(28px); }
+html.motion:not(.motion-failed) :is([data-reveal="lines"], [data-rise]) { visibility: hidden; }   /* text-rise sets visible after split */
 html.motion:not(.motion-failed) [data-rule]:not(.is-drawn) { transform: scaleX(0); transform-origin: 0 50%; }
 html.motion:not(.motion-failed) [data-hero-hide] { opacity: 0; }
 
-/* Never gate the H1 or anything inside it (0.2.6). */
-html.motion h1[data-reveal], html.motion h1 [data-reveal] { opacity: 1; transform: none; visibility: visible; }
+/* Never gate the H1 or anything inside it (0.2.4). */
+html.motion h1:is([data-reveal], [data-rise]), html.motion h1 :is([data-reveal], [data-rise]) { opacity: 1; transform: none; visibility: visible; }
 
-/* SplitText line masks: keep descenders and the RisingArrow from being clipped oddly */
-[data-reveal="lines"] .split-mask, [data-reveal="lines"] [class*="-mask"] { padding-bottom: 0.08em; margin-bottom: -0.08em; }
+/* SplitText line masks: keep descenders and scribbles from being clipped oddly */
+:is([data-reveal="lines"], [data-rise]) :is(.split-mask, [class*="-mask"]) { padding-bottom: 0.1em; margin-bottom: -0.1em; }
 
-/* ── data-frost: 1px Ice underline 3px below the baseline (graft 8) ──
-   Base drawn state at :where() specificity so ImpactRow / CaseEntry may restyle it. */
+/* ── data-frost: 1px Ice underline 3px below the baseline (v1 graft 8) ── */
 :where([data-frost]) { position: relative; display: inline-block; }
 :where([data-frost])::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
   background: var(--kk-ice); transform-origin: 0 50%; pointer-events: none;
 }
 html.motion:not(.motion-failed) [data-frost].frost-ready:not(.is-frosted)::after { transform: scaleX(0); }
-html.motion:not(.motion-failed) [data-frost].is-frosted::after { transition: transform 900ms var(--ease-draw); }
+html.motion:not(.motion-failed) [data-frost].is-frosted::after { transition: transform 900ms var(--ease-inout); }
 
 /* Counters never jitter while counting */
 [data-count] { font-variant-numeric: lining-nums tabular-nums; }
 
+/* Magnetic targets: GSAP writes x/y; keep them on their own layer only while hovered */
+[data-magnetic]:hover { will-change: transform; }
+
+/* ── Page transitions (7.9): cross-document View Transitions, CSS only ── */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: kk-vt-out var(--d-page) var(--ease-expo) both; }
+  ::view-transition-new(root) { animation: kk-vt-in var(--d-page) var(--ease-expo) both; }
+  ::view-transition-group(site-header), ::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; }
+}
+@keyframes kk-vt-out { to { opacity: 0; transform: translateY(-24px); } }
+@keyframes kk-vt-in { from { opacity: 0; transform: translateY(24px); } }
+
+/* ── Cursor follower (7.9): decorative, never hides the native cursor ── */
+.kk-cursor {
+  position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none;
+  width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+  background: var(--kk-ink); color: var(--kk-white);
+  display: grid; place-items: center;
+  font: 600 22px/1 var(--font-hand);
+  transition: width var(--d-ui) var(--ease-expo), height var(--d-ui) var(--ease-expo), margin var(--d-ui) var(--ease-expo), background-color var(--d-ui), opacity var(--d-ui);
+  opacity: 0;
+}
+.kk-cursor.is-on { opacity: 1; }
+.kk-cursor.is-big { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--kk-saffron); color: var(--kk-ink); box-shadow: 0 0 0 2px var(--kk-ink); }
+.kk-cursor__label { opacity: 0; transition: opacity var(--d-fast); }
+.kk-cursor.is-big .kk-cursor__label { opacity: 1; }
+
+/* ── Paused (MotionToggle): CSS loops stop too ── */
+html.motion-paused [data-stamp-spin] .stamp__ring { animation-play-state: paused !important; }
+
 /* ── Reduced motion: final state, always ── */
 @media (prefers-reduced-motion: reduce) {
-  html [data-reveal], html [data-rule], html [data-hero-hide] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  html [data-reveal], html [data-rule], html [data-hero-hide], html [data-rise] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
   html [data-frost]::after { transform: none !important; transition: none !important; }
+  .kk-cursor { display: none !important; }
 }

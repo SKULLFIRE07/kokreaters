@@ -4,16 +4,16 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
- * Smooth wheel scrolling (DESIGN-SPEC 6.3). Never created under reduced motion.
+ * Smooth wheel scrolling (DESIGN-SPEC 6.3, v2 8.4: lerp 0.1, toys [data-toy] prevented). Never created under reduced motion.
  * Touch keeps native scroll. When the keyboard drives focus (Tab), Lenis stops so the
  * browser scrolls focused elements natively; the next pointer or wheel input restarts it.
  * Only a Tab-initiated stop is undone here, so chrome.ts can stop Lenis for the mobile menu.
  */
 export function createLenis(): Lenis {
   const lenis = new Lenis({
-    lerp: 0.12, wheelMultiplier: 1, smoothWheel: true, syncTouch: false, autoRaf: false,
-    anchors: { offset: -84 },
-    prevent: (n: Element) => !!n.closest('[data-lenis-prevent]'),
+    lerp: 0.1, wheelMultiplier: 1, smoothWheel: true, syncTouch: false, autoRaf: false,
+    anchors: { offset: -92 },
+    prevent: (n: Element) => !!n.closest('[data-lenis-prevent], [data-toy]'),
   });
   lenis.on('scroll', ScrollTrigger.update);
   const tick = (t: number) => lenis.raf(t * 1000);
@@ -38,7 +38,7 @@ export function createLenis(): Lenis {
   if (hash) {
     let target: HTMLElement | null = null;
     try { target = document.getElementById(decodeURIComponent(hash)); } catch { target = null; }
-    if (target) lenis.scrollTo(target, { immediate: true, offset: -84 });
+    if (target) lenis.scrollTo(target, { immediate: true, offset: -92 });
   }
 
   const destroy = lenis.destroy.bind(lenis);

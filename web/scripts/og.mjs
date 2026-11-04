@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Open Graph images and SEO checks (DESIGN-SPEC 9, W3-og-seo).
+ * Open Graph images and SEO checks (DESIGN-SPEC 9, W3-og-seo; v2 5.1: Bricolage + Plex Mono, vector lockup).
  *
  *   node scripts/og.mjs            render public/og/*.png (1200×627) from scripts/og/template.html
  *   node scripts/og.mjs check [dist]   validate a built site: titles, descriptions, canonicals,
@@ -96,17 +96,21 @@ async function cards() {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** The favicon cluster in its reversed treatment (footer rule: discs at 0.9, normal blend). */
+/** The vector node cluster in its true colours (v2 5.1: the mark is never recoloured). */
 function clusterSvg() {
-  return readFileSync(join(WEB, 'public', 'favicon.svg'), 'utf8')
-    .replace('<svg ', '<svg width="120" height="120" aria-hidden="true" ')
-    .replace('<g opacity="0.75">', '<g opacity="0.9">')
-    .replace(/ style="mix-blend-mode:multiply"/g, '');
+  return readFileSync(join(WEB, 'public', 'favicon.svg'), 'utf8').replace('<svg ', '<svg aria-hidden="true" ');
+}
+/** The white horizontal lockup (cluster + white wordmark), vector, inline. */
+function logoSvg() {
+  return readFileSync(join(SRC, 'assets', 'brand', 'svg', 'kokreaters-logo-horizontal-white.svg'), 'utf8')
+    .replace(/<!--[\s\S]*?-->/g, '').replace(/\s+id="[^"]*"/g, '').replace(/\s(role|aria-label)="[^"]*"/g, '')
+    .replace('<svg ', '<svg aria-hidden="true" ');
 }
 
 function serve(pages) {
   const template = readFileSync(join(WEB, 'scripts', 'og', 'template.html'), 'utf8');
   const cluster = clusterSvg();
+  const logo = logoSvg();
   const types = { '.woff2': 'font/woff2', '.png': 'image/png' };
   const server = createServer((req, res) => {
     const url = decodeURIComponent((req.url ?? '/').split('?')[0]);
@@ -114,12 +118,11 @@ function serve(pages) {
     if (url.startsWith('/card/')) {
       const card = pages.get(url.slice(6));
       if (!card) { res.writeHead(404).end(); return; }
-      const html = template.replace('{{OVERLINE}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{CLUSTER}}', cluster);
+      const html = template.replace('{{OVERLINE}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{CLUSTER}}', cluster).replace('{{LOGO}}', logo);
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end(html);
       return;
     }
     if (url.startsWith('/fonts/')) file = join(WEB, 'public', 'fonts', url.slice(7));
-    if (url === '/wordmark-white.png') file = join(SRC, 'assets', 'brand', 'wordmark-white.png');
     if (!file || file.includes('..') || !existsSync(file)) { res.writeHead(404).end(); return; }
     res.writeHead(200, { 'content-type': types[file.slice(file.lastIndexOf('.'))] ?? 'application/octet-stream' }).end(readFileSync(file));
   });
@@ -142,7 +145,7 @@ function shoot(key, out) {
 }
 
 async function render() {
-  for (const f of ['fraunces-latin-opsz-normal.woff2', 'instrument-sans-latin-wght-normal.woff2']) {
+  for (const f of ['bricolage-grotesque-latin-wdth-normal.woff2', 'ibm-plex-mono-latin-500-normal.woff2']) {
     if (!existsSync(join(WEB, 'public', 'fonts', f))) {
       await new Promise((ok) => spawn(process.execPath, [join(WEB, 'scripts', 'copy-fonts.mjs')], { stdio: 'inherit' }).on('close', ok));
       break;

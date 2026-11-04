@@ -8,7 +8,9 @@
  *     (import.meta.glob → dynamic import that always runs at boot) and its static closure.
  *     home ≤ 95KB, every other page ≤ 85KB. Lazy chunks (Flip, Draggable, three) are reported, not counted.
  *   - CSS per page (linked stylesheets + inline <style>) ≤ 60KB gzip.
- *   - Fonts: all woff2 under /fonts ≤ 180KB (woff2 is already compressed; raw bytes).
+ *   - Fonts: all woff2 under /fonts ≤ 240KB (v2 2.1; woff2 is already compressed; raw bytes).
+ *   - Old assets (v2 5.2): nothing in src/ may reference the v1 raster logos or the old founder crops.
+ *   - Lazy chunks (v2 8.5): each ≤ 35KB gzip (three.js has its own gate).
  *   - three.js: any chunk containing three.js may be reachable only from about.html.
  * Usage: node scripts/check-budget.mjs [--dist <dir>] [--json]   (env KK_DIST also works)
  * Exits 1 when a gate fails.
@@ -26,7 +28,7 @@ const JSON_OUT = args.includes('--json');
 if (!existsSync(DIST)) { console.error(`check-budget: ${DIST} does not exist. Run the build first.`); process.exit(1); }
 
 const KB = 1024;
-const BUDGET = { jsHome: 95 * KB, jsOther: 85 * KB, css: 60 * KB, fonts: 180 * KB, three: 170 * KB };
+const BUDGET = { jsHome: 95 * KB, jsOther: 85 * KB, css: 60 * KB, fonts: 240 * KB, three: 170 * KB, lazyChunk: 35 * KB };
 // motion/index.ts pageFile() map (DESIGN-SPEC 6.2)
 const PAGE_FILE = { home: 'home', pillar: 'expertise', expertise: 'expertise', industries: 'industries', approach: 'approach',
   impact: 'impact', insights: 'insights', article: 'article', about: 'about', contact: 'contact', notfound: 'notfound' };
@@ -135,6 +137,25 @@ const fonts = existsSync(fontsDir) ? walk(fontsDir, '.woff2') : [];
 const fontBytes = fonts.reduce((s, f) => s + statSync(f).size, 0);
 if (!fonts.length) failures.push('no woff2 files in dist/fonts');
 if (fontBytes > BUDGET.fonts) failures.push(`fonts ${fmt(fontBytes)} > ${fmt(BUDGET.fonts)}`);
+
+// v2 5.2: no v1 raster logo or old founder crop may be referenced anywhere in src/
+const OLD_ASSETS = /ganeaysh-portrait|ganeaysh-square|wordmark\.png|lockup-tagline|logo-full\.png/;
+for (const f of walk(join(ROOT, 'src'), '')) {
+  if (!/\.(astro|ts|tsx|js|mjs|css|mdx?|json)$/.test(f)) continue;
+  readFileSync(f, 'utf8').split('\n').forEach((l, i) => { if (OLD_ASSETS.test(l)) failures.push(`old asset referenced: ${f.slice(ROOT.length + 1)}:${i + 1}`); });
+}
+for (const old of ['src/assets/brand/wordmark.png', 'src/assets/brand/logo-full.png', 'src/assets/photos/ganeaysh-portrait.png', 'src/assets/photos/ganeaysh-square.png']) {
+  if (existsSync(join(ROOT, old))) failures.push(`old asset still present: ${old}`);
+}
+// v2 8.5: every lazy chunk ≤ 35KB gzip (three.js has its own gate)
+const lazySeen = new Set();
+for (const r of results) for (const c of r.lazyChunks) lazySeen.add(c);
+for (const c of lazySeen) {
+  const abs = join(DIST, '_astro', c);
+  if (!existsSync(abs) || node(abs).isThree) continue;
+  const size = gzipSize(abs);
+  if (size > BUDGET.lazyChunk) failures.push(`lazy chunk ${c} ${fmt(size)} > ${fmt(BUDGET.lazyChunk)} gzip`);
+}
 
 function fmt(b) { return `${(b / KB).toFixed(1)}KB`; }
 

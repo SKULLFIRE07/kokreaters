@@ -1,9 +1,10 @@
 <!doctype html>
 <!--
-  KoKreaters Open Graph card (DESIGN-SPEC 9, W3-og-seo). 1200×627.
+  KoKreaters Open Graph card (DESIGN-SPEC v2 5.1). 1200×627.
   Rendered by scripts/og.mjs through headless Chrome; never shipped as a page.
-  Twilight gradient is allowed here because OG images are off-site (C-19).
-  og.mjs fills the OVERLINE, TITLE and CLUSTER placeholders below. Fonts and the reversed wordmark are served by og.mjs.
+  Ink ground, the white horizontal lockup (vector, inline), a Saffron pillar bar, the title in the display face
+  (Bricolage 800 / wdth 75), overline in IBM Plex Mono, and the node cluster on a die-cut sticker (true colours).
+  og.mjs fills the OVERLINE, TITLE, LOGO and CLUSTER placeholders; fonts are served by og.mjs.
 -->
 <html lang="en-GB">
 <head>
@@ -11,72 +12,63 @@
 <meta name="viewport" content="width=1200, height=627">
 <style>
   @font-face {
-    font-family: "Fraunces";
-    src: url("/fonts/fraunces-latin-opsz-normal.woff2") format("woff2-variations");
-    font-weight: 100 900; font-style: normal; font-display: block;
+    font-family: "Bricolage Grotesque";
+    src: url("/fonts/bricolage-grotesque-latin-wdth-normal.woff2") format("woff2-variations");
+    font-weight: 200 800; font-stretch: 75% 100%; font-display: block;
   }
   @font-face {
-    font-family: "Instrument Sans";
-    src: url("/fonts/instrument-sans-latin-wght-normal.woff2") format("woff2-variations");
-    font-weight: 400 700; font-style: normal; font-display: block;
+    font-family: "IBM Plex Mono";
+    src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+    font-weight: 500; font-display: block;
   }
-  :root {
-    --kk-imperial: #3A1C5C; --kk-sapphire: #2C509E; --kk-lavender: #EADCFF; --kk-white: #FFFFFF;
-    --kk-twilight: linear-gradient(180deg, #3A1C5C 0%, #2C509E 100%);
-    --kk-white-20: rgba(255, 255, 255, 0.20);
-  }
+  :root { --ink: #121833; --saffron: #F4C841; --lavender: #EADCFF; --white: #FFFFFF; }
   * { box-sizing: border-box; margin: 0; }
   html, body { width: 1200px; height: 627px; overflow: hidden; }
-  body {
-    background: var(--kk-imperial);
-    -webkit-font-smoothing: antialiased; font-kerning: normal;
-    font-family: "Instrument Sans", Arial, sans-serif;
-    color: var(--kk-white);
-  }
-  .card {
-    position: relative; width: 1200px; height: 627px; padding: 72px;
-    background: var(--kk-twilight);
-    display: grid; grid-template-rows: auto 1fr auto; row-gap: 32px;
-  }
-  .wordmark { display: block; height: 40px; width: auto; }
-  .body { align-self: center; max-width: 900px; }
+  body { background: var(--ink); -webkit-font-smoothing: antialiased; font-kerning: normal; color: var(--white); }
+  .card { position: relative; width: 1200px; height: 627px; padding: 64px 72px 56px; display: grid; grid-template-rows: auto 1fr auto; row-gap: 28px; overflow: hidden; }
+  .bars { position: absolute; left: 0; right: 0; top: 0; height: 14px; display: grid; grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr; }
+  .bars i:nth-child(1) { background: var(--saffron); } .bars i:nth-child(2) { background: #2C509E; } .bars i:nth-child(3) { background: #5B2A86; }
+  .bars i:nth-child(4) { background: #C8457E; } .bars i:nth-child(5) { background: #8C5B88; } .bars i:nth-child(6) { background: #4C9BE8; }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 28px 28px; }
+  .logo { position: relative; display: block; height: 54px; }
+  .logo svg { height: 54px; width: auto; display: block; isolation: isolate; overflow: visible; }
+  .body { position: relative; align-self: center; max-width: 820px; }
   .overline {
-    font-weight: 600; font-size: 18px; line-height: 24px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--kk-lavender); margin-bottom: 20px;
+    font: 500 18px/24px "IBM Plex Mono", "Courier New", monospace; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--lavender); margin-bottom: 18px; display: flex; gap: 12px; align-items: center;
   }
+  .overline::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--saffron); box-shadow: 0 0 0 2px var(--ink), 0 0 0 4px var(--saffron); flex: none; }
   .title {
-    font-family: "Fraunces", Georgia, serif; font-optical-sizing: auto;
-    font-weight: 330; font-size: 64px; line-height: 1.08; letter-spacing: -0.02em;
-    color: var(--kk-white); text-wrap: balance;
-    font-variant-numeric: lining-nums tabular-nums;
+    font-family: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+    font-weight: 800; font-stretch: 75%; font-size: 84px; line-height: .92; letter-spacing: -0.025em;
+    color: var(--white); text-wrap: balance; font-variant-numeric: lining-nums tabular-nums;
   }
-  .foot {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    border-top: 1px solid var(--kk-white-20); padding-top: 24px; margin-right: 0;
-  }
-  .domain { font-weight: 600; font-size: 24px; line-height: 1; color: var(--kk-lavender); letter-spacing: 0.005em; padding-bottom: 6px; }
-  .cluster { position: absolute; right: 72px; bottom: 56px; width: 120px; height: 120px; }
-  .cluster svg { display: block; width: 120px; height: 120px; overflow: visible; }
-  .foot { margin-right: 152px; }
+  .foot { position: relative; display: flex; align-items: flex-end; justify-content: space-between; }
+  .domain { font: 500 22px/1 "IBM Plex Mono", "Courier New", monospace; color: var(--saffron); letter-spacing: 0.02em; }
+  .sticker { position: absolute; right: 56px; bottom: 48px; width: 230px; height: 230px; border-radius: 50%; background: var(--white);
+    box-shadow: 0 0 0 8px var(--white), 0 22px 40px -12px rgba(0,0,0,.6); rotate: -6deg; display: grid; place-items: center; }
+  .sticker svg { width: 172px; height: 172px; display: block; overflow: visible; isolation: isolate; }
 </style>
 </head>
 <body>
   <div class="card">
-    <img class="wordmark" src="/wordmark-white.png" alt="">
+    <div class="grid"></div>
+    <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="logo">{{LOGO}}</div>
     <div class="body">
       <p class="overline">{{OVERLINE}}</p>
       <h1 class="title" id="title">{{TITLE}}</h1>
     </div>
     <div class="foot"><span class="domain">kokreaters.com</span></div>
-    <div class="cluster">{{CLUSTER}}</div>
+    <div class="sticker">{{CLUSTER}}</div>
   </div>
   <script>
-    // Keep the title to three lines: step down only if 64px overflows (long article titles).
+    // Keep the title to three lines: step down only if 84px overflows (long article titles).
     (async function () {
       await document.fonts.ready;
       var t = document.getElementById('title');
-      var size = 64;
-      while (size > 48 && t.getBoundingClientRect().height > size * 1.08 * 3 + 1) { size -= 4; t.style.fontSize = size + 'px'; }
+      var size = 84;
+      while (size > 52 && t.getBoundingClientRect().height > size * 0.92 * 3 + 1) { size -= 4; t.style.fontSize = size + 'px'; }
       document.body.setAttribute('data-ready', String(size));
     })();
   </script>

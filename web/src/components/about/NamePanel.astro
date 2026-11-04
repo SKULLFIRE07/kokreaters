@@ -3,8 +3,7 @@
  * The name (DESIGN-SPEC 5.9.5). Cloud fold: h2, the Ko / Kreaters copy and the quote + tagline as two
  * short paragraphs, then the full lockup at 220px (2x) — the only body-content appearance of it.
  */
-import { Image } from 'astro:assets';
-import logoFull from '@/assets/brand/logo-full.png';
+import Logo from '@/components/brand/Logo.astro';
 import { name } from '@/data/founder';
 ---
 <section class="band band--alt name-panel" aria-labelledby="name-title">
@@ -17,16 +16,7 @@ import { name } from '@/data/founder';
       </div>
     </div>
     <div class="name-panel__logo c-8-12" data-reveal>
-      <Image
-        src={logoFull}
-        alt={name.lockupAlt}
-        width={220}
-        widths={[220, 440]}
-        sizes="220px"
-        loading="lazy"
-        decoding="async"
-        class="name-panel__img"
-      />
+      <Logo variant="full" alt={name.lockupAlt} width={220} class="name-panel__img" />
     </div>
   </div>
 </section>

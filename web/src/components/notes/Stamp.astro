@@ -1,0 +1,24 @@
+---
+/** Stamp (DESIGN-SPEC v2 6.3): circular text-on-path stamp in mono caps around a centre slot (e.g. the node cluster).
+ * aria-hidden: the same words exist as visible text elsewhere. `spin`: 30 s per turn, pausable, off-screen stops. */
+import type { GroundKey } from '@/data/types';
+import { hash, nextId } from './paths';
+interface Props { text: string; size?: number; ground?: GroundKey; spin?: boolean; rotate?: number; class?: string }
+const { text, size = 160, ground = 'white', spin = false, rotate = 0, class: cls } = Astro.props;
+const r = size / 2 - 14;
+const id = `stamp-${hash(`${text}:${size}:${ground}`).toString(36)}-${nextId()}`;
+const circ = 2 * Math.PI * r;
+const charW = 11 * 0.6 + 11 * 0.24;                 // Plex Mono 11px advance + .24em tracking
+const unit = text.trim().endsWith('·') ? `${text.trim()} ` : `${text.trim()} · `;
+const reps = Math.max(1, Math.floor(circ / (unit.length * charW)));
+const ring = unit.repeat(reps).trim();
+---
+<span class:list={['stamp', `g-${ground}`, cls]} aria-hidden="true" data-stamp-spin={spin ? '' : undefined} style={`--stamp:${size}px;rotate:${rotate}deg`}>
+  <svg class="stamp__ring" viewBox={`0 0 ${size} ${size}`} width={size} height={size} focusable="false" aria-hidden="true">
+    <defs><path id={id} d={`M ${size / 2} ${size / 2} m -${r} 0 a ${r} ${r} 0 1 1 ${2 * r} 0 a ${r} ${r} 0 1 1 -${2 * r} 0`} /></defs>
+    <circle cx={size / 2} cy={size / 2} r={size / 2 - 2} fill="none" stroke="currentColor" stroke-width="2" />
+    <circle cx={size / 2} cy={size / 2} r={size / 2 - 26} fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 5" />
+    <text class="stamp__text"><textPath href={`#${id}`} textLength={(circ - 6).toFixed(1)} lengthAdjust="spacing">{ring}</textPath></text>
+  </svg>
+  <span class="stamp__centre"><slot /></span>
+</span>

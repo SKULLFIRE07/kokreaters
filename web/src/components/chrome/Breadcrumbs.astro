@@ -3,10 +3,11 @@
 import { withHome, type Crumb } from '@/components/seo/schema';
 interface Props { items: Crumb[]; tone?: 'light' | 'dark' }
 const { items, tone = 'light' } = Astro.props;
+void tone; // v1 prop kept: grounds now set the colours
 const trail = withHome(items);
 ---
 {trail.length > 0 && (
-  <nav class:list={['crumbs', tone === 'dark' && 'crumbs--dark']} aria-label="Breadcrumb">
+  <nav class="crumbs" aria-label="Breadcrumb">
     <ol class="crumbs__list">
       {trail.map((c, i) => (
         <li class="crumbs__item">
@@ -20,13 +21,12 @@ const trail = withHome(items);
   </nav>
 )}
 <style>
-  .crumbs { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); font-weight: 500; }
+  /* v2 7.7: mono 12 caps, "/" separators, current in --fg */
+  .crumbs { font: 500 12px/1.3 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); }
   .crumbs__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-2); }
   .crumbs__item { display: inline-flex; align-items: center; gap: var(--s-2); }
-  .crumbs a { color: var(--c-meta); text-decoration: none; padding-block: 12px; }
-  .crumbs a:hover, .crumbs a:focus-visible { color: var(--c-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-  .crumbs [aria-current] { color: var(--c-text); }
-  .crumbs__sep { color: var(--kk-field-border); }
-  .crumbs--dark, .crumbs--dark a, .crumbs--dark .crumbs__sep { color: var(--c-on-dark-muted); }
-  .crumbs--dark [aria-current] { color: var(--c-on-dark); }
+  .crumbs a { color: var(--fg-2); text-decoration: none; padding-block: 14px; display: inline-block; }
+  .crumbs a:hover, .crumbs a:focus-visible { color: var(--fg); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 0.25em; }
+  .crumbs [aria-current] { color: var(--fg); }
+  .crumbs__sep { color: var(--fg-2); }
 </style>

@@ -14,7 +14,7 @@ function settle(els: Element[], cls: string): void {
   });
 }
 
-/** data-reveal blocks: opacity 0→1, y 12→0, 480 ms power3.out, once. data-reveal-group staggers 60 ms. */
+/** R2 data-reveal blocks: opacity 0→1, y 28→0, 0.8 s expo.out, once. data-reveal-group staggers 70 ms. */
 function initBlocks(ctx: MotionContext): void {
   const { gsap } = ctx;
   const all = Array.from(document.querySelectorAll<El>(BLOCKS));
@@ -26,8 +26,8 @@ function initBlocks(ctx: MotionContext): void {
     else single.push(el);
   }
   const play = (trigger: Element, targets: El[]) => {
-    gsap.fromTo(targets, { opacity: 0, y: 12 }, {
-      opacity: 1, y: 0, duration: D.reveal, ease: E.reveal, stagger: targets.length > 1 ? .06 : 0,
+    gsap.fromTo(targets, { opacity: 0, y: 28 }, {
+      opacity: 1, y: 0, duration: D.reveal, ease: E.reveal, stagger: targets.length > 1 ? .07 : 0,
       scrollTrigger: { trigger, start: START, once: true },
       onComplete: () => settle(targets, 'is-revealed'),
     });
@@ -139,4 +139,7 @@ export function revealAllNow(): void {
     el.style.removeProperty('visibility');
   });
   document.querySelectorAll<El>('[data-frost]').forEach((el) => el.classList.add('is-frosted'));
+  document.querySelectorAll<El>('[data-note], [data-scribble], [data-doodle], [data-venn], [data-sticker]').forEach((el) => {
+    el.classList.add('is-drawn'); el.style.removeProperty('opacity'); el.style.removeProperty('transform');
+  });
 }

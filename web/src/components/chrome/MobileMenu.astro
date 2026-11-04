@@ -1,54 +1,71 @@
 ---
 /**
- * Full-screen Cloud menu below the header, < 1024px (DESIGN-SPEC 3.4).
- * chrome.ts opens it, sets `inert` on main/footer, stops Lenis and traps focus.
+ * Mobile menu, < 1024px (DESIGN-SPEC v2 7.4): a full-screen Ink panel under the header bar (the bar itself turns Ink
+ * and shows the white logo while it is open, so the two read as one screen). chrome.ts opens it, sets `inert` on
+ * main/footer, stops Lenis and traps focus; Esc closes and returns focus. Open: a circle grows from the Menu button
+ * (420ms expo), links rise with a 50ms stagger. Reduced: instant.
  */
 import PillarDot from '@/components/ui/PillarDot.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import { pillars } from '@/data/pillars';
+import { pillarGround } from '@/lib/pillars';
 import { mobile, main } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
+import { chromeNotes } from '@/data/notes/chrome';
 import { site } from '@/config/site';
+import type { PillarKey } from '@/data/types';
 
 const xp = main.find((l) => l.panel);
+const cycle: PillarKey[] = ['innovation', 'process', 'quality', 'strategy', 'deals', 'capability'];
 ---
-<div id="mobile-menu" class="m-menu" hidden data-lenis-prevent>
+<div id="mobile-menu" class="m-menu g-ink" hidden data-lenis-prevent>
   <div class="m-menu__inner container">
     <nav aria-label="Menu">
       <ul class="m-menu__list" role="list">
         {xp && (
-          <li class="m-menu__item">
+          <li class="m-menu__item" style="--i:0">
             <button type="button" class="m-menu__link m-menu__group" aria-expanded="false" aria-controls="m-menu-xp" data-menu-group>
-              <span>{xp.label}</span>
-              <span class="m-menu__chev"><Icon name="chevron" /></span>
+              <span class="m-menu__dot" style={`--dot:var(--pillar-${cycle[0]})`} aria-hidden="true"></span>
+              <span class="m-menu__txt">{xp.label}</span>
+              <span class="m-menu__chev"><Icon name="chevron" size={24} /></span>
             </button>
             <ul id="m-menu-xp" class="m-menu__pillars" role="list" hidden>
               {pillars.map((p) => (
                 <li>
-                  <a class="m-menu__pillar" href={`/expertise/${p.slug}`}>
-                    <PillarDot pillar={p.key} size={10} />
+                  <a class:list={['m-menu__pillar', `g-${pillarGround(p.key)}`]} href={`/expertise/${p.slug}`}>
+                    <PillarDot pillar={p.key} size={8} />
                     <span>{p.name}</span>
                   </a>
                 </li>
               ))}
-              <li><a class="m-menu__pillar m-menu__all" href={xp.href}>{microcopy.allExpertise}</a></li>
+              <li><a class="m-menu__all" href={xp.href}>{microcopy.allExpertise}</a></li>
             </ul>
           </li>
         )}
-        {mobile.map((l) => (
-          <li class="m-menu__item"><a class="m-menu__link" href={l.href}>{l.label}</a></li>
+        {mobile.map((l, i) => (
+          <li class="m-menu__item" style={`--i:${i + 1}`}>
+            <a class="m-menu__link" href={l.href}>
+              <span class="m-menu__dot" style={`--dot:var(--pillar-${cycle[(i + 1) % 6]})`} aria-hidden="true"></span>
+              <span class="m-menu__txt">{l.label}</span>
+            </a>
+          </li>
         ))}
       </ul>
     </nav>
     <div class="m-menu__cta">
-      <Button href="/contact" variant="primary">{microcopy.primaryCta}</Button>
+      <Button href="/contact" variant="primary" magnetic={false}>{microcopy.primaryCta}</Button>
     </div>
-    <ul class="m-menu__details t-meta" role="list">
-      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-      <li><a href={site.whatsapp.href} rel="noopener">WhatsApp: {site.whatsapp.display}</a></li>
-      <li><a href={site.linkedin.href} rel="me noopener">LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
-    </ul>
+    <div class="m-menu__details has-notes">
+      <ul class="m-menu__list-details t-mono" role="list">
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={site.whatsapp.href} rel="noopener">WhatsApp: {site.whatsapp.display}</a></li>
+        <li><a href={site.linkedin.href} rel="me noopener">LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
+      </ul>
+      <MarginNote text={chromeNotes.menu} tone="saffron" show="all" arrow="arrow-curve" arrowAt="start" flip arrowAngle={-30}
+        rotate={-5} place="top:-8px; right:0;" />
+    </div>
   </div>
 </div>
 
@@ -57,41 +74,48 @@ const xp = main.find((l) => l.panel);
     position: absolute; top: 100%; left: 0; right: 0;
     height: calc(100dvh - var(--bar-h, var(--header-h)));
     overflow-y: auto; overscroll-behavior: contain;
-    background: var(--c-ground-alt);
-    border-top: 1px solid var(--c-rule);
-    box-shadow: var(--shadow-panel);
-    opacity: 0;
-    transition: opacity var(--d-ui-out) var(--ease-in);
+    clip-path: circle(0 at var(--mx, 90%) var(--my, -30px));
+    transition: clip-path 260ms var(--ease-inout);
   }
-  .m-menu.is-open { opacity: 1; transition-duration: var(--d-ui-in); transition-timing-function: var(--ease-out); }
-  @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open { transition: none; } }
+  .m-menu.is-open { clip-path: circle(150% at var(--mx, 90%) var(--my, -30px)); transition: clip-path 420ms var(--ease-expo); }
+  .m-menu.is-open .m-menu__item { animation: m-rise 600ms var(--ease-expo) both; animation-delay: calc(80ms + var(--i) * 50ms); }
+  @keyframes m-rise { from { opacity: 0; translate: 0 24px; } }
+  @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open { transition: none; clip-path: none; } .m-menu.is-open .m-menu__item { animation: none; } }
   @media (min-width: 1024px) { .m-menu { display: none !important; } }
+
+  /* the bar joins the menu while it is open */
+  html.menu-open .site-header__bar { background: var(--kk-ink); border-bottom-color: var(--kk-white-20); }
+  .site-header__logo--white { display: none !important; }
+  html.menu-open .site-header__logo--white { display: inline-flex !important; }
+  html.menu-open .site-header__logo:not(.site-header__logo--white) { display: none !important; }
+  html.menu-open .site-header__cta { display: none; }
 
   .m-menu__inner { padding-block: var(--s-5) var(--s-8); }
   .m-menu__list { list-style: none; margin: 0; padding: 0; }
-  .m-menu__item { border-bottom: 1px solid var(--c-rule); }
+  .m-menu__item { border-bottom: 1px solid var(--kk-white-20); }
   .m-menu__link {
-    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    display: flex; align-items: center; gap: 14px; width: 100%;
     padding: 12px 0; border: 0; background: none; cursor: pointer; text-align: left;
-    font-family: var(--font-serif); font-weight: 360; font-size: 2rem; line-height: 2.375rem;
-    font-optical-sizing: auto; letter-spacing: -0.015em;
-    color: var(--c-heading); text-decoration: none;
+    font-family: var(--font-display); font-weight: 780; font-stretch: 75%; font-size: 2.75rem; line-height: 1; letter-spacing: -0.02em;
+    color: var(--kk-white); text-decoration: none;
   }
-  .m-menu__link:hover { color: var(--c-action); }
-  .m-menu__chev { display: inline-flex; width: 24px; height: 24px; }
-  .m-menu__chev svg { width: 24px; height: 24px; }
-  .m-menu__group[aria-expanded="true"] .m-menu__chev { transform: rotate(180deg); }
-  .m-menu__pillars { list-style: none; margin: 0; padding: 0 0 var(--s-4); }
+  .m-menu__link:hover, .m-menu__link:focus-visible { color: var(--kk-saffron); }
+  .m-menu__txt { flex: 1 1 auto; }
+  .m-menu__dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 2px var(--kk-ink), 0 0 0 3.5px var(--kk-white); }
+  .m-menu__chev { display: inline-flex; width: 24px; height: 24px; transition: rotate var(--d-ui) var(--ease-expo); }
+  .m-menu__group[aria-expanded="true"] .m-menu__chev { rotate: 180deg; }
+  .m-menu__pillars { list-style: none; margin: 0; padding: 4px 0 var(--s-5); display: flex; flex-wrap: wrap; gap: 8px; }
   .m-menu__pillar {
-    display: flex; align-items: center; gap: var(--s-3);
-    min-height: 44px; padding-block: 6px;
-    font-size: var(--fs-body); line-height: 1.4; color: var(--c-text); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 12px; border-radius: var(--r-pill);
+    font: 500 12px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg); text-decoration: none;
   }
-  .m-menu__pillar:hover { color: var(--c-action); }
-  .m-menu__all { padding-left: 22px; color: var(--c-link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .m-menu__pillar .pillar-dot { box-shadow: 0 0 0 1.5px var(--kk-white); }
+  .m-menu__all { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font: 500 13px/1.2 var(--font-mono); color: var(--kk-saffron); text-decoration: underline; text-underline-offset: .22em; }
   .m-menu__cta { margin-top: var(--s-6); }
   .m-menu__cta > * { width: 100%; justify-content: center; }
-  .m-menu__details { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-1); color: var(--c-meta); }
-  .m-menu__details a { display: inline-block; padding-block: 10px; color: var(--c-meta); text-decoration: none; }
-  .m-menu__details a:hover, .m-menu__details a:focus-visible { color: var(--c-link); text-decoration: underline; }
+  .m-menu__details { margin-top: var(--s-7); padding-top: var(--s-2); }
+  .m-menu__list-details { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; color: var(--kk-lavender); }
+  .m-menu__list-details a { display: inline-flex; align-items: center; min-height: 44px; color: var(--kk-lavender); text-decoration: none; }
+  .m-menu__list-details a:hover, .m-menu__list-details a:focus-visible { color: var(--kk-saffron); text-decoration: underline; }
+  .m-menu__details .note { max-width: 12ch; }
 </style>

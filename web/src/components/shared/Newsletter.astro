@@ -1,5 +1,6 @@
 ---
-/** Newsletter line (5.0.14). No provider → mailto fallback. With an endpoint → a consented form. */
+/** Newsletter line (v1 5.0.14, v2 7.8): mono line + an optional MarginNote (slot="note") + a hand pill "Subscribe"
+ * (fold; the footer keeps a text link). No provider → mailto fallback. With an endpoint → a consented form. */
 import { site } from '@/config/site';
 import { microcopy } from '@/data/microcopy';
 import TextLink from '../ui/TextLink.astro';
@@ -9,7 +10,8 @@ const { variant = 'fold', class: cls } = Astro.props;
 const uid = `nl-${variant}`;
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent(microcopy.newsletterMailtoSubject)}`;
 ---
-<div class:list={['newsletter', `newsletter--${variant}`, cls]}>
+<div class:list={['newsletter', `newsletter--${variant}`, { 'has-notes': Astro.slots.has('note') }, cls]}>
+  <slot name="note" />
   <p class:list={['newsletter__text', variant === 'fold' ? 't-h3' : 't-meta']}>{microcopy.newsletter}</p>
   {site.newsletterEndpoint ? (
     <form class="newsletter__form" method="post" action={site.newsletterEndpoint} novalidate data-newsletter>
@@ -25,19 +27,20 @@ const mailto = `mailto:${site.email}?subject=${encodeURIComponent(microcopy.news
       </label>
     </form>
   ) : (
-    <TextLink href={mailto}>{microcopy.newsletterButton}</TextLink>
+    variant === 'fold' ? <Button href={mailto} variant="hand">{microcopy.newsletterButton}</Button> : <TextLink href={mailto}>{microcopy.newsletterButton}</TextLink>
   )}
 </div>
 <style>
-  .newsletter { display: flex; flex-direction: column; gap: var(--s-3); align-items: flex-start; }
+  .newsletter { position: relative; display: flex; flex-direction: column; gap: var(--s-3); align-items: flex-start; }
   .newsletter__text { margin: 0; max-width: 34em; }
-  .newsletter--fold .newsletter__text { color: var(--c-heading); }
-  .newsletter--footer .newsletter__text { color: var(--c-on-dark-muted); }
+  .newsletter--fold .newsletter__text { color: var(--head); font-family: var(--font-mono); font-size: var(--fs-lead); line-height: 1.55; }
+  .newsletter--footer .newsletter__text { color: var(--fg-2); }
   .newsletter__form { display: flex; flex-direction: column; gap: var(--s-3); width: 100%; max-width: 460px; }
   .newsletter__fields { display: flex; gap: var(--s-2); flex-wrap: wrap; }
   .newsletter__input {
-    flex: 1 1 200px; height: 48px; padding: 0 var(--s-4);
-    border: 1px solid var(--kk-field-border); border-radius: var(--r-input); background: var(--kk-white); color: var(--kk-ink);
+    flex: 1 1 200px; height: 52px; padding: 0 var(--s-4);
+    border: 2px solid var(--kk-ink); border-radius: var(--r-input); background: var(--kk-white); color: var(--kk-ink);
+    font: 400 var(--fs-mono)/1 var(--font-mono);
   }
   .newsletter__consent { display: flex; gap: var(--s-2); align-items: flex-start; }
   .newsletter__consent input { margin-top: 0.3em; width: 18px; height: 18px; flex: none; }

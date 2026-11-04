@@ -1,10 +1,15 @@
 ---
-/** Overline / dateline: sans 600 12/16 caps, Mauve (Lavender on dark). Source text stays sentence case. */
-interface Props { as?: 'p' | 'span' | 'div' | 'h2' | 'h3' | 'dt' | 'time'; class?: string; text?: string; [key: string]: unknown; }
-const { as: Tag = 'p', class: cls, text, ...rest } = Astro.props;
+/** Dateline (DESIGN-SPEC v2 7.7): mono label caps with a leading 8px ringed node; colour --fg-2 of its ground.
+ * Source text stays sentence case (CSS uppercases). `node={false}` drops the node. */
+interface Props { as?: 'p' | 'span' | 'div' | 'h2' | 'h3' | 'dt' | 'time'; class?: string; text?: string; node?: boolean; [key: string]: unknown; }
+const { as: Tag = 'p', class: cls, text, node = true, ...rest } = Astro.props;
 ---
-<Tag class:list={['t-dateline', 'dateline', cls]} {...rest}>{text ?? <slot />}</Tag>
+<Tag class:list={['t-dateline', 'dateline', { 'dateline--node': node }, cls]} {...rest}>{text ?? <slot />}</Tag>
 <style>
-  .dateline { margin: 0; display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+  .dateline { margin: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dateline--node::before {
+    content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--kk-saffron); box-shadow: 0 0 0 1.5px var(--fg-2);
+  }
   span.dateline, time.dateline { display: inline-flex; }
 </style>

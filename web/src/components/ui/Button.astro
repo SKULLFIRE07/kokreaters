@@ -1,64 +1,98 @@
 ---
-/** Pill button / link (DESIGN-SPEC 5.0.1). No scale, no magnet. */
+/**
+ * Pill button / link (DESIGN-SPEC v2 7.7). Keeps the `btn` class, the loading state and the disabled state from v1.
+ *  - primary: --pill-bg fill, Bricolage 700/95% 17px, 52px (sm 44); hover = the sweep (bencho sweep-button): the
+ *    --pill-sweep colour sweeps round from the edge the pointer entered, then floods; text → --pill-sweep-fg.
+ *  - on-dark: Saffron / Ink with the same sweep (White). ground: the ground's own pill tokens (same as primary).
+ *  - secondary / hand: 2px outline in --pill-line, transparent, Caveat label, hand-drawn arrow; hover = Butter fill on
+ *    light grounds (White 20% on dark), --shadow-hard, rotate −1°.
+ *  - ghost-on-dark: White outline + hand label.
+ * `magnetic` (R7) defaults to true for primary / on-dark / ground.
+ */
 import Arrow from './Arrow.astro';
 import type { HTMLAttributes } from 'astro/types';
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'on-dark' | 'ghost-on-dark';
+  variant?: 'primary' | 'secondary' | 'on-dark' | 'ghost-on-dark' | 'ground' | 'hand';
   size?: 'sm' | 'md';
   type?: 'button' | 'submit' | 'reset';
   arrow?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  magnetic?: boolean;
   class?: string;
   [key: string]: unknown;
 }
-const { href, variant = 'primary', size = 'md', type = 'button', arrow = false, disabled = false, loading = false, class: cls, ...rest } = Astro.props;
-const classes = ['btn', `btn--${variant}`, `btn--${size}`, cls];
+const { href, variant = 'primary', size = 'md', type = 'button', disabled = false, loading = false, class: cls, arrow: arrowProp, magnetic: magneticProp, ...rest } = Astro.props;
+const solid = variant === 'primary' || variant === 'on-dark' || variant === 'ground';
+const handish = variant === 'secondary' || variant === 'hand' || variant === 'ghost-on-dark';
+const arrow = (arrowProp as boolean | undefined) ?? handish;
+const magnetic = (magneticProp as boolean | undefined) ?? solid;
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, solid && 'btn--sweep', handish && 'btn--handish', cls];
+const mag = magnetic ? { 'data-magnetic': '0.3' } : {};
 ---
 {href && !disabled ? (
-  <a href={href} class:list={classes} aria-busy={loading ? 'true' : undefined} {...rest as HTMLAttributes<'a'>}>
-    <span class="btn__label"><slot /></span>
-    {arrow && <Arrow size={16} class="btn__arrow" />}
+  <a href={href} class:list={classes} aria-busy={loading ? 'true' : undefined} {...mag} {...rest as HTMLAttributes<'a'>}>
+    <span class:list={['btn__label', handish && 't-hand']}><slot /></span>
+    {arrow && <Arrow size={handish ? 16 : 18} hand={handish} class="btn__arrow" />}
   </a>
 ) : (
-  <button type={type} class:list={classes} disabled={disabled} aria-busy={loading ? 'true' : undefined} {...rest as HTMLAttributes<'button'>}>
-    <span class="btn__label"><slot /></span>
-    {arrow && <Arrow size={16} class="btn__arrow" />}
+  <button type={type} class:list={classes} disabled={disabled} aria-busy={loading ? 'true' : undefined} {...mag} {...rest as HTMLAttributes<'button'>}>
+    <span class:list={['btn__label', handish && 't-hand']}><slot /></span>
+    {arrow && <Arrow size={handish ? 16 : 18} hand={handish} class="btn__arrow" />}
     <span class="btn__spinner" aria-hidden="true"></span>
   </button>
 )}
-<style>
+<style is:global>
+  @property --sweep { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
-    height: 48px; padding: 0 var(--s-5);
+    --b-bg: var(--pill-bg); --b-fg: var(--pill-fg); --b-sw: var(--pill-sweep); --b-swfg: var(--pill-sweep-fg);
+    position: relative; isolation: isolate;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    height: 52px; padding: 0 26px;
     border: 0; border-radius: var(--r-pill);
-    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; letter-spacing: 0.005em; line-height: 1;
+    font-family: var(--font-display); font-size: var(--fs-button); font-weight: 700; font-stretch: 95%; letter-spacing: 0; line-height: 1;
     text-decoration: none; white-space: nowrap; cursor: pointer;
-    transition: background-color var(--d-ui-in) var(--ease-out), color var(--d-ui-in) var(--ease-out), box-shadow var(--d-ui-in) var(--ease-out), filter var(--d-ui-in) var(--ease-out);
+    color: var(--b-fg); background: var(--b-bg);
+    transition: color var(--d-ui) var(--ease-expo), background-color var(--d-ui) var(--ease-expo), box-shadow var(--d-ui) var(--ease-expo), rotate var(--d-ui) var(--ease-expo);
   }
-  .btn--sm { height: 44px; }
-  .btn :global(.btn__arrow) { transition: transform var(--d-ui-in) var(--ease-out); }
-  .btn:is(:hover, :focus-visible) :global(.btn__arrow) { transform: translateX(4px); }
+  .btn--sm { height: 44px; padding: 0 20px; }
+  .btn__label { position: relative; z-index: 1; display: inline-block; }
+  .btn .btn__arrow { position: relative; z-index: 1; transition: transform var(--d-ui) var(--ease-expo); }
+  .btn:is(:hover, :focus-visible) .btn__arrow { transform: translateX(4px); }
 
-  .btn--primary { background: var(--c-action); color: var(--kk-white); }
-  .btn--primary:is(:hover, :focus-visible) { background: var(--c-action-hover); color: var(--kk-white); }
+  /* ── Sweep (primary / on-dark / ground) ── */
+  .btn--on-dark { --b-bg: var(--kk-saffron); --b-fg: var(--kk-ink); --b-sw: var(--kk-white); --b-swfg: var(--kk-ink); }
+  .btn--sweep::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: var(--b-sw);
+    -webkit-mask: conic-gradient(from var(--sweep-from, 0deg), #000 var(--sweep), transparent var(--sweep));
+            mask: conic-gradient(from var(--sweep-from, 0deg), #000 var(--sweep), transparent var(--sweep));
+    transition: --sweep 420ms var(--ease-expo);
+  }
+  .btn--sweep::after {   /* the edge ring that leads the flood */
+    content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--b-sw);
+    -webkit-mask: conic-gradient(from var(--sweep-from, 0deg), #000 calc(var(--sweep) * 1.6), transparent calc(var(--sweep) * 1.6));
+            mask: conic-gradient(from var(--sweep-from, 0deg), #000 calc(var(--sweep) * 1.6), transparent calc(var(--sweep) * 1.6));
+    transition: --sweep 420ms var(--ease-expo);
+  }
+  .btn--sweep:is(:hover, :focus-visible) { --sweep: 360deg; color: var(--b-swfg); }
+  .btn--sweep:focus-visible { --sweep-from: 0deg; outline: 3px solid var(--focus); outline-offset: 3px; }
 
-  .btn--secondary { background: transparent; color: var(--c-action); box-shadow: inset 0 0 0 2px var(--c-action); }
-  .btn--secondary:is(:hover, :focus-visible) { background: var(--c-ground-alt); color: var(--c-action); }
-
-  .btn--on-dark, :global(.on-dark) .btn--on-dark { background: var(--kk-saffron); color: var(--kk-imperial); }
-  .btn--on-dark:is(:hover, :focus-visible) { filter: brightness(0.95); color: var(--kk-imperial); }
-
-  .btn--ghost-on-dark, :global(.on-dark) .btn--ghost-on-dark { background: transparent; color: var(--kk-white); box-shadow: inset 0 0 0 2px var(--kk-white-20); }
-  .btn--ghost-on-dark:is(:hover, :focus-visible) { box-shadow: inset 0 0 0 2px var(--kk-white); color: var(--kk-white); }
+  /* ── Hand pills (secondary / hand / ghost-on-dark) ── */
+  .btn--handish { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 2px var(--pill-line, var(--fg)); padding: 0 22px 2px; gap: 8px; }
+  .btn--handish .btn__label { font-size: var(--fs-hand-button); line-height: 1; translate: 0 1px; }
+  .btn--handish:is(:hover, :focus-visible) { background: var(--kk-butter); color: var(--kk-ink); box-shadow: inset 0 0 0 2px var(--kk-ink), var(--shadow-hard); rotate: -1deg; }
+  :where(.g-ink, .g-imperial, .g-sapphire, .g-violet, .g-orchid, .g-mauve, .band--dark, .on-dark) .btn--handish:is(:hover, :focus-visible) { background: var(--kk-white-20); color: var(--fg); box-shadow: inset 0 0 0 2px var(--fg), 5px 5px 0 var(--kk-ink); }
+  .btn--ghost-on-dark { color: var(--kk-white); --pill-line: var(--kk-white); }
 
   .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
-
-  .btn__spinner { display: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid currentColor; border-right-color: transparent; }
+  .btn__spinner { display: none; position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; }
   .btn[aria-busy="true"] .btn__spinner { display: inline-block; animation: btn-spin 800ms linear infinite; }
-  .btn[aria-busy="true"] :global(.btn__arrow) { display: none; }
-  .btn--secondary .btn__spinner { border-color: var(--c-action); border-right-color: transparent; }
+  .btn[aria-busy="true"] .btn__arrow { display: none; }
   @keyframes btn-spin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) { .btn[aria-busy="true"] .btn__spinner { animation: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .btn[aria-busy="true"] .btn__spinner { animation: none; }
+    .btn--sweep::before, .btn--sweep::after { transition: none; }
+    .btn--handish:is(:hover, :focus-visible) { rotate: 0deg; }
+  }
 </style>

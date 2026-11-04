@@ -1,0 +1,41 @@
+---
+/**
+ * Marquee (DESIGN-SPEC v2 7.8, 8.3 R6): always aria-hidden, so it may only repeat words that exist as real text
+ * elsewhere on the same page. Two copies of the track for the loop; Bricolage 800/75% --fs-h2; separators are 28px
+ * ringed dots cycling the five logo node colours (or stars). Reduced / no JS: static, wrapped, still aria-hidden.
+ */
+import type { GroundKey } from '@/data/types';
+interface Props { items: readonly string[]; ground?: GroundKey; speed?: number; separator?: 'node' | 'star'; dir?: 1 | -1; class?: string }
+const { items, ground = 'ink', speed = 60, separator = 'node', dir = 1, class: cls } = Astro.props;
+const NODE = ['#2C509E', '#E5494D', '#F4C841', '#4C9BE8', '#306FE0'];
+const copies = [0, 1];
+---
+<div class:list={['marquee', `g-${ground}`, cls]} aria-hidden="true" data-marquee data-marquee-speed={speed} data-marquee-dir={dir}>
+  <div class="marquee__track" data-marquee-track>
+    {copies.map(() => (
+      <ul class="marquee__list" role="list">
+        {items.map((t, i) => (
+          <li class="marquee__item">
+            <span class="marquee__word">{t}</span>
+            {separator === 'node'
+              ? <span class="marquee__sep" style={`--c:${NODE[i % NODE.length]}`}></span>
+              : <svg class="marquee__star" viewBox="0 0 60 60" width="28" height="28"><path d="M30 4 L 34 26 L 56 30 L 34 34 L 30 56 L 26 34 L 4 30 L 26 26 Z" /></svg>}
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+<style>
+  .marquee { overflow: hidden; padding-block: 22px; user-select: none; }
+  .marquee__track { display: flex; width: max-content; will-change: transform; }
+  .marquee__list { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
+  .marquee__item { display: flex; align-items: center; gap: 36px; padding-right: 36px; flex: none; }
+  .marquee__word { font: 800 var(--fs-h2)/1 var(--font-display); font-stretch: 75%; letter-spacing: -0.02em; color: var(--link); white-space: nowrap; }
+  .marquee__sep { width: 28px; height: 28px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 6px var(--c), inset 0 0 0 11px var(--kk-white); flex: none; }
+  .marquee__star { fill: none; stroke: var(--kk-saffron); stroke-width: 3; stroke-linejoin: round; flex: none; }
+  /* static: one copy, wrapped */
+  html:not(.motion) .marquee__track, html.motion-failed .marquee__track { width: auto; flex-wrap: wrap; justify-content: center; }
+  html:not(.motion) .marquee__list + .marquee__list, html.motion-failed .marquee__list + .marquee__list { display: none; }
+  html:not(.motion) .marquee__list, html.motion-failed .marquee__list { flex-wrap: wrap; justify-content: center; row-gap: 12px; padding-inline: var(--side); }
+</style>

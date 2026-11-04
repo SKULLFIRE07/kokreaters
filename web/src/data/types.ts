@@ -45,3 +45,7 @@ export interface ContactField {
   options?: string[];   // select only
   rows?: number;        // textarea only
 }
+
+/** v2 ground system (DESIGN-SPEC v2 3.2): one ground class per band / slab / card / toy (`.g-{GroundKey}`). */
+export type GroundKey = 'white' | 'cloud' | 'ink' | 'imperial' | 'sapphire' | 'violet' | 'orchid' | 'mauve' | 'saffron'
+  | 'sky' | 'butter' | 'lavender' | 'blush' | 'ice';

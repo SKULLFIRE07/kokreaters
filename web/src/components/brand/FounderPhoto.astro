@@ -1,0 +1,49 @@
+---
+/**
+ * FounderPhoto (DESIGN-SPEC v2 5.2). Source: assets/photos/ganeaysh-cutout-clean.png (1665×2048 RGBA, background
+ * removed, lapel pin retouched out, edges defringed), copied by scripts/prepare-brand.mjs.
+ *  - cutout: the full cut-out as <picture> (AVIF/WebP via astro:assets, PNG fallback). PLACEMENT RULE: its bottom edge
+ *    must sit on a container edge with `overflow: clip` (the bottom row is a hard crop) and its right edge on a
+ *    container/viewport edge or a mask (the right edge cuts through the shoulder). Never float it in open space.
+ *  - avatar: the square crop in a circle on a ground colour (default Saffron), optional 3px ring in --fg.
+ * Full colour only, never mirrored, no logo on the photo.
+ */
+import { Picture } from 'astro:assets';
+import cutout from '@/assets/photos/ganeaysh-cutout.png';
+import square from '@/assets/photos/ganeaysh-cutout-square.png';
+import { portraitAlt } from '@/data/founder';
+import type { GroundKey } from '@/data/types';
+interface Props {
+  variant: 'cutout' | 'avatar';
+  size?: number;
+  ground?: GroundKey;
+  ring?: boolean;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto';
+  sizes?: string;
+  class?: string;
+  alt?: string;
+}
+const { variant, size = 48, ground = 'saffron', ring = true, loading = 'lazy', fetchpriority = 'auto', class: cls } = Astro.props;
+const alt = Astro.props.alt ?? portraitAlt.founder;
+const sizes = Astro.props.sizes ?? (variant === 'cutout' ? '(min-width: 1024px) 40vw, 90vw' : `${size}px`);
+---
+{variant === 'cutout' ? (
+  <Picture src={cutout} alt={alt} formats={['avif', 'webp']} fallbackFormat="png" widths={[480, 720, 960, 1280]} sizes={sizes}
+    width={cutout.width} height={cutout.height} loading={loading} fetchpriority={fetchpriority} decoding="async"
+    class:list={['founder-photo', 'founder-photo--cutout', cls]} quality={70} />
+) : (
+  <span class:list={['founder-avatar', `g-${ground}`, { 'founder-avatar--ring': ring }, cls]} style={`--av:${size}px`}>
+    <Picture src={square} alt={alt} formats={['avif', 'webp']} fallbackFormat="png" widths={[size, size * 2]} sizes={sizes}
+      width={size} height={size} loading={loading} decoding="async" class="founder-avatar__img" />
+  </span>
+)}
+<style>
+  .founder-photo--cutout, :global(.founder-photo--cutout img) { display: block; width: auto; height: 100%; max-width: none; object-fit: contain; object-position: bottom; }
+  .founder-avatar {
+    display: inline-block; flex: none; width: var(--av); height: var(--av); border-radius: 50%; overflow: hidden; vertical-align: middle;
+    background: var(--bg);
+  }
+  .founder-avatar--ring { box-shadow: 0 0 0 3px var(--fg, var(--kk-ink)); }
+  .founder-avatar :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+</style>

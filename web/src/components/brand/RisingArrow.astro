@@ -1,16 +1,8 @@
 ---
-/** The rising-arrow swoosh under a phrase (5.0.17). Ships fully drawn; data-swoosh draws it (6.4). */
+/** v1 RisingArrow, now a wrapper over the v2 Scribble swoosh (DESIGN-SPEC v2 12.2) so old imports keep working.
+ * `manual` hands timing to a page module (hero.ts swooshInto): the scribble is then not drawn by notes.ts. */
+import Scribble from '../notes/Scribble.astro';
 interface Props { phrase: string; tone?: 'light' | 'dark'; manual?: boolean; class?: string; }
 const { phrase, tone = 'light', manual = false, class: cls } = Astro.props;
 ---
-<span class:list={['swoosh', `swoosh--${tone}`, cls]} data-swoosh={manual ? 'manual' : ''}>{phrase}<svg aria-hidden="true" focusable="false" class="swoosh__svg" viewBox="0 0 400 24" preserveAspectRatio="none"><path d="M2 18 C 120 21, 260 16, 384 6" /><path class="swoosh__head" d="M372 2 L386 6 L376 16" /></svg></span>
-<style>
-  .swoosh { position: relative; display: inline-block; white-space: nowrap; }
-  .swoosh__svg {
-    position: absolute; left: 0; width: 100%; height: 0.34em; bottom: -0.22em;
-    overflow: visible; pointer-events: none;
-    fill: none; stroke: var(--c-line); stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .swoosh__svg path { vector-effect: non-scaling-stroke; }
-  .swoosh--dark .swoosh__svg, :global(.on-dark) .swoosh__svg { stroke: var(--c-line-dark); }
-</style>
+<Scribble kind="swoosh" tone={tone === 'dark' ? 'saffron' : 'orchid'} manual={manual} class:list={['swoosh', cls]}>{phrase}</Scribble>

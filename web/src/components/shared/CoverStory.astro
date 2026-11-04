@@ -1,52 +1,66 @@
 ---
-/** The lead insight (5.0.11): editorial cover, never a placeholder image. */
+/**
+ * CoverStory (DESIGN-SPEC v2 7.8): a typographic cover (no images exist) on the pillar's tint ground with a large
+ * seeded pillar doodle in the corner, format label in mono, title in Bricolage, standfirst in Instrument Sans and a
+ * byline with the founder avatar. Variants: feature (big), card (rails), fan (insights hub). The v1 `size` prop maps:
+ * hub → feature, home → card. The whole card is clickable through the title link. DraftRibbon in staging.
+ */
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import PillarDot from '../ui/PillarDot.astro';
 import DraftRibbon from '../ui/DraftRibbon.astro';
-import RingedNode from '../brand/RingedNode.astro';
+import Doodle from '../notes/Doodle.astro';
+import FounderPhoto from '../brand/FounderPhoto.astro';
 import { pillars } from '@/data/pillars';
+import { pillarTintGround } from '@/lib/pillars';
 import { microcopy, formatLabels } from '@/data/microcopy';
 import { formatDate, isoDate, fill } from '@/lib/format';
 import { readingTime } from '@/lib/reading-time';
-import avatar from '@/assets/photos/ganeaysh-square.png';
-interface Props { entry: CollectionEntry<'insights'>; size?: 'home' | 'hub'; class?: string; headingLevel?: 'h2' | 'h3'; }
-const { entry, size = 'home', class: cls, headingLevel } = Astro.props;
+import { hash } from '../notes/paths';
+import type { DoodleKind } from '../notes/paths';
+interface Props { entry: CollectionEntry<'insights'>; variant?: 'feature' | 'card' | 'fan'; size?: 'home' | 'hub'; class?: string; headingLevel?: 'h2' | 'h3'; }
+const { entry, class: cls, headingLevel } = Astro.props;
+const variant = Astro.props.variant ?? (Astro.props.size === 'hub' ? 'feature' : 'card');
 const d = entry.data;
 const pillar = pillars.find((p) => p.key === d.pillar);
 const mins = readingTime(entry.body);
 const isDraft = d.status === 'draft' || d.review === 'pending';
-const H = headingLevel ?? (size === 'hub' ? 'h2' : 'h3');
+const H = headingLevel ?? (variant === 'feature' ? 'h2' : 'h3');
 const href = `/insights/${entry.id}`;
+const kinds: DoodleKind[] = ['node', 'star', 'spark', 'asterisk', 'squiggle', 'heart-node'];
+const doodle = kinds[hash(entry.id) % kinds.length];
 ---
-<article class:list={['cover', `cover--${size}`, cls]} data-pillar={d.pillar} data-reveal>
+<article class:list={['cover', `cover--${variant}`, `g-${pillarTintGround(d.pillar)}`, cls]} data-pillar={d.pillar}>
+  <Doodle kind={doodle} tone="ink" size={variant === 'feature' ? 220 : 140} stroke={2.5} class="cover__doodle" />
   {d.image && (
     <a href={href} class="cover__media" tabindex="-1" aria-hidden="true">
       <Image src={d.image} alt={d.imageAlt ?? ''} widths={[480, 720, 960]} sizes="(min-width: 1024px) 58vw, 100vw" loading="lazy" decoding="async" />
     </a>
   )}
   {isDraft && <DraftRibbon size="sm" class="cover__draft" />}
-  <p class="t-dateline cover__format">{formatLabels[d.format]}</p>
-  <p class="t-meta cover__pillar"><PillarDot pillar={d.pillar} size={10} />{pillar?.name}</p>
-  <H class="t-h1 cover__title"><a href={href}>{d.title}</a></H>
-  {d.standfirst && <p class="t-standfirst cover__standfirst">{d.standfirst}</p>}
+  <p class="cover__format t-micro"><PillarDot pillar={d.pillar} size={8} /> {formatLabels[d.format]} · {pillar?.shortLabel}</p>
+  <H class:list={['cover__title', variant === 'feature' ? 't-h2' : 't-h3']}><a href={href}>{d.title}</a></H>
+  {d.standfirst && <p class="cover__standfirst">{d.standfirst}</p>}
   <p class="cover__byline t-meta">
-    <RingedNode image={avatar} size={40} ring="var(--kk-saffron)" alt="" />
+    <FounderPhoto variant="avatar" size={40} alt="" />
     <span>Ganeaysh Kulkarni{mins > 0 && <> · <span class="tnum">{fill(microcopy.readingTime, { n: mins })}</span></>}{d.date && <> · <time class="tnum" datetime={isoDate(d.date)}>{formatDate(d.date)}</time></>}</span>
   </p>
 </article>
 <style>
-  .cover { display: flex; flex-direction: column; gap: var(--s-4); }
+  .cover { position: relative; display: flex; flex-direction: column; gap: var(--s-4); padding: 26px 24px 22px; border-radius: var(--r-card); overflow: clip; isolation: isolate; color: var(--fg); }
+  .cover--card { width: min(380px, 80vw); min-height: 440px; }
+  .cover--fan { width: 340px; min-height: 440px; box-shadow: var(--shadow-sticker); }
+  .cover--feature { padding: 36px 36px 30px; min-height: 480px; }
   .cover p { margin: 0; }
+  .cover :global(.cover__doodle) { position: absolute; right: -24px; top: -18px; opacity: .3; z-index: -1; }
   .cover :global(.cover__draft) { align-self: flex-start; }
-  .cover__pillar { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--c-meta); }
-  .cover__title { margin: 0; max-width: 18ch; }
+  .cover__format { display: inline-flex; align-items: center; gap: 8px; color: var(--fg); }
+  .cover__title { margin: 0; max-width: 18ch; color: var(--head); }
   .cover__title a { color: inherit; text-decoration: none; }
-  .cover__title a:is(:hover, :focus-visible) { color: var(--c-link); }
-  .cover__standfirst { max-width: 34em; }
-  .cover__byline { display: flex; align-items: center; gap: var(--s-3); margin-top: var(--s-2); }
-  .cover__media { display: block; overflow: hidden; border-radius: var(--r-image); aspect-ratio: 3 / 2; }
-  .cover__media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 300ms var(--ease-out); }
-  .cover__media:hover :global(img) { transform: scale(1.03); }
-  @media (prefers-reduced-motion: reduce) { .cover__media :global(img) { transition: none; } }
+  .cover__title a::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+  .cover__title a:is(:hover, :focus-visible) { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: .12em; }
+  .cover__standfirst { font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.45; color: var(--fg); max-width: 34em; }
+  .cover__byline { display: flex; align-items: center; gap: var(--s-3); margin-top: auto; padding-top: var(--s-3); color: var(--fg); }
+  .cover__media { display: block; overflow: hidden; border-radius: 14px; aspect-ratio: 3 / 2; }
+  .cover__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
 </style>

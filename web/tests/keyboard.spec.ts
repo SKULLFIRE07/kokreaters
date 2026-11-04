@@ -7,7 +7,9 @@
 import { test, expect, type Page } from '@playwright/test';
 import { routes, settle } from './helpers';
 
-const MAX_TABS_TO_CTA = 10; // skip link, logo, Expertise, five nav links, CTA = 9
+// v2 7.1 adds the announcement bar (its insights link + the Pause motion button) before the header:
+// skip link, ann link, Pause motion, logo, Expertise, five nav links, CTA = 11
+const MAX_TABS_TO_CTA = 12;
 
 async function focusInfo(page: Page) {
   return page.evaluate(() => {

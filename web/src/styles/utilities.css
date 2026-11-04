@@ -1,4 +1,4 @@
-/* src/styles/utilities.css (DESIGN-SPEC 1.5) */
+/* src/styles/utilities.css (DESIGN-SPEC 1.5; v2) */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important; height: 1px !important;
@@ -22,9 +22,18 @@
   display: inline-flex; align-items: center; min-height: 44px;
   padding: 0 var(--s-5);
   border-radius: var(--r-pill);
-  background: var(--c-action); color: var(--kk-white);
-  font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; letter-spacing: 0.005em;
+  background: var(--kk-saffron); color: var(--kk-ink); box-shadow: 0 0 0 2px var(--kk-ink), var(--shadow-hard);
+  font-family: var(--font-display); font-size: var(--fs-button); font-weight: 700; font-stretch: 95%;
   text-decoration: none;
 }
 
 [hidden] { display: none !important; }
+
+/* JS / motion gates (html classes set by the BaseLayout head snippet) */
+html.no-js .js-only { display: none !important; }
+html:not(.no-js) .nojs-only { display: none !important; }
+html:not(.motion) .js-motion-only, html.motion-failed .js-motion-only { display: none !important; }
+
+/* Pointer gates */
+.pointer-only { display: none; }
+@media (hover: hover) and (pointer: fine) { .pointer-only { display: revert; } .touch-only { display: none; } }

@@ -1,41 +1,55 @@
 ---
-/** CTA + terminal node (graft 3), directly above the Footer on the same Imperial field (5.0.12). */
+/**
+ * CTA field (DESIGN-SPEC v2 7.5): the Saffron block on every page except contact, legal and 404. Magnetic dots lean to
+ * the cursor behind it; "together" is hand-circled; the node cluster sits on a big die-cut sticker that drops in and
+ * leans toward the pointer. Mobile: one column, the sticker top-right above the h2 (decorative).
+ */
 import { cta } from '@/data/home';
 import { site } from '@/config/site';
-import RisingArrow from '../brand/RisingArrow.astro';
-import Engraving from '../brand/Engraving.astro';
 import Button from '../ui/Button.astro';
 import Confirm from '../ui/Confirm.astro';
+import Scribble from '../notes/Scribble.astro';
+import MarginNote from '../notes/MarginNote.astro';
+import Sticker from '../notes/Sticker.astro';
+import Logo from '../brand/Logo.astro';
+import MagneticDots from '../bencho/MagneticDots.astro';
+import { chromeNotes } from '@/data/notes/chrome';
 interface Props { class?: string; }
 const { class: cls } = Astro.props;
 const [before, after] = cta.headline.split(cta.swooshPhrase);
 ---
-<section class:list={['cta-field', 'band', 'band--dark', 'on-dark', cls]} aria-labelledby="cta-heading" data-cta>
+<section class:list={['cta-field', 'band', 'g-saffron', 'grain', 'has-notes', cls]} aria-labelledby="cta-heading" data-cta>
+  <MagneticDots color="var(--kk-imperial)" opacity={0.2} />
   <div class="container grid cta-field__grid">
-    <div class="cta-field__text c-1-7">
-      <h2 id="cta-heading" class="cta-field__h">{before}<RisingArrow phrase={cta.swooshPhrase} tone="dark" />{after}</h2>
+    <div class="cta-field__text c-1-8">
+      <h2 id="cta-heading" class="cta-field__h t-display">{before}<Scribble kind="circle" tone="imperial" thickness={4}>{cta.swooshPhrase}</Scribble>{after}</h2>
       <p class="t-lead cta-field__body">{cta.body}<Confirm id={9} note="free first call" /></p>
-      <div class="cta-field__action">
-        <svg class="cta-field__line" width="120" height="14" viewBox="0 0 120 14" aria-hidden="true" focusable="false">
-          <path data-cta-line d="M0 7 H106" />
-          <g data-cta-node><circle cx="111" cy="7" r="7" fill="var(--kk-saffron)" stroke="var(--kk-imperial)" stroke-width="2" /></g>
-        </svg>
-        <Button href={site.bookingUrl} variant="on-dark">{cta.button}</Button>
+      <div class="cta-field__action has-notes">
+        <Button href={site.bookingUrl} variant="primary">{cta.button}</Button>
+        <a class="cta-field__mail t-mono" href={`mailto:${site.email}`}>{site.email}</a>
+        <MarginNote text={chromeNotes.cta} tone="berry" arrow="arrow-curve" arrowAt="start" flip arrowAngle={8} rotate={-6}
+          show="lg" place="left:calc(100% + 6px); top:-52px;" order={1} />
       </div>
     </div>
-    <div class="cta-field__art c-8-12">
-      <Engraving variant="cluster" tone="dark" opacity={0.3} />
+    <div class="cta-field__art c-9-12">
+      <Sticker shape="circle" ground="white" rotate={6} drop size="var(--cta-sticker)" magnetic={0.25} class="cta-field__sticker">
+        <Logo variant="cluster" width="100%" />
+      </Sticker>
     </div>
   </div>
 </section>
 <style>
-  .cta-field__grid { align-items: center; row-gap: var(--s-6); }
-  .cta-field__h { font-size: var(--fs-cta); line-height: 1.17; font-weight: var(--wght-h1); color: var(--kk-white); margin: 0 0 var(--s-5); max-width: 20ch; }
-  .cta-field__body { color: var(--c-on-dark-muted); margin: 0 0 var(--s-7); }
-  .cta-field__action { display: flex; align-items: center; gap: 0; flex-wrap: wrap; row-gap: var(--s-3); }
-  .cta-field__line { flex: none; overflow: visible; margin-right: 6px; }
-  .cta-field__line path { fill: none; stroke: var(--kk-sky); stroke-width: 1px; }
-  .cta-field__line [data-cta-node] { transform-box: fill-box; transform-origin: center; }
-  .cta-field__art { justify-self: end; width: 100%; max-width: 420px; }
-  @media (max-width: 767px) { .cta-field__art { display: none; } }
+  .cta-field { position: relative; overflow: clip; --cta-sticker: 240px; }
+  .cta-field__grid { position: relative; z-index: 1; align-items: center; row-gap: var(--s-6); }
+  .cta-field__h { margin: 0 0 var(--s-6); max-width: 13ch; color: var(--kk-ink); }
+  .cta-field__body { color: var(--kk-imperial); margin: 0 0 var(--s-7); }
+  .cta-field__action { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-4) var(--s-6); width: max-content; max-width: 100%; }
+  .cta-field__mail { color: var(--kk-ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .25em; display: inline-flex; align-items: center; min-height: 44px; }
+  .cta-field__mail:hover { color: var(--kk-imperial); }
+  .cta-field__art { justify-self: center; }
+  @media (max-width: 767px) {
+    .cta-field { --cta-sticker: 120px; }
+    .cta-field__art { position: absolute; top: calc(-1 * var(--section) + 24px); right: 6px; width: auto; }
+    .cta-field__text { padding-top: 64px; }
+  }
 </style>

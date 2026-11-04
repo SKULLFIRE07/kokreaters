@@ -1,6 +1,6 @@
 ---
-/** Inline SVG icons on the Arrow grid: 24 units, 1.75 stroke, round caps (5.0.4). No icon font. */
-export type IconName = 'external' | 'error' | 'success' | 'menu' | 'close' | 'chevron';
+/** Inline SVG icons on the Arrow grid: 24 units, round caps (v1 5.0.4; v2 7.7 adds pause, play, arrow-up, drag). */
+export type IconName = 'external' | 'error' | 'success' | 'menu' | 'close' | 'chevron' | 'pause' | 'play' | 'arrow-up' | 'drag' | 'prev' | 'next';
 interface Props { name: IconName; size?: number; class?: string; label?: string; }
 const { name, size = 20, class: cls, label } = Astro.props;
 const paths: Record<IconName, string> = {
@@ -10,9 +10,15 @@ const paths: Record<IconName, string> = {
   menu: 'M4 9h16M4 15h16',
   close: 'M6 6l12 12M18 6 6 18',
   chevron: 'M6 9l6 6 6-6',
+  pause: 'M9 6v12M15 6v12',
+  play: 'M8 5.5v13l10.5-6.5L8 5.5Z',
+  'arrow-up': 'M12 19V5M6 11l6-6 6 6',
+  drag: 'M12 4v16M4 12h16M12 4l-2.5 2.5M12 4l2.5 2.5M12 20l-2.5-2.5M12 20l2.5-2.5M4 12l2.5-2.5M4 12l2.5 2.5M20 12l-2.5-2.5M20 12l-2.5 2.5',
+  prev: 'M19 12H5M11 6l-6 6 6 6',
+  next: 'M5 12h14M13 6l6 6-6 6',
 };
 ---
-<svg class:list={['icon', `icon--${name}`, cls]} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" focusable="false" {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' })}><path d={paths[name]} /></svg>
+<svg class:list={['icon', `icon--${name}`, cls]} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' })}><path d={paths[name]} /></svg>
 <style>
   .icon { flex: none; display: inline-block; vertical-align: middle; }
 </style>

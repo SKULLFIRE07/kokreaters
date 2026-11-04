@@ -1,0 +1,6 @@
+---
+/** Tape (DESIGN-SPEC v2 6.2): a translucent masking-tape strip for pinning photos and cards. Decorative. */
+interface Props { tone?: 'butter' | 'blush' | 'ice' | 'lavender'; rotate?: number; width?: number; place?: string; class?: string }
+const { tone = 'butter', rotate = -4, width = 96, place = 'top:-14px; left:50%; translate:-50% 0;', class: cls } = Astro.props;
+---
+<span class:list={['tape', cls]} aria-hidden="true" style={`--tape:var(--kk-${tone});--tape-w:${width}px;rotate:${rotate}deg;${place}`}></span>

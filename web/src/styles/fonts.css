@@ -1,14 +1,28 @@
-/* src/styles/fonts.css: self-hosted faces (files copied by scripts/copy-fonts.mjs). Never import fontsource CSS. */
+/* src/styles/fonts.css: self-hosted faces (files copied by scripts/copy-fonts.mjs). Never import fontsource CSS.
+   DESIGN-SPEC v2 2.1–2.2. Bricolage (wdth file: wght 200–800, wdth 75–100, opsz fixed at the 96 display master),
+   IBM Plex Mono 400/500, Caveat 600, Instrument Sans (long reading). */
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-latin-opsz-normal.woff2") format("woff2-variations");
-  font-weight: 100 900; font-style: normal; font-display: swap;
+  font-family: "Bricolage Grotesque";
+  src: url("/fonts/bricolage-grotesque-latin-wdth-normal.woff2") format("woff2-variations");
+  font-weight: 200 800; font-stretch: 75% 100%; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-latin-opsz-italic.woff2") format("woff2-variations");
-  font-weight: 100 900; font-style: italic; font-display: swap;
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: "Caveat";
+  src: url("/fonts/caveat-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
@@ -17,15 +31,18 @@
   font-weight: 400 700; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-/* Metric-matched fallbacks so the swap does not shift layout (CLS < 0.05).
-   Tuned by W3-polish (4 Nov 2026): widths measured in Chrome against Liberation Sans (Arial metrics) and
-   Liberation Serif scaled by the Georgia/Times average-width ratio (capsize xWidthAvg 913/832 = 1.098).
-   - Instrument Sans 400 is 103.5% of Arial (600: 98.3%) → 103%.
-   - Fraunces (opsz auto) is 101–105% of Georgia at 19–40px, 97–99% at 44–60px and 88% at 80px,
-     because its optical size narrows the display cut. Text/heading fallback 102% (the 38–40px mobile H1s and H2s sit at 101–103%); the home display H1
-     gets its own 92% face from 1280px (see .t-display in base.css).
-   ascent/descent overrides are the webfont's own (Fraunces 1956/510 per 2000, Instrument 970/250 per 1000)
-   divided by size-adjust, so the baseline sits where the webfont puts it. */
-@font-face { font-family: "Fraunces Fallback"; src: local("Georgia"); size-adjust: 102%; ascent-override: 95.9%; descent-override: 25%; line-gap-override: 0%; }
-@font-face { font-family: "Fraunces Display Fallback"; src: local("Georgia"); size-adjust: 92%; ascent-override: 106.3%; descent-override: 27.7%; line-gap-override: 0%; }
+/* ── Metric-matched fallbacks (CLS < 0.05 on the hero). MEASURED 4 Nov 2026 in Chrome on this machine (Liberation
+   Sans Narrow Bold = Arial Narrow Bold metrics, Liberation Sans Bold = Arial Bold, Liberation Mono = Courier New):
+   "Where deep expertise meets shared ambition." at 100px, −0.025em:
+     Bricolage 800 / wdth 75 = 1665px · Narrow Bold 1679px (→ size-adjust 99%) · Arial Bold 2071px (→ 80.4%).
+     (h2 760/78%: Bricolage 2723 vs Narrow 2677 = 101.7%; h3 700/85%: 108.6%; the H1 sizes are what move layout.)
+   Plex Mono 400 = Courier New width exactly (4830 vs 4831px) → 100%.
+   Bricolage font box ascent/descent 0.93/0.27 em, Plex Mono 1.03/0.28 em; overrides = metric ÷ size-adjust.
+   weight/stretch ranges are declared so the browser never synthesises bold or stretch on a fallback face. */
+@font-face { font-family: "Bricolage Fallback Narrow"; src: local("Arial Narrow Bold"), local("ArialNarrow-Bold"), local("Liberation Sans Narrow Bold"), local("LiberationSansNarrow-Bold"), local("Nimbus Sans Narrow Bold"), local("NimbusSansNarrow-Bold");
+  font-weight: 100 900; font-stretch: 50% 200%; size-adjust: 99%; ascent-override: 93.9%; descent-override: 27.3%; line-gap-override: 0%; }
+@font-face { font-family: "Bricolage Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold");
+  font-weight: 100 900; font-stretch: 50% 200%; size-adjust: 80.4%; ascent-override: 115.7%; descent-override: 33.6%; line-gap-override: 0%; }
+@font-face { font-family: "Plex Mono Fallback"; src: local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono"), local("LiberationMono");
+  font-weight: 100 900; size-adjust: 100%; ascent-override: 103%; descent-override: 28%; line-gap-override: 0%; }
 @font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"); size-adjust: 103%; ascent-override: 94.2%; descent-override: 24.3%; line-gap-override: 0%; }

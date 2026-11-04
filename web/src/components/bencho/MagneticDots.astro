@@ -1,0 +1,25 @@
+---
+/*
+ * Ported from Bencho (https://bencho.dev) block "magnetic-dots" to vanilla TypeScript + GSAP for KoKreaters (DESIGN-SPEC v2 9).
+ * Original: MIT License, Copyright (c) 2026 Lorenzo Cabra.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice
+ * and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. Full text: web/THIRD_PARTY_NOTICES.md.
+ */
+/** MagneticDots: an aria-hidden dot field that leans toward the pointer (canvas, lazy via whenNear). Absolutely fills
+ * its positioned parent. `color` = dot colour, `opacity` = layer opacity. Static (no JS / reduced): CSS radial dots. */
+interface Props { color?: string; opacity?: number; class?: string }
+const { color = 'var(--kk-imperial)', opacity = .18, class: cls } = Astro.props;
+---
+<div class:list={['mdots', cls]} aria-hidden="true" data-magnetic-dots style={`--mdots-c:${color};--mdots-o:${opacity}`}>
+  <canvas class="mdots__canvas"></canvas>
+</div>
+<style>
+  .mdots { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: var(--mdots-o); color: var(--mdots-c);
+    background-image: radial-gradient(circle at center, currentColor 1.6px, transparent 2px); background-size: 22px 22px; background-position: 0 0; }
+  .mdots__canvas { position: absolute; inset: 0; width: 100%; height: 100%; color: inherit; }
+  .mdots:has(.mdots__canvas.is-live) { background-image: none; }
+</style>

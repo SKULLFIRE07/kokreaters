@@ -43,7 +43,7 @@ import { proof, proofSource } from '@/data/home';
     background: var(--kk-saffron); border: 2px solid var(--kk-saffron);
     position: relative; z-index: 1; margin-bottom: var(--s-6);
   }
-  .proof__num { margin: 0; }
+  .proof__num { margin: 0; font-size: min(var(--fs-stat), 10vw); }   /* FOUNDATION interim: keeps the v2 .t-stat inside its 4-col cell until P-home rebuilds this fold */
   :global(.on-dark) .proof__num { color: var(--kk-saffron); }
   .proof__num span { display: inline-block; }
   /* "WHO": at display opsz Fraunces' H crossbar is a sub-pixel hairline and the word reads "WI IO".

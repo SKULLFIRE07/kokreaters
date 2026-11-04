@@ -1,18 +1,28 @@
 ---
-/** A fold: <section class="band"> with an optional Folio row (DESIGN-SPEC 5, shared fold anatomy). */
+/**
+ * A fold: <section class="band"> (DESIGN-SPEC v2 7.7). `ground` sets ONE ground class (v1 'dark' → imperial);
+ * `paper="grid"` adds the lab-notebook grid (white grounds only), `grain` the print grain, `slab` an inset rounded block,
+ * `notes` the `has-notes` positioning context for MarginNotes. Optional notebook-tab Folio row.
+ */
 import Folio from './Folio.astro';
+import type { GroundKey } from '@/data/types';
 interface Props {
   id?: string;
-  ground?: 'white' | 'cloud' | 'dark';
+  ground?: GroundKey | 'dark';
+  paper?: 'grid' | null;
+  grain?: boolean;
+  slab?: boolean;
+  notes?: boolean;
   folio?: { n?: string; label: string; right?: string };
   labelledby?: string;
   class?: string;
   container?: boolean;   // default true: wraps the content in .container
   [key: string]: unknown;
 }
-const { id, ground = 'white', folio, labelledby, class: cls, container = true, ...rest } = Astro.props;
+const { id, ground = 'white', paper = null, grain = false, slab = false, notes = false, folio, labelledby, class: cls, container = true, ...rest } = Astro.props;
+const g: GroundKey = ground === 'dark' ? 'imperial' : ground;
 ---
-<section id={id} aria-labelledby={labelledby} class:list={['band', 'fold', { 'band--alt': ground === 'cloud', 'band--dark on-dark': ground === 'dark' }, cls]} {...rest}>
+<section id={id} aria-labelledby={labelledby} class:list={['band', 'fold', `g-${g}`, { 'paper-grid': paper === 'grid', grain, slab, 'has-notes': notes, 'on-dark': ground === 'dark' }, cls]} {...rest}>
   {container ? (
     <div class="container">
       {folio && <Folio {...folio} />}
@@ -27,5 +37,4 @@ const { id, ground = 'white', folio, labelledby, class: cls, container = true, .
 </section>
 <style>
   .fold { position: relative; }
-  .band:not(.band--alt):not(.band--dark) { background: var(--c-ground); }
 </style>

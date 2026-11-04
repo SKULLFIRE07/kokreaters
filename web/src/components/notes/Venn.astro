@@ -1,0 +1,22 @@
+---
+/** Venn (DESIGN-SPEC v2 6.3): three loose hand-drawn circles at 120° with Caveat labels and a centre label.
+ * <figure aria-hidden="true">: its words restate visible copy. Circles draw in sequence when it enters. */
+import { toneColor, type Tone } from './paths';
+interface Props { labels: [string, string, string]; centre: string; tone?: Tone; size?: number; class?: string }
+const { labels, centre, tone = 'auto', size = 360, class: cls } = Astro.props;
+const c = 100, R = 41, off = 27;   // viewBox 0 0 200 200; circle diameter ≈ .41·size, centres 27 units from the middle
+const angles = [-90, 30, 150];
+const centres = angles.map((a) => ({ x: c + off * Math.cos((a * Math.PI) / 180), y: c + off * Math.sin((a * Math.PI) / 180) }));
+// a loose, slightly open circle: start a little past 12 o'clock, overshoot the join
+const loose = (x: number, y: number, k: number) => {
+  const r = R + (k - 1) * 1.5, j = 0.55228 * r;
+  return `M${x + 4} ${y - r - 1} C ${x + j + 3} ${y - r}, ${x + r + 1} ${y - j}, ${x + r} ${y + 1} C ${x + r - 1} ${y + j + 1}, ${x + j} ${y + r + 1}, ${x - 1} ${y + r} C ${x - j - 1} ${y + r - 1}, ${x - r - 1} ${y + j}, ${x - r} ${y - 1} C ${x - r + 1} ${y - j - 2}, ${x - j + 2} ${y - r - 2}, ${x + 8} ${y - r + 1}`;
+};
+---
+<figure class:list={['venn', cls]} aria-hidden="true" data-venn style={`--note-c:${toneColor(tone)};--venn:${size}px`}>
+  <svg viewBox="0 0 200 200" fill="none" focusable="false" aria-hidden="true">
+    {centres.map((p, i) => <path data-note-draw pathLength="1" d={loose(p.x, p.y, i)} />)}
+  </svg>
+  {labels.map((t, i) => <span class={`venn__label venn__label--${i} t-note`}>{t}</span>)}
+  <span class="venn__centre t-note">{centre}</span>
+</figure>

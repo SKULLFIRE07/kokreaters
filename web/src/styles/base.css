@@ -1,12 +1,14 @@
-/* src/styles/base.css: element defaults + type classes (DESIGN-SPEC 1.3) */
+/* src/styles/base.css: element defaults + type classes (DESIGN-SPEC v2 4.1). v1 class names are kept and restyled,
+   so existing markup inherits v2. Three voices: the statement (Bricolage), the label (Plex Mono), the margin
+   (Caveat); long reading stays in Instrument Sans. */
 html, body { overflow-x: clip; }
 
 body {
   font-family: var(--font-sans);
   font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--c-text);
-  background: var(--c-ground);
+  line-height: 1.62;
+  color: var(--fg);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-kerning: normal;
@@ -14,79 +16,65 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--kk-lavender); color: var(--kk-imperial); }
+::selection { background: var(--kk-saffron); color: var(--kk-ink); }
 
-/* ── Serif headings. Bare h1/h2/h3 take the matching class through :where() (zero specificity), so any .t-* class overrides. ── */
-:where(h1, h2, h3), .t-display, .t-h1, .t-h2, .t-index, .t-h3,
-.t-stat, .t-figure, .t-quote, .t-pull, .t-standfirst {
-  font-family: var(--font-serif);
+/* ── The statement: Bricolage, condensed. Bare h1–h4 take the matching class through :where() (zero specificity). ── */
+:where(h1, h2, h3, h4), .t-mega, .t-display, .t-h1, .t-h2, .t-index, .t-h3, .t-h4,
+.t-stat, .t-figure, .t-quote, .t-pull {
+  font-family: var(--font-display);
   font-optical-sizing: auto;
   font-variation-settings: normal;
-}
-:where(h1, h2, h3), .t-display, .t-h1, .t-h2, .t-index, .t-h3 {
-  color: var(--c-heading);
+  color: var(--head);
   text-wrap: balance;
 }
-
-.t-display { font-size: var(--fs-display); line-height: var(--lh-display); font-weight: var(--wght-display); letter-spacing: var(--track-display); }
-/* At ≥ 1280px the display size is 74–80px, where Fraunces' optical size is ~12% narrower than Georgia: use the narrower fallback face (fonts.css). */
-@media (min-width: 1280px) { .t-display { font-family: "Fraunces", "Fraunces Display Fallback", Georgia, serif; } }
-:where(h1), .t-h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--wght-h1); letter-spacing: var(--track-h1); }
-:where(h2), .t-h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--wght-h2); letter-spacing: var(--track-h2); }
-.t-index { font-size: var(--fs-index); line-height: var(--lh-index); font-weight: var(--wght-index); letter-spacing: var(--track-h2); }
-:where(h3), .t-h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--wght-h3); letter-spacing: var(--track-h3); }
-/* Re-assert the class over the :where() defaults when a class is placed on another level (e.g. <h2 class="t-index">). */
-.t-display, .t-h1, .t-h2, .t-index, .t-h3 { color: var(--c-heading); }
-
-/* ── Sans classes ── */
-:where(h4), .t-h4 {
-  font-family: var(--font-sans);
-  font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600;
-  color: var(--c-heading);
-  text-wrap: balance;
-}
-.t-lead {
-  font-family: var(--font-sans);
-  font-size: var(--fs-lead); line-height: var(--lh-lead); font-weight: 400;
-  letter-spacing: -0.005em;
-  max-width: var(--measure-lead);
-}
-.t-body { font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body); font-weight: 400; }
-.t-meta {
-  font-family: var(--font-sans);
-  font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 500;
-  letter-spacing: 0.005em;
-  color: var(--c-meta);
-}
-.t-dateline {
-  font-family: var(--font-sans);
-  font-size: var(--fs-dateline); line-height: var(--lh-dateline); font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--track-dateline);
-  color: var(--c-dateline);
+.t-mega    { font-size: var(--fs-mega);    font-weight: 800; font-stretch: 75%; line-height: .9;  letter-spacing: -0.025em; }
+.t-display, .t-h1, :where(h1) { font-size: var(--fs-display); font-weight: 780; font-stretch: 75%; line-height: .92; letter-spacing: -0.022em; }
+:where(h2), .t-h2 { font-size: var(--fs-h2); font-weight: 760; font-stretch: 78%; line-height: .95; letter-spacing: -0.02em; }
+.t-index   { font-size: calc(var(--fs-h3) * 1.25); font-weight: 720; font-stretch: 82%; line-height: 1; letter-spacing: -0.015em; }
+:where(h3), .t-h3 { font-size: var(--fs-h3); font-weight: 700; font-stretch: 85%; line-height: 1.02; letter-spacing: -0.01em; }
+:where(h4), .t-h4 { font-size: var(--fs-h4); font-weight: 650; font-stretch: 100%; line-height: 1.15; letter-spacing: 0; }
+.t-stat, .t-figure {
+  font-weight: 800; font-stretch: 75%; line-height: .85; letter-spacing: -0.03em;
   font-variant-numeric: lining-nums tabular-nums;
 }
+.t-stat   { font-size: var(--fs-stat); }
+.t-figure { font-size: calc(var(--fs-stat) * .6); }
+.t-stat .unit, .t-figure .unit { font-size: .42em; vertical-align: .9em; letter-spacing: 0; margin-left: .04em; }
+.t-quote, .t-pull { font-weight: 650; font-stretch: 85%; line-height: 1; letter-spacing: -0.015em; font-style: normal; }
+.t-quote  { font-size: var(--fs-quote); }
+.t-pull   { font-size: calc(var(--fs-quote) * .7); }
 
-/* ── Figures ── */
-.t-stat {
-  font-size: var(--fs-stat); line-height: 1; font-weight: var(--wght-stat);
-  letter-spacing: -0.035em;
+/* ── The label: IBM Plex Mono ── */
+.t-lead { font-family: var(--font-mono); font-size: var(--fs-lead); line-height: 1.6; font-weight: 400; letter-spacing: 0; max-width: var(--measure-lead); }
+.t-mono { font-family: var(--font-mono); font-size: var(--fs-mono); line-height: 1.6; font-weight: 400; }
+.t-meta { font-family: var(--font-mono); font-size: var(--fs-mono); line-height: 1.5; font-weight: 400; color: var(--fg-2); }
+.t-dateline, .t-label {
+  font-family: var(--font-mono); font-size: var(--fs-label); line-height: 1.3; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--fg-2);
   font-variant-numeric: lining-nums tabular-nums;
-  color: var(--c-heading);
 }
-.t-figure {
-  font-size: var(--fs-figure); line-height: 1; font-weight: var(--wght-stat);
-  letter-spacing: -0.03em;
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--c-line);
+.t-micro {
+  font-family: var(--font-mono); font-size: var(--fs-micro); line-height: 1.3; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .1em;
 }
+:is(.t-lead, .t-mono, .t-meta, .t-dateline, .t-label, .t-micro) strong { font-weight: 500; }
+
+/* ── The quiet voice: Instrument Sans (anything > 50 words) ── */
+.t-body { font-family: var(--font-sans); font-size: var(--fs-body); line-height: 1.62; font-weight: 400; }
+.t-standfirst { font-family: var(--font-sans); font-size: clamp(1.25rem, 1.11rem + .571vw, 1.625rem); line-height: 1.4; font-weight: 450; color: var(--fg-2); text-wrap: pretty; font-style: normal; }
+:is(.t-body, .t-standfirst, .prose) strong { font-weight: 600; }
+
+/* ── The margin: Caveat ── */
+.t-note { font-family: var(--font-hand); font-size: var(--fs-note); font-weight: 600; line-height: 1; letter-spacing: 0; color: var(--note); }
+.t-note--lg { font-size: var(--fs-note-lg); }
+.t-hand { font-family: var(--font-hand); font-size: var(--fs-hand-button); font-weight: 600; line-height: 1; letter-spacing: 0; }
+
 .tnum { font-variant-numeric: tabular-nums; }
 .lnum { font-variant-numeric: lining-nums tabular-nums; }
 
-/* ── Serif italics ── */
-.t-quote { font-size: var(--fs-quote); line-height: var(--lh-quote); font-style: italic; font-weight: 360; letter-spacing: -0.012em; color: var(--c-heading); text-wrap: balance; }
-.t-pull { font-size: var(--fs-pull); line-height: var(--lh-pull); font-style: italic; font-weight: 360; color: var(--c-heading); text-wrap: balance; }
-.t-standfirst { font-size: var(--fs-standfirst); line-height: var(--lh-standfirst); font-style: italic; font-weight: 360; color: var(--c-meta); text-wrap: pretty; }
+/* Hero H1 explicit lines (CLS: identical line count on fallback → webfont swap) */
+.l { display: block; }
+@media (min-width: 1024px) { .l { white-space: nowrap; } }
 
 /* ── Paragraphs ── */
 p { text-wrap: pretty; hanging-punctuation: first; }
@@ -94,23 +82,20 @@ p { text-wrap: pretty; hanging-punctuation: first; }
 
 /* ── Links ── */
 a {
-  color: var(--c-link);
-  text-decoration-thickness: 1px;
+  color: var(--link);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 0.2em;
-  transition: color var(--d-colour) var(--ease-out);
+  transition: color var(--d-fast) var(--ease-quart);
 }
-a:hover { color: var(--c-action-hover); }
+a:hover { color: var(--fg); }
 
-/* ── Focus: never removed ── */
-:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; border-radius: 4px; }
-.on-dark :focus-visible { outline-color: var(--c-focus-dark); }
-main:focus { outline: none; } /* #main receives programmatic focus from the skip link only */
+/* ── Focus: never removed, correct on every ground ── */
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+main:focus { outline: none; }
 
-/* ── On dark (Imperial) ── */
-.on-dark { color: var(--c-on-dark); }
-.on-dark :is(h1, h2, h3, h4, .t-display, .t-h1, .t-h2, .t-index, .t-h3, .t-h4, .t-stat, .t-quote, .t-pull) { color: var(--c-on-dark); }
-.on-dark :is(.t-meta, .t-standfirst, .t-lead) { color: var(--c-on-dark-muted); }
-.on-dark .t-dateline { color: var(--kk-lavender); }
-.on-dark a { color: var(--c-on-dark); }
-.on-dark a:hover { color: var(--c-highlight-dark); }
-.on-dark ::selection { background: var(--kk-lavender); color: var(--kk-imperial); }
+/* ── v1 compatibility: .on-dark ── */
+.on-dark { color: var(--fg); }
+.on-dark :is(h1, h2, h3, h4, .t-display, .t-h1, .t-h2, .t-index, .t-h3, .t-h4, .t-stat, .t-quote, .t-pull) { color: var(--head); }
+.on-dark :is(.t-meta, .t-standfirst, .t-lead, .t-dateline) { color: var(--fg-2); }
+.on-dark a { color: var(--fg); }
+.on-dark a:hover { color: var(--link); }

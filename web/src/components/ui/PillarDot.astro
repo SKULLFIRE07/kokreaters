@@ -1,19 +1,15 @@
 ---
-/** Ringed pillar dot: pillar fill, 2px White ring, plus a 1px Ink ring for Saffron and Sky (graft 10). */
-import { pillars } from '@/data/pillars';
+/** Ringed pillar dot, sticker look (DESIGN-SPEC v2 7.7): pillar fill + 2px White ring + 1.5px Ink outer ring on every pillar. */
 import type { PillarKey } from '@/data/types';
-interface Props { pillar: PillarKey; size?: 8 | 10 | 12; class?: string; }
-const { pillar, size = 10, class: cls } = Astro.props;
-const p = pillars.find((x) => x.key === pillar);
-const ink = p?.inkText ?? false;
+interface Props { pillar: PillarKey; size?: 8 | 10 | 12 | 16; class?: string; }
+const { pillar, size = 12, class: cls } = Astro.props;
 ---
-<span class:list={['pillar-dot', { 'pillar-dot--ink': ink }, cls]} data-pillar={pillar} style={`--dot:var(--pillar-${pillar});--dot-size:${size}px`} aria-hidden="true"></span>
+<span class:list={['pillar-dot', cls]} data-pillar={pillar} style={`--dot:var(--pillar-${pillar});--dot-size:${size}px`} aria-hidden="true"></span>
 <style>
   .pillar-dot {
     display: inline-block; flex: none; vertical-align: middle;
     width: var(--dot-size); height: var(--dot-size); border-radius: 50%;
     background: var(--dot);
-    box-shadow: 0 0 0 2px var(--kk-white);
+    box-shadow: 0 0 0 2px var(--kk-white), 0 0 0 3.5px var(--kk-ink);
   }
-  .pillar-dot--ink { box-shadow: 0 0 0 2px var(--kk-white), 0 0 0 3px var(--kk-ink); }
 </style>

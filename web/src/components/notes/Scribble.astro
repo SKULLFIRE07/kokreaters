@@ -1,0 +1,46 @@
+---
+/**
+ * Scribble (DESIGN-SPEC v2 6.2/6.3): wraps a phrase with a hand-drawn underline, double, zigzag, swoosh, circle, box,
+ * highlight or strike. The wrapped words stay real text; the drawing is aria-hidden.
+ * The SVG is stretched to the phrase (preserveAspectRatio="none" + non-scaling strokes, so the line stays 3px at any
+ * length). Because non-scaling strokes cannot be dash-drawn reliably (Chrome ignores pathLength there), scribbles draw
+ * on by a wipe: a left-to-right clip for line kinds, a conic sweep for circle/box (scripts/motion/notes.ts). `highlight`
+ * is a background on the text itself (cloned per line), so a long phrase can wrap; it wipes in by background-size.
+ * `manual` hands the timing to a page module (v1 RisingArrow / hero swoosh): notes.ts leaves it alone.
+ */
+import { pick, toneColor, hash, type ScribbleKind, type Tone } from './paths';
+interface Props {
+  kind: ScribbleKind;
+  tone?: Tone;
+  seed?: number;
+  delay?: number;
+  trigger?: string;
+  thickness?: number;
+  pad?: string;
+  manual?: boolean;
+  nowrap?: boolean;
+  class?: string;
+}
+const { kind, tone = 'auto', delay = 0, trigger, thickness = 3, pad = '0.18em 0.3em', manual = false, nowrap = true, class: cls } = Astro.props;
+const slotText = (await Astro.slots.render('default')) ?? '';
+const seed = Astro.props.seed ?? hash(`${kind}:${slotText.replace(/<[^>]+>/g, '')}`);
+const def = pick(kind, seed);
+// highlight: the fill is Saffron (the ground's sweep colour) unless a tone is given
+const colour = kind === 'highlight' ? (tone === 'auto' ? 'var(--pill-sweep)' : toneColor(tone)) : toneColor(tone);
+const style = `--scr-c:${colour};--note-stroke:${thickness}px;--scr-pad:${pad}`;
+---
+<span
+  class:list={['scribble', `scribble--${kind}`, { 'scribble--wrap': !nowrap || kind === 'highlight', 'scribble--tone': tone !== 'auto' }, cls]}
+  data-scribble={manual ? 'manual' : kind}
+  data-swoosh={manual && kind === 'swoosh' ? 'manual' : undefined}
+  data-note-delay={delay || undefined}
+  data-note-trigger={trigger}
+  style={style}
+><span class="scribble__txt"><Fragment set:html={slotText} /></span>{kind === 'highlight' ? (
+  <svg class="scribble__svg scribble__fill" viewBox={def.vb} preserveAspectRatio="none" aria-hidden="true" focusable="false">{def.fill?.map((d) => <path d={d} />)}</svg>
+) : (
+  <svg class="scribble__svg" viewBox={def.vb} preserveAspectRatio="none" fill="none" aria-hidden="true" focusable="false">
+    {def.d?.map((d) => <path d={d} />)}
+    {def.head?.map((d) => <path class="swoosh__head" d={d} />)}
+  </svg>
+)}</span>

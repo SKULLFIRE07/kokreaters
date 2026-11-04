@@ -1,4 +1,4 @@
-/* src/styles/layout.css: layout primitives (DESIGN-SPEC 1.4)
+/* src/styles/layout.css: layout primitives (DESIGN-SPEC 1.4; v2 4.2)
    Breakpoints (brief): 360 / 768 / 1024 / 1280 / 1440.
    Custom media names, for reference only: --bp-md: 768px; --bp-lg: 1024px; --bp-xl: 1280px.
    House style is plain @media (min-width: …). */
@@ -39,11 +39,12 @@
   .grid > * { grid-column: var(--span-sm, 1 / -1); }
 }
 
-/* ── Bands ── */
+/* ── Bands (v2 4.2). Colour bands are full-bleed; use .slab (grounds.css) for inset rounded blocks. ── */
 .band { padding-block: var(--section); }
-.band--alt { background: var(--c-ground-alt); }
-.band--dark { background: var(--c-dark); color: var(--c-on-dark); } /* always paired with .on-dark in markup */
+.band--alt { background: var(--kk-cloud); }
+.band--dark { background: var(--kk-imperial); color: var(--kk-white); }
+.has-notes { position: relative; }
 
 /* ── Rules ── */
-.rule { height: 1px; background: var(--c-rule); border: 0; }
-.on-dark .rule { background: var(--kk-white-20); }
+.rule { height: 1px; background: var(--rule); border: 0; }
+.rule--dash { height: 0; background: none; border-top: 1.5px dashed var(--fg); opacity: .55; }

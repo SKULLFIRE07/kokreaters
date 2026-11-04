@@ -1,0 +1,56 @@
+---
+/*
+ * Ported from Bencho (https://bencho.dev) block "flap-board" to vanilla TypeScript + GSAP for KoKreaters (DESIGN-SPEC v2 9).
+ * Original: MIT License, Copyright (c) 2026 Lorenzo Cabra.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice
+ * and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. Full text: web/THIRD_PARTY_NOTICES.md.
+ */
+/** FlapBoard: a split-flap board cycling `entries` (mono, Saffron tiles on Ink). The real text is a visually hidden
+ * <p> with every entry joined by " · "; the board is aria-hidden and shows the first entry statically.
+ * Callers pass their own notes strings (P-home: homeNotes.proof.flap, P-story: storyNotes.about.flap). */
+interface Props { entries: readonly string[]; width?: number; label?: string; class?: string }
+const { entries, class: cls, label } = Astro.props;
+const width = Astro.props.width ?? Math.max(14, ...entries.map((e) => e.length));
+const first = entries[0].toUpperCase().padEnd(width, ' ').slice(0, width);
+const chars = [...first];
+---
+<div class:list={['flap', cls]} data-flap-board data-flap-entries={JSON.stringify(entries.map((e) => e.toUpperCase()))}>
+  <p class="visually-hidden">{label ? `${label}: ` : ''}{entries.join(' · ')}</p>
+  <div class="flap__board" aria-hidden="true" style={`--cols:${width}`}>
+    {chars.map((c) => {
+      const s = c === ' ' ? ' ' : c;
+      return (
+        <span class="flap__tile" data-flap-tile data-ch={c}>
+          <span class="flap__half flap__top flap__st"><i>{s}</i></span><span class="flap__half flap__bot flap__sb"><i>{s}</i></span>
+          <span class="flap__half flap__top flap__ft"><i>{s}</i></span><span class="flap__half flap__bot flap__fb"><i>{s}</i></span>
+        </span>
+      );
+    })}
+  </div>
+</div>
+<style>
+  .flap { --tile-w: clamp(18px, 1.2rem + 1vw, 38px); }
+  .flap__board { display: grid; grid-template-columns: repeat(var(--cols), var(--tile-w)); gap: 4px; max-width: 100%; overflow: hidden; }
+  @media (max-width: 767px) { .flap { --tile-w: calc((100vw - 2 * var(--side) - (var(--cols) - 1) * 3px) / var(--cols)); } .flap__board { gap: 3px; } }
+  .flap__tile {
+    position: relative; height: calc(var(--tile-w) * 1.45); perspective: 300px;
+    font: 500 calc(var(--tile-w) * .78) / 1 var(--font-mono); color: var(--kk-ink); text-align: center;
+  }
+  .flap__half { position: absolute; left: 0; right: 0; height: 50%; overflow: hidden; background: var(--kk-saffron); backface-visibility: hidden; }
+  .flap__half i { position: absolute; left: 0; right: 0; height: 200%; display: grid; place-items: center; font-style: normal; }
+  .flap__top { top: 0; border-radius: 4px 4px 0 0; }
+  .flap__top i { top: 0; }
+  .flap__bot { bottom: 0; border-radius: 0 0 4px 4px; background: #F6CF55; }
+  .flap__bot i { top: -100%; }
+  .flap__ft, .flap__fb { visibility: hidden; z-index: 1; }
+  .flap__tile::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgb(18 24 51 / .35); z-index: 2; }
+  .flap__tile.is-flipping .flap__ft { visibility: visible; transform-origin: 50% 100%; animation: flap-fall 130ms ease-in both; }
+  .flap__tile.is-flipping .flap__fb { visibility: visible; transform-origin: 50% 0; animation: flap-land 130ms ease-out 130ms both; }
+  @keyframes flap-fall { to { transform: rotateX(-90deg); } }
+  @keyframes flap-land { from { transform: rotateX(90deg); } }
+  @media (prefers-reduced-motion: reduce) { .flap__tile.is-flipping :is(.flap__ft, .flap__fb) { animation: none; visibility: hidden; } }
+</style>

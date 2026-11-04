@@ -1,6 +1,6 @@
 /** Pillar lookups and the CSS custom properties BaseLayout puts on <body> (DESIGN-SPEC 3.1). */
 import { pillars } from '@/data/pillars';
-import type { Pillar, PillarKey, PillarSlug } from '@/data/types';
+import type { GroundKey, Pillar, PillarKey, PillarSlug } from '@/data/types';
 
 export { pillars };
 export const pillarKeys: PillarKey[] = pillars.map((p) => p.key);
@@ -30,3 +30,9 @@ export const pillarStyle = (key: PillarKey): string =>
 
 /** "01" … "06". */
 export const pillarNumber = (p: Pillar): string => String(p.n).padStart(2, '0');
+
+/** v2 (3.2): the colour-block ground for a pillar, and the tint ground for its lighter surfaces. */
+const GROUND: Record<PillarKey, GroundKey> = { innovation: 'sapphire', process: 'violet', quality: 'orchid', strategy: 'saffron', deals: 'mauve', capability: 'sky' };
+const TINT: Record<PillarKey, GroundKey> = { innovation: 'ice', process: 'lavender', quality: 'blush', strategy: 'butter', deals: 'blush', capability: 'ice' };
+export const pillarGround = (key: PillarKey): GroundKey => GROUND[key];
+export const pillarTintGround = (key: PillarKey): GroundKey => TINT[key];

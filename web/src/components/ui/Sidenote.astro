@@ -1,12 +1,19 @@
 ---
-/** Margin note in meta Graphite. In a 12-col grid at ≥1280px it takes columns 1–3; below, inline above its paragraph. */
+/** Sidenote (DESIGN-SPEC v2 7.7): a Butter sticky note (Instrument Sans meta, Tape on top), rotate −1°. In a 12-col
+ * grid at ≥ 1280px it takes columns 1–3; below, inline above its paragraph. */
+import Tape from '../notes/Tape.astro';
 interface Props { id?: string; class?: string; }
 const { id, class: cls } = Astro.props;
 ---
-<aside id={id} class:list={['sidenote', 't-meta', cls]}><slot /></aside>
+<aside id={id} class:list={['sidenote', 'g-butter', cls]}><Tape tone="ice" width={72} rotate={-6} /><slot /></aside>
 <style>
-  .sidenote { margin: 0 0 var(--s-3); color: var(--c-meta); }
+  .sidenote {
+    position: relative; margin: 0 0 var(--s-4); padding: 18px 16px 14px; rotate: -1deg; border-radius: 4px;
+    font-family: var(--font-sans); font-size: .9375rem; line-height: 1.5; color: var(--fg);
+    box-shadow: 0 10px 18px -12px rgb(18 24 51 / .45);
+    max-width: 34ch;
+  }
   @media (min-width: 1280px) {
-    :global(.grid) > .sidenote { grid-column: 1 / 4; margin: 0; padding-top: 0.35em; }
+    :global(.grid) > .sidenote { grid-column: 1 / 4; margin: 0; align-self: start; }
   }
 </style>

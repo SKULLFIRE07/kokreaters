@@ -1,120 +1,96 @@
-/* src/styles/tokens.css: brief Appendix A values kept, names shortened, additions marked (DESIGN-SPEC 1.2) */
+/* src/styles/tokens.css: DESIGN-SPEC v2 3.1 (final). Brand values from brief Appendix A, unchanged.
+   Grounds (grounds.css) re-declare the role tokens locally. */
 :root {
-  /* ── Colour: brief 3.2 / Appendix A (values unchanged) ── */
-  --kk-sapphire: #2C509E; --kk-cobalt: #306FE0; --kk-sky: #4C9BE8; --kk-saffron: #F4C841; --kk-coral: #E5494D;
-  --kk-imperial: #3A1C5C; --kk-violet: #5B2A86; --kk-amethyst: #7B4BC4; --kk-mauve: #8C5B88; --kk-orchid: #C8457E;
-  --kk-lavender: #EADCFF; --kk-ice: #D6E2FA; --kk-butter: #FFEEB0; --kk-blush: #F6DCE8;
-  --kk-ink: #121833; --kk-graphite: #4A5068; --kk-cloud: #F8F6FC; --kk-white: #FFFFFF; --kk-hairline: #E4E0EE;
-  /* added (DNA 5.2): input border that passes 1.4.11 (3.86:1 on white) */
-  --kk-field-border: #7C8197;
-  /* added: Sky at 30% for rules on Imperial; Hairline at 20% on Imperial */
-  --kk-sky-30: rgba(76, 155, 232, 0.30);
-  --kk-white-20: rgba(255, 255, 255, 0.20);
+  /* ── Brand colour (brief Appendix A, unchanged) ── */
+  --kk-sapphire:#2C509E; --kk-cobalt:#306FE0; --kk-sky:#4C9BE8; --kk-saffron:#F4C841; --kk-coral:#E5494D;
+  --kk-imperial:#3A1C5C; --kk-violet:#5B2A86; --kk-amethyst:#7B4BC4; --kk-mauve:#8C5B88; --kk-orchid:#C8457E;
+  --kk-lavender:#EADCFF; --kk-ice:#D6E2FA; --kk-butter:#FFEEB0; --kk-blush:#F6DCE8;
+  --kk-ink:#121833; --kk-graphite:#4A5068; --kk-cloud:#F8F6FC; --kk-white:#FFFFFF; --kk-hairline:#E4E0EE;
+  --kk-field-border:#7C8197;
+  /* ── v2 additions ── */
+  --kk-berry:#A2335F;      /* Orchid darkened (was --pillar-quality-text): notes on Cloud/Butter/Blush/Lavender/Saffron */
+  --kk-plum:#6F4470;       /* Mauve darkened (was --pillar-deals-text) */
+  --kk-grid:rgba(76,155,232,.16);   /* lab-notebook grid lines on white */
+  --kk-white-20:rgba(255,255,255,.20); --kk-ink-12:rgba(18,24,51,.12);
 
-  /* ── Roles ── */
-  --c-ground: var(--kk-white);
-  --c-ground-alt: var(--kk-cloud);
-  --c-heading: var(--kk-imperial);
-  --c-text: var(--kk-ink);
-  --c-meta: var(--kk-graphite);
-  --c-dateline: var(--kk-mauve);          /* overlines: Mauve, never Orchid (Orchid on Cloud = 4.25:1 fails) */
-  --c-line: var(--kk-sapphire);           /* meaningful line-work on light */
-  --c-line-dark: var(--kk-sky);           /* line-work on Imperial (Sapphire on Imperial = 1.83:1) */
-  --c-rule: var(--kk-hairline);           /* dividing rules */
-  --c-action: var(--kk-sapphire);
-  --c-action-hover: var(--kk-imperial);
-  --c-link: var(--kk-sapphire);           /* Cobalt fails as text on Cloud (4.37:1) */
-  --c-focus: var(--kk-cobalt);
-  --c-focus-dark: var(--kk-saffron);
-  --c-dark: var(--kk-imperial);
-  --c-on-dark: var(--kk-white);
-  --c-on-dark-muted: var(--kk-lavender);  /* 10.8:1 on Imperial */
-  --c-highlight-dark: var(--kk-saffron);  /* 8.79:1 on Imperial */
-  --c-error: var(--kk-coral);             /* always with icon + text */
-  --c-success: var(--kk-sapphire);
-  --ring-ink: 0 0 0 1px var(--kk-ink);    /* graft 10, for Saffron/Sky dots on light */
+  /* ── Default roles (white ground). Grounds (3.2) override these locally. ── */
+  --bg:#FFFFFF; --fg:var(--kk-ink); --fg-2:var(--kk-graphite); --head:var(--kk-ink);
+  --note:var(--kk-orchid); --accent:var(--kk-sapphire); --link:var(--kk-sapphire);
+  --line:var(--kk-ink); --rule:var(--kk-hairline); --focus:var(--kk-cobalt);
+  --pill-bg:var(--kk-ink); --pill-fg:#FFFFFF; --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink);
+  --pill-line:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:#FFFFFF;
+  /* v1 role names kept as aliases so untouched components keep working */
+  --c-ground:var(--bg); --c-ground-alt:var(--kk-cloud); --c-heading:var(--head); --c-text:var(--fg); --c-meta:var(--fg-2);
+  --c-dateline:var(--fg-2); --c-line:var(--accent); --c-line-dark:var(--kk-sky); --c-rule:var(--rule);
+  --c-action:var(--kk-ink); --c-action-hover:var(--kk-sapphire); --c-link:var(--link); --c-focus:var(--focus);
+  --c-focus-dark:var(--kk-saffron); --c-dark:var(--kk-imperial); --c-on-dark:#FFFFFF; --c-on-dark-muted:var(--kk-lavender);
+  --c-highlight-dark:var(--kk-saffron); --c-error:var(--kk-coral); --c-success:var(--kk-sapphire);
+  --ring-ink:0 0 0 1.5px var(--kk-ink);
 
-  /* Pillars (brief 3.2). *-on = colour of a label set ON a tint of that pillar */
-  --pillar-innovation: var(--kk-sapphire);  --pillar-innovation-tint: var(--kk-ice);
-  --pillar-process: var(--kk-violet);       --pillar-process-tint: var(--kk-lavender);
-  --pillar-quality: var(--kk-orchid);       --pillar-quality-tint: var(--kk-blush);
-  --pillar-strategy: var(--kk-saffron);     --pillar-strategy-tint: var(--kk-butter);
-  --pillar-deals: var(--kk-mauve);          --pillar-deals-tint: var(--kk-blush);
-  --pillar-capability: var(--kk-sky);       --pillar-capability-tint: var(--kk-ice);
-  /* chip text: darker pillar colour, except Saffron/Sky which take Ink (brief 3.2) */
-  --pillar-innovation-text: var(--kk-sapphire); --pillar-process-text: var(--kk-violet);
-  --pillar-quality-text: #A2335F;  /* Orchid darkened to pass 4.5:1 on Blush (Orchid on Blush = 3.54 fails). C-2 */
-  --pillar-strategy-text: var(--kk-ink); --pillar-deals-text: #6F4470; /* Mauve darkened for 4.5:1 on Blush */
-  --pillar-capability-text: var(--kk-ink);
+  /* ── Pillars: colour, tint, and the ground key used for their blocks ── */
+  --pillar-innovation:var(--kk-sapphire); --pillar-innovation-tint:var(--kk-ice);
+  --pillar-process:var(--kk-violet);      --pillar-process-tint:var(--kk-lavender);
+  --pillar-quality:var(--kk-orchid);      --pillar-quality-tint:var(--kk-blush);
+  --pillar-strategy:var(--kk-saffron);    --pillar-strategy-tint:var(--kk-butter);
+  --pillar-deals:var(--kk-mauve);         --pillar-deals-tint:var(--kk-blush);
+  --pillar-capability:var(--kk-sky);      --pillar-capability-tint:var(--kk-ice);
+  --pillar-innovation-text:var(--kk-sapphire); --pillar-process-text:var(--kk-violet); --pillar-quality-text:var(--kk-berry);
+  --pillar-strategy-text:var(--kk-ink); --pillar-deals-text:var(--kk-plum); --pillar-capability-text:var(--kk-ink);
 
-  /* Gradients: kept as tokens, used ONLY off-site (OG images), 404 dot, photo duotone. Never on UI surfaces. */
-  --kk-aurora: linear-gradient(100deg, #2C509E 0%, #5B2A86 50%, #C8457E 100%);
-  --kk-twilight: linear-gradient(180deg, #3A1C5C 0%, #2C509E 100%);
-  --kk-sunrise: linear-gradient(135deg, #7B4BC4 0%, #C8457E 55%, #F4C841 100%);
+  /* Gradients: emulsion fallback art, 404, OG only */
+  --kk-aurora:linear-gradient(100deg,#2C509E 0%,#5B2A86 50%,#C8457E 100%);
+  --kk-sunrise:linear-gradient(135deg,#7B4BC4 0%,#C8457E 55%,#F4C841 100%);
 
-  /* ── Type families ── */
-  --font-serif: "Fraunces", "Fraunces Fallback", Georgia, serif;
-  --font-sans: "Instrument Sans", "Instrument Sans Fallback", system-ui, "Segoe UI", Arial, sans-serif;
+  /* ── Families ── */
+  --font-display:"Bricolage Grotesque","Bricolage Fallback Narrow","Bricolage Fallback","Arial Narrow",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono","Plex Mono Fallback",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --font-hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --font-sans:"Instrument Sans","Instrument Sans Fallback",system-ui,"Segoe UI",Arial,sans-serif;
 
-  /* ── Fluid type scale: clamp() between 390px and 1440px viewports ── */
-  --fs-display:    clamp(2.75rem, 1.914rem + 3.429vw, 5rem);      /* 44→80  Fraunces 330, lh 1.09→1.05, -0.025em  (home H1 only) */
-  --fs-h1:         clamp(2.375rem, 1.864rem + 2.095vw, 3.75rem);  /* 38→60  Fraunces 360, lh 1.1→1.067, -0.02em */
-  --fs-h2:         clamp(1.875rem, 1.643rem + 0.9524vw, 2.5rem);  /* 30→40  Fraunces 380, lh 1.2→1.15, -0.015em */
-  --fs-index:      clamp(1.75rem, 1.379rem + 1.524vw, 2.75rem);   /* 28→44  Fraunces 360, lh 1.21→1.14, -0.015em (index rows, impact outcomes) */
-  --fs-h3:         clamp(1.375rem, 1.282rem + 0.381vw, 1.625rem); /* 22→26  Fraunces 420, lh 1.27→1.23, -0.01em */
-  --fs-h4:         clamp(1.0625rem, 1.039rem + 0.0952vw, 1.125rem); /* 17→18 Instrument 600, lh 1.41→1.44 */
-  --fs-standfirst: clamp(1.3125rem, 1.196rem + 0.4762vw, 1.625rem); /* 21→26 Fraunces italic 360, lh 1.43→1.38 */
-  --fs-quote:      clamp(1.625rem, 1.3rem + 1.333vw, 2.5rem);     /* 26→40  Fraunces italic 360, lh 1.31→1.25, -0.012em */
-  --fs-pull:       clamp(1.5rem, 1.268rem + 0.9524vw, 2.125rem);  /* 24→34  Fraunces italic 360, lh 1.33→1.29 */
-  --fs-cta:        clamp(2.125rem, 1.8rem + 1.333vw, 3rem);       /* 34→48  Fraunces 360, lh 1.18→1.17 */
-  --fs-stat:       clamp(3.5rem, 2.571rem + 3.81vw, 6rem);        /* 56→96  Fraunces 300, lh 1, -0.035em, lnum tnum */
-  --fs-figure:     clamp(3rem, 2.443rem + 2.286vw, 4.5rem);       /* 48→72  Fraunces 300, impact figures, Sapphire */
-  --fs-lead:       clamp(1.125rem, 1.055rem + 0.2857vw, 1.3125rem); /* 18→21 Instrument 400, lh 1.556→1.571, -0.005em, max 34em */
-  --fs-body:       clamp(1rem, 0.9768rem + 0.0952vw, 1.0625rem);  /* 16→17  Instrument 400, lh 1.625→1.647 */
-  --fs-article:    clamp(1.125rem, 1.102rem + 0.0952vw, 1.1875rem); /* 18→19 Fraunces 380 opsz 14, lh 1.61→1.63, 64ch */
-  --fs-meta: 0.875rem;      /* 14/22 Instrument 500, +0.005em */
-  --fs-dateline: 0.75rem;   /* 12/16 Instrument 600 caps, +0.14em */
-  --fs-button: 1rem;        /* Instrument 600, +0.005em */
-  --fs-nav: 0.9375rem;      /* 15 Instrument 500 */
-  --lh-display: 1.05; --lh-h1: 1.07; --lh-h2: 1.15; --lh-index: 1.14; --lh-h3: 1.23; --lh-h4: 1.44;
-  --lh-standfirst: 1.38; --lh-quote: 1.25; --lh-pull: 1.29; --lh-lead: 1.57; --lh-body: 1.64; --lh-article: 1.63;
-  --lh-meta: 1.571; --lh-dateline: 1.333;
-  --wght-display: 330; --wght-h1: 360; --wght-h2: 380; --wght-index: 360; --wght-h3: 420; --wght-article: 380; --wght-stat: 300;
-  --track-display: -0.025em; --track-h1: -0.02em; --track-h2: -0.015em; --track-h3: -0.01em; --track-dateline: 0.14em;
-  --measure: 66ch; --measure-lead: 34em; --measure-article: 64ch;
+  /* ── Type scale (fluid 390 → 1440; see 4.1 for weight/stretch/leading) ── */
+  --fs-mega:    clamp(3.5rem, 1.364rem + 8.762vw, 9.25rem);   /* 56 → 148  home H1 */
+  --fs-display: clamp(3rem, 1.514rem + 6.095vw, 7rem);        /* 48 → 112  page H1s, CTA h2 */
+  --fs-h2:      clamp(2.5rem, 1.479rem + 4.19vw, 5.25rem);    /* 40 → 84 */
+  --fs-h3:      clamp(1.625rem, 1.3rem + 1.333vw, 2.5rem);    /* 26 → 40 */
+  --fs-h4:      clamp(1.25rem, 1.157rem + 0.381vw, 1.5rem);   /* 20 → 24 */
+  --fs-stat:    clamp(4.5rem, 1.529rem + 12.19vw, 12.5rem);   /* 72 → 200 */
+  --fs-quote:   clamp(1.875rem, 1.086rem + 3.238vw, 4rem);    /* 30 → 64 */
+  --fs-lead:    clamp(1rem, 0.93rem + 0.2857vw, 1.1875rem);   /* 16 → 19 mono */
+  --fs-mono:    clamp(0.875rem, 0.851rem + 0.0952vw, 0.9375rem); /* 14 → 15 mono */
+  --fs-label:   0.8125rem;                                    /* 13 mono caps */
+  --fs-micro:   0.75rem;                                      /* 12 mono caps */
+  --fs-note:    clamp(1.5rem, 1.268rem + 0.952vw, 2.125rem);  /* 24 → 34 Caveat (never below 24px: large-text rule) */
+  --fs-note-lg: clamp(2rem, 1.536rem + 1.905vw, 3.25rem);     /* 32 → 52 */
+  --fs-body:    clamp(1.0625rem, 1.039rem + 0.0952vw, 1.125rem); /* 17 → 18 Instrument Sans */
+  --fs-article: clamp(1.125rem, 1.078rem + 0.1905vw, 1.25rem);   /* 18 → 20 Instrument Sans */
+  --fs-button:  1.0625rem;  /* 17 Bricolage 700 */
+  --fs-hand-button: 1.625rem; /* 26 Caveat 600 */
+  --fs-nav: 1rem;
+  --measure: 64ch; --measure-lead: 46ch; --measure-article: 66ch;
 
-  /* ── Space (8-pt, brief 4) + 192 for hero headroom ── */
-  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; --s-11: 192px;
-  --section: clamp(4rem, 2.514rem + 6.095vw, 8rem);      /* 64 → 128 vertical padding per band */
-  --gutter: clamp(1rem, 0.8143rem + 0.7619vw, 1.5rem);   /* 16 → 24 */
-  --side: clamp(1rem, -0.3rem + 5.333vw, 4.5rem);        /* 16 → 72 page side margin */
-  --hero-top: clamp(7rem, 4.957rem + 8.381vw, 12.5rem);  /* 112 → 200 top of viewport to hero overline */
-  --content-max: 1240px;
-  --header-h: 72px; --header-h-compact: 60px;
-  --scroll-offset: 84px;
+  /* ── Space ── */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px; --s-11:192px;
+  --section: clamp(5rem, 2.771rem + 9.143vw, 11rem);      /* 80 → 176 */
+  --gutter: clamp(1rem, 0.629rem + 1.524vw, 2rem);        /* 16 → 32 */
+  --side: clamp(1rem, -0.3rem + 5.333vw, 4.5rem);         /* 16 → 72 */
+  --content-max: 1296px;
+  --ann-h: 36px; --header-h: 76px; --header-h-compact: 64px; --scroll-offset: 92px;
 
   /* ── Shape ── */
-  --r-card: 16px; --r-image: 16px; --r-input: 10px; --r-pill: 999px; --r-signature: 56px;
+  --r-chip:999px; --r-pill:999px; --r-card:24px; --r-block:36px; --r-input:14px; --r-sticker:999px;
+  --bw:2px; --bw-card:3px; --bw-heavy:10px;     /* spec-label heavy rule */
 
-  /* ── Elevation: flat at rest. Only the expertise panel + mobile menu cast a shadow (DNA 4). ── */
-  --shadow-none: none;
-  --shadow-panel: 0 12px 32px rgba(58, 28, 92, 0.10);
-  --shadow: 0 8px 24px rgba(58, 28, 92, 0.08);          /* brief token, reserved; not used on cards */
-  --shadow-hover: 0 12px 32px rgba(58, 28, 92, 0.14);   /* brief token, reserved */
+  /* ── Depth ── */
+  --shadow-sticker: 0 1px 0 rgba(18,24,51,.06), 0 14px 28px -10px rgba(18,24,51,.38);
+  --shadow-lift: 0 24px 48px -16px rgba(18,24,51,.35);
+  --shadow-hard: 5px 5px 0 var(--kk-ink);       /* hand pills + toys on hover */
+  --shadow-panel: 0 24px 64px -12px rgba(18,24,51,.30);
 
-  /* ── Lines ── */
-  --line-hair: 1px; --line-work: 1.5px; --line-rule-hover: 2px; --pillar-bar: 4px;
-
-  /* ── Motion (CSS side; GSAP mirrors these in src/scripts/motion/tokens.ts) ── */
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);          /* ui-in */
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);           /* ui-out */
-  --ease-reveal: cubic-bezier(0.22, 0.61, 0.36, 1);/* power3.out */
-  --ease-draw: cubic-bezier(0.45, 0, 0.55, 1);     /* power2.inOut */
-  --ease-brief: cubic-bezier(0.2, 0.7, 0.2, 1);    /* brief --kk-motion */
-  --d-ui-in: 180ms; --d-ui-out: 140ms; --d-colour: 200ms; --d-brief: 220ms;
-  --d-reveal: 480ms; --d-lines: 720ms; --d-rule: 500ms; --d-swoosh: 900ms; --d-connector: 1200ms; --d-dock: 640ms;
-  --kk-motion: 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* ── Motion (CSS side; GSAP mirror in src/scripts/motion/tokens.ts) ── */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: linear(0, 0.38 7%, 0.88 16%, 1.08 24%, 1.12 30%, 1.06 40%, 0.99 52%, 1.004 68%, 1);
+  --d-fast:160ms; --d-ui:240ms; --d-panel:320ms; --d-page:360ms; --d-draw:700ms; --d-rise:900ms;
 }
-@media (prefers-reduced-motion: reduce) {
-  :root { --d-ui-in: 0ms; --d-ui-out: 0ms; --d-reveal: 200ms; --d-lines: 200ms; --d-rule: 0ms; --d-swoosh: 0ms; --d-connector: 0ms; --d-dock: 0ms; }
-}
+@media (prefers-reduced-motion: reduce) { :root { --d-fast:0ms; --d-ui:0ms; --d-panel:0ms; --d-page:0ms; --d-draw:0ms; --d-rise:0ms; } }

@@ -1,6 +1,6 @@
 ---
 /**
- * Connect · Collaborate · Create line (5.0.13): 1px Sapphire line, three 24px rings at the column
+ * Connect · Collaborate · Create line (v1 5.0.13, v2 7.8: dashed hand line, ringed nodes): three 24px rings at the column
  * starts, rising-arrow head at the end. Horizontal ≥768px, vertical down the left edge below.
  * Ships drawn and filled. Hooks for initMethodLine (W2-home): [data-method-line] root,
  * [data-method-path] (one per orientation; the hidden one has display:none), [data-ring] inner dots
@@ -20,8 +20,8 @@ const hasSteps = Astro.slots.has('step-1');
     {steps.map((n) => (
       <div class="ml-step" data-step={n}>
         <svg class="ml-ring" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="11.25" fill="#fff" stroke="var(--c-line)" stroke-width="1.5" />
-          <circle data-ring cx="12" cy="12" r="6" fill="var(--c-line)" />
+          <circle cx="12" cy="12" r="10.5" fill="#fff" stroke="var(--kk-ink)" stroke-width="2.5" />
+          <circle data-ring cx="12" cy="12" r="5.5" fill="var(--kk-saffron)" stroke="var(--kk-ink)" stroke-width="1.5" />
         </svg>
         {hasSteps && <div class="ml-step__body"><slot name={`step-${n}`} /></div>}
       </div>
@@ -30,9 +30,11 @@ const hasSteps = Astro.slots.has('step-1');
 </div>
 <style>
   .method-line { position: relative; --ring: 24px; }
-  .ml-path, .ml-head { position: absolute; overflow: visible; fill: none; stroke: var(--c-line); stroke-width: 1px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+  .ml-path, .ml-head { position: absolute; overflow: visible; fill: none; stroke: var(--fg); stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+  /* v2 7.8: a hand-drawn dashed line (a scrub may replace the dashes while it draws) */
+  .ml-path path { stroke-dasharray: 2 10; }
   .ml-path path { vector-effect: non-scaling-stroke; }
-  .ml-head path { stroke-width: 1.5px; }
+  .ml-head path { stroke-width: 3px; }
   .ml-ring { position: relative; z-index: 1; display: block; overflow: visible; }
   .ml-ring circle[data-ring] { transform-box: fill-box; transform-origin: center; }
   .ml-steps { display: grid; gap: var(--s-6); }

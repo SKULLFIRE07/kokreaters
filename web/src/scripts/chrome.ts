@@ -10,7 +10,8 @@ const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const reducedQuery = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const closeMs = () => (reducedQuery() ? 0 : 140);
+const closeMs = () => (reducedQuery() ? 0 : 160);
+const menuCloseMs = () => (reducedQuery() ? 0 : 260);
 const desktopQuery = window.matchMedia('(min-width: 1024px)');
 const lenis = (): LenisLike | undefined => (window as unknown as { __lenis?: LenisLike }).__lenis;
 
@@ -20,7 +21,7 @@ function visibleFocusables(root: Element): HTMLElement[] {
   );
 }
 
-/* ── Header: .is-scrolled once scrollY > 8 ─────────────────────────── */
+/* ── Header: .is-scrolled once scrollY > 8 (hide-on-scroll lives in motion/index.ts) ── */
 function initHeaderScroll(header: HTMLElement) {
   let ticking = false;
   const update = () => {
@@ -109,14 +110,10 @@ function initExpertisePanel(onOpen: () => void): { close: (focus?: boolean) => v
   });
   desktopQuery.addEventListener('change', (e) => { if (!e.matches) close(false); });
 
-  // A tap that landed before this script ran (recorded by the inline head snippet) opens the menu now.
-  const w = window as unknown as { __kkMenuPending?: boolean };
-  if (w.__kkMenuPending) { w.__kkMenuPending = false; if (!desktopQuery.matches) open(); }
-
   return { close };
 }
 
-/* ── Mobile menu: full-screen Cloud panel, focus trapped, rest inert ─ */
+/* ── Mobile menu: full-screen Ink panel, focus trapped, rest inert ─ */
 function initMobileMenu(onOpen: () => void) {
   const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = document.getElementById('mobile-menu');
@@ -146,6 +143,11 @@ function initMobileMenu(onOpen: () => void) {
     window.clearTimeout(hideTimer);
     isOpen = true;
     onOpen();
+    // the circle grows from the Menu button's centre (v2 7.4)
+    const br = btn.getBoundingClientRect();
+    const bar = menu.parentElement?.getBoundingClientRect();
+    menu.style.setProperty('--mx', `${Math.round(br.left + br.width / 2)}px`);
+    menu.style.setProperty('--my', `${Math.round(br.top + br.height / 2 - (bar?.bottom ?? br.bottom))}px`);
     menu.hidden = false;
     void menu.offsetWidth;
     menu.classList.add('is-open');
@@ -170,7 +172,7 @@ function initMobileMenu(onOpen: () => void) {
     lenis()?.start();
     for (const el of outside()) el.inert = false;
     document.removeEventListener('keydown', trap);
-    hideTimer = window.setTimeout(() => { if (!isOpen) menu.hidden = true; }, closeMs());
+    hideTimer = window.setTimeout(() => { if (!isOpen) menu.hidden = true; }, menuCloseMs());
     if (returnFocus) btn.focus();
   };
 
@@ -192,6 +194,10 @@ function initMobileMenu(onOpen: () => void) {
       target.hidden = expanded;
     });
   });
+
+  // A tap that landed before this script ran (recorded by the inline head snippet) opens the menu now.
+  const w = window as unknown as { __kkMenuPending?: boolean };
+  if (w.__kkMenuPending) { w.__kkMenuPending = false; if (!desktopQuery.matches) open(); }
 
   return { close };
 }

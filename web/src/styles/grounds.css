@@ -1,0 +1,63 @@
+/* src/styles/grounds.css: the ground system (DESIGN-SPEC v2 3.2). Every band, slab, card or toy with a background
+   sets ONE ground class; the ground re-declares the role tokens so text, notes, links, pills and focus are right by
+   construction. Never set text colour by hand on a ground. Contrast: scripts/contrast-check.mjs (npm run verify).
+   The v1 role aliases (--c-*) are re-declared on every ground so untouched v1 components follow the ground too. */
+
+:where(.g-white, .g-cloud, .g-ink, .g-imperial, .g-sapphire, .g-violet, .g-orchid, .g-mauve, .g-saffron, .g-sky, .g-butter, .g-lavender, .g-blush, .g-ice, .band--dark) {
+  background-color: var(--bg); color: var(--fg);
+  --c-ground: var(--bg); --c-ground-alt: var(--bg); --c-heading: var(--head); --c-text: var(--fg); --c-meta: var(--fg-2);
+  --c-dateline: var(--fg-2); --c-line: var(--accent); --c-line-dark: var(--accent); --c-rule: var(--rule); --c-link: var(--link);
+  --c-action: var(--pill-bg); --c-action-hover: var(--fg); --c-focus: var(--focus); --c-focus-dark: var(--focus);
+  --c-on-dark: var(--fg); --c-on-dark-muted: var(--fg-2); --c-highlight-dark: var(--link);
+  --pill-line: var(--fg); --line: var(--fg);
+}
+
+.g-white { --bg:var(--kk-white); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-graphite); --note:var(--kk-orchid); --link:var(--kk-sapphire); --accent:var(--kk-sapphire); --focus:var(--kk-cobalt);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+.g-cloud { --bg:var(--kk-cloud); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-graphite); --note:var(--kk-berry); --link:var(--kk-sapphire); --accent:var(--kk-sapphire); --focus:var(--kk-cobalt);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+.g-ink { --bg:var(--kk-ink); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-lavender); --note:var(--kk-saffron); --link:var(--kk-saffron); --accent:var(--kk-saffron); --focus:var(--kk-saffron);
+  --pill-bg:var(--kk-saffron); --pill-fg:var(--kk-ink); --pill-sweep:var(--kk-white); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-saffron); --chip-fg:var(--kk-ink); --rule:var(--kk-white-20); }
+.g-imperial { --bg:var(--kk-imperial); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-lavender); --note:var(--kk-saffron); --link:var(--kk-saffron); --accent:var(--kk-sky); --focus:var(--kk-saffron);
+  --pill-bg:var(--kk-saffron); --pill-fg:var(--kk-ink); --pill-sweep:var(--kk-white); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-saffron); --chip-fg:var(--kk-ink); --rule:var(--kk-white-20); }
+.g-sapphire { --bg:var(--kk-sapphire); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-ice); --note:var(--kk-saffron); --link:var(--kk-saffron); --accent:var(--kk-saffron); --focus:var(--kk-saffron);
+  --pill-bg:var(--kk-white); --pill-fg:var(--kk-sapphire); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-white); --chip-fg:var(--kk-sapphire); --rule:var(--kk-white-20); }
+.g-violet { --bg:var(--kk-violet); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-lavender); --note:var(--kk-saffron); --link:var(--kk-saffron); --accent:var(--kk-saffron); --focus:var(--kk-saffron);
+  --pill-bg:var(--kk-saffron); --pill-fg:var(--kk-ink); --pill-sweep:var(--kk-white); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-saffron); --chip-fg:var(--kk-ink); --rule:var(--kk-white-20); }
+.g-orchid { --bg:var(--kk-orchid); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-white); --note:var(--kk-white); --link:var(--kk-white); --accent:var(--kk-white); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-butter); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-white-20); --link-deco: underline; }
+.g-mauve { --bg:var(--kk-mauve); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-butter); --note:var(--kk-butter); --link:var(--kk-white); --accent:var(--kk-white); --focus:var(--kk-white);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-white-20); --link-deco: underline; }
+.g-saffron { --bg:var(--kk-saffron); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-imperial); --note:var(--kk-berry); --link:var(--kk-ink); --accent:var(--kk-ink); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-white); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-ink-12); --link-deco: underline; }
+.g-sky { --bg:var(--kk-sky); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-ink); --note:var(--kk-imperial); --link:var(--kk-ink); --accent:var(--kk-ink); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-ink-12); --link-deco: underline; }
+.g-butter { --bg:var(--kk-butter); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-graphite); --note:var(--kk-berry); --link:var(--kk-sapphire); --accent:var(--kk-sapphire); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+.g-lavender { --bg:var(--kk-lavender); --fg:var(--kk-ink); --head:var(--kk-imperial); --fg-2:var(--kk-imperial); --note:var(--kk-berry); --link:var(--kk-sapphire); --accent:var(--kk-sapphire); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+.g-blush { --bg:var(--kk-blush); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-imperial); --note:var(--kk-berry); --link:var(--kk-imperial); --accent:var(--kk-imperial); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+.g-ice { --bg:var(--kk-ice); --fg:var(--kk-ink); --head:var(--kk-ink); --fg-2:var(--kk-imperial); --note:var(--kk-sapphire); --link:var(--kk-sapphire); --accent:var(--kk-sapphire); --focus:var(--kk-ink);
+  --pill-bg:var(--kk-ink); --pill-fg:var(--kk-white); --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:var(--kk-white); --rule:var(--kk-hairline); }
+/* v1 compatibility: .band--dark / .on-dark (Imperial) behave as .g-imperial until Wave B restyles the pages. */
+.band--dark { --bg:var(--kk-imperial); --fg:var(--kk-white); --head:var(--kk-white); --fg-2:var(--kk-lavender); --note:var(--kk-saffron); --link:var(--kk-saffron); --accent:var(--kk-sky); --focus:var(--kk-saffron);
+  --pill-bg:var(--kk-saffron); --pill-fg:var(--kk-ink); --pill-sweep:var(--kk-white); --pill-sweep-fg:var(--kk-ink); --chip-bg:var(--kk-saffron); --chip-fg:var(--kk-ink); --rule:var(--kk-white-20); }
+/* Dark grounds: selection stays legible */
+:where(.g-ink, .g-imperial, .g-sapphire, .g-violet, .g-orchid, .g-mauve, .band--dark) ::selection { background: var(--kk-saffron); color: var(--kk-ink); }
+/* Links on colour grounds where the link colour equals the text colour are always underlined. */
+:where(.g-orchid, .g-mauve, .g-saffron, .g-sky) a:not([class]) { text-decoration-line: underline; text-decoration-thickness: 1.5px; }
+
+/* ── Modifiers ── */
+.paper-grid {
+  background-image: linear-gradient(var(--kk-grid) 1px, transparent 1px), linear-gradient(90deg, var(--kk-grid) 1px, transparent 1px);
+  background-size: 28px 28px; background-position: -1px -1px;
+}
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: url("../assets/fx/grain.png") repeat; background-size: 160px 160px;
+  mix-blend-mode: multiply; opacity: .10;
+}
+:where(.g-ink, .g-imperial, .g-sapphire, .g-violet, .g-orchid, .g-mauve).grain::after { mix-blend-mode: soft-light; opacity: .18; }
+.slab { margin-inline: max(8px, calc(var(--side) / 2)); border-radius: var(--r-block); overflow: clip; }

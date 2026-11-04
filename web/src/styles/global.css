@@ -1,9 +1,11 @@
-/* src/styles/global.css: imported once, from BaseLayout.astro (DESIGN-SPEC 1.6). Order matters. */
+/* src/styles/global.css: imported once, from BaseLayout.astro (DESIGN-SPEC v2 3.2, 6.1). Order matters. */
 @import "./fonts.css";
 @import "./tokens.css";
+@import "./grounds.css";
 @import "./reset.css";
 @import "./base.css";
 @import "./layout.css";
 @import "./utilities.css";
 @import "./prose.css";
 @import "./motion.css";
+@import "../components/notes/notes.css";

@@ -1,6 +1,6 @@
 ---
 /**
- * Page shell (DESIGN-SPEC 3.1). Order: SkipLink, Header, <main>, Footer,
+ * Page shell (DESIGN-SPEC 3.1, v2 7.1). Order: SkipLink, AnnouncementBar, Header, <main>, Footer,
  * CookieConsent, then the one motion bundle. The CtaField is rendered here,
  * at the end of <main>, on every page except contact, legal and 404 (3.5).
  */
@@ -8,6 +8,7 @@ import '@/styles/global.css';
 import SeoHead from '@/components/seo/SeoHead.astro';
 import { breadcrumbs as breadcrumbNode, organization, professionalService, website, type SeoProps, type Crumb } from '@/components/seo/schema';
 import SkipLink from '@/components/chrome/SkipLink.astro';
+import AnnouncementBar from '@/components/chrome/AnnouncementBar.astro';
 import Header from '@/components/chrome/Header.astro';
 import Footer from '@/components/chrome/Footer.astro';
 import CookieConsent from '@/components/chrome/CookieConsent.astro';
@@ -49,13 +50,17 @@ const bodyStyle = pillar ? pillarStyle(pillar) : undefined;
 (function(d,w){var h=d.documentElement;h.classList.remove('no-js');h.classList.add('js');
 var r=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(!r){h.classList.add('motion');w.setTimeout(function(){if(!h.classList.contains('motion-booted'))h.classList.add('motion-failed');},3000);}
+try{if(w.localStorage.getItem('kk-motion')==='paused')h.classList.add('motion-paused');}catch(e){}
 d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest('[data-menu-toggle]')&&!h.classList.contains('chrome-ready')){w.__kkMenuPending=!w.__kkMenuPending;}},true);
 })(document,window);
     </script>
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <SeoHead seo={seoFinal} />
   </head>
   <body data-page={page} data-ground={ground} data-pillar={pillar} style={bodyStyle}>
     <SkipLink />
+    <AnnouncementBar />
     <Header page={page} />
     <main id="main" tabindex="-1">
       {showCrumbs && breadcrumbs.length > 0 && (
@@ -72,8 +77,8 @@ d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest
 </html>
 
 <style is:global>
-  body { background: var(--c-ground); }
-  body[data-ground="cloud"] { background: var(--c-ground-alt); }
+  body { background: var(--kk-white); }
+  body[data-ground="cloud"] { background: var(--kk-cloud); }
   main:focus { outline: none; }
   .page-crumbs { padding-top: var(--s-5); }
 </style>
