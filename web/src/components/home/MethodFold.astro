@@ -1,27 +1,72 @@
 ---
-/** Fold 5 · The KoKreaters way (DESIGN-SPEC 5.1). Cloud. The method line is scrubbed by home.ts (no pin). */
+/**
+ * F6 · The KoKreaters way (DESIGN-SPEC v2 10.1 + 00.1). Lavender. The h2 "Connect. Collaborate. Create." IS three giant
+ * pill stickers (Sapphire −5°, Violet 3°, Saffron −2°) in a staggered diagonal that drop in sequence (R4). The hand
+ * dashed MethodLine scrubs under them with a mono "Step n · Name" per stop; the two Berry notes carry the gist and the
+ * full step copy sits in one <details> (≤ 25 words on first view). Hand pill "How we work".
+ */
 import Section from '@/components/ui/Section.astro';
+import Sticker from '@/components/notes/Sticker.astro';
 import MethodLine from '@/components/shared/MethodLine.astro';
-import TextLink from '@/components/ui/TextLink.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Button from '@/components/ui/Button.astro';
 import { method } from '@/data/home';
 import { steps, stepLabels } from '@/data/approach';
+import { homeNotes } from '@/data/notes/home';
+import type { GroundKey } from '@/data/types';
+
+const words = method.headline.split(' ');   // "Connect." "Collaborate." "Create."
+const looks: { g: GroundKey; r: number }[] = [{ g: 'sapphire', r: -5 }, { g: 'violet', r: 3 }, { g: 'saffron', r: -2 }];
 ---
-<Section ground="cloud" folio={{ n: '02', label: method.overline }} labelledby="method-heading" class="method-fold" data-method-fold>
-  <h2 id="method-heading" class="t-h2 method-fold__h" data-reveal="lines">{method.headline}</h2>
+<Section ground="lavender" notes folio={{ n: '02', label: method.overline }} labelledby="method-heading" class="method-fold" data-method-fold>
+  <h2 id="method-heading" class="method-fold__h">
+    {words.map((w, i) => (
+      <><Sticker shape="pill" ground={looks[i].g} rotate={looks[i].r} drop dropFrom={i === 1 ? 'right' : 'top'} decorative={false} as="span" class={`method-fold__st method-fold__st--${i + 1}`}><span class="t-display method-fold__w">{w}</span></Sticker>{i < words.length - 1 && ' '}</>
+    ))}
+  </h2>
+
   <MethodLine scrub class="method-fold__line">
     {steps.map((s) => (
       <div slot={`step-${s.n}`} class="method-fold__step">
-        <p class="t-dateline method-fold__label">{stepLabels.step} <span class="tnum">{s.n}</span> · {s.name}</p>
-        <p class="t-lead method-fold__copy">{s.copy}</p>
+        <p class="t-label method-fold__label">{stepLabels.step} <span class="tnum">{s.n}</span> · {s.name}</p>
+        {s.n === 1 && <MarginNote text={homeNotes.method.connect} tone="berry" rotate={-4} arrow="arrow-curve" arrowAt="start" arrowAngle={-30} show="md" anchor="block" class="method-fold__note" />}
+        {s.n === 3 && <MarginNote text={homeNotes.method.create} tone="berry" rotate={3} arrow="arrow-curve" arrowAt="start" arrowAngle={-30} show="md" anchor="block" class="method-fold__note" />}
       </div>
     ))}
   </MethodLine>
-  <div class="method-fold__link"><TextLink href={method.link.href}>{method.link.label}</TextLink></div>
+
+  <div class="method-fold__foot">
+    <details class="truth method-fold__truth">
+      <summary class="truth__sum"><span class="t-hand">{homeNotes.positioning.more}</span><span class="truth__plus" aria-hidden="true"></span></summary>
+      <ol class="method-fold__copy" role="list">
+        {steps.map((s) => <li><strong class="t-label">{s.name}</strong><span class="t-body">{s.copy}</span></li>)}
+      </ol>
+    </details>
+    <Button href={method.link.href} variant="hand">{method.link.label}</Button>
+  </div>
 </Section>
 
 <style>
-  .method-fold__h { margin: 0 0 var(--s-8); }
-  .method-fold__label { margin: 0 0 var(--s-3); }
-  .method-fold__copy { margin: 0; color: var(--c-text); }
-  .method-fold__link { margin-top: var(--s-7); }
+  .method-fold { padding-block: clamp(80px, 10vw, 150px); overflow: clip; }
+  .method-fold__h { margin: 0 0 clamp(48px, 6vw, 88px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: 18px; font-size: inherit; line-height: 1; }
+  .method-fold__h :global(.method-fold__st) { justify-self: start; }
+  .method-fold__h :global(.method-fold__st--1) { grid-column: 1 / 8; }
+  .method-fold__h :global(.method-fold__st--2) { grid-column: 3 / 13; margin-top: -6px; }
+  .method-fold__h :global(.method-fold__st--3) { grid-column: 6 / 13; margin-top: -4px; }
+  .method-fold__h :global(.sticker__face) { padding: .08em .42em .14em; }
+  .method-fold__w { display: block; font-size: clamp(56px, 10.4vw, 172px); line-height: .9; color: var(--head); white-space: nowrap; }
+  .method-fold__label { margin: 0; color: var(--kk-imperial); }
+  .method-fold :global(.method-fold__note) { margin-top: var(--s-3); }
+  .method-fold__foot { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-5); margin-top: clamp(40px, 5vw, 72px); }
+  .method-fold__truth { margin-top: 0; flex: 1 1 420px; }
+  .method-fold__copy { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: grid; gap: var(--s-4); }
+  .method-fold__copy li { display: grid; gap: 4px; }
+  .method-fold__copy .t-body { color: var(--kk-ink); }
+  @media (max-width: 767px) {
+    .method-fold__h { grid-template-columns: 1fr; }
+    .method-fold__h :global(.method-fold__st--1), .method-fold__h :global(.method-fold__st--2), .method-fold__h :global(.method-fold__st--3) { grid-column: 1; }
+    .method-fold__h :global(.method-fold__st--2) { justify-self: end; }
+    .method-fold__h :global(.method-fold__st--3) { justify-self: center; }
+    .method-fold__w { font-size: clamp(44px, 14vw, 72px); }
+  }
 </style>

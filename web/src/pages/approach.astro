@@ -1,36 +1,86 @@
 ---
-/** /approach (DESIGN-SPEC 5.5). CtaField is rendered by BaseLayout. */
+/**
+ * /approach (DESIGN-SPEC v2 10.5 + 00). F1 header (white, notebook grid) → F2 the three acts (pinned morph at ≥ 1024
+ * with motion; stacked colour slabs otherwise) → F3 the report (Crumple) → F4 principles (index cards) → F5 ways to
+ * work with us (FaqAccordion) → F6 CtaField (BaseLayout).
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import RisingArrow from '@/components/brand/RisingArrow.astro';
+import Scribble from '@/components/notes/Scribble.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Stamp from '@/components/notes/Stamp.astro';
+import NodeCluster from '@/components/brand/NodeCluster.astro';
 import MethodSteps from '@/components/approach/MethodSteps.astro';
+import ReportFold from '@/components/approach/ReportFold.astro';
 import Principles from '@/components/approach/Principles.astro';
 import EngagementTable from '@/components/approach/EngagementTable.astro';
 import { approach } from '@/data/approach';
+import { name } from '@/data/founder';
+import { storyNotes } from '@/data/notes/story';
 import { pageSeo } from '@/lib/seo';
 
 const [before, rest = ''] = approach.headline.split(approach.swooshPhrase);
-// keep the punctuation that follows the swoosh on its line (", not for you.")
 const punct = rest.match(/^[,.;:!?’”]+/)?.[0] ?? '';
 const after = rest.slice(punct.length);
+// ≤ 25 visible words (00.1): the intro's first sentence shows, the rest sits in a <details>
+const cut = approach.intro.indexOf('. ');
+const introHead = cut > 0 ? approach.intro.slice(0, cut + 1) : approach.intro;
+const introRest = cut > 0 ? approach.intro.slice(cut + 2) : '';
+// the tagline words from the brief ("Connect · Collaborate · Create"), as the stamp ring
+const tagline = name.lockupAlt.split(': ')[1] ?? 'Connect · Collaborate · Create';
 ---
 <BaseLayout page="approach" seo={pageSeo('approach')} breadcrumbs={[{ label: approach.overline, href: '/approach' }]}>
-  <div class="approach-hero">
-    <div class="container grid">
-      <div class="approach-hero__text c-1-9">
-        <p class="t-dateline approach-hero__dateline">{approach.overline}</p>
-        <h1 class="t-h1 approach-hero__title">{before}<span class="nowrap"><RisingArrow phrase={approach.swooshPhrase} />{punct}</span>{after}</h1>
-        <p class="t-lead approach-hero__intro">{approach.intro}</p>
+  <section class="ap-hero g-white paper-grid has-notes" aria-labelledby="ap-title">
+    <div class="container ap-hero__grid">
+      <div class="ap-hero__text">
+        <p class="t-dateline ap-hero__dateline"><span class="ap-hero__dot" aria-hidden="true"></span>{approach.overline}</p>
+        <h1 id="ap-title" class="t-display ap-hero__title">{before}<span class="nowrap"><Scribble kind="circle" tone="orchid" delay={0.3}>{approach.swooshPhrase}</Scribble>{punct}</span>{after}</h1>
+        <MarginNote text={storyNotes.approach.idea} tone="orchid" size="lg" rotate={-6} arrow="arrow-curve" arrowAt="start" flip arrowAngle={10}
+          place="left:min(58vw, 700px);top:38%;" show="md" delay={0.9} class="ap-hero__note" />
+        <div class="ap-hero__lead">
+          <p class="t-lead">{introHead}</p>
+          {introRest && (
+            <details class="more">
+              <summary class="more__sum t-hand">{storyNotes.approach.more}</summary>
+              <p class="t-lead more__body">{introRest}</p>
+            </details>
+          )}
+        </div>
+      </div>
+      <div class="ap-hero__stamp" data-parallax="0.12">
+        <Stamp text={tagline} size={230} ground="saffron" spin rotate={-8}><NodeCluster size={112} discs={false} /></Stamp>
       </div>
     </div>
-  </div>
+  </section>
   <MethodSteps />
+  <ReportFold />
   <Principles />
   <EngagementTable />
 </BaseLayout>
 <style>
-  .approach-hero { padding-block: var(--s-9) var(--s-9); }
-  .approach-hero__dateline { margin: 0 0 var(--s-5); }
-  .approach-hero__title { margin: 0; max-width: 16em; }
-  .approach-hero__intro { margin: var(--s-6) 0 0; color: var(--c-text); }
-  @media (max-width: 767px) { .approach-hero { padding-block: var(--s-8) var(--s-8); } }
+  .ap-hero { position: relative; padding-block: clamp(56px, 8vw, 128px) clamp(64px, 9vw, 150px); overflow: clip; }
+  .ap-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--s-7); }
+  .ap-hero__text { position: relative; }
+  .ap-hero__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-6); }
+  .ap-hero__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--kk-orchid); box-shadow: 0 0 0 3px var(--kk-white), 0 0 0 5px var(--kk-orchid); }
+  .ap-hero__title { margin: 0; max-width: 11.5ch; font-size: clamp(3.5rem, 1.2rem + 8.4vw, 9rem); line-height: .9; }
+  .ap-hero__title :global(.scribble--circle) { margin-inline: .08em; }
+  .ap-hero :global(.ap-hero__note) { z-index: 4; }
+  .ap-hero__lead { margin-top: var(--s-7); max-width: 46ch; }
+  .ap-hero__lead > p { margin: 0; }
+  .ap-hero__stamp { align-self: start; margin-top: var(--s-8); }
+  .more { margin-top: var(--s-4); }
+  .more__sum { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px 2px; border-radius: var(--r-pill);
+    box-shadow: inset 0 0 0 2px var(--pill-line); cursor: pointer; list-style: none; color: var(--fg); font-size: var(--fs-hand-button); line-height: 1; }
+  .more__sum::-webkit-details-marker { display: none; }
+  .more__sum:hover { background: var(--kk-butter); color: var(--kk-ink); }
+  .more__sum:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .more[open] .more__sum { background: var(--kk-ink); color: var(--kk-white); }
+  .more__body { margin: var(--s-4) 0 0; }
+  @media (max-width: 1023px) {
+    .ap-hero__grid { grid-template-columns: 1fr; }
+    .ap-hero__stamp { position: absolute; right: 0; top: -36px; margin: 0; scale: .62; transform-origin: top right; opacity: .95; }
+  }
+  @media (max-width: 767px) {
+    .ap-hero__stamp { display: none; }
+  }
 </style>

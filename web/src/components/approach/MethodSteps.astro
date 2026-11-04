@@ -1,97 +1,121 @@
 ---
 /**
- * Approach method (DESIGN-SPEC 5.5.2): the scrubbed MethodLine at full width (initMethodLine, 6.5),
- * then one section per step: dateline "Step n", h2 name, lead copy and a 3/9 <dl>
- * (What we do · What you get · Typical duration). Null values → <Confirm id={10}/> in staging;
- * in production null rows are omitted, and the <dl> too when nothing is left.
+ * Approach F2, the three acts (DESIGN-SPEC v2 10.5 F2 + 00.2). One <ol> of three steps; each <li> is a full colour
+ * slab (Connect Sapphire, Collaborate Violet, Create Saffron) with mono "Step n / 3", the name as a huge h2, the brief
+ * copy, a margin note and the honest label (CONFIRM 10 rows in staging; omitted in production), plus a small static
+ * diagram of its act. With motion at ≥ 1024, scripts/pages/approach.ts pins the stage, cross-fades the acts, morphs
+ * the big diagram (scattered → network → rising arrow) and tweens the ground between the three colours.
+ * 768–1023 with motion: the slabs stack (CSS sticky). Reduced / JS off / < 768: plain stacked slabs.
  */
-import MethodLine from '@/components/shared/MethodLine.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import SpecLabel from '@/components/notes/SpecLabel.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { steps, stepLabels } from '@/data/approach';
+import { storyNotes } from '@/data/notes/story';
 import { isStaging } from '@/lib/mode';
+import { NODE_COLOURS, STATES, LINKS, arrowD, HEAD, type Pt } from './acts';
 
 const fields = ['whatWeDo', 'whatYouGet', 'duration'] as const;
-const slug = (name: string) => name.toLowerCase();
+const grounds = ['sapphire', 'violet', 'saffron'] as const;
+const notes = [storyNotes.steps.connect, storyNotes.steps.collaborate, storyNotes.steps.create];
+const slug = (n: string) => n.toLowerCase();
 const rowsFor = (s: (typeof steps)[number]) =>
-  fields
-    .map((f) => ({ key: f, label: stepLabels[f], value: s[f] }))
-    .filter((r) => r.value !== null || isStaging);
+  fields.filter((f) => s[f] !== null || isStaging).map((f) => ({ k: stepLabels[f], v: s[f] ?? '' , f }));
+const node = (p: Pt, i: number, r = 30) => ({ cx: p[0].toFixed(1), cy: p[1].toFixed(1), r, fill: NODE_COLOURS[i] });
 ---
-<div class="band method-steps">
-  <div class="container">
-    <nav class="method-steps__line" data-method-fold aria-label={steps.map((s) => s.name).join(', ')}>
-      <MethodLine scrub>
-        {steps.map((s) => (
-          <a slot={`step-${s.n}`} class="method-steps__jump" href={`#${slug(s.name)}`}>
-            <span class="t-dateline tnum">{stepLabels.step} {s.n}</span>
-            <span class="method-steps__jump-name">{s.name}</span>
-          </a>
-        ))}
-      </MethodLine>
-    </nav>
-
-    <div class="method-steps__list">
-      {steps.map((s) => {
-        const rows = rowsFor(s);
-        return (
-          <section id={slug(s.name)} class="step" aria-labelledby={`step-${s.n}-title`}>
-            <span class="step__rule rule" data-rule aria-hidden="true"></span>
-            <div class="step__grid grid">
-              <p class="step__dateline t-dateline tnum c-1-3">{stepLabels.step} {s.n}</p>
-              <div class="step__head c-4-12">
-                <h2 id={`step-${s.n}-title`} class="t-h2 step__title" data-reveal="lines">{s.name}</h2>
-                <p class="t-lead step__copy" data-reveal>{s.copy}</p>
+<section class="acts" data-acts aria-label={steps.map((s) => s.name).join(', ')}>
+  <div class="acts__stage g-sapphire grain" data-acts-stage>
+    <div class="container acts__inner">
+      <ol class="acts__list" role="list">
+        {steps.map((s, i) => {
+          const rows = rowsFor(s);
+          const st = STATES[i];
+          return (
+            <li id={slug(s.name)} class:list={['act', `g-${grounds[i]}`, 'has-notes']} data-act={i} aria-labelledby={`act-${s.n}`}>
+              <div class="act__text">
+                <p class="act__step t-dateline tnum"><span class="act__num">{stepLabels.step} {s.n}</span><span aria-hidden="true">{`\u00A0/ ${steps.length}`}</span></p>
+                <h2 id={`act-${s.n}`} class="act__name">{s.name}</h2>
+                <p class="act__copy t-lead">{s.copy}</p>
+                <MarginNote text={notes[i]} rotate={i === 1 ? 3 : -5} arrow="arrow-curve" arrowAt="start" flip={i === 1} arrowAngle={i === 1 ? 20 : -30}
+                  anchor="block" show="md" class="act__note" />
+                {rows.length > 0 && (
+                  <div class="act__label">
+                    <SpecLabel title={s.name} headingLevel="none" compact ground="white"
+                      rows={rows.map((r) => ({ k: r.k, v: r.v || '—' }))} />
+                    {isStaging && rows.some((r) => !r.v) && <p class="act__confirm"><Confirm id={10} /></p>}
+                  </div>
+                )}
               </div>
-              {rows.length > 0 && (
-                <dl class="step__dl c-1-12" data-reveal>
-                  {rows.map((r) => (
-                    <div class="step__row grid">
-                      <dt class="t-dateline c-1-3">{r.label}</dt>
-                      <dd class="c-4-12">{r.value ?? <Confirm id={10} />}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-            </div>
-          </section>
-        );
-      })}
+              <svg class="act__mini" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+                {i === 1 && LINKS.map(([a, b]) => <line x1={st[a][0]} y1={st[a][1]} x2={st[b][0]} y2={st[b][1]} class="dg-link" />)}
+                {i === 2 && (<><path d={arrowD()} class="dg-arrow" /><path d={HEAD} class="dg-arrow" /></>)}
+                {st.map((p, k) => { const n = node(p, k, i === 2 ? 24 : 30); return (
+                  <g class="dg-node"><circle cx={n.cx} cy={n.cy} r={n.r + 8} class="dg-ring" /><circle cx={n.cx} cy={n.cy} r={n.r} fill={n.fill} /><circle cx={n.cx} cy={n.cy} r={n.r * .42} class="dg-core" /></g>
+                ); })}
+              </svg>
+            </li>
+          );
+        })}
+      </ol>
+      <div class="acts__art" aria-hidden="true">
+        <svg class="acts__svg" viewBox="0 0 600 600" focusable="false" data-acts-svg>
+          <g data-acts-links>{LINKS.map(() => <line class="dg-link" x1="0" y1="0" x2="0" y2="0" pathLength="1" />)}</g>
+          <path class="dg-arrow" d={arrowD()} pathLength="1" data-acts-arrow />
+          <path class="dg-arrow" d={HEAD} pathLength="1" data-acts-head />
+          <g data-acts-nodes>{STATES[0].map((_p, k) => (
+            <g class="dg-node" data-node={k}><circle r="38" class="dg-ring" /><circle r="30" fill={NODE_COLOURS[k]} /><circle r="12.6" class="dg-core" /></g>
+          ))}</g>
+        </svg>
+        <p class="acts__counter t-dateline tnum"><span data-acts-i>1</span> / {steps.length}</p>
+        <MarginNote text={storyNotes.approach.scroll} rotate={-4} arrow="arrow-bounce" arrowAt="end" anchor="abs" show="lg"
+          place="left:-4%;top:-12px;" class="acts__hint" />
+      </div>
     </div>
   </div>
-</div>
+</section>
 <style>
-  .method-steps { padding-top: 0; padding-bottom: 0; }
-  .method-steps__line { margin-bottom: var(--s-9); }
-  .method-steps__jump {
-    display: inline-flex; flex-direction: column; gap: var(--s-1);
-    min-height: 44px; padding-block: 2px;
-    color: var(--c-heading); text-decoration: none;
-  }
-  .method-steps__jump-name {
-    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3);
-    font-weight: var(--wght-h3); letter-spacing: var(--track-h3);
-    transition: color var(--d-colour) var(--ease-out);
-  }
-  .method-steps__jump:hover .method-steps__jump-name,
-  .method-steps__jump:focus-visible .method-steps__jump-name { color: var(--c-link); }
+  .acts { position: relative; }
+  .acts__stage { position: relative; }
+  .acts__stage.grain::after { z-index: 0; }
+  .acts__inner { position: static; }
+  .acts__art { display: none; }
+  .acts__list { list-style: none; margin: 0; padding: 0; }
 
-  .step { position: relative; }
-  .step__rule { display: block; }
-  .step__grid { padding-block: var(--s-7) var(--s-8); row-gap: var(--s-4); align-items: start; }
-  .step__dateline { margin: 0; padding-top: 0.9em; }
-  .step__title { margin: 0; }
-  .step__copy { margin: var(--s-4) 0 0; color: var(--c-text); }
-  .step__dl { margin: var(--s-5) 0 0; }
-  .step__row { padding-block: var(--s-4); border-top: 1px solid var(--c-rule); align-items: baseline; }
-  .step__row dt { margin: 0; }
-  .step__row dd { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); }
-  .step__row dd :global(.confirm) { margin-inline: 0; }
-  /* the inner <dl> rows sit on the same 12 columns as the page grid */
-  .step__dl .grid { column-gap: var(--gutter); }
+  /* ── static / stacked slabs (default, reduced, JS off, < 1024) ── */
+  .act { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-7); align-items: center;
+    padding: clamp(48px, 7vw, 112px) var(--side); margin-inline: calc(-1 * var(--side)); min-height: 80svh; z-index: 1; }
+  .act__text { position: relative; }
+  .act__step { margin: 0 0 var(--s-4); display: inline-flex; gap: 2px; padding: 6px 12px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--fg); }
+  .act__name { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -0.03em; line-height: .86;
+    font-size: clamp(3.25rem, .5rem + 8.4vw, 8.75rem); color: var(--head); }
+  .act__copy { margin: var(--s-5) 0 0; max-width: 40ch; color: var(--fg); }
+  .act :global(.act__note) { margin-top: var(--s-4); }
+  .act__label { margin-top: var(--s-6); max-width: 460px; color: var(--kk-ink); }
+  .act__confirm { margin: var(--s-2) 0 0; }
+  .act__mini { width: 100%; max-width: 440px; justify-self: end; overflow: visible; }
 
+  .dg-link { stroke: var(--fg); stroke-width: 4; stroke-linecap: round; opacity: .8; }
+  .dg-arrow { fill: none; stroke: var(--fg); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+  .dg-ring { fill: var(--fg); }
+  .dg-core { fill: var(--kk-white); }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    :global(html.motion:not(.motion-failed)) .act { position: sticky; top: calc(var(--header-h-compact) + 12px); border-radius: var(--r-block); margin-inline: 0; margin-bottom: 24px; box-shadow: 0 -20px 40px -24px rgba(18,24,51,.35); }
+  }
   @media (max-width: 767px) {
-    .method-steps__line { margin-bottom: var(--s-8); }
-    .step__dateline { padding-top: 0; }
-    .step__row { row-gap: var(--s-1); }
+    .act { grid-template-columns: 1fr; min-height: 0; }
+    .act__mini { max-width: 240px; justify-self: start; grid-row: 1; }
   }
+
+  /* ── pinned morph (≥ 1024 with motion; class set by approach.ts) ── */
+  .acts--pinned .acts__stage { height: 100svh; display: flex; align-items: center; transition: background-color .7s var(--ease-expo), color .7s var(--ease-expo); }
+  .acts--pinned .acts__inner { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-7); align-items: center; z-index: 1; padding-top: var(--header-h-compact); }
+  .acts--pinned .acts__list { position: relative; display: grid; }
+  .acts--pinned .act { grid-area: 1 / 1; display: block; position: relative; top: auto; min-height: 0; padding: 0; margin: 0; background: transparent; box-shadow: none; border-radius: 0; }
+  .acts--pinned .act__mini { display: none; }
+  .acts--pinned .act__name { font-size: clamp(5rem, 1rem + 9.4vw, 10.5rem); }
+  .acts--pinned .acts__art { display: block; position: relative; }
+  .acts--pinned .acts__svg { display: block; width: 100%; max-height: 70svh; overflow: visible; }
+  .acts__counter { position: absolute; top: -8px; right: 0; margin: 0; padding: 6px 12px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px currentColor; }
+  .acts--pinned .act:not(.is-on) { pointer-events: none; }
 </style>

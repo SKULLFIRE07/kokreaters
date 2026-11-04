@@ -1,6 +1,7 @@
 ---
 /**
- * Sidenote (DESIGN-SPEC 5.8 item 5). The ref is a superscript link; the note itself is a
+ * Sidenote (DESIGN-SPEC 5.8 item 5; v2 10.9: a Butter sticky-note card with tape, rotate −1°, in the left margin at
+ * ≥ 1280px; an indented Butter card inline below that. Not Caveat: notes are content). The ref is a superscript link; the note itself is a
  * <span role="note"> rather than an <aside>, because MDX places it inside a <p> and the HTML
  * parser would otherwise split the paragraph. At ≥ 1280px it floats into the left margin
  * (cols 1–3); below that it stays in reading order as an indented meta block.
@@ -8,33 +9,38 @@
 interface Props { n: number | string; }
 const { n } = Astro.props;
 ---
-{"\u2060"}<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote note" role="note"><span class="note__n tnum" aria-hidden="true">{n}</span><span class="note__text"><slot /></span></span>
+{"\u2060"}<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote" role="note"><span class="sidenote__n tnum" aria-hidden="true">{n}</span><span class="sidenote__text"><slot /></span></span>
 <style>
-  .note-ref { font-family: var(--font-sans); font-weight: 600; font-size: 0.68em; line-height: 0; vertical-align: super; margin-left: 1px; }
-  .note-ref a { display: inline-block; padding: 0 2px; color: var(--c-link); text-decoration: none; }
-  .note-ref a:hover, .note-ref a:focus-visible { text-decoration: underline; text-decoration-thickness: 1px; }
+  .note-ref { font-family: var(--font-mono); font-weight: 500; font-size: 0.66em; line-height: 0; vertical-align: super; margin-left: 2px; }
+  .note-ref a { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; padding: 0 3px; border-radius: 999px; background: var(--kk-butter); box-shadow: inset 0 0 0 1.5px var(--kk-ink); color: var(--kk-ink); text-decoration: none; }
+  .note-ref a:hover, .note-ref a:focus-visible { background: var(--kk-saffron); }
 
-  .note {
-    display: flex; gap: var(--s-2);
-    margin: var(--s-4) 0 var(--s-2);
-    padding: 2px 0 2px var(--s-4);
-    border-left: 1px solid var(--c-rule);
-    font-family: var(--font-sans); font-style: normal; font-weight: 400;
-    font-size: var(--fs-meta); line-height: var(--lh-meta); letter-spacing: 0.005em;
-    font-variant-numeric: lining-nums;
-    color: var(--c-meta);
-    text-transform: none;
+  .sidenote {
+    position: relative;
+    display: flex; gap: var(--s-3);
+    margin: var(--s-5) 0 var(--s-4) var(--s-4);
+    padding: 22px 18px 16px;
+    background: var(--kk-butter); color: var(--kk-ink);
+    border-radius: 4px 4px 14px 4px;
+    box-shadow: 0 1px 0 rgba(18,24,51,.08), 0 14px 22px -14px rgba(18,24,51,.45);
+    rotate: -1deg;
+    font-family: var(--font-mono); font-style: normal; font-weight: 400;
+    font-size: 13.5px; line-height: 1.55; letter-spacing: 0;
+    text-transform: none; overflow-wrap: anywhere; hyphens: auto;
   }
-  .note__n { flex: none; font-weight: 600; color: var(--c-heading); min-width: 1ch; }
-  .note:target { border-left-color: var(--c-line); }
+  .sidenote::before { /* tape */
+    content: ""; position: absolute; top: -10px; left: 50%; width: 76px; height: 22px; translate: -50% 0; rotate: -4deg;
+    background: color-mix(in srgb, var(--kk-ice) 80%, transparent); box-shadow: 0 1px 2px rgba(18,24,51,.12);
+  }
+  .sidenote__n { flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--kk-ink); color: var(--kk-white); font-size: 11px; font-weight: 500; }
+  .sidenote:target { box-shadow: 0 0 0 3px var(--kk-cobalt), 0 14px 22px -14px rgba(18,24,51,.45); }
 
   @media (min-width: 1280px) {
-    .note {
+    .sidenote {
       float: left; clear: left;
       width: var(--margin-col, 220px);
-      margin: 0.35em 0 var(--s-4) calc(-1 * (var(--margin-col, 220px) + var(--gutter)));
-      padding: var(--s-3) 0 0; border-left: 0; border-top: 1px solid var(--c-rule);
+      margin: 0.35em 0 var(--s-5) calc(-1 * (var(--margin-col, 220px) + var(--gutter) + 24px));
     }
-    .note:target { border-top-color: var(--c-line); }
   }
+  @media (prefers-reduced-motion: reduce) { .sidenote { rotate: none; } }
 </style>

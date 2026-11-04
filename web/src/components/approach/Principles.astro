@@ -1,42 +1,60 @@
 ---
-/** Approach principles (DESIGN-SPEC 5.5.3): h2 "Principles", five index-style rows. */
+/**
+ * Approach F4, principles (DESIGN-SPEC v2 10.5 F4): five index cards in a loose 3 + 2 grid on White, grounds butter /
+ * lavender / blush / ice / white, small rotations, each pinned with Tape; mono number, name in h3, copy in mono.
+ * R4 sticker drop (stagger). Note "the house rules" beside the h2 with an arrow to card 1.
+ */
+import Tape from '@/components/notes/Tape.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import { principles, principlesHeading } from '@/data/approach';
+import { storyNotes } from '@/data/notes/story';
+const grounds = ['butter', 'lavender', 'blush', 'ice', 'white'] as const;
+const rots = [-2, 1.5, -1, 2, -1.5];
+const tapes = ['blush', 'butter', 'ice', 'lavender', 'butter'] as const;
 ---
-<section class="band principles" aria-labelledby="principles-title">
+<section class="principles g-white has-notes" aria-labelledby="principles-title">
   <div class="container">
-    <div class="grid principles__head">
-      <h2 id="principles-title" class="t-h2 c-1-12" data-reveal="lines">{principlesHeading}</h2>
+    <div class="principles__head">
+      <h2 id="principles-title" class="principles__h2" data-rise="lines">{principlesHeading}</h2>
+      <MarginNote text={storyNotes.principles.rules} tone="orchid" rotate={-5} arrow="arrow-curve" arrowAt="below" arrowAngle={60}
+        anchor="block" show="md" class="principles__note" />
     </div>
-    <ol class="principles__list">
+    <ol class="principles__grid" role="list">
       {principles.map((p, i) => (
-        <li class="principle">
-          <span class="principle__rule rule" data-rule aria-hidden="true"></span>
-          <div class="principle__grid grid">
-            <span class="principle__n t-meta tnum c-1-1" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="principle__name t-h3 c-2-4">{p.name}</h3>
-            <p class="principle__copy t-lead c-5-12" data-reveal>{p.copy}</p>
-          </div>
+        <li class:list={['pcard', `g-${grounds[i]}`]} style={`--rot:${rots[i]}deg`} data-sticker data-sticker-from={i % 2 ? 'right' : 'top'}>
+          <Tape tone={tapes[i]} rotate={i % 2 ? 5 : -4} />
+          <span class="pcard__n t-dateline tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="pcard__name">{p.name}</h3>
+          <p class="pcard__copy t-mono">{p.copy}</p>
         </li>
       ))}
     </ol>
-    <span class="principles__end rule" data-rule aria-hidden="true"></span>
   </div>
 </section>
 <style>
-  .principles { padding-top: max(0px, calc(var(--section) - var(--s-8))); }
-  .principles__head { margin-bottom: var(--s-7); }
-  .principles__head h2 { margin: 0; }
-  .principles__list { list-style: none; margin: 0; padding: 0; }
-  .principle__rule, .principles__end { display: block; }
-  .principle__grid { padding-block: var(--s-6); row-gap: var(--s-2); align-items: baseline; }
-  .principle__n { padding-top: 0.2em; }
-  .principle__name { margin: 0; }
-  .principle__copy { margin: 0; color: var(--c-meta); max-width: none; }
-  @media (max-width: 767px) {
-    .principle__grid { row-gap: var(--s-2); }
+  .principles { padding-block: var(--section); overflow: clip; }
+  .principles__head { display: flex; align-items: flex-end; gap: var(--s-6); flex-wrap: wrap; margin-bottom: var(--s-8); }
+  .principles__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .88;
+    font-size: clamp(3.5rem, 1rem + 9vw, 9rem); }
+  .principles :global(.principles__note) { margin-bottom: 1.2em; }
+  .principles__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 40px); }
+  .pcard { grid-column: span 2; position: relative; rotate: var(--rot); padding: 40px 28px 30px; border-radius: 10px;
+    border: 2px solid var(--kk-ink); box-shadow: 6px 6px 0 var(--kk-ink); display: flex; flex-direction: column; gap: 14px; min-height: 300px;
+    transition: rotate .5s var(--ease-spring), translate .5s var(--ease-spring), box-shadow .3s var(--ease-expo); }
+  .pcard:nth-child(4) { grid-column: 2 / span 2; }
+  .pcard:hover { rotate: 0deg; translate: 0 -6px; box-shadow: 10px 12px 0 var(--kk-ink); }
+  .pcard__n { font-size: 14px; }
+  .pcard__name { margin: 0; font-family: var(--font-display); font-weight: 760; font-stretch: 80%; letter-spacing: -.015em; line-height: .98;
+    font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); color: var(--head); text-wrap: balance; }
+  .pcard__copy { margin: auto 0 0; color: var(--fg); }
+  @media (max-width: 1023px) {
+    .principles__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pcard, .pcard:nth-child(4) { grid-column: auto; }
+    .pcard:nth-child(5) { grid-column: 1 / -1; }
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .principle__name { grid-column: 2 / 6; }
-    .principle__copy { grid-column: 6 / 13; }
+  @media (max-width: 599px) {
+    .principles__grid { grid-template-columns: 1fr; gap: 28px; }
+    .pcard { min-height: 0; }
   }
+  @media (prefers-reduced-motion: reduce) { .pcard { transition: none; } }
 </style>

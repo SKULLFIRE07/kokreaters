@@ -1,61 +1,102 @@
 ---
 /**
- * Fold 2 · Proof band (DESIGN-SPEC 5.1, graft 2). Imperial field. One Sky line with a station
- * node at each column start; Saffron numerals. Ships in its final, lit state; home.ts runs the
- * line, the nodes and the counts. Only these three integers ever count (C-18).
+ * F3 · Proof band "Career facts" (DESIGN-SPEC v2 10.1). Imperial + grain. Behind: the Emulsion (WebGL, lazy, home-emulsion.ts)
+ * over a static three-disc fallback (soft radial gradients, no runtime blur). Left: a spinning Stamp around the node
+ * cluster + the visible mono dateline. Four Saffron stats on a Sky line with Saffron stations (the line draws, each stat
+ * counts as it passes). FlapBoard of the datelines underneath. Only 25, 5 and 3 count (C-18); "WHO" fades.
  */
-import Section from '@/components/ui/Section.astro';
+import Stamp from '@/components/notes/Stamp.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import NodeCluster from '@/components/brand/NodeCluster.astro';
+import FlapBoard from '@/components/bencho/FlapBoard.astro';
 import { proof, proofSource } from '@/data/home';
+import { homeNotes } from '@/data/notes/home';
 ---
-<Section ground="dark" folio={{ label: proofSource }} class="proof-band" labelledby="proof-heading" data-proof>
-  <h2 id="proof-heading" class="visually-hidden">{proofSource}</h2>
-  <div class="proof">
-    <div class="proof__line" data-proof-line aria-hidden="true"></div>
-    <ul class="proof__grid" role="list">
-      {proof.map((p) => (
-        <li class="proof__item">
-          <span class="proof__node" data-proof-node aria-hidden="true"></span>
-          <p class="t-stat proof__num">
-            {p.count !== undefined
-              ? <><span data-count={p.count} aria-hidden="true">{p.value}</span><span class="visually-hidden">{p.value}</span></>
-              : <span data-proof-word>{p.value}</span>}
-          </p>
-          <p class="proof__label">{p.label}</p>
-        </li>
-      ))}
-    </ul>
+<section class="proof-band band fold g-imperial grain has-notes" aria-labelledby="proof-heading" data-proof>
+  <div class="proof-band__fx" aria-hidden="true">
+    <svg class="proof-band__discs" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs>
+        <radialGradient id="pb-lav"><stop offset="0" stop-color="#EADCFF" stop-opacity=".18" /><stop offset=".6" stop-color="#EADCFF" stop-opacity=".12" /><stop offset="1" stop-color="#EADCFF" stop-opacity="0" /></radialGradient>
+        <radialGradient id="pb-ice"><stop offset="0" stop-color="#D6E2FA" stop-opacity=".18" /><stop offset=".6" stop-color="#D6E2FA" stop-opacity=".1" /><stop offset="1" stop-color="#D6E2FA" stop-opacity="0" /></radialGradient>
+        <radialGradient id="pb-but"><stop offset="0" stop-color="#FFEEB0" stop-opacity=".18" /><stop offset=".6" stop-color="#FFEEB0" stop-opacity=".1" /><stop offset="1" stop-color="#FFEEB0" stop-opacity="0" /></radialGradient>
+      </defs>
+      <circle cx="1080" cy="170" r="380" fill="url(#pb-lav)" />
+      <circle cx="260" cy="560" r="420" fill="url(#pb-ice)" />
+      <circle cx="1300" cy="620" r="340" fill="url(#pb-but)" />
+    </svg>
+    <canvas class="proof-band__canvas" data-emulsion></canvas>
   </div>
-</Section>
+
+  <div class="container proof-band__inner">
+    <div class="proof-band__top">
+      <div class="proof-band__seal">
+        <Stamp text={`${proofSource} · ${proofSource} ·`} size={150} ground="imperial" spin>
+          <NodeCluster size={64} discs={false} />
+        </Stamp>
+        <h2 id="proof-heading" class="t-dateline proof-band__source">{proofSource}</h2>
+      </div>
+      <FlapBoard entries={homeNotes.proof.flap} width={18} label={proofSource} class="proof-band__flap" />
+    </div>
+
+    <div class="proof">
+      <div class="proof__line" data-proof-line aria-hidden="true"></div>
+      <ul class="proof__grid" role="list">
+        {proof.map((p) => (
+          <li class:list={['proof__item', { 'proof__item--word': p.count === undefined }]}>
+            <span class="proof__node" data-proof-node aria-hidden="true"></span>
+            <p class="t-stat proof__num">
+              {p.count !== undefined
+                ? <><span data-count={p.count} aria-hidden="true">{p.value}</span><span class="visually-hidden">{p.value}</span></>
+                : <span data-proof-word>{p.value}</span>}
+            </p>
+            <p class="proof__label">{p.label}</p>
+          </li>
+        ))}
+      </ul>
+      <MarginNote text={homeNotes.proof.who} tone="saffron" rotate={5} arrow="arrow-curve" arrowAt="below" arrowAngle={20} show="md" class="proof__note" />
+    </div>
+  </div>
+</section>
 
 <style>
+  .proof-band { position: relative; overflow: clip; padding-block: clamp(72px, 10vw, 140px); }
+  .proof-band__fx { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .proof-band__discs, .proof-band__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .proof-band__canvas { display: none; }
+  .proof-band__canvas.is-live { display: block; opacity: .55; animation: pb-in 1.2s var(--ease-expo) both; }
+  @keyframes pb-in { from { opacity: 0; } }
+  .proof-band__inner { position: relative; z-index: 1; }
+
+  .proof-band__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-6); margin-bottom: clamp(48px, 7vw, 96px); }
+  .proof-band__seal { display: flex; align-items: center; gap: var(--s-5); }
+  .proof-band__seal :global(.stamp) { color: var(--kk-saffron); }
+  .proof-band__source { margin: 0; color: var(--kk-white); max-width: 16ch; }
+  @media (min-width: 768px) { .proof-band :global(.proof-band__flap) { --tile-w: clamp(20px, 0.6rem + 1.4vw, 34px); } }
+
   .proof { position: relative; }
-  .proof__line {
-    position: absolute; left: 0; right: 0; top: 5.25px; height: 1.5px;
-    background: var(--kk-sky); transform-origin: 0 50%;
-  }
-  .proof__grid {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-7);
-  }
-  .proof__item { position: relative; min-width: 0; padding-right: var(--s-4); }
+  .proof__line { position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: var(--kk-sky); transform-origin: 0 50%; }
+  .proof__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-7); }
+  .proof__item { position: relative; min-width: 0; }
   .proof__node {
-    display: block; width: 12px; height: 12px; border-radius: 50%; box-sizing: border-box;
-    background: var(--kk-saffron); border: 2px solid var(--kk-saffron);
+    display: block; width: 16px; height: 16px; border-radius: 50%; box-sizing: border-box;
+    background: var(--kk-saffron); box-shadow: 0 0 0 4px var(--kk-imperial), 0 0 0 5.5px var(--kk-saffron);
     position: relative; z-index: 1; margin-bottom: var(--s-6);
   }
-  .proof__num { margin: 0; font-size: min(var(--fs-stat), 10vw); }   /* FOUNDATION interim: keeps the v2 .t-stat inside its 4-col cell until P-home rebuilds this fold */
-  :global(.on-dark) .proof__num { color: var(--kk-saffron); }
+  .proof__num { margin: 0; color: var(--kk-saffron); font-size: clamp(84px, 11vw, 176px); line-height: .82; letter-spacing: -0.04em; }
   .proof__num span { display: inline-block; }
-  /* "WHO": at display opsz Fraunces' H crossbar is a sub-pixel hairline and the word reads "WI IO".
-     A text optical size keeps the crossbar visible; same family, weight and size. */
-  .proof__num [data-proof-word] { font-optical-sizing: none; font-variation-settings: "opsz" 18; letter-spacing: -0.01em; }
-  .proof__label {
-    margin: var(--s-3) 0 0; max-width: 22ch;
-    font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; color: var(--c-on-dark-muted);
-  }
+  .proof__label { margin: var(--s-4) 0 0; max-width: 22ch; font-family: var(--font-mono); font-size: var(--fs-mono); line-height: 1.5; color: var(--kk-lavender); }
+  .proof :global(.proof__note) { right: 2%; top: -84px; }
+
   @media (max-width: 767px) {
     .proof__line { display: none; }
     .proof__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .proof__node { margin-bottom: var(--s-4); }
+    .proof__num { font-size: clamp(72px, 22vw, 110px); }
+    .proof-band__top { flex-direction: column; align-items: flex-start; }
+    /* full-width board on phones: 18 tiles across the container */
+    .proof-band :global(.proof-band__flap) { width: 100%; --tile-w: calc((100vw - 2 * var(--side) - 17 * 3px) / 18); }
+  }
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .proof__num { font-size: 12vw; }
   }
 </style>

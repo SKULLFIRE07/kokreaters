@@ -1,56 +1,86 @@
 ---
 /**
- * Career timeline (DESIGN-SPEC 5.9.3, 6.9): four nodes on a 1px Sapphire line, horizontal at ≥ 768px
- * and vertical below. Each node is a 24px ring with an inner fill, the label in h4 type and the years in
- * meta tnum. Organisation names are text only. Ships drawn and filled; about.ts draws the line (1200 ms)
- * and fills each ring as the line reaches it. CONFIRM 13 covers the dates.
+ * Career journey (DESIGN-SPEC v2 10.7 F4 + 00.2): Cloud ground. Four sticker tiles on one hand-drawn line
+ * (CFTRI Mysore Butter, Wilmar Ice, Cargill Lavender, KoKreaters Saffron with the node cluster). ≥ 768 with motion:
+ * the line draws scrubbed with scroll, each tile drops as the line reaches it and a giant year counts up beside it
+ * (about.ts). Below 768: a vertical line. Ships drawn and placed (JS off, reduced). Organisation names are text only.
  */
-import RingedNode from '@/components/brand/RingedNode.astro';
+import NodeCluster from '@/components/brand/NodeCluster.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import { timeline } from '@/data/founder';
+import { storyNotes } from '@/data/notes/story';
+const grounds = ['butter', 'ice', 'lavender', 'saffron'] as const;
+const rots = [-3, 2, -2, 3];
+const firstYear = timeline[0].years.slice(0, 4);
+const lastYear = timeline[timeline.length - 1].years.slice(-4);
+const D = 'M90 160 C 210 30, 320 290, 450 160 S 690 30, 790 160 S 1000 300, 1110 150';
 ---
-<div class="timeline-wrap" data-timeline>
-  <ol class="timeline">
-    {timeline.map((t) => (
-      <li class="timeline__item">
-        <RingedNode size={24} class="timeline__ring" />
-        <p class="t-h4 timeline__label">{t.label}</p>
-        <p class="t-meta tnum timeline__years">{t.years}</p>
-      </li>
-    ))}
-  </ol>
-  <svg class="timeline__line timeline__line--h" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path data-timeline-path d="M0 1 H100" />
-  </svg>
-  <svg class="timeline__line timeline__line--v" viewBox="0 0 2 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path data-timeline-path d="M1 0 V100" />
-  </svg>
-  <p class="timeline__confirm"><Confirm id={13} note="career dates" /></p>
-</div>
+<section class="journey g-cloud has-notes" aria-labelledby="journey-title" data-timeline>
+  <div class="container">
+    <div class="journey__head">
+      <h2 id="journey-title" class="journey__h2" data-rise="lines">{timeline.map((t) => t.label).join(' → ')}</h2>
+      <span class="journey__year tnum" aria-hidden="true" data-journey-year data-from={firstYear} data-to={lastYear}>{lastYear}</span>
+    </div>
+    <div class="journey__stage">
+      <svg class="journey__svg" viewBox="0 0 1200 320" aria-hidden="true" focusable="false">
+        <path class="journey__ghost" d={D} />
+        <path class="journey__path" d={D} data-timeline-path />
+        {[[90, 160], [450, 160], [790, 160], [1110, 150]].map(([x, y]) => <g class="journey__dot"><circle cx={x} cy={y} r="15" /><circle cx={x} cy={y} r="6" /></g>)}
+      </svg>
+      <MarginNote text={storyNotes.about.road} tone="berry" rotate={-6} arrow="arrow-curve" arrowAt="above" arrowAngle={-60} anchor="abs" show="md" place="left:0;top:64%;" />
+      <ol class="journey__list" role="list">
+        {timeline.map((t, i) => (
+          <li class:list={['jt', `jt--${i % 2 ? 'down' : 'up'}`]} style={`--rot:${rots[i]}deg;--i:${i}`}>
+            <div class:list={['jt__card', `g-${grounds[i]}`]} data-journey-tile>
+              {i === timeline.length - 1 && <NodeCluster size={40} discs={false} class="jt__mark" />}
+              <h3 class="jt__label">{t.label}</h3>
+              <p class="jt__years t-mono tnum">{t.years}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <p class="journey__confirm"><Confirm id={13} note="career dates" /></p>
+  </div>
+</section>
 <style>
-  .timeline-wrap { position: relative; margin-top: var(--s-9); --ring: 24px; --row: 76px; }
-  .timeline { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; }
-  .timeline__item { position: relative; display: grid; grid-template-columns: var(--ring) 1fr; column-gap: var(--s-4); align-content: start; height: var(--row); }
-  .timeline__item :global(.timeline__ring) { grid-row: 1 / span 2; display: block; }
-  .timeline__label { margin: 0; color: var(--c-heading); line-height: var(--ring); }
-  .timeline__years { margin: 0; color: var(--c-meta); grid-column: 2; }
-  .timeline__item :global([data-ring]) { transform-box: fill-box; transform-origin: center; }
-
-  .timeline__line { position: absolute; z-index: 0; overflow: visible; pointer-events: none; }
-  .timeline__line path { fill: none; stroke: var(--c-line); stroke-width: 1px; vector-effect: non-scaling-stroke; }
-  /* vertical (< 768px): from ring 1 centre to ring 4 centre; every row is one --row tall */
-  .timeline__line--v { left: calc(var(--ring) / 2 - 1px); top: calc(var(--ring) / 2); width: 2px; height: calc(3 * var(--row)); }
-  .timeline__line--h { display: none; }
-  .timeline__confirm { margin: var(--s-3) 0 0; }
-  .timeline__confirm:empty { display: none; }
-
-  @media (min-width: 768px) {
-    .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .timeline__item { display: flex; flex-direction: column; gap: var(--s-1); height: auto; }
-    .timeline__item :global(.timeline__ring) { margin-bottom: var(--s-4); }
-    .timeline__label { line-height: var(--lh-h4); }
-    /* horizontal: ring 1 centre to ring 4 centre = 3 column steps = 75% of the list + 0.75 gutter */
-    .timeline__line--h { display: block; left: calc(var(--ring) / 2); top: calc(var(--ring) / 2 - 1px); height: 2px; width: calc(75% + 0.75 * var(--gutter)); }
-    .timeline__line--v { display: none; }
+  .journey { padding-block: var(--section); overflow: clip; }
+  .journey__head { position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s-6); margin-bottom: var(--s-8); }
+  .journey__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.025em; line-height: .95;
+    font-size: clamp(2.25rem, 1rem + 3.6vw, 4.75rem); max-width: 18ch; text-wrap: balance; }
+  .journey__year { font-family: var(--font-display); font-weight: 800; font-stretch: 75%; line-height: .8; letter-spacing: -.04em;
+    font-size: clamp(5rem, 2rem + 10vw, 13rem); color: transparent; -webkit-text-stroke: 2px var(--kk-ink); flex: none; }
+  .journey__stage { position: relative; }
+  .journey__svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .journey__ghost { fill: none; stroke: var(--kk-ink); stroke-width: 2; stroke-dasharray: 2 10; stroke-linecap: round; opacity: .35; }
+  .journey__path { fill: none; stroke: var(--kk-sapphire); stroke-width: 7; stroke-linecap: round; }
+  .journey__dot circle:first-child { fill: var(--kk-white); stroke: var(--kk-ink); stroke-width: 3; }
+  .journey__dot circle:last-child { fill: var(--kk-sapphire); }
+  .journey__list { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
+  .jt { position: absolute; width: clamp(170px, 17vw, 240px); translate: -50% 0; }
+  .jt__card { padding: 18px 20px; border-radius: 14px; border: 2px solid var(--kk-ink); box-shadow: 6px 6px 0 var(--kk-ink);
+    rotate: var(--rot); display: flex; flex-direction: column; gap: 6px; }
+  .jt:nth-child(1) { left: 7.5%; } .jt:nth-child(2) { left: 37.5%; } .jt:nth-child(3) { left: 65.8%; } .jt:nth-child(4) { left: 92.5%; }
+  .jt--up { bottom: 60%; } .jt--down { top: 60%; }
+  .jt:nth-child(4) { translate: -86% 0; }
+  .jt__label { margin: 0; font-family: var(--font-display); font-weight: 760; font-stretch: 80%; letter-spacing: -.01em; line-height: 1; font-size: clamp(1.5rem, 1rem + 1.2vw, 2.25rem); color: var(--head); }
+  .jt__years { margin: 0; color: var(--fg-2); }
+  .jt :global(.jt__mark) { margin-bottom: 4px; }
+  .journey__stage { margin-block: 150px 170px; }
+  .journey__confirm { margin: var(--s-5) 0 0; }
+  .journey__confirm:empty { display: none; }
+  @media (max-width: 767px) {
+    .journey__head { flex-direction: column; align-items: flex-start; }
+    .journey__year { display: none; }
+    .journey__stage { margin: 0; padding-left: 34px; }
+    .journey__stage::before { content: ""; position: absolute; left: 10px; top: 10px; bottom: 10px; width: 5px; border-radius: 4px; background: var(--kk-sapphire); }
+    .journey__svg { display: none; }
+    .journey__dot circle:first-child { fill: var(--kk-white); stroke: var(--kk-ink); stroke-width: 3; }
+  .journey__dot circle:last-child { fill: var(--kk-sapphire); }
+  .journey__list { position: static; display: grid; gap: 26px; }
+    .jt, .jt:nth-child(4) { position: relative; left: auto !important; top: auto; bottom: auto; translate: none; width: auto; }
+    .jt__card { rotate: 0deg; }
+    .jt::before { content: ""; position: absolute; left: -33px; top: 22px; width: 16px; height: 16px; border-radius: 50%; background: var(--kk-white); border: 4px solid var(--kk-sapphire); }
   }
 </style>

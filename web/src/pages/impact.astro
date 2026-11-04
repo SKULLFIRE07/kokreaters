@@ -1,68 +1,102 @@
 ---
-/** /impact (DESIGN-SPEC 5.6). CtaField is rendered by BaseLayout. No count-up on this page. */
+/**
+ * /impact (DESIGN-SPEC v2 10.6). F1 Ink header with the spinning stamp → F2 the stack (CardSwap of the four
+ * ImpactCards) → F3 four full-bleed case chapters → F4 KoKreaters engagements (staging only while pending) →
+ * F5 testimonials (renders nothing, CONFIRM 8) → F6 CtaField (BaseLayout).
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import Stamp from '@/components/notes/Stamp.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Scribble from '@/components/notes/Scribble.astro';
+import NodeCluster from '@/components/brand/NodeCluster.astro';
+import ImpactCard from '@/components/shared/ImpactCard.astro';
+import CardSwap from '@/components/bencho/CardSwap.astro';
 import CaseEntry from '@/components/impact/CaseEntry.astro';
 import EngagementRow from '@/components/impact/EngagementRow.astro';
 import Testimonials from '@/components/impact/Testimonials.astro';
-import { founderResults, engagements, impactPage } from '@/data/impact';
+import { founderResults, engagements, impactPage, secondaryFigures } from '@/data/impact';
+import { storyNotes } from '@/data/notes/story';
 import { pageSeo } from '@/lib/seo';
 import { isStaging } from '@/lib/mode';
 
 const crumbs = [{ label: impactPage.overline, href: '/impact' }];
-const visibleEngagements = engagements.filter((e) => e.consent === 'cleared' || isStaging);
+const visible = engagements.filter((e) => e.consent === 'cleared' || isStaging);
+const fig = (id: string, r: (typeof founderResults)[number]) => r.figure?.value ?? (id === 'india' ? storyNotes.impact.indiaFigure : r.emphasis[0]);
+const [h1a, h1b] = impactPage.headline.split(' on the ');
 ---
 <BaseLayout page="impact" seo={pageSeo('impact')} breadcrumbs={crumbs} showCrumbs={false}>
-  <div class="impact-hero band--dark on-dark">
+  <section class="im-hero g-ink grain" aria-labelledby="im-title">
     <div class="container">
       <Breadcrumbs items={crumbs} tone="dark" />
-      <div class="grid impact-hero__grid">
-        <div class="c-1-9">
-          <p class="t-dateline impact-hero__dateline">{impactPage.overline}</p>
-          <h1 class="t-h1 impact-hero__title">{impactPage.headline}</h1>
-          <p class="t-lead impact-hero__lead">{impactPage.lead}</p>
+      <div class="im-hero__grid">
+        <div class="im-hero__text">
+          <p class="t-dateline im-hero__dateline">{impactPage.overline}</p>
+          <h1 id="im-title" class="t-display im-hero__title">{h1b ? <>{h1a} on the <Scribble kind="highlight">{h1b.replace(/\.$/, '')}</Scribble>.</> : impactPage.headline}</h1>
+          <p class="t-lead im-hero__lead">{impactPage.lead}</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="band impact-part" aria-labelledby="part-founder">
-    <div class="container">
-      <h2 id="part-founder" class="t-h2 impact-part__title" data-reveal="lines">{impactPage.partOne}</h2>
-      <div class="impact-part__cases">
-        {founderResults.map((r) => <CaseEntry result={r} />)}
+        <div class="im-hero__stamp" data-parallax="0.15">
+          <Stamp text={impactPage.partOne} size={260} ground="imperial" spin rotate={8}><NodeCluster size={128} discs={false} /></Stamp>
+        </div>
       </div>
     </div>
   </section>
 
-  {visibleEngagements.length > 0 && (
-    <section class="band band--alt impact-part impact-part--eng" aria-labelledby="part-engagements">
+  <section class="im-stack g-white has-notes" aria-labelledby="part-founder">
+    <div class="container im-stack__grid">
+      <div class="im-stack__text">
+        <h2 id="part-founder" class="im-stack__h2" data-rise="lines">{impactPage.partOne}</h2>
+        <MarginNote text={storyNotes.stack.fling} tone="orchid" size="lg" rotate={-6} show="pointer" arrow="arrow-curve" arrowAt="end" arrowAngle={20} anchor="block" class="im-stack__note" />
+      </div>
+      <CardSwap label={impactPage.partOne} next={storyNotes.stack.next} class="im-stack__swap">
+        {founderResults.map((r) => (
+          <ImpactCard as="li" result={r} figure={fig(r.id, r)} secondary={secondaryFigures[r.id]} size="lg" href={`#${r.id}`} />
+        ))}
+      </CardSwap>
+    </div>
+  </section>
+
+  <div class="im-cases">
+    {founderResults.map((r, i) => <CaseEntry result={r} index={i} total={founderResults.length} />)}
+  </div>
+
+  {visible.length > 0 && (
+    <section class="im-eng g-white has-notes" aria-labelledby="part-engagements">
       <div class="container">
-        <div class="impact-part__head">
-          <h2 id="part-engagements" class="t-h2 impact-part__title" data-reveal="lines">{impactPage.partTwo}</h2>
-          <p class="t-meta impact-part__meta">{impactPage.anonymised}</p>
+        <div class="im-eng__head">
+          <h2 id="part-engagements" class="im-eng__h2" data-rise="lines">{impactPage.partTwo}</h2>
+          <span class="im-eng__stamp t-micro">{impactPage.anonymised}</span>
+          <MarginNote text={storyNotes.engagements.withheld} tone="orchid" rotate={-4} arrow="arrow-curve" arrowAt="start" flip anchor="block" show="md" />
         </div>
-        <ul class="impact-part__eng" role="list">
-          {visibleEngagements.map((e) => <EngagementRow engagement={e} />)}
+        <ul class="im-eng__list" role="list">
+          {visible.map((e, i) => <EngagementRow engagement={e} index={i} />)}
         </ul>
-        <span class="rule impact-part__end" data-rule aria-hidden="true"></span>
       </div>
     </section>
   )}
-
   <Testimonials />
 </BaseLayout>
 <style>
-  .impact-hero { padding-block: var(--s-5) var(--section); }
-  .impact-hero__grid { padding-top: var(--s-9); }
-  .impact-hero__dateline { margin: 0 0 var(--s-5); }
-  .impact-hero__title { margin: 0; max-width: 15em; }
-  .impact-hero__lead { margin: var(--s-6) 0 0; }
-  .impact-part__title { margin: 0; }
-  .impact-part__cases { margin-top: var(--s-7); }
-  .impact-part__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-7); }
-  .impact-part__meta { margin: 0; }
-  .impact-part__eng { list-style: none; margin: 0; padding: 0; }
-  .impact-part__end { display: block; }
-  @media (max-width: 767px) { .impact-hero__grid { padding-top: var(--s-8); } }
+  .im-hero { padding-block: var(--s-5) clamp(80px, 10vw, 160px); overflow: clip; }
+  .im-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-7); align-items: center; padding-top: clamp(48px, 7vw, 110px); }
+  .im-hero__dateline { margin: 0 0 var(--s-5); }
+  .im-hero__title { margin: 0; max-width: 11ch; font-size: clamp(3.5rem, 1.2rem + 8.4vw, 9rem); line-height: .9; }
+  .im-hero__lead { margin: var(--s-7) 0 0; max-width: 48ch; color: var(--fg-2); }
+  .im-stack { padding-block: var(--section); overflow: clip; }
+  .im-stack__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-8); align-items: center; }
+  .im-stack__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .9;
+    font-size: clamp(3rem, 1rem + 5.4vw, 7rem); text-wrap: balance; }
+  .im-stack :global(.im-stack__note) { margin-top: var(--s-6); }
+  .im-stack :global(.im-stack__swap.is-live) { justify-self: center; width: min(100%, 520px); }
+  .im-eng { padding-block: var(--section); }
+  .im-eng__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); margin-bottom: var(--s-8); }
+  .im-eng__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .9; font-size: clamp(2.75rem, 1rem + 4.6vw, 6rem); }
+  .im-eng__stamp { display: inline-flex; padding: 8px 14px; border: 2px solid var(--kk-ink); border-radius: 6px; rotate: -6deg; color: var(--kk-ink); background: var(--kk-white); }
+  .im-eng__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+  @media (max-width: 1023px) {
+    .im-hero__grid { grid-template-columns: 1fr; }
+    .im-hero__stamp { position: absolute; right: var(--side); top: 90px; scale: .5; transform-origin: top right; }
+    .im-stack__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) { .im-hero__stamp { display: none; } }
 </style>

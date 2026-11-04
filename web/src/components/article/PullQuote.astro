@@ -1,21 +1,18 @@
 ---
-/** PullQuote (DESIGN-SPEC 5.8 item 8): Fraunces italic Imperial, hung Saffron “, 1px Sapphire rule. One per 1,000 words at most. */
+/** PullQuote (DESIGN-SPEC v2 10.9): `.t-pull` in Imperial with big Orchid hand-drawn quote marks (Caveat glyphs,
+ * aria-hidden) and a 4px Orchid bar on the left. One per 1,000 words at most. */
 ---
-<blockquote class="pull" data-reveal><p class="t-pull pull__text"><slot /></p></blockquote>
+<blockquote class="pull" data-reveal><span class="pull__mark" aria-hidden="true">“</span><p class="t-pull pull__text"><slot /></p><span class="pull__mark pull__mark--end" aria-hidden="true">”</span></blockquote>
 <style>
   .pull {
     position: relative;
-    margin-block: var(--s-8);
-    padding: var(--s-1) 0 var(--s-1) var(--s-6);
-    border-left: 1px solid var(--c-line);
+    margin-block: var(--s-9);
+    padding: var(--s-3) 0 var(--s-3) var(--s-7);
+    border-left: 4px solid var(--kk-orchid);
   }
-  .pull__text { margin: 0; color: var(--c-heading); font-variant-numeric: lining-nums; max-width: 26em; }
-  .pull__text::before {
-    content: "\201C";
-    position: absolute; left: calc(var(--s-6) - 0.42em); top: var(--s-1);
-    color: var(--kk-saffron);
-    font-style: normal; font-weight: 400;
-    -webkit-text-stroke: 0.5px var(--kk-ink);   /* Ink edge for Saffron on light (graft 10) */
-  }
-  :global(.prose) .pull__text { font-size: var(--fs-pull); line-height: var(--lh-pull); }
+  .pull__text { margin: 0; color: var(--kk-imperial); font-variant-numeric: lining-nums; max-width: 20ch; text-wrap: balance; }
+  :global(.prose) .pull__text { font-size: clamp(2rem, 1.3rem + 2.6vw, 3.25rem); line-height: .98; }
+  .pull__mark { position: absolute; left: var(--s-3); top: -.38em; font-family: var(--font-hand); font-weight: 700; font-size: 6rem; line-height: 1; color: var(--kk-orchid); rotate: -8deg; }
+  .pull__mark--end { position: relative; left: auto; top: .32em; display: inline-block; margin-left: .1em; font-size: 4.5rem; rotate: 6deg; line-height: 0; }
+  @media (min-width: 1024px) { .pull { margin-inline-start: -32px; } }
 </style>

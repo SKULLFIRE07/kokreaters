@@ -12,6 +12,8 @@ import Icon from '@/components/ui/Icon.astro';
 import { fields, consentLink, contact } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import { journalNotes } from '@/data/notes/journal';
 
 const action = site.formEndpoint || `mailto:${site.email}`;
 const enctype = site.formEndpoint ? 'multipart/form-data' : 'text/plain';
@@ -43,7 +45,8 @@ const id = (n: string) => `f-${n}`;
 >
   <div class="cf__grid">
     {inputs.map((f) => (
-      <div class:list={['cf__field', `cf__field--${f.name}`, { 'cf__field--wide': f.type === 'textarea' || f.type === 'select' || f.name === 'source' }]} data-field={f.name}>
+      <div class:list={['cf__field', `cf__field--${f.name}`, { 'cf__field--wide': f.type === 'textarea' || f.type === 'select' || f.name === 'source', 'has-notes': f.name === 'message' }]} data-field={f.name}>
+        {f.name === 'message' && <MarginNote text={journalNotes.form.detail} tone="orchid" rotate={-3} arrow="arrow-curve" arrowAt="start" arrowAngle={190} flip place="left:96px;top:-38px;max-width:none;" show="md" />}
         <label class="cf__label" for={id(f.name)}>
           {f.label}
           {f.required && <><span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></>}
@@ -90,7 +93,10 @@ const id = (n: string) => `f-${n}`;
   <div class="cf__actions">
     <Button type="submit" variant="primary" arrow data-submit>{contact.submit}</Button>
   </div>
-  <div class="cf__status" role="status" aria-live="polite" data-form-status></div>
+  <div class="cf__done has-notes">
+    <div class="cf__status" role="status" aria-live="polite" data-form-status></div>
+    <div class="cf__soon" hidden data-soon><MarginNote text={journalNotes.form.soon} tone="orchid" size="lg" rotate={-6} arrow="arrow-curve" arrowAt="start" arrowAngle={200} flip anchor="inline" show="all" /></div>
+  </div>
   <template data-icon="success"><Icon name="success" size={20} /></template>
   <template data-icon="error"><Icon name="error" size={20} /></template>
 </form>
@@ -103,18 +109,24 @@ const id = (n: string) => `f-${n}`;
     .cf__field--wide { grid-column: 1 / -1; }
   }
   .cf__field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-  .cf__label, .cf__checklabel { font-family: var(--font-sans); font-size: 0.9375rem; line-height: 1.4; font-weight: 600; color: var(--c-text); }
+  .cf__label, .cf__checklabel { font-family: var(--font-display); font-size: 1rem; line-height: 1.3; font-weight: 600; font-stretch: 90%; color: var(--kk-ink); }
+  .cf__checklabel { font-family: var(--font-sans); font-stretch: 100%; font-size: .9375rem; }
+  .cf__field { position: relative; }
   .cf__req { color: var(--c-text); margin-left: 2px; }
   .cf__input {
-    width: 100%; min-width: 0; height: 48px; padding: 0 var(--s-4);
-    border: 1px solid var(--kk-field-border); border-radius: var(--r-input); background: var(--kk-white);
-    font: inherit; font-family: var(--font-sans); font-size: 1rem; color: var(--c-text);
+    width: 100%; min-width: 0; height: 56px; padding: 0 var(--s-4);
+    border: 2px solid var(--kk-ink); border-radius: 14px; background: var(--kk-white);
+    font: inherit; font-family: var(--font-mono); font-size: 1rem; color: var(--kk-ink);
+    transition: box-shadow 220ms var(--ease-expo), translate 220ms var(--ease-expo);
   }
-  .cf__input--area { height: auto; min-height: 160px; padding: var(--s-3) var(--s-4); line-height: var(--lh-body); resize: vertical; }
-  .cf__input:focus-visible, .cf__checkbox:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; }
-  .cf__input:focus:not(:focus-visible) { outline: 3px solid var(--c-focus); outline-offset: 2px; }
-  .cf__input[aria-invalid="true"], .cf__checkbox[aria-invalid="true"] { border-color: var(--c-error); }
-  .cf__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1px var(--c-error); }
+  .cf__input:hover { box-shadow: 3px 3px 0 var(--kk-ink); }
+  .cf__input:focus { box-shadow: 4px 4px 0 var(--kk-saffron), 4px 4px 0 2px var(--kk-ink); }
+  @media (prefers-reduced-motion: reduce) { .cf__input { transition: none; } }
+  .cf__input--area { height: auto; min-height: 180px; padding: var(--s-3) var(--s-4); line-height: var(--lh-body); resize: vertical; }
+  .cf__input:focus-visible, .cf__checkbox:focus-visible { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
+  .cf__input:focus:not(:focus-visible) { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
+  .cf__input[aria-invalid="true"], .cf__checkbox[aria-invalid="true"] { border-color: var(--kk-coral); }
+  .cf__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1px var(--kk-coral), 3px 3px 0 var(--kk-coral); }
 
   .cf__select { position: relative; display: block; }
   .cf__select select { appearance: none; -webkit-appearance: none; padding-right: 48px; cursor: pointer; }
@@ -133,7 +145,11 @@ const id = (n: string) => `f-${n}`;
 
   .hp { position: absolute !important; left: -10000px !important; top: auto; width: 1px; height: 1px; overflow: hidden; }
   .cf__turnstile { margin-top: var(--s-5); }
-  .cf__actions { margin-top: var(--s-6); }
+  .cf__actions { margin-top: var(--s-7); }
+  .cf__done { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+  .cf__soon[hidden] { display: none; }
+  .cf__soon :global(.note) { position: relative; }
+  .cf__status:not(:empty) { padding: var(--s-4) var(--s-5); border: 2px solid var(--kk-ink); border-radius: 14px; background: var(--kk-butter); }
   .cf__status { margin-top: var(--s-4); font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); max-width: 40em; }
   .cf__status:empty { display: none; }
   .cf__status :global(.icon) { margin-right: var(--s-2); vertical-align: -4px; }

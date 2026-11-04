@@ -1,33 +1,46 @@
 ---
-/** 404 (DESIGN-SPEC 5.12). White, centred, noindex (BaseLayout forces it for page="notfound"). */
+/** 404 (DESIGN-SPEC v2 10.12). White lab-notebook grid, noindex (BaseLayout forces it for page="notfound").
+ * The H1 is real, static text; below/beside it the FallingText pit throws the same words around (aria-hidden). */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Reconnect from '@/components/notfound/Reconnect.astro';
 import Button from '@/components/ui/Button.astro';
+import FallingText from '@/components/bencho/FallingText.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Scribble from '@/components/notes/Scribble.astro';
 import { microcopy } from '@/data/microcopy';
+import { journalNotes } from '@/data/notes/journal';
 import { pageSeo } from '@/lib/seo';
+const h = microcopy.notFoundHeadline;
+const W = 'yet';
+const i = h.lastIndexOf(W);
+const parts = i > -1 ? [h.slice(0, i), h.slice(i + W.length)] : null;
 ---
 <BaseLayout page="notfound" seo={pageSeo('notfound')}>
-  <section class="nf" aria-labelledby="nf-title">
-    <div class="container nf__inner">
-      <Reconnect />
-      <h1 class="t-h1 nf__title" id="nf-title">{microcopy.notFoundHeadline}</h1>
-      <p class="t-lead nf__line">{microcopy.notFoundLine}</p>
-      <div class="nf__cta">
-        <Button href="/" variant="primary" arrow data-take-home>{microcopy.takeHome}</Button>
+  <section class="nf g-white paper-grid has-notes" aria-labelledby="nf-title">
+    <div class="container nf__grid">
+      <div class="nf__copy">
+        <p class="nf__code" aria-hidden="true">404</p>
+        <h1 class="t-display nf__title" id="nf-title">{parts ? <>{parts[0]}<Scribble kind="underline" tone="orchid" delay={0.5}>{W}</Scribble>{parts[1]}</> : h}</h1>
+        <p class="t-lead nf__line">{microcopy.notFoundLine}</p>
+        <div class="nf__cta">
+          <Button href="/" variant="primary" arrow>{microcopy.takeHome}</Button>
+        </div>
+      </div>
+      <div class="nf__toy has-notes">
+        <MarginNote text={journalNotes.notfound.mess} tone="orchid" rotate={-6} arrow="arrow-bounce" arrowAt="below" arrowAngle={55} place="left:24px;top:-84px;max-width:none;" show="pointer" delay={0.6} />
+        <FallingText text={h} />
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .nf {
-    min-height: calc(100svh - var(--header-h));
-    display: grid; align-items: center;
-    padding-block: var(--s-8);
-    background: var(--c-ground);
-  }
-  .nf__inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .nf__title { margin: var(--s-6) 0 0; max-width: 18em; text-wrap: balance; }
-  .nf__line { margin: var(--s-4) auto 0; color: var(--c-meta); }
-  .nf__cta { margin-top: var(--s-7); }
+  .nf { position: relative; min-height: calc(100svh - var(--ann-h) - var(--header-h)); display: grid; align-items: center; padding-block: var(--s-8); overflow: clip; }
+  .nf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-9); align-items: center; }
+  .nf__copy { position: relative; }
+  .nf__code { position: absolute; z-index: 0; left: -0.06em; top: -0.62em; margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; font-size: clamp(10rem, 4rem + 22vw, 22rem); line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 2px var(--kk-lavender); pointer-events: none; }
+  .nf__title { position: relative; margin: 0; max-width: 12ch; text-wrap: balance; }
+  .nf__line { position: relative; margin: var(--s-5) 0 0; }
+  .nf__cta { position: relative; margin-top: var(--s-7); }
+  .nf__toy { position: relative; justify-self: start; width: min(100%, 520px); }
+  @media (min-width: 1024px) { .nf__grid { grid-template-columns: minmax(0, 1fr) 520px; } .nf__toy { justify-self: end; } }
 </style>

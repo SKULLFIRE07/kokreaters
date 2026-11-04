@@ -1,32 +1,35 @@
 ---
 /**
- * Education and languages (DESIGN-SPEC 5.9.6): h2 over a two-column <dl> in lead, then the
- * "worked with" line in sectors only (CONFIRM 5: no company names, no logos).
+ * Education and languages (DESIGN-SPEC v2 10.7 F7): White; h2; two honest labels side by side, "Education" (the four
+ * items, k = 01…) and "Languages" (the five), with "and a bit of Russian" pointing at "Russian (basic)". Then the
+ * "worked with" line (sectors only, CONFIRM 5).
  */
+import SpecLabel from '@/components/notes/SpecLabel.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { educationHeading, educationLabel, languagesLabel, education, languages, workedWith } from '@/data/founder';
+import { storyNotes } from '@/data/notes/story';
+const k = (i: number) => String(i + 1).padStart(2, '0');
 ---
-<section class="band edu" aria-labelledby="edu-title">
+<section class="edu g-white has-notes" aria-labelledby="edu-title">
   <div class="container">
-    <h2 id="edu-title" class="t-h2 edu__h2" data-reveal="lines">{educationHeading}</h2>
-    <dl class="grid edu__dl" data-reveal-group>
-      <div class="edu__col c-1-6" data-reveal>
-        <dt class="t-dateline edu__dt">{educationLabel}</dt>
-        {education.map((e) => <dd class="t-lead edu__dd">{e}</dd>)}
+    <h2 id="edu-title" class="edu__h2" data-rise="lines">{educationHeading}</h2>
+    <div class="edu__labels">
+      <SpecLabel title={educationLabel} headingLevel={3} rotate={-1} ground="butter" rows={education.map((e, i) => ({ k: k(i), v: e }))} class="edu__label" />
+      <div class="edu__lang">
+        <SpecLabel title={languagesLabel} headingLevel={3} rotate={1.5} ground="ice" rows={languages.map((l, i) => ({ k: k(i), v: l, strong: i === languages.length - 1 }))} class="edu__label" />
+        <MarginNote text={storyNotes.about.russian} tone="orchid" size="lg" rotate={-5} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-10} anchor="abs" show="lg" place="left:calc(100% + 12px);bottom:8%;" />
       </div>
-      <div class="edu__col c-7-12" data-reveal>
-        <dt class="t-dateline edu__dt">{languagesLabel}</dt>
-        {languages.map((l) => <dd class="t-lead edu__dd">{l}</dd>)}
-      </div>
-    </dl>
+    </div>
     <p class="t-lead edu__worked" data-reveal>{workedWith}<Confirm id={5} note="sectors only, no company names" /></p>
   </div>
 </section>
 <style>
-  .edu__h2 { margin: 0 0 var(--s-7); }
-  .edu__dl { margin: 0; row-gap: var(--s-7); }
-  .edu__col { border-top: 1px solid var(--c-rule); padding-top: var(--s-4); }
-  .edu__dt { margin: 0 0 var(--s-4); }
-  .edu__dd { margin: 0; padding-block: var(--s-2); }
-  .edu__worked { margin: var(--s-8) 0 0; color: var(--c-meta); }
+  .edu { padding-block: var(--section); overflow: clip; }
+  .edu__h2 { margin: 0 0 var(--s-8); font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .9; font-size: clamp(3rem, 1rem + 5.4vw, 7rem); max-width: 12ch; }
+  .edu__labels { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: start; max-width: 1060px; }
+  .edu__lang { position: relative; }
+  .edu :global(.edu__label) { box-shadow: 8px 8px 0 var(--kk-ink); }
+  .edu__worked { margin: var(--s-8) 0 0; max-width: 52ch; }
+  @media (max-width: 767px) { .edu__labels { grid-template-columns: 1fr; } }
 </style>

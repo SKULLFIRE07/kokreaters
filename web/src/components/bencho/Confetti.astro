@@ -1,0 +1,18 @@
+---
+/**
+ * Confetti (DESIGN-SPEC v2 9 + 10.10): paper confetti in the six pillar colours, once, on a successful contact submit.
+ * Port of the Bencho "confetti" block (canvas 2D, vanilla TS). The canvas is aria-hidden, fixed over the viewport and
+ * click-through; scripts/bencho/confetti.ts draws for 1.6 s and then clears it. Reduced motion: never fires.
+ *
+ * MIT License · Copyright (c) 2026 Lorenzo Cabra (bencho.dev). Permission is hereby granted, free of charge, to any
+ * person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the
+ * Software without restriction, subject to the following condition: the above copyright notice and this permission
+ * notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS",
+ * WITHOUT WARRANTY OF ANY KIND. Full text: web/THIRD_PARTY_NOTICES.md.
+ */
+---
+<canvas class="confetti" aria-hidden="true" data-confetti hidden></canvas>
+<style>
+  .confetti { position: fixed; inset: 0; z-index: 90; width: 100vw; height: 100vh; pointer-events: none; }
+  .confetti[hidden] { display: none; }
+</style>

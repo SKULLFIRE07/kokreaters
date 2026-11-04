@@ -1,22 +1,15 @@
 ---
 /**
- * ProgressRule (DESIGN-SPEC 5.8 item 1): a 1px Sapphire bar fixed under the (compact) header,
- * scaleX scrubbed to article progress by scripts/pages/article.ts. It starts at scaleX(0), so it
- * is invisible without JS; under reduced motion it is hidden and the running head counts minutes left.
+ * ProgressRule (DESIGN-SPEC v2 10.9): a 4px Saffron bar fixed at the top of the viewport with a 10px ringed "bead" at
+ * its head, scrubbed to article progress by scripts/pages/article.ts (it sets --p, 0 → 1). Invisible without JS;
+ * under reduced motion it is hidden and the running head counts "{n} min left" instead.
  */
 ---
-<div class="progress-rule" aria-hidden="true"><span class="progress-rule__bar" data-progress></span></div>
+<div class="progress-rule" aria-hidden="true" data-progress><span class="progress-rule__bar"></span><span class="progress-rule__bead"></span></div>
 <style>
-  .progress-rule {
-    position: fixed; z-index: 49; left: 0; right: 0;
-    top: var(--header-h-compact);
-    height: 1px; pointer-events: none;
-  }
-  .progress-rule__bar {
-    display: block; height: 100%; width: 100%;
-    background: var(--c-line);
-    transform: scaleX(0); transform-origin: 0 50%;
-  }
+  .progress-rule { --p: 0; position: fixed; z-index: 70; left: 0; right: 0; top: 0; height: 4px; pointer-events: none; }
+  .progress-rule__bar { position: absolute; inset: 0; background: var(--kk-saffron); box-shadow: 0 1px 0 var(--kk-ink); transform: scaleX(var(--p)); transform-origin: 0 50%; }
+  .progress-rule__bead { position: absolute; top: -3px; left: 0; translate: calc(var(--p) * 100vw - 5px) 0; width: 10px; height: 10px; border-radius: 50%; background: var(--kk-white); box-shadow: inset 0 0 0 2.5px var(--kk-ink); opacity: min(1, calc(var(--p) * 40)); }
   @media (prefers-reduced-motion: reduce) { .progress-rule { display: none; } }
   :global(html.motion-failed) .progress-rule, :global(html.no-js) .progress-rule { display: none; }
 </style>

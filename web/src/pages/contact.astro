@@ -1,13 +1,16 @@
 ---
-/** Contact `/contact` (DESIGN-SPEC 5.10). Grid 5/7, no CtaField: the page is the CTA. */
+/** Contact `/contact` (DESIGN-SPEC v2 10.10). White lab-notebook grid, grid 5/7, no CtaField: the page is the CTA.
+ * Left: H1, details, the boarding-pass Ticket. Right: the connection path + the form. Confetti on success. */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ContactDetails from '@/components/contact/ContactDetails.astro';
 import ConnectionMoment from '@/components/contact/ConnectionMoment.astro';
 import ContactForm from '@/components/contact/ContactForm.astro';
+import Confetti from '@/components/bencho/Confetti.astro';
 import { pageSeo } from '@/lib/seo';
+const crumbs = [{ label: 'Contact', href: '/contact' }];
 ---
-<BaseLayout page="contact" seo={pageSeo('contact')}>
-  <section class="band contact" aria-labelledby="contact-title">
+<BaseLayout page="contact" seo={pageSeo('contact')} breadcrumbs={crumbs} showCrumbs={false}>
+  <section class="band contact g-white paper-grid has-notes" aria-labelledby="contact-title">
     <div class="container">
       <div class="grid contact__grid">
         <div class="c-1-5 contact__left">
@@ -20,10 +23,11 @@ import { pageSeo } from '@/lib/seo';
       </div>
     </div>
   </section>
+  <Confetti />
 </BaseLayout>
 
 <style>
-  .contact { padding-top: clamp(3rem, 2rem + 4vw, 6rem); }
+  .contact { padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(4rem, 2rem + 6vw, 8rem); }
   .contact__grid { row-gap: var(--s-9); align-items: start; }
   @media (min-width: 1024px) {
     .contact__right { padding-top: var(--s-2); }

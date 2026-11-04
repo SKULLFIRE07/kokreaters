@@ -33,31 +33,34 @@ const formats = Object.entries(formatLabels) as [keyof typeof formatLabels, stri
   <p class="filters__status t-meta tnum" aria-live="polite" data-filter-status data-template={microcopy.insightsCount}>{fill(microcopy.insightsCount, { n: total })}</p>
 </div>
 <style>
-  .filters { display: flex; flex-direction: column; gap: var(--s-1); padding-block: var(--s-4) var(--s-5); }
-  .filters__row { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: var(--s-3); }
+  /* v2 10.8 F3: two rows of 2px outlined mono pills; the pressed pill fills Ink and gets a hand-drawn circle. */
+  .filters { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-6); border: 2px solid var(--kk-ink); border-radius: var(--r-card); background: var(--kk-white); box-shadow: var(--shadow-hard); }
+  .filters__row { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: var(--s-4); }
   .filters__label { margin: 0; }
-  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
+  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 12px; }
   .filters__btn {
     position: relative;
-    display: inline-flex; align-items: center; gap: var(--s-2);
-    min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
-    font-family: var(--font-sans); font-size: var(--fs-nav); font-weight: 500; line-height: 1.2;
-    color: var(--c-meta);
-    transition: color var(--d-colour) var(--ease-out);
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px; padding: 0 18px; border: 2px solid var(--kk-ink); border-radius: 999px; background: var(--kk-white); cursor: pointer;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500; line-height: 1.2; letter-spacing: .02em;
+    color: var(--kk-ink);
+    transition: background-color 260ms var(--ease-expo), color 260ms var(--ease-expo), box-shadow 260ms var(--ease-expo), translate 260ms var(--ease-expo);
   }
   .filters__btn::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 2px;
-    background: var(--c-action); transform: scaleX(0); transform-origin: 0 50%;
-    transition: transform var(--d-ui-in) var(--ease-out);
+    content: ""; position: absolute; inset: -9px -12px; pointer-events: none; background: var(--kk-orchid);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 64' preserveAspectRatio='none'%3E%3Cpath d='M30 9 C 80 1, 170 2, 190 22 C 204 40, 150 60, 92 60 C 40 60, 4 50, 6 32 C 8 16, 40 7, 120 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 64' preserveAspectRatio='none'%3E%3Cpath d='M30 9 C 80 1, 170 2, 190 22 C 204 40, 150 60, 92 60 C 40 60, 4 50, 6 32 C 8 16, 40 7, 120 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    clip-path: inset(0 100% 0 0); transition: clip-path 420ms var(--ease-quart);
   }
-  .filters__btn:hover { color: var(--c-link); }
-  .filters__btn[aria-pressed="true"] { color: var(--c-text); font-weight: 600; }
-  .filters__btn[aria-pressed="true"]::after { transform: scaleX(1); }
-  .filters__status { margin: var(--s-2) 0 0; color: var(--c-meta); }
+  .filters__btn:hover { background: var(--kk-butter); box-shadow: 3px 3px 0 var(--kk-ink); translate: -1px -1px; }
+  .filters__btn:focus-visible { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
+  .filters__btn[aria-pressed="true"] { background: var(--kk-ink); color: var(--kk-white); box-shadow: none; translate: none; }
+  .filters__btn[aria-pressed="true"]::after { clip-path: inset(0 0 0 0); }
+  .filters__btn[aria-pressed="true"] :global(.pillar-dot) { box-shadow: 0 0 0 2px var(--kk-white); }
+  .filters__status { margin: 0; color: var(--fg-2); }
   @media (max-width: 767px) {
-    .filters__row { grid-template-columns: minmax(0, 1fr); gap: 0; }
-    .filters__row + .filters__row { margin-top: var(--s-3); }
-    .filters__opts { gap: 0 var(--s-4); }
+    .filters { padding: var(--s-5); }
+    .filters__row { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
   }
   @media (prefers-reduced-motion: reduce) { .filters__btn, .filters__btn::after { transition: none; } }
 </style>

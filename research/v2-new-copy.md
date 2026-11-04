@@ -8,7 +8,7 @@ claim; facts and core copy still come only from `research/BRIEF.txt` via `src/da
 Types: **NOTE** decorative handwritten note (aria-hidden, never the only carrier of information) · **UI** a real control
 label read by assistive technology · **PROP** text inside a decorative toy · **DERIVED** a display form of a brief fact.
 
-86 strings in 5 files.
+142 strings in 5 files.
 
 ## Every page (chrome)
 
@@ -42,12 +42,26 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | `homeNotes.proof.flap` | INDIA · WILMAR / INDONESIA · WILMAR / UKRAINE · −25 °C / TÜRKIYE / THE NETHERLANDS | DERIVED | F3 flap board | |
 | `homeNotes.positioning.venn` | plant floor / lab / boardroom / the same person | NOTE | F4 Venn labels + centre (brief words) | |
 | `homeNotes.positioning.circle` | most consultants pick one circle | NOTE | F4, arrow into the Venn | |
+| `homeNotes.positioning.more` | Read the whole truth | UI | F4 + F6 <details> summary | |
+| `homeNotes.pipeline.title` | From crude oil on the plant floor to a decision in the boardroom | DERIVED | F4b diagram <title> | |
+| `homeNotes.pipeline.tank` | Crude comes in | PROP | F4b station 1 label | |
+| `homeNotes.pipeline.refine` | Refine it right | PROP | F4b station 2 label | |
+| `homeNotes.pipeline.fraction` | Split the fractions | PROP | F4b station 3 label | |
+| `homeNotes.pipeline.blend` | Blend to spec | PROP | F4b station 4 label | |
+| `homeNotes.pipeline.product` | Product that ships | PROP | F4b station 5 label | |
+| `homeNotes.pipeline.board` | Go or No-Go | PROP | F4b station 6 label | |
+| `homeNotes.pipeline.sign` | GO | PROP | F4b boardroom sign | |
+| `homeNotes.pipeline.same` | one pipe, one person | NOTE | F4b note over the pipe | |
+| `homeNotes.pipeline.up` | and up it goes | NOTE | F4b note at the rising arrow | |
+| `homeNotes.pipeline.scroll` | scroll, it flows | NOTE | F4b hint under the diagram | |
 | `homeNotes.whatWeDo.sideways` | keep scrolling, it moves sideways | NOTE | F5 rail ≥ 1024 | |
 | `homeNotes.whatWeDo.swipe` | swipe for all six | NOTE | F5 rail < 1024 | |
 | `homeNotes.method.connect` | listening comes first | NOTE | F6 under step 1 | |
 | `homeNotes.method.create` | with proof that it works | NOTE | F6 under step 3 | |
 | `homeNotes.impact.cold` | yes, minus twenty-five | NOTE | F7, arrow to −25 °C | |
 | `homeNotes.impact.indiaFigure` | 1st | DERIVED | F7 ImpactCard figure (brief: India’s first) | |
+| `homeNotes.impact.mapTitle` | Where the founder’s results happened | DERIVED | F7 route map <title> | |
+| `homeNotes.impact.base` | home base | NOTE | F7 route map, the Netherlands | |
 | `homeNotes.industries.toss` | go on, toss one | NOTE | F8 gravity box | |
 | `homeNotes.insights.fresh` | fresh from the notebook | NOTE | F9, arrow to the first card | |
 | `homeNotes.newsletter.quiet` | no noise, really | NOTE | F9 newsletter strip (brief: No noise.) | |
@@ -58,13 +72,18 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
 | `expertiseNotes.overview.together` | they’re designed to work together | NOTE | F1, arrow down to the hub | |
+| `expertiseNotes.overview.venn` | science / plants / strategy | PROP | F1 Venn lobes (the H1’s own words) | |
+| `expertiseNotes.overview.vennCentre` | that’s us | NOTE | F1 Venn centre | |
 | `expertiseNotes.hub.hover` | hover a pillar | NOTE | F2 hub | |
-| `expertiseNotes.card.more` | +{n} more | UI | PillarCard grid row | |
+| `expertiseNotes.hub.label` | The six areas of expertise | UI | F2 hub list accessible name | |
+| `expertiseNotes.hub.tap` | tap one to dive in | NOTE | F2 hub, touch only | |
+| `expertiseNotes.grid.stick` | six blocks, one team | NOTE | F3 grid aside | |
 
 ## /expertise + pillar pages
 
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
+| `expertiseNotes.overview.more` | Read the full note | UI | collapsed intro toggle | |
 | `expertiseNotes.prompt.anywhere` | start anywhere | NOTE | prompt row, arrow to the pill | |
 
 ## /expertise/*
@@ -72,6 +91,9 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
 | `expertiseNotes.pillar.here` | you are here | NOTE | F1 constellation | |
+| `expertiseNotes.pillar.others` | the other five | UI | F1 constellation, mobile tag row label | |
+| `expertiseNotes.diagram.fig` | fig. {n} | PROP | F1b diagram caption number | |
+| `expertiseNotes.diagram.scroll` | scroll, it draws itself | NOTE | F1b diagram | |
 | `expertiseNotes.label.title` | What’s inside | UI | F2 SpecLabel title | |
 | `expertiseNotes.label.sub` | Nothing hidden | UI | F2 SpecLabel sub | |
 | `expertiseNotes.label.foot` | Contents may vary with your plant. | UI | F2 SpecLabel foot | |
@@ -82,18 +104,24 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | `expertiseNotes.inspector.fig` | fig. {n} | PROP | F2 blueprint caption | |
 | `expertiseNotes.deliverables.desk` | what lands on your desk | NOTE | F3 | |
 | `expertiseNotes.record.indiaFigure` | 1st | DERIVED | F4 ImpactCard figure (brief: India’s first) | |
+| `expertiseNotes.record.proof` | one for the record | NOTE | F4 impact card aside | |
 
 ## /industries
 
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
 | `expertiseNotes.industries.pick` | pick yours | NOTE | F1, arrow down to the index | |
+| `expertiseNotes.industries.wheel` | Industries wheel | UI | F1b wheel list accessible name | |
+| `expertiseNotes.industries.turn` | scroll to turn the wheel | NOTE | F1b wheel | |
+| `expertiseNotes.industries.sector` | Sector | UI | F1b panel label | |
 
 ## /approach
 
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
 | `storyNotes.approach.idea` | the whole idea, really | NOTE | F1, arrow to the circled “with you” | |
+| `storyNotes.approach.more` | Read the whole truth + | UI | F1 intro, <details> summary | |
+| `storyNotes.approach.scroll` | three acts, keep scrolling | NOTE | F2 pinned stage (≥ 1024) | |
 | `storyNotes.steps.connect` | we listen first | NOTE | F2 Connect slab (brief step copy) | |
 | `storyNotes.steps.collaborate` | your people own it | NOTE | F2 Collaborate slab (brief step copy) | |
 | `storyNotes.steps.create` | then we prove it works | NOTE | F2 Create slab (brief step copy) | |
@@ -121,6 +149,10 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 |---|---|---|---|---|
 | `storyNotes.about.hello` | hello from the Netherlands | NOTE | F1, arrow to the face (brief: based in the Netherlands) | |
 | `storyNotes.about.flap` | INDIA · WILMAR / INDONESIA · WILMAR / UKRAINE · −25 °C / TÜRKIYE / THE NETHERLANDS | DERIVED | F2 flap board | |
+| `storyNotes.about.years` | 25 | DERIVED | F3 big numeral beside the bio (brief: 25 years) | |
+| `storyNotes.about.yearsLabel` | years of making ingredients work | DERIVED | F3 under the numeral (brief headline words) | |
+| `storyNotes.about.more` | Read the long version + | UI | F3 bio <details> summary | |
+| `storyNotes.about.road` | the long way round | NOTE | F4 timeline | |
 | `storyNotes.about.spin` | scroll to spin it | NOTE | F5, arrow to the globe | |
 | `storyNotes.about.ko` | = together | NOTE | F6 “Ko” sticker (brief name copy) | |
 | `storyNotes.about.kreaters` | = the people who make things happen | NOTE | F6 “Kreaters” sticker (brief name copy) | |
@@ -132,6 +164,9 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 |---|---|---|---|---|
 | `journalNotes.hub.fluff` | field notes, not fluff | NOTE | F1 | |
 | `journalNotes.hub.lift` | press one to lift it | NOTE | F2 card fan | |
+| `journalNotes.hub.inside` | What’s inside | UI | F1 honest label title | |
+| `journalNotes.hub.stamp` | field notes · plant floor · boardroom ·  | PROP | F1 spinning stamp (decorative) | |
+| `journalNotes.hub.deck` | the rest of the deck is on its way | NOTE | F2 beside the in-preparation covers | |
 | `journalNotes.newsletter.quiet` | no noise, really | NOTE | F6 newsletter (brief: No noise.) | |
 
 ## /insights/*
@@ -140,6 +175,8 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 |---|---|---|---|---|
 | `journalNotes.article.coffee` | grab a coffee | NOTE | header, arrow to the reading time | |
 | `journalNotes.article.short` | the short version | NOTE | takeaways | |
+| `journalNotes.article.labelTime` | Reading time | UI | header honest label, row key | |
+| `journalNotes.article.labelBy` | Written by | UI | header honest label, row key | |
 
 ## /contact
 
@@ -153,6 +190,8 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | `journalNotes.ticket.tear` | tear here | NOTE | along the perforation | |
 | `journalNotes.form.detail` | the more detail, the better | NOTE | next to the Message label | |
 | `journalNotes.form.soon` | talk soon | NOTE | beside the success message | |
+| `journalNotes.form.who` | Who | PROP | step path above the form, step 1 (decorative) | |
+| `journalNotes.form.what` | What | PROP | step path above the form, step 2 (decorative) | |
 
 ## /privacy /cookies /terms
 
@@ -165,3 +204,50 @@ label read by assistive technology · **PROP** text inside a decorative toy · *
 | Key | Text | Type | Where | Ganeaysh: ok / change to |
 |---|---|---|---|---|
 | `journalNotes.notfound.mess` | go on, make a mess | NOTE | arrow into the word pit | |
+
+## /expertise/capability
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.capabilityTitle` | Train, transfer, coach: stronger teams | DERIVED | F1b growth tree title (intro) | |
+| `expertiseNotes.diagram.capability` | Train / Transfer / Coach | DERIVED | F1b growth tree rings (intro) | |
+| `expertiseNotes.diagram.capabilityEnd` | Stronger teams | DERIVED | F1b growth tree crown (the pillar promise) | |
+
+## /expertise/due-diligence
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.dealsTitle` | What the spreadsheet shows, and what it does not | DERIVED | F1b iceberg title (intro) | |
+| `expertiseNotes.diagram.dealsTop` | What the spreadsheet shows | DERIVED | F1b iceberg tip (intro) | |
+| `expertiseNotes.diagram.deals` | A tired refinery / A fragile quality system / A technology that will not transfer | DERIVED | F1b iceberg depths (intro) | |
+
+## /expertise/food-safety-quality
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.qualityTitle` | Process contaminants, stopped layer by layer | DERIVED | F1b barrier title (help-with) | |
+| `expertiseNotes.diagram.quality` | 3-MCPD and GE / Trans fats / Mineral oil hydrocarbons | DERIVED | F1b barrier layers (help-with) | |
+| `expertiseNotes.diagram.qualityEnds` | Risk / Your brand | PROP | F1b barrier ends | |
+
+## /expertise/process-design
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.processTitle` | Crude oil in, customer specification out | DERIVED | F1b process line title (industries copy) | |
+| `expertiseNotes.diagram.process` | Degumming / Bleaching / Deodorisation / Fractionation / Interesterification | PROP | F1b process line stations | |
+| `expertiseNotes.diagram.processEnds` | Crude / Spec | PROP | F1b process line ends | |
+
+## /expertise/product-innovation
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.innovationTitle` | From unmet need to a product that scales | DERIVED | F1b funnel title (the pillar promise) | |
+| `expertiseNotes.diagram.innovation` | Unmet need / Technical brief / Prototype / Scale-up / Launch | DERIVED | F1b funnel stages (intro + deliverables) | |
+
+## /expertise/strategy-feasibility
+
+| Key | Text | Type | Where | Ganeaysh: ok / change to |
+|---|---|---|---|---|
+| `expertiseNotes.diagram.strategyTitle` | Three questions before you commit capital | DERIVED | F1b tree title (intro) | |
+| `expertiseNotes.diagram.strategy` | Is the market real? / Does the technology work? / Do the numbers hold? | DERIVED | F1b tree branches (intro) | |
+| `expertiseNotes.diagram.strategyEnds` | Your idea / Go / No-Go | PROP | F1b tree root and leaves | |

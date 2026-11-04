@@ -1,114 +1,113 @@
 ---
 /**
- * A founder-career case (DESIGN-SPEC 5.6.2): Hairline rule, context dateline, h2 outcome (.t-index),
- * a 3/9 grid of "The challenge" / "What was done" / "The result" (datelines + lead),
- * the figure (Sapphire .t-figure + source in meta; −25 °C carries data-frost), then tags.
- * A null value → <Confirm id="C-9"/> in staging; its row is omitted in production.
- * iTFA gets <abbr> and its sidenote on first use (4.6, C-11).
+ * A founder-career case (DESIGN-SPEC v2 10.6 F3): a full-bleed chapter on its own ground (india Sapphire, indonesia
+ * Sky, ukraine Imperial, tfa Orchid, each with grain). Grid 7/5. Left: a giant outlined chapter number (decorative),
+ * the context as a mono dateline, the outcome h2, the figure in .t-stat (count-up where numeric; Ukraine's −25 °C sits
+ * behind FoggyWord frost and adds the secondary 15% at 0.5×) and its source. Right: the honest label (white, 1°)
+ * titled "From our founder’s career" with The challenge / What was done / The result (null → CONFIRM C-9 in staging,
+ * row omitted in production), then the pillar and sector tags.
  */
+import SpecLabel from '@/components/notes/SpecLabel.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import FoggyWord from '@/components/bencho/FoggyWord.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import PillarTag from '@/components/ui/PillarTag.astro';
-import type { FounderResult } from '@/data/types';
+import type { FounderResult, GroundKey } from '@/data/types';
 import { impactPage, secondaryFigures } from '@/data/impact';
+import { storyNotes } from '@/data/notes/story';
 import { abbreviations, minus25 } from '@/lib/typography';
 import { pillarHref } from '@/lib/pillars';
 import { isStaging } from '@/lib/mode';
 
-interface Props { result: FounderResult; abbrItfa?: boolean; }
-const { result, abbrItfa = true } = Astro.props;
+interface Props { result: FounderResult; index: number; total: number }
+const { result, index, total } = Astro.props;
 const { labels } = impactPage;
-
+const grounds: Record<string, GroundKey> = { india: 'sapphire', indonesia: 'sky', ukraine: 'imperial', tfa: 'orchid' };
+const ground = grounds[result.id] ?? 'sapphire';
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-let itfaUsed = false;
-const withAbbr = (text: string) => {
-  let html = esc(text);
-  if (abbrItfa && !itfaUsed && html.includes('iTFA')) {
-    html = html.replace('iTFA', `<abbr title="${abbreviations.iTFA.title}">iTFA</abbr>`);
-    itfaUsed = true;
-  }
-  return html;
-};
-const rows = ([
-  { key: 'challenge', label: labels.challenge, value: result.challenge },
-  { key: 'done', label: labels.done, value: result.done },
-  { key: 'result', label: labels.result, value: result.result },
-] as const)
-  .filter((r) => r.value !== null || isStaging)
-  .map((r) => ({ ...r, html: r.value === null ? null : withAbbr(r.value), itfa: false }));
-// the sidenote follows the row that carried the first iTFA
-if (itfaUsed) {
-  const i = rows.findIndex((r) => r.html?.includes('<abbr'));
-  if (i >= 0) rows[i].itfa = true;
-}
-const figures = [
-  ...(result.figure ? [{ value: result.figure.value, frost: !!result.figure.frost || result.figure.value === minus25 }] : []),
-  ...(secondaryFigures[result.id] ? [{ value: secondaryFigures[result.id] as string, frost: false }] : []),
-];
+let itfa = false;
+const withAbbr = (t: string) => { let h = esc(t); if (!itfa && h.includes('iTFA')) { h = h.replace('iTFA', `<abbr title="${abbreviations.iTFA.title}">iTFA</abbr>`); itfa = true; } return h; };
+const raw = [
+  { k: labels.challenge, v: result.challenge },
+  { k: labels.done, v: result.done },
+  { k: labels.result, v: result.result },
+].filter((r) => r.v !== null || isStaging);
+const rows = raw.map((r) => ({ k: r.k, v: r.v === null ? '—' : withAbbr(r.v), html: true, strong: r.k === labels.result }));
+const missing = raw.some((r) => r.v === null);
+// the figure: the data's own, else the DERIVED "1st" (india) or the emphasis word (tfa: "WHO")
+const figure = result.figure?.value ?? (result.id === 'india' ? storyNotes.impact.indiaFigure : result.emphasis[0]);
+const secondary = secondaryFigures[result.id];
+const num = (v?: string) => { const m = v && /^([−-]?)(\d+)(?!\w)/.exec(v); return m && m[2] !== '1' ? `${m[1] ? '-' : ''}${m[2]}` : null; };
+const split = (v: string) => { const m = /^([−-]?\d+)(.*)$/.exec(v); return m && m[2].trim() ? { n: m[1], u: m[2] } : null; };
+const parts = figure ? split(figure) : null;
+const frost = figure === minus25;
 const titleId = `case-${result.id}-title`;
+const n = String(index + 1).padStart(2, '0');
 ---
-<article id={result.id} class="case" aria-labelledby={titleId}>
-  <span class="case__rule rule" data-rule aria-hidden="true"></span>
-  <div class="case__grid grid">
-    <p class="case__context t-dateline c-1-3">{result.context.replaceAll(' · ', '\u00A0· ')}</p>
-    <h2 id={titleId} class="case__outcome t-index c-4-12">{result.outcome}</h2>
-
-    <dl class="case__dl c-1-12" data-reveal>
-      {rows.map((r) => (
-        <div class="case__row grid">
-          <dt class="t-dateline c-1-3">{r.label}</dt>
-          <dd class="c-4-12">
-            {r.html === null
-              ? <Confirm id="C-9" note="case detail" />
-              : <p class="t-lead case__value" set:html={r.html} />}
-            {r.itfa && <p class="case__note t-meta">{abbreviations.iTFA.note}</p>}
-          </dd>
+<article id={result.id} class:list={['case', `g-${ground}`, 'grain', 'has-notes']} aria-labelledby={titleId}>
+  <div class="container case__grid">
+    <div class="case__left">
+      <span class="case__n" aria-hidden="true">{n}</span>
+      <p class="case__context t-dateline"><span class="case__count tnum" aria-hidden="true">{n} / {String(total).padStart(2, '0')}</span>{result.context.replaceAll(' · ', ' · ')}</p>
+      <h2 id={titleId} class="case__outcome">{result.outcome}</h2>
+      {figure && (
+        <div class="case__figure">
+          <p class="case__figs">
+            <span class="t-stat case__stat">
+              {frost ? (
+                <FoggyWord><span aria-hidden="true">{parts ? <>{parts.n}<span class="unit">{parts.u}</span></> : figure}</span></FoggyWord>
+              ) : (
+                <span aria-hidden="true" data-count={num(figure) ?? undefined}>{parts ? <>{parts.n}<span class="unit">{parts.u}</span></> : figure}</span>
+              )}
+              <span class="visually-hidden">{figure}</span>
+            </span>
+            {secondary && <span class="t-stat case__stat case__stat--half"><span aria-hidden="true" data-count={num(secondary) ?? undefined}>{secondary}</span><span class="visually-hidden">{secondary}</span></span>}
+          </p>
+          {frost && <>
+            <MarginNote text={storyNotes.cold.wipe} show="pointer" rotate={-5} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-35} anchor="abs" place="left:clamp(220px, 30%, 300px);top:-58px;" />
+            <MarginNote text={storyNotes.cold.yes} show="touch" rotate={-4} arrow={null} anchor="block" class="case__yes" />
+          </>}
+          {result.figure?.source && <p class="case__source t-mono">{result.figure.source}</p>}
         </div>
-      ))}
-    </dl>
-
-    {figures.length > 0 && result.figure && (
-      <div class="case__figure c-4-12" data-reveal>
-        <p class="case__figures">
-          {figures.map((f) => (
-            <span class="t-figure case__fig" data-frost={f.frost ? '' : undefined}>{f.value}</span>
-          ))}
-        </p>
-        <p class="case__source t-meta">{result.figure.source}</p>
-      </div>
-    )}
-
-    {(result.pillars.length > 0 || result.sectors.length > 0) && (
-      <ul class="case__tags c-4-12" role="list">
-        {result.pillars.map((k) => <li><PillarTag pillar={k} href={pillarHref(k)} /></li>)}
-        {result.sectors.map((s) => <li class="case__sector t-meta">{s}</li>)}
-      </ul>
-    )}
+      )}
+    </div>
+    <div class="case__right">
+      <SpecLabel title={impactPage.partOne} headingLevel="none" rotate={1} rows={rows} foot={itfa ? abbreviations.iTFA.note : undefined} ground="white" class="case__label" />
+      {isStaging && missing && <p class="case__confirm"><Confirm id="C-9" note="case detail" /></p>}
+      {(result.pillars.length > 0 || result.sectors.length > 0) && (
+        <ul class="case__tags" role="list">
+          {result.pillars.map((k) => <li><PillarTag pillar={k} href={pillarHref(k)} /></li>)}
+          {result.sectors.map((s) => <li class="case__sector t-label">{s}</li>)}
+        </ul>
+      )}
+    </div>
   </div>
 </article>
 <style>
-  .case { position: relative; }
-  .case__rule { display: block; }
-  .case__grid { padding-block: var(--s-6) var(--s-8); row-gap: var(--s-4); align-items: start; }
-  .case__context { margin: 0; padding-top: 0.75em; }
-  .case__outcome { margin: 0; }
-  .case__dl { margin: var(--s-4) 0 0; }
-  .case__row { padding-block: var(--s-4); border-top: 1px solid var(--c-rule); align-items: baseline; }
-  .case__row dt { margin: 0; }
-  .case__row dd { margin: 0; }
-  .case__row dd :global(.confirm) { margin-inline: 0; }
-  .case__value { margin: 0; color: var(--c-text); }
-  .case__value :global(abbr) { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; }
-  .case__note { margin: var(--s-2) 0 0; }
-  .case__figure { margin-top: var(--s-4); }
-  .case__figures { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-7); }
-  .case__fig { white-space: nowrap; }
-  .case__fig[data-frost]::after { bottom: -6px; }
-  .case__source { margin: var(--s-3) 0 0; }
-  .case__tags { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
-  .case__sector { padding-left: var(--s-1); }
-  .case__sector::before { content: "·"; margin-right: var(--s-3); color: var(--kk-field-border); }
-  @media (max-width: 767px) {
-    .case__context { padding-top: 0; }
-    .case__row { row-gap: var(--s-1); }
+  .case { position: relative; padding-block: clamp(72px, 9vw, 150px); overflow: clip; scroll-margin-top: var(--scroll-offset); }
+  .case__grid { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8); align-items: center; }
+  .case__left { position: relative; }
+  .case__n { position: absolute; right: -2%; top: -12%; z-index: -1; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; line-height: .8;
+    font-size: clamp(10rem, 4rem + 22vw, 26rem); color: transparent; -webkit-text-stroke: 2px var(--fg); opacity: .22; letter-spacing: -.04em; pointer-events: none; }
+  .case__context { margin: 0 0 var(--s-5); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; max-width: 54ch; }
+  .case__count { padding: 5px 10px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--fg); }
+  .case__outcome { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.025em; line-height: .92;
+    font-size: clamp(2.5rem, 1rem + 4.4vw, 5.5rem); color: var(--head); text-wrap: balance; max-width: 14ch; }
+  .case__figure { position: relative; margin-top: var(--s-7); }
+  .case__figs { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .35em; color: var(--head); }
+  .case__stat { white-space: nowrap; }
+  .case__stat--half { font-size: calc(var(--fs-stat) * .5); color: var(--note); }
+  .case :global(.unit) { font-size: .42em; vertical-align: .9em; margin-left: .04em; }
+  .case :global(.case__yes) { margin-top: var(--s-2); }
+  .case__source { margin: var(--s-3) 0 0; color: var(--fg-2); }
+  .case__right { position: relative; }
+  .case :global(.case__label) { box-shadow: 10px 10px 0 var(--kk-ink); }
+  .case__confirm { margin: var(--s-3) 0 0; }
+  .case__tags { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .case__tags :global(.pillar-tag) { box-shadow: 0 0 0 2px var(--kk-white); }
+  .case__sector { padding: 7px 12px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--fg); color: var(--fg); }
+  @media (max-width: 1023px) {
+    .case__grid { grid-template-columns: 1fr; gap: var(--s-7); }
+    .case__n { top: -6%; }
   }
 </style>

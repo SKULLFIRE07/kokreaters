@@ -1,22 +1,60 @@
 ---
-/** Fold 6 · Impact, from the founder’s career (DESIGN-SPEC 5.1). Words only in the datelines; no logos. */
+/**
+ * F7 · Impact (DESIGN-SPEC v2 10.1 + 00.2). White. Notebook tab "03 · Impact · From our founder’s career"; the h2 with a
+ * Saffron burst sticker "From our founder’s career" (R4). The route map leads (scrubbed arcs India → … → the
+ * Netherlands, −25 °C frost node), then the four ImpactCards (india · innovation, indonesia · capability, ukraine ·
+ * process, tfa · quality) with count-ups on 21, 15 and −25. Hand pill "See the impact".
+ */
 import Section from '@/components/ui/Section.astro';
-import ImpactRow from '@/components/shared/ImpactRow.astro';
-import TextLink from '@/components/ui/TextLink.astro';
-import { impact } from '@/data/home';
-import { founderResults } from '@/data/impact';
+import ImpactCard from '@/components/shared/ImpactCard.astro';
+import Sticker from '@/components/notes/Sticker.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Button from '@/components/ui/Button.astro';
+import RouteMap from './RouteMap.astro';
+import { impact, proofSource } from '@/data/home';
+import { founderResults, secondaryFigures } from '@/data/impact';
+import { homeNotes } from '@/data/notes/home';
+import type { PillarKey } from '@/data/types';
+
+const border: Record<string, PillarKey> = { india: 'innovation', indonesia: 'capability', ukraine: 'process', tfa: 'quality' };
+const figure: Record<string, string | undefined> = { india: homeNotes.impact.indiaFigure, tfa: 'WHO' };
 ---
-<Section ground="white" folio={{ n: '03', label: impact.overline }} labelledby="impact-heading" class="impact-fold">
-  <h2 id="impact-heading" class="t-h2 impact-fold__h" data-reveal="lines">{impact.headline}</h2>
-  <ul class="impact-fold__list" role="list">
-    {founderResults.map((r) => <ImpactRow result={r} as="li" />)}
+<Section ground="white" notes folio={{ n: '03', label: impact.overline }} labelledby="impact-heading" class="impact-fold">
+  <div class="impact-fold__head">
+    <h2 id="impact-heading" class="t-display impact-fold__h" data-rise>{impact.headline}</h2>
+    <Sticker shape="burst" ground="saffron" rotate={8} drop size="168px" class="impact-fold__burst"><span class="t-label impact-fold__burst-t">{proofSource}</span></Sticker>
+  </div>
+  <RouteMap />
+  <ul class="impact-fold__grid" role="list">
+    {founderResults.map((r) => (
+      <li class="impact-fold__cell">
+        <ImpactCard result={r} as="div" border={border[r.id]} figure={figure[r.id] ?? r.figure?.value} secondary={secondaryFigures[r.id]} />
+        {r.id === 'ukraine' && <MarginNote text={homeNotes.impact.cold} tone="orchid" rotate={-5} arrow="arrow-curve" arrowAt="start" arrowAngle={-150} show="md" class="impact-fold__note" />}
+      </li>
+    ))}
   </ul>
-  <div class="rule" data-rule aria-hidden="true"></div>
-  <div class="impact-fold__link"><TextLink href={impact.link.href}>{impact.link.label}</TextLink></div>
+  <div class="impact-fold__link"><Button href={impact.link.href} variant="hand">{impact.link.label}</Button></div>
 </Section>
 
 <style>
-  .impact-fold__h { margin: 0 0 var(--s-7); max-width: 18ch; }
-  .impact-fold__list { list-style: none; margin: 0; padding: 0; }
-  .impact-fold__link { margin-top: var(--s-6); }
+  .impact-fold { padding-block: clamp(80px, 10vw, 150px); }
+  .impact-fold__head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-5); }
+  .impact-fold__h { margin: 0; max-width: 13ch; color: var(--kk-ink); font-size: clamp(52px, 7.6vw, 124px); }
+  .impact-fold__head :global(.impact-fold__burst) { flex: none; margin-top: 8px; }
+  .impact-fold__burst-t { display: block; max-width: 11ch; text-align: center; color: var(--kk-ink); line-height: 1.3; }
+  .impact-fold :global(.route-map) { margin-top: clamp(16px, 3vw, 40px); }
+  .impact-fold__grid { list-style: none; margin: clamp(24px, 4vw, 56px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); }
+  .impact-fold__cell { position: relative; display: flex; }
+  .impact-fold__cell :global(.icard) { width: 100%; }
+  .impact-fold__cell :global(.icard__figure) { font-size: clamp(64px, 6.4vw, 104px); }
+  .impact-fold :global(.impact-fold__note) { left: 40%; top: -58px; }
+  .impact-fold__link { margin-top: var(--s-7); }
+  @media (max-width: 1279px) { .impact-fold__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 767px) {
+    .impact-fold__grid { grid-template-columns: 1fr; }
+    .impact-fold__head { flex-direction: column; }
+    .impact-fold__head { gap: 0; }
+    .impact-fold__head :global(.impact-fold__burst) { align-self: flex-end; margin-top: -28px; --sticker-size: 118px; }
+    .impact-fold__burst-t { font-size: 10px; }
+  }
 </style>

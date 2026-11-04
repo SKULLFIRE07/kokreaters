@@ -1,0 +1,36 @@
+---
+/** Insights hub F6 (DESIGN-SPEC v2 10.8): Butter fold. The Newsletter (fold variant) with N3 "no noise, really", and a
+ * hand-drawn paper plane on a looping dashed flight path that draws on as the fold enters (decorative, aria-hidden). */
+import Newsletter from '@/components/shared/Newsletter.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import { journalNotes } from '@/data/notes/journal';
+---
+<section class="nlf g-butter grain has-notes" aria-label="Newsletter">
+  <div class="container nlf__grid">
+    <div class="nlf__copy">
+      <Newsletter variant="fold" class="nlf__nl">
+        <MarginNote slot="note" text={journalNotes.newsletter.quiet} tone="berry" rotate={-5} arrow="arrow-curve" arrowAt="start" flip place="left:min(560px, 70%);top:-46px;" show="md" />
+      </Newsletter>
+    </div>
+    <svg class="nlf__plane" viewBox="0 0 520 300" fill="none" aria-hidden="true" focusable="false" data-plane>
+      <path class="nlf__trail" pathLength="1" d="M10 262 C 70 250, 110 210, 150 222 C 205 238, 188 300, 140 286 C 96 272, 120 200, 190 188 C 260 176, 300 190, 352 132" data-plane-trail />
+      <g class="nlf__craft" data-plane-craft>
+        <path pathLength="1" d="M352 132 L 500 40 L 410 166 Z" />
+        <path pathLength="1" d="M352 132 L 500 40 L 396 120" />
+        <path pathLength="1" d="M410 166 L 396 120 L 384 150" />
+      </g>
+    </svg>
+  </div>
+</section>
+<style>
+  .nlf { position: relative; padding-block: clamp(4rem, 2rem + 6vw, 8rem); overflow: clip; }
+  .nlf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); align-items: center; }
+  .nlf__copy :global(.newsletter__text) { font-family: var(--font-display) !important; font-weight: 780; font-stretch: 75%; font-size: clamp(2.5rem, 1.4rem + 4.4vw, 5.5rem) !important; line-height: .92 !important; letter-spacing: -0.022em; max-width: 13ch !important; color: var(--head); }
+  .nlf__copy :global(.newsletter) { gap: var(--s-6); }
+  .nlf__plane { width: min(100%, 600px); height: auto; justify-self: end; overflow: visible; }
+  .nlf__plane > path, .nlf__craft path { stroke: var(--kk-ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .nlf__trail { stroke-dasharray: 0.014 0.016; stroke: var(--kk-berry) !important; }
+  .nlf__craft path:first-child { fill: var(--kk-white); }
+  @media (min-width: 1024px) { .nlf__grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+  @media (max-width: 767px) { .nlf__plane { width: 78%; } }
+</style>

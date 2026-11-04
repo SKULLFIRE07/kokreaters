@@ -1,28 +1,64 @@
 ---
-/** Fold 3 · Positioning (DESIGN-SPEC 5.1, graft 9). White, split 5/7, the standard reveal. */
+/**
+ * F4 · Positioning (DESIGN-SPEC v2 10.1 + 00.1). White + lab-notebook grid. Notebook tab "Our promise". The h2 is big
+ * scrubbed type (R9). Grid 5/7: the hand-drawn Venn (plant floor · lab · boardroom → the same person) leads; right, the
+ * promise in mono with a Saffron highlight on "We build the answer with your people"; the long "range" paragraph sits in
+ * a <details> ("Read the whole truth") so the fold stays visual (≤ 25 words on first view; still in the DOM).
+ */
 import Section from '@/components/ui/Section.astro';
+import Venn from '@/components/notes/Venn.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Scribble from '@/components/notes/Scribble.astro';
 import { positioning } from '@/data/home';
-// Brief 1 "Positioning" first paragraph, graft 9. Rendered once W1-content adds `positioning.about` (build-log request).
-const about = (positioning as { about?: string }).about;
+import { homeNotes } from '@/data/notes/home';
+
+const HL = 'We build the answer with your people';
+const [pre, post] = positioning.promise.split(HL);
+const [a, b, c, centre] = homeNotes.positioning.venn;
 ---
-<Section ground="white" folio={{ label: positioning.folio }} labelledby="promise-heading" class="positioning">
-  <div class="grid positioning__grid">
-    <h2 id="promise-heading" class="t-h2 c-1-5" data-reveal="lines">{positioning.headline}</h2>
-    <div class="c-6-12 positioning__body" data-reveal>
-      <p class="t-lead positioning__promise">{positioning.promise}</p>
-      {about && <p class="t-body positioning__range">{about}</p>}
-      <p class="t-body positioning__range">{positioning.range}</p>
+<Section ground="white" paper="grid" notes folio={{ label: positioning.folio }} labelledby="promise-heading" class="positioning">
+  <h2 id="promise-heading" class="t-display positioning__h" data-scrub-words>{positioning.headline}</h2>
+  <div class="positioning__grid">
+    <div class="positioning__venn">
+      <Venn labels={[a, b, c]} centre={centre} tone="berry" size={400} />
+      <MarginNote text={homeNotes.positioning.circle} tone="orchid" rotate={-5} arrow="arrow-bounce" arrowAt="below" arrowAngle={20} show="md" class="positioning__note" />
+    </div>
+    <div class="positioning__body">
+      <p class="t-lead positioning__promise">{post !== undefined ? <>{pre}<Scribble kind="highlight" nowrap={false}>{HL}</Scribble>{post}</> : positioning.promise}</p>
+      <details class="truth">
+        <summary class="truth__sum"><span class="t-hand">{homeNotes.positioning.more}</span><span class="truth__plus" aria-hidden="true"></span></summary>
+        <p class="t-body truth__body">{positioning.range}</p>
+      </details>
     </div>
   </div>
 </Section>
 
 <style>
-  .positioning__grid { row-gap: var(--s-6); align-items: start; }
-  .positioning__grid h2 { margin: 0; }
-  .positioning__promise { margin: 0; color: var(--c-text); }
-  .positioning__range { margin: var(--s-5) 0 0; color: var(--c-meta); max-width: 60ch; }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .positioning__grid > .c-1-5 { grid-column: 1 / 13; }
-    .positioning__grid > .c-6-12 { grid-column: 3 / 13; }
+  .positioning { padding-block: clamp(80px, 10vw, 160px); }
+  .positioning__h { margin: 0; max-width: 14ch; color: var(--kk-ink); font-size: clamp(56px, 8.4vw, 136px); }
+  .positioning__grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s-8) var(--gutter); align-items: center; margin-top: clamp(48px, 6vw, 96px); }
+  .positioning__venn { position: relative; width: 100%; max-width: 420px; }
+  .positioning :global(.positioning__note) { left: 48%; top: -84px; }
+  .positioning__promise { margin: 0; font-size: clamp(19px, 1rem + .6vw, 26px); line-height: 1.5; color: var(--kk-ink); max-width: 30ch; }
+  @media (max-width: 1023px) {
+    .positioning__grid { grid-template-columns: 1fr; }
+    .positioning__venn { justify-self: center; }
+    .positioning__venn :global(.venn) { --venn: min(360px, 84vw) !important; }
   }
+
+  :global(.truth) { margin-top: var(--s-6); max-width: 60ch; }
+  :global(.truth__sum) {
+    display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px 2px; cursor: pointer; list-style: none;
+    border-radius: var(--r-pill); box-shadow: inset 0 0 0 2px var(--fg); color: var(--fg);
+    transition: background-color var(--d-ui) var(--ease-expo), rotate var(--d-ui) var(--ease-expo), box-shadow var(--d-ui) var(--ease-expo);
+  }
+  :global(.truth__sum::-webkit-details-marker) { display: none; }
+  :global(.truth__sum:hover), :global(.truth__sum:focus-visible) { background: var(--kk-butter); color: var(--kk-ink); box-shadow: inset 0 0 0 2px var(--kk-ink), var(--shadow-hard); rotate: -1deg; }
+  :global(.truth__sum:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  :global(.truth__plus) { position: relative; width: 14px; height: 14px; flex: none; }
+  :global(.truth__plus::before), :global(.truth__plus::after) { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2.5px; border-radius: 2px; background: currentColor; transition: rotate var(--d-ui) var(--ease-expo); }
+  :global(.truth__plus::after) { rotate: 90deg; }
+  :global(.truth[open] .truth__plus::after) { rotate: 0deg; }
+  :global(.truth__body) { margin: var(--s-5) 0 0; color: var(--fg-2); }
+  @media (prefers-reduced-motion: reduce) { :global(.truth__sum:hover), :global(.truth__sum:focus-visible) { rotate: 0deg; } }
 </style>

@@ -1,46 +1,52 @@
 ---
 /**
- * Related insights (DESIGN-SPEC 5.3 item 5): up to three dense InsightRows for this pillar; if none
- * is visible, the pillar's coming-soon titles (unlinked) under "In preparation". The page omits the
- * whole block when both lists are empty.
+ * Related insights (DESIGN-SPEC v2 10.3 F5, on Cloud): up to three CoverStory cards for this pillar; if none is visible,
+ * the pillar's coming-soon titles as "In preparation" cards (unlinked, dashed, taped). The page omits the fold when
+ * both lists are empty (v1 rule).
  */
-import InsightRow from '../shared/InsightRow.astro';
+import CoverStory from '../shared/CoverStory.astro';
+import Tape from '../notes/Tape.astro';
 import { microcopy } from '@/data/microcopy';
 import type { Insight } from '@/lib/insights';
 
 interface Props { visible: Insight[]; coming: Insight[] }
 const { visible, coming } = Astro.props;
 const rows = visible.slice(0, 3);
+const TAPES = ['butter', 'blush', 'ice', 'lavender'] as const;
 ---
 {(rows.length > 0 || coming.length > 0) && (
-  <div class="related grid">
-    <h2 id="related-title" class="t-h2 related__title c-1-4" data-reveal="lines">{microcopy.relatedInsights}</h2>
-    <div class="related__body c-5-12">
-      {rows.length > 0 ? (
-        <ul class="related__list">
-          {rows.map((e) => <InsightRow entry={e} dense />)}
-          <li class="related__end" aria-hidden="true"><span data-rule></span></li>
+  <div class="related">
+    <h2 id="related-title" class="t-display related__title" data-rise>{microcopy.relatedInsights}</h2>
+    {rows.length > 0 ? (
+      <ul class="related__list" role="list">
+        {rows.map((e, i) => <li data-sticker style={`--rot:${[-1.5, 1, -0.5][i]}deg`}><CoverStory entry={e} variant="card" headingLevel="h3" /></li>)}
+      </ul>
+    ) : (
+      <div>
+        <p class="t-dateline related__prep">{microcopy.inPreparation}</p>
+        <ul class="related__coming" role="list">
+          {coming.map((e, i) => (
+            <li class="related__soon" data-sticker style={`--rot:${[-2, 1.5, -1][i % 3]}deg`}>
+              <Tape tone={TAPES[i % 4]} rotate={[-4, 3, -2][i % 3]} place="left: 24px; top: -12px;" />
+              <span class="related__soon-t">{e.data.title}</span>
+            </li>
+          ))}
         </ul>
-      ) : (
-        <div data-reveal>
-          <p class="t-dateline related__prep">{microcopy.inPreparation}</p>
-          <ul class="related__coming">
-            {coming.map((e) => <li>{e.data.title}</li>)}
-          </ul>
-        </div>
-      )}
-    </div>
+      </div>
+    )}
   </div>
 )}
 <style>
-  .related { row-gap: var(--s-6); }
-  .related__title { margin: 0; }
-  .related__list, .related__coming { list-style: none; margin: 0; padding: 0; }
-  .related__end span { display: block; height: 1px; background: var(--c-rule); }
-  .related__prep { margin: 0 0 var(--s-4); }
-  .related__coming li {
-    font-family: var(--font-serif); font-size: 1.25rem; line-height: 1.75rem; font-weight: 380; color: var(--c-meta);
-    padding-block: var(--s-3); border-top: 1px solid var(--c-rule); text-wrap: balance;
+  .related__title { margin: 0 0 var(--s-8); max-width: 12ch; color: var(--head); }
+  .related__list, .related__coming { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
+  .related__list > li { display: flex; rotate: var(--rot); }
+  .related__list :global(.cover) { width: 100%; }
+  .related__prep { margin: 0 0 var(--s-6); color: var(--fg-2); }
+  .related__soon {
+    position: relative; min-height: 220px; padding: 34px 26px 26px; border-radius: var(--r-card); rotate: var(--rot);
+    background: var(--kk-white); border: 2px dashed var(--kk-graphite);
   }
-  .related__coming li:last-child { border-bottom: 1px solid var(--c-rule); }
+  .related__soon-t { font: 720 var(--fs-h3)/1.05 var(--font-display); font-stretch: 82%; letter-spacing: -0.01em; color: var(--fg); text-wrap: balance; }
+  @media (max-width: 1023px) { .related__list, .related__coming { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 767px) { .related__list, .related__coming { grid-template-columns: 1fr; } .related__title { margin-bottom: var(--s-6); } }
 </style>

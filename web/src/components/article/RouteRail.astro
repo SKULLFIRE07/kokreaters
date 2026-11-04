@@ -1,8 +1,8 @@
 ---
 /**
- * RouteRail (DESIGN-SPEC 5.8 item 13, graft 6): sticky "On this page" nav at ≥ 1280px, h2 links as
- * station nodes on a vertical Hairline line with a Sapphire progress segment. scripts/pages/article.ts
- * sets the active node (aria-current="true") and scrubs the segment.
+ * RouteRail (DESIGN-SPEC v2 10.9): sticky "On this page" nav at ≥ 1280px: mono h2 links on a vertical dashed line
+ * with ringed beads; the Sapphire segment is scrubbed to progress and the current bead fills Saffron
+ * (scripts/pages/article.ts sets aria-current="true").
  */
 import type { MarkdownHeading } from 'astro';
 import { microcopy } from '@/data/microcopy';
@@ -11,40 +11,40 @@ const { headings } = Astro.props;
 const h2s = headings.filter((h) => h.depth === 2);
 ---
 <nav class="rail" aria-label={microcopy.onThisPage} data-rail>
-  <p class="rail__label t-dateline">{microcopy.onThisPage}</p>
+  <p class="rail__label t-label">{microcopy.onThisPage}</p>
   <div class="rail__track">
     <span class="rail__line" aria-hidden="true"><span class="rail__progress" data-rail-progress></span></span>
     <ol class="rail__list">
-      {h2s.map((h) => (
-        <li class="rail__item"><a class="rail__link" href={`#${h.slug}`} data-rail-link={h.slug}><span class="rail__node" aria-hidden="true"></span><span class="rail__text">{h.text}</span></a></li>
+      {h2s.map((h, i) => (
+        <li class="rail__item"><a class="rail__link" href={`#${h.slug}`} data-rail-link={h.slug}><span class="rail__node" aria-hidden="true"></span><span class="rail__n tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span class="rail__text">{h.text}</span></a></li>
       ))}
     </ol>
   </div>
 </nav>
 <style>
-  .rail { position: sticky; top: calc(var(--header-h) + 32px); font-family: var(--font-sans); }
+  .rail { position: sticky; top: calc(var(--header-h) + 40px); font-family: var(--font-mono); }
   .rail__label { margin: 0 0 var(--s-4); }
   .rail__track { position: relative; }
-  .rail__line { position: absolute; left: 5px; top: 10px; bottom: 10px; width: 1px; background: var(--c-rule); }
-  .rail__progress { position: absolute; inset: 0; background: var(--c-line); transform: scaleY(0); transform-origin: 50% 0; }
+  .rail__line { position: absolute; left: 6px; top: 12px; bottom: 12px; width: 0; border-left: 2px dashed var(--kk-field-border); }
+  .rail__progress { position: absolute; left: -2px; top: 0; bottom: 0; width: 2px; background: var(--kk-sapphire); transform: scaleY(0); transform-origin: 50% 0; }
   .rail__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
   .rail__link {
-    position: relative; display: flex; gap: var(--s-3); align-items: flex-start;
-    padding: 6px 0; min-height: 32px;
-    font-size: 13px; line-height: 18px; font-weight: 500;
-    color: var(--c-meta); text-decoration: none; text-wrap: pretty;
-    transition: color var(--d-colour) var(--ease-out);
+    position: relative; display: grid; grid-template-columns: 14px auto minmax(0, 1fr); gap: 10px; align-items: start;
+    padding: 7px 0; min-height: 32px;
+    font-size: 12.5px; line-height: 1.45; font-weight: 400;
+    color: var(--kk-graphite); text-decoration: none; text-wrap: pretty;
+    transition: color 200ms var(--ease-out), translate 300ms var(--ease-expo);
   }
-  .rail__link:hover, .rail__link:focus-visible { color: var(--c-link); }
-  .rail__link[aria-current="true"] { color: var(--c-heading); font-weight: 600; }
+  .rail__n { color: var(--kk-graphite); }
+  .rail__link:hover, .rail__link:focus-visible { color: var(--kk-sapphire); translate: 3px 0; }
+  .rail__link[aria-current="true"] { color: var(--kk-ink); font-weight: 500; }
+  .rail__link[aria-current="true"] .rail__n { color: var(--kk-ink); }
   .rail__node {
-    flex: none; position: relative; z-index: 1; margin-top: 3px;
-    width: 11px; height: 11px; border-radius: 50%;
-    background: var(--kk-white); border: var(--line-work) solid var(--kk-field-border);
-    box-shadow: 0 0 0 2px var(--kk-white);
-    transition: background var(--d-colour) var(--ease-out), border-color var(--d-colour) var(--ease-out);
+    position: relative; z-index: 1; margin-top: 3px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--kk-white); box-shadow: inset 0 0 0 2px var(--kk-ink), 0 0 0 3px var(--kk-white);
+    transition: background 200ms var(--ease-out), scale 300ms var(--ease-expo);
   }
-  .rail__link[aria-current="true"] .rail__node, .rail__link:hover .rail__node { border-color: var(--c-line); }
-  .rail__link[aria-current="true"] .rail__node { background: var(--c-line); }
-  @media (prefers-reduced-motion: reduce) { .rail__link, .rail__node { transition: none; } }
+  .rail__link[aria-current="true"] .rail__node { background: var(--kk-saffron); scale: 1.25; }
+  @media (prefers-reduced-motion: reduce) { .rail__link, .rail__node { transition: none; } .rail__link:hover { translate: none; } }
 </style>

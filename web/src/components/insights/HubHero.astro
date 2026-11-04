@@ -1,0 +1,84 @@
+---
+/**
+ * Insights hub F1 (DESIGN-SPEC v2 10.8): white lab-notebook grid. A huge H1 with "plant floor" highlighted and
+ * "boardroom" hand-circled, the mono lead, and, on the right, the hub's own honest label ("What's inside": counts per
+ * format, derived from the content collection) taped to the page beside a spinning field-notes stamp.
+ * The H1 is server-rendered text and never hidden (it is the LCP candidate).
+ */
+import type { CollectionEntry } from 'astro:content';
+import Scribble from '@/components/notes/Scribble.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import SpecLabel from '@/components/notes/SpecLabel.astro';
+import Stamp from '@/components/notes/Stamp.astro';
+import Tape from '@/components/notes/Tape.astro';
+import Logo from '@/components/brand/Logo.astro';
+import { insights as insightsCopy } from '@/data/home';
+import { microcopy, formatLabels } from '@/data/microcopy';
+import { founderName } from '@/data/founder';
+import { journalNotes } from '@/data/notes/journal';
+
+interface Props { lead: string; list: CollectionEntry<'insights'>[]; soon: CollectionEntry<'insights'>[] }
+const { lead, list, soon } = Astro.props;
+
+// Split the headline around the two scribbled phrases (falls back to plain text if the copy ever changes).
+const h = insightsCopy.headline;
+const A = 'plant floor', B = 'boardroom';
+const ia = h.indexOf(A), ib = h.indexOf(B);
+const split = ia > -1 && ib > ia ? [h.slice(0, ia), h.slice(ia + A.length, ib), h.slice(ib + B.length)] : null;
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const rows = (Object.entries(formatLabels) as [keyof typeof formatLabels, string][]).map(([k, label]) => ({
+  k: label, v: pad(list.filter((e) => e.data.format === k).length),
+}));
+rows.push({ k: microcopy.inPreparation, v: pad(soon.length), strong: true } as typeof rows[number] & { strong: boolean });
+---
+<section class="hh g-white paper-grid has-notes" aria-labelledby="hub-title">
+  <div class="container hh__grid">
+    <div class="hh__copy">
+      <p class="t-dateline hh__dateline"><span class="hh__dot" aria-hidden="true"></span>{insightsCopy.overline}</p>
+      <h1 class="t-display hh__title" id="hub-title">
+        {split ? (<>
+          {split[0]}<Scribble kind="highlight" delay={0.5}>{A}</Scribble>{split[1]}<Scribble kind="circle" tone="orchid" delay={0.9} pad="0.06em 0.22em">{B}</Scribble>{split[2]}
+        </>) : h}
+      </h1>
+      <p class="t-lead hh__lead">{lead}</p>
+      <MarginNote text={journalNotes.hub.fluff} tone="orchid" rotate={-6} arrow="arrow-curve" arrowAt="above" arrowAngle={-110} place="left:min(600px, 64%);bottom:-34px;max-width:none;" show="md" delay={1.3} class="hh__note" />
+    </div>
+
+    <div class="hh__label">
+      <div class="hh__stamp" data-sticker data-sticker-from="right">
+        <Stamp text={journalNotes.hub.stamp} size={176} ground="saffron" spin rotate={-8}>
+          <Logo variant="cluster" height={64} width={64} alt="" />
+        </Stamp>
+      </div>
+      <div class="hh__card" data-sticker data-sticker-from="top">
+        <Tape tone="ice" rotate={-5} width={110} />
+        <SpecLabel title={journalNotes.hub.inside} sub={microcopy.insightsRunningHead} rows={rows} foot={founderName} ground="white" headingLevel={2} rotate={2} id="hub-inside" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hh { position: relative; padding-block: clamp(2.5rem, 1rem + 5vw, 6rem) clamp(4rem, 2rem + 6vw, 8rem); overflow: clip; }
+  .hh__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); align-items: end; }
+  .hh__copy { position: relative; }
+  .hh__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-5); }
+  .hh__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--kk-saffron); box-shadow: 0 0 0 2px var(--kk-ink); }
+  .hh__title { margin: 0; max-width: 11.5ch; font-size: clamp(3.25rem, 1.2rem + 7.6vw, 9rem); line-height: .9; text-wrap: balance; }
+  .hh__lead { margin: var(--s-6) 0 0; max-width: 46ch; color: var(--fg-2); }
+  .hh__label { position: relative; justify-self: start; width: min(100%, 380px); padding-top: 96px; }
+  .hh__card { position: relative; }
+  .hh__card :global(.spec) { box-shadow: var(--shadow-hard); }
+  .hh__card :global(.spec__row) { grid-template-columns: minmax(0, 1fr) auto !important; }
+  .hh__card :global(.spec__row dd) { font-variant-numeric: tabular-nums; font-weight: 500; font-size: 1.05rem; text-align: right; }
+  .hh__stamp { position: absolute; z-index: 2; right: -52px; top: -58px; }
+  @media (max-width: 767px) {
+    .hh__stamp { right: -6px; top: 0; scale: .68; transform-origin: 100% 0; }
+  }
+  @media (min-width: 1024px) {
+    .hh__grid { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-8); }
+    .hh__label { justify-self: end; margin-bottom: var(--s-4); }
+  }
+  @media (min-width: 1280px) { .hh__grid { grid-template-columns: minmax(0, 1fr) 380px; column-gap: 72px; } }
+</style>

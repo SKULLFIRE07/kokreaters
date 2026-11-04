@@ -1,82 +1,87 @@
 ---
 /**
- * Fold 9 · Founder (DESIGN-SPEC 5.1, graft 7). White, grid 5/7. The portrait sits on two flat
- * filled discs; its Saffron ring draws once (data-draw, 1.2 s). The quote fades in as ONE block.
+ * F10 · Founder (DESIGN-SPEC v2 10.1). Sapphire + grain, padding-bottom 0 on the photo column. The cut-out stands big
+ * and flush on the band's bottom edge; both shoulder cuts are hidden by its own clipped column. Behind it a Saffron disc
+ * (R10 parallax) with a Tape strip and two White node doodles. Right: giant hand quote marks, the quote as one block,
+ * "We create with you." underlined in Saffron, mono attribution, Confirm 4, and the ghost-on-dark pill "Meet Ganeaysh".
+ * Mobile: quote first, photo below at 420px, still flush-bottom.
  */
-import { Picture } from 'astro:assets';
-import Section from '@/components/ui/Section.astro';
-import Discs from '@/components/brand/Discs.astro';
-import TextLink from '@/components/ui/TextLink.astro';
+import FounderPhoto from '@/components/brand/FounderPhoto.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Scribble from '@/components/notes/Scribble.astro';
+import Doodle from '@/components/notes/Doodle.astro';
+import Tape from '@/components/notes/Tape.astro';
+import Folio from '@/components/ui/Folio.astro';
+import Button from '@/components/ui/Button.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { founderQuote } from '@/data/home';
-import { shortBio } from '@/data/founder';
-import { abbreviations } from '@/lib/typography';
-import portrait from '@/assets/photos/ganeaysh-cutout-square.png';
+import { homeNotes } from '@/data/notes/home';
 
-// FSQR on first use: <abbr> plus its note (4.4 acronym rule).
-const [bioBefore, bioAfter] = shortBio.split('FSQR');
+const UL = 'We create with you.';
+const [pre] = founderQuote.quote.split(UL);
+const hasUL = founderQuote.quote.endsWith(UL);
 ---
-<Section ground="white" folio={{ n: '06', label: founderQuote.folio }} labelledby="founder-heading" class="founder-fold">
-  <h2 id="founder-heading" class="visually-hidden">{founderQuote.attribution}</h2>
-  <div class="grid founder-fold__grid">
-    <div class="c-1-5 founder-fold__media">
-      <div class="founder-fold__portrait">
-        <Discs mode="filled" set="portrait" size={260} />
-        <Picture
-          src={portrait}
-          formats={['avif', 'webp']}
-          widths={[240, 300, 480, 600]}
-          sizes="(min-width: 768px) 300px, 240px"
-          width={300}
-          height={300}
-          alt="Ganeaysh Kulkarni, founder of KoKreaters"
-          loading="lazy"
-          decoding="async"
-          class="founder-fold__img"
-        />
-        <svg class="founder-fold__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-          <circle data-draw data-draw-duration="1.2" cx="50" cy="50" r="49" transform="rotate(-90 50 50)" />
-        </svg>
+<section class="founder band fold g-sapphire grain has-notes" aria-labelledby="founder-heading">
+  <div class="container founder__grid">
+    <div class="founder__media">
+      <div class="founder__disc" data-parallax="0.12" aria-hidden="true">
+        <Tape tone="butter" rotate={-8} width={120} place="top: 6%; left: 58%;" />
       </div>
+      <Doodle kind="node" tone="white" size={56} place="position:absolute; left:6%; top:18%;" class="founder__nd" />
+      <Doodle kind="node" tone="white" size={40} seed={1} place="position:absolute; right:8%; top:44%;" class="founder__nd" />
+      <div class="founder__photo">
+        <FounderPhoto variant="cutout" loading="lazy" sizes="(min-width: 1024px) 46vw, 100vw" />
+      </div>
+      <MarginNote text={homeNotes.founder.him} tone="saffron" size="lg" rotate={-8} arrow="arrow-loop" arrowAt="end" arrowAngle={10} show="md" class="founder__note" />
     </div>
-    <figure class="c-6-12 founder-fold__quote" data-reveal>
-      <blockquote class="founder-fold__bq">
-        <p class="t-quote"><span class="founder-fold__mark hang" aria-hidden="true">“</span>{founderQuote.quote}<span aria-hidden="true">”</span></p>
-      </blockquote>
-      <figcaption class="t-meta founder-fold__cite">{founderQuote.attribution}</figcaption>
-      <p class="t-body founder-fold__bio">{bioAfter !== undefined ? <>{bioBefore}<abbr title={abbreviations.FSQR.title}>FSQR</abbr>{bioAfter}</> : shortBio}</p>
-      {bioAfter !== undefined && <p class="t-meta founder-fold__note">{abbreviations.FSQR.note}</p>}
-      <div class="founder-fold__link">
-        <TextLink href={founderQuote.link.href}>{founderQuote.link.label}</TextLink>
+
+    <div class="founder__text">
+      <Folio n="06" label={founderQuote.folio} />
+      <h2 id="founder-heading" class="visually-hidden">{founderQuote.attribution}</h2>
+      <figure class="founder__quote">
+        <span class="founder__marks" aria-hidden="true">“</span>
+        <blockquote class="founder__bq">
+          <p class="t-quote">{hasUL ? <>{pre}<Scribble kind="underline" tone="saffron" thickness={4} nowrap={false}>{UL}</Scribble></> : founderQuote.quote}</p>
+        </blockquote>
+        <figcaption class="t-label founder__cite">{founderQuote.attribution}</figcaption>
+      </figure>
+      <div class="founder__actions">
+        <Button href={founderQuote.link.href} variant="ghost-on-dark">{founderQuote.link.label}</Button>
         <Confirm id={4} />
       </div>
-    </figure>
+    </div>
   </div>
-</Section>
+</section>
 
 <style>
-  .founder-fold__grid { row-gap: var(--s-8); align-items: center; }
-  .founder-fold__media { display: flex; justify-content: center; }
-  .founder-fold__portrait { position: relative; width: 240px; height: 240px; flex: none; margin-block: var(--s-6); }
-  .founder-fold__portrait :global(.discs) { z-index: 0; }
-  .founder-fold__portrait :global(picture), .founder-fold__portrait :global(img) {
-    position: relative; z-index: 1; display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+  .founder { position: relative; overflow: clip; padding-top: clamp(64px, 8vw, 120px); padding-bottom: 0; }
+  .founder__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); column-gap: var(--gutter); align-items: end; }
+  .founder__media { position: relative; width: 100%; max-width: 640px; aspect-ratio: 4 / 5; max-height: 820px; align-self: end; justify-self: center; }
+  .founder__disc {
+    position: absolute; left: 50%; top: 2%; width: 74%; aspect-ratio: 1; translate: -50% 0;
+    border-radius: 50%; background: var(--kk-saffron); box-shadow: 0 0 0 10px rgba(255,255,255,.08);
   }
-  .founder-fold__ring { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; z-index: 2; overflow: visible; pointer-events: none; }
-  .founder-fold__ring circle { fill: none; stroke: var(--kk-saffron); stroke-width: 1; }
-  .founder-fold__quote { margin: 0; }
-  .founder-fold__bq { margin: 0; }
-  .founder-fold__bq p { margin: 0; color: var(--c-heading); max-width: 24em; }
-  .founder-fold__mark { color: var(--kk-saffron); }
-  .founder-fold__cite { margin-top: var(--s-5); color: var(--c-meta); }
-  .founder-fold__bio { margin: var(--s-6) 0 0; color: var(--c-meta); max-width: 60ch; }
-  .founder-fold__bio abbr { text-decoration: underline dotted 1px; text-underline-offset: 0.18em; cursor: help; }
-  .founder-fold__note { margin: var(--s-2) 0 0; color: var(--c-meta); }
-  .founder-fold__link { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); margin-top: var(--s-3); }
-  @media (min-width: 768px) {
-    .founder-fold__portrait { width: 300px; height: 300px; }
+  .founder__media :global(.founder__nd) { z-index: 1; }
+  .founder__photo { position: absolute; inset: 0; overflow: clip; z-index: 2; }
+  .founder__photo :global(picture), .founder__photo :global(img) { display: block; }
+  .founder__photo :global(img) {
+    /* 1665 × 2048 with both shoulders cut at its edges: 108% wide so the clipped column hides both cuts */
+    position: absolute; bottom: 0; left: -4%; width: 108%; height: auto; max-width: none;
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .founder-fold__grid > * { grid-column: 1 / 13; }
+  .founder :global(.founder__note) { left: -3%; top: 46%; z-index: 3; }
+
+  .founder__text { position: relative; padding-bottom: clamp(64px, 8vw, 120px); align-self: center; }
+  .founder__text :global(.folio) { margin-bottom: var(--s-6); }
+  .founder__quote { position: relative; margin: 0; }
+  .founder__marks { display: block; height: .42em; margin: 0 0 0 -.06em; font: 700 clamp(160px, 16vw, 240px)/1 var(--font-hand); color: var(--kk-saffron); pointer-events: none; }
+  .founder__bq { position: relative; margin: 0; }
+  .founder__bq p { margin: 0; color: var(--kk-white); max-width: 18em; font-size: clamp(32px, 3.6vw, 60px); }
+  .founder__cite { margin-top: var(--s-6); color: var(--kk-ice); }
+  .founder__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-4); margin-top: var(--s-6); }
+
+  @media (max-width: 1023px) {
+    .founder__grid { grid-template-columns: 1fr; }
+    .founder__text { order: 0; padding-bottom: var(--s-7); padding-top: var(--s-7); }
+    .founder__media { order: 1; width: min(100%, 340px); max-width: none; aspect-ratio: auto; height: 420px; }
   }
 </style>

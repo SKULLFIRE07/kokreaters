@@ -1,21 +1,25 @@
 ---
 /**
- * ProcessChain (DESIGN-SPEC 5.8 item 7): station nodes on a 1px Sapphire line,
- * horizontal at ≥ 768px, vertical below. A highlighted station is Saffron with an Ink ring.
- * The horizontal line ships drawn; data-draw draws it once on enter (900 ms) when motion is allowed.
- * Below 768px the connectors are static CSS segments between stations.
+ * ProcessChain (DESIGN-SPEC v2 10.9): ringed station nodes on a hand-drawn line, horizontal at ≥ 768px, vertical
+ * below. The highlighted station is a Saffron die-cut sticker node. The line ships drawn; with motion,
+ * scripts/pages/article.ts wipes it on (left → right) when the chain enters, then pops the nodes in order.
  */
+import { hash } from '@/components/notes/paths';
 interface Step { name: string; note: string; highlight?: boolean; }
 interface Props { steps: Step[]; }
 const { steps } = Astro.props;
+// a slightly wobbly hand line, seeded by the step names so it is stable between builds
+let seed = hash(steps.map((s) => s.name).join('|'));
+const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+const pts = Array.from({ length: 9 }, (_, i) => [i * 125, 6 + (rnd() - 0.5) * 7]);
+const d = pts.reduce((acc, [x, y], i) => i === 0 ? `M${x} ${y.toFixed(1)}` : `${acc} Q${(x - 62.5).toFixed(1)} ${(6 + (rnd() - 0.5) * 9).toFixed(1)} ${x} ${y.toFixed(1)}`, '');
 ---
-<div class="pc" style={`--pc-n:${steps.length}`}>
-  <svg class="pc__line pc__line--h" viewBox="0 0 1000 2" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 1H1000" data-draw data-draw-duration=".9" /></svg>
+<div class="pc" style={`--pc-n:${steps.length}`} data-pc>
+  <svg class="pc__line pc__line--h" viewBox="0 0 1000 12" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-pc-line><path d={d} /></svg>
   <ol class="pc__list">
     {steps.map((s, i) => (
-      <li class:list={['pc__step', { 'pc__step--hl': s.highlight }]}>
-        <span class="pc__node" aria-hidden="true"></span>
-        <span class="pc__num tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <li class:list={['pc__step', { 'pc__step--hl': s.highlight }]} data-pc-step>
+        <span class="pc__node" aria-hidden="true"><span class="pc__num tnum">{String(i + 1).padStart(2, '0')}</span></span>
         <span class="pc__name">{s.name}</span>
         <span class="pc__note">{s.note}</span>
       </li>
@@ -23,41 +27,40 @@ const { steps } = Astro.props;
   </ol>
 </div>
 <style>
-  .pc { --node: 16px; position: relative; font-family: var(--font-sans); }
-  .pc__list { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: var(--s-5); }
+  .pc { --node: 36px; position: relative; font-family: var(--font-sans); padding-top: 4px; }
+  .pc__list { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; display: grid; gap: var(--s-6); }
   .pc__list > li::before { content: none !important; }
-  .pc__step { position: relative; display: flex; flex-direction: column; gap: 2px; padding-left: calc(var(--node) + var(--s-4)); margin: 0 !important; }
+  .pc__step { position: relative; display: flex; flex-direction: column; gap: 4px; padding-left: calc(var(--node) + var(--s-4)); margin: 0 !important; min-width: 0; }
   .pc__node {
-    position: absolute; left: 0; top: 4px;
+    position: absolute; left: 0; top: -4px;
+    display: grid; place-items: center;
     width: var(--node); height: var(--node); border-radius: 50%;
-    background: var(--kk-white); border: var(--line-work) solid var(--c-line);
-    box-shadow: 0 0 0 3px var(--kk-white);
+    background: var(--kk-white); box-shadow: inset 0 0 0 3px var(--kk-ink), 0 0 0 4px var(--kk-white);
   }
-  .pc__step--hl .pc__node { background: var(--kk-saffron); border: 1px solid var(--kk-ink); }
-  .pc__num { font-size: var(--fs-dateline); line-height: var(--lh-dateline); font-weight: 600; letter-spacing: var(--track-dateline); color: var(--c-dateline); }
-  .pc__name { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600; color: var(--c-heading); text-wrap: balance; }
-  .pc__note { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--c-meta); text-wrap: pretty; }
+  .pc__num { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--kk-ink); }
+  .pc__step--hl .pc__node { --node: 48px; left: -6px; top: -10px; background: var(--kk-saffron); rotate: -8deg;
+    box-shadow: inset 0 0 0 2px var(--kk-ink), 0 0 0 5px var(--kk-white), var(--shadow-sticker); }
+  .pc__step--hl .pc__num { font-size: 13px; }
+  .pc__name { font-family: var(--font-display); font-weight: 720; font-stretch: 85%; font-size: 1.15rem; line-height: 1.05; color: var(--kk-ink); text-wrap: balance; }
+  .pc__step--hl .pc__name { background: linear-gradient(transparent 55%, var(--kk-butter) 55%); align-self: flex-start; }
+  .pc__note { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--kk-graphite); text-wrap: pretty; }
 
-  .pc__line { position: absolute; overflow: visible; fill: none; }
-  .pc__line path { stroke: var(--c-line); stroke-width: 1px; }
-  /* vertical (default, < 768px): a 1px segment from each node to the next */
+  .pc__line { position: absolute; overflow: visible; fill: none; z-index: 0; }
+  .pc__line path { stroke: var(--kk-sapphire); stroke-width: 3px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  /* vertical (< 768px): a 3px segment from each node to the next */
   .pc__step:not(:last-child)::after {
     content: ""; position: absolute; z-index: -1;
-    left: calc(var(--node) / 2 - 0.5px); top: calc(4px + var(--node) / 2);
-    width: 1px; height: calc(100% + var(--s-5)); background: var(--c-line);
+    left: calc(var(--node) / 2 - 1.5px); top: calc(var(--node) / 2);
+    width: 3px; height: calc(100% + var(--s-6)); background: var(--kk-sapphire); border-radius: 2px;
   }
-  .pc__list { z-index: 0; }
   .pc__line--h { display: none; }
 
   @media (min-width: 768px) {
     .pc__list { grid-template-columns: repeat(var(--pc-n), minmax(0, 1fr)); gap: var(--s-4); }
     .pc__step { padding-left: 0; padding-top: calc(var(--node) + var(--s-4)); }
     .pc__node { top: 0; }
+    .pc__step--hl .pc__node { top: -6px; }
     .pc__step:not(:last-child)::after { content: none; }
-    .pc__line--h {
-      display: block; top: calc(var(--node) / 2 - 1px); height: 2px;
-      left: calc(var(--node) / 2);
-      width: calc((100% - (var(--pc-n) - 1) * var(--s-4)) * (var(--pc-n) - 1) / var(--pc-n) + (var(--pc-n) - 1) * var(--s-4));
-    }
+    .pc__line--h { display: block; top: calc(var(--node) / 2 - 6px); height: 12px; left: calc(var(--node) / 2); right: calc((100% - (var(--pc-n) - 1) * var(--s-4)) / var(--pc-n) - var(--node) / 2); }
   }
 </style>

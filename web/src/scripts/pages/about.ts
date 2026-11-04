@@ -1,61 +1,65 @@
 /**
- * About page motion (DESIGN-SPEC 6.9, 6.8 gate hand-off). W2-about.
- * - Timeline: the 1px Sapphire line draws over 1200 ms (power2.inOut) once on enter, and each ring's
- *   inner dot fills as the drawn line reaches its position (0, 1/3, 2/3, 1). Ships drawn and filled,
- *   so no-JS, reduced motion and the failure timer all see the final state.
- * - Globe: hands over to W3-globe's loader (`initGlobe(ctx)`), which applies its own gate. The glob
- *   import keeps the build green while the loader does not exist yet, and keeps three.js lazy.
+ * About page motion (DESIGN-SPEC v2 10.7, 00.2). P-story (not scripts/globe/*).
+ * - Career journey: at ≥ 768 with motion the Sapphire line draws scrubbed with scroll (DrawSVG), each tile drops in
+ *   (back.out) as the line reaches it, and the giant outlined year counts from the first year to the last. Everything
+ *   is at its final state once the section's bottom passes 60% of the viewport. Ships drawn (JS off / reduced).
+ * - Globe: hands over to the globe loader (initGlobe); when its canvas mounts, the section gets .has-globe so the
+ *   "scroll to spin it" note shows.
  */
 import type { MotionContext } from '../motion/context';
-import { D, E, START } from '../motion/tokens';
 
 type GlobeLoader = { initGlobe?: (ctx: MotionContext) => void | (() => void) };
 const globeLoader = import.meta.glob<GlobeLoader>('../globe/loader.ts');
 
-function visible(el: Element): boolean {
-  return (el as HTMLElement | SVGElement).getBoundingClientRect().width > 0 || getComputedStyle(el).display !== 'none';
-}
-
-function initTimeline(ctx: MotionContext): void {
+function initJourney(ctx: MotionContext): void {
   const root = document.querySelector<HTMLElement>('[data-timeline]');
   if (!root) return;
   const { gsap, mm } = ctx;
-  mm.add({ h: '(min-width: 768px)', v: '(max-width: 767px)', motion: '(prefers-reduced-motion: no-preference)' }, (c) => {
-    const { motion } = c.conditions as { h: boolean; v: boolean; motion: boolean };
-    if (!motion || ctx.reduced || document.documentElement.classList.contains('motion-failed')) return;
-    const paths = Array.from(root.querySelectorAll<SVGPathElement>('[data-timeline-path]'));
-    const path = paths.find((p) => { const svg = p.ownerSVGElement; return !!svg && getComputedStyle(svg).display !== 'none' && visible(svg); });
-    const dots = Array.from(root.querySelectorAll<SVGCircleElement>('.timeline__item [data-ring]'));
-    if (!path || !dots.length) return;
-    const n = dots.length;
-    const lit = new Array<boolean>(n).fill(false);
-    const fill = (i: number) => {
-      if (lit[i]) return;
-      lit[i] = true;
-      gsap.to(dots[i], { scale: 1, opacity: 1, duration: D.uiIn + .04, ease: E.uiIn, overwrite: true });
+  mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+    if (ctx.reduced || document.documentElement.classList.contains('motion-failed')) return;
+    const path = root.querySelector<SVGPathElement>('[data-timeline-path]');
+    const tiles = Array.from(root.querySelectorAll<HTMLElement>('[data-journey-tile]'));
+    const year = root.querySelector<HTMLElement>('[data-journey-year]');
+    if (!path || !tiles.length) return;
+    const from = Number(year?.dataset.from ?? 0), to = Number(year?.dataset.to ?? 0);
+    const marks = [0.02, 0.36, 0.64, 0.96];
+    const lit = tiles.map(() => false);
+    gsap.set(tiles, { autoAlpha: 0, y: -70, rotation: (i) => (i % 2 ? 12 : -12), scale: 1.15 });
+    const pop = (i: number, on: boolean) => {
+      if (lit[i] === on) return; lit[i] = on;
+      gsap.to(tiles[i], on
+        ? { autoAlpha: 1, y: 0, rotation: 0, scale: 1, duration: .7, ease: 'back.out(1.7)', overwrite: true }
+        : { autoAlpha: 0, y: -70, rotation: i % 2 ? 12 : -12, scale: 1.15, duration: .3, ease: 'power2.in', overwrite: true });
     };
-    gsap.set(dots, { scale: 0, opacity: 0, transformOrigin: '50% 50%' });
-    const tween = gsap.fromTo(path, { drawSVG: '0%' }, {
-      drawSVG: '100%', duration: D.connector, ease: E.draw,
-      scrollTrigger: { trigger: root, start: START, once: true },
-      onStart: () => fill(0),
-      onUpdate() {
-        const p = this.ratio as number;          // eased progress = how far the line has drawn
-        for (let i = 0; i < n; i++) if (p >= (n === 1 ? 0 : i / (n - 1)) - 0.001) fill(i);
+    const tw = gsap.fromTo(path, { drawSVG: '0%' }, {
+      drawSVG: '100%', ease: 'none',
+      scrollTrigger: {
+        trigger: root.querySelector('.journey__stage') ?? root, start: 'top 75%', end: 'bottom 60%', scrub: .6,
+        onUpdate: (self) => {
+          const p = self.progress;
+          tiles.forEach((_, i) => { if (p >= marks[i]) pop(i, true); });   // once placed, a tile stays
+          if (year && to > from) year.textContent = String(Math.round(from + (to - from) * p));
+        },
+        onLeave: () => { tiles.forEach((_, i) => pop(i, true)); if (year) year.textContent = String(to); },
       },
-      onComplete: () => { for (let i = 0; i < n; i++) fill(i); },
     });
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-      gsap.set(path, { clearProps: 'all' });
-      gsap.set(dots, { clearProps: 'all' });
-    };
+    return () => { tw.scrollTrigger?.kill(); tw.kill(); gsap.set([path, ...tiles], { clearProps: 'all' }); if (year) year.textContent = String(to); };
   });
 }
 
+function watchGlobe(): void {
+  const section = document.querySelector<HTMLElement>('[data-globe-section]');
+  const mount = section?.querySelector('[data-globe]');
+  if (!section || !mount) return;
+  const mark = () => { if (mount.querySelector('canvas')) { section.classList.add('has-globe'); return true; } return false; };
+  if (mark()) return;
+  const mo = new MutationObserver(() => { if (mark()) mo.disconnect(); });
+  mo.observe(mount, { childList: true, subtree: true });
+}
+
 export default function about(ctx: MotionContext): void {
-  initTimeline(ctx);
+  initJourney(ctx);
+  watchGlobe();
   const load = globeLoader['../globe/loader.ts'];
   if (load) load().then((m) => { m.initGlobe?.(ctx); }).catch(() => { /* the static SVG stays */ });
 }

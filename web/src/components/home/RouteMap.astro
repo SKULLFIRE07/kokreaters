@@ -1,0 +1,92 @@
+---
+/**
+ * Route map (DESIGN-SPEC v2 00.2, home F7): the places in the founder's career as a scrubbed route over a dot-matrix
+ * map, in the order the brief lists them (India → Indonesia → Ukraine → Türkiye → the Netherlands). Land is the
+ * world-atlas 110m outline (Natural Earth, public domain) projected at build time with d3-geo and filled with a dot
+ * pattern, so the page ships ~14KB of path and no runtime map code. Arcs draw and nodes pop as you scroll (home.ts);
+ * the Ukraine node carries the −25 °C frost tag. role="img" with <title>/<desc>; the cards below carry the facts.
+ */
+import { geoMercator, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
+import landTopo from 'world-atlas/land-110m.json';
+import { hero } from '@/data/home';
+import { homeNotes } from '@/data/notes/home';
+import { minus25 } from '@/lib/typography';
+import MarginNote from '@/components/notes/MarginNote.astro';
+
+const W = 1200, H = 640;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const topo = landTopo as any;
+const land = feature(topo, topo.objects.land);
+const proj = geoMercator().fitExtent([[20, 20], [W - 20, H - 20]], { type: 'Feature', properties: {}, geometry: { type: 'MultiPoint', coordinates: [[-6, 60], [125, -11]] } });
+proj.clipExtent([[0, 0], [W, H]]);
+const landD = geoPath(proj).digits(0)(land as never) ?? '';
+
+const PLACES: { name: string; lon: number; lat: number; pillar: string; anchor: 'start' | 'end'; dy: number; frost?: boolean; base?: boolean }[] = [
+  { name: hero.footRight[0], lon: 78, lat: 21, pillar: 'innovation', anchor: 'end', dy: -26 },
+  { name: hero.footRight[1], lon: 113, lat: -2, pillar: 'capability', anchor: 'end', dy: 44 },
+  { name: hero.footRight[2], lon: 31, lat: 49, pillar: 'process', anchor: 'start', dy: -26, frost: true },
+  { name: hero.footRight[3], lon: 35, lat: 39, pillar: 'quality', anchor: 'start', dy: 40 },
+  { name: hero.footRight[4], lon: 5, lat: 52.2, pillar: 'strategy', anchor: 'end', dy: -26, base: true },
+];
+const pts = PLACES.map((p) => { const [x, y] = proj([p.lon, p.lat]) ?? [0, 0]; return { ...p, x: +x.toFixed(1), y: +y.toFixed(1) }; });
+const arcs = pts.slice(1).map((b, i) => {
+  const a = pts[i];
+  const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, d = Math.hypot(b.x - a.x, b.y - a.y);
+  return `M${a.x} ${a.y} Q${mx.toFixed(1)} ${(my - d * .35).toFixed(1)} ${b.x} ${b.y}`;
+});
+const desc = PLACES.map((p) => p.name).join(' → ');
+const label = (s: string) => s.replace(/^the /, 'The ').toUpperCase();
+---
+<figure class="route-map" data-route-map>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="route-title route-desc" focusable="false">
+    <title id="route-title">{homeNotes.impact.mapTitle}</title>
+    <desc id="route-desc">{desc}</desc>
+    <defs>
+      <pattern id="route-dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2.2" fill="#8DA3D6" /></pattern>
+    </defs>
+    <path class="rm-land" d={landD} fill="url(#route-dots)" />
+    <g class="rm-arcs">
+      {arcs.map((d) => <path d={d} data-route-arc />)}
+    </g>
+    {pts.map((p, i) => (
+      <g class:list={['rm-node', { 'rm-node--base': p.base }]} data-route-node={i} style={`--pc:var(--pillar-${p.pillar})`}>
+        <circle cx={p.x} cy={p.y} r="17" class="rm-node__halo" />
+        <circle cx={p.x} cy={p.y} r="11" class="rm-node__ring" />
+        <circle cx={p.x} cy={p.y} r="7" class="rm-node__dot" />
+        <g class="rm-tag" transform={`translate(${p.x + (p.anchor === 'start' ? 18 : -18)} ${p.y + p.dy})`}>
+          <text text-anchor={p.anchor} class="rm-tag__t">{label(p.name)}</text>
+        </g>
+        {p.frost && (
+          <g class="rm-frost" transform={`translate(${p.x + 20} ${p.y + 10})`} data-route-frost>
+            <rect width="104" height="40" rx="20" />
+            <path d="M22 10 V30 M13 15 L31 25 M31 15 L13 25" class="rm-frost__flake" />
+            <text x="68" y="26" text-anchor="middle">{minus25}</text>
+          </g>
+        )}
+      </g>
+    ))}
+  </svg>
+  <MarginNote text={homeNotes.impact.base} tone="orchid" rotate={-6} arrow="arrow-curve" arrowAt="end" arrowAngle={20} show="md" class="route-map__note" />
+</figure>
+
+<style>
+  .route-map { position: relative; margin: 0; }
+  .route-map svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .rm-land { opacity: .9; }
+  .rm-arcs path { fill: none; stroke: var(--kk-sapphire); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 1 0; }
+  .rm-node__halo { fill: var(--pc); opacity: .22; }
+  .rm-node__ring { fill: #fff; stroke: var(--kk-ink); stroke-width: 2.5; }
+  .rm-node__dot { fill: var(--pc); }
+  .rm-node { transform-box: fill-box; transform-origin: center; }
+  .rm-tag__t { font: 500 17px/1 var(--font-mono); letter-spacing: .08em; fill: var(--kk-ink); paint-order: stroke; stroke: #fff; stroke-width: 6px; stroke-linejoin: round; }
+  .rm-node--base .rm-tag__t { font-weight: 500; }
+  .rm-frost rect { fill: var(--kk-ice); stroke: var(--kk-ink); stroke-width: 2; }
+  .rm-frost__flake { stroke: var(--kk-sapphire); stroke-width: 2.5; stroke-linecap: round; fill: none; }
+  .rm-frost text { font: 800 22px/1 var(--font-display); font-stretch: 80%; fill: var(--kk-ink); }
+  .route-map :global(.route-map__note) { left: 0; top: -6%; }
+  @media (max-width: 767px) {
+    .rm-tag__t { font-size: 26px; }
+    .rm-frost { scale: 1.3; }
+  }
+</style>

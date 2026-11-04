@@ -14,6 +14,20 @@ export const homeNotes = {
   positioning: {
     venn: ['plant floor', 'lab', 'boardroom', 'the same person'], // / · F4 Venn labels + centre (brief words) · NOTE
     circle: 'most consultants pick one circle', // / · F4, arrow into the Venn · NOTE
+    more: 'Read the whole truth', // / · F4 + F6 <details> summary · UI
+  },
+  pipeline: {
+    title: 'From crude oil on the plant floor to a decision in the boardroom', // / · F4b diagram <title> · DERIVED
+    tank: 'Crude comes in', // / · F4b station 1 label · PROP
+    refine: 'Refine it right', // / · F4b station 2 label · PROP
+    fraction: 'Split the fractions', // / · F4b station 3 label · PROP
+    blend: 'Blend to spec', // / · F4b station 4 label · PROP
+    product: 'Product that ships', // / · F4b station 5 label · PROP
+    board: 'Go or No-Go', // / · F4b station 6 label · PROP
+    sign: 'GO', // / · F4b boardroom sign · PROP
+    same: 'one pipe, one person', // / · F4b note over the pipe · NOTE
+    up: 'and up it goes', // / · F4b note at the rising arrow · NOTE
+    scroll: 'scroll, it flows', // / · F4b hint under the diagram · NOTE
   },
   whatWeDo: {
     sideways: 'keep scrolling, it moves sideways', // / · F5 rail ≥ 1024 · NOTE
@@ -26,6 +40,8 @@ export const homeNotes = {
   impact: {
     cold: 'yes, minus twenty-five', // / · F7, arrow to −25 °C · NOTE
     indiaFigure: '1st', // / · F7 ImpactCard figure (brief: India’s first) · DERIVED
+    mapTitle: 'Where the founder’s results happened', // / · F7 route map <title> · DERIVED
+    base: 'home base', // / · F7 route map, the Netherlands · NOTE
   },
   industries: {
     toss: 'go on, toss one', // / · F8 gravity box · NOTE

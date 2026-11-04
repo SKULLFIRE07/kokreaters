@@ -1,53 +1,34 @@
 ---
 /**
- * Home `/` (DESIGN-SPEC 5.1). Fold order: hero → proof → positioning → what we do → method →
- * impact → where we work → insights → founder → CTA (BaseLayout renders CtaField) → footer.
+ * Home `/` (DESIGN-SPEC v2 10.1 + 00). Ground rhythm: white (hero) → ink (marquee) → imperial (proof) → white grid
+ * (positioning) → ice (plant floor → boardroom, pinned) → white (pillar rail, pinned) → lavender (method) → white
+ * (impact + route map) → blush (where we work) → white (insights) → sapphire (founder) → saffron (CTA, BaseLayout) → ink.
  * Everything server-renders in its final state; src/scripts/pages/home.ts layers the motion on top.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Section from '@/components/ui/Section.astro';
-import ExpertiseIndex from '@/components/shared/ExpertiseIndex.astro';
 import Hero from '@/components/home/Hero.astro';
+import IndustryMarquee from '@/components/home/IndustryMarquee.astro';
 import ProofBand from '@/components/home/ProofBand.astro';
 import Positioning from '@/components/home/Positioning.astro';
+import PlantPipeline from '@/components/home/PlantPipeline.astro';
+import WhatWeDo from '@/components/home/WhatWeDo.astro';
 import MethodFold from '@/components/home/MethodFold.astro';
 import ImpactFold from '@/components/home/ImpactFold.astro';
 import WhereWeWork from '@/components/home/WhereWeWork.astro';
 import InsightsFold from '@/components/home/InsightsFold.astro';
 import FounderFold from '@/components/home/FounderFold.astro';
-import { whatWeDo, runningHead } from '@/data/home';
 import { pageSeo } from '@/lib/seo';
 ---
 <BaseLayout page="home" seo={pageSeo('home')}>
   <Hero />
+  <IndustryMarquee />
   <ProofBand />
   <Positioning />
-
-  <Section ground="white" folio={{ n: '01', label: whatWeDo.overline, right: runningHead }} labelledby="whatwedo-heading" class="whatwedo">
-    <div class="grid whatwedo__grid">
-      <div class="c-1-5 whatwedo__head">
-        <h2 id="whatwedo-heading" class="t-h2" data-reveal="lines">{whatWeDo.headline}</h2>
-        <p class="t-lead whatwedo__intro" data-reveal>{whatWeDo.intro}</p>
-      </div>
-      <div class="c-6-12">
-        <ExpertiseIndex size="home" />
-      </div>
-    </div>
-  </Section>
-
+  <PlantPipeline />
+  <WhatWeDo />
   <MethodFold />
   <ImpactFold />
   <WhereWeWork />
   <InsightsFold />
   <FounderFold />
 </BaseLayout>
-
-<style>
-  :global(.whatwedo) { padding-top: 0; }
-  .whatwedo__grid { row-gap: var(--s-6); align-items: start; }
-  .whatwedo__head h2 { margin: 0; }
-  .whatwedo__intro { margin: var(--s-5) 0 0; color: var(--c-meta); }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .whatwedo__grid > * { grid-column: 1 / 13; }
-  }
-</style>

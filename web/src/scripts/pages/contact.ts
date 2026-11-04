@@ -31,8 +31,24 @@ export default function initContact(ctx: MotionContext): () => void {
   const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
   const endpoint = d.endpoint || '';
   const moment = document.querySelector<HTMLElement>('.cm');
-  const line = document.querySelector<SVGLineElement>('[data-connection-line]');
-  const label = document.querySelector<SVGTextElement>('[data-visitor-label]');
+  const line = document.querySelector<HTMLElement>('[data-connection-line]');
+  const label = document.querySelector<HTMLElement>('[data-visitor-label]');
+  const passengers = Array.from(document.querySelectorAll<HTMLElement>('[data-ticket-passenger]'));
+  const soon = form.querySelector<HTMLElement>('[data-soon]');
+
+  /* ── Bencho ports: the ticket (lazy) and confetti (loaded on the first successful submit) ── */
+  const ticket = document.querySelector<HTMLElement>('[data-ticket]');
+  if (ticket) ctx.whenNear(ticket, async () => { (await import('../bencho/ticket')).default(ticket, ctx); });
+  const confettiCanvas = document.querySelector<HTMLCanvasElement>('[data-confetti]');
+  async function celebrate() {
+    if (soon) {
+      soon.hidden = false;
+      if (!ctx.reduced) ctx.gsap.fromTo(soon, { opacity: 0, scale: 0.6, rotation: -10 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: 'back.out(2.2)' });
+    }
+    if (ctx.reduced || !confettiCanvas) return;
+    const r = (submit ?? form).getBoundingClientRect();
+    try { (await import('../bencho/confetti')).default(confettiCanvas, { x: r.left + r.width / 2, y: r.top + r.height / 2 }); } catch { /* decorative */ }
+  }
   form.querySelectorAll<HTMLLabelElement>('.cf__label').forEach((l) => {
     const f = l.htmlFor.replace(/^f-/, '');
     LABELS[f] = (l.childNodes[0]?.textContent ?? f).trim();
@@ -41,19 +57,36 @@ export default function initContact(ctx: MotionContext): () => void {
   const ctl = (name: string) => form.elements.namedItem(name) as Ctl | null;
   const icon = (tone: 'success' | 'error') => form.querySelector<HTMLTemplateElement>(`template[data-icon="${tone}"]`)?.innerHTML ?? '';
 
-  /* ── Visitor label in the connection moment (throttled) ── */
+  /* ── Visitor label in the connection path and on the boarding pass (throttled) ── */
   const name = ctl('name');
   let raf = 0;
-  if (name && label) {
+  const setVisitor = (v: string) => {
+    const short = v ? (v.length > 18 ? `${v.slice(0, 17)}…` : v) : '';
+    if (label) label.textContent = short || (label.dataset.fallback ?? 'You');
+    passengers.forEach((p) => { p.textContent = short || (p.dataset.fallback ?? 'You'); });
+  };
+  if (name) {
     on(name, 'input', () => {
       if (raf) return;
-      raf = window.setTimeout(() => {
-        raf = 0;
-        const v = name.value.trim().split(/\s+/)[0] ?? '';
-        label.textContent = v ? (v.length > 18 ? `${v.slice(0, 17)}…` : v) : (label.dataset.fallback ?? 'You');
-      }, 120);
+      raf = window.setTimeout(() => { raf = 0; setVisitor(name.value.trim().split(/\s+/)[0] ?? ''); }, 120);
     });
   }
+
+  /* ── The step path: who → what → send fills as the required fields of each step become valid ── */
+  const GROUPS: [string, string[]][] = [['who', ['name', 'company', 'role', 'email', 'phone', 'country']], ['what', ['interest', 'message', 'source']], ['send', ['consent']]];
+  const segs = Array.from(document.querySelectorAll<HTMLElement>('[data-seg]'));
+  const stopsEl = (k: string) => document.querySelector<HTMLElement>(`[data-stop="${k}"]`);
+  function progressPath() {
+    GROUPS.forEach(([k, names], i) => {
+      const req = names.map((n) => ctl(n)).filter((f): f is Ctl => !!f && f.hasAttribute('required'));
+      const ok = req.filter((f) => check(f) === null).length;
+      const frac = req.length ? ok / req.length : 1;
+      segs[i]?.style.setProperty('--f', frac.toFixed(3));
+      stopsEl(k)?.classList.toggle('is-done', frac >= 1);
+    });
+  }
+  on(form, 'input', progressPath);
+  on(form, 'change', progressPath);
 
   /* ── Booking pill: when it points at the form, focus the first field ── */
   document.querySelectorAll<HTMLAnchorElement>('a[data-booking="form"]').forEach((a) => {
@@ -113,15 +146,13 @@ export default function initContact(ctx: MotionContext): () => void {
   }
 
   function connect() {
-    if (!line) return;
     moment?.classList.add('is-connected');
-    if (ctx.reduced) { line.style.strokeDashoffset = '0'; return; }
-    ctx.gsap.fromTo(line, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' });
+    line?.style.setProperty('--f', '1');
   }
   function resetAll() {
     form.reset();
     allFields().forEach((f) => setError(f, null));
-    if (label) label.textContent = label.dataset.fallback ?? 'You';
+    setVisitor('');
     if (started) started.value = String(loadedAt);
   }
   function busy(on: boolean) {
@@ -165,7 +196,7 @@ export default function initContact(ctx: MotionContext): () => void {
       sending = true; busy(true); say('info', '');
       try {
         const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-        if (res.ok) { resetAll(); say('success', d.msgSuccess!); connect(); }
+        if (res.ok) { resetAll(); progressPath(); say('success', d.msgSuccess!); connect(); celebrate(); }
         else say('error', d.msgError!);
       } catch {
         say('error', d.msgError!);
@@ -180,6 +211,7 @@ export default function initContact(ctx: MotionContext): () => void {
     form.dataset.mailtoUrl = url;          // inspectable hook for tests
     window.location.href = url;
     say('success', d.msgMailto!);
+    connect(); celebrate();
   });
 
   return () => { ac.abort(); if (raf) clearTimeout(raf); };

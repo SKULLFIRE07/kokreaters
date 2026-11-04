@@ -1,8 +1,8 @@
 ---
 /**
- * About /about (DESIGN-SPEC 5.9). Fold order: hero (Cloud) → long bio + timeline → the map (globe) →
- * the name (Cloud) → education and languages → CtaField (rendered by BaseLayout) → footer.
- * JSON-LD: Person + BreadcrumbList (3.7). The Person image is the absolute 4:5 portrait WebP.
+ * About /about (DESIGN-SPEC v2 10.7). F1 hero (white + lavender photo block) → F2 flap board (ink) → F3 long bio
+ * (white) → F4 career journey (cloud) → F5 the map (white grid, globe) → F6 the name (sapphire) → F7 education and
+ * languages (white) → F8 CtaField (BaseLayout) → footer. JSON-LD: Person + BreadcrumbList.
  */
 import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -12,10 +12,12 @@ import Timeline from '@/components/about/Timeline.astro';
 import GlobeSection from '@/components/about/GlobeSection.astro';
 import NamePanel from '@/components/about/NamePanel.astro';
 import EducationLanguages from '@/components/about/EducationLanguages.astro';
+import FlapBoard from '@/components/bencho/FlapBoard.astro';
 import portrait from '@/assets/photos/ganeaysh-cutout.png';
 import { person } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
 import { about } from '@/data/founder';
+import { storyNotes } from '@/data/notes/story';
 
 const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
 const crumbs = [{ label: about.overline, href: '/about' }];
@@ -23,13 +25,17 @@ const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
 ---
 <BaseLayout page="about" seo={seo} breadcrumbs={crumbs} showCrumbs={false}>
   <AboutHero crumbs={crumbs} />
-  <section class="band about-story" aria-label={about.overline}>
-    <div class="container">
-      <LongBio />
-      <Timeline />
-    </div>
-  </section>
+  <div class="ab-flap g-ink">
+    <div class="container ab-flap__in"><FlapBoard entries={storyNotes.about.flap} /></div>
+  </div>
+  <LongBio />
+  <Timeline />
   <GlobeSection />
   <NamePanel />
   <EducationLanguages />
 </BaseLayout>
+<style>
+  .ab-flap { padding-block: clamp(28px, 4vw, 48px); overflow: clip; }
+  .ab-flap__in { display: grid; justify-items: center; }
+  .ab-flap__in :global(.flap) { width: 100%; display: grid; justify-content: center; }
+</style>

@@ -1,35 +1,43 @@
 ---
-/** ComingSoon (DESIGN-SPEC 5.7 item 5): "In preparation" titles with format and PillarDot, unlinked (no thin pages). */
+/** ComingSoon (DESIGN-SPEC v2 10.8 F5): "In preparation" titles as dashed index cards taped to the page, each with
+ * its mono format and PillarDot. Unlinked (no thin pages). The heading carries a hand zigzag. */
 import type { CollectionEntry } from 'astro:content';
 import PillarDot from '@/components/ui/PillarDot.astro';
+import Scribble from '@/components/notes/Scribble.astro';
+import Tape from '@/components/notes/Tape.astro';
 import { getPillar } from '@/lib/pillars';
 import { microcopy, formatLabels } from '@/data/microcopy';
 interface Props { entries: CollectionEntry<'insights'>[]; }
 const { entries } = Astro.props;
+const tapes = ['butter', 'blush', 'ice', 'lavender'] as const;
+const tilt = [-1.2, 0.9, -0.6, 1.4, -1, 0.7];
 ---
 {entries.length > 0 && (
   <div class="soon">
-    <h2 class="soon__h t-dateline" id="soon-h">{microcopy.inPreparation}</h2>
+    <h2 class="soon__h t-h2" id="soon-h"><Scribble kind="zigzag" tone="orchid">{microcopy.inPreparation}</Scribble> <span class="soon__count tnum" aria-hidden="true">{String(entries.length).padStart(2, '0')}</span></h2>
     <ul class="soon__list" aria-labelledby="soon-h" data-reveal-group>
-      {entries.map((e) => (
-        <li class="soon__item" data-reveal>
-          <span class="soon__meta t-meta"><span class="t-dateline">{formatLabels[e.data.format]}</span><span class="soon__pillar"><PillarDot pillar={e.data.pillar} size={8} />{getPillar(e.data.pillar).shortLabel}</span></span>
+      {entries.map((e, i) => (
+        <li class="soon__item" data-reveal style={`--tilt:${tilt[i % tilt.length]}deg`}>
+          <Tape tone={tapes[i % tapes.length]} rotate={i % 2 ? 4 : -5} width={84} />
+          <span class="soon__meta"><span class="t-label">{formatLabels[e.data.format]}</span><span class="soon__pillar t-micro"><PillarDot pillar={e.data.pillar} size={8} />{getPillar(e.data.pillar).shortLabel}</span></span>
           <span class="soon__title">{e.data.title}</span>
+          <span class="soon__n t-micro tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
         </li>
       ))}
     </ul>
   </div>
 )}
 <style>
-  .soon__h { margin: 0 0 var(--s-5); }
-  .soon__list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--c-rule); }
-  .soon__item { display: flex; flex-direction: column; gap: var(--s-2); padding-block: var(--s-5); border-top: 1px solid var(--c-rule); }
-  .soon__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); color: var(--c-meta); }
-  .soon__meta .t-dateline { margin: 0; }
-  .soon__pillar { display: inline-flex; align-items: center; gap: var(--s-2); }
-  .soon__title {
-    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--wght-h3);
-    letter-spacing: var(--track-h3); color: var(--c-meta); text-wrap: balance; max-width: 32em;
-    font-variant-numeric: lining-nums;
-  }
+  .soon__h { display: flex; align-items: baseline; gap: var(--s-4); margin: 0 0 var(--s-7); }
+  .soon__count { font-family: var(--font-mono); font-size: .32em; font-weight: 500; letter-spacing: .04em; padding: .2em .6em; border: 2px solid currentColor; border-radius: 999px; translate: 0 -.4em; }
+  .soon__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--s-5); }
+  .soon__item { position: relative; display: flex; flex-direction: column; gap: var(--s-3); min-height: 200px; margin: 0; padding: 28px 24px 22px;
+    border: 2px dashed var(--kk-ink); border-radius: 20px; background: var(--kk-white); rotate: var(--tilt); }
+  .soon__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); color: var(--fg-2); }
+  .soon__pillar { display: inline-flex; align-items: center; gap: 6px; }
+  .soon__title { font-family: var(--font-display); font-weight: 740; font-stretch: 80%; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1; letter-spacing: -0.015em; color: var(--kk-graphite); text-wrap: balance; }
+  .soon__n { position: absolute; right: 18px; bottom: 14px; color: var(--fg-2); }
+  @media (min-width: 768px) { .soon__list { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1280px) { .soon__list { grid-template-columns: repeat(4, minmax(0, 1fr)); } .soon__item { min-height: 250px; } }
+  @media (prefers-reduced-motion: reduce) { .soon__item { rotate: none; } }
 </style>

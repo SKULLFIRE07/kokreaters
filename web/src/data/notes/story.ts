@@ -5,6 +5,8 @@
 export const storyNotes = {
   approach: {
     idea: 'the whole idea, really', // /approach · F1, arrow to the circled “with you” · NOTE
+    more: 'Read the whole truth +', // /approach · F1 intro, <details> summary · UI
+    scroll: 'three acts, keep scrolling', // /approach · F2 pinned stage (≥ 1024) · NOTE
   },
   steps: {
     connect: 'we listen first', // /approach · F2 Connect slab (brief step copy) · NOTE
@@ -40,6 +42,10 @@ export const storyNotes = {
   about: {
     hello: 'hello from the Netherlands', // /about · F1, arrow to the face (brief: based in the Netherlands) · NOTE
     flap: ['INDIA · WILMAR', 'INDONESIA · WILMAR', 'UKRAINE · −25 °C', 'TÜRKIYE', 'THE NETHERLANDS'], // /about · F2 flap board · DERIVED
+    years: '25', // /about · F3 big numeral beside the bio (brief: 25 years) · DERIVED
+    yearsLabel: 'years of making ingredients work', // /about · F3 under the numeral (brief headline words) · DERIVED
+    more: 'Read the long version +', // /about · F3 bio <details> summary · UI
+    road: 'the long way round', // /about · F4 timeline · NOTE
     spin: 'scroll to spin it', // /about · F5, arrow to the globe · NOTE
     ko: '= together', // /about · F6 “Ko” sticker (brief name copy) · NOTE
     kreaters: '= the people who make things happen', // /about · F6 “Kreaters” sticker (brief name copy) · NOTE

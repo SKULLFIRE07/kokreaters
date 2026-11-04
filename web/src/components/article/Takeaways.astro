@@ -1,34 +1,24 @@
 ---
-/** Key takeaways (DESIGN-SPEC 5.8 item 9): the page's one box. */
+/** Key takeaways (DESIGN-SPEC v2 10.9): a Butter SpecLabel titled "Key takeaways", one numbered row per item with a
+ * hand tick, plus N2 "the short version". */
+import SpecLabel from '@/components/notes/SpecLabel.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import { microcopy } from '@/data/microcopy';
+import { journalNotes } from '@/data/notes/journal';
 interface Props { items: string[]; }
 const { items } = Astro.props;
+const rows = items.map((v, i) => ({ k: String(i + 1).padStart(2, '0'), v: [v] }));
 ---
-<aside class="takeaways" aria-labelledby="takeaways-h" data-reveal>
-  <h2 id="takeaways-h" class="takeaways__h">{microcopy.keyTakeaways}</h2>
-  <ul class="takeaways__list">{items.map((i) => <li>{i}</li>)}</ul>
+<aside class="takeaways has-notes" aria-labelledby="takeaways-t" data-reveal>
+  <MarginNote text={journalNotes.article.short} tone="berry" rotate={6} arrow="arrow-curve" arrowAt="below" arrowAngle={150} place="right:-12px;top:-58px;" show="md" />
+  <SpecLabel title={microcopy.keyTakeaways} id="takeaways" rows={rows} ground="butter" headingLevel={2} rotate={-1} />
 </aside>
 <style>
-  .takeaways {
-    margin-block: var(--s-8) 0;
-    padding: var(--s-6);
-    border: 1px solid var(--c-rule);
-    border-radius: var(--r-card);
-    background: var(--kk-white);
-    font-family: var(--font-sans);
-  }
-  .takeaways .takeaways__h {
-    margin: 0 0 var(--s-4);
-    font-family: var(--font-sans); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600;
-    letter-spacing: 0; color: var(--c-heading);
-  }
-  .takeaways__list { margin: 0; padding-left: 1.5em; list-style: none; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); font-variant-numeric: lining-nums; }
-  .takeaways__list li { position: relative; margin: 0; }
-  .takeaways__list li + li { margin-top: var(--s-2); }
-  .takeaways__list li::before {
-    content: ""; position: absolute; left: -1.5em; top: calc(0.5lh - 5px);
-    width: 10px; height: 10px; border-radius: 50%;
-    border: var(--line-work) solid var(--c-line); background: var(--kk-white);
-  }
-  @media (max-width: 767px) { .takeaways { padding: var(--s-5); } }
+  .takeaways { position: relative; margin-block: var(--s-9) 0; }
+  .takeaways :global(.spec) { max-width: none; padding: 24px 28px 22px; box-shadow: var(--shadow-hard); }
+  .takeaways :global(.spec__title) { margin: 0 !important; font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.5rem) !important; line-height: .95 !important; }
+  .takeaways :global(.spec__title::before) { content: none !important; }
+  .takeaways :global(.spec__row) { grid-template-columns: 40px minmax(0, 1fr) !important; padding-block: 12px; }
+  .takeaways :global(.spec__row dd) { font-size: 15px; line-height: 1.55; }
+  .takeaways :global(.spec__list li) { margin: 0 !important; }
 </style>

@@ -1,47 +1,53 @@
 ---
 /**
- * An anonymised KoKreaters engagement (DESIGN-SPEC 5.6.3): dateline "KoKreaters engagement",
- * the brief text in .t-h3. Pending rows render only in staging, with "Pending client consent".
- * The page filters; this component also refuses to render a pending row in production.
+ * An anonymised KoKreaters engagement (DESIGN-SPEC v2 10.6 F4) as a ticket-stub card: dashed perforation, the stub
+ * with the mono dateline, the brief text in .t-h3. Pending rows render only in staging, with the hazard "Pending
+ * client consent" label. The page filters; this component also refuses to render a pending row in production.
  */
 import Confirm from '@/components/ui/Confirm.astro';
+import PillarDot from '@/components/ui/PillarDot.astro';
 import type { Engagement } from '@/data/types';
 import { impactPage } from '@/data/impact';
 import { microcopy } from '@/data/microcopy';
 import { isStaging } from '@/lib/mode';
-
-interface Props { engagement: Engagement; }
-const { engagement } = Astro.props;
+interface Props { engagement: Engagement; index: number }
+const { engagement, index } = Astro.props;
 const pending = engagement.consent !== 'cleared';
 const show = !pending || isStaging;
-// CONFIRM 6 is the brief's consent item for the two Indian engagements; the European one is held by C-12.
 const confirmId = engagement.id === 'eu-minerals' ? 'C-12' : 6;
+const grounds = ['butter', 'blush', 'ice'] as const;
 ---
 {show && (
-  <li class="eng" data-engagement={engagement.id} data-consent={engagement.consent}>
-    <span class="eng__rule rule" data-rule aria-hidden="true"></span>
-    <div class="eng__grid grid">
-      <div class="eng__meta c-1-3">
-        <p class="t-dateline eng__dateline">{impactPage.engagementDateline}</p>
-        {pending && (
-          <p class="eng__pending"><span class="eng__pill">{microcopy.pendingConsent}</span><Confirm id={confirmId} /></p>
-        )}
-      </div>
-      <p class="eng__text t-h3 c-4-12" data-reveal>{engagement.text}</p>
+  <li class:list={['stub', `g-${grounds[index % 3]}`]} data-engagement={engagement.id} data-consent={engagement.consent} data-reveal>
+    <div class="stub__side">
+      <p class="t-dateline stub__dateline">{impactPage.engagementDateline}</p>
+      <span class="stub__dots" aria-hidden="true">{engagement.pillars.map((k) => <PillarDot pillar={k} size={12} />)}</span>
+    </div>
+    <div class="stub__body">
+      <p class="stub__text">{engagement.text}</p>
+      {pending && <p class="stub__pending"><span class="stub__hazard">{microcopy.pendingConsent}</span><Confirm id={confirmId} /></p>}
     </div>
   </li>
 )}
 <style>
-  .eng { list-style: none; }
-  .eng__rule { display: block; }
-  .eng__grid { padding-block: var(--s-6); row-gap: var(--s-3); align-items: baseline; }
-  .eng__dateline { margin: 0; }
-  .eng__pending { margin: var(--s-2) 0 0; display: flex; flex-wrap: wrap; gap: var(--s-1); }
-  .eng__pending :global(.confirm) { margin-inline: 0; }
-  .eng__pill {
-    display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--r-pill);
-    border: 1px solid var(--kk-field-border); color: var(--kk-ink);
-    font-family: var(--font-sans); font-size: 12px; font-weight: 600; line-height: 16px;
+  .stub { position: relative; list-style: none; display: grid; grid-template-columns: 220px minmax(0, 1fr); border: 2px solid var(--kk-ink); border-radius: 16px;
+    box-shadow: 6px 6px 0 var(--kk-ink); overflow: clip; }
+  .stub__side { position: relative; padding: 24px; display: flex; flex-direction: column; gap: 14px; border-right: 2px dashed var(--kk-ink); }
+  .stub__side::before, .stub__side::after { content: ""; position: absolute; right: -13px; width: 24px; height: 24px; border-radius: 50%; background: var(--kk-white); border: 2px solid var(--kk-ink); }
+  .stub__side::before { top: -14px; } .stub__side::after { bottom: -14px; }
+  .stub__dateline { margin: 0; }
+  .stub__dots { display: flex; gap: 6px; margin-top: auto; }
+  .stub__body { padding: 24px 28px; }
+  .stub__text { margin: 0; font-family: var(--font-display); font-weight: 720; font-stretch: 85%; letter-spacing: -.01em; line-height: 1.05; font-size: var(--fs-h3); color: var(--head); max-width: 28ch; text-wrap: balance; }
+  .stub__pending { margin: var(--s-4) 0 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .stub__hazard { display: inline-flex; padding: 4px 10px; border-radius: var(--r-pill); font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--kk-saffron); color: var(--kk-ink); box-shadow: inset 0 0 0 1.5px var(--kk-ink); position: relative; padding-left: 30px; }
+  .stub__hazard::before { content: ""; position: absolute; left: 6px; top: 5px; bottom: 5px; width: 16px; border-radius: 4px; background: repeating-linear-gradient(-45deg, var(--kk-ink) 0 3px, transparent 3px 6px); }
+  .stub__pending :global(.confirm) { margin-inline: 0; }
+  @media (max-width: 767px) {
+    .stub { grid-template-columns: 1fr; }
+    .stub__side { flex-direction: row; flex-wrap: wrap; align-items: center; border-right: 0; border-bottom: 2px dashed var(--kk-ink); }
+    .stub__side::before, .stub__side::after { display: none; }
+    .stub__dots { margin: 0 0 0 auto; }
   }
-  .eng__text { margin: 0; color: var(--c-heading); max-width: 30em; }
 </style>

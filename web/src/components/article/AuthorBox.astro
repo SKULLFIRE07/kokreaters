@@ -1,32 +1,30 @@
 ---
-/** AuthorBox (DESIGN-SPEC 5.8 item 10): short bio, 72px avatar with a Saffron ring, "Meet Ganeaysh". */
-import RingedNode from '@/components/brand/RingedNode.astro';
-import TextLink from '@/components/ui/TextLink.astro';
+/** AuthorBox (DESIGN-SPEC v2 10.9): a Saffron block: the 96px avatar, name in Bricolage, role and short bio in mono,
+ * and the hand pill "Meet Ganeaysh". */
+import FounderPhoto from '@/components/brand/FounderPhoto.astro';
+import Button from '@/components/ui/Button.astro';
 import { shortBio, founderName, founderRole } from '@/data/founder';
 import { founderQuote } from '@/data/home';
-import avatar from '@/assets/photos/ganeaysh-cutout-square.png';
 ---
-<section class="author" aria-labelledby="author-h" data-reveal>
-  <RingedNode image={avatar} size={72} ring="var(--kk-saffron)" alt="" class="author__avatar" />
+<section class="author g-saffron grain" aria-labelledby="author-h" data-reveal>
+  <FounderPhoto variant="avatar" size={96} ground="white" alt="" class="author__avatar" />
   <div class="author__text">
-    <h2 id="author-h" class="author__name">{founderName}<span class="author__role t-meta">{founderRole}</span></h2>
-    <p class="author__bio">{shortBio}</p>
-    <TextLink href={founderQuote.link.href}>{founderQuote.link.label}</TextLink>
+    <h2 id="author-h" class="author__name">{founderName}</h2>
+    <p class="author__role t-label">{founderRole}</p>
+    <p class="author__bio t-mono">{shortBio}</p>
+    <Button href={founderQuote.link.href} variant="hand">{founderQuote.link.label}</Button>
   </div>
 </section>
 <style>
   .author {
-    display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-5);
-    align-items: start;
-    padding-top: var(--s-6); border-top: 1px solid var(--c-rule);
+    position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-6); align-items: start;
+    padding: var(--s-7); border-radius: 28px; box-shadow: var(--shadow-hard); border: 2px solid var(--kk-ink);
   }
-  .author__name {
-    margin: 0 0 var(--s-2);
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3);
-    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--wght-h3);
-    letter-spacing: var(--track-h3); color: var(--c-heading);
-  }
-  .author__role { font-family: var(--font-sans); letter-spacing: 0; color: var(--c-meta); font-weight: 500; }
-  .author__bio { margin: 0; max-width: 60ch; color: var(--c-text); }
-  @media (max-width: 479px) { .author { grid-template-columns: minmax(0, 1fr); } }
+  .author p { margin: 0; }
+  .author :global(.author__avatar) { rotate: -4deg; }
+  .author__text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .author__name { margin: 0; font-family: var(--font-display); font-weight: 780; font-stretch: 75%; font-size: clamp(2rem, 1.5rem + 2vw, 3rem); line-height: .95; letter-spacing: -0.02em; color: var(--head); }
+  .author__role { color: var(--fg-2); }
+  .author__bio { max-width: 58ch; color: var(--fg); margin-bottom: var(--s-2) !important; }
+  @media (max-width: 559px) { .author { grid-template-columns: minmax(0, 1fr); padding: var(--s-5); } }
 </style>

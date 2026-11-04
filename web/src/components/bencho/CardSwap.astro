@@ -1,0 +1,40 @@
+---
+/*
+ * Ported from Bencho (https://bencho.dev) block "card-swap" to vanilla TypeScript + GSAP for KoKreaters (DESIGN-SPEC v2 9).
+ * Original: MIT License, Copyright (c) 2026 Lorenzo Cabra.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice
+ * and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. Full text: web/THIRD_PARTY_NOTICES.md.
+ */
+/**
+ * CardSwap (DESIGN-SPEC v2 9, 10.6 F2): the slot is a <li> each; HTML underneath is an <ol> (static: a 2 × 2 grid).
+ * scripts/bencho/card-swap.ts turns it into a depth stack: a card IS its slot (the order is the only state). Drag and
+ * fling the front card (or press "Next card", or arrow keys inside the stack) and it goes straight to the back.
+ * Focusing a card's link brings that card to the front.
+ */
+interface Props { label: string; next: string; class?: string }
+const { label, next, class: cls } = Astro.props;
+---
+<div class:list={['csw', cls]} data-card-swap>
+  <ol class="csw__list" role="list" aria-label={label} data-toy data-cursor="throw"><slot /></ol>
+  <button type="button" class="btn btn--secondary btn--handish btn--md csw__next" data-csw-next hidden>
+    <span class="btn__label t-hand">{next}</span>
+    <svg class="btn__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5c5-.6 10-.4 15 .2M14 6.5c2 2 4 4 5.5 6-1.8 1.8-3.7 3.6-5.6 5.4"/></svg>
+  </button>
+</div>
+<style>
+  .csw__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .csw__list > :global(*) { min-width: 0; }
+  @media (max-width: 767px) { .csw__list { grid-template-columns: 1fr; } }
+  /* live stack */
+  .csw.is-live .csw__list { display: block; position: relative; height: var(--csw-h, 460px); max-width: min(460px, calc(100% - 44px)); margin-top: 60px; touch-action: pan-y; }
+  .csw.is-live .csw__list > :global(*) { position: absolute; inset: 0; transform: var(--t); transition: transform 600ms cubic-bezier(.22, 1, .36, 1), box-shadow .3s;
+    will-change: transform; user-select: none; -webkit-user-select: none; cursor: grab; box-shadow: 0 24px 40px -24px rgba(18,24,51,.5); }
+  .csw.is-live .csw__list > :global([data-front]) { box-shadow: 10px 10px 0 var(--kk-ink); }
+  .csw.is-live .csw__list > :global(.is-dragging) { cursor: grabbing; transition: none; }
+  .csw__next { margin-top: var(--s-6); }
+  @media (prefers-reduced-motion: reduce) { .csw.is-live .csw__list > :global(*) { transition: none; } }
+</style>

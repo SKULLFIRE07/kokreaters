@@ -1,26 +1,29 @@
 ---
 /**
- * /expertise/[slug] (DESIGN-SPEC 5.3): one template, six pages at the brief slugs.
- * The pillar colour appears only in the top bar, the dateline dot, the bullets, the map node and chips.
+ * /expertise/[slug] (DESIGN-SPEC v2 10.3 + 00.2): one template, six pages at the brief slugs.
+ * Grounds: pillar colour (hero) → ink (signature diagram) → white grid (the honest label) → pillar tint (deliverables)
+ * → white (from the record) → cloud (related) → butter (prompt) → saffron (CtaField, BaseLayout) → ink (footer).
  */
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Section from '@/components/ui/Section.astro';
 import TextLink from '@/components/ui/TextLink.astro';
-import Dateline from '@/components/ui/Dateline.astro';
-import ImpactRow from '@/components/shared/ImpactRow.astro';
+import ImpactCard from '@/components/shared/ImpactCard.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import PillarHero from '@/components/expertise/PillarHero.astro';
+import PillarDiagram from '@/components/expertise/PillarDiagram.astro';
 import HelpList from '@/components/expertise/HelpList.astro';
 import Deliverables from '@/components/expertise/Deliverables.astro';
 import RelatedInsights from '@/components/expertise/RelatedInsights.astro';
 import PromptRow from '@/components/expertise/PromptRow.astro';
 import { createAbbreviator } from '@/components/expertise/abbr';
 import { pillars, pillarPage } from '@/data/pillars';
-import { founderResults } from '@/data/impact';
+import { founderResults, secondaryFigures } from '@/data/impact';
 import { microcopy } from '@/data/microcopy';
+import { expertiseNotes } from '@/data/notes/expertise';
 import { byPillar, comingSoonByPillar } from '@/lib/insights';
+import { pillarTintGround, pillarNumber } from '@/lib/pillars';
 import { pageSeo } from '@/lib/seo';
-import type { Pillar } from '@/data/types';
+import type { GroundKey, Pillar } from '@/data/types';
 
 export const getStaticPaths = (() => pillars.map((p) => ({ params: { slug: p.slug }, props: { pillar: p } }))) satisfies GetStaticPaths;
 
@@ -35,44 +38,59 @@ const expand = createAbbreviator();
 const intro = expand(pillar.intro);
 const help = pillar.helpWith.map((t) => expand(t));
 const result = pillar.impactId ? founderResults.find((r) => r.id === pillar.impactId) : undefined;
+const figure: Record<string, string | undefined> = { india: expertiseNotes.record.indiaFigure, tfa: 'WHO' };
 const related = await byPillar(pillar.key);
 const coming = await comingSoonByPillar(pillar.key);
 const hasRelated = related.length > 0 || coming.length > 0;
+const tint = pillarTintGround(pillar.key);
+// no two adjacent bands on one ground: if the tint fold would touch the Butter prompt, the prompt goes Lavender
+const promptGround: GroundKey = !result && !hasRelated && tint === 'butter' ? 'lavender' : 'butter';
 ---
 <BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs} showCrumbs={false}>
   <PillarHero pillar={pillar} crumbs={crumbs} introHtml={intro.html} introNotes={intro.notes} />
 
-  <Section class="p-work" labelledby="help-title">
-    <HelpList pillar={pillar.key} items={help} />
-    <div class="p-work__gap" aria-hidden="true"><span class="rule" data-rule></span></div>
-    <Deliverables items={pillar.deliverables} />
-  </Section>
+  <section class="band fold g-ink grain p-diag" aria-label={pillar.name}>
+    <div class="container"><PillarDiagram pillar={pillar} /></div>
+  </section>
+
+  <section class="band fold g-white paper-grid p-help has-notes" aria-labelledby="help-title">
+    <div class="container"><HelpList pillar={pillar.key} items={help} fig={pillarNumber(pillar)} /></div>
+  </section>
+
+  <section class:list={['band', 'fold', `g-${tint}`, 'grain', 'p-deliv']} aria-labelledby="deliverables-title">
+    <div class="container"><Deliverables items={pillar.deliverables} /></div>
+  </section>
 
   {result && (
-    <Section class="p-record" ground="cloud" aria-label={pillarPage.fromTheRecord}>
-      <Dateline class="p-record__dateline">{pillarPage.fromTheRecord}</Dateline>
-      <ImpactRow result={result} size="compact" />
-      <span class="rule" data-rule aria-hidden="true"></span>
-      <div class="p-record__link"><TextLink href={`/impact#${result.id}`}>{microcopy.impactLink}</TextLink></div>
-    </Section>
+    <section class="band fold g-white p-record has-notes" aria-labelledby="record-title">
+      <div class="container p-record__grid">
+        <div class="p-record__head">
+          <h2 id="record-title" class="t-dateline p-record__dateline"><span class="p-record__dot" aria-hidden="true"></span>{pillarPage.fromTheRecord}</h2>
+          <MarginNote text={expertiseNotes.record.proof} anchor="block" arrow="arrow-curve" rotate={-6} arrowAngle={-10} show="md" />
+          <div class="p-record__link"><TextLink href={`/impact#${result.id}`}>{microcopy.impactLink}</TextLink></div>
+        </div>
+        <div class="p-record__card" data-sticker>
+          <ImpactCard result={result} size="lg" border={pillar.key} figure={figure[result.id] ?? result.figure?.value} secondary={secondaryFigures[result.id]} />
+        </div>
+      </div>
+    </section>
   )}
 
   {hasRelated && (
-    <Section class="p-related" labelledby="related-title">
-      <RelatedInsights visible={related} coming={coming} />
-    </Section>
+    <section class="band fold g-cloud p-related" aria-labelledby="related-title">
+      <div class="container"><RelatedInsights visible={related} coming={coming} /></div>
+    </section>
   )}
 
-  <Section class={hasRelated ? 'p-prompt p-prompt--tight' : 'p-prompt'}>
-    <PromptRow />
-  </Section>
+  <PromptRow ground={promptGround} />
 </BaseLayout>
 <style>
-  .p-work__gap { padding-block: var(--s-9); }
-  .p-work__gap .rule { display: block; }
-  :global(.p-record) :global(.p-record__dateline) { margin-bottom: var(--s-5); }
-  .p-record__link { margin-top: var(--s-4); }
-  :global(.p-prompt--tight) { padding-top: 0; }
-  :global(.p-prompt) :global(.prompt) { padding-top: var(--s-6); }
-  @media (max-width: 767px) { .p-work__gap { padding-block: var(--s-8); } }
+  .p-diag { overflow: clip; }
+  .p-record__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s-7); align-items: center; }
+  .p-record__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-6); font-size: var(--fs-label); color: var(--fg); }
+  .p-record__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--pillar); }
+  .p-record__link { margin-top: var(--s-6); }
+  .p-record__card { rotate: -1.5deg; }
+  .p-record__card :global(.icard) { box-shadow: 12px 12px 0 var(--pillar); }
+  @media (max-width: 1023px) { .p-record__grid { grid-template-columns: 1fr; gap: var(--s-5); } .p-record__card { rotate: 0deg; } }
 </style>

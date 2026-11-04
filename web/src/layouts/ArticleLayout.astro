@@ -10,13 +10,11 @@ import ProgressRule from '@/components/article/ProgressRule.astro';
 import ArticleHeader from '@/components/article/ArticleHeader.astro';
 import RouteRail from '@/components/article/RouteRail.astro';
 import AuthorBox from '@/components/article/AuthorBox.astro';
-import InsightRow from '@/components/shared/InsightRow.astro';
-import Section from '@/components/ui/Section.astro';
+import CoverStory from '@/components/shared/CoverStory.astro';
 import { article as articleNode } from '@/components/seo/schema';
 import { articleSeo } from '@/lib/seo';
 import { getPillar } from '@/lib/pillars';
-import { microcopy, formatLabels } from '@/data/microcopy';
-import { fill } from '@/lib/format';
+import { microcopy } from '@/data/microcopy';
 import type { SeoProps } from '@/components/seo/schema';
 
 interface Props {
@@ -38,18 +36,13 @@ const seo: SeoProps = {
 };
 const crumbs = [{ label: 'Insights', href: '/insights' }, { label: d.title, href: base.path }];
 const showRail = headings.filter((h) => h.depth === 2).length >= 3;
-const minLabel = minutes > 0 ? fill(microcopy.readingTime, { n: minutes }) : '';
 ---
-<BaseLayout page="article" seo={seo} breadcrumbs={crumbs} pillar={d.pillar}>
+<BaseLayout page="article" seo={seo} breadcrumbs={crumbs} pillar={d.pillar} showCrumbs={false}>
   <ProgressRule />
   <article class="article" data-article data-minutes={minutes}>
+    <ArticleHeader entry={entry} minutes={minutes} />
     <div class="container">
-      <div class="article__running t-meta">
-        <span>{microcopy.insightsRunningHead} · {formatLabels[d.format]}</span>
-        {minLabel && <span class="tnum nowrap" data-running-time data-label-left={microcopy.minutesLeft}>{minLabel}</span>}
-      </div>
       <div class="article__grid">
-        <div class="article__head"><ArticleHeader entry={entry} minutes={minutes} /></div>
         <div class="article__body prose" data-article-body><slot /></div>
         {showRail && <aside class="article__rail"><RouteRail headings={headings} /></aside>}
         <div class="article__author"><AuthorBox /></div>
@@ -57,36 +50,33 @@ const minLabel = minutes > 0 ? fill(microcopy.readingTime, { n: minutes }) : '';
     </div>
   </article>
   {related.length > 0 && (
-    <Section labelledby="related-h" class="article__related">
-      <h2 id="related-h" class="t-h2" data-reveal="lines">{microcopy.relatedInsights}</h2>
-      <ol class="related__list">
-        {related.map((r) => <InsightRow entry={r} />)}
-      </ol>
-    </Section>
+    <section class="article__related g-cloud paper-grid" aria-labelledby="related-h">
+      <div class="container">
+        <h2 id="related-h" class="t-h2 related__h" data-rise>{microcopy.relatedInsights}</h2>
+        <ul class="related__list" role="list">
+          {related.map((r) => <li><CoverStory entry={r} variant="card" headingLevel="h3" /></li>)}
+        </ul>
+      </div>
+    </section>
   )}
 </BaseLayout>
 <style>
   .article { padding-bottom: var(--section); }
-  .article__running {
-    display: flex; justify-content: space-between; gap: var(--s-4);
-    padding-block: var(--s-3);
-    border-bottom: 1px solid var(--c-rule);
-    color: var(--c-meta);
-    margin-bottom: var(--s-8);
-  }
-  .article__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-7); }
-  .article__head, .article__body, .article__author { width: 100%; max-width: var(--measure-article); margin-inline: auto; }
-  .article__head { max-width: calc(var(--measure-article) + 4rem); }
+  .article__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); padding-top: clamp(3rem, 2rem + 3vw, 5rem); }
+  .article__body, .article__author { width: 100%; max-width: var(--measure-article); margin-inline: auto; }
   .article__rail { display: none; }
-  .article__author { margin-top: var(--s-5); }
-  .related__list { list-style: none; margin: var(--s-6) 0 0; padding: 0; border-bottom: 1px solid var(--c-rule); }
+  .article__author { margin-top: var(--s-6); }
+  .article__related { padding-block: clamp(4rem, 2rem + 5vw, 7rem); border-top: 2px solid var(--kk-ink); }
+  .related__h { margin: 0 0 var(--s-7); }
+  .related__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .related__list :global(.cover--card) { width: 100%; min-height: 380px; box-shadow: var(--shadow-hard); border: 2px solid var(--kk-ink); }
+  @media (min-width: 768px) { .related__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .related__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
   @media (min-width: 1280px) {
     .article__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .article__head { grid-column: 4 / 12; max-width: none; margin: 0; }
-    .article__body { grid-column: 4 / 11; margin: 0; }
-    .article__author { grid-column: 4 / 11; margin: var(--s-5) 0 0; max-width: var(--measure-article); }
-    .article__rail { display: block; grid-column: 11 / 13; grid-row: 2; }
-    .article__body { grid-row: 2; }
+    .article__body { grid-column: 4 / 11; grid-row: 1; margin: 0; }
+    .article__author { grid-column: 4 / 11; margin: var(--s-6) 0 0; max-width: var(--measure-article); }
+    .article__rail { display: block; grid-column: 11 / 13; grid-row: 1; }
   }
 </style>

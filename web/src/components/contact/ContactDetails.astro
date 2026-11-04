@@ -4,20 +4,21 @@
  * <address>, then the page's one primary pill. Copy from @/data/contact and @/config/site (brief 6.8).
  */
 import Dateline from '@/components/ui/Dateline.astro';
-import Button from '@/components/ui/Button.astro';
+import Scribble from '@/components/notes/Scribble.astro';
+import Ticket from '@/components/bencho/Ticket.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { contact } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 
-const bookingIsForm = site.bookingUrl === '/contact#form';
-const bookingHref = bookingIsForm ? '#form' : site.bookingUrl;
-const bookingExternal = !bookingIsForm && /^https?:/i.test(site.bookingUrl);
+const W = 'together';
+const hi = contact.headline.indexOf(W);
+const head = hi > -1 ? [contact.headline.slice(0, hi), contact.headline.slice(hi + W.length)] : null;
 ---
 <div class="cd">
   <Dateline text={contact.overline} />
-  <h1 class="t-h1 cd__title" id="contact-title">{contact.headline}</h1>
+  <h1 class="t-display cd__title" id="contact-title">{head ? <>{head[0]}<Scribble kind="highlight" delay={0.4}>{W}</Scribble>{head[1]}</> : contact.headline}</h1>
   <p class="t-lead cd__intro">{contact.intro}<Confirm id={9} /></p>
 
   <address class="cd__address">
@@ -40,28 +41,27 @@ const bookingExternal = !bookingIsForm && /^https?:/i.test(site.bookingUrl);
     <p class="t-lead cd__base">{site.base}</p>
   </address>
 
-  <div class="cd__cta">
-    <Button href={bookingHref} variant="primary" arrow data-booking={bookingIsForm ? 'form' : 'external'} {...(bookingExternal ? { rel: 'noopener' } : {})}>{contact.booking}</Button>
-    <Confirm id={9} />
-  </div>
+  <div class="cd__cta"><Ticket /></div>
 </div>
 
 <style>
-  .cd__title { margin: var(--s-4) 0 0; text-wrap: balance; }
-  .cd__intro { margin: var(--s-5) 0 0; color: var(--c-text); text-wrap: pretty; }
+  .cd__title { margin: var(--s-5) 0 0; font-size: clamp(3.25rem, 1.6rem + 5.6vw, 7.5rem); line-height: .9; text-wrap: balance; max-width: 9ch; }
+  .cd__intro { margin: var(--s-6) 0 0; color: var(--fg); text-wrap: pretty; }
   .cd__address { font-style: normal; margin-top: var(--s-8); }
-  .cd__list { margin: 0; display: grid; gap: var(--s-5); }
-  .cd__item { display: grid; gap: var(--s-1); padding-top: var(--s-4); border-top: 1px solid var(--c-rule); }
+  .cd__list { margin: 0; display: grid; gap: 0; border-top: 2px solid var(--kk-ink); }
+  .cd__item { display: grid; grid-template-columns: 104px minmax(0, 1fr); align-items: center; gap: var(--s-4); padding-block: var(--s-3); border-bottom: 1.5px dashed var(--kk-ink); }
   .cd__item dt { margin: 0; }
   .cd__item dd { margin: 0; overflow-wrap: anywhere; }
   .cd__item a {
-    color: var(--c-link); text-decoration: none;
+    color: var(--kk-sapphire); text-decoration: none; font-weight: 500;
     display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
-    background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-repeat: no-repeat; background-position: 0 calc(100% - 8px);
-    transition: background-size var(--d-ui-in) var(--ease-out);
+    background-image: linear-gradient(var(--kk-saffron), var(--kk-saffron)); background-size: 0 40%; background-repeat: no-repeat; background-position: 0 75%;
+    transition: background-size 320ms var(--ease-expo);
   }
-  .cd__item a:is(:hover, :focus-visible) { background-size: 100% 1px; }
-  .cd__item :global(.cd__ext) { color: var(--c-meta); }
-  .cd__base { margin: var(--s-5) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--c-rule); color: var(--c-meta); }
-  .cd__cta { margin-top: var(--s-7); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+  .cd__item a:is(:hover, :focus-visible) { background-size: 100% 40%; color: var(--kk-ink); }
+  .cd__item :global(.cd__ext) { color: var(--fg-2); }
+  .cd__base { margin: var(--s-4) 0 0; color: var(--fg-2); }
+  .cd__cta { margin-top: var(--s-8); }
+  @media (max-width: 479px) { .cd__item { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: var(--s-4); } }
+  @media (prefers-reduced-motion: reduce) { .cd__item a { transition: none; } }
 </style>

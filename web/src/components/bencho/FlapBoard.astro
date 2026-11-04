@@ -18,9 +18,9 @@ const width = Astro.props.width ?? Math.max(14, ...entries.map((e) => e.length))
 const first = entries[0].toUpperCase().padEnd(width, ' ').slice(0, width);
 const chars = [...first];
 ---
-<div class:list={['flap', cls]} data-flap-board data-flap-entries={JSON.stringify(entries.map((e) => e.toUpperCase()))}>
+<div class:list={['flap', cls]} style={`--cols:${width}`} data-flap-board data-flap-entries={JSON.stringify(entries.map((e) => e.toUpperCase()))}>
   <p class="visually-hidden">{label ? `${label}: ` : ''}{entries.join(' · ')}</p>
-  <div class="flap__board" aria-hidden="true" style={`--cols:${width}`}>
+  <div class="flap__board" aria-hidden="true">
     {chars.map((c) => {
       const s = c === ' ' ? ' ' : c;
       return (
@@ -46,11 +46,13 @@ const chars = [...first];
   .flap__top i { top: 0; }
   .flap__bot { bottom: 0; border-radius: 0 0 4px 4px; background: #F6CF55; }
   .flap__bot i { top: -100%; }
-  .flap__ft, .flap__fb { visibility: hidden; z-index: 1; }
+  /* the moving faces only exist mid-flip: out of the box model at rest (no hidden content for the reduced/no-JS sweeps) */
+  .flap__ft, .flap__fb { display: none; z-index: 1; }
+  .flap__tile.is-flipping :is(.flap__ft, .flap__fb) { display: block; }
   .flap__tile::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgb(18 24 51 / .35); z-index: 2; }
   .flap__tile.is-flipping .flap__ft { visibility: visible; transform-origin: 50% 100%; animation: flap-fall 130ms ease-in both; }
   .flap__tile.is-flipping .flap__fb { visibility: visible; transform-origin: 50% 0; animation: flap-land 130ms ease-out 130ms both; }
   @keyframes flap-fall { to { transform: rotateX(-90deg); } }
   @keyframes flap-land { from { transform: rotateX(90deg); } }
-  @media (prefers-reduced-motion: reduce) { .flap__tile.is-flipping :is(.flap__ft, .flap__fb) { animation: none; visibility: hidden; } }
+  @media (prefers-reduced-motion: reduce) { .flap__tile.is-flipping :is(.flap__ft, .flap__fb) { animation: none; display: none; } }
 </style>

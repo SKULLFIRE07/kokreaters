@@ -1,31 +1,58 @@
 ---
 /**
- * The name (DESIGN-SPEC 5.9.5). Cloud fold: h2, the Ko / Kreaters copy and the quote + tagline as two
- * short paragraphs, then the full lockup at 220px (2x) — the only body-content appearance of it.
+ * The name (DESIGN-SPEC v2 10.7 F6): Sapphire + grain. h2 "The name"; two giant decorative stickers, "Ko" (Saffron,
+ * mega) with "= together" and "Kreaters" (White, display) with "= the people who make things happen"; the real
+ * sentences follow as White leads; then the full lockup on a White sticker (role img, alt name.lockupAlt), −3°.
  */
 import Logo from '@/components/brand/Logo.astro';
+import Sticker from '@/components/notes/Sticker.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import { name } from '@/data/founder';
+import { storyNotes } from '@/data/notes/story';
 ---
-<section class="band band--alt name-panel" aria-labelledby="name-title">
-  <div class="container grid name-panel__grid">
-    <div class="name-panel__text c-1-7">
-      <h2 id="name-title" class="t-h2 name-panel__h2" data-reveal="lines">{name.heading}</h2>
-      <div class="name-panel__copy" data-reveal-group>
-        <p class="t-lead" data-reveal>{name.ko} {name.kreaters}</p>
-        <p class="t-lead" data-reveal>{name.quote} {name.tagline}</p>
+<section class="name-panel g-sapphire grain has-notes" aria-labelledby="name-title">
+  <div class="container">
+    <h2 id="name-title" class="name-panel__h2 t-dateline">{name.heading}</h2>
+    <div class="name-panel__words" aria-hidden="true">
+      <div class="name-panel__word name-panel__word--ko">
+        <Sticker shape="rect" ground="saffron" rotate={-5} drop dropFrom="left" class="name-panel__sticker"><span class="name-panel__ko">Ko</span></Sticker>
+        <MarginNote text={storyNotes.about.ko} tone="saffron" size="lg" rotate={-6} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-20} anchor="block" show="all" class="name-panel__note" />
+      </div>
+      <div class="name-panel__word name-panel__word--kr">
+        <Sticker shape="rect" ground="white" rotate={3} drop dropFrom="right" class="name-panel__sticker"><span class="name-panel__kr">Kreaters</span></Sticker>
+        <MarginNote text={storyNotes.about.kreaters} tone="saffron" size="lg" rotate={-4} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-30} anchor="block" show="all" class="name-panel__note" />
       </div>
     </div>
-    <div class="name-panel__logo c-8-12" data-reveal>
-      <Logo variant="full" alt={name.lockupAlt} width={220} class="name-panel__img" />
+    <div class="name-panel__foot">
+      <div class="name-panel__copy">
+        <p class="t-lead">{name.ko} {name.kreaters}</p>
+        <p class="t-lead">{name.quote} {name.tagline}</p>
+      </div>
+      <Sticker shape="rect" ground="white" rotate={-3} decorative={false} class="name-panel__lockup">
+        <Logo variant="full" alt={name.lockupAlt} width={320} class="name-panel__img" />
+      </Sticker>
     </div>
   </div>
 </section>
 <style>
-  .name-panel__grid { align-items: center; row-gap: var(--s-8); }
-  .name-panel__h2 { margin: 0 0 var(--s-6); }
-  .name-panel__copy p { margin: 0; }
+  .name-panel { padding-block: var(--section); overflow: clip; }
+  .name-panel__h2 { margin: 0 0 var(--s-7); }
+  .name-panel__words { display: flex; flex-direction: column; gap: clamp(20px, 3vw, 44px); }
+  .name-panel__word { display: flex; align-items: center; gap: var(--s-6); flex-wrap: wrap; }
+  .name-panel__word--kr { padding-left: clamp(0px, 12vw, 220px); }
+  .name-panel__ko, .name-panel__kr { font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.035em; line-height: .86; color: var(--kk-ink); display: block; padding: .02em .06em .1em; }
+  .name-panel__ko { font-size: clamp(6rem, 2rem + 16vw, 18rem); }
+  .name-panel__kr { font-size: clamp(4rem, 1.4rem + 10.4vw, 12rem); color: var(--kk-sapphire); }
+  .name-panel :global(.name-panel__note) { max-width: 24ch; }
+  .name-panel__foot { margin-top: var(--s-9); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8); align-items: center; }
+  .name-panel__copy p { margin: 0; max-width: 48ch; }
   .name-panel__copy p + p { margin-top: var(--s-5); }
-  .name-panel__logo { justify-self: start; padding: var(--s-4); }
-  .name-panel__logo :global(.name-panel__img) { display: block; width: 220px; max-width: 100%; height: auto; }
-  @media (min-width: 1024px) { .name-panel__logo { justify-self: end; } }
+  .name-panel :global(.name-panel__lockup) { justify-self: end; }
+  .name-panel :global(.name-panel__lockup .sticker__face) { padding: 28px 32px; border-radius: 20px; }
+  .name-panel :global(.name-panel__img) { display: block; width: min(320px, 70vw); height: auto; }
+  @media (max-width: 767px) {
+    .name-panel__foot { grid-template-columns: 1fr; }
+    .name-panel :global(.name-panel__lockup) { justify-self: start; }
+    .name-panel__word--kr { padding-left: 0; }
+  }
 </style>

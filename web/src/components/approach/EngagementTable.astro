@@ -1,70 +1,36 @@
 ---
 /**
- * "Ways to work with us" (DESIGN-SPEC 5.5.4): a real <table>, sans tnum, Hairline row rules,
- * no zebra and no vertical rules, datelines in the header row. Below 768px each row stacks,
- * with data-label pseudo-labels. CONFIRM 10 under the table.
+ * Approach F5, ways to work with us (DESIGN-SPEC v2 10.5 F5): Ice ground; five FaqAccordion rows. Summary = the model
+ * + its "Typical shape" in mono; body = a <dl> "Typical shape" / "Good for" (labels `modelColumns`). CONFIRM 10.
  */
+import FaqAccordion from '@/components/bencho/FaqAccordion.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { isStaging } from '@/lib/mode';
 import { models, modelsHeading, modelColumns } from '@/data/approach';
+import { storyNotes } from '@/data/notes/story';
+const items = models.map((m) => ({ title: m.model, preview: m.shape, rows: [{ k: modelColumns.shape, v: m.shape }, { k: modelColumns.goodFor, v: m.goodFor }] }));
 ---
-<section class="band band--alt ways" aria-labelledby="ways-title">
-  <div class="container">
-    <h2 id="ways-title" class="t-h2 ways__title" data-reveal="lines">{modelsHeading}</h2>
-    <div class="ways__wrap" data-reveal>
-      <table class="ways__table">
-        <caption class="visually-hidden">{modelsHeading}</caption>
-        <thead>
-          <tr>
-            <th scope="col" class="t-dateline">{modelColumns.model}</th>
-            <th scope="col" class="t-dateline">{modelColumns.shape}</th>
-            <th scope="col" class="t-dateline">{modelColumns.goodFor}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {models.map((m) => (
-            <tr>
-              <th scope="row">{m.model}</th>
-              <td data-label={modelColumns.shape}>{m.shape}</td>
-              <td data-label={modelColumns.goodFor}>{m.goodFor}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+<section class="ways g-ice has-notes" aria-labelledby="ways-title">
+  <div class="container ways__grid">
+    <div class="ways__head">
+      <h2 id="ways-title" class="ways__h2" data-rise="lines">{modelsHeading}</h2>
+      <MarginNote text={storyNotes.models.shape} tone="sapphire" rotate={-6} arrow="arrow-curve" arrowAt="below" arrowAngle={70} anchor="block" show="md" class="ways__note" />
+      {isStaging && <p class="ways__confirm"><Confirm id={10} /></p>}
     </div>
-    {isStaging && <p class="ways__confirm"><Confirm id={10} /></p>}
+    <FaqAccordion items={items} class="ways__faq" />
   </div>
 </section>
 <style>
-  .ways__title { margin: 0 0 var(--s-7); }
-  .ways__table {
-    width: 100%; border-collapse: collapse;
-    font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body);
-    font-variant-numeric: tabular-nums; color: var(--c-text);
-  }
-  .ways__table th, .ways__table td { text-align: left; vertical-align: top; padding: var(--s-5) var(--s-5) var(--s-5) 0; }
-  .ways__table thead th { padding-block: 0 var(--s-3); border-bottom: 1px solid var(--c-rule); }
-  .ways__table tbody tr { border-bottom: 1px solid var(--c-rule); }
-  .ways__table tbody th {
-    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: var(--lh-h3);
-    font-weight: var(--wght-h3); letter-spacing: var(--track-h3); color: var(--c-heading);
-    width: 30%;
-  }
-  .ways__table td:nth-child(2) { width: 28%; }
-  .ways__table td:last-child { padding-right: 0; color: var(--c-meta); }
-  .ways__confirm { margin: var(--s-4) 0 0; }
-
-  @media (max-width: 767px) {
-    .ways__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
-    .ways__table, .ways__table tbody, .ways__table tr, .ways__table th, .ways__table td { display: block; width: auto; }
-    .ways__table tbody tr { padding-block: var(--s-5); }
-    .ways__table tbody tr:first-child { border-top: 1px solid var(--c-rule); }
-    .ways__table tbody th, .ways__table td, .ways__table td:nth-child(2) { padding: 0; width: auto; }
-    .ways__table td { margin-top: var(--s-3); }
-    .ways__table td::before {
-      content: attr(data-label); display: block; margin-bottom: 2px;
-      font-size: var(--fs-dateline); line-height: var(--lh-dateline); font-weight: 600;
-      text-transform: uppercase; letter-spacing: var(--track-dateline); color: var(--c-dateline);
-    }
+  .ways { padding-block: var(--section); }
+  .ways__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s-8); align-items: start; }
+  .ways__head { position: sticky; top: calc(var(--header-h) + 24px); }
+  .ways__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .9;
+    font-size: clamp(3rem, 1rem + 5.6vw, 7rem); text-wrap: balance; }
+  .ways :global(.ways__note) { margin-top: var(--s-5); }
+  .ways__confirm { margin: var(--s-5) 0 0; }
+  @media (max-width: 1023px) {
+    .ways__grid { grid-template-columns: 1fr; gap: var(--s-6); }
+    .ways__head { position: static; }
   }
 </style>

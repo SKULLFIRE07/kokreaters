@@ -1,47 +1,52 @@
 ---
 /**
- * "What we help with" (DESIGN-SPEC 5.3 item 2): ringed list, PillarDot 8 bullets hung in the margin,
- * a 1px Hairline connector through the dots (drawn on enter over 900ms by expertise.ts).
- * Items arrive as HTML with first-use <abbr> already applied (abbr.ts).
+ * "What we help with" as the honest label (DESIGN-SPEC v2 10.3 F2): h2 left (sticky ≥ 1024) with a giant hand-circled
+ * item count; right the SpecLabel "What’s inside / Nothing hidden" (rows 01…05 = helpWith verbatim, first-use <abbr>
+ * kept), rotated −1°, wrapped by the SpecInspector toy.
  */
-import PillarDot from '../ui/PillarDot.astro';
+import SpecLabel from '../notes/SpecLabel.astro';
+import SpecInspector from '../bencho/SpecInspector.astro';
+import Scribble from '../notes/Scribble.astro';
 import { pillarPage } from '@/data/pillars';
+import { expertiseNotes } from '@/data/notes/expertise';
+import { pad2 } from '@/lib/format';
 import type { PillarKey } from '@/data/types';
 import type { Expanded } from './abbr';
 
-interface Props { pillar: PillarKey; items: Expanded[] }
-const { pillar, items } = Astro.props;
+interface Props { pillar: PillarKey; items: Expanded[]; fig: string }
+const { pillar, items, fig } = Astro.props;
+const rows = items.map((it, i) => ({ k: pad2(i + 1), v: it.html + it.notes.map((n) => ` <span class="help__note">(${n})</span>`).join(''), html: true }));
 ---
-<div class="help grid">
-  <h2 id="help-title" class="t-h2 help__title c-1-4" data-reveal="lines">{pillarPage.helpWith}</h2>
-  <div class="help__body c-5-12">
-    <div class="ringed-wrap">
-    <span class="ringed__connector" data-connector aria-hidden="true"></span>
-    <ul class="ringed" data-reveal-group>
-      {items.map((it) => (
-        <li class="ringed__item" data-reveal>
-          <PillarDot pillar={pillar} size={8} class="ringed__dot" />
-          <span class="help__text" set:html={it.html} />
-          {it.notes.map((n) => <span class="help__note t-meta">{n}</span>)}
-        </li>
-      ))}
-    </ul>
-    </div>
+<div class="help" style={`--pc:var(--pillar-${pillar})`}>
+  <div class="help__head">
+    <h2 id="help-title" class="t-display help__title" data-rise>{pillarPage.helpWith}</h2>
+    <p class="help__count" aria-hidden="true"><Scribble kind="circle" tone="orchid" thickness={4} pad="0.12em 0.32em"><span class="tnum">{pad2(items.length)}</span></Scribble></p>
+  </div>
+  <div class="help__body">
+    <SpecInspector fig={fig} count={items.length}>
+      <SpecLabel id="help-label" headingLevel="none" inspect rotate={-1}
+        title={expertiseNotes.label.title} sub={expertiseNotes.label.sub} foot={expertiseNotes.label.foot} rows={rows} class="help__spec" />
+    </SpecInspector>
   </div>
 </div>
 <style>
-  .help { row-gap: var(--s-6); }
-  .help__title { margin: 0; }
-  .ringed-wrap { position: relative; }
-  .ringed { position: relative; list-style: none; margin: 0; padding: 0 0 0 36px; }
-  .ringed__connector {
-    position: absolute; left: 3.5px; top: calc(var(--s-3) + 15px); bottom: calc(var(--s-3) + 15px); width: 1px;
-    background: var(--c-rule); transform-origin: 50% 0;
+  .help { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-7); align-items: start; }
+  .help__head { position: relative; }
+  .help__title { margin: 0; max-width: 8ch; color: var(--head); }
+  .help__count { margin: var(--s-6) 0 0 .1em; font: 800 var(--fs-stat)/.85 var(--font-display); font-stretch: 75%; letter-spacing: -0.03em; color: var(--pc); }
+  .help__body :global(.help__spec) { max-width: 620px; padding: 22px 26px 22px; box-shadow: 10px 10px 0 var(--pc); }
+  .help__body :global(.help__spec .spec__title) { font-size: clamp(2.5rem, 1.8rem + 2.4vw, 4rem); }
+  .help__body :global(.help__spec dd) { font-size: var(--fs-lead); line-height: 1.5; }
+  .help__body :global(.help__note) { color: var(--fg-2); }
+  .help__body :global(abbr) { text-decoration: underline dotted 1px; text-underline-offset: .18em; cursor: help; }
+  @media (min-width: 1024px) { .help__head { position: sticky; top: calc(var(--header-h) + 32px); } }
+  @media (max-width: 1023px) {
+    .help { grid-template-columns: 1fr; gap: var(--s-5); }
+    .help__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-5); }
+    .help__count { margin: 0 .42em 0 0; font-size: 5rem; } /* keep the hand circle (pad .32em + stroke) inside the gutter */
+    .help__body :global(.help__spec) { box-shadow: 6px 6px 0 var(--pc); }
   }
-  .ringed__item { position: relative; padding-block: var(--s-3); font-size: 1.1875rem; line-height: 30px; color: var(--c-text); max-width: 40em; }
-  .ringed__item + .ringed__item { margin-top: var(--s-2); }
-  .ringed__item :global(.ringed__dot) { position: absolute; left: -36px; top: calc(var(--s-3) + 11px); }
-  .help__text { display: block; text-wrap: pretty; }
-  .help__note { display: block; margin-top: var(--s-1); color: var(--c-meta); }
-  @media (max-width: 767px) { .ringed__item { font-size: 1.0625rem; line-height: 28px; } .ringed__item :global(.ringed__dot) { top: calc(var(--s-3) + 10px); } }
+</style>
+<style>
+  @media (max-width: 767px) { .help__body :global(.help__spec) { rotate: 0deg !important; box-shadow: 5px 5px 0 var(--pc); } }
 </style>

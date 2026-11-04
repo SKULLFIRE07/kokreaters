@@ -1,8 +1,8 @@
 ---
 /**
- * Sector index (DESIGN-SPEC 5.4): sticky <nav aria-label="Industries"> at ≥1024px with a 2px Sapphire
- * bar beside the current sector (industries.ts sets aria-current via IntersectionObserver and moves
- * the bar). Below 1024px it is a wrapped row of anchor links at the top.
+ * Sector index (DESIGN-SPEC v2 10.4 F2): sticky <nav aria-label="Industries"> at ≥ 1024 (mono 14). The current sector
+ * gets a Saffron highlight block behind its label that glides between links (industries.ts sets aria-current and moves
+ * the block; `aria-current` logic unchanged from v1). Below 1024 a wrapped row of outlined pills.
  */
 import { industries } from '@/data/industries';
 import { pad2 } from '@/lib/format';
@@ -11,33 +11,35 @@ import { pad2 } from '@/lib/format';
   <span class="sector-index__bar" data-sector-bar aria-hidden="true"></span>
   <ol class="sector-index__list">
     {industries.map((i) => (
-      <li><a class="sector-index__link t-meta" href={`#${i.slug}`} data-sector-link={i.slug}><span class="sector-index__n tnum" aria-hidden="true">{pad2(i.n)}</span><span>{i.name}</span></a></li>
+      <li><a class="sector-index__link" href={`#${i.slug}`} data-sector-link={i.slug}><span class="sector-index__n tnum" aria-hidden="true">{pad2(i.n)}</span><span>{i.name}</span></a></li>
     ))}
   </ol>
 </nav>
 <style>
   .sector-index { position: relative; }
-  .sector-index__list { list-style: none; margin: 0; padding: 0; }
+  .sector-index__list { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; }
   .sector-index__link {
-    display: flex; gap: var(--s-3); align-items: baseline; min-height: 44px; padding-block: 11px;
-    color: var(--c-meta); text-decoration: none; transition: color var(--d-colour) var(--ease-out);
+    display: flex; gap: var(--s-3); align-items: baseline; min-height: 44px; padding: 11px 12px;
+    font: 400 var(--fs-mono)/1.35 var(--font-mono); color: var(--fg-2); text-decoration: none; border-radius: 8px;
+    transition: color var(--d-ui) var(--ease-expo);
   }
-  .sector-index__link:is(:hover, :focus-visible) { color: var(--c-link); }
-  .sector-index__link[aria-current] { color: var(--c-heading); font-weight: 600; }
-  .sector-index__n { color: var(--c-meta); font-weight: 500; min-width: 2ch; }
+  .sector-index__link:is(:hover, :focus-visible) { color: var(--fg); text-decoration: underline; text-underline-offset: .2em; }
+  .sector-index__link:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .sector-index__link[aria-current] { color: var(--kk-ink); font-weight: 500; }
+  .sector-index__n { font-weight: 500; min-width: 2ch; color: inherit; }
   .sector-index__bar { display: none; }
   @media (min-width: 1024px) {
-    .sector-index { position: sticky; top: calc(var(--header-h) + 24px); padding-left: var(--s-5); border-left: 1px solid var(--c-rule); }
+    .sector-index { position: sticky; top: calc(var(--header-h) + 24px); }
     .sector-index__bar {
-      display: block; position: absolute; left: -1px; top: 0; width: 2px; height: 44px;
-      background: var(--c-line); opacity: 0;
-      transition: top 200ms var(--ease-out), height 200ms var(--ease-out), opacity 200ms var(--ease-out);
+      display: block; position: absolute; left: 0; right: 0; top: 0; height: 44px; z-index: 0; border-radius: 6px 10px 7px 12px;
+      background: var(--kk-saffron); box-shadow: 4px 4px 0 var(--kk-ink); opacity: 0; rotate: -1deg;
+      transition: top 380ms var(--ease-spring), height 240ms var(--ease-expo), opacity 200ms var(--ease-expo);
     }
     .sector-index.has-current .sector-index__bar { opacity: 1; }
   }
   @media (max-width: 1023px) {
-    .sector-index__list { display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
-    .sector-index__link { color: var(--c-link); }
+    .sector-index__list { display: flex; flex-wrap: wrap; gap: 10px 8px; }
+    .sector-index__link { min-height: 44px; align-items: center; padding: 0 16px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 2px var(--fg); color: var(--fg); font-size: 13px; }
     .sector-index__n { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { .sector-index__bar { transition: none; } }

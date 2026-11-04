@@ -1,5 +1,5 @@
 /**
- * The dock (DESIGN-SPEC 6.5, graft 1). ≥ 1024px, motion allowed, home only.
+ * The dock (DESIGN-SPEC v2 10.1 F1, v1 6.5). ≥ 1024px, motion allowed, home only.
  * Scrolling past the hero folds the network away and flies the logo cluster into the header
  * slot; scrolling back flies it home and replays the bloom quickly. Not scrubbed: one beat each way.
  * Flip is imported here, dynamically, so it never blocks the hero.
@@ -56,13 +56,12 @@ export function initDock(ctx: MotionContext, hero: HeroControl): () => void {
 
   const showSlot = (on: boolean) => { slot.style.visibility = on ? 'visible' : 'hidden'; };
 
-  /** Fold the network away (reverse order, 40 ms stagger, 360 ms). */
+  /** Fold the network away: strings, pillar nodes and the sticker disc shrink and fade (360 ms). */
+  const away = [...p.groups, ...(p.sticker ? [p.sticker] : [])];
   const collapse = (instant = false) => {
     const tl = gsap.timeline();
     const d = instant ? 0 : .36;
-    tl.to([...p.branches].reverse(), { drawSVG: '0%', duration: d, stagger: instant ? 0 : .04, ease: 'power2.inOut' }, 0);
-    tl.to([...p.stationLines].reverse(), { drawSVG: '0%', duration: d, stagger: instant ? 0 : .04, ease: 'power2.inOut' }, 0);
-    tl.to([...p.nodes, ...p.labels, ...p.stationDots], { opacity: 0, duration: d, ease: 'power1.in' }, 0);
+    tl.to(away, { opacity: 0, scale: .6, svgOrigin: '320 300', duration: d, ease: 'power2.in' }, 0);
     return tl;
   };
 
@@ -70,6 +69,9 @@ export function initDock(ctx: MotionContext, hero: HeroControl): () => void {
     if (docked || dead) return;
     docked = true;
     killActive();
+    // the header must be on screen to receive the mark (v2 7.2)
+    document.documentElement.classList.add('header-forced');
+    window.setTimeout(() => document.documentElement.classList.remove('header-forced'), 900);
     hero.bloom?.progress(1);
     const fold = collapse(instant);
     if (instant) {
@@ -96,7 +98,8 @@ export function initDock(ctx: MotionContext, hero: HeroControl): () => void {
       gsap.set(source, { opacity: 1 });
       c.remove(); if (clone === c) clone = null;
       const replay = gsap.timeline();
-      networkInto(ctx, replay, p, 0, .4);
+      replay.to(away, { opacity: 1, scale: 1, svgOrigin: '320 300', duration: .36, ease: 'back.out(1.8)' }, 0);
+      networkInto(ctx, replay, p, .05, .4);
       active.push(replay);
     }));
   };
@@ -119,8 +122,8 @@ export function initDock(ctx: MotionContext, hero: HeroControl): () => void {
     killActive();
     slot.style.removeProperty('visibility');
     gsap.set(source, { clearProps: 'opacity' });
-    gsap.set([...p.branches, ...p.stationLines], { drawSVG: '100%' });
-    gsap.set([...p.nodes, ...p.labels, ...p.stationDots], { opacity: 1 });
+    gsap.set(away, { clearProps: 'transform,opacity' });
+    gsap.set(p.groups, { opacity: 1 });
   };
 }
 

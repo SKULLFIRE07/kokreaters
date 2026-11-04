@@ -1,0 +1,83 @@
+---
+/*
+ * Ported from Bencho (https://bencho.dev) block "faq-accordion" to vanilla TypeScript + GSAP for KoKreaters (DESIGN-SPEC v2 9).
+ * Original: MIT License, Copyright (c) 2026 Lorenzo Cabra.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice
+ * and this permission notice shall be included in all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. Full text: web/THIRD_PARTY_NOTICES.md.
+ */
+/**
+ * FaqAccordion (DESIGN-SPEC v2 9, 10.5 F5): native <details>/<summary> rows (works with JS off and under reduced
+ * motion). With motion, scripts/bencho/faq-accordion.ts animates the answer's row 0fr → 1fr (the card grows by exactly
+ * the answer's height, nothing measured), the words wait for the room, and the plus turns into a cross.
+ * The open row gets a pillar-colour left bar, cycling the six. Items: { title, preview?, rows: { k, v }[] }.
+ */
+interface Item { title: string; preview?: string; rows: { k: string; v: string }[] }
+interface Props { items: Item[]; class?: string; headingLevel?: 3 | 4 }
+const { items, class: cls, headingLevel = 3 } = Astro.props;
+const H = `h${headingLevel}` as 'h3' | 'h4';
+const bars = ['innovation', 'process', 'quality', 'strategy', 'deals', 'capability'];
+---
+<div class:list={['faq', cls]} data-faq>
+  {items.map((it, i) => (
+    <details class="faq__item" style={`--bar:var(--pillar-${bars[i % bars.length]})`}>
+      <summary class="faq__sum">
+        <span class="faq__n t-dateline tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <H class="faq__title">{it.title}</H>
+        {it.preview && <span class="faq__preview t-mono">{it.preview}</span>}
+        <span class="faq__mark" aria-hidden="true"></span>
+      </summary>
+      <div class="faq__answer"><div class="faq__inner">
+        <dl class="faq__dl">
+          {it.rows.map((r) => (<div class="faq__row"><dt class="t-label">{r.k}</dt><dd class="t-mono">{r.v}</dd></div>))}
+        </dl>
+      </div></div>
+    </details>
+  ))}
+</div>
+<style>
+  .faq { display: flex; flex-direction: column; gap: 14px; }
+  .faq__item { position: relative; background: var(--kk-white); color: var(--kk-ink); border: 2px solid var(--kk-ink); border-radius: 14px;
+    overflow: clip; transition: box-shadow .3s var(--ease-expo), translate .3s var(--ease-expo); }
+  .faq__item::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--bar); transition: width .45s var(--ease-expo); }
+  .faq__item[open], .faq__item[data-open] { box-shadow: 6px 6px 0 var(--kk-ink); }
+  .faq__item[open]::before { width: 14px; }
+  .faq__sum { position: relative; display: grid; grid-template-columns: 48px minmax(0, 1fr) minmax(0, 1fr) 44px; align-items: center; gap: var(--s-5);
+    padding: 22px 24px 22px 32px; cursor: pointer; list-style: none; min-height: 44px; }
+  .faq__sum::-webkit-details-marker { display: none; }
+  .faq__sum:focus-visible { outline: 3px solid var(--kk-cobalt); outline-offset: -6px; border-radius: 12px; }
+  .faq__sum:hover .faq__mark { background: var(--kk-saffron); }
+  .faq__n { color: var(--kk-graphite); }
+  .faq__title { margin: 0; font-family: var(--font-display); font-weight: 760; font-stretch: 80%; letter-spacing: -.015em; line-height: 1;
+    font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.375rem); color: var(--kk-ink); }
+  .faq__preview { color: var(--kk-graphite); }
+  .faq__mark { position: relative; width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--kk-ink); transition: rotate .45s var(--ease-spring), background-color .2s; }
+  .faq__mark::before, .faq__mark::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2.5px; background: var(--kk-ink); translate: -50% -50%; border-radius: 2px; }
+  .faq__mark::after { rotate: 90deg; }
+  .faq__item[open] .faq__mark { rotate: 135deg; background: var(--kk-saffron); }
+  .faq__inner { padding: 0 24px 26px calc(32px + 48px + var(--s-5)); }
+  .faq__dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); border-top: 2px dashed var(--kk-ink); padding-top: var(--s-5); }
+  .faq__row dt { color: var(--kk-graphite); margin-bottom: 6px; }
+  .faq__row dd { margin: 0; color: var(--kk-ink); }
+  /* motion: the row grows (set by the script; native open/close otherwise) */
+  .faq.is-live .faq__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 420ms cubic-bezier(.22, 1, .36, 1); }
+  .faq.is-live .faq__item[data-open] .faq__answer { grid-template-rows: 1fr; }
+  .faq.is-live .faq__inner { min-height: 0; overflow: hidden; }
+  .faq.is-live .faq__dl { opacity: 0; translate: 0 10px; transition: opacity 160ms, translate 300ms var(--ease-expo); }
+  .faq.is-live .faq__item[data-open] .faq__dl { opacity: 1; translate: 0 0; transition-delay: 160ms; }
+  .faq.is-live .faq__item:not([data-open]) .faq__mark { rotate: 0deg; background: transparent; }
+  .faq.is-live .faq__item:not([data-open])::before { width: 0; }
+  @media (max-width: 767px) {
+    .faq__sum { grid-template-columns: minmax(0, 1fr) 44px; gap: 8px 12px; padding: 18px 16px 18px 22px; }
+    .faq__n { grid-column: 1 / -1; }
+    .faq__title { grid-column: 1; }
+    .faq__mark { grid-column: 2; grid-row: 2; }
+    .faq__preview { grid-column: 1 / -1; }
+    .faq__inner { padding: 0 16px 20px 22px; }
+    .faq__dl { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .faq__item, .faq__item::before, .faq__mark { transition: none; } }
+</style>

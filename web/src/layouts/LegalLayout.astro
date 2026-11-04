@@ -6,13 +6,18 @@
  */
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
+import MarginNote from '@/components/notes/MarginNote.astro';
+import Stamp from '@/components/notes/Stamp.astro';
+import Logo from '@/components/brand/Logo.astro';
+import { journalNotes } from '@/data/notes/journal';
 import { microcopy } from '@/data/microcopy';
+import type { MarkdownHeading } from 'astro';
 import { pageSeo } from '@/lib/seo';
 import { fill, formatDate, isoDate } from '@/lib/format';
 import type { SeoKey } from '@/data/seo';
 
 interface Frontmatter { title: string; description?: string; updated?: string | Date; reviewed?: boolean; seoKey?: SeoKey }
-interface Props { frontmatter?: Frontmatter; title?: string; description?: string; updated?: string | Date; reviewed?: boolean }
+interface Props { headings?: MarkdownHeading[]; frontmatter?: Frontmatter; title?: string; description?: string; updated?: string | Date; reviewed?: boolean }
 
 const fm: Frontmatter = Astro.props.frontmatter ?? {
   title: Astro.props.title ?? '',
@@ -26,40 +31,73 @@ let seo;
 try { seo = pageSeo(key); } catch { seo = undefined; }
 const seoProps = seo ?? { title: `${fm.title} | KoKreaters`, description: fm.description ?? '', path };
 const crumbs = [{ label: fm.title, href: path }];
+const h2s = (Astro.props.headings ?? []).filter((h) => h.depth === 2);
 const updated = fm.updated ? (typeof fm.updated === 'string' ? new Date(fm.updated) : fm.updated) : undefined;
 ---
 <BaseLayout page="legal" seo={seoProps} breadcrumbs={crumbs} showCrumbs={false}>
-  <article class="legal band">
-    <div class="container">
-      <div class="legal__col">
+  <article class="legal g-white">
+    <header class="legal__head paper-grid has-notes">
+      <div class="container legal__headin">
         <Breadcrumbs items={crumbs} />
         <p class="t-dateline legal__dateline">{microcopy.legalDateline}</p>
-        <h1 class="t-h1 legal__title">{fm.title}</h1>
+        <div class="legal__titlewrap has-notes">
+          <h1 class="t-display legal__title">{fm.title}</h1>
+          <MarginNote text={journalNotes.legal.print} tone="orchid" rotate={-4} arrow="arrow-curve" arrowAt="start" arrowAngle={200} flip place="left:calc(100% + 18px);top:-30px;max-width:none;" show="lg" delay={0.4} />
+        </div>
         {updated && (
-          <p class="t-meta legal__updated">
+          <p class="legal__updated t-label">
             {fill(microcopy.lastUpdated, { date: '' }).trim()} <time datetime={isoDate(updated)}>{formatDate(updated)}</time>
           </p>
         )}
-        {!fm.reviewed && <p class="legal__banner" role="note">{microcopy.legalBanner}</p>}
-        <div class="prose prose--legal legal__body">
-          <slot />
+        <div class="legal__stamp" data-sticker data-sticker-from="right">
+          <Stamp text={`${microcopy.legalDateline} · ${fm.title} · `} size={168} ground="ice" spin rotate={10}><Logo variant="cluster" height={58} width={58} alt="" /></Stamp>
         </div>
       </div>
+    </header>
+    {!fm.reviewed && <p class="legal__banner" role="note"><span>{microcopy.legalBanner}</span></p>}
+    <div class="container legal__grid">
+      <div class="prose prose--legal legal__body">
+        <slot />
+      </div>
+      {h2s.length > 2 && (
+        <nav class="legal__toc spec g-butter" aria-labelledby="legal-toc-t">
+          <p class="spec__title" id="legal-toc-t">{microcopy.onThisPage}</p>
+          <div class="spec__rule spec__rule--heavy" aria-hidden="true"></div>
+          <ol class="legal__toclist">
+            {h2s.map((h, i) => <li><a href={`#${h.slug}`}><span class="tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )}
     </div>
   </article>
 </BaseLayout>
 
 <style>
-  .legal { padding-top: var(--s-6); }
-  .legal__col { max-width: var(--measure); }
-  .legal__dateline { margin: var(--s-6) 0 var(--s-3); }
-  .legal__title { margin: 0; }
-  .legal__updated { margin: var(--s-3) 0 0; color: var(--c-meta); font-variant-numeric: tabular-nums; }
+  .legal { padding-bottom: clamp(4rem, 2rem + 6vw, 8rem); }
+  .legal__head { position: relative; padding-block: var(--s-6) clamp(3rem, 2rem + 3vw, 5rem); overflow: clip; }
+  .legal__headin { position: relative; }
+  .legal__dateline { margin: var(--s-7) 0 var(--s-4); }
+  .legal__titlewrap { position: relative; display: inline-block; }
+  .legal__title { margin: 0; font-size: var(--fs-h2); line-height: .92; max-width: 14ch; }
+  .legal__updated { margin: var(--s-5) 0 0; display: inline-flex; gap: 8px; padding: 6px 14px; border: 2px solid var(--kk-ink); border-radius: 999px; background: var(--kk-white); font-variant-numeric: tabular-nums; }
+  .legal__stamp { position: absolute; right: var(--gutter, 24px); bottom: -20px; }
   .legal__banner {
-    margin: var(--s-6) 0 0; padding: var(--s-3) var(--s-4);
-    background: var(--kk-butter); color: var(--kk-ink);
-    border-radius: var(--r-input);
-    font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 500;
+    margin: 0; padding: 12px 0;
+    background: repeating-linear-gradient(-45deg, var(--kk-ink) 0 14px, var(--kk-saffron) 14px 28px);
+    border-block: 2px solid var(--kk-ink);
   }
-  .legal__body { margin-top: var(--s-7); }
+  .legal__banner span { display: block; width: fit-content; max-width: calc(100% - 32px); margin-inline: auto; padding: 8px 16px; background: var(--kk-saffron); color: var(--kk-ink); border: 2px solid var(--kk-ink); border-radius: 6px;
+    font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; text-align: center; }
+  .legal__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); padding-top: clamp(3rem, 2rem + 3vw, 5rem); align-items: start; }
+  .legal__body { max-width: var(--measure); }
+  .legal__toc { position: sticky; top: calc(var(--header-h) + 24px); max-width: 340px; box-shadow: var(--shadow-hard); rotate: 1deg; }
+  .legal__toc .spec__title { font-size: 1.75rem; }
+  .legal__toclist { list-style: none; margin: 8px 0 0; padding: 0; }
+  .legal__toclist li { border-bottom: 1px solid var(--kk-ink); }
+  .legal__toclist li:last-child { border-bottom: 0; }
+  .legal__toclist a { display: grid; grid-template-columns: 30px 1fr; gap: 6px; align-items: baseline; padding: 9px 0; min-height: 44px; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.4; color: var(--kk-ink); text-decoration: none; }
+  .legal__toclist a:is(:hover, :focus-visible) { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .2em; }
+  @media (min-width: 1024px) { .legal__grid { grid-template-columns: minmax(0, 1fr) 320px; column-gap: 96px; } }
+  @media (max-width: 1023px) { .legal__toc { display: none; } .legal__stamp { scale: .62; transform-origin: 100% 100%; right: 8px; bottom: -12px; } }
+  @media (prefers-reduced-motion: reduce) { .legal__toc { rotate: none; } }
 </style>

@@ -1,18 +1,28 @@
 ---
-/** "Typical deliverables" (DESIGN-SPEC 5.3 item 3): RunIn size h3, no links. */
+/** "Typical deliverables" (DESIGN-SPEC v2 10.3 F3): on the pillar's tint ground; big h2 + each deliverable as a rotated
+ * pill sticker (RunIn variant="stickers", R4 drop) + "what lands on your desk". */
 import RunIn from '../shared/RunIn.astro';
+import MarginNote from '../notes/MarginNote.astro';
 import { pillarPage } from '@/data/pillars';
+import { expertiseNotes } from '@/data/notes/expertise';
 interface Props { items: string[] }
 const { items } = Astro.props;
+// the brief lists deliverables in sentence-continuation case; a sticker starts with a capital
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
-<div class="deliv grid">
-  <h2 id="deliverables-title" class="t-h2 deliv__title c-1-4" data-reveal="lines">{pillarPage.deliverables}</h2>
-  <div class="deliv__body c-5-12" data-reveal>
-    <RunIn items={items.map((label) => ({ label }))} size="h3" />
-  </div>
+<div class="deliv has-notes">
+  <h2 id="deliverables-title" class="t-display deliv__title" data-rise>{pillarPage.deliverables}</h2>
+  <MarginNote text={expertiseNotes.deliverables.desk} arrow="arrow-bounce" rotate={-5} arrowAngle={70} place="right: 4%; top: 0.4em;" show="md" />
+  <RunIn variant="stickers" items={items.map((label) => ({ label: cap(label) }))} label={pillarPage.deliverables} class="deliv__list" />
 </div>
 <style>
-  .deliv { row-gap: var(--s-6); }
-  .deliv__title { margin: 0; }
-  .deliv__body :global(.run-in) { max-width: 28em; }
+  .deliv__title { margin: 0 0 var(--s-8); max-width: 12ch; color: var(--head); }
+  .deliv :global(.deliv__list) { gap: 26px 22px; }
+  .deliv :global(.deliv__list .run-in__sticker) {
+    padding: 18px 30px 20px; font-size: clamp(1.375rem, 1rem + 1.4vw, 2.25rem); font-stretch: 80%; font-weight: 760;
+    box-shadow: 0 0 0 6px var(--kk-white), var(--shadow-sticker);
+  }
+  .deliv :global(.deliv__list li:nth-child(5n+1) .run-in__sticker) { background: var(--kk-white); }
+  .deliv :global(.deliv__list li:nth-child(5n+3) .run-in__sticker) { background: var(--kk-saffron); }
+  @media (max-width: 767px) { .deliv__title { margin-bottom: var(--s-6); } .deliv :global(.deliv__list) { gap: 18px 12px; } }
 </style>

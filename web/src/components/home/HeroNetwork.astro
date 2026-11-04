@@ -1,91 +1,85 @@
 ---
 /**
- * The hero network (DESIGN-SPEC 5.1 fold 1, graft 1). Ships FULLY DRAWN: no-JS and reduced
- * motion see the finished network. hero.ts blooms it; dock.ts flies the cluster to the header.
- * Layers, back to front, each with a data-hero hook: discs, cluster, branches, pillars, stations.
- * 6 pillar nodes + 3 stations + the 5 logo nodes = 14 nodes (brief: 12–20).
+ * HeroNetwork (DESIGN-SPEC v2 10.1 F1, signature move 1). Decorative (aria-hidden), a toy (data-toy, data-cursor="pull").
+ * viewBox 0 0 640 600. Centre: a white die-cut sticker (r 150) holding the logo node cluster at true colours (the
+ * header's own cluster file, so dock.ts can Flip it into [data-dock-slot] with an identical box). Six pillar nodes hang
+ * off the cluster's Saffron centre on elastic strings (quadratic curves; hero.ts springs them). Ships fully drawn: no-JS
+ * and reduced motion see the finished network. The logo's five nodes never move relative to each other.
  */
-import NodeCluster from '@/components/brand/NodeCluster.astro';
+import clusterRaw from '@/assets/brand/svg/derived/horizontal-cluster.svg?raw';
 import { pillars, heroNodeLabels } from '@/data/pillars';
 import type { PillarKey } from '@/data/types';
 
-const CENTRE = { x: 333, y: 308 };   // the Saffron node of the logo cluster, in hero space
-const at: Record<PillarKey, { x: number; y: number }> = {
-  innovation: { x: 85, y: 274 },
-  process: { x: 303, y: 96 },
-  quality: { x: 553, y: 191 },
-  strategy: { x: 630, y: 350 },
-  deals: { x: 405, y: 532 },
-  capability: { x: 116, y: 433 },
-};
-const stations: { from: PillarKey; x: number; y: number }[] = [
-  { from: 'process', x: 178, y: 58 },
-  { from: 'strategy', x: 694, y: 468 },
-  { from: 'capability', x: 52, y: 560 },
-];
-// Label placement: 14px below the node, anchored away from the branch; above where the branch comes from below.
-const place: Record<PillarKey, { dx: number; above?: boolean; anchor: 'start' | 'middle' | 'end' }> = {
-  innovation: { dx: 0, above: true, anchor: 'middle' },
-  process: { dx: 0, above: true, anchor: 'middle' },
-  quality: { dx: -6, anchor: 'start' },
-  strategy: { dx: 6, anchor: 'end' },
-  deals: { dx: 0, anchor: 'middle' },
-  capability: { dx: -2, anchor: 'start' },
-};
-const nodes = pillars.map((p) => ({ key: p.key, ink: p.inkText, label: heroNodeLabels[p.key], ...at[p.key] }));
-// Logo discs at the cluster's scale (300 / 570 = 0.526), offset by the nested svg origin (190, 150).
-const k = 300 / 570;
-const disc = (cx: number, cy: number, r: number) => ({ cx: +(190 + (cx - 20) * k).toFixed(1), cy: +(150 + (cy - 15) * k).toFixed(1), r: +(r * k).toFixed(1) });
-const discs = [
-  { ...disc(262, 208, 185), fill: 'var(--kk-lavender)' },
-  { ...disc(210, 392, 185), fill: 'var(--kk-ice)' },
-  { ...disc(396, 356, 180), fill: 'var(--kk-butter)' },
-];
+const C = { x: 320, y: 300 };
+const R = 248;
+const ANG: Record<PillarKey, number> = { innovation: 200, process: 255, quality: 315, strategy: 15, deals: 75, capability: 135 };
+// cluster box: 230 wide, aspect 570 × 615 (viewBox 20 −25 570 615); placed so its Saffron node (291, 316) sits on C
+const CW = 230, k = CW / 570, CH = Math.round(615 * k);
+const cx = +(C.x - (291 - 20) * k).toFixed(1), cy = +(C.y - (316 + 25) * k).toFixed(1);
+const inner = clusterRaw.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+id="[^"]*"/g, '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
+
+const nodes = pillars.map((p) => {
+  const a = (ANG[p.key] * Math.PI) / 180;
+  const x = +(C.x + R * Math.cos(a)).toFixed(1), y = +(C.y + R * Math.sin(a)).toFixed(1);
+  const label = heroNodeLabels[p.key].toUpperCase();
+  const w = Math.round(label.length * 7.6 + 22);
+  // label pill below the node, or above for nodes in the top half
+  const above = y < C.y - 60;
+  const ly = above ? y - 36 - 26 : y + 34;
+  let lx = x - w / 2;
+  lx = Math.max(4, Math.min(640 - 4 - w, lx));
+  return { key: p.key, x, y, label, w, lx, ly };
+});
+const mx = (n: { x: number; y: number }) => ({ qx: +((C.x + n.x) / 2).toFixed(1), qy: +((C.y + n.y) / 2 + 14).toFixed(1) });
 ---
-<svg class="hero-network" viewBox="0 0 720 640" aria-hidden="true" focusable="false" data-hero-network>
-  <g data-hero="discs">
-    {discs.map((d) => <circle cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} fill-opacity="0.6" />)}
+<svg class="hero-network" viewBox="0 0 640 600" aria-hidden="true" focusable="false" data-hero-network data-toy data-cursor="pull">
+  <g data-hero="sticker" class="hn-sticker">
+    <circle cx={C.x + 4} cy={C.y + 12} r="152" class="hn-sticker__shadow" />
+    <circle cx={C.x} cy={C.y} r="152" class="hn-sticker__edge" />
+    <circle cx={C.x} cy={C.y} r="146" class="hn-sticker__face" />
+    <circle cx={C.x} cy={C.y} r="132" class="hn-sticker__dash" />
   </g>
 
-  <g data-hero="cluster" transform="translate(190 150)">
-    <NodeCluster size={300} discs={false} class="hero-network__cluster" />
+  <g data-hero="strings" data-hero-hide class="hn-strings">
+    {nodes.map((n) => { const q = mx(n); return <path data-string={n.key} d={`M${C.x} ${C.y} Q${q.qx} ${q.qy} ${n.x} ${n.y}`} />; })}
   </g>
 
-  <g data-hero="branches" data-hero-hide class="hn-branches">
-    {nodes.map((n) => <line data-branch={n.key} x1={CENTRE.x} y1={CENTRE.y} x2={n.x} y2={n.y} />)}
-  </g>
-
-  <g data-hero="stations" data-hero-hide class="hn-stations">
-    {stations.map((s) => <line class="hn-station-line" x1={at[s.from].x} y1={at[s.from].y} x2={s.x} y2={s.y} />)}
-    {stations.map((s) => <circle class="hn-station" cx={s.x} cy={s.y} r="3.75" />)}
+  <g data-hero="cluster">
+    <svg class="hn-cluster" x={cx} y={cy} width={CW} height={CH} viewBox="20 -25 570 615" set:html={inner} />
   </g>
 
   <g data-hero="pillars" data-hero-hide class="hn-pillars">
     {nodes.map((n) => (
-      <g class="hn-pillar" data-p={n.key} style={`--pc:var(--pillar-${n.key})`}>
-        <g class="hn-node">
-          <circle class="hn-ring" cx={n.x} cy={n.y} r="8.5" stroke={n.ink ? 'var(--kk-ink)' : `var(--pillar-${n.key})`} />
-          <circle cx={n.x} cy={n.y} r="7" fill="#fff" />
-          <circle cx={n.x} cy={n.y} r="6" fill={`var(--pillar-${n.key})`} />
+      <g class="hn-pillar" data-p={n.key} data-x={n.x} data-y={n.y}>
+        <g class="hn-label" transform={`translate(${n.lx} ${n.ly})`}>
+          <rect width={n.w} height="26" rx="13" />
+          <text x={n.w / 2} y="17.5" text-anchor="middle">{n.label}</text>
         </g>
-        <text class="node-label" x={n.x + place[n.key].dx} y={place[n.key].above ? n.y - 18 : n.y + 14 + 13} text-anchor={place[n.key].anchor}>{n.label}</text>
+        <g class="hn-node">
+          <circle cx={n.x} cy={n.y} r="26" class="hn-hit" />
+          <circle cx={n.x} cy={n.y} r="24.5" fill="none" stroke="var(--kk-ink)" stroke-width="1.5" />
+          <circle cx={n.x} cy={n.y} r="23.75" fill="#fff" />
+          <circle cx={n.x} cy={n.y} r="18" fill={`var(--pillar-${n.key})`} />
+        </g>
       </g>
     ))}
   </g>
 </svg>
 
 <style>
-  .hero-network { display: block; width: 100%; height: auto; overflow: visible; }
-  .hn-branches line { stroke: var(--c-line); stroke-width: 1.5; stroke-linecap: round; fill: none; }
-  .hn-station-line { stroke: var(--c-line); stroke-opacity: 0.55; stroke-width: 1; stroke-linecap: round; fill: none; }
-  .hn-station { fill: #fff; stroke: var(--c-line); stroke-width: 1.5; }
-  .hn-ring { fill: none; stroke-width: 1; }
-  .hn-node { transform-box: fill-box; transform-origin: center; }
-  .node-label {
-    font-family: var(--font-sans); font-weight: 500; font-size: 14px; letter-spacing: 0;
-    fill: var(--kk-graphite); fill-opacity: 0.7;
-  }
+  .hero-network { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+  .hn-sticker__shadow { fill: rgba(18, 24, 51, .16); }
+  .hn-sticker__edge { fill: #fff; stroke: var(--kk-ink); stroke-width: 1.5; }
+  .hn-sticker__face { fill: #fff; }
+  .hn-sticker__dash { fill: none; stroke: var(--kk-hairline); stroke-width: 1.5; stroke-dasharray: 3 7; }
+  .hn-strings path { fill: none; stroke: var(--kk-ink); stroke-width: 3; stroke-linecap: round; }
+  .hn-cluster { overflow: visible; }
+  .hn-node { cursor: grab; transform-box: fill-box; transform-origin: center; }
+  .hn-hit { fill: transparent; }
+  .hn-label rect { fill: #fff; stroke: var(--kk-ink); stroke-width: 1.5; }
+  .hn-label text { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; letter-spacing: .06em; fill: var(--kk-ink); }
+  .hero-network.is-grabbing, .hero-network.is-grabbing .hn-node { cursor: grabbing; }
   @media (max-width: 767px) {
-    .node-label, .hn-stations { display: none; }
+    .hn-label { display: none; }
   }
 </style>

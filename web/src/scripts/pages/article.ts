@@ -80,8 +80,22 @@ export default function initArticle(ctx: MotionContext): void {
 
   ctx.mm.add('(prefers-reduced-motion: no-preference)', () => {
     const scrub = { trigger: body, start: 'top top+=72', end: 'bottom bottom', scrub: true } as const;
-    gsap.fromTo('[data-progress]', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: scrub });
+    const bar = document.querySelector<HTMLElement>('[data-progress]');
+    if (bar) {
+      const st = { p: 0 };
+      gsap.to(st, { p: 1, ease: 'none', scrollTrigger: scrub, onUpdate: () => bar.style.setProperty('--p', st.p.toFixed(4)) });
+    }
     if (segment) gsap.fromTo(segment, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { ...scrub } });
-    ScrollTrigger.refresh();
+
+    // ProcessChain: wipe the hand line on, then pop the station nodes in order (the highlight lands as a sticker)
+    document.querySelectorAll<HTMLElement>('[data-pc]').forEach((pc) => {
+      const line = pc.querySelector<SVGElement>('[data-pc-line]');
+      const nodes = pc.querySelectorAll<HTMLElement>('.pc__node');
+      const tl = gsap.timeline({ paused: true });
+      if (line && getComputedStyle(line).display !== 'none') tl.fromTo(line, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.1, ease: 'power2.inOut' }, 0);
+      tl.fromTo(nodes, { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(2.4)', stagger: 0.16, clearProps: 'scale,opacity' }, 0.1);
+      ScrollTrigger.create({ trigger: pc, start: 'top 82%', once: true, onEnter: () => tl.play() });
+    });
+    // (the motion bootstrap runs one ScrollTrigger.refresh() after every page module)
   });
 }
