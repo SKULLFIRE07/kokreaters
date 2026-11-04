@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+  KoKreaters Open Graph card (DESIGN-SPEC 9, W3-og-seo). 1200×627.
+  Rendered by scripts/og.mjs through headless Chrome; never shipped as a page.
+  Twilight gradient is allowed here because OG images are off-site (C-19).
+  og.mjs fills the OVERLINE, TITLE and CLUSTER placeholders below. Fonts and the reversed wordmark are served by og.mjs.
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200, height=627">
+<style>
+  @font-face {
+    font-family: "Fraunces";
+    src: url("/fonts/fraunces-latin-opsz-normal.woff2") format("woff2-variations");
+    font-weight: 100 900; font-style: normal; font-display: block;
+  }
+  @font-face {
+    font-family: "Instrument Sans";
+    src: url("/fonts/instrument-sans-latin-wght-normal.woff2") format("woff2-variations");
+    font-weight: 400 700; font-style: normal; font-display: block;
+  }
+  :root {
+    --kk-imperial: #3A1C5C; --kk-sapphire: #2C509E; --kk-lavender: #EADCFF; --kk-white: #FFFFFF;
+    --kk-twilight: linear-gradient(180deg, #3A1C5C 0%, #2C509E 100%);
+    --kk-white-20: rgba(255, 255, 255, 0.20);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 627px; overflow: hidden; }
+  body {
+    background: var(--kk-imperial);
+    -webkit-font-smoothing: antialiased; font-kerning: normal;
+    font-family: "Instrument Sans", Arial, sans-serif;
+    color: var(--kk-white);
+  }
+  .card {
+    position: relative; width: 1200px; height: 627px; padding: 72px;
+    background: var(--kk-twilight);
+    display: grid; grid-template-rows: auto 1fr auto; row-gap: 32px;
+  }
+  .wordmark { display: block; height: 40px; width: auto; }
+  .body { align-self: center; max-width: 900px; }
+  .overline {
+    font-weight: 600; font-size: 18px; line-height: 24px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--kk-lavender); margin-bottom: 20px;
+  }
+  .title {
+    font-family: "Fraunces", Georgia, serif; font-optical-sizing: auto;
+    font-weight: 330; font-size: 64px; line-height: 1.08; letter-spacing: -0.02em;
+    color: var(--kk-white); text-wrap: balance;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .foot {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-top: 1px solid var(--kk-white-20); padding-top: 24px; margin-right: 0;
+  }
+  .domain { font-weight: 600; font-size: 24px; line-height: 1; color: var(--kk-lavender); letter-spacing: 0.005em; padding-bottom: 6px; }
+  .cluster { position: absolute; right: 72px; bottom: 56px; width: 120px; height: 120px; }
+  .cluster svg { display: block; width: 120px; height: 120px; overflow: visible; }
+  .foot { margin-right: 152px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="wordmark" src="/wordmark-white.png" alt="">
+    <div class="body">
+      <p class="overline">{{OVERLINE}}</p>
+      <h1 class="title" id="title">{{TITLE}}</h1>
+    </div>
+    <div class="foot"><span class="domain">kokreaters.com</span></div>
+    <div class="cluster">{{CLUSTER}}</div>
+  </div>
+  <script>
+    // Keep the title to three lines: step down only if 64px overflows (long article titles).
+    (async function () {
+      await document.fonts.ready;
+      var t = document.getElementById('title');
+      var size = 64;
+      while (size > 48 && t.getBoundingClientRect().height > size * 1.08 * 3 + 1) { size -= 4; t.style.fontSize = size + 'px'; }
+      document.body.setAttribute('data-ready', String(size));
+    })();
+  </script>
+</body>
+</html>

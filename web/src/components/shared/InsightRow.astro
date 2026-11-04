@@ -39,6 +39,7 @@ const isDraft = d.status === 'draft' || d.review === 'pending';
   .insight-row__meta .t-dateline { margin: 0; }
   .insight-row__title { transition: color var(--d-colour) var(--ease-out); }
   .insight-row__link:is(:hover, :focus-visible) .insight-row__title { color: var(--c-link); }
-  .insight-row__standfirst { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+  /* Full standfirst (brief copy is never truncated, W3-tests finding 4); one line where the row is wide enough. */
+  .insight-row__standfirst { display: block; max-width: 72ch; text-wrap: pretty; }
   .insight-row__pillar { display: inline-flex; align-items: center; gap: var(--s-2); }
 </style>

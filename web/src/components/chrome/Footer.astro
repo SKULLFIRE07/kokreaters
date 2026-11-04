@@ -89,7 +89,7 @@ import { site } from '@/config/site';
   .site-footer a:hover { color: var(--c-highlight-dark); }
   .site-footer__icon { display: inline-flex; width: 14px; height: 14px; }
   .site-footer__icon svg { width: 14px; height: 14px; }
-  .site-footer__base { color: var(--c-on-dark-muted); padding-block: 10px; }
+  .site-footer__base { color: var(--c-on-dark-muted); padding-block: 10px; text-wrap: balance; }
   .site-footer__col--news { color: rgb(255 255 255 / 0.9); }
 
   .site-footer__bottom {
@@ -106,5 +106,10 @@ import { site } from '@/config/site';
   }
   .site-footer__settings:hover { color: var(--c-highlight-dark); }
   .site-footer__sep { color: var(--c-on-dark-muted); opacity: 0.7; }
+  /* Below 768px the legal row wraps; a dot would be left hanging at a line end, so the row becomes a spaced list. */
+  @media (max-width: 767px) {
+    .site-footer__legal { column-gap: var(--s-5); }
+    .site-footer__sep { display: none; }
+  }
   .site-footer__reg { margin: 0; }
 </style>

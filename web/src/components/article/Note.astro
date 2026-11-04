@@ -8,7 +8,7 @@
 interface Props { n: number | string; }
 const { n } = Astro.props;
 ---
-<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote note" role="note"><span class="note__n tnum" aria-hidden="true">{n}</span><span class="note__text"><slot /></span></span>
+{"\u2060"}<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote note" role="note"><span class="note__n tnum" aria-hidden="true">{n}</span><span class="note__text"><slot /></span></span>
 <style>
   .note-ref { font-family: var(--font-sans); font-weight: 600; font-size: 0.68em; line-height: 0; vertical-align: super; margin-left: 1px; }
   .note-ref a { display: inline-block; padding: 0 2px; color: var(--c-link); text-decoration: none; }

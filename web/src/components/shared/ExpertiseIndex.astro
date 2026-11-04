@@ -47,8 +47,8 @@ const { size = 'home', showHelp = false, class: cls } = Astro.props;
   .x-text { display: flex; flex-direction: column; gap: var(--s-2); }
   .x-num-sm { display: none; }
   .x-name { transition: color var(--d-colour) var(--ease-out); }
-  .x-promise { color: var(--c-meta); }
-  .x-help { color: var(--c-meta); max-width: 60ch; }
+  .x-promise { color: var(--c-meta); text-wrap: pretty; }
+  .x-help { color: var(--c-meta); max-width: 60ch; text-wrap: pretty; }
   .x-arrow { color: var(--c-link); justify-self: end; padding-top: 0.5em; }
   .x-arrow :global(svg) { transition: transform 240ms var(--ease-out); }
   .x-row:is(:hover, :focus-visible) .x-arrow :global(svg) { transform: translateX(8px); }

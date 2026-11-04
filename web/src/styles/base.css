@@ -29,6 +29,8 @@ body {
 }
 
 .t-display { font-size: var(--fs-display); line-height: var(--lh-display); font-weight: var(--wght-display); letter-spacing: var(--track-display); }
+/* At ≥ 1280px the display size is 74–80px, where Fraunces' optical size is ~12% narrower than Georgia: use the narrower fallback face (fonts.css). */
+@media (min-width: 1280px) { .t-display { font-family: "Fraunces", "Fraunces Display Fallback", Georgia, serif; } }
 :where(h1), .t-h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--wght-h1); letter-spacing: var(--track-h1); }
 :where(h2), .t-h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--wght-h2); letter-spacing: var(--track-h2); }
 .t-index { font-size: var(--fs-index); line-height: var(--lh-index); font-weight: var(--wght-index); letter-spacing: var(--track-h2); }

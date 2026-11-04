@@ -43,7 +43,16 @@ import { microcopy } from '@/data/microcopy';
   .globe-section__places li { break-inside: avoid; padding-block: 2px; }
   .globe { position: relative; width: 100%; max-width: 640px; margin-inline: auto; aspect-ratio: 1 / 1; }
   .globe :global(.globe__static) { display: block; width: 100%; height: 100%; }
-  .globe :global(canvas) { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .globe :global(canvas) { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  /* W3-globe: HTML labels positioned by scene.ts each render (aria-hidden; the <ol> carries the names). */
+  .globe :global(.globe__labels) { position: absolute; inset: 0; pointer-events: none; }
+  .globe :global(.globe__label) {
+    position: absolute; left: 0; top: 0; white-space: nowrap;
+    font-family: var(--font-sans); font-size: var(--fs-meta); line-height: 1.2; font-weight: 500;
+    color: var(--c-text); text-shadow: 0 0 2px var(--kk-white), 0 0 4px var(--kk-white);
+    opacity: 0; transition: opacity var(--d-ui-in) var(--ease-out);
+  }
+  .globe :global(.globe__label.is-on) { opacity: 1; }
 
   @media (min-width: 1024px) {
     /* Only with motion allowed (and not failed) does the section become a 160vh scroll stage. */
@@ -52,6 +61,7 @@ import { microcopy } from '@/data/microcopy';
       position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h));
       display: flex; align-items: center;
     }
-    :global(html.motion:not(.motion-failed)) .globe { max-height: calc(100vh - var(--header-h) - 2 * var(--s-7)); width: auto; }
+    /* Stay square inside the sticky stage, so the static SVG and the canvas share one box. */
+    :global(html.motion:not(.motion-failed)) .globe { width: min(100%, 640px, calc(100vh - var(--header-h) - 2 * var(--s-7))); }
   }
 </style>

@@ -5,11 +5,11 @@ const { items, size = 'h3', class: cls, label } = Astro.props;
 ---
 <ul class:list={['run-in', `run-in--${size}`, cls]} aria-label={label}>
   {items.map((it, i) => (
-    <li>{it.href ? <a href={it.href}>{it.label}</a> : it.label}{i < items.length - 1 && <span class="run-in__sep" aria-hidden="true"> · </span>}</li>
+    <li>{it.href ? <a href={it.href}>{it.label}</a> : it.label}{i < items.length - 1 && <span class="run-in__sep" aria-hidden="true">{"\u00A0· "}</span>}</li>
   ))}
 </ul>
 <style>
-  .run-in { list-style: none; margin: 0; padding: 0; max-width: 26em; color: var(--c-heading); }
+  .run-in { list-style: none; margin: 0; padding: 0; max-width: 26em; color: var(--c-heading); text-wrap: balance; }
   .run-in li { display: inline; }
   .run-in--h3 { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.45; font-weight: var(--wght-h3); letter-spacing: var(--track-h3); }
   .run-in--lead { font-family: var(--font-sans); font-size: var(--fs-lead); line-height: var(--lh-lead); max-width: var(--measure-lead); }

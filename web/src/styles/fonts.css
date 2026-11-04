@@ -17,6 +17,15 @@
   font-weight: 400 700; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-/* Metric-matched fallbacks so the swap does not shift layout (CLS < 0.05). Tune size-adjust by measuring the H1 box at 1440 and 390 with and without webfonts; ±1% is acceptable. */
-@font-face { font-family: "Fraunces Fallback"; src: local("Georgia"); size-adjust: 104%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
-@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"); size-adjust: 96%; ascent-override: 98%; descent-override: 25%; line-gap-override: 0%; }
+/* Metric-matched fallbacks so the swap does not shift layout (CLS < 0.05).
+   Tuned by W3-polish (4 Nov 2026): widths measured in Chrome against Liberation Sans (Arial metrics) and
+   Liberation Serif scaled by the Georgia/Times average-width ratio (capsize xWidthAvg 913/832 = 1.098).
+   - Instrument Sans 400 is 103.5% of Arial (600: 98.3%) → 103%.
+   - Fraunces (opsz auto) is 101–105% of Georgia at 19–40px, 97–99% at 44–60px and 88% at 80px,
+     because its optical size narrows the display cut. Text/heading fallback 102% (the 38–40px mobile H1s and H2s sit at 101–103%); the home display H1
+     gets its own 92% face from 1280px (see .t-display in base.css).
+   ascent/descent overrides are the webfont's own (Fraunces 1956/510 per 2000, Instrument 970/250 per 1000)
+   divided by size-adjust, so the baseline sits where the webfont puts it. */
+@font-face { font-family: "Fraunces Fallback"; src: local("Georgia"); size-adjust: 102%; ascent-override: 95.9%; descent-override: 25%; line-gap-override: 0%; }
+@font-face { font-family: "Fraunces Display Fallback"; src: local("Georgia"); size-adjust: 92%; ascent-override: 106.3%; descent-override: 27.7%; line-gap-override: 0%; }
+@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"); size-adjust: 103%; ascent-override: 94.2%; descent-override: 24.3%; line-gap-override: 0%; }

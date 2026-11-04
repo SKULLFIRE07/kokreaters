@@ -49,7 +49,7 @@ const titleId = `case-${result.id}-title`;
 <article id={result.id} class="case" aria-labelledby={titleId}>
   <span class="case__rule rule" data-rule aria-hidden="true"></span>
   <div class="case__grid grid">
-    <p class="case__context t-dateline c-1-3">{result.context}</p>
+    <p class="case__context t-dateline c-1-3">{result.context.replaceAll(' · ', '\u00A0· ')}</p>
     <h2 id={titleId} class="case__outcome t-index c-4-12">{result.outcome}</h2>
 
     <dl class="case__dl c-1-12" data-reveal>

@@ -14,7 +14,7 @@ const tid = `exhibit-${n}-title`;
     <p class="exhibit__title" id={tid}>{title}</p>
     {subtitle && <p class="exhibit__subtitle t-meta">{subtitle}</p>}
   </div>
-  <div class="exhibit__body table-wrap"><slot /></div>
+  <div class="exhibit__body table-wrap" tabindex="0" role="region" aria-labelledby={tid}><slot /></div>
   <figcaption class="exhibit__source">{microcopy.source}: {source}</figcaption>
 </figure>
 <style>
