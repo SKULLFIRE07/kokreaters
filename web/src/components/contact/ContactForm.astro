@@ -103,6 +103,14 @@ const d = contactPage.done;
       </div>
 
       <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+      {site.formEndpoint && (
+        <>
+          {/* Delivery settings read by the form service (FormSubmit / Formspree): email subject, table layout, no captcha page, reply-to = sender. */}
+          <input type="hidden" name="_subject" value="New enquiry from kokreaters.com" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+        </>
+      )}
       <input type="hidden" name="started_at" value="" data-started-at />
       {site.turnstileSiteKey && <div class="cf-turnstile cf__turnstile" data-sitekey={site.turnstileSiteKey}></div>}
 
