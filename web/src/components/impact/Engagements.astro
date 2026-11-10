@@ -1,0 +1,45 @@
+---
+/**
+ * KoKreaters engagements, anonymised (REDESIGN-V3 §4 Impact, §8.5). Renders only entries with consent 'cleared', plus
+ * the 'pending' ones in staging (`showPendingConsent`); renders nothing when none qualify. Today all three are pending,
+ * so preview and production show no section at all. Each entry is a ResultCard (eyebrow "KoKreaters engagement", the
+ * anonymised text as h3, expertise as small tags). Staging adds "Pending client consent" + its Confirm id under the
+ * card (C-12 for eu-minerals, 6 for the two Indian engagements), and the testimonials gap (CONFIRM 8).
+ * Desktop: 3-up card grid. Tablet: 2-up. Mobile: one column, cards full width.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ResultCard from '@/components/cards/ResultCard.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { engagements, impactPage, testimonials } from '@/data/impact';
+import { microcopy } from '@/data/microcopy';
+import { getPillar } from '@/lib/pillars';
+import { showConfirm, showPendingConsent } from '@/lib/mode';
+
+interface Props { ground?: 'white' | 'grey' }
+const { ground = 'grey' } = Astro.props;
+const visible = engagements.filter((e) => e.consent === 'cleared' || showPendingConsent);
+const confirmFor = (id: string) => (id === 'eu-minerals' ? 'C-12' : 6);
+const noTestimonials = testimonials.filter((t) => t.permission === true).length === 0;
+---
+{visible.length > 0 && (
+  <Section ground={ground} labelledby="part-engagements">
+    <SectionHeader id="part-engagements" title={impactPage.partTwo} />
+    <ul class="card-grid eng" role="list">
+      {visible.map((e, i) => (
+        <li data-reveal style={`--i:${i}`} data-engagement={e.id} data-consent={e.consent}>
+          <ResultCard eyebrow={`${impactPage.engagementDateline}\u00A0· ${impactPage.anonymised}`} title={e.text} tags={e.pillars.map((k) => getPillar(k).name)} />
+          {e.consent !== 'cleared' && showConfirm && (
+            <p class="eng__pending">{microcopy.pendingConsent} <Confirm id={confirmFor(e.id)} /></p>
+          )}
+        </li>
+      ))}
+    </ul>
+    {showConfirm && noTestimonials && <p class="eng__pending eng__gap"><Confirm id={8} note="testimonials with written permission" /></p>}
+  </Section>
+)}
+<style>
+  .eng > li > .eng__pending { flex: 0 0 auto; }
+  .eng__pending { margin-top: var(--s-3); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .eng__gap { margin-top: var(--s-6); }
+</style>

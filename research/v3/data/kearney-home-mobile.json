@@ -1,0 +1,562 @@
+{
+ "slug": "kearney-home",
+ "viewport": "mobile",
+ "url": "https://www.kearney.com/",
+ "status": 200,
+ "cookie": null,
+ "titleSeen": "Global Management Consulting Firm | Kearney",
+ "bodyTextStart": "Skip to main content Skip to footer Open Accessibility Menu This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising. To learn more, view the following link: Cookie Policy Skip to Main Content Inf",
+ "m": {
+  "url": "https://www.kearney.com/",
+  "title": "Global Management Consulting Firm | Kearney",
+  "vw": 390,
+  "vh": 844,
+  "pageHeight": 3862,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "Graphik Web",
+   "size": "16px",
+   "lh": "24px",
+   "color": "rgb(30, 30, 30)",
+   "bg": "rgb(245, 245, 245)"
+  },
+  "h1": [],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "COO ambition is outrunning execution across value chains",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 36,
+    "lh": "44px",
+    "ls": "normal",
+    "weight": "600",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 350
+   }
+  ],
+  "h3": [],
+  "h4": [
+   {
+    "tag": "h4",
+    "text": "",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "26px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 350
+   }
+  ],
+  "pHist": [
+   [
+    "Graphik Web|16px|24px|400|normal",
+    164
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "COO ambition is outrunning execution across value",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 164
+   },
+   {
+    "tag": "p",
+    "text": "A century of moments that changed everything",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 325
+   },
+   {
+    "tag": "p",
+    "text": "What next? Leadership through sustained disequilibrium June 28–30, 2026",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 350
+   }
+  ],
+  "typeHist": [
+   [
+    "sans:Helvetica|16px|w400|lh20px|lsnormal|none",
+    212
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh24px|lsnormal|none",
+    143
+   ],
+   [
+    "sans:Graphik Web|14px|w400|lh18px|lsnormal|none",
+    130
+   ],
+   [
+    "sans:Graphik Web|14px|w400|lh15px|lsnormal|none",
+    73
+   ],
+   [
+    "sans:Graphik Web|24px|w400|lh30px|lsnormal|none",
+    72
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh26px|lsnormal|none",
+    61
+   ],
+   [
+    "sans:EQ-Nunito Sans|15px|w500|lh22.5px|lsnormal|none",
+    57
+   ],
+   [
+    "sans:Graphik Web|36px|w600|lh44px|lsnormal|none",
+    56
+   ],
+   [
+    "sans:Graphik Web|22px|w400|lh33px|lsnormal|none",
+    47
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh18px|lsnormal|none",
+    42
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh38px|lsnormal|none",
+    37
+   ],
+   [
+    "sans:Graphik Web|16px|w100|lh26px|lsnormal|none",
+    35
+   ]
+  ],
+  "labels": [
+   [
+    "Graphik Web|14px|w400|lsnormal|none|rgb(204, 204, 204)",
+    {
+     "n": 6,
+     "ex": [
+      "Site map",
+      "Privacy policy",
+      "Legal disclaimer"
+     ]
+    }
+   ],
+   [
+    "Graphik Web|14px|w400|lsnormal|none|rgb(255, 255, 255)",
+    {
+     "n": 1,
+     "ex": [
+      "The future consumer"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 0,
+   "pos": "fixed",
+   "bg": "rgb(255, 255, 255)",
+   "borderBottom": "0px none rgb(30, 30, 30)",
+   "boxShadow": "none",
+   "cls": "headerTopCorner"
+  },
+  "headerLinks": [],
+  "logo": {
+   "w": 0,
+   "h": 0,
+   "x": 0,
+   "y": 0
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "20",
+    8
+   ],
+   [
+    "52",
+    1
+   ],
+   [
+    "195",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "20",
+    5
+   ],
+   [
+    "45",
+    2
+   ],
+   [
+    "31",
+    1
+   ],
+   [
+    "206",
+    1
+   ],
+   [
+    "251",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "div",
+    "cls": "flipped",
+    "top": 0,
+    "h": 3862,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 8,
+    "pb": 8,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "",
+    "headingOffset": 362,
+    "imgs": 51
+   }
+  ],
+  "buttons": [
+   [
+    "h54|r16px|p13px 25px|15px|w500|none|lsnormal|bgrgb(255, 255, 255)|crgb(0, 10, 20)|bd2px rgb(0, 10, 20)",
+    {
+     "n": 3,
+     "ex": [
+      "Skip to main content",
+      "Skip to footer",
+      "Open Accessibility Menu"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Skip to main content",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Skip to footer",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Cookie Policy",
+    "family": "Helvetica",
+    "cat": "sans",
+    "size": 16,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(172, 172, 172)",
+    "maxW": 97
+   },
+   {
+    "tag": "a",
+    "text": "Learn more",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "38px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(120, 35, 220)",
+    "maxW": 87
+   },
+   {
+    "tag": "a",
+    "text": "Be a Kearney Original",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 350
+   },
+   {
+    "tag": "a",
+    "text": "Learn more",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "38px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(120, 35, 220)",
+    "maxW": 87
+   }
+  ],
+  "dividers": [
+   [
+    "Top|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Bottom|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Left|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Top|2px|rgb(255, 255, 255)",
+    2
+   ],
+   [
+    "Bottom|2px|rgb(255, 255, 255)",
+    2
+   ],
+   [
+    "Top|2px|rgb(120, 35, 220)",
+    2
+   ],
+   [
+    "Bottom|2px|rgb(120, 35, 220)",
+    2
+   ],
+   [
+    "Bottom|1px|rgb(219, 219, 219)",
+    1
+   ]
+  ],
+  "cards": [
+   {
+    "w": 390,
+    "h": 794,
+    "imgW": 390,
+    "imgH": 794,
+    "ratio": 0.49,
+    "imgFilter": "none",
+    "title": "COO ambition is outrunning execution across value chains",
+    "titleSize": "36px",
+    "titleLh": "44px",
+    "titleW": "600",
+    "titleFam": "Graphik Web",
+    "titleGapFromImg": -565,
+    "label": null,
+    "cardBg": "rgb(30, 30, 30)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(120, 35, 220)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 350,
+    "h": 418,
+    "imgW": 0,
+    "imgH": 0,
+    "ratio": 0,
+    "imgFilter": "none",
+    "title": "Celebrating 100 Years of Impact",
+    "titleSize": "16px",
+    "titleLh": "26px",
+    "titleW": "100",
+    "titleFam": "Graphik Web",
+    "titleGapFromImg": 10,
+    "label": null,
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(30, 30, 30)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 668,
+    "imgW": 390,
+    "imgH": 325,
+    "ratio": 1.2,
+    "imgFilter": "none",
+    "title": "What next? Leadership through sustained disequilibrium\nJune ",
+    "titleSize": "16px",
+    "titleLh": "24px",
+    "titleW": "400",
+    "titleFam": "Graphik Web",
+    "titleGapFromImg": 131,
+    "label": null,
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(30, 30, 30)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(30, 30, 30)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 0,
+   "linkSize": null,
+   "linkColor": null,
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    "1853k px2"
+   ],
+   [
+    "rgb(30, 30, 30)",
+    "1256k px2"
+   ],
+   [
+    "rgb(245, 245, 245)",
+    "109k px2"
+   ],
+   [
+    "rgb(50, 50, 50)",
+    "80k px2"
+   ],
+   [
+    "rgb(120, 35, 220)",
+    "59k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(255, 255, 255)",
+    563
+   ],
+   [
+    "rgb(204, 204, 204)",
+    135
+   ],
+   [
+    "rgb(0, 0, 0)",
+    124
+   ],
+   [
+    "rgb(0, 10, 20)",
+    57
+   ],
+   [
+    "rgb(120, 35, 220)",
+    38
+   ],
+   [
+    "rgb(30, 30, 30)",
+    35
+   ],
+   [
+    "rgb(172, 172, 172)",
+    13
+   ]
+  ],
+  "fontsLoaded": [
+   "Graphik Web normal",
+   "Graphik Web 100",
+   "Graphik Web bold",
+   "Graphik Web 600"
+  ],
+  "navText": [
+   "Skip to Main Content"
+  ],
+  "imgRatios": [
+   [
+    "1.20",
+    4
+   ],
+   [
+    "4.96",
+    1
+   ],
+   [
+    "0.49",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 0,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgb(255, 255, 255)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": " osano-cm-info__info-dialog-header osano-cm-info-dialog-head",
+    "h": 52,
+    "bg": "rgba(0, 0, 0, 0)",
+    "shadow": "none"
+   },
+   {
+    "cls": "headerTopCorner",
+    "h": 51,
+    "bg": "rgb(255, 255, 255)",
+    "shadow": "none"
+   }
+  ]
+ },
+ "menuButton": {
+  "label": "Open Accessibility Menu",
+  "w": 320,
+  "h": 54,
+  "x": 30
+ },
+ "menuItems": [
+  {
+   "t": "Cookie Policy",
+   "size": "16px",
+   "w": "400",
+   "h": 20
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 33
+  }
+ ]
+}

@@ -1,0 +1,66 @@
+---
+/**
+ * Article share row (REDESIGN-V3 §4 article), after the body: the expertise area this piece belongs to (Tag link to
+ * its expertise page), LinkedIn share (share-offsite URL), email (mailto with title + standfirst + URL) and
+ * "Download PDF" (scripts/pages/article.ts → window.print(); the print stylesheet lays the article out as a document).
+ * Plain links only (CSP: no third-party widgets). The PDF button needs JS, so it is .js-only.
+ * A print-only line carries the canonical URL onto paper.
+ * Two aligned rows (label column 6.5rem): Expertise · its tag; Share · LinkedIn, Email … Download PDF (pushed right).
+ * Mobile: each label sits above its row; buttons wrap, each 48px tall; Download PDF drops to its own line when needed.
+ */
+import Tag from '@/components/ui/Tag.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import { articleCopy } from '@/data/insights';
+import { microcopy } from '@/data/microcopy';
+interface Props { url: string; title: string; summary: string; pillar: { name: string; href: string }; }
+const { url, title, summary, pillar } = Astro.props;
+const linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const mail = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${summary}\n\n${url}`)}`;
+---
+<div class="share">
+  <div class="share__row">
+    <p class="share__label t-label" id="share-expertise">{articleCopy.expertise}</p>
+    <div class="share__items"><Tag href={pillar.href} aria-describedby="share-expertise">{pillar.name}</Tag></div>
+  </div>
+  <div class="share__row share__row--share">
+    <p class="share__label t-label" id="share-label">{articleCopy.share}</p>
+    <div class="share__items">
+      <ul class="share__list" role="list" aria-labelledby="share-label">
+        <li>
+          <a class="share__btn" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${articleCopy.shareLinkedInLabel} (${microcopy.opensLinkedIn})`}>
+            <Icon name="linkedin" size={18} /><span>{articleCopy.shareLinkedIn}</span>
+          </a>
+        </li>
+        <li>
+          <a class="share__btn" href={mail} aria-label={articleCopy.shareEmailLabel}>
+            <Icon name="mail" size={18} /><span>{articleCopy.shareEmail}</span>
+          </a>
+        </li>
+      </ul>
+      <Button variant="secondary" icon="download" class="share__pdf js-only" data-print>{articleCopy.downloadPdf}</Button>
+    </div>
+  </div>
+  <p class="share__url">{url}</p>
+</div>
+<style>
+  .share { display: grid; gap: var(--s-4); padding-block: var(--s-5); border-top: 2px solid var(--rule-strong); border-bottom: 1px solid var(--rule); }
+  .share__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); align-items: center; }
+  .share__label { margin: 0; color: var(--fg-2); }
+  .share__items { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+  .share__row--share .share__items { justify-content: space-between; }
+  .share__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .share__btn {
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 48px; padding: 0 var(--s-4);
+    border: 1px solid var(--rule); border-radius: var(--r-sm);
+    font: 500 var(--fs-small)/1.2 var(--font-sans); color: var(--fg); text-decoration: none;
+    transition: border-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
+  }
+  .share__btn :global(svg) { color: var(--label); }
+  .share__btn:hover { border-color: var(--accent); color: var(--link); }
+  .share__url { display: none; }
+  /* the expertise tag's 44px hit area now comes from ui/Tag itself (linked tags) */
+  @media (min-width: 600px) {
+    .share__row { grid-template-columns: 6.5rem minmax(0, 1fr); column-gap: var(--s-4); }
+  }
+</style>

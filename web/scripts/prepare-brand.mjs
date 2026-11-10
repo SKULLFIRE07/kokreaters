@@ -1,6 +1,8 @@
-// prepare-brand.mjs (DESIGN-SPEC v2 5): vector logo set, founder cut-out crops, favicons, grain tile.
+// prepare-brand.mjs (REDESIGN-V3 §2): vector logo set, the founder cut-out (input of make-portrait.mjs), favicons.
 // Idempotent. Reads from ASSETS_DIR (default ../assets), never modifies the sources. Outputs are committed.
-// The raster wordmark/lockup PNGs of v1 are gone; every logo is the vector set from assets/logo/vector/.
+// Every logo is the vector set from assets/logo/vector/. v3 dropped the v2 grain tile, the home-dock logo split
+// (svg/derived/*) and the cut-out square crop; this script deletes them if they reappear (OLD list).
+// Founder photos: run `node scripts/make-portrait.mjs` after this (cut-out → graded 4:5 portrait + square crop).
 import sharp from 'sharp';
 import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -23,50 +25,24 @@ const OLD = [
   'src/assets/brand/wordmark.png', 'src/assets/brand/wordmark-white.png', 'src/assets/brand/lockup-tagline.png',
   'src/assets/brand/lockup-tagline-white.png', 'src/assets/brand/logo-full.png',
   'src/assets/photos/ganeaysh-portrait.png', 'src/assets/photos/ganeaysh-square.png',
+  // v2 → v3
+  'src/assets/fx/grain.png', 'src/assets/photos/ganeaysh-cutout-square.png',
+  'src/assets/brand/svg/derived/horizontal-cluster.svg', 'src/assets/brand/svg/derived/horizontal-white-cluster.svg',
+  'src/assets/brand/svg/derived/horizontal-word.svg', 'src/assets/brand/svg/derived/horizontal-white-word.svg',
 ];
-
-/** Mulberry32: seeded, so the grain tile is byte-identical on every run. */
-function rng(seed) {
-  return () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
-}
 
 async function main() {
   // 1. Vector logo set → src/assets/brand/svg/.
   for (const f of LOGOS) await copyFile(src(`logo/vector/${f}`), await ensure(out(`src/assets/brand/svg/${f}`)));
 
-  // 1b. The horizontal lockup split into its two parts, sharing the file's vertical viewBox (y −25…590): the cluster
-  //     (x 20…590) and the wordmark (x 590…2200). Side by side they render exactly like the single file; the header
-  //     inlines the cluster (the home dock flies it) and loads the wordmark part as a cached <img>. Paths untouched.
-  for (const tone of ['', '-white']) {
-    const raw = (await readFile(src(`logo/vector/kokreaters-logo-horizontal${tone}.svg`), 'utf8')).replace(/<!--[\s\S]*?-->/g, '');
-    const [, vb] = raw.match(/viewBox="([^"]+)"/);
-    const [x, y, w, h] = vb.split(/\s+/).map(Number);
-    const body = raw.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
-    const at = body.indexOf('<path fill=');
-    const head = (vbx) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vbx}">`;
-    await writeFile(await ensure(out(`src/assets/brand/svg/derived/horizontal${tone}-cluster.svg`)), `${head(`${x} ${y} 570 ${h}`)}${body.slice(0, at).trim()}</svg>\n`);
-    await writeFile(out(`src/assets/brand/svg/derived/horizontal${tone}-word.svg`), `${head(`${x + 570} ${y} ${w - 570} ${h}`)}${body.slice(at).trim()}</svg>\n`);
-  }
-
-  // 2. Old rasters out.
+  // 2. Old rasters and v2 leftovers out.
   for (const f of OLD) if (existsSync(out(f))) await rm(out(f));
+  for (const d of ['src/assets/fx', 'src/assets/brand/svg/derived']) if (existsSync(out(d))) await rm(out(d), { recursive: true, force: true });
 
-  // 3. Founder cut-out (1665×2048 RGBA; bottom row hard-cropped, right edge through the shoulder).
-  const cut = src('photos/ganeaysh-cutout-clean.png');
-  await copyFile(cut, await ensure(out('src/assets/photos/ganeaysh-cutout.png')));
-  // Square avatar crop, head centred (face centre ≈ x 760, hair top ≈ y 152, chin ≈ y 1048), alpha kept. Checked visually.
-  const SQ = { left: 160, top: 40, width: 1200, height: 1200 };
-  await writeFile(out('src/assets/photos/ganeaysh-cutout-square.png'),
-    await sharp(cut).extract(SQ).png({ compressionLevel: 9 }).toBuffer());
+  // 3. Founder cut-out (1665×2048 RGBA, lapel pin removed): the input of scripts/make-portrait.mjs, never shown as is.
+  await copyFile(src('photos/ganeaysh-cutout-clean.png'), await ensure(out('src/assets/photos/ganeaysh-cutout.png')));
 
-  // 4. Grain tile: 160×160, 4 grey levels, mostly white (multiply → white is a no-op), palette PNG ≤ 6KB.
-  const N = 160, r = rng(0x6b6b);
-  const px = Buffer.alloc(N * N);
-  for (let i = 0; i < px.length; i++) { const v = r(); px[i] = v < 0.62 ? 255 : v < 0.84 ? 214 : v < 0.96 ? 168 : 120; }
-  await writeFile(await ensure(out('src/assets/fx/grain.png')),
-    await sharp(px, { raw: { width: N, height: N, channels: 1 } }).png({ palette: true, colours: 4, compressionLevel: 9, effort: 10 }).toBuffer());
-
-  // 5. Favicon SVG: the node cluster minus comment / role / aria / id.
+  // 4. Favicon SVG: the node cluster minus comment / role / aria / id.
   const svg = (await readFile(src('logo/vector/kokreaters-node-cluster.svg'), 'utf8'))
     .replace(/<!--[\s\S]*?-->\s*/g, '')
     .replace(/\s(role|aria-label)="[^"]*"/g, '')
@@ -74,7 +50,7 @@ async function main() {
     .replace(/\n\s*\n/g, '\n');
   await writeFile(await ensure(out('public/favicon.svg')), svg.trim() + '\n');
 
-  // 6. Raster icons from the SVG (density 384 so the 512 is sharp).
+  // 5. Raster icons from the SVG (density 384 so the 512 is sharp).
   const svgBuf = Buffer.from(svg);
   const clear = { r: 255, g: 255, b: 255, alpha: 0 };
   const icon = (n) => sharp(svgBuf, { density: 384 }).resize(n, n, { fit: 'contain', background: clear }).png({ compressionLevel: 9 }).toBuffer();

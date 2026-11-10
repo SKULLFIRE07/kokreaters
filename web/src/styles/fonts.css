@@ -1,48 +1,62 @@
-/* src/styles/fonts.css: self-hosted faces (files copied by scripts/copy-fonts.mjs). Never import fontsource CSS.
-   DESIGN-SPEC v2 2.1–2.2. Bricolage (wdth file: wght 200–800, wdth 75–100, opsz fixed at the 96 display master),
-   IBM Plex Mono 400/500, Caveat 600, Instrument Sans (long reading). */
+/* src/styles/fonts.css — REDESIGN-V3 §1.2. Self-hosted variable faces copied to public/fonts by scripts/copy-fonts.mjs
+   (never import fontsource CSS). Source Serif 4: wght 200–900 + opsz 8–60 (font-optical-sizing: auto gives the display
+   cut at headline sizes). Inter: wght 100–900 + opsz 14–32. Latin subset; it has no → (U+2192): arrows are SVG icons. */
 @font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("/fonts/bricolage-grotesque-latin-wdth-normal.woff2") format("woff2-variations");
-  font-weight: 200 800; font-stretch: 75% 100%; font-style: normal; font-display: swap;
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 200 900; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
-  font-weight: 400; font-style: normal; font-display: swap;
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-opsz-italic.woff2") format("woff2");
+  font-weight: 200 900; font-style: italic; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: "IBM Plex Mono";
-  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
-  font-weight: 500; font-style: normal; font-display: swap;
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* ── Metric-matched fallbacks (CLS ≈ 0 on swap). MEASURED 10 Nov 2026 in Chromium (research/v3/scripts/
+   foundation-a-fontmetrics.mjs) against Liberation Serif / Liberation Sans, which are metric clones of Times New Roman
+   and Arial:
+     Source Serif 4, opsz auto: 64px/420 = 1.029 × Times · 42px/430 = 1.047 × · 26px/500 = 1.111 × · italic 30px = 1.018 ×
+       → tuned for the headlines (the LCP H1 and section titles): Times 103.5 %.
+     Georgia is not installed here; it sets ≈ 9 % wider than Times, so Georgia → 95 % (estimate, verify on macOS/Windows).
+     Inter, opsz auto: 18px/400 = 1.053 × Arial · 21px = 1.038 × · 15px/600 = 1.013 × → 105 %.
+   Overrides = the web font's hhea metric ÷ size-adjust (Source Serif 4: ascent 1.036, descent 0.335, gap 0;
+   Inter: ascent 0.969, descent 0.241, gap 0). A face whose local() sources are all missing is skipped, so the stack
+   falls through Georgia-matched → Times-matched → generic. Weight ranges stop the browser synthesising bold. */
+@font-face {
+  font-family: "Source Serif Fallback";
+  src: local("Georgia"), local("Georgia-Regular");
+  font-weight: 100 900; font-style: normal;
+  size-adjust: 95%; ascent-override: 109.1%; descent-override: 35.3%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: "Caveat";
-  src: url("/fonts/caveat-latin-600-normal.woff2") format("woff2");
-  font-weight: 600; font-style: normal; font-display: swap;
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  font-family: "Source Serif Fallback";
+  src: local("Georgia Italic"), local("Georgia-Italic");
+  font-weight: 100 900; font-style: italic;
+  size-adjust: 94%; ascent-override: 110.2%; descent-override: 35.6%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: "Instrument Sans";
-  src: url("/fonts/instrument-sans-latin-wght-normal.woff2") format("woff2-variations");
-  font-weight: 400 700; font-style: normal; font-display: swap;
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  font-family: "Source Serif Fallback Times";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("LiberationSerif"), local("Tinos");
+  font-weight: 100 900; font-style: normal;
+  size-adjust: 103.5%; ascent-override: 100.1%; descent-override: 32.4%; line-gap-override: 0%;
 }
-/* ── Metric-matched fallbacks (CLS < 0.05 on the hero). MEASURED 4 Nov 2026 in Chrome on this machine (Liberation
-   Sans Narrow Bold = Arial Narrow Bold metrics, Liberation Sans Bold = Arial Bold, Liberation Mono = Courier New):
-   "Where deep expertise meets shared ambition." at 100px, −0.025em:
-     Bricolage 800 / wdth 75 = 1665px · Narrow Bold 1679px (→ size-adjust 99%) · Arial Bold 2071px (→ 80.4%).
-     (h2 760/78%: Bricolage 2723 vs Narrow 2677 = 101.7%; h3 700/85%: 108.6%; the H1 sizes are what move layout.)
-   Plex Mono 400 = Courier New width exactly (4830 vs 4831px) → 100%.
-   Bricolage font box ascent/descent 0.93/0.27 em, Plex Mono 1.03/0.28 em; overrides = metric ÷ size-adjust.
-   weight/stretch ranges are declared so the browser never synthesises bold or stretch on a fallback face. */
-@font-face { font-family: "Bricolage Fallback Narrow"; src: local("Arial Narrow Bold"), local("ArialNarrow-Bold"), local("Liberation Sans Narrow Bold"), local("LiberationSansNarrow-Bold"), local("Nimbus Sans Narrow Bold"), local("NimbusSansNarrow-Bold");
-  font-weight: 100 900; font-stretch: 50% 200%; size-adjust: 99%; ascent-override: 93.9%; descent-override: 27.3%; line-gap-override: 0%; }
-@font-face { font-family: "Bricolage Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold");
-  font-weight: 100 900; font-stretch: 50% 200%; size-adjust: 80.4%; ascent-override: 115.7%; descent-override: 33.6%; line-gap-override: 0%; }
-@font-face { font-family: "Plex Mono Fallback"; src: local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono"), local("LiberationMono");
-  font-weight: 100 900; size-adjust: 100%; ascent-override: 103%; descent-override: 28%; line-gap-override: 0%; }
-@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"); size-adjust: 103%; ascent-override: 94.2%; descent-override: 24.3%; line-gap-override: 0%; }
+@font-face {
+  font-family: "Source Serif Fallback Times";
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"), local("Tinos Italic");
+  font-weight: 100 900; font-style: italic;
+  size-adjust: 101.8%; ascent-override: 101.8%; descent-override: 32.9%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo");
+  font-weight: 100 900; font-style: normal;
+  size-adjust: 105%; ascent-override: 92.3%; descent-override: 23%; line-gap-override: 0%;
+}

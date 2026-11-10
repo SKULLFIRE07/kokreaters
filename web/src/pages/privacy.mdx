@@ -1,10 +1,11 @@
 ---
 layout: ../layouts/LegalLayout.astro
-title: Privacy Policy
+title: Privacy policy
 description: How KoKreaters collects, uses and protects personal data.
 updated: 2026-11-04
 ---
 import Confirm from '@/components/ui/Confirm.astro';
+import { showConfirm } from '@/lib/mode';
 
 {/* LAWYER REVIEW REQUIRED. Placeholder text (DESIGN-SPEC 4.14); every sentence is COMPOSED. */}
 
@@ -27,9 +28,9 @@ We use these details to reply to your enquiry or to send you the newsletter. We 
 
 Your details are handled by the form service <Confirm id={9} note="form provider" /> and by our email provider (Google Workspace). We share them with no other third parties, and we never sell personal data.
 
-## How long we keep it
-
-<Confirm id="legal" note="retention period" />
+{/* Gap: no retention period yet. The whole section renders in staging only (REDESIGN-V3 §8.8), so the public link never shows an empty heading. Restore it as a normal "## How long we keep it" section once the period is confirmed. */}
+{showConfirm && <h2 id="how-long-we-keep-it">How long we keep it</h2>}
+{showConfirm && <p><Confirm id="legal" note="retention period; this section is hidden outside staging until it is set" /></p>}
 
 ## Your rights
 

@@ -1,64 +1,51 @@
 ---
-/** Insights hub (DESIGN-SPEC v2 10.8). Production with no approved insight still renders "In preparation" and the newsletter. */
+/**
+ * Insights hub (REDESIGN-V3 §4). Bands: white centred hero → featured insight (white, hairline) → library with filters
+ * (grey) → coming soon (white) → CtaBand with the newsletter (grey, BaseLayout) → footer (navy).
+ * The newsletter is the CtaBand's second column (as on Home): one sign-up on the page, and the footer drops its own.
+ * The featured insight is not repeated in the library until a filter is chosen; with a single visible insight the
+ * featured band stands alone (no library, no filters).
+ * Production with no approved insight: hero, coming soon and the CtaBand with the newsletter. Coming soon opens on a
+ * hairline whenever there is no grey library above it (it then touches the white hero or featured band).
+ * Mobile: every band is one column; the hero stays centred; filters wrap; cards stack.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import FeaturedInsight from '@/components/insights/FeaturedInsight.astro';
 import Filters from '@/components/insights/Filters.astro';
 import InsightList from '@/components/insights/InsightList.astro';
 import ComingSoon from '@/components/insights/ComingSoon.astro';
-import HubHero from '@/components/insights/HubHero.astro';
-import NewsletterFold from '@/components/insights/NewsletterFold.astro';
-import CardFan from '@/components/bencho/CardFan.astro';
-import { visibleInsights, comingSoon, featuredInsight } from '@/lib/insights';
+import { visibleInsights, comingSoonSorted, featuredInsight } from '@/lib/insights';
 import { pageSeo } from '@/lib/seo';
 import { insights as insightsCopy } from '@/data/home';
-import { microcopy } from '@/data/microcopy';
-import { journalNotes } from '@/data/notes/journal';
+import { insightsHub } from '@/data/insights';
 
 const seo = pageSeo('insights');
 const list = await visibleInsights();
 const featured = await featuredInsight();
-const soon = await comingSoon();
-const crumbs = [{ label: 'Insights', href: '/insights' }];
-const padded = list.length < 5 && soon.length > 0;
+const soon = await comingSoonSorted();
+const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
+const showLibrary = list.length > (featured ? 1 : 0);
 ---
-<BaseLayout page="insights" seo={seo} breadcrumbs={crumbs} showCrumbs={false}>
-  <HubHero lead={seo.description} list={list} soon={soon} />
+<BaseLayout page="insights" seo={seo} breadcrumbs={crumbs} cta={{ newsletter: true }}>
+  <PageHero
+    ground="white" align="center" titleId="hub-title" crumbs={crumbs}
+    eyebrow={insightsCopy.overline} title={insightsCopy.headline} lead={seo.description}
+  />
 
-  {featured && (
-    <section class="hub-fan g-lavender has-notes" aria-labelledby="hub-fan-h">
-      <div class="container">
-        <div class="hub-fan__head">
-          <h2 id="hub-fan-h" class="t-h2 hub-fan__title">{microcopy.featuredInsight}</h2>
-          <MarginNote text={journalNotes.hub.lift} tone="berry" rotate={-4} arrow="arrow-curve" arrowAt="below" arrowAngle={30} place="left:calc(50% + 290px);top:-6px;" show="pointer" delay={0.4} />
-        </div>
-        <CardFan featured={featured} entries={list} pad={padded ? soon : []} label={insightsCopy.overline} />
-        {padded && <MarginNote text={journalNotes.hub.deck} tone="berry" rotate={-6} arrow="arrow-curve" arrowAt="below" arrowAngle={100} place="left:1%;top:150px;max-width:none;" show="lg" delay={0.8} />}
-      </div>
-    </section>
+  {featured && <FeaturedInsight entry={featured} />}
+
+  {showLibrary && (
+    <Section ground="grey" labelledby="library-h" id="all-insights" class="library">
+      <SectionHeader id="library-h" title={insightsHub.libraryTitle} />
+      <Filters entries={list} />
+      <InsightList entries={list} featuredId={featured?.id} />
+    </Section>
   )}
 
-  <section class="hub-list g-white" aria-labelledby="hub-list-h">
-    <div class="container">
-      {list.length > 0 && (<>
-        <h2 id="hub-list-h" class="visually-hidden">{insightsCopy.overline}</h2>
-        <Filters total={list.length} />
-        <InsightList entries={list} />
-      </>)}
-      <div class="hub-list__soon"><ComingSoon entries={soon} /></div>
-    </div>
-  </section>
-
-  <NewsletterFold />
+  <ComingSoon entries={soon} rule={!showLibrary} />
 </BaseLayout>
-<style>
-  .hub-fan { position: relative; padding-block: clamp(4rem, 2rem + 5vw, 7rem) clamp(4rem, 2rem + 6vw, 9rem); overflow: clip; }
-  .hub-fan .container { position: relative; }
-  .hub-fan__head { position: relative; margin-bottom: var(--s-7); }
-  .hub-fan__title { margin: 0; color: var(--head); }
-  .hub-list { padding-block: clamp(4rem, 2rem + 5vw, 7rem); }
-  .hub-list :global(.insight-list) { margin-top: var(--s-6); }
-  .hub-list__soon { margin-top: clamp(4rem, 2rem + 5vw, 7rem); }
-  @media (min-width: 1024px) {
-    .hub-fan__head { display: flex; justify-content: center; text-align: center; margin-bottom: var(--s-4); }
-  }
-</style>
+
+<script>import '@/scripts/pages/insights.ts';</script>

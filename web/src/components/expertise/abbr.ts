@@ -1,8 +1,9 @@
 /**
  * First-use acronym expansion for one pillar page (DESIGN-SPEC 5.3 item 2, 4.4 FSQR note, C-11).
  * One expander per page: each acronym becomes <abbr title> the first time it appears, and
- * FSQR / 3-MCPD also return their sidenote text. CBE is already expanded by the brief text itself
- * ("cocoa butter equivalents (CBE)"), so it gets the <abbr> but no sidenote.
+ * FSQR / 3-MCPD also return their note text, which the v3 pillar page prints as a small line under the paragraph or
+ * list that first uses them. CBE is already expanded by the brief text itself ("cocoa butter equivalents (CBE)"),
+ * so it gets the <abbr> but no note.
  */
 import { abbreviations } from '@/lib/typography';
 

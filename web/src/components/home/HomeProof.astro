@@ -1,0 +1,24 @@
+---
+/**
+ * Home 2 · Credibility strip (REDESIGN-V3 §4 Home 2; McKinsey India "Our impact" pattern). White band, tight padding:
+ * a small uppercase label (the section's h2, so the band has an accessible name) over a full-width StatStrip of
+ * home.proof (25 · 5 · 3 · WHO) with the source line "From our founder’s career."
+ * Mobile: the label sits above a 2 × 2 grid with hairlines (StatStrip's own phone layout); source under it.
+ */
+import Section from '@/components/ui/Section.astro';
+import StatStrip from '@/components/ui/StatStrip.astro';
+import { proof, proofSource, homeLabels } from '@/data/home';
+
+const items = proof.map((p) => ({ value: p.value, label: p.label }));
+---
+<Section ground="white" pad="tight" labelledby="proof-heading" class="hp">
+  <h2 id="proof-heading" class="hp__label t-label" data-reveal>{homeLabels.proof}</h2>
+  <StatStrip items={items} source={`${proofSource}.`} />
+</Section>
+
+<style>
+  .hp__label { margin: 0 0 var(--s-6); color: var(--label); }
+  @media (min-width: 900px) {
+    .hp__label { margin-bottom: var(--s-7); }
+  }
+</style>

@@ -1,0 +1,1150 @@
+{
+ "slug": "bcg-home",
+ "viewport": "mobile",
+ "url": "https://www.bcg.com/",
+ "status": 200,
+ "networkidle": "timeout",
+ "cookie": "text:ACCEPT ALL AND CLOSE",
+ "titleSeen": "Loading https://www.bcg.com/",
+ "bodyTextStart": "Skip to Main LOG IN WELCOME TO BCG Where Strategic Clarity Meets Applied AI ARTIFICIAL INTELLIGENCE ARTICLE OCTOBER 29, 2026 Who Will Pay the $2.6 Trillion AI Infrastructure Bill? BCG SPOTLIGHT AI MATURITY MATRIX 2026 CEO INSOMNIA INDEX EXECUTIVE PERSPECTIVES Pattern Seekers: Don’t Confuse AI Activi",
+ "m": {
+  "url": "https://www.bcg.com/",
+  "title": "Strategic Management Consulting | Boston Consulting Group",
+  "vw": 390,
+  "vh": 844,
+  "pageHeight": 8833,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "henderson-bcg-sans",
+   "size": "16px",
+   "lh": "16px",
+   "color": "rgb(33, 36, 39)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Where Strategic Clarity Meets Applied AI",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 32,
+    "lh": "38.4px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 358
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "Beyond Strategy. Real Impact.",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 40,
+    "lh": "48px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 358
+   },
+   {
+    "tag": "h2",
+    "text": "BCG Answer",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 40,
+    "lh": "48px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 358
+   },
+   {
+    "tag": "h2",
+    "text": "Our Latest Thinking Based on Your Interests",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 40,
+    "lh": "48px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 358
+   },
+   {
+    "tag": "h2",
+    "text": "BCG in India",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 40,
+    "lh": "48px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 358
+   }
+  ],
+  "h3": [
+   {
+    "tag": "h3",
+    "text": "BCG’s most inspiring thought leadership on issues shaping the future of business",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 32,
+    "lh": "38.4px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 358
+   }
+  ],
+  "h4": [],
+  "pHist": [
+   [
+    "henderson-bcg-sans|12px|16.8px|400|normal",
+    759
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "Boston Consulting Group is an Equal Opportunity Employer. All qualified applican",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 12,
+    "lh": "16.8px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 358
+   }
+  ],
+  "typeHist": [
+   [
+    "serif:henderson-bcg-sans|14px|w400|lh19.6px|lsnormal|none",
+    1849
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|none",
+    786
+   ],
+   [
+    "serif:henderson-bcg-sans|22px|w300|lh26.4px|lsnormal|none",
+    714
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w300|lh20.8px|lsnormal|none",
+    580
+   ],
+   [
+    "serif:henderson-bcg-sans|18px|w300|lh21.6px|lsnormal|none",
+    551
+   ],
+   [
+    "serif:henderson-bcg-sans|10px|w400|lh10px|lsnormal|uppercase",
+    291
+   ],
+   [
+    "serif:henderson-bcg-serif|40px|w300|lh48px|lsnormal|none",
+    277
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh18px|lsnormal|uppercase",
+    227
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w700|lh12px|lsnormal|uppercase",
+    207
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w700|lh14px|lsnormal|uppercase",
+    199
+   ],
+   [
+    "serif:henderson-bcg-sans|10px|w700|lh10px|lsnormal|uppercase",
+    161
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh20.8px|lsnormal|none",
+    142
+   ],
+   [
+    "serif:henderson-bcg-sans|32px|w300|lh38.4px|lsnormal|none",
+    114
+   ],
+   [
+    "sans:Arial|13.3333px|w400|lhnormal|lsnormal|none",
+    84
+   ],
+   [
+    "serif:henderson-bcg-sans|24px|w300|lh31.2px|lsnormal|none",
+    54
+   ],
+   [
+    "serif:henderson-bcg-serif|32px|w300|lh38.4px|lsnormal|none",
+    40
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w700|lh19.6px|lsnormal|none",
+    27
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w700|lh16px|lsnormal|uppercase",
+    23
+   ],
+   [
+    "serif:henderson-bcg-sans|22px|w400|lh26.4px|lsnormal|none",
+    22
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w900|lh12px|lsnormal|uppercase",
+    18
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh12px|lsnormal|uppercase",
+    13
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh16px|lsnormal|none",
+    12
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|uppercase",
+    11
+   ]
+  ],
+  "labels": [
+   [
+    "henderson-bcg-sans|10px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 17,
+     "ex": [
+      "ARTICLE",
+      "ARTICLE",
+      "ARTICLE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|10px|w400|lsnormal|uppercase|rgb(35, 35, 38)",
+    {
+     "n": 17,
+     "ex": [
+      "OCTOBER 29, 2026",
+      "OCTOBER 28, 2026",
+      "OCTOBER 27, 2026"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 12,
+     "ex": [
+      "AI MATURITY MATRIX 2026",
+      "CEO INSOMNIA INDEX",
+      "EXECUTIVE PERSPECTIVES"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 10,
+     "ex": [
+      "ARTIFICIAL INTELLIGENCE",
+      "M&A, TRANSACTIONS, AND PMI",
+      "CORPORATE FINANCE AND STRATEGY"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w700|lsnormal|none|rgb(35, 35, 38)",
+    {
+     "n": 7,
+     "ex": [
+      "$4.5b+",
+      "570+",
+      "2x"
+     ]
+    }
+   ],
+   [
+    "Arial|13.3333px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 7,
+     "ex": [
+      "View slide 1",
+      "View slide 2",
+      "View slide 3"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 4,
+     "ex": [
+      "WELCOME TO BCG",
+      "NEW AI-POWERED FEATURE",
+      "OUR LOCATIONS"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w700|lsnormal|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 3,
+     "ex": [
+      "ABOUT BCG",
+      "OUR PURPOSE AND PEOPLE",
+      "INNOVATION IN ACTION"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 57,
+   "pos": "fixed",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(33, 36, 39)",
+   "boxShadow": "none",
+   "cls": "Page-header menu"
+  },
+  "headerLinks": [
+   {
+    "t": "Skip to Main",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 15,
+    "h": 1
+   },
+   {
+    "t": "Link to open BCG site menu",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 24,
+    "h": 58
+   },
+   {
+    "t": "Link to BCG home page",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 65,
+    "h": 54
+   },
+   {
+    "t": "LOG IN",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(105, 105, 105)",
+    "x": 294,
+    "h": 56
+   }
+  ],
+  "logo": {
+   "w": 24,
+   "h": 24,
+   "x": 32,
+   "y": 32
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "16",
+    7
+   ]
+  ],
+  "rightEdges": [
+   [
+    "16",
+    7
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "div",
+    "cls": "List12",
+    "top": 104,
+    "h": 603,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Where Strategic Clarity Meets Applied AI",
+    "headingOffset": 56,
+    "imgs": 12
+   },
+   {
+    "tag": "div",
+    "cls": "List14 List14_banner-link-list",
+    "top": 707,
+    "h": 176,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 24,
+    "pb": 24,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "Promo2",
+    "top": 883,
+    "h": 498,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "List25",
+    "top": 1381,
+    "h": 771,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Beyond Strategy. Real Impact.",
+    "headingOffset": 32,
+    "imgs": 14
+   },
+   {
+    "tag": "div",
+    "cls": "Promo Promo26",
+    "top": 2152,
+    "h": 595,
+    "bg": "rgb(227, 253, 219)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "BCG Answer",
+    "headingOffset": 288,
+    "imgs": 0
+   },
+   {
+    "tag": "targeted-module",
+    "cls": "targeted-module",
+    "top": 2747,
+    "h": 2169,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Our Latest Thinking Based on Your Interests",
+    "headingOffset": 48,
+    "imgs": 16
+   },
+   {
+    "tag": "div",
+    "cls": "List17",
+    "top": 4916,
+    "h": 1078,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 6
+   },
+   {
+    "tag": "targeted-module",
+    "cls": "targeted-module",
+    "top": 5994,
+    "h": 496,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "BCG in India",
+    "headingOffset": 60,
+    "imgs": 2
+   },
+   {
+    "tag": "div",
+    "cls": "Promo13__background",
+    "top": 6490,
+    "h": 635,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "div",
+    "cls": "subscription-basic subscription-basic--homepage",
+    "top": 7157,
+    "h": 650,
+    "bg": "rgb(12, 43, 21)",
+    "pt": 32,
+    "pb": 32,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "BCG’s most inspiring thought leadership on issues shaping th",
+    "headingOffset": 74,
+    "imgs": 2
+   }
+  ],
+  "buttons": [
+   [
+    "h46|r15px|p13px 55px|14px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 9,
+     "ex": [
+      "WATCH THE FIRST EPISODE",
+      "ASK US A QUESTION",
+      "SEE HOW WE WORK"
+     ]
+    }
+   ],
+   [
+    "h28|r10px|p4px 20px|12px|w400|uppercase|lsnormal|bgrgba(1, 1, 1, 0.4)|crgb(255, 255, 255)|bd1px rgb(255, 255, 255)",
+    {
+     "n": 8,
+     "ex": [
+      "M&A, TRANSACTIONS, AND PM",
+      "INDUSTRIAL GOODS",
+      "ARTIFICIAL INTELLIGENCE"
+     ]
+    }
+   ],
+   [
+    "h41|r10px|p4px 20px|12px|w400|uppercase|lsnormal|bgrgba(1, 1, 1, 0.4)|crgb(255, 255, 255)|bd1px rgb(255, 255, 255)",
+    {
+     "n": 1,
+     "ex": [
+      "CORPORATE FINANCE AND STR"
+     ]
+    }
+   ],
+   [
+    "h46|r15px|p13px 55px|14px|w700|uppercase|lsnormal|bgrgb(255, 255, 255)|crgb(33, 36, 39)|bd3px rgb(33, 36, 39)",
+    {
+     "n": 1,
+     "ex": [
+      "EXPLORE BCG CAREERS"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "WATCH THE FIRST EPISODE",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 274
+   },
+   {
+    "tag": "a",
+    "text": "ASK US A QUESTION",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 225
+   },
+   {
+    "tag": "a",
+    "text": "SEE HOW WE WORK",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 221
+   },
+   {
+    "tag": "a",
+    "text": "MEET THE EXPERT",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 211
+   },
+   {
+    "tag": "a",
+    "text": "EXPLORE",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 147
+   },
+   {
+    "tag": "a",
+    "text": "LEARN MORE",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 175
+   }
+  ],
+  "dividers": [
+   [
+    "Top|1px|rgb(255, 255, 255)",
+    10
+   ],
+   [
+    "Bottom|1px|rgb(255, 255, 255)",
+    10
+   ],
+   [
+    "Left|3px|rgba(0, 0, 0, 0)",
+    9
+   ],
+   [
+    "Top|3px|rgba(0, 0, 0, 0)",
+    8
+   ],
+   [
+    "Bottom|3px|rgba(0, 0, 0, 0)",
+    8
+   ],
+   [
+    "Top|1px|rgb(227, 253, 219)",
+    3
+   ],
+   [
+    "Bottom|1px|rgb(227, 253, 219)",
+    3
+   ],
+   [
+    "Left|1px|rgb(227, 253, 219)",
+    3
+   ]
+  ],
+  "cards": [
+   {
+    "w": 269,
+    "h": 358,
+    "imgW": 242,
+    "imgH": 322,
+    "ratio": 0.75,
+    "imgFilter": "none",
+    "title": "Who Will Pay the $2.6 Trillion AI Infrastructure Bill?",
+    "titleSize": "12px",
+    "titleLh": "16.8px",
+    "titleW": "400",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -94,
+    "label": {
+     "t": "ARTIFICIAL INTELLIGENCE",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 242,
+    "h": 322,
+    "imgW": 242,
+    "imgH": 322,
+    "ratio": 0.75,
+    "imgFilter": "none",
+    "title": "Who Will Pay the $2.6 Trillion AI Infrastructure Bill?",
+    "titleSize": "12px",
+    "titleLh": "16.8px",
+    "titleW": "400",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -94,
+    "label": {
+     "t": "ARTIFICIAL INTELLIGENCE",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 340,
+    "h": 428,
+    "imgW": 340,
+    "imgH": 428,
+    "ratio": 0.79,
+    "imgFilter": "none",
+    "title": "How IBM Achieved Over $4.5 Billion and Counting in Bottom-Li",
+    "titleSize": "18px",
+    "titleLh": "21.6px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -209,
+    "label": {
+     "t": "$4.5b+",
+     "size": "14px",
+     "w": "700",
+     "tt": "none",
+     "ls": "normal",
+     "color": "rgb(35, 35, 38)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 358,
+    "h": 477,
+    "imgW": 358,
+    "imgH": 477,
+    "ratio": 0.75,
+    "imgFilter": "none",
+    "title": "AI-First Cost Reduction: How to Drive Sustained, Structural ",
+    "titleSize": "18px",
+    "titleLh": "21.6px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -194,
+    "label": {
+     "t": "COST MANAGEMENT",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 366,
+    "h": 366,
+    "imgW": 364,
+    "imgH": 364,
+    "ratio": 1,
+    "imgFilter": "none",
+    "title": "Where Strategic Clarity Meets Applied AI",
+    "titleSize": "40px",
+    "titleLh": "48px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-serif",
+    "titleGapFromImg": -238,
+    "label": {
+     "t": "ABOUT BCG",
+     "size": "12px",
+     "w": "700",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgb(227, 253, 219)",
+    "cardRadius": "20px",
+    "cardBorder": "1px solid rgb(227, 253, 219)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 358,
+    "h": 388,
+    "imgW": 356,
+    "imgH": 386,
+    "ratio": 0.92,
+    "imgFilter": "none",
+    "title": "Seeing the Whole System: Embedding Responsible AI into Every",
+    "titleSize": "40px",
+    "titleLh": "48px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-serif",
+    "titleGapFromImg": -334,
+    "label": {
+     "t": "OUR PURPOSE AND PEOPLE",
+     "size": "12px",
+     "w": "700",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgb(227, 253, 219)",
+    "cardRadius": "20px",
+    "cardBorder": "1px solid rgb(227, 253, 219)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 358,
+    "h": 244,
+    "imgW": 356,
+    "imgH": 242,
+    "ratio": 1.47,
+    "imgFilter": "none",
+    "title": "BCG X Product Library",
+    "titleSize": "40px",
+    "titleLh": "48px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-serif",
+    "titleGapFromImg": -190,
+    "label": {
+     "t": "INNOVATION IN ACTION",
+     "size": "12px",
+     "w": "700",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgb(227, 253, 219)",
+    "cardRadius": "20px",
+    "cardBorder": "1px solid rgb(227, 253, 219)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 496,
+    "imgW": 358,
+    "imgH": 201,
+    "ratio": 1.78,
+    "imgFilter": "none",
+    "title": "BCG in India",
+    "titleSize": "40px",
+    "titleLh": "48px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-serif",
+    "titleGapFromImg": -331,
+    "label": {
+     "t": "OUR LOCATIONS",
+     "size": "12px",
+     "w": "700",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(33, 36, 39)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 650,
+    "imgW": 390,
+    "imgH": 390,
+    "ratio": 1,
+    "imgFilter": "none",
+    "title": "BCG’s most inspiring thought leadership on issues shaping th",
+    "titleSize": "32px",
+    "titleLh": "38.4px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -576,
+    "label": null,
+    "cardBg": "rgb(12, 43, 21)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 1025,
+   "bg": "rgb(241, 238, 234)",
+   "color": "rgb(33, 36, 39)",
+   "pt": "32px",
+   "lists": 4,
+   "distinctColumnX": [
+    16,
+    80
+   ],
+   "links": 22,
+   "linkSize": "18px",
+   "linkColor": "rgb(33, 36, 39)",
+   "headings": [
+    {
+     "tag": "div",
+     "text": "How can we assist you?",
+     "family": "henderson-bcg-sans",
+     "cat": "serif",
+     "size": 16,
+     "lh": "20.8px",
+     "ls": "normal",
+     "weight": "400",
+     "tt": "none",
+     "color": "rgb(33, 36, 39)",
+     "maxW": 358
+    }
+   ]
+  },
+  "bgColors": [
+   [
+    "rgb(12, 43, 21)",
+    "2111k px2"
+   ],
+   [
+    "rgba(255, 255, 255, 0.7)",
+    "944k px2"
+   ],
+   [
+    "rgb(227, 253, 219)",
+    "592k px2"
+   ],
+   [
+    "rgb(241, 238, 234)",
+    "564k px2"
+   ],
+   [
+    "rgb(150, 248, 120)",
+    "87k px2"
+   ],
+   [
+    "rgba(1, 1, 1, 0.4)",
+    "54k px2"
+   ],
+   [
+    "rgb(255, 255, 255)",
+    "22k px2"
+   ],
+   [
+    "rgb(242, 242, 242)",
+    "5k px2"
+   ],
+   [
+    "rgb(0, 0, 0)",
+    "3k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(33, 36, 39)",
+    5123
+   ],
+   [
+    "rgb(255, 255, 255)",
+    745
+   ],
+   [
+    "rgb(35, 35, 38)",
+    318
+   ],
+   [
+    "rgb(12, 43, 21)",
+    134
+   ],
+   [
+    "rgb(0, 0, 0)",
+    84
+   ]
+  ],
+  "fontsLoaded": [
+   "henderson-bcg-sans 700",
+   "henderson-bcg-sans 300",
+   "henderson-bcg-sans 400",
+   "henderson-bcg-serif 400"
+  ],
+  "navText": [],
+  "imgRatios": [
+   [
+    "0.75",
+    10
+   ],
+   [
+    "0.79",
+    7
+   ],
+   [
+    "1.00",
+    2
+   ],
+   [
+    "1.78",
+    2
+   ],
+   [
+    "0.92",
+    1
+   ],
+   [
+    "1.47",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 57,
+  "top": 16,
+  "pos": "fixed",
+  "bg": "rgba(0, 0, 0, 0)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": []
+ },
+ "menuButton": {
+  "label": "Link to open BCG site menu",
+  "w": 40,
+  "h": 58,
+  "x": 24
+ },
+ "menuItems": [
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 54
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 44
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 44
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 44
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 44
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 44
+  },
+  {
+   "t": "Industries",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "Capabilities",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "BCG X",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "Our Insights",
+   "size": "24px",
+   "w": "400",
+   "h": 61
+  },
+  {
+   "t": "BCG in India",
+   "size": "24px",
+   "w": "400",
+   "h": 61
+  },
+  {
+   "t": "BCG Alumni",
+   "size": "24px",
+   "w": "400",
+   "h": 61
+  },
+  {
+   "t": "About BCG",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "Client Impact",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "Leadership",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  },
+  {
+   "t": "Offices",
+   "size": "20px",
+   "w": "400",
+   "h": 56
+  }
+ ]
+}

@@ -35,8 +35,15 @@ export const founderQuote = {
 };
 export const cta = {
   headline: 'Have a challenge worth solving together?', swooshPhrase: 'together',
-  body: 'Tell us about your product, your plant or your decision. The first conversation is on us.',   // CONFIRM 9 (free first call)
+  body: 'Tell us about your product, your plant or your decision. The first conversation is free of charge.',   // CONFIRM 9 (free first call); v3 tone: was "is on us"
   button: 'Book a 30-minute call',
 };
-/** Folio running head on home folds (5.1, fold 4). */
-export const runningHead = 'KoKreaters · Home';
+/**
+ * v3 home labels (REDESIGN-V3 §4 Home). Plain UI labels only; every fact stays in the exports above.
+ *  proof — section label over the credibility strip (contract: "Our track record (or similar plain label)"). COMPOSED
+ *  draft — staging-only badge on draft insight cards (never rendered in preview or production). COMPOSED
+ */
+export const homeLabels = {
+  proof: 'Our track record',
+  draft: 'Draft',
+};

@@ -1,60 +1,48 @@
 ---
 /**
- * Approach F4, principles (DESIGN-SPEC v2 10.5 F4): five index cards in a loose 3 + 2 grid on White, grounds butter /
- * lavender / blush / ice / white, small rotations, each pinned with Tape; mono number, name in h3, copy in mono.
- * R4 sticker drop (stagger). Note "the house rules" beside the h2 with an arrow to card 1.
+ * /approach §4 — five principles as a numbered grid (REDESIGN-V3 §4 Approach). White band.
+ * Six equal cells: the first holds the section heading, the other five the principles, so the grid closes with no
+ * orphan cell. Every cell opens on a top rule (2px navy on the heading cell, 1px hairline on the principles);
+ * a principle is "01" (serif numeral in --accent, ≥ 24px), serif h3 name, Inter body copy.
+ * Desktop (≥ 900): 3 × 2. Tablet (600–899): 2 × 3. Mobile (< 600): one column — heading, then the five principles,
+ * 40px apart, body 18px.
  */
-import Tape from '@/components/notes/Tape.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
+import Section from '@/components/ui/Section.astro';
 import { principles, principlesHeading } from '@/data/approach';
-import { storyNotes } from '@/data/notes/story';
-const grounds = ['butter', 'lavender', 'blush', 'ice', 'white'] as const;
-const rots = [-2, 1.5, -1, 2, -1.5];
-const tapes = ['blush', 'butter', 'ice', 'lavender', 'butter'] as const;
+import { pad2 } from '@/lib/format';
 ---
-<section class="principles g-white has-notes" aria-labelledby="principles-title">
-  <div class="container">
-    <div class="principles__head">
-      <h2 id="principles-title" class="principles__h2" data-rise="lines">{principlesHeading}</h2>
-      <MarginNote text={storyNotes.principles.rules} tone="orchid" rotate={-5} arrow="arrow-curve" arrowAt="below" arrowAngle={60}
-        anchor="block" show="md" class="principles__note" />
+<Section ground="white" labelledby="principles-h" class="principles">
+  <div class="pr">
+    <div class="pr__cell pr__cell--head" data-reveal>
+      <h2 id="principles-h" class="t-h2 pr__title">{principlesHeading}</h2>
     </div>
-    <ol class="principles__grid" role="list">
-      {principles.map((p, i) => (
-        <li class:list={['pcard', `g-${grounds[i]}`]} style={`--rot:${rots[i]}deg`} data-sticker data-sticker-from={i % 2 ? 'right' : 'top'}>
-          <Tape tone={tapes[i]} rotate={i % 2 ? 5 : -4} />
-          <span class="pcard__n t-dateline tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3 class="pcard__name">{p.name}</h3>
-          <p class="pcard__copy t-mono">{p.copy}</p>
-        </li>
-      ))}
-    </ol>
+    {principles.map((p, i) => (
+      <div class="pr__cell" data-reveal style={`--i:${(i + 1) % 3}`}>
+        <span class="pr__n" aria-hidden="true">{pad2(i + 1)}</span>
+        <h3 class="t-h3 pr__name">{p.name}</h3>
+        <p class="pr__copy">{p.copy}</p>
+      </div>
+    ))}
   </div>
-</section>
+</Section>
 <style>
-  .principles { padding-block: var(--section); overflow: clip; }
-  .principles__head { display: flex; align-items: flex-end; gap: var(--s-6); flex-wrap: wrap; margin-bottom: var(--s-8); }
-  .principles__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .88;
-    font-size: clamp(3.5rem, 1rem + 9vw, 9rem); }
-  .principles :global(.principles__note) { margin-bottom: 1.2em; }
-  .principles__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(20px, 2.6vw, 40px); }
-  .pcard { grid-column: span 2; position: relative; rotate: var(--rot); padding: 40px 28px 30px; border-radius: 10px;
-    border: 2px solid var(--kk-ink); box-shadow: 6px 6px 0 var(--kk-ink); display: flex; flex-direction: column; gap: 14px; min-height: 300px;
-    transition: rotate .5s var(--ease-spring), translate .5s var(--ease-spring), box-shadow .3s var(--ease-expo); }
-  .pcard:nth-child(4) { grid-column: 2 / span 2; }
-  .pcard:hover { rotate: 0deg; translate: 0 -6px; box-shadow: 10px 12px 0 var(--kk-ink); }
-  .pcard__n { font-size: 14px; }
-  .pcard__name { margin: 0; font-family: var(--font-display); font-weight: 760; font-stretch: 80%; letter-spacing: -.015em; line-height: .98;
-    font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); color: var(--head); text-wrap: balance; }
-  .pcard__copy { margin: auto 0 0; color: var(--fg); }
-  @media (max-width: 1023px) {
-    .principles__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pcard, .pcard:nth-child(4) { grid-column: auto; }
-    .pcard:nth-child(5) { grid-column: 1 / -1; }
+  .pr { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); row-gap: var(--s-7); }
+  .pr__cell { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
+  .pr__cell--head { border-top: 2px solid var(--rule-strong); }
+  .pr__title { margin: 0; }
+  .pr__n {
+    display: block; font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.75rem; line-height: 1;
+    font-weight: 400; letter-spacing: -0.01em; color: var(--accent); font-variant-numeric: lining-nums tabular-nums;
   }
-  @media (max-width: 599px) {
-    .principles__grid { grid-template-columns: 1fr; gap: 28px; }
-    .pcard { min-height: 0; }
+  .pr__name { margin-top: var(--s-4); }
+  .pr__copy { margin-top: var(--s-3); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; max-width: 40ch; }
+  @media (min-width: 600px) {
+    .pr { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-8); }
   }
-  @media (prefers-reduced-motion: reduce) { .pcard { transition: none; } }
+  @media (min-width: 900px) {
+    .pr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pr__cell { padding-top: var(--s-6); padding-right: var(--s-5); }
+    .pr__n { font-size: 2rem; }
+    .pr__name { max-width: 18ch; }
+  }
 </style>

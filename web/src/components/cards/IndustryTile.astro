@@ -1,0 +1,176 @@
+---
+/**
+ * Industry tile / card (REDESIGN-V3 §3).
+ *  tile — a text-only cell for the hairline 3×3 grid on home: "01", serif name, optional one-line copy, arrow.
+ *         The whole cell is the link. Put tiles in <ul class="tile-grid"><li>…</li></ul> (style below): hairlines
+ *         between rows and columns, none on the outer left/right edges. Outer columns sit flush with the container edge. Hover: name → --link, arrow nudges.
+ *  card — Kearney-style industry card (Industries page): optional 3:2 photo, "01", serif name, one-line description,
+ *         then "Relevant expertise" links. Pass id={slug} for the /industries#slug anchors. The name links to `href`
+ *         only when that goes somewhere else: no href, or an href that points at this card's own #id on the current
+ *         page, gives a plain heading (no self-links). Each expertise link keeps its last word and arrow together
+ *         (the arrow never wraps onto a line of its own) and is a 44px+ tap row.
+ *         In a .card-grid the <li>, the card and its body are row subgrids (media · n · name · copy · expertise),
+ *         so names, descriptions and the "Relevant expertise" hairline line up across a row.
+ * Mobile: .tile-grid is 1 column < 600 (rows with the arrow at the right), 2 columns 600–899, 3 from 900.
+ *  Cards stack full width; the description is body text (--fs-body, --fg) below 900px; expertise links are 45px tap rows.
+ */
+import type { ImageMetadata } from 'astro';
+import Photo from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { pad2 } from '@/lib/format';
+import { industriesPage } from '@/data/industries';
+
+interface Props {
+  href?: string;
+  name: string;
+  copy?: string;
+  n?: number;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  expertise?: { label: string; href: string }[];
+  variant?: 'tile' | 'card';
+  level?: 2 | 3 | 4;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, name, copy, n, image, imageAlt = '', expertise = [], variant = 'tile', level = 3, class: cls, ...rest } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3' | 'h4';
+// card: no link when href is missing or only points at this card's own anchor on the current page
+const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const [hrefPath, hrefHash] = (href ?? '').split('#');
+const selfLink = !href || (hrefHash !== undefined && hrefHash === rest.id && (hrefPath === '' || (hrefPath.replace(/\/$/, '') || '/') === here));
+const nameHref = variant === 'card' && selfLink ? undefined : href;
+// "Product and Category " + "Innovation→" (the last word and the arrow never part)
+const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)]; };
+---
+{variant === 'tile' ? (
+  <a href={href ?? '/industries'} class:list={['itile', !copy && 'itile--nocopy', 'u-hover', cls]} {...rest}>
+    {n !== undefined && <span class="itile__n" aria-hidden="true">{pad2(n)}</span>}
+    <span class="itile__name">{name}</span>
+    {copy && <span class="itile__copy">{copy}</span>}
+    <Icon name="arrow-right" size={20} stroke={1.75} class="itile__arrow u-nudge" />
+  </a>
+) : (
+  <article class:list={['icard-ind', image && 'icard-ind--img', cls]} {...rest}>
+    {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" sizes="(min-width: 900px) 380px, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
+    <div class="icard-ind__body">
+      <span class="icard-ind__n" aria-hidden="true">{n !== undefined ? pad2(n) : ''}</span>
+      <H class="icard-ind__name">{nameHref ? <a href={nameHref}>{name}</a> : name}</H>
+      {copy ? <p class="icard-ind__copy">{copy}</p> : <span class="icard-ind__copy" aria-hidden="true"></span>}
+      {expertise.length > 0 && (
+        <div class="icard-ind__xp">
+          <p class="t-label icard-ind__xplabel">{industriesPage.relevantExpertise}</p>
+          <ul role="list">
+            {expertise.map((x) => (
+              <li><a href={x.href} class="u-hover">{splitLast(x.label)[0] && <span class="u-draw">{splitLast(x.label)[0]}</span>}<span class="icard-ind__last"><span class="u-draw">{splitLast(x.label)[1]}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></span></a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </article>
+)}
+<style is:global>
+  /* hairline grid for tiles (global so page builders can use it as a plain <ul class="tile-grid">) */
+  .tile-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px;
+    background: var(--rule); border-block: 1px solid var(--rule);
+  }
+  .tile-grid > li { display: flex; background: var(--bg); }
+  .tile-grid > li > * { flex: 1; }
+  /* outer columns sit flush with the container edge (text aligns to the grid; no outer verticals) */
+  @media (min-width: 600px) and (max-width: 899px) {
+    .tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tile-grid > li:nth-child(2n + 1) > * { padding-left: 0; }
+    .tile-grid > li:nth-child(2n) > * { padding-right: 0; }
+    /* an odd last tile takes the whole row, so the 1px-gap grid never shows an empty grey cell */
+    .tile-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .tile-grid > li:last-child:nth-child(odd) > * { padding-right: 0; }
+  }
+  @media (min-width: 900px) {
+    .tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tile-grid > li:nth-child(3n + 1) > * { padding-left: 0; }
+    .tile-grid > li:nth-child(3n) > * { padding-right: 0; }
+    /* a short last row: its last tile stretches to the edge (no empty grey cells) */
+    .tile-grid > li:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+    .tile-grid > li:last-child:nth-child(3n + 2) { grid-column: span 2; }
+    .tile-grid > li:last-child:is(:nth-child(3n + 1), :nth-child(3n + 2)) > * { padding-right: 0; }
+  }
+</style>
+<style>
+  .itile {
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n n" "name arrow" "copy copy";
+    align-content: start; row-gap: var(--s-2); column-gap: var(--s-4);
+    padding: var(--s-5) 0; color: var(--fg); text-decoration: none;
+  }
+  .itile__n { grid-area: n; font-size: var(--fs-meta); line-height: 1; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .itile__name {
+    grid-area: name; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out);
+  }
+  .itile__copy { grid-area: copy; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
+  .itile__arrow { grid-area: arrow; align-self: center; color: var(--accent); }
+  .itile:hover .itile__name { color: var(--link); }
+  @media (min-width: 600px) {
+    .itile { min-height: 112px; padding: var(--s-5); grid-template-rows: auto 1fr auto; grid-template-areas: "n arrow" "name name" "copy copy"; }
+    .itile__arrow { align-self: start; }
+    .itile__name { align-self: end; margin-top: var(--s-3); }
+    .itile--nocopy { grid-template-rows: auto 1fr; grid-template-areas: "n arrow" "name name"; }
+  }
+
+  .icard-ind { display: flex; flex-direction: column; height: 100%; background: var(--surface); border-top: 2px solid var(--rule-strong); }
+  :global(.band--white) .icard-ind { box-shadow: inset 1px 0 0 var(--rule), inset -1px 0 0 var(--rule), inset 0 -1px 0 var(--rule); }
+  .icard-ind__media { border-radius: 0; }
+  .icard-ind__body { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5); flex: 1; }
+  .icard-ind__n { font-size: var(--fs-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .icard-ind__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head); text-wrap: balance;
+  }
+  .icard-ind__name a { color: inherit; text-decoration: none; }
+  .icard-ind__name a:hover { color: var(--link); }
+  .icard-ind__n:empty, .icard-ind__copy:empty { display: none; }
+  /* the description is the page's content, not a caption: body size and --fg on phones/tablets (§7 ≥ 17px), the
+     card-summary size from 900px where the cards sit three across */
+  .icard-ind__copy { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  @media (min-width: 900px) { .icard-ind__copy { font-size: var(--fs-small); line-height: var(--lh-small); } }
+  .icard-ind__xp { margin-top: auto; padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+  .icard-ind__xplabel { color: var(--fg-2); margin-bottom: var(--s-1); }
+  .icard-ind__xp ul { list-style: none; padding: 0; }
+  /* the <a> itself is the 45px tap row (11 + 23 + 11), not the <li> padding around an inline link */
+  .icard-ind__xp a {
+    display: inline-block; padding-block: 11px;
+    font-size: var(--fs-small); line-height: 1.45; font-weight: 500; color: var(--link); text-decoration: none;
+  }
+  .icard-ind__xp ul { margin-block: -6px -8px; }   /* optical: the rows' padding, not extra space, sits at the ends */
+  .icard-ind__last { white-space: nowrap; }
+  .icard-ind__xp a :global(.icon) { display: inline-block; color: var(--accent); vertical-align: -3px; margin-left: 6px; }
+  .icard-ind__xp:first-child { margin-top: 0; }
+  @media (min-width: 900px) { .icard-ind__body { padding: var(--s-6) var(--s-5) var(--s-5); } }
+
+  /* row subgrid (see header): media · n · name · copy · expertise share their tracks with the row's other cards */
+  @supports (grid-template-rows: subgrid) {
+    /* 4 rows (n · name · copy · expertise), 5 with a photo; every row always holds an item (an empty track next to
+       the parent grid's gutter throws the subgrid's offsets off) */
+    :global(.card-grid > li:has(> .icard-ind)) { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+    :global(.card-grid > li:has(> .icard-ind--img)) { grid-row: span 5; }
+    .icard-ind { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
+    .icard-ind > :global(.icard-ind__media) { grid-row: 1; }
+    /* the body dissolves into the card's subgrid; its padding moves onto the parts */
+    .icard-ind__body { display: contents; }
+    .icard-ind__body > * { min-width: 0; margin-inline: var(--s-5); }
+    .icard-ind__n { grid-row: 1; padding-top: var(--s-5); }
+    .icard-ind__name { grid-row: 2; margin-top: var(--s-3); }
+    .icard-ind__copy { grid-row: 3; margin-top: var(--s-3); }
+    .icard-ind__xp { grid-row: 4; margin-top: var(--s-4); margin-bottom: var(--s-5); align-self: start; }
+    .icard-ind--img .icard-ind__n { grid-row: 2; }
+    .icard-ind--img .icard-ind__name { grid-row: 3; }
+    .icard-ind--img .icard-ind__copy { grid-row: 4; }
+    .icard-ind--img .icard-ind__xp { grid-row: 5; }
+    .icard-ind__n:empty, .icard-ind__copy:empty { display: block; }
+    .icard-ind__n:empty { padding-top: var(--s-3); }
+    .icard-ind__copy:empty { margin-top: 0; }
+    @media (min-width: 900px) { .icard-ind__n:not(:empty) { padding-top: var(--s-6); } }
+  }
+</style>

@@ -1,0 +1,5584 @@
+{
+ "desktop": {
+  "url": "https://www.mckinsey.com/in/overview",
+  "vw": 1440,
+  "docH": 9714,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Roboto 300 normal",
+   "Roboto 400 normal",
+   "VideoJS 400 normal",
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "76px",
+     "lh": "92px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 551,
+     "left": 108,
+     "top": 644,
+     "t": "McKinsey India"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 1268,
+     "t": "OUR IMPACT"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 1703,
+     "t": "FEATURED INSIGHTS"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 1767,
+     "t": "India Ahead"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 2571,
+     "t": "OUR VIEW"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 2635,
+     "t": "What’s ahead for India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 3098,
+     "t": "IN THE COMMUNITY"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 3162,
+     "t": "Social Responsibility in India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 4338,
+     "t": "OUR PEOPLE"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52.8px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 548,
+     "left": 108,
+     "top": 2230,
+     "t": "Tech that moves everything"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52.8px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 3997,
+     "t": "Harness the Power of Digital"
+    },
+    {
+     "fam": "Bower",
+     "size": "52px",
+     "lh": "62.4px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 884,
+     "left": 278,
+     "top": 6666,
+     "t": "Working in India"
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 312,
+     "left": 156,
+     "top": 8186,
+     "t": "Bengaluru"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 349,
+     "left": 983,
+     "top": 9288,
+     "t": ""
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 108,
+     "top": 3561,
+     "t": "Generation India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 527,
+     "top": 3561,
+     "t": "Indian School of Business (ISB)"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 945,
+     "top": 3561,
+     "t": "Pratham"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 286,
+     "left": 418,
+     "top": 7329,
+     "t": "A new McKinsey look at the role of productivity in sustainable growth"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 286,
+     "left": 1046,
+     "top": 7329,
+     "t": "McKinsey Health Institute unveils investment case for closing the wome"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 286,
+     "left": 418,
+     "top": 7661,
+     "t": "McKinsey’s top takeaways from the 2022 Bloomberg New Economy Forum"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 286,
+     "left": 1046,
+     "top": 7661,
+     "t": "Bob Sternfels on global flows and value chains: “No region, no country"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 4673,
+     "t": "Rajat Dhawan"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 4721,
+     "t": "Senior Partner and India Managing Partner, Gurugram"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 549,
+     "top": 4673,
+     "t": "Noshir Kaka"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 549,
+     "top": 4721,
+     "t": "Senior Partner, Mumbai"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 959,
+     "top": 4673,
+     "t": "Rajat Gupta"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 959,
+     "top": 4721,
+     "t": "Senior Partner, Mumbai"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 5197,
+     "t": "Shivanshu Gupta"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 5245,
+     "t": "Senior Partner, Bengaluru"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 596,
+    "left": 736,
+    "t": "India, like the rest of the world, is grappling wi"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 387,
+    "left": 527,
+    "t": "McKinsey collaborated with business leaders, schoo"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 387,
+    "left": 945,
+    "t": "Established in 1994 to provide preschool education"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "mb": "0px",
+    "wpx": 312,
+    "left": 156,
+    "t": "6th Floor, 1 SOBHA No: 50, St. Marks Road, Bengalu"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "0px",
+    "wpx": 349,
+    "left": 983,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 13,
+    "chars": 2408,
+    "samples": [
+     "div:We work with India's largest companies--",
+     "div:. We partner with government leaders to ",
+     "div:As India crosses 75 years of independenc"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 14,
+    "chars": 1254,
+    "samples": [
+     "span:Welcome to",
+     "div:Counsels CEOs and boards on performance ",
+     "div:Leads McKinsey’s alliances and ecosystem"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 15,
+    "chars": 907,
+    "samples": [
+     "div:For 30+ years, we have partnered with ma",
+     "div:opening our first office in Mumbai in 19",
+     "div:completed since 2017"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|500|20px|normal|none",
+    "count": 17,
+    "chars": 360,
+    "samples": [
+     "h6:Senior Partner and India Managing Partne",
+     "h6:Senior Partner, Mumbai",
+     "h6:Senior Partner, Mumbai"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 4,
+    "chars": 310,
+    "samples": [
+     "span:A new McKinsey look at the role of produ",
+     "span:McKinsey Health Institute unveils invest",
+     "span:McKinsey’s top takeaways from the 2022 B"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 16,
+    "chars": 253,
+    "samples": [
+     "a:Overview",
+     "a:Our Work",
+     "a:Our People"
+    ],
+    "colors": [
+     "rgb(0, 169, 244)",
+     "rgb(255, 255, 255)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 9,
+    "chars": 139,
+    "samples": [
+     "div:Our impact",
+     "div:Featured Insights",
+     "div:Our View"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|28px|500|40px|normal|none",
+    "count": 9,
+    "chars": 116,
+    "samples": [
+     "span:Rajat Dhawan",
+     "span:Noshir Kaka",
+     "span:Rajat Gupta"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 9,
+    "chars": 73,
+    "samples": [
+     "span:Get started",
+     "span:Learn more",
+     "span:Watch"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 3,
+    "chars": 69,
+    "samples": [
+     "span:Meet our people",
+     "span:Read more about India on our Global Them",
+     "span:Contact"
+    ],
+    "colors": [
+     "rgb(30, 50, 230)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "Bower|44px|300|52px|normal|none",
+    "count": 3,
+    "chars": 63,
+    "samples": [
+     "span:India Ahead",
+     "span:What’s ahead for India",
+     "span:Social Responsibility in India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Roboto|10px|400|14px|normal|none",
+    "count": 4,
+    "chars": 62,
+    "samples": [
+     "button:Keyboard shortcuts",
+     "span:Map data ©2026 Google",
+     "a:Terms"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|44px|300|52.8px|normal|none",
+    "count": 2,
+    "chars": 54,
+    "samples": [
+     "span:Tech that moves everything",
+     "div:Harness the Power of Digital"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 3,
+    "chars": 54,
+    "samples": [
+     "span:Generation India",
+     "span:Indian School of Business (ISB)",
+     "span:Pratham"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|300|20px|normal|none",
+    "count": 2,
+    "chars": 53,
+    "samples": [
+     "a:accelerate sustainable and inclusive gro",
+     "a:Learn more"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|300|40px|normal|none",
+    "count": 3,
+    "chars": 50,
+    "samples": [
+     "div:years in India,",
+     "div:engagements",
+     "div:partners and consultants"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|400|32px|normal|none",
+    "count": 5,
+    "chars": 47,
+    "samples": [
+     "a:Careers",
+     "a:About us",
+     "a:Alumni"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|43.2px|normal|none",
+    "count": 1,
+    "chars": 27,
+    "samples": [
+     "div:Connect with McKinsey India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "span:Skip to main content"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|28px|normal|none",
+    "count": 1,
+    "chars": 19,
+    "samples": [
+     "span:Open in Google Maps"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "Bower|52px|300|62.4px|normal|none",
+    "count": 1,
+    "chars": 16,
+    "samples": [
+     "div:Working in India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|76px|300|92px|normal|none",
+    "count": 1,
+    "chars": 14,
+    "samples": [
+     "div:McKinsey India"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "Bower|72px|300|87.12px|normal|none",
+    "count": 3,
+    "chars": 11,
+    "samples": [
+     "div:35+",
+     "div:900+",
+     "div:850+"
+    ],
+    "colors": [
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "Arial|49px|400|73.5px|normal|none",
+    "count": 1,
+    "chars": 10,
+    "samples": [
+     "span:Play Video"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Bengaluru"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Subscribe"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|400|20px|normal|none",
+    "count": 1,
+    "chars": 6,
+    "samples": [
+     "button:Submit"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|16px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(255, 255, 255)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 90,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 96
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "16px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 16,
+    "x": 318
+   },
+   {
+    "t": "Overview",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 169, 244)",
+    "h": 90,
+    "x": 306
+   },
+   {
+    "t": "Our Work",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 90,
+    "x": 391
+   },
+   {
+    "t": "Our People",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 90,
+    "x": 477
+   },
+   {
+    "t": "Our Insights",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 90,
+    "x": 575
+   },
+   {
+    "t": "Careers",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 90,
+    "x": 679
+   },
+   {
+    "t": "Contact Us",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 90,
+    "x": 755
+   },
+   {
+    "t": "Sign In",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 24,
+    "x": 1284
+   },
+   {
+    "t": "Subscribe",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 24,
+    "x": 1345
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 64,
+    "x": 1380
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "SPAN",
+    "cls": "",
+    "top": 8377,
+    "h": 1,
+    "w": 1,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  ],
+  "containers": [
+   [
+    "1440px | w=1440 | left=0 | pl=0px pr=0px",
+    7
+   ],
+   [
+    "100% | w=596 | left=108 | pl=0px pr=0px",
+    3
+   ],
+   [
+    "1440px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "1232px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ]
+  ],
+  "textLefts": [
+   [
+    108,
+    16
+   ],
+   [
+    736,
+    4
+   ],
+   [
+    284,
+    2
+   ],
+   [
+    306,
+    1
+   ],
+   [
+    391,
+    1
+   ],
+   [
+    477,
+    1
+   ],
+   [
+    575,
+    1
+   ],
+   [
+    679,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    1332,
+    16
+   ],
+   [
+    704,
+    3
+   ],
+   [
+    411,
+    3
+   ],
+   [
+    820,
+    3
+   ],
+   [
+    1229,
+    3
+   ],
+   [
+    1022,
+    3
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "mck-c-full-text-c mck-o-edge-to-edge mck-c-module-wrapper mck-c-module",
+    "top": 900,
+    "h": 304,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "Factoid_mck-c-factoid__IK3O1 mck-c-module-wrapper",
+    "top": 1268,
+    "h": 371,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "OUR IMPACT"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 1703,
+    "h": 399,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "FEATURED INSIGHTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium TwoUpMedium_mck-c-two-up-medium--revers",
+    "top": 2166,
+    "h": 341,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "Tech that moves everything"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper mck-c-module-wrapper--collapse-top-spacing mck-o-",
+    "top": 2507,
+    "h": 527,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "OUR VIEW"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 3098,
+    "h": 399,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "IN THE COMMUNITY"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-c-module-wrapper",
+    "top": 3561,
+    "h": 308,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBanner_mck-c-promo-banner__J4moB mck-c-module-wrapper mck-o-edge-",
+    "top": 3933,
+    "h": 277,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "Harness the Power of Digital"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-three-up-circle ThreeUpCircleMedium_mck-c-three-up-circle--align",
+    "top": 4274,
+    "h": 1848,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "OUR PEOPLE"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-one-up-medium-hero__image-container OneUpMediumHero_m",
+    "top": 6186,
+    "h": 496,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "CAREERS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "OneUpMediumHero_mck-c-one-up-medium-hero__text-container__AWowr OneUpM",
+    "top": 6602,
+    "h": 366,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "-80px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "Working in India"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-full-text-c  mck-c-module-wrapper",
+    "top": 7032,
+    "h": 144,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "IMPORTANT: BEWARE OF RECRUITMENT SCAMS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-two-up-small mck-c-module-wrapper",
+    "top": 7240,
+    "h": 721,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "NEW AT MCKINSEY BLOG"
+   },
+   {
+    "tag": "DIV",
+    "cls": "MapSublayout_mck-c-map-sublayout__map-container__YN7aa",
+    "top": 8025,
+    "h": 593,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "OUR LOCATIONS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-u-screen-only",
+    "top": 8682,
+    "h": 48,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 8794,
+    "h": 305,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "Connect with McKinsey India"
+   }
+  ],
+  "h2Tops": [
+   [
+    1268,
+    "OUR IMPACT"
+   ],
+   [
+    1703,
+    "FEATURED INSIGHTS"
+   ],
+   [
+    1767,
+    "India Ahead"
+   ],
+   [
+    2571,
+    "OUR VIEW"
+   ],
+   [
+    2635,
+    "What’s ahead for India"
+   ],
+   [
+    3098,
+    "IN THE COMMUNITY"
+   ],
+   [
+    3162,
+    "Social Responsibility in India"
+   ],
+   [
+    4338,
+    "OUR PEOPLE"
+   ],
+   [
+    6186,
+    "CAREERS"
+   ],
+   [
+    7032,
+    "IMPORTANT: BEWARE OF RECRUITME"
+   ],
+   [
+    7240,
+    "NEW AT MCKINSEY BLOG"
+   ],
+   [
+    8025,
+    "OUR LOCATIONS"
+   ],
+   [
+    8858,
+    "Connect with McKinsey India"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 335,
+    "ratio": 1.78,
+    "top": 1767,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India Ahead"
+   },
+   {
+    "tag": "VIDEO",
+    "w": 596,
+    "h": 335,
+    "ratio": 1.78,
+    "top": 2635,
+    "left": 108,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 335,
+    "ratio": 1.78,
+    "top": 2635,
+    "left": 108,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 335,
+    "ratio": 1.78,
+    "top": 3162,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4442,
+    "left": 211,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4442,
+    "left": 620,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4442,
+    "left": 1029,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4966,
+    "left": 211,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4966,
+    "left": 620,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 4966,
+    "left": 1029,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 5490,
+    "left": 211,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 5490,
+    "left": 620,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 5490,
+    "left": 1029,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 286,
+    "h": 286,
+    "ratio": 1,
+    "top": 7329,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "An office Manager training colleague usi"
+   },
+   {
+    "tag": "IMG",
+    "w": 286,
+    "h": 286,
+    "ratio": 1,
+    "top": 7329,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Doctor conducts an eye examination of a "
+   },
+   {
+    "tag": "IMG",
+    "w": 286,
+    "h": 286,
+    "ratio": 1,
+    "top": 7661,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "McKinsey colleagues speak at GII BNEF"
+   },
+   {
+    "tag": "IMG",
+    "w": 286,
+    "h": 286,
+    "ratio": 1,
+    "top": 7661,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Bob Sternfels speaking at the New Econom"
+   },
+   {
+    "tag": "IMG",
+    "w": 65,
+    "h": 65,
+    "ratio": 1,
+    "top": 8313,
+    "left": 891,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8048,
+    "left": 1083,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8304,
+    "left": 571,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8304,
+    "left": 1083,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8048,
+    "left": 571,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8304,
+    "left": 827,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8048,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8560,
+    "left": 827,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8560,
+    "left": 1083,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8560,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8048,
+    "left": 827,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8304,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 8560,
+    "left": 571,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 335,
+    "left": 108,
+    "top": 2635,
+    "img": {
+     "w": 596,
+     "h": 335,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -2970,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "",
+     "fam": "Arial",
+     "size": "14px",
+     "lh": "14px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": null,
+    "meta": {
+     "t": "Play Video",
+     "fam": "Arial",
+     "size": "49px",
+     "lh": "73.5px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 108,
+    "top": 4402,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Rajat Dhawan",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Counsels CEOs and boards on performance ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 517,
+    "top": 4402,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Noshir Kaka",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s alliances and ecosystem",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 927,
+    "top": 4402,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Rajat Gupta",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads the Sustainability Practice in Asi",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 108,
+    "top": 4926,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Shivanshu Gupta",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s Advanced Industries in ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 517,
+    "top": 4926,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Alok Kshirsagar",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Advises companies across a broad range o",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 927,
+    "top": 4926,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Renny Thomas",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s banking work across Asi",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 108,
+    "top": 5450,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Vivek Pandit",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Serves the world’s leading investors and",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 517,
+    "top": 5450,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Vikash Daga",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey's Marketing & Sales Pract",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 405,
+    "h": 520,
+    "left": 927,
+    "top": 5450,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Sathya Prathipati",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey's work in pharmaceutical ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 286,
+    "left": 108,
+    "top": 7329,
+    "img": {
+     "w": 286,
+     "h": 286,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": true
+    },
+    "gapImgToText": -286,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "A new McKinsey look at the role of productivity in",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Our newest MGI report makes the case for",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "April 23, 2024",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 300,
+    "left": 736,
+    "top": 7329,
+    "img": {
+     "w": 286,
+     "h": 286,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": true
+    },
+    "gapImgToText": -286,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey Health Institute unveils investment case ",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "World Economic Forum and McKinsey’s land",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "January 30, 2024",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 286,
+    "left": 108,
+    "top": 7661,
+    "img": {
+     "w": 286,
+     "h": 286,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": true
+    },
+    "gapImgToText": -286,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey’s top takeaways from the 2022 Bloomberg N",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "This year’s event in Singapore drew near",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "December 15, 2022",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 300,
+    "left": 736,
+    "top": 7661,
+    "img": {
+     "w": 286,
+     "h": 286,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": true
+    },
+    "gapImgToText": -286,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Bob Sternfels on global flows and value chains: “N",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "At the Bloomberg New Economy Forum in Si",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "November 29, 2022",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|2px solid rgb(34, 81, 255)|0px|24|20px|300",
+    "t": "accelerate sustainable and inc",
+    "h": 24,
+    "w": "300",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "2px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0.3)|rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|50%|74|49px|400",
+    "t": "Play Video",
+    "h": 74,
+    "w": "400",
+    "pad": "0px",
+    "radius": "50%",
+    "bg": "rgba(0, 0, 0, 0.3)",
+    "color": "rgb(255, 255, 255)",
+    "border": "2px solid rgb(255, 255, 255)",
+    "bb": "2px solid rgb(255, 255, 255)",
+    "fam": "Arial",
+    "size": "49px",
+    "lh": "73.5px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "Meet our people",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(240, 240, 240)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px|56|16px|500",
+    "t": "Bengaluru",
+    "h": 56,
+    "w": "500",
+    "pad": "16px 8px",
+    "radius": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|2px|40|11px|400",
+    "t": "",
+    "h": 40,
+    "w": "400",
+    "pad": "0px",
+    "radius": "2px",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "Roboto",
+    "size": "11px",
+    "lh": "12.65px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|50%|40|11px|400",
+    "t": "",
+    "h": 40,
+    "w": "400",
+    "pad": "0px",
+    "radius": "50%",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "Roboto",
+    "size": "11px",
+    "lh": "12.65px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px|40|11px|400",
+    "t": "",
+    "h": 40,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "Roboto",
+    "size": "11px",
+    "lh": "12.65px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Read more about India on our G",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|14px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "4px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "14px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 2px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Top 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Bottom 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Left 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Top 1px rgb(208, 208, 208)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    93
+   ],
+   [
+    "rgb(255, 255, 255)",
+    27
+   ],
+   [
+    "rgb(51, 51, 51)",
+    16
+   ],
+   [
+    "rgb(34, 81, 255)",
+    6
+   ],
+   [
+    "rgb(0, 169, 244)",
+    1
+   ],
+   [
+    "rgb(30, 50, 230)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    6305
+   ],
+   [
+    "rgb(255, 255, 255)",
+    6051
+   ],
+   [
+    "rgb(5, 28, 44)",
+    1477
+   ],
+   [
+    "rgb(34, 81, 255)",
+    1340
+   ],
+   [
+    "rgb(245, 245, 245)",
+    365
+   ],
+   [
+    "rgba(0, 0, 0, 0.3)",
+    5
+   ],
+   [
+    "rgb(230, 230, 230)",
+    0
+   ]
+  ],
+  "stats": [
+   {
+    "t": "35+",
+    "fam": "Bower",
+    "size": "72px",
+    "lh": "87.12px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "years in India,",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   },
+   {
+    "t": "900+",
+    "fam": "Bower",
+    "size": "72px",
+    "lh": "87.12px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "engagements",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   },
+   {
+    "t": "850+",
+    "fam": "Bower",
+    "size": "72px",
+    "lh": "87.12px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "partners and consultants",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   }
+  ],
+  "footer": {
+   "h": 615,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [
+    {
+     "x": 108,
+     "w": 313,
+     "y": 189,
+     "items": 5,
+     "first": ""
+    }
+   ],
+   "linkType": [
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "h": 32
+    }
+   ],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 240,
+    "border": "1px solid rgb(0, 0, 0)",
+    "bt": "1px solid rgb(0, 0, 0)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1400,
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  },
+  "articleLinks": []
+ },
+ "mobile": {
+  "url": "https://www.mckinsey.com/in/overview",
+  "vw": 390,
+  "docH": 16263,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "VideoJS 400 normal",
+   "Roboto 400 normal",
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 526,
+     "t": "McKinsey India"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 1258,
+     "t": "OUR IMPACT"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2454,
+     "t": "FEATURED INSIGHTS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2748,
+     "t": "India Ahead"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3758,
+     "t": "OUR VIEW"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4051,
+     "t": "What’s ahead for India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4539,
+     "t": "IN THE COMMUNITY"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4833,
+     "t": "Social Responsibility in India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6667,
+     "t": "OUR PEOPLE"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3416,
+     "t": "Tech that moves everything"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6325,
+     "t": "Harness the Power of Digital"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 316,
+     "left": 37,
+     "top": 11967,
+     "t": "Working in India"
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 15337,
+     "t": "Bengaluru"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 349,
+     "left": 20,
+     "top": 16564,
+     "t": ""
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5209,
+     "t": "Generation India"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5549,
+     "t": "Indian School of Business (ISB)"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5889,
+     "t": "Pratham"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 13060,
+     "t": "A new McKinsey look at the role of productivity in sustainable growth"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 13561,
+     "t": "McKinsey Health Institute unveils investment case for closing the wome"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 14063,
+     "t": "McKinsey’s top takeaways from the 2022 Bloomberg New Economy Forum"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 14564,
+     "t": "Bob Sternfels on global flows and value chains: “No region, no country"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 7002,
+     "t": "Rajat Dhawan"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 7050,
+     "t": "Senior Partner and India Managing Partner, Gurugram"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 7546,
+     "t": "Noshir Kaka"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 7594,
+     "t": "Senior Partner, Mumbai"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 8070,
+     "t": "Rajat Gupta"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 8118,
+     "t": "Senior Partner, Mumbai"
+    },
+    {
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 8594,
+     "t": "Shivanshu Gupta"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 8642,
+     "t": "Senior Partner, Bengaluru"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 351,
+    "left": 20,
+    "t": "India, like the rest of the world, is grappling wi"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 351,
+    "left": 20,
+    "t": "McKinsey collaborated with business leaders, schoo"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Established in 1994 to provide preschool education"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "mb": "0px",
+    "wpx": 287,
+    "left": 52,
+    "t": "6th Floor, 1 SOBHA No: 50, St. Marks Road, Bengalu"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "0px",
+    "wpx": 349,
+    "left": 20,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 13,
+    "chars": 2408,
+    "samples": [
+     "div:We work with India's largest companies--",
+     "div:. We partner with government leaders to ",
+     "div:As India crosses 75 years of independenc"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 14,
+    "chars": 1254,
+    "samples": [
+     "span:Welcome to",
+     "div:Counsels CEOs and boards on performance ",
+     "div:Leads McKinsey’s alliances and ecosystem"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 15,
+    "chars": 907,
+    "samples": [
+     "div:For 30+ years, we have partnered with ma",
+     "div:opening our first office in Mumbai in 19",
+     "div:completed since 2017"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|500|20px|normal|none",
+    "count": 17,
+    "chars": 360,
+    "samples": [
+     "h6:Senior Partner and India Managing Partne",
+     "h6:Senior Partner, Mumbai",
+     "h6:Senior Partner, Mumbai"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 4,
+    "chars": 310,
+    "samples": [
+     "span:A new McKinsey look at the role of produ",
+     "span:McKinsey Health Institute unveils invest",
+     "span:McKinsey’s top takeaways from the 2022 B"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 8,
+    "chars": 182,
+    "samples": [
+     "span:Learn more about Generation India",
+     "span:Learn more on the ISB website",
+     "span:Learn more on the Pratham website"
+    ],
+    "colors": [
+     "rgb(34, 81, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 9,
+    "chars": 139,
+    "samples": [
+     "div:Our impact",
+     "div:Featured Insights",
+     "div:Our View"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|28px|500|40px|normal|none",
+    "count": 9,
+    "chars": 116,
+    "samples": [
+     "span:Rajat Dhawan",
+     "span:Noshir Kaka",
+     "span:Rajat Gupta"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|43.2px|normal|none",
+    "count": 4,
+    "chars": 97,
+    "samples": [
+     "span:Tech that moves everything",
+     "div:Harness the Power of Digital",
+     "div:Working in India"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|44px|normal|none",
+    "count": 4,
+    "chars": 77,
+    "samples": [
+     "div:McKinsey India",
+     "span:India Ahead",
+     "span:What’s ahead for India"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 9,
+    "chars": 73,
+    "samples": [
+     "span:Get started",
+     "span:Learn more",
+     "span:Watch"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 3,
+    "chars": 69,
+    "samples": [
+     "span:Meet our people",
+     "span:Read more about India on our Global Them",
+     "span:Contact"
+    ],
+    "colors": [
+     "rgb(30, 50, 230)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 3,
+    "chars": 54,
+    "samples": [
+     "span:Generation India",
+     "span:Indian School of Business (ISB)",
+     "span:Pratham"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|300|20px|normal|none",
+    "count": 2,
+    "chars": 53,
+    "samples": [
+     "a:accelerate sustainable and inclusive gro",
+     "a:Learn more"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|300|40px|normal|none",
+    "count": 3,
+    "chars": 50,
+    "samples": [
+     "div:years in India,",
+     "div:engagements",
+     "div:partners and consultants"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|400|32px|normal|none",
+    "count": 5,
+    "chars": 47,
+    "samples": [
+     "a:Careers",
+     "a:About us",
+     "a:Alumni"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Roboto|10px|400|14px|normal|none",
+    "count": 3,
+    "chars": 44,
+    "samples": [
+     "button:Keyboard shortcuts",
+     "span:Map data ©2026 Google",
+     "a:Terms"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "span:Skip to main content"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|28px|normal|none",
+    "count": 1,
+    "chars": 19,
+    "samples": [
+     "span:Open in Google Maps"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "Bower|64px|300|77.44px|normal|none",
+    "count": 3,
+    "chars": 11,
+    "samples": [
+     "div:35+",
+     "div:900+",
+     "div:850+"
+    ],
+    "colors": [
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "Arial|49px|400|73.5px|normal|none",
+    "count": 1,
+    "chars": 10,
+    "samples": [
+     "span:Play Video"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Bengaluru"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Subscribe"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|400|20px|normal|none",
+    "count": 1,
+    "chars": 6,
+    "samples": [
+     "button:Submit"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|13px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(255, 255, 255)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 83,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 68
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "13px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 13,
+    "x": 68
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "h": 56,
+    "x": 330
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "SPAN",
+    "cls": "",
+    "top": 15176,
+    "h": 1,
+    "w": 1,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  ],
+  "containers": [
+   [
+    "390px | w=390 | left=0 | pl=0px pr=0px",
+    8
+   ],
+   [
+    "100% | w=351 | left=20 | pl=0px pr=0px",
+    7
+   ]
+  ],
+  "textLefts": [
+   [
+    20,
+    23
+   ],
+   [
+    172,
+    2
+   ],
+   [
+    330,
+    1
+   ],
+   [
+    37,
+    1
+   ],
+   [
+    52,
+    1
+   ],
+   [
+    -1,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    371,
+    26
+   ],
+   [
+    295,
+    9
+   ],
+   [
+    610,
+    2
+   ],
+   [
+    354,
+    2
+   ],
+   [
+    98,
+    2
+   ],
+   [
+    353,
+    1
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "mck-c-full-text-c mck-o-edge-to-edge mck-c-module-wrapper mck-c-module",
+    "top": 730,
+    "h": 464,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "Factoid_mck-c-factoid__IK3O1 mck-c-module-wrapper",
+    "top": 1258,
+    "h": 1132,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "OUR IMPACT"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 2454,
+    "h": 609,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "FEATURED INSIGHTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium TwoUpMedium_mck-c-two-up-medium--revers",
+    "top": 3128,
+    "h": 598,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "Tech that moves everything"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper mck-c-module-wrapper--collapse-top-spacing mck-o-",
+    "top": 3726,
+    "h": 749,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "OUR VIEW"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 4539,
+    "h": 605,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "IN THE COMMUNITY"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-c-module-wrapper",
+    "top": 5209,
+    "h": 1020,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBanner_mck-c-promo-banner__J4moB mck-c-module-wrapper mck-o-edge-",
+    "top": 6293,
+    "h": 278,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "Harness the Power of Digital"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-three-up-circle ThreeUpCircleMedium_mck-c-three-up-circle--align",
+    "top": 6635,
+    "h": 4968,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "OUR PEOPLE"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-one-up-medium-hero__image-container OneUpMediumHero_m",
+    "top": 11667,
+    "h": 304,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "CAREERS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "OneUpMediumHero_mck-c-one-up-medium-hero__text-container__AWowr OneUpM",
+    "top": 11935,
+    "h": 443,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "-36px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "Working in India"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-full-text-c  mck-c-module-wrapper",
+    "top": 12442,
+    "h": 232,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "IMPORTANT: BEWARE OF RECRUITMENT SCAMS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-two-up-small mck-c-module-wrapper",
+    "top": 12738,
+    "h": 2062,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "NEW AT MCKINSEY BLOG"
+   },
+   {
+    "tag": "DIV",
+    "cls": "MapSublayout_mck-c-map-sublayout__map-container__YN7aa",
+    "top": 14864,
+    "h": 805,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "OUR LOCATIONS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-u-screen-only",
+    "top": 15733,
+    "h": 74,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 15871,
+    "h": 391,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "Connect with McKinsey India"
+   }
+  ],
+  "h2Tops": [
+   [
+    1258,
+    "OUR IMPACT"
+   ],
+   [
+    2454,
+    "FEATURED INSIGHTS"
+   ],
+   [
+    2748,
+    "India Ahead"
+   ],
+   [
+    3758,
+    "OUR VIEW"
+   ],
+   [
+    4051,
+    "What’s ahead for India"
+   ],
+   [
+    4539,
+    "IN THE COMMUNITY"
+   ],
+   [
+    4833,
+    "Social Responsibility in India"
+   ],
+   [
+    6667,
+    "OUR PEOPLE"
+   ],
+   [
+    11667,
+    "CAREERS"
+   ],
+   [
+    12442,
+    "IMPORTANT: BEWARE OF RECRUITME"
+   ],
+   [
+    12738,
+    "NEW AT MCKINSEY BLOG"
+   ],
+   [
+    14864,
+    "OUR LOCATIONS"
+   ],
+   [
+    15903,
+    "Connect with McKinsey India"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 2518,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India Ahead"
+   },
+   {
+    "tag": "VIDEO",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 3822,
+    "left": 20,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 3822,
+    "left": 20,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 4603,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 6771,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 7315,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 7839,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 8363,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 8887,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 9411,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 9935,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 10479,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 200,
+    "h": 200,
+    "ratio": 1,
+    "top": 11003,
+    "left": 95,
+    "radius": "50%",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 12827,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "An office Manager training colleague usi"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 13328,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Doctor conducts an eye examination of a "
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 13829,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "McKinsey colleagues speak at GII BNEF"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 14331,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Bob Sternfels speaking at the New Econom"
+   },
+   {
+    "tag": "IMG",
+    "w": 65,
+    "h": 65,
+    "ratio": 1,
+    "top": 15112,
+    "left": 162,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 14847,
+    "left": 354,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 14847,
+    "left": 98,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 15103,
+    "left": -158,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 15103,
+    "left": 354,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 14847,
+    "left": -158,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 256,
+    "h": 256,
+    "ratio": 1,
+    "top": 15103,
+    "left": 98,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 81,
+    "h": 81,
+    "ratio": 1,
+    "top": 15104,
+    "left": 154,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 18,
+    "h": 18,
+    "ratio": 1,
+    "top": 15070,
+    "left": 332,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 28,
+    "h": 28,
+    "ratio": 1,
+    "top": 15247,
+    "left": 327,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 66,
+    "h": 26,
+    "ratio": 2.54,
+    "top": 15279,
+    "left": 25,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Google"
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 609,
+    "left": 20,
+    "top": 2454,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -261,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "FEATURED INSIGHTS",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "As India crosses 75 years of independenc",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 329
+    },
+    "meta": {
+     "t": "India Ahead",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 390,
+    "h": 749,
+    "left": 0,
+    "top": 3726,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -261,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "OUR VIEW",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "India, like the rest of the world, is gr",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 373
+    },
+    "meta": {
+     "t": "Play Video",
+     "fam": "Arial",
+     "size": "49px",
+     "lh": "73.5px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 605,
+    "left": 20,
+    "top": 4539,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -261,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "IN THE COMMUNITY",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "We are committed to empowering our ecosy",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 373
+    },
+    "meta": {
+     "t": "Social Responsibility in India",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 540,
+    "left": 20,
+    "top": 6731,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Rajat Dhawan",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Counsels CEOs and boards on performance ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 65
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 7275,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Noshir Kaka",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s alliances and ecosystem",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 7799,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Rajat Gupta",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads the Sustainability Practice in Asi",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 8323,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Shivanshu Gupta",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s Advanced Industries in ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 8847,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Alok Kshirsagar",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Advises companies across a broad range o",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 9371,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Renny Thomas",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey’s banking work across Asi",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 540,
+    "left": 20,
+    "top": 9895,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Vivek Pandit",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Serves the world’s leading investors and",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 10439,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Vikash Daga",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey's Marketing & Sales Pract",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 520,
+    "left": 20,
+    "top": 10963,
+    "img": {
+     "w": 200,
+     "h": 200,
+     "ratio": 1,
+     "radius": "50%",
+     "leftOfText": false
+    },
+    "gapImgToText": 31,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Sathya Prathipati",
+     "fam": "Bower",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leads McKinsey's work in pharmaceutical ",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 45
+    },
+    "meta": null,
+    "bg": "rgb(240, 240, 240)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 469,
+    "left": 20,
+    "top": 12827,
+    "img": {
+     "w": 351,
+     "h": 209,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "A new McKinsey look at the role of productivity in",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Our newest MGI report makes the case for",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "April 23, 2024",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 469,
+    "left": 20,
+    "top": 13328,
+    "img": {
+     "w": 351,
+     "h": 209,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey Health Institute unveils investment case ",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "World Economic Forum and McKinsey’s land",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 20
+    },
+    "meta": {
+     "t": "January 30, 2024",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|2px solid rgb(34, 81, 255)|0px|56|20px|300",
+    "t": "accelerate sustainable and inc",
+    "h": 56,
+    "w": "300",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "2px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0.3)|rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|50%|74|49px|400",
+    "t": "Play Video",
+    "h": 74,
+    "w": "400",
+    "pad": "0px",
+    "radius": "50%",
+    "bg": "rgba(0, 0, 0, 0.3)",
+    "color": "rgb(255, 255, 255)",
+    "border": "2px solid rgb(255, 255, 255)",
+    "bb": "2px solid rgb(255, 255, 255)",
+    "fam": "Arial",
+    "size": "49px",
+    "lh": "73.5px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "Meet our people",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|2px solid rgb(34, 81, 255)|0px|24|20px|300",
+    "t": "Learn more",
+    "h": 24,
+    "w": "300",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "2px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(240, 240, 240)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px|56|16px|500",
+    "t": "Bengaluru",
+    "h": 56,
+    "w": "500",
+    "pad": "16px 8px",
+    "radius": "0px",
+    "bg": "rgb(240, 240, 240)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|2px|40|11px|400",
+    "t": "",
+    "h": 40,
+    "w": "400",
+    "pad": "0px",
+    "radius": "2px",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "Roboto",
+    "size": "11px",
+    "lh": "12.65px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|0px none rgb(0, 0, 0)|0px none rgb(0, 0, 0)|50%|40|11px|400",
+    "t": "",
+    "h": 40,
+    "w": "400",
+    "pad": "0px",
+    "radius": "50%",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "bb": "0px none rgb(0, 0, 0)",
+    "fam": "Roboto",
+    "size": "11px",
+    "lh": "12.65px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|74|18px|400",
+    "t": "Read more about India on our G",
+    "h": 74,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Contact",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|14px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "4px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "14px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 2px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Top 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Bottom 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Left 2px rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Top 1px rgb(208, 208, 208)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    92
+   ],
+   [
+    "rgb(255, 255, 255)",
+    20
+   ],
+   [
+    "rgb(51, 51, 51)",
+    16
+   ],
+   [
+    "rgb(34, 81, 255)",
+    6
+   ],
+   [
+    "rgb(30, 50, 230)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    4258
+   ],
+   [
+    "rgb(255, 255, 255)",
+    4141
+   ],
+   [
+    "rgb(5, 28, 44)",
+    561
+   ],
+   [
+    "rgb(245, 245, 245)",
+    364
+   ],
+   [
+    "rgb(34, 81, 255)",
+    333
+   ],
+   [
+    "rgba(0, 0, 0, 0.3)",
+    5
+   ],
+   [
+    "rgb(230, 230, 230)",
+    0
+   ]
+  ],
+  "stats": [
+   {
+    "t": "35+",
+    "fam": "Bower",
+    "size": "64px",
+    "lh": "77.44px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "years in India,",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   },
+   {
+    "t": "900+",
+    "fam": "Bower",
+    "size": "64px",
+    "lh": "77.44px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "engagements",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   },
+   {
+    "t": "850+",
+    "fam": "Bower",
+    "size": "64px",
+    "lh": "77.44px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "label": {
+     "t": "partners and consultants",
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "40px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    }
+   }
+  ],
+  "footer": {
+   "h": 1,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [
+    {
+     "x": 20,
+     "w": 289,
+     "y": 158,
+     "items": 5,
+     "first": ""
+    }
+   ],
+   "linkType": [
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "h": 32
+    }
+   ],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 240,
+    "border": "1px solid rgb(0, 0, 0)",
+    "bt": "1px solid rgb(0, 0, 0)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1400,
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  }
+ }
+}

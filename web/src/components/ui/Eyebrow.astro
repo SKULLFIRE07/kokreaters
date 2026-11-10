@@ -1,0 +1,13 @@
+---
+/**
+ * Eyebrow / section label (REDESIGN-V3 §1.2 --fs-label): Inter 600, 12–13px, uppercase, tracking .12em, colour --label
+ * (blue-700 on light grounds, blue-300 on navy). Mobile: same; wraps if long.
+ */
+interface Props {
+  as?: 'p' | 'span' | 'div';
+  class?: string;
+  [key: string]: unknown;
+}
+const { as: Tag = 'p', class: cls, ...rest } = Astro.props;
+---
+<Tag class:list={['eyebrow', 't-label', cls]} {...rest}><slot /></Tag>

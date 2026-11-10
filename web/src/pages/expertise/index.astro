@@ -1,92 +1,41 @@
 ---
 /**
- * /expertise (DESIGN-SPEC v2 10.2). Grounds: white grid (header + Venn) → ink (hub) → white (six colour blocks)
- * → butter (prompt) → saffron (CtaField, from BaseLayout) → ink (footer).
+ * /expertise (REDESIGN-V3 §4 "Expertise hub").
+ *  1 PageHero grey — crumbs, eyebrow "Expertise", H1 "Expertise that connects science, plants and strategy.",
+ *    lead = the overview intro (shown whole: trimming it to two sentences would be a copy change).
+ *  2 The six areas (white) — SectionHeader + six ExpertiseCards `hub` (name, promise, typical deliverables, Learn more).
+ *    3×2 from 1200px, 2×3 from 600px, one column below.
+ *  3 "Not sure where you fit?" — this page's CtaBand (BaseLayout `cta` props): the prompt as the headline and
+ *    "Start a conversation" → /contact as the button, so the page closes on one CTA band, not two.
+ * Mobile: hero text full width; cards one column, full width, 24px padding; the CtaBand button goes full width.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
-import Scribble from '@/components/notes/Scribble.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import Venn from '@/components/notes/Venn.astro';
-import PillarCard from '@/components/shared/PillarCard.astro';
-import HubDiagram from '@/components/bencho/HubDiagram.astro';
-import IntroMore from '@/components/expertise/IntroMore.astro';
-import PromptRow from '@/components/expertise/PromptRow.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
 import { expertiseOverview, pillars } from '@/data/pillars';
-import { expertiseNotes } from '@/data/notes/expertise';
+import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
 
-const crumbs = [{ label: 'Expertise', href: '/expertise' }];
-const [before, after] = expertiseOverview.headline.split('connects');
-const venn = [...expertiseNotes.overview.venn] as [string, string, string];
+const crumbs = [{ label: expertiseOverview.overline, href: '/expertise' }];
+const prompt = expertiseOverview.prompt;
 ---
-<BaseLayout page="expertise" seo={pageSeo('expertise')} breadcrumbs={crumbs} showCrumbs={false}>
-  <section class="band fold g-white paper-grid x-head has-notes" aria-labelledby="expertise-title">
-    <div class="container">
-      <Breadcrumbs items={crumbs} />
-      <div class="x-head__grid">
-        <div class="x-head__text">
-          <p class="t-dateline x-head__dateline"><span class="x-head__dot" aria-hidden="true"></span>{expertiseOverview.overline}</p>
-          <h1 id="expertise-title" class="t-display x-head__title">{before}<Scribble kind="swoosh" tone="orchid">connects</Scribble>{after}</h1>
-          <IntroMore class="x-head__intro" html={expertiseOverview.intro} />
-        </div>
-        <div class="x-head__art">
-          <Venn labels={venn} centre={expertiseNotes.overview.vennCentre} tone="orchid" size={420} />
-        </div>
-      </div>
-      <MarginNote text={expertiseNotes.overview.together} tone="orchid" arrow="arrow-curve" arrowAt="end" rotate={-5} arrowAngle={50} place="left: 46%; bottom: 20px; max-width: none;" show="md" />
-    </div>
-  </section>
+<BaseLayout
+  page="expertise" seo={pageSeo('expertise')} breadcrumbs={crumbs}
+  cta={{ title: prompt.text, primary: { label: prompt.link.label, href: prompt.link.href } }}
+>
+  <PageHero
+    ground="grey" crumbs={crumbs} eyebrow={expertiseOverview.overline}
+    title={expertiseOverview.headline} lead={expertiseOverview.intro} titleId="expertise-title"
+  />
 
-  <section class="band fold g-ink grain x-hub" aria-labelledby="hub-title">
-    <div class="container"><HubDiagram headingId="hub-title" /></div>
-  </section>
-
-  <div class="band fold g-white x-grid has-notes">
-    <div class="container">
-      <MarginNote text={expertiseNotes.grid.stick} arrow="arrow-loop" rotate={-4} arrowAngle={60} place="right: var(--side); top: calc(var(--section) * -.45);" show="lg" />
-      <ul class="x-grid__list" role="list">
-        {pillars.map((p) => (
-          <li data-sticker style={`--i:${p.n}`}><PillarCard pillar={p} variant="rail" /></li>
-        ))}
-      </ul>
-    </div>
-  </div>
-
-  <PromptRow />
+  <Section ground="white" labelledby="areas-title">
+    <SectionHeader id="areas-title" title={microcopy.expertiseAreas} />
+    <ul class="card-grid card-grid--xl" role="list">
+      {pillars.map((p, i) => (
+        <li data-reveal style={`--i:${i}`}><ExpertiseCard pillar={p} variant="hub" /></li>
+      ))}
+    </ul>
+  </Section>
 </BaseLayout>
-<style>
-  .x-head { padding-top: var(--s-5); padding-bottom: clamp(4rem, 2rem + 6vw, 8rem); overflow: clip; }
-  .x-head__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-7); align-items: center; margin-top: var(--s-8); }
-  .x-head__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-5); }
-  .x-head__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--kk-orchid); box-shadow: 0 0 0 3px var(--kk-blush); }
-  .x-head__title { margin: 0; max-width: 13ch; font-size: clamp(3.25rem, 1.2rem + 7.2vw, 8.5rem); }
-  .x-head :global(.x-head__intro) { margin-top: var(--s-6); max-width: var(--measure-lead); }
-  .x-head__art { display: grid; place-items: center; }
-  .x-head__art :global(.venn) { width: min(100%, var(--venn)); }
-  .x-head__art :global(.venn svg) { stroke-width: 3.2; }
-  .x-head__art :global(.venn__label) { font-size: var(--fs-note-lg); }
-  .x-head__art :global(.venn__label--0) { top: 2%; }
-  .x-head__art :global(.venn__label--1) { right: 2%; bottom: 12%; }
-  .x-head__art :global(.venn__label--2) { left: 2%; bottom: 12%; }
-  .x-head__art :global(.venn__centre) { width: auto; top: 57%; padding: 2px 8px 4px; border-radius: 8px; background: var(--kk-white); white-space: nowrap; }
-  .x-hub { overflow: clip; }
-  .x-grid__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6) var(--s-5); }
-  .x-grid__list > li { display: flex; }
-  .x-grid__list > li :global(.pcard) { width: 100%; min-height: 520px; height: auto; }
-  .x-grid__list > li:nth-child(3n+2) { translate: 0 var(--s-7); }
-  .x-grid { padding-bottom: calc(var(--section) + var(--s-7)); }
-  @media (max-width: 1023px) {
-    .x-head__grid { grid-template-columns: 1fr; }
-    .x-head__art :global(.venn) { width: min(100%, 340px); }
-    .x-grid__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .x-grid__list > li:nth-child(3n+2) { translate: none; }
-    .x-grid__list > li:nth-child(2n) { translate: 0 var(--s-6); }
-  }
-  @media (max-width: 767px) {
-    .x-head__grid { margin-top: var(--s-6); gap: var(--s-5); }
-    .x-grid__list { grid-template-columns: 1fr; }
-    .x-grid__list > li:nth-child(2n) { translate: none; }
-    .x-grid { padding-bottom: var(--section); }
-  }
-</style>

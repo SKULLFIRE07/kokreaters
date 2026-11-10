@@ -1,29 +1,42 @@
 ---
 /**
- * Testimonials (DESIGN-SPEC 5.6.4). Renders nothing while `testimonials` is empty (CONFIRM 8).
- * Only quotes with written permission are ever added to the data.
+ * Testimonials (REDESIGN-V3 §4 Impact). Renders only quotes with written permission (`permission: true`); renders
+ * nothing while `testimonials` is empty (CONFIRM 8, flagged in staging by Engagements). Never invented.
+ * Layout: label-style h2, then each quote as a serif-italic pull quote with a 2px accent rule at its left, attribution
+ * in sans under it. Desktop: quotes in columns 2–11. Mobile: full width, rule kept, 32px between quotes.
  */
-import { testimonials } from '@/data/impact';
+import Section from '@/components/ui/Section.astro';
+import { impactPage, testimonials } from '@/data/impact';
+
+interface Props { ground?: 'white' | 'grey' }
+const { ground = 'white' } = Astro.props;
 const items = testimonials.filter((t) => t.permission === true);
 ---
 {items.length > 0 && (
-  <section class="band testimonials">
-    <div class="container">
-      <ul class="testimonials__list" role="list">
-        {items.map((t) => (
-          <li class="testimonial grid">
-            <figure class="c-2-11" data-reveal>
-              <blockquote class="t-quote testimonial__quote"><p class="hang">“{t.quote}”</p></blockquote>
-              <figcaption class="t-meta testimonial__by">{t.name}, {t.role}</figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
+  <Section ground={ground} labelledby="testimonials-h">
+    <div class="grid-12">
+      <div style="--col: 2 / 12">
+        <h2 id="testimonials-h" class="quotes__h t-label">{impactPage.testimonialsLabel}</h2>
+        <ul class="quotes" role="list">
+          {items.map((t, i) => (
+            <li data-reveal style={`--i:${i}`}>
+              <figure class="quote">
+                <blockquote class="t-quote quote__text"><p>“{t.quote}”</p></blockquote>
+                <figcaption class="quote__by">{t.name}, {t.role}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
-  </section>
+  </Section>
 )}
 <style>
-  .testimonials__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-9); }
-  .testimonial figure, .testimonial blockquote, .testimonial p { margin: 0; }
-  .testimonial__by { margin-top: var(--s-4); }
+  .quotes__h { margin-bottom: var(--s-6); }
+  .quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-6); }
+  .quote { margin: 0; padding-left: var(--s-5); border-left: 2px solid var(--accent); }
+  .quote__text { margin: 0; max-width: 34ch; }
+  .quote__text p { margin: 0; }
+  .quote__by { margin-top: var(--s-4); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
+  @media (min-width: 900px) { .quotes { gap: var(--s-8); } }
 </style>

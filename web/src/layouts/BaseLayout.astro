@@ -1,8 +1,16 @@
 ---
 /**
- * Page shell (DESIGN-SPEC 3.1, v2 7.1). Order: SkipLink, AnnouncementBar, Header, <main>, Footer,
- * CookieConsent, then the one motion bundle. The CtaField is rendered here,
- * at the end of <main>, on every page except contact, legal and 404 (3.5).
+ * Page shell (REDESIGN-V3 §3 Layout). Order: SkipLink, AnnouncementBar, Header, <main>, CtaBand (every page except
+ * contact, legal and 404, or when `cta={false}`), Footer, CookieConsent, then the one module script (src/scripts/site.ts).
+ * The inline head script only swaps html.no-js → html.js, records a Menu tap made before site.ts runs
+ * (window.__kkMenuPending) and, as a safety net, adds html.motion-failed if site.ts never boots (reveals then show
+ * immediately). Any change to it needs `node scripts/csp-hash.mjs`.
+ * Props keep the v2 signature so every page compiles. `pillar` no longer styles anything. Visible breadcrumbs belong to
+ * PageHero (`crumbs`); here `breadcrumbs` feeds the JSON-LD BreadcrumbList, and only `showCrumbs={true}` also prints
+ * the trail at the top of <main>. `cta` = boolean, or the CtaBand props for this page (e.g. { ground: 'white' }).
+ * `footerNewsletter`: the footer's newsletter form. Default: shown unless this page's CtaBand carries the form (home,
+ * /insights); pass false when the page has its own newsletter band, true to force it.
+ * Mobile: nothing layout-specific here; every chrome component carries its own mobile behaviour.
  */
 import '@/styles/global.css';
 import SeoHead from '@/components/seo/SeoHead.astro';
@@ -12,34 +20,44 @@ import AnnouncementBar from '@/components/chrome/AnnouncementBar.astro';
 import Header from '@/components/chrome/Header.astro';
 import Footer from '@/components/chrome/Footer.astro';
 import CookieConsent from '@/components/chrome/CookieConsent.astro';
-import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
-import CtaField from '@/components/shared/CtaField.astro';
-import { pillarStyle } from '@/lib/pillars';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Container from '@/components/ui/Container.astro';
+import CtaBand from '@/components/ui/CtaBand.astro';
 import type { PillarKey } from '@/data/types';
 
 type Page = 'home' | 'expertise' | 'pillar' | 'industries' | 'approach' | 'impact' | 'insights' | 'article' | 'about' | 'contact' | 'legal' | 'notfound';
+type CtaProps = {
+  title?: string; body?: string;
+  primary?: { label: string; href: string }; secondary?: { label: string; href: string };
+  newsletter?: boolean; ground?: 'grey' | 'navy' | 'white';
+};
 interface Props {
   page: Page;
   seo: SeoProps;
+  /** v2; kept for compile, no styling in v3. */
   pillar?: PillarKey;
   breadcrumbs?: Crumb[];
-  ground?: 'white' | 'cloud';
-  /** Render the visible breadcrumb trail at the top of <main> (default true when breadcrumbs are given). */
+  ground?: 'white' | 'cloud' | 'grey';
+  /** Print the breadcrumb trail at the top of <main> (default false: PageHero renders crumbs in v3). */
   showCrumbs?: boolean;
-  /** Override the CtaField default (on, except contact / legal / notfound). */
-  cta?: boolean;
+  /** CtaBand: false hides it, true forces it, an object passes CtaBand props. Default on except contact/legal/404. */
+  cta?: boolean | CtaProps;
+  /** Footer newsletter form. Default: on, unless the CtaBand already carries the form. */
+  footerNewsletter?: boolean;
 }
-const { page, seo, pillar, breadcrumbs = [], ground = 'white', showCrumbs = true, cta } = Astro.props;
+const { page, seo, pillar, breadcrumbs = [], ground = 'white', showCrumbs = false, cta, footerNewsletter } = Astro.props;
 
-const showCta = cta ?? !['contact', 'legal', 'notfound'].includes(page);
+const showCta = cta === undefined ? !['contact', 'legal', 'notfound'].includes(page) : cta !== false;
+// Home closes with the CTA + newsletter on white (founder band above is grey, footer below is navy).
+const ctaProps: CtaProps = { ...(page === 'home' ? { newsletter: true, ground: 'white' as const } : {}), ...(typeof cta === 'object' ? cta : {}) };
 const noindex = page === 'notfound' ? true : seo.noindex;
 
-// JSON-LD per 3.7: home carries org + service + website by default; breadcrumb trail added when given.
+// JSON-LD: home carries org + service + website by default; breadcrumb trail added when given.
 const graph = [...(seo.jsonLd ?? [])];
 if (page === 'home' && graph.length === 0) graph.push(organization(), professionalService(), website());
 if (breadcrumbs.length && !graph.some((n) => n['@type'] === 'BreadcrumbList')) graph.push(breadcrumbNode(breadcrumbs));
 const seoFinal: SeoProps = { ...seo, noindex, jsonLd: graph };
-const bodyStyle = pillar ? pillarStyle(pillar) : undefined;
+const bodyGround = ground === 'cloud' ? 'grey' : ground;
 ---
 <!doctype html>
 <html lang="en-GB" class="no-js">
@@ -48,37 +66,33 @@ const bodyStyle = pillar ? pillarStyle(pillar) : undefined;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
 (function(d,w){var h=d.documentElement;h.classList.remove('no-js');h.classList.add('js');
-var r=w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(!r){h.classList.add('motion');w.setTimeout(function(){if(!h.classList.contains('motion-booted'))h.classList.add('motion-failed');},3000);}
-try{if(w.localStorage.getItem('kk-motion')==='paused')h.classList.add('motion-paused');}catch(e){}
+w.setTimeout(function(){if(!h.classList.contains('motion-booted'))h.classList.add('motion-failed');},3000);
 d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest('[data-menu-toggle]')&&!h.classList.contains('chrome-ready')){w.__kkMenuPending=!w.__kkMenuPending;}},true);
 })(document,window);
     </script>
-    <link rel="preload" href="/fonts/bricolage-grotesque-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
     <SeoHead seo={seoFinal} />
   </head>
-  <body data-page={page} data-ground={ground} data-pillar={pillar} style={bodyStyle}>
+  <body data-page={page} data-ground={bodyGround} data-pillar={pillar}>
     <SkipLink />
     <AnnouncementBar />
     <Header page={page} />
     <main id="main" tabindex="-1">
       {showCrumbs && breadcrumbs.length > 0 && (
-        <div class="page-crumbs container"><Breadcrumbs items={breadcrumbs} /></div>
+        <Container class="page-crumbs"><Breadcrumbs items={breadcrumbs} /></Container>
       )}
       <slot />
-      {showCta && <CtaField />}
+      {showCta && <CtaBand {...ctaProps} />}
     </main>
-    <Footer />
+    <Footer newsletter={footerNewsletter ?? !(showCta && ctaProps.newsletter)} />
     <CookieConsent />
-    <script>import '@/scripts/chrome.ts';</script>
-    <script>import '@/scripts/motion/index.ts';</script>
+    <script>import '@/scripts/site.ts';</script>
   </body>
 </html>
 
 <style is:global>
-  body { background: var(--kk-white); }
-  body[data-ground="cloud"] { background: var(--kk-cloud); }
+  body[data-ground="grey"] { --bg: var(--grey-50); }
   main:focus { outline: none; }
   .page-crumbs { padding-top: var(--s-5); }
 </style>

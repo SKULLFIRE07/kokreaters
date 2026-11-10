@@ -1,0 +1,71 @@
+---
+/**
+ * Previous / next pillar (REDESIGN-V3 §4 detail, "prev/next pillar links at the bottom"). Wraps round, so every page
+ * has both. A labelled region ("Other areas of expertise", visually hidden h2) holding two links: a label row
+ * "← Previous · 06" over the serif name, and "Next · 02 →" over the next name, right-aligned. The pillar number lives in
+ * the label row (the hero eyebrow's "Expertise · 0n" pattern), so a name that wraps never opens a gap beside it.
+ * Whole block is the link; hover: name → --link, arrow nudges.
+ * The list's own top hairline separates it from the band above (no Section rule: the line belongs to the pager); after
+ * a band of the same ground the top padding is dropped (`flush`), so the line sits one band-padding below its content.
+ * ≥ 600px: two halves split by a vertical hairline. Mobile (< 600px): two full-width rows with a hairline between,
+ * both left-aligned, each well over 44px tall.
+ */
+import Section from '@/components/ui/Section.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { pillarPage } from '@/data/pillars';
+import { microcopy } from '@/data/microcopy';
+import { adjacentPillars, pillarHref, pillarNumber } from '@/lib/pillars';
+import type { PillarKey } from '@/data/types';
+
+interface Props {
+  pillar: PillarKey;
+  ground?: 'white' | 'grey';
+  /** The band above is the same ground: drop the top padding so the hairline sits one band-padding below it. */
+  flush?: boolean;
+}
+const { pillar, ground = 'white', flush = false } = Astro.props;
+const { prev, next } = adjacentPillars(pillar);
+const links = [
+  { p: prev, label: pillarPage.previous, dir: 'prev' as const },
+  { p: next, label: pillarPage.next, dir: 'next' as const },
+];
+---
+<Section ground={ground} pad={flush ? 'flush-top' : 'tight'} labelledby="pager-title">
+  <h2 id="pager-title" class="visually-hidden">{microcopy.otherExpertise}</h2>
+  <ul class="pager" role="list">
+    {links.map(({ p, label, dir }) => (
+      <li class:list={['pager__item', `pager__item--${dir}`]}>
+        <a class="pager__link u-hover" href={pillarHref(p.key)} rel={dir}>
+          <span class="pager__label t-label">
+            {dir === 'prev' && <Icon name="arrow-left" size={18} stroke={2} class="pager__arrow" />}
+            <span>{label}<span class="pager__n" aria-hidden="true"> · {pillarNumber(p)}</span></span>
+            {dir === 'next' && <Icon name="arrow-right" size={18} stroke={2} class="pager__arrow" />}
+          </span>
+          <span class="pager__name">{p.name}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  .pager { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--rule); }
+  .pager__item + .pager__item { border-top: 1px solid var(--rule); }
+  .pager__link { display: grid; gap: var(--s-3); padding-block: var(--s-5); color: var(--head); text-decoration: none; }
+  .pager__label { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--label); }
+  .pager__n { color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .pager__label :global(.pager__arrow) { flex: none; color: var(--accent); transition: transform var(--d-1) var(--ease-out); }
+  .pager__item--prev .pager__link:hover :global(.pager__arrow) { transform: translateX(-4px); }
+  .pager__item--next .pager__link:hover :global(.pager__arrow) { transform: translateX(4px); }
+  .pager__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 500; letter-spacing: var(--tr-h3); text-wrap: balance;
+    transition: color var(--d-1) var(--ease-out);
+  }
+  .pager__link:hover .pager__name { color: var(--link); }
+  @media (min-width: 600px) {
+    .pager { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pager__item + .pager__item { border-top: 0; border-left: 1px solid var(--rule); }
+    .pager__item--prev .pager__link { padding-right: var(--grid-gap); }
+    .pager__item--next .pager__link { padding-left: var(--grid-gap); justify-items: end; text-align: right; }
+  }
+</style>

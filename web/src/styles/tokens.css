@@ -1,96 +1,104 @@
-/* src/styles/tokens.css: DESIGN-SPEC v2 3.1 (final). Brand values from brief Appendix A, unchanged.
-   Grounds (grounds.css) re-declare the role tokens locally. */
+/* src/styles/tokens.css — REDESIGN-V3 §1 (v3 "Editorial"). Whole file replaced for v3.
+   Palette → role tokens → type → space → shape → motion. Components read ROLE tokens only (--bg, --fg, --head …),
+   so they work on any ground: `.band--grey` and `.band--navy` (layout.css) re-declare the roles locally.
+   Purple, pink, yellow and red exist only inside the logo artwork; they are not tokens. */
 :root {
-  /* ── Brand colour (brief Appendix A, unchanged) ── */
-  --kk-sapphire:#2C509E; --kk-cobalt:#306FE0; --kk-sky:#4C9BE8; --kk-saffron:#F4C841; --kk-coral:#E5494D;
-  --kk-imperial:#3A1C5C; --kk-violet:#5B2A86; --kk-amethyst:#7B4BC4; --kk-mauve:#8C5B88; --kk-orchid:#C8457E;
-  --kk-lavender:#EADCFF; --kk-ice:#D6E2FA; --kk-butter:#FFEEB0; --kk-blush:#F6DCE8;
-  --kk-ink:#121833; --kk-graphite:#4A5068; --kk-cloud:#F8F6FC; --kk-white:#FFFFFF; --kk-hairline:#E4E0EE;
-  --kk-field-border:#7C8197;
-  /* ── v2 additions ── */
-  --kk-berry:#A2335F;      /* Orchid darkened (was --pillar-quality-text): notes on Cloud/Butter/Blush/Lavender/Saffron */
-  --kk-plum:#6F4470;       /* Mauve darkened (was --pillar-deals-text) */
-  --kk-grid:rgba(76,155,232,.16);   /* lab-notebook grid lines on white */
-  --kk-white-20:rgba(255,255,255,.20); --kk-ink-12:rgba(18,24,51,.12);
+  /* ── 1.1 Palette ── */
+  --navy-900: #0B1B33;   /* hero bands, footer, dark sections, primary buttons */
+  --navy-800: #13284A;   /* raised surface on navy, primary button hover */
+  --navy-700: #1D3660;   /* borders that must read on navy */
+  --blue-700: #2C509E;   /* brand blue: small links, labels, icons (7.64:1 on white, 6.82:1 on grey-50) */
+  --blue-500: #306FE0;   /* accent: big figures ≥ 24px, arrows, hover rules, focus (4.69:1 on white only) */
+  --blue-300: #8DB2F7;   /* accent on navy: labels, arrows, small text (8.08:1 on navy-900) */
+  --grey-50:  #F2F2F0;   /* warm light grey: alternate bands */
+  --grey-100: #E7E7E3;   /* card hover on grey, skeleton */
+  --grey-200: #D9D9D4;   /* hairline on white / grey */
+  --grey-500: #8A8A85;   /* input borders (3.4:1 vs white), disabled */
+  --ink:      #1A1A1A;   /* body text (17.4:1 on white) */
+  --ink-2:    #5A5A5A;   /* secondary text (6.9:1 on white, 6.15:1 on grey-50) */
+  --white:    #FFFFFF;
+  --on-navy:  #FFFFFF;
+  --on-navy-2: rgba(255, 255, 255, .74);   /* ≈ #C2C6CC on navy-900: 10.4:1 */
+  --rule-on-navy: rgba(255, 255, 255, .18);
+  --danger:   #B42318;
+  --success:  #1F6F43;
 
-  /* ── Default roles (white ground). Grounds (3.2) override these locally. ── */
-  --bg:#FFFFFF; --fg:var(--kk-ink); --fg-2:var(--kk-graphite); --head:var(--kk-ink);
-  --note:var(--kk-orchid); --accent:var(--kk-sapphire); --link:var(--kk-sapphire);
-  --line:var(--kk-ink); --rule:var(--kk-hairline); --focus:var(--kk-cobalt);
-  --pill-bg:var(--kk-ink); --pill-fg:#FFFFFF; --pill-sweep:var(--kk-saffron); --pill-sweep-fg:var(--kk-ink);
-  --pill-line:var(--kk-ink); --chip-bg:var(--kk-ink); --chip-fg:#FFFFFF;
-  /* v1 role names kept as aliases so untouched components keep working */
-  --c-ground:var(--bg); --c-ground-alt:var(--kk-cloud); --c-heading:var(--head); --c-text:var(--fg); --c-meta:var(--fg-2);
-  --c-dateline:var(--fg-2); --c-line:var(--accent); --c-line-dark:var(--kk-sky); --c-rule:var(--rule);
-  --c-action:var(--kk-ink); --c-action-hover:var(--kk-sapphire); --c-link:var(--link); --c-focus:var(--focus);
-  --c-focus-dark:var(--kk-saffron); --c-dark:var(--kk-imperial); --c-on-dark:#FFFFFF; --c-on-dark-muted:var(--kk-lavender);
-  --c-highlight-dark:var(--kk-saffron); --c-error:var(--kk-coral); --c-success:var(--kk-sapphire);
-  --ring-ink:0 0 0 1.5px var(--kk-ink);
+  /* ── Role tokens (white ground; .band--grey / .band--navy override) ── */
+  --bg: var(--white);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --head: var(--navy-900);
+  --label: var(--blue-700);
+  --link: var(--blue-700);
+  --accent: var(--blue-500);          /* large figures, arrows, hover rules */
+  --figure: var(--blue-500);          /* StatStrip numbers: accent on light, white on navy */
+  --rule: var(--grey-200);
+  --rule-strong: var(--navy-900);     /* 2px top rule on cards / article dividers */
+  --focus: var(--blue-500);
+  --surface: var(--white);            /* cards */
+  --surface-hover: var(--grey-50);
+  --btn-bg: var(--navy-900);          /* primary button */
+  --btn-fg: var(--white);
+  --btn-bg-hover: var(--navy-800);
+  --field-bg: var(--white);
+  --field-border: var(--grey-500);
+  --selection: rgba(48, 111, 224, .18);
 
-  /* ── Pillars: colour, tint, and the ground key used for their blocks ── */
-  --pillar-innovation:var(--kk-sapphire); --pillar-innovation-tint:var(--kk-ice);
-  --pillar-process:var(--kk-violet);      --pillar-process-tint:var(--kk-lavender);
-  --pillar-quality:var(--kk-orchid);      --pillar-quality-tint:var(--kk-blush);
-  --pillar-strategy:var(--kk-saffron);    --pillar-strategy-tint:var(--kk-butter);
-  --pillar-deals:var(--kk-mauve);         --pillar-deals-tint:var(--kk-blush);
-  --pillar-capability:var(--kk-sky);      --pillar-capability-tint:var(--kk-ice);
-  --pillar-innovation-text:var(--kk-sapphire); --pillar-process-text:var(--kk-violet); --pillar-quality-text:var(--kk-berry);
-  --pillar-strategy-text:var(--kk-ink); --pillar-deals-text:var(--kk-plum); --pillar-capability-text:var(--kk-ink);
+  /* ── 1.2 Type ── */
+  --font-serif: "Source Serif 4", "Source Serif Fallback", "Source Serif Fallback Times", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 
-  /* Gradients: emulsion fallback art, 404, OG only */
-  --kk-aurora:linear-gradient(100deg,#2C509E 0%,#5B2A86 50%,#C8457E 100%);
-  --kk-sunrise:linear-gradient(135deg,#7B4BC4 0%,#C8457E 55%,#F4C841 100%);
+  /* Fluid 390 → 1440 px: clamp(min, intercept + slope·vw, max). */
+  --fs-display: clamp(2.5rem, 1.943rem + 2.286vw, 4rem);         /* 40 → 64 */
+  --fs-h1:      clamp(2.25rem, 1.786rem + 1.905vw, 3.5rem);      /* 36 → 56 */
+  --fs-h2:      clamp(1.875rem, 1.596rem + 1.143vw, 2.625rem);   /* 30 → 42 */
+  --fs-h3:      clamp(1.3125rem, 1.196rem + .476vw, 1.625rem);   /* 21 → 26 */
+  --fs-h4:      clamp(1.1875rem, 1.141rem + .19vw, 1.3125rem);   /* 19 → 21 */
+  --fs-stat:    clamp(3rem, 2.35rem + 2.667vw, 4.75rem);         /* 48 → 76 */
+  --fs-quote:   clamp(1.5rem, 1.268rem + .952vw, 2.125rem);      /* 24 → 34 */
+  --fs-lead:    clamp(1.125rem, 1.055rem + .286vw, 1.3125rem);   /* 18 → 21 */
+  --fs-body:    1.125rem;                                        /* 18 everywhere (§8.2: also on mobile) */
+  --fs-small:   clamp(.9375rem, .914rem + .095vw, 1rem);         /* 15 → 16 */
+  --fs-meta:    .875rem;                                         /* 14 */
+  --fs-label:   clamp(.75rem, .727rem + .095vw, .8125rem);       /* 12 → 13 */
+  --fs-nav:     .9375rem;                                        /* 15 */
+  --fs-button:  clamp(.9375rem, .914rem + .095vw, 1rem);         /* 15 → 16 */
 
-  /* ── Families ── */
-  --font-display:"Bricolage Grotesque","Bricolage Fallback Narrow","Bricolage Fallback","Arial Narrow",Arial,sans-serif;
-  --font-mono:"IBM Plex Mono","Plex Mono Fallback",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-  --font-hand:"Caveat","Segoe Print","Bradley Hand",cursive;
-  --font-sans:"Instrument Sans","Instrument Sans Fallback",system-ui,"Segoe UI",Arial,sans-serif;
+  --lh-display: 1.06; --lh-h1: 1.08; --lh-h2: 1.14; --lh-h3: 1.25; --lh-h4: 1.3;
+  --lh-stat: 1; --lh-quote: 1.3; --lh-lead: 1.5; --lh-body: 1.6; --lh-small: 1.55; --lh-meta: 1.45; --lh-label: 1.3;
+  --tr-display: -0.02em; --tr-h1: -0.018em; --tr-h2: -0.012em; --tr-h3: -0.005em; --tr-stat: -0.02em; --tr-quote: -0.01em;
+  --tr-lead: -0.005em; --tr-label: .12em; --tr-button: .005em;
 
-  /* ── Type scale (fluid 390 → 1440; see 4.1 for weight/stretch/leading) ── */
-  --fs-mega:    clamp(3.5rem, 1.364rem + 8.762vw, 9.25rem);   /* 56 → 148  home H1 */
-  --fs-display: clamp(3rem, 1.514rem + 6.095vw, 7rem);        /* 48 → 112  page H1s, CTA h2 */
-  --fs-h2:      clamp(2.5rem, 1.479rem + 4.19vw, 5.25rem);    /* 40 → 84 */
-  --fs-h3:      clamp(1.625rem, 1.3rem + 1.333vw, 2.5rem);    /* 26 → 40 */
-  --fs-h4:      clamp(1.25rem, 1.157rem + 0.381vw, 1.5rem);   /* 20 → 24 */
-  --fs-stat:    clamp(4.5rem, 1.529rem + 12.19vw, 12.5rem);   /* 72 → 200 */
-  --fs-quote:   clamp(1.875rem, 1.086rem + 3.238vw, 4rem);    /* 30 → 64 */
-  --fs-lead:    clamp(1rem, 0.93rem + 0.2857vw, 1.1875rem);   /* 16 → 19 mono */
-  --fs-mono:    clamp(0.875rem, 0.851rem + 0.0952vw, 0.9375rem); /* 14 → 15 mono */
-  --fs-label:   0.8125rem;                                    /* 13 mono caps */
-  --fs-micro:   0.75rem;                                      /* 12 mono caps */
-  --fs-note:    clamp(1.5rem, 1.268rem + 0.952vw, 2.125rem);  /* 24 → 34 Caveat (never below 24px: large-text rule) */
-  --fs-note-lg: clamp(2rem, 1.536rem + 1.905vw, 3.25rem);     /* 32 → 52 */
-  --fs-body:    clamp(1.0625rem, 1.039rem + 0.0952vw, 1.125rem); /* 17 → 18 Instrument Sans */
-  --fs-article: clamp(1.125rem, 1.078rem + 0.1905vw, 1.25rem);   /* 18 → 20 Instrument Sans */
-  --fs-button:  1.0625rem;  /* 17 Bricolage 700 */
-  --fs-hand-button: 1.625rem; /* 26 Caveat 600 */
-  --fs-nav: 1rem;
-  --measure: 64ch; --measure-lead: 46ch; --measure-article: 66ch;
+  --measure: 68ch;        /* body */
+  --measure-lead: 52ch;   /* leads, intros */
 
-  /* ── Space ── */
-  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px; --s-11:192px;
-  --section: clamp(5rem, 2.771rem + 9.143vw, 11rem);      /* 80 → 176 */
-  --gutter: clamp(1rem, 0.629rem + 1.524vw, 2rem);        /* 16 → 32 */
-  --side: clamp(1rem, -0.3rem + 5.333vw, 4.5rem);         /* 16 → 72 */
-  --content-max: 1296px;
-  --ann-h: 36px; --header-h: 76px; --header-h-compact: 64px; --scroll-offset: 92px;
+  /* ── 1.3 Space, grid, layout ── */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+  --section: clamp(4.5rem, 3.386rem + 4.571vw, 7.5rem);          /* 72 → 120 */
+  --section-tight: clamp(3rem, 2.257rem + 3.048vw, 5rem);        /* 48 → 80 */
+  --container: 1200px;
+  --container-narrow: 760px;
+  --container-wide: 1440px;
+  --gutter-x: clamp(20px, -.088rem + 5.49vw, 48px);              /* 20 at 390 → 48 from ~900 */
+  --grid-gap: clamp(1rem, .629rem + 1.524vw, 2rem);              /* 16 → 32 */
+  --ann-h: 36px;
+  --header-h: 64px;
+  --header-h-compact: 64px;
+  --scroll-offset: calc(var(--header-h-compact) + var(--s-4));
 
-  /* ── Shape ── */
-  --r-chip:999px; --r-pill:999px; --r-card:24px; --r-block:36px; --r-input:14px; --r-sticker:999px;
-  --bw:2px; --bw-card:3px; --bw-heavy:10px;     /* spec-label heavy rule */
+  /* ── 1.4 Shape, lines, depth ── */
+  --r-sm: 2px;
+  --hairline: 1px;
+  --rule-w-strong: 2px;
+  --shadow-panel: 0 24px 48px -24px rgba(11, 27, 51, .28);   /* mega-menu + mobile menu only */
 
-  /* ── Depth ── */
-  --shadow-sticker: 0 1px 0 rgba(18,24,51,.06), 0 14px 28px -10px rgba(18,24,51,.38);
-  --shadow-lift: 0 24px 48px -16px rgba(18,24,51,.35);
-  --shadow-hard: 5px 5px 0 var(--kk-ink);       /* hand pills + toys on hover */
-  --shadow-panel: 0 24px 64px -12px rgba(18,24,51,.30);
-
-  /* ── Motion (CSS side; GSAP mirror in src/scripts/motion/tokens.ts) ── */
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-spring: linear(0, 0.38 7%, 0.88 16%, 1.08 24%, 1.12 30%, 1.06 40%, 0.99 52%, 1.004 68%, 1);
-  --d-fast:160ms; --d-ui:240ms; --d-panel:320ms; --d-page:360ms; --d-draw:700ms; --d-rise:900ms;
+  /* ── 1.5 Motion ── */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --d-1: 160ms;   /* hover */
+  --d-2: 240ms;   /* UI */
+  --d-3: 420ms;   /* panels */
+  --d-4: 800ms;   /* reveals */
 }
-@media (prefers-reduced-motion: reduce) { :root { --d-fast:0ms; --d-ui:0ms; --d-panel:0ms; --d-page:0ms; --d-draw:0ms; --d-rise:0ms; } }
+@media (min-width: 1120px) { :root { --header-h: 80px; } }
+@media (prefers-reduced-motion: reduce) { :root { --d-1: 0ms; --d-2: 0ms; --d-3: 0ms; --d-4: 0ms; } }

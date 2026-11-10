@@ -7,6 +7,9 @@ format: point-of-view
 status: draft
 review: pending
 date: 2026-11-04
+image: "../../assets/photos/stock/refinery-02.jpg"
+imageAlt: "Refinery columns, chimneys and weathered storage tanks in low evening light."
+featured: true
 ---
 import Note from '@/components/article/Note.astro';
 import Exhibit from '@/components/article/Exhibit.astro';
@@ -14,6 +17,14 @@ import ProcessChain from '@/components/article/ProcessChain.astro';
 import PullQuote from '@/components/article/PullQuote.astro';
 import Takeaways from '@/components/article/Takeaways.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+
+<Takeaways items={[
+  '3-MCPD esters and glycidyl esters form in different ways. Manage them separately.',
+  'Agree the analytical method and sampling points with your customer first.',
+  'Act in order: raw material, degumming and neutralisation, bleaching, deodorisation, then post-refining.',
+  'Trial one change at a time and follow the oil through to finished product.',
+  'Give the programme one owner, and write every proven change into the procedures.',
+]} />
 
 Most refiners first meet 3-MCPD as a number on a customer’s specification sheet. A buyer asks for lower values. The laboratory reports a result. Someone in the plant is asked to fix it. Six months later the number has hardly moved, and everyone is frustrated.
 
@@ -78,11 +89,3 @@ What works is one programme with one owner, one baseline and one set of measures
 A good mitigation programme does not end with a report. It leaves behind a baseline that everyone trusts, a short list of process changes proven in plant trials, updated specifications for incoming crude oil, and people on every shift who understand why the changes matter.
 
 That is how we work on contaminant mitigation: on the plant floor, with your team, until the improvement is part of how the plant runs.
-
-<Takeaways items={[
-  '3-MCPD esters and glycidyl esters form in different ways. Manage them separately.',
-  'Agree the analytical method and sampling points with your customer first.',
-  'Act in order: raw material, degumming and neutralisation, bleaching, deodorisation, then post-refining.',
-  'Trial one change at a time and follow the oil through to finished product.',
-  'Give the programme one owner, and write every proven change into the procedures.',
-]} />

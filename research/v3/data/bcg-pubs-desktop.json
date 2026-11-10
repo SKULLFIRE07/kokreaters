@@ -1,0 +1,767 @@
+{
+ "slug": "bcg-pubs",
+ "viewport": "desktop",
+ "url": "https://www.bcg.com/publications",
+ "status": 200,
+ "networkidle": "timeout",
+ "cookie": "text:ACCEPT ALL AND CLOSE",
+ "titleSeen": "Featured Insights and Perspectives | BCG",
+ "bodyTextStart": "Skip to Main LOG IN Featured Insights and Perspectives from BCG The latest insights, ideas, and perspectives from BCG. Explore a cross-section of up-to-date content on the trends shaping the future of business and society. Featured Topics Capabilities Industries VIDEO NOVEMBER 9, 2026 How AI Bridg",
+ "m": {
+  "url": "https://www.bcg.com/publications",
+  "title": "Featured Insights and Perspectives | BCG",
+  "vw": 1440,
+  "vh": 900,
+  "pageHeight": 4263,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "henderson-bcg-sans",
+   "size": "16px",
+   "lh": "16px",
+   "color": "rgb(33, 36, 39)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Featured Insights and Perspectives from BCG",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 86,
+    "lh": "86px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 960
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "BCG Answer",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 56,
+    "lh": "56px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 510
+   },
+   {
+    "tag": "h2",
+    "text": "Featured Campaigns and Collections",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 954
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [
+   [
+    "henderson-bcg-sans|12px|16.8px|400|normal",
+    759
+   ],
+   [
+    "henderson-bcg-sans|28px|33.6px|300|normal",
+    158
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "The latest insights, ideas, and perspectives from BCG. Explore a cross-section o",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 28,
+    "lh": "33.6px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 853
+   },
+   {
+    "tag": "p",
+    "text": "Boston Consulting Group is an Equal Opportunity Employer. All qualified applican",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 12,
+    "lh": "16.8px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 1280
+   }
+  ],
+  "typeHist": [
+   [
+    "serif:henderson-bcg-sans|20px|w300|lh28px|lsnormal|none",
+    1079
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|none",
+    786
+   ],
+   [
+    "serif:henderson-bcg-sans|28px|w300|lh33.6px|lsnormal|none",
+    593
+   ],
+   [
+    "serif:henderson-bcg-sans|32px|w300|lh38.4px|lsnormal|none",
+    368
+   ],
+   [
+    "serif:henderson-bcg-sans|20px|w300|lh26px|lsnormal|none",
+    309
+   ],
+   [
+    "serif:henderson-bcg-sans|24px|w300|lh28.8px|lsnormal|none",
+    211
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w700|lh12px|lsnormal|uppercase",
+    180
+   ],
+   [
+    "serif:henderson-bcg-sans|0px|w700|lh0px|lsnormal|uppercase",
+    166
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh22.4px|lsnormal|none",
+    147
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh12px|lsnormal|uppercase",
+    128
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w400|lh21px|lsnormal|uppercase",
+    122
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w700|lh14px|lsnormal|uppercase",
+    98
+   ],
+   [
+    "serif:henderson-bcg-serif|52px|w300|lh52px|lsnormal|none",
+    93
+   ],
+   [
+    "serif:henderson-bcg-sans|28px|w400|lh33.6px|lsnormal|none",
+    76
+   ],
+   [
+    "serif:henderson-bcg-sans|44px|w300|lh44px|lsnormal|none",
+    67
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w700|lh16px|lsnormal|uppercase",
+    45
+   ],
+   [
+    "serif:henderson-bcg-serif|86px|w300|lh86px|lsnormal|none",
+    43
+   ],
+   [
+    "serif:henderson-bcg-sans|18px|w400|lh25.2px|lsnormal|none",
+    37
+   ],
+   [
+    "sans:Arial|13.3333px|w400|lhnormal|lsnormal|none",
+    36
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh16px|lsnormal|none",
+    12
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|uppercase",
+    11
+   ]
+  ],
+  "labels": [
+   [
+    "henderson-bcg-sans|12px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 9,
+     "ex": [
+      "VIDEO",
+      "ARTICLE",
+      "ARTICLE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|uppercase|rgb(35, 35, 38)",
+    {
+     "n": 8,
+     "ex": [
+      "NOVEMBER 9, 2026",
+      "NOVEMBER 6, 2026",
+      "NOVEMBER 5, 2026"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|0px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 8,
+     "ex": [
+      "ARTIFICIAL INTELLIGENCE",
+      "BCG EXECUTIVE PERSPECTIVES",
+      "CENTER FOR GEOPOLITICS"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w700|lsnormal|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 7,
+     "ex": [
+      "CAPABILITY",
+      "REPORT COLLECTION",
+      "CENTER"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w400|lsnormal|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 6,
+     "ex": [
+      "CORPORATE FINANCE AND STRATEGY",
+      "ENERGY",
+      "ARTIFICIAL INTELLIGENCE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|16px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 3,
+     "ex": [
+      "VIEW MORE",
+      "WATCH NOW",
+      "ASK US A QUESTION"
+     ]
+    }
+   ],
+   [
+    "Arial|13.3333px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 3,
+     "ex": [
+      "View slide 1",
+      "View slide 2",
+      "View slide 3"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 1,
+     "ex": [
+      "NEW AI-POWERED FEATURE"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 73,
+   "pos": "fixed",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(33, 36, 39)",
+   "boxShadow": "none",
+   "cls": "Page-header menu"
+  },
+  "headerLinks": [
+   {
+    "t": "Skip to Main",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 79,
+    "h": 1
+   },
+   {
+    "t": "Link to open BCG site menu",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 88,
+    "h": 58
+   },
+   {
+    "t": "Link to BCG home page",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 145,
+    "h": 70
+   },
+   {
+    "t": "Open BCG site search input",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 1217,
+    "h": 46
+   },
+   {
+    "t": "LOG IN",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(105, 105, 105)",
+    "x": 1280,
+    "h": 72
+   }
+  ],
+  "logo": {
+   "w": 32,
+   "h": 32,
+   "x": 100,
+   "y": 60
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "80",
+    5
+   ]
+  ],
+  "rightEdges": [
+   [
+    "80",
+    1
+   ],
+   [
+    "400",
+    1
+   ],
+   [
+    "406",
+    1
+   ],
+   [
+    "507",
+    1
+   ],
+   [
+    "850",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "filtering-insights",
+    "cls": "",
+    "top": 577,
+    "h": 1142,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 56,
+    "pb": 56,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Most Recent Insights",
+    "headingOffset": -577,
+    "imgs": 16
+   },
+   {
+    "tag": "div",
+    "cls": "Promo2",
+    "top": 1718,
+    "h": 379,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 56,
+    "pb": 56,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "Promo Promo26",
+    "top": 2097,
+    "h": 525,
+    "bg": "rgb(227, 253, 219)",
+    "pt": 56,
+    "pb": 56,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "BCG Answer",
+    "headingOffset": 94,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "ListCarousel-PromoSmallCard",
+    "top": 2622,
+    "h": 611,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 56,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Featured Campaigns and Collections",
+    "headingOffset": 56,
+    "imgs": 14
+   },
+   {
+    "tag": "div",
+    "cls": "subscription-module-inline-wrapper",
+    "top": 3233,
+    "h": 316,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 56,
+    "pb": 56,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   }
+  ],
+  "buttons": [
+   [
+    "h48|r15px|p0px 0px|0px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 7,
+     "ex": [
+      "ARTIFICIAL INTELLIGENCE",
+      "BCG EXECUTIVE PERSPECTIVE",
+      "CENTER FOR GEOPOLITICS"
+     ]
+    }
+   ],
+   [
+    "h31|r10px|p4px 20px|14px|w400|uppercase|lsnormal|bgrgba(1, 1, 1, 0.4)|crgb(255, 255, 255)|bd1px rgb(255, 255, 255)",
+    {
+     "n": 6,
+     "ex": [
+      "CORPORATE FINANCE AND STR",
+      "ENERGY",
+      "ARTIFICIAL INTELLIGENCE"
+     ]
+    }
+   ],
+   [
+    "h51|r15px|p12px 32px|18px|w400|none|lsnormal|bgrgba(0, 0, 0, 0)|crgb(105, 105, 105)|bd1px rgb(105, 105, 105)",
+    {
+     "n": 3,
+     "ex": [
+      "Featured Topics",
+      "Capabilities",
+      "Industries"
+     ]
+    }
+   ],
+   [
+    "h48|r15px|p13px 55px|16px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 3,
+     "ex": [
+      "WATCH NOW",
+      "ASK US A QUESTION",
+      "CONTACT US"
+     ]
+    }
+   ],
+   [
+    "h48|r15px|p13px 24px|0px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "SUBSCRIBE"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Featured Topics",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 18,
+    "lh": "25.2px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(105, 105, 105)",
+    "maxW": 308
+   },
+   {
+    "tag": "a",
+    "text": "Capabilities",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 18,
+    "lh": "25.2px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(105, 105, 105)",
+    "maxW": 308
+   },
+   {
+    "tag": "a",
+    "text": "Industries",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 18,
+    "lh": "25.2px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(105, 105, 105)",
+    "maxW": 308
+   },
+   {
+    "tag": "a",
+    "text": "WATCH NOW",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 16,
+    "lh": "16px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 191
+   },
+   {
+    "tag": "a",
+    "text": "ASK US A QUESTION",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 16,
+    "lh": "16px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 252
+   },
+   {
+    "tag": "a",
+    "text": "ARTIFICIAL INTELLIGENCE",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 0,
+    "lh": "0px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 72
+   }
+  ],
+  "dividers": [
+   [
+    "Left|3px|rgba(0, 0, 0, 0)",
+    14
+   ],
+   [
+    "Top|1px|rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Bottom|1px|rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Top|1px|rgb(105, 105, 105)",
+    4
+   ],
+   [
+    "Bottom|1px|rgb(105, 105, 105)",
+    4
+   ],
+   [
+    "Left|1px|rgb(105, 105, 105)",
+    4
+   ],
+   [
+    "Top|3px|rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom|3px|rgba(0, 0, 0, 0)",
+    4
+   ]
+  ],
+  "cards": [
+   {
+    "w": 308,
+    "h": 411,
+    "imgW": 308,
+    "imgH": 411,
+    "ratio": 0.75,
+    "imgFilter": "none",
+    "title": "How AI Bridges the Gap Between Tech and Ops",
+    "titleSize": "24px",
+    "titleLh": "28.8px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -153,
+    "label": {
+     "t": "VIDEO",
+     "size": "12px",
+     "w": "700",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(33, 36, 39)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 714,
+   "bg": "rgb(241, 238, 234)",
+   "color": "rgb(33, 36, 39)",
+   "pt": "56px",
+   "lists": 4,
+   "distinctColumnX": [
+    80,
+    271,
+    512,
+    1064
+   ],
+   "links": 22,
+   "linkSize": "24px",
+   "linkColor": "rgb(33, 36, 39)",
+   "headings": [
+    {
+     "tag": "div",
+     "text": "How can we assist you?",
+     "family": "henderson-bcg-sans",
+     "cat": "serif",
+     "size": 20,
+     "lh": "26px",
+     "ls": "normal",
+     "weight": "400",
+     "tt": "none",
+     "color": "rgb(33, 36, 39)",
+     "maxW": 308
+    }
+   ]
+  },
+  "bgColors": [
+   [
+    "rgb(12, 43, 21)",
+    "1354k px2"
+   ],
+   [
+    "rgb(241, 238, 234)",
+    "1292k px2"
+   ],
+   [
+    "rgb(227, 253, 219)",
+    "756k px2"
+   ],
+   [
+    "rgba(255, 255, 255, 0.7)",
+    "408k px2"
+   ],
+   [
+    "rgb(150, 248, 120)",
+    "72k px2"
+   ],
+   [
+    "rgba(1, 1, 1, 0.4)",
+    "38k px2"
+   ],
+   [
+    "rgb(255, 255, 255)",
+    "37k px2"
+   ],
+   [
+    "rgb(242, 242, 242)",
+    "1k px2"
+   ],
+   [
+    "rgb(0, 0, 0)",
+    "1k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(33, 36, 39)",
+    2504
+   ],
+   [
+    "rgb(255, 255, 255)",
+    1817
+   ],
+   [
+    "rgb(35, 35, 38)",
+    128
+   ],
+   [
+    "rgb(12, 43, 21)",
+    87
+   ],
+   [
+    "rgb(105, 105, 105)",
+    37
+   ],
+   [
+    "rgb(0, 0, 0)",
+    36
+   ]
+  ],
+  "fontsLoaded": [
+   "henderson-bcg-sans 700",
+   "henderson-bcg-sans 400",
+   "henderson-bcg-sans 300",
+   "henderson-bcg-serif 400"
+  ],
+  "navText": [],
+  "imgRatios": [
+   [
+    "0.75",
+    15
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 73,
+  "top": 40,
+  "pos": "fixed",
+  "bg": "rgba(0, 0, 0, 0)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": []
+ }
+}

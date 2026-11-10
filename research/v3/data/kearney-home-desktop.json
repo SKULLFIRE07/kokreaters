@@ -1,0 +1,595 @@
+{
+ "slug": "kearney-home",
+ "viewport": "desktop",
+ "url": "https://www.kearney.com/",
+ "status": 200,
+ "cookie": null,
+ "titleSeen": "Global Management Consulting Firm | Kearney",
+ "bodyTextStart": "Skip to main content Skip to footer Open Accessibility Menu This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising. To learn more, view the following link: Cookie Policy Skip to Main Content Your ",
+ "m": {
+  "url": "https://www.kearney.com/",
+  "title": "Global Management Consulting Firm | Kearney",
+  "vw": 1440,
+  "vh": 900,
+  "pageHeight": 3345,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "Graphik Web",
+   "size": "16px",
+   "lh": "24px",
+   "color": "rgb(30, 30, 30)",
+   "bg": "rgb(245, 245, 245)"
+  },
+  "h1": [],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "COO ambition is outrunning execution across value chains",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 66,
+    "lh": "66px",
+    "ls": "normal",
+    "weight": "600",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 1000
+   }
+  ],
+  "h3": [],
+  "h4": [
+   {
+    "tag": "h4",
+    "text": "",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 22,
+    "lh": "28px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 1000
+   }
+  ],
+  "pHist": [
+   [
+    "Graphik Web|16px|24px|400|normal",
+    164
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "COO ambition is outrunning execution across value",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 234
+   },
+   {
+    "tag": "p",
+    "text": "A century of moments that changed everything",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 452
+   },
+   {
+    "tag": "p",
+    "text": "What next? Leadership through sustained disequilibrium June 28–30, 2026",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 400
+   }
+  ],
+  "typeHist": [
+   [
+    "sans:Helvetica|16px|w400|lh20px|lsnormal|none",
+    212
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh24px|lsnormal|none",
+    196
+   ],
+   [
+    "sans:Graphik Web|12px|w400|lh13px|lsnormal|none",
+    135
+   ],
+   [
+    "sans:Graphik Web|18px|w400|lh24px|lsnormal|none",
+    98
+   ],
+   [
+    "sans:Graphik Web|44px|w400|lh48px|lsnormal|none",
+    72
+   ],
+   [
+    "sans:Graphik Web|22px|w400|lh28px|lsnormal|none",
+    61
+   ],
+   [
+    "sans:EQ-Nunito Sans|15px|w500|lh22.5px|lsnormal|none",
+    57
+   ],
+   [
+    "sans:Graphik Web|66px|w600|lh66px|lsnormal|none",
+    56
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh38px|lsnormal|none",
+    47
+   ],
+   [
+    "sans:Graphik Web|22px|w400|lh33px|lsnormal|none",
+    47
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh18px|lsnormal|none",
+    42
+   ],
+   [
+    "sans:Graphik Web|22px|w100|lh28px|lsnormal|none",
+    35
+   ]
+  ],
+  "labels": [
+   [
+    "Graphik Web|12px|w400|lsnormal|none|rgb(204, 204, 204)",
+    {
+     "n": 6,
+     "ex": [
+      "Site map",
+      "Privacy policy",
+      "Legal disclaimer"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 101,
+   "pos": "fixed",
+   "bg": "rgb(255, 255, 255)",
+   "borderBottom": "0px none rgb(30, 30, 30)",
+   "boxShadow": "none",
+   "cls": "headerTopCorner"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 220,
+    "h": 28
+   },
+   {
+    "t": "Your industry",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 605,
+    "h": 24
+   },
+   {
+    "t": "Your needs",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 730,
+    "h": 24
+   },
+   {
+    "t": "About us",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 838,
+    "h": 24
+   },
+   {
+    "t": "Careers",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 930,
+    "h": 24
+   },
+   {
+    "t": "Insights",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 1012,
+    "h": 24
+   },
+   {
+    "t": "Contact",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(30, 30, 30)",
+    "x": 1096,
+    "h": 24
+   }
+  ],
+  "logo": {
+   "w": 232,
+   "h": 25,
+   "x": 220,
+   "y": 38
+  },
+  "containers": [
+   [
+    "1000px|pl0px|pr0px|w1000|x220",
+    17
+   ],
+   [
+    "1140px|pl15px|pr15px|w1140|x150",
+    1
+   ],
+   [
+    "750px|pl0px|pr0px|w700|x370",
+    1
+   ]
+  ],
+  "leftEdges": [
+   [
+    "220",
+    5
+   ],
+   [
+    "677",
+    2
+   ],
+   [
+    "216",
+    1
+   ],
+   [
+    "470",
+    1
+   ],
+   [
+    "720",
+    1
+   ],
+   [
+    "734",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "220",
+    2
+   ],
+   [
+    "677",
+    2
+   ],
+   [
+    "820",
+    2
+   ],
+   [
+    "204",
+    1
+   ],
+   [
+    "236",
+    1
+   ],
+   [
+    "254",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "div",
+    "cls": "flipped",
+    "top": 0,
+    "h": 3345,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 8,
+    "pb": 8,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "",
+    "headingOffset": 396,
+    "imgs": 51
+   }
+  ],
+  "buttons": [
+   [
+    "h54|r16px|p13px 25px|15px|w500|none|lsnormal|bgrgb(255, 255, 255)|crgb(0, 10, 20)|bd2px rgb(0, 10, 20)",
+    {
+     "n": 3,
+     "ex": [
+      "Skip to main content",
+      "Skip to footer",
+      "Open Accessibility Menu"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Skip to main content",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Skip to footer",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Cookie Policy",
+    "family": "Helvetica",
+    "cat": "sans",
+    "size": 16,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(172, 172, 172)",
+    "maxW": 97
+   },
+   {
+    "tag": "a",
+    "text": "Learn more",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "38px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(120, 35, 220)",
+    "maxW": 147
+   },
+   {
+    "tag": "a",
+    "text": "Be a Kearney Original",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "24px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 400
+   },
+   {
+    "tag": "a",
+    "text": "Learn more",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "38px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(120, 35, 220)",
+    "maxW": 147
+   }
+  ],
+  "dividers": [
+   [
+    "Top|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Bottom|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Left|2px|rgb(0, 10, 20)",
+    3
+   ],
+   [
+    "Top|2px|rgb(255, 255, 255)",
+    2
+   ],
+   [
+    "Bottom|2px|rgb(255, 255, 255)",
+    2
+   ],
+   [
+    "Top|2px|rgb(120, 35, 220)",
+    2
+   ],
+   [
+    "Bottom|2px|rgb(120, 35, 220)",
+    2
+   ],
+   [
+    "Bottom|1px|rgb(219, 219, 219)",
+    1
+   ]
+  ],
+  "cards": [
+   {
+    "w": 486,
+    "h": 414,
+    "imgW": 0,
+    "imgH": 0,
+    "ratio": 0,
+    "imgFilter": "none",
+    "title": "Celebrating 100 Years of Impact",
+    "titleSize": "22px",
+    "titleLh": "28px",
+    "titleW": "100",
+    "titleFam": "Graphik Web",
+    "titleGapFromImg": 20,
+    "label": null,
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(30, 30, 30)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(30, 30, 30)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 0,
+   "linkSize": null,
+   "linkColor": null,
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    "5587k px2"
+   ],
+   [
+    "rgb(30, 30, 30)",
+    "4841k px2"
+   ],
+   [
+    "rgb(245, 245, 245)",
+    "691k px2"
+   ],
+   [
+    "rgb(50, 50, 50)",
+    "163k px2"
+   ],
+   [
+    "rgb(120, 35, 220)",
+    "132k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(255, 255, 255)",
+    603
+   ],
+   [
+    "rgb(204, 204, 204)",
+    135
+   ],
+   [
+    "rgb(0, 0, 0)",
+    124
+   ],
+   [
+    "rgb(30, 30, 30)",
+    88
+   ],
+   [
+    "rgb(0, 10, 20)",
+    57
+   ],
+   [
+    "rgb(120, 35, 220)",
+    38
+   ],
+   [
+    "rgb(172, 172, 172)",
+    13
+   ]
+  ],
+  "fontsLoaded": [
+   "Graphik Web normal",
+   "Graphik Web 100",
+   "Graphik Web bold",
+   "Graphik Web 600"
+  ],
+  "navText": [
+   "Skip to Main Content",
+   "Your industry",
+   "Your needs",
+   "About us",
+   "Careers",
+   "Insights",
+   "Contact"
+  ],
+  "imgRatios": [
+   [
+    "1.20",
+    4
+   ],
+   [
+    "1.80",
+    2
+   ],
+   [
+    "9.15",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 101,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgb(255, 255, 255)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": "headerTopCorner",
+    "h": 101,
+    "bg": "rgb(255, 255, 255)",
+    "shadow": "none"
+   }
+  ]
+ }
+}

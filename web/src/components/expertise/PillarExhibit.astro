@@ -1,0 +1,52 @@
+---
+/**
+ * Pillar exhibit: one quiet static diagram on a grey band (REDESIGN-V3 §4 detail 4). Eyebrow "Exhibit", the exhibit
+ * title as the h2, then the foundation ProcessFlow (ringed nodes on a hairline). The chain is read from
+ * `pillarExhibits` (from → steps → to); several `to` outcomes are one final node ("Go / No-Go").
+ * The page decides which pillars get one: only chains that read truthfully as a sequence.
+ * The flow sits on a white figure panel (--surface) under a 2px rule, so it reads as an exhibit, not as loose text.
+ * Mobile (< 900px): ProcessFlow turns vertical (nodes on a left spine, labels right) inside the panel (24px padding);
+ * header above it.
+ * 900–1300px: seven columns leave 79–125px per label, narrower than "Interesterification" (129px) and, below ~1100px,
+ * "Deodorisation" / "Fractionation" / "Degumming". Headless and some desktop Chromium builds have no hyphenation
+ * dictionary, so ProcessFlow's overflow-wrap broke them mid-word ("Interesterific|ation"). The long refining terms
+ * therefore carry soft hyphens at their syllable breaks (invisible unless the line breaks; ignored by screen readers).
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ProcessFlow from '@/components/ui/ProcessFlow.astro';
+import { pillarExhibits } from '@/data/pillars';
+import { microcopy } from '@/data/microcopy';
+import type { PillarKey } from '@/data/types';
+
+interface Props {
+  pillar: PillarKey;
+  ground?: 'white' | 'grey';
+  rule?: boolean;
+}
+const { pillar, ground = 'grey', rule = false } = Astro.props;
+const ex = pillarExhibits[pillar];
+/* soft hyphens (U+00AD) at the preferred break of each long technical term */
+const SHY: Record<string, string> = {
+  Degumming: 'Degum\u00ADming',
+  Deodorisation: 'Deodor\u00ADisation',
+  Fractionation: 'Fraction\u00ADation',
+  Interesterification: 'Inter\u00ADester\u00ADification',
+};
+const shy = (s: string) => s.replace(/[A-Za-z]{9,}/g, (w) => SHY[w] ?? w);
+const steps = [ex.from, ...ex.steps, ex.to?.length ? ex.to.join(' / ') : undefined]
+  .filter((s): s is string => !!s)
+  .map(shy);
+---
+<Section ground={ground} rule={rule} labelledby="exhibit-title">
+  <SectionHeader id="exhibit-title" eyebrow={microcopy.exhibit} title={ex.title} />
+  <div class="exhibit" data-reveal style="--i:1">
+    <ProcessFlow steps={steps} />
+  </div>
+</Section>
+<style>
+  /* the diagram sits on a white figure panel on the grey band, under a 2px rule (the house exhibit frame) */
+  .exhibit { padding: var(--s-6) var(--s-5); background: var(--surface); border-top: 2px solid var(--rule-strong); }
+  @media (min-width: 900px) { .exhibit { padding: var(--s-7) var(--s-6); } }
+  @media (min-width: 1200px) { .exhibit { padding: var(--s-7); } }
+</style>

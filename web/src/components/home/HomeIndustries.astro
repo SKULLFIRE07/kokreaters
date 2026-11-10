@@ -1,0 +1,30 @@
+---
+/**
+ * Home 6 · Industries (REDESIGN-V3 §4 Home 6). White band: SectionHeader (eyebrow "Industries", title "Where we work"
+ * from home.industries, "All industries" link) over the nine industries as text tiles in a hairline 3 × 3 grid
+ * (.tile-grid), each linking to its /industries#<slug> anchor. Text-only by design: photos live on /industries.
+ * Mobile (< 600px): one column of rows (number, name, arrow at the right) between hairlines. 600–899: 2 columns, and
+ * the odd ninth tile spans the last row so no empty grey cell is left in the hairline grid.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import IndustryTile from '@/components/cards/IndustryTile.astro';
+import { industries as fold } from '@/data/home';
+import { industries, industriesPage } from '@/data/industries';
+import { industriesMenu } from '@/data/nav';
+---
+<Section ground="white" labelledby="industries-heading">
+  <SectionHeader id="industries-heading" eyebrow={industriesPage.overline} title={fold.headline} link={industriesMenu.all} />
+  <ul class="tile-grid hind__grid" role="list">
+    {industries.map((ind, i) => (
+      <li data-reveal style={`--i:${i % 3}`}><IndustryTile href={`/industries#${ind.slug}`} name={ind.name} n={ind.n} /></li>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  @media (min-width: 600px) and (max-width: 899px) {
+    .hind__grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .hind__grid > li:last-child:nth-child(odd) > :global(*) { padding-right: 0; }   /* arrow flush right, like column 2 */
+  }
+</style>

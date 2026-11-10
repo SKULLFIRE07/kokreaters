@@ -1,34 +1,27 @@
 ---
 /**
- * Home `/` (DESIGN-SPEC v2 10.1 + 00). Ground rhythm: white (hero) → ink (marquee) → imperial (proof) → white grid
- * (positioning) → ice (plant floor → boardroom, pinned) → white (pillar rail, pinned) → lavender (method) → white
- * (impact + route map) → blush (where we work) → white (insights) → sapphire (founder) → saffron (CTA, BaseLayout) → ink.
- * Everything server-renders in its final state; src/scripts/pages/home.ts layers the motion on top.
+ * Home `/` (REDESIGN-V3 §4 Home, 8 sections). Grounds: navy hero → white credibility strip → grey what we do →
+ * white featured insights → navy results → white industries → grey founder → white closing CTA + newsletter
+ * (BaseLayout CtaBand: home gets { newsletter: true, ground: 'white' }) → navy footer.
+ * Every string comes from src/data/* or the insights collection; JSON-LD (Organization + ProfessionalService +
+ * WebSite) is added by BaseLayout for page="home". No page script: motion is the foundation's data-reveal/data-settle.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/home/Hero.astro';
-import IndustryMarquee from '@/components/home/IndustryMarquee.astro';
-import ProofBand from '@/components/home/ProofBand.astro';
-import Positioning from '@/components/home/Positioning.astro';
-import PlantPipeline from '@/components/home/PlantPipeline.astro';
-import WhatWeDo from '@/components/home/WhatWeDo.astro';
-import MethodFold from '@/components/home/MethodFold.astro';
-import ImpactFold from '@/components/home/ImpactFold.astro';
-import WhereWeWork from '@/components/home/WhereWeWork.astro';
-import InsightsFold from '@/components/home/InsightsFold.astro';
-import FounderFold from '@/components/home/FounderFold.astro';
+import HomeHero from '@/components/home/HomeHero.astro';
+import HomeProof from '@/components/home/HomeProof.astro';
+import HomeExpertise from '@/components/home/HomeExpertise.astro';
+import HomeInsights from '@/components/home/HomeInsights.astro';
+import HomeResults from '@/components/home/HomeResults.astro';
+import HomeIndustries from '@/components/home/HomeIndustries.astro';
+import HomeFounder from '@/components/home/HomeFounder.astro';
 import { pageSeo } from '@/lib/seo';
 ---
 <BaseLayout page="home" seo={pageSeo('home')}>
-  <Hero />
-  <IndustryMarquee />
-  <ProofBand />
-  <Positioning />
-  <PlantPipeline />
-  <WhatWeDo />
-  <MethodFold />
-  <ImpactFold />
-  <WhereWeWork />
-  <InsightsFold />
-  <FounderFold />
+  <HomeHero />
+  <HomeProof />
+  <HomeExpertise />
+  <HomeInsights />
+  <HomeResults />
+  <HomeIndustries />
+  <HomeFounder />
 </BaseLayout>

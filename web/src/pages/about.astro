@@ -1,41 +1,85 @@
 ---
 /**
- * About /about (DESIGN-SPEC v2 10.7). F1 hero (white + lavender photo block) → F2 flap board (ink) → F3 long bio
- * (white) → F4 career journey (cloud) → F5 the map (white grid, globe) → F6 the name (sapphire) → F7 education and
- * languages (white) → F8 CtaField (BaseLayout) → footer. JSON-LD: Person + BreadcrumbList.
+ * About /about (REDESIGN-V3 §4 About). Grounds alternate navy → white → grey → white → navy → white → (CtaBand grey).
+ *  1 PageHero, navy split: the 4:5 portrait right (photo under the text at 4:3 on mobile), crumbs, eyebrow, the H1
+ *    "Built on 25 years…" (no-break space in the data), the intro, then the one-page profile PDF (primary button) and
+ *    LinkedIn (tertiary link-button, rel="noopener me"). Below 600px the PDF button goes full width, LinkedIn under it;
+ *    below 390px it reads "Download profile (PDF)" so it stays on one line. Portrait at 50% 4%: headroom above the hair
+ *    in every crop (desktop half-bleed, 4:3 on tablet and phone).
+ *  2 AboutStory (white)      — name and role, the short story, "Read the long version" (native details).
+ *  3 CareerTimeline (grey)   — four ringed nodes on a hairline (vertical on mobile), worked-with line.
+ *  4 PlacesMap (white)       — #the-map: "Eight places in five countries", static Equal Earth map, eight ringed nodes,
+ *                              the places <ol>.
+ *  5 NamePanel (navy)        — "Ko + Kreaters" as one formula with its two definitions, the founder's words, the lockup.
+ *  6 Credentials (white)     — education · languages · recognition (WHO).
+ *  CtaBand (grey) and the footer come from BaseLayout. JSON-LD: Person (with the portrait) + BreadcrumbList.
+ * Mobile: every section states its own layout; hero buttons go full width below 600px.
  */
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import AboutHero from '@/components/about/AboutHero.astro';
-import LongBio from '@/components/about/LongBio.astro';
-import Timeline from '@/components/about/Timeline.astro';
-import GlobeSection from '@/components/about/GlobeSection.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Button from '@/components/ui/Button.astro';
+import AboutStory from '@/components/about/AboutStory.astro';
+import CareerTimeline from '@/components/about/CareerTimeline.astro';
+import PlacesMap from '@/components/about/PlacesMap.astro';
 import NamePanel from '@/components/about/NamePanel.astro';
-import EducationLanguages from '@/components/about/EducationLanguages.astro';
-import FlapBoard from '@/components/bencho/FlapBoard.astro';
-import portrait from '@/assets/photos/ganeaysh-cutout.png';
+import Credentials from '@/components/about/Credentials.astro';
+import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 import { person } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
-import { about } from '@/data/founder';
-import { storyNotes } from '@/data/notes/story';
+import { site } from '@/config/site';
+import { about, aboutPage, portraitAlt } from '@/data/founder';
+import { microcopy } from '@/data/microcopy';
 
 const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
 const crumbs = [{ label: about.overline, href: '/about' }];
 const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
+// The PDF is a static file written by scripts/make-profile-pdf.mjs; never link to it if it is missing.
+const hasPdf = existsSync(join(process.cwd(), 'public', aboutPage.profilePdfHref));
 ---
-<BaseLayout page="about" seo={seo} breadcrumbs={crumbs} showCrumbs={false}>
-  <AboutHero crumbs={crumbs} />
-  <div class="ab-flap g-ink">
-    <div class="container ab-flap__in"><FlapBoard entries={storyNotes.about.flap} /></div>
-  </div>
-  <LongBio />
-  <Timeline />
-  <GlobeSection />
+<BaseLayout page="about" seo={seo} breadcrumbs={crumbs}>
+  <PageHero
+    ground="navy"
+    imageMode="split"
+    image={portrait}
+    imageAlt={portraitAlt.about}
+    imagePosition="50% 4%"
+    crumbs={crumbs}
+    eyebrow={about.overline}
+    title={about.headline}
+    lead={about.intro}
+    titleId="about-title"
+  >
+    <div class="about-actions">
+      {hasPdf && (
+        <Button href={aboutPage.profilePdfHref} icon="download" download="ganeaysh-kulkarni-profile.pdf">
+          <span class="about-pdf--full">{aboutPage.profilePdf}</span><span class="about-pdf--short">{aboutPage.profilePdfShort}</span>
+        </Button>
+      )}
+      <Button href={site.linkedin.href} variant="tertiary" icon="external" rel="noopener me" class="about-actions__link">
+        {aboutPage.linkedin}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
+      </Button>
+    </div>
+  </PageHero>
+  <AboutStory />
+  <CareerTimeline />
+  <PlacesMap />
   <NamePanel />
-  <EducationLanguages />
+  <Credentials />
 </BaseLayout>
 <style>
-  .ab-flap { padding-block: clamp(28px, 4vw, 48px); overflow: clip; }
-  .ab-flap__in { display: grid; justify-items: center; }
-  .ab-flap__in :global(.flap) { width: 100%; display: grid; justify-content: center; }
+  /* PageHero puts its default slot 48px under the lead; buttons belong 32px under it, like hero actions. */
+  .about-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin-top: calc(var(--s-6) - var(--s-7)); }
+  @media (max-width: 599px) {
+    .about-actions :global(.btn--primary) { flex: 1 1 100%; }
+  }
+  /* Below 390px the full label wraps "(PDF)" onto a second line: the shorter label keeps the button one line, 48px.
+     Only one label is ever rendered, so the accessible name follows what is shown. */
+  .about-pdf--short { display: none; }
+  @media (max-width: 389px) {
+    .about-pdf--full { display: none; }
+    .about-pdf--short { display: inline; }
+  }
 </style>

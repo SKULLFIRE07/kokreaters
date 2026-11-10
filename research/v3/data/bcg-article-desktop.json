@@ -1,0 +1,1224 @@
+{
+ "slug": "bcg-article",
+ "viewport": "desktop",
+ "url": "https://www.bcg.com/publications/2026/market-leaders-staying-on-top-longer",
+ "status": 200,
+ "networkidle": "timeout",
+ "cookie": "text:ACCEPT ALL AND CLOSE",
+ "titleSeen": "Loading https://www.bcg.com/publications/2026/market-leaders-staying-on-top-longer",
+ "bodyTextStart": "Skip to Main LOG IN CORPORATE FINANCE AND STRATEGY Corporate Giants Are Staying on Top Longer. Should They Feel Safe? By Sushmita Banerjee, Julien Ghesquieres, James Tucker, Val Elbert, Anirban Halder, and Yasemin Günay ARTICLE NOVEMBER 06, 2026 8 MIN READ KEY TAKEAWAYS The churn in market value lea",
+ "m": {
+  "url": "https://www.bcg.com/publications/2026/market-leaders-staying-on-top-longer",
+  "title": "Why Market Leaders Are Staying on Top Longer in 2026 | BCG",
+  "vw": 1440,
+  "vh": 900,
+  "pageHeight": 10735,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "henderson-bcg-sans",
+   "size": "16px",
+   "lh": "16px",
+   "color": "rgb(33, 36, 39)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Corporate Giants Are Staying on Top Longer. Should They Feel Safe?",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 76,
+    "lh": "76px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 960
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "KEY TAKEAWAYS",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 14,
+    "lh": "14px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 448
+   },
+   {
+    "tag": "h2",
+    "text": "Leadership Positions Have Increasingly Locked In",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 960
+   },
+   {
+    "tag": "h2",
+    "text": "Not All Lock-In Is Equal",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 960
+   },
+   {
+    "tag": "h2",
+    "text": "Navigating Risk and Assessing Opportunity",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 960
+   },
+   {
+    "tag": "h2",
+    "text": "Authors",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(12, 43, 21)",
+    "maxW": 954
+   },
+   {
+    "tag": "h2",
+    "text": "Related Content",
+    "family": "henderson-bcg-serif",
+    "cat": "serif",
+    "size": 52,
+    "lh": "52px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 954
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [
+   [
+    "henderson-bcg-sans|20px|26px|300|normal",
+    10268
+   ],
+   [
+    "henderson-bcg-sans|12px|16.8px|400|normal",
+    759
+   ],
+   [
+    "henderson-bcg-sans|16px|22.4px|400|normal",
+    62
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "Stay ahead with BCG insights on corporate finance and strategy",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 16,
+    "lh": "22.4px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 262
+   },
+   {
+    "tag": "p",
+    "text": "That leadership positions are fragile is a tenet of the popular business press. ",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 20,
+    "lh": "26px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 747
+   },
+   {
+    "tag": "p",
+    "text": "What is driving this counterintuitive finding? In some industries, advantages su",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 20,
+    "lh": "26px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 747
+   },
+   {
+    "tag": "p",
+    "text": "In this article, we describe the phenomenon of increasing leadership persistence",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 20,
+    "lh": "26px",
+    "ls": "normal",
+    "weight": "300",
+    "tt": "none",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 747
+   }
+  ],
+  "typeHist": [
+   [
+    "serif:henderson-bcg-sans|20px|w300|lh26px|lsnormal|none",
+    11386
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|none",
+    832
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w400|lh19.6px|lsnormal|none",
+    401
+   ],
+   [
+    "serif:henderson-bcg-sans|28px|w300|lh33.6px|lsnormal|none",
+    396
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh13.2px|lsnormal|none",
+    383
+   ],
+   [
+    "serif:henderson-bcg-sans|20px|w400|lh26px|lsnormal|none",
+    238
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh22.4px|lsnormal|none",
+    209
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w700|lh12px|lsnormal|uppercase",
+    173
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w400|lh21px|lsnormal|uppercase",
+    166
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh12px|lsnormal|uppercase",
+    141
+   ],
+   [
+    "serif:henderson-bcg-serif|52px|w300|lh52px|lsnormal|none",
+    135
+   ],
+   [
+    "serif:henderson-bcg-sans|24px|w300|lh28.8px|lsnormal|none",
+    118
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w300|lh22.4px|lsnormal|none",
+    99
+   ],
+   [
+    "serif:henderson-bcg-sans|32px|w300|lh38.4px|lsnormal|none",
+    72
+   ],
+   [
+    "serif:henderson-bcg-serif|76px|w300|lh76px|lsnormal|none",
+    66
+   ],
+   [
+    "serif:henderson-bcg-sans|44px|w300|lh44px|lsnormal|none",
+    62
+   ],
+   [
+    "serif:henderson-bcg-sans|14px|w400|lh14px|lsnormal|uppercase",
+    55
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w700|lh16px|lsnormal|uppercase",
+    27
+   ],
+   [
+    "sans:Arial|13.3333px|w400|lhnormal|lsnormal|none",
+    24
+   ],
+   [
+    "serif:henderson-bcg-sans|28px|w400|lh33.6px|lsnormal|none",
+    22
+   ],
+   [
+    "serif:henderson-bcg-serif|14px|w700|lh14px|lsnormal|uppercase",
+    13
+   ],
+   [
+    "serif:henderson-bcg-sans|16px|w400|lh16px|lsnormal|none",
+    12
+   ],
+   [
+    "serif:henderson-bcg-sans|12px|w400|lh16.8px|lsnormal|uppercase",
+    11
+   ],
+   [
+    "sans:Arial|0px|w700|lh0px|lsnormal|uppercase",
+    9
+   ],
+   [
+    "serif:henderson-bcg-sans|0px|w700|lh0px|lsnormal|uppercase",
+    9
+   ]
+  ],
+  "labels": [
+   [
+    "henderson-bcg-sans|12px|w700|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 7,
+     "ex": [
+      "WEEKLY INSIGHTS SUBSCRIPTION",
+      "ARTICLE",
+      "ARTICLE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|none|rgb(105, 105, 105)",
+    {
+     "n": 6,
+     "ex": [
+      "New York",
+      "New York",
+      "Toronto"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w400|lsnormal|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 6,
+     "ex": [
+      "CORPORATE FINANCE AND STRATEGY",
+      "BUSINESS TRANSFORMATION",
+      "INNOVATION STRATEGY AND DELIVE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|uppercase|rgb(35, 35, 38)",
+    {
+     "n": 6,
+     "ex": [
+      "JUNE 30, 2026",
+      "APRIL 12, 2024",
+      "JULY 23, 2026"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 4,
+     "ex": [
+      "SAVE IT FOR LATER",
+      "SHARE",
+      "SUBSCRIBE"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|14px|w400|lsnormal|uppercase|rgb(33, 36, 39)",
+    {
+     "n": 3,
+     "ex": [
+      "CORPORATE FINANCE AND STRATEGY",
+      "ARTICLE NOVEMBER 06, 2026 8 MI",
+      "NOVEMBER 06, 2026"
+     ]
+    }
+   ],
+   [
+    "henderson-bcg-sans|12px|w400|lsnormal|none|rgb(33, 36, 39)",
+    {
+     "n": 2,
+     "ex": [
+      "Partner",
+      "Managing Director & Partner"
+     ]
+    }
+   ],
+   [
+    "Arial|13.3333px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 2,
+     "ex": [
+      "View slide 1",
+      "View slide 2"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 73,
+   "pos": "fixed",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(33, 36, 39)",
+   "boxShadow": "none",
+   "cls": "Page-header menu"
+  },
+  "headerLinks": [
+   {
+    "t": "Skip to Main",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 79,
+    "h": 1
+   },
+   {
+    "t": "Link to open BCG site menu",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 88,
+    "h": 58
+   },
+   {
+    "t": "Link to BCG home page",
+    "size": "16px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(33, 36, 39)",
+    "x": 145,
+    "h": 70
+   },
+   {
+    "t": "Open BCG site search input",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 1217,
+    "h": 46
+   },
+   {
+    "t": "LOG IN",
+    "size": "13.3333px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(105, 105, 105)",
+    "x": 1280,
+    "h": 72
+   }
+  ],
+  "logo": {
+   "w": 32,
+   "h": 32,
+   "x": 100,
+   "y": 60
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "80",
+    27
+   ],
+   [
+    "100",
+    7
+   ],
+   [
+    "239",
+    2
+   ],
+   [
+    "671",
+    2
+   ],
+   [
+    "1103",
+    2
+   ],
+   [
+    "192",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "613",
+    20
+   ],
+   [
+    "633",
+    7
+   ],
+   [
+    "400",
+    4
+   ],
+   [
+    "406",
+    2
+   ],
+   [
+    "965",
+    2
+   ],
+   [
+    "80",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "sticky-toolbar-desktop",
+    "cls": "StickyToolbar-customElement",
+    "top": 2212,
+    "h": 225,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "112px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 2156,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 2280,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 2430,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "h2",
+    "cls": "rte-h2",
+    "top": 2646,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "112px",
+    "mb": "32px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 2782,
+    "h": 156,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 2958,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "ImageModule",
+    "top": 3102,
+    "h": 650,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "40px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 3792,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 3942,
+    "h": 208,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "tab-collapsible-content",
+    "top": 4170,
+    "h": 71,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 16,
+    "pb": 16,
+    "mt": "0px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 4282,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 4432,
+    "h": 78,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "h2",
+    "cls": "rte-h2",
+    "top": 4622,
+    "h": 52,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "112px",
+    "mb": "32px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 4706,
+    "h": 78,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 4804,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "ImageModule",
+    "top": 4974,
+    "h": 724,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "40px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 5738,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 5888,
+    "h": 156,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 6064,
+    "h": 182,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 6266,
+    "h": 130,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 6416,
+    "h": 78,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "div",
+    "cls": "subscription-module-inline-wrapper",
+    "top": 6514,
+    "h": 304,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 56,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "h2",
+    "cls": "rte-h2",
+    "top": 6930,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "112px",
+    "mb": "32px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 7066,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 7190,
+    "h": 52,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "ul",
+    "cls": "",
+    "top": 7282,
+    "h": 1134,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "40px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 8456,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "20px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "hr",
+    "cls": "rte-hr",
+    "top": 8580,
+    "h": 1,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "20px",
+    "mb": "40px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "p",
+    "cls": "",
+    "top": 8621,
+    "h": 182,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   }
+  ],
+  "buttons": [
+   [
+    "h31|r10px|p4px 20px|14px|w400|uppercase|lsnormal|bgrgba(1, 1, 1, 0.4)|crgb(255, 255, 255)|bd1px rgb(255, 255, 255)",
+    {
+     "n": 6,
+     "ex": [
+      "CORPORATE FINANCE AND STR",
+      "BUSINESS TRANSFORMATION",
+      "INNOVATION STRATEGY AND D"
+     ]
+    }
+   ],
+   [
+    "h30|r10px|p8px 12px|14px|w400|uppercase|lsnormal|bgrgba(255, 255, 255, 0.1)|crgb(33, 36, 39)|bd0px rgb(33, 36, 39)",
+    {
+     "n": 1,
+     "ex": [
+      "CORPORATE FINANCE AND STR"
+     ]
+    }
+   ],
+   [
+    "h38|r15px|p6px 12px|0px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "SUBSCRIBE"
+     ]
+    }
+   ],
+   [
+    "h34|r15px|p6px 12px|16px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "SUMMARIZE ARTICLE"
+     ]
+    }
+   ],
+   [
+    "h48|r15px|p13px 24px|0px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "SUBSCRIBE"
+     ]
+    }
+   ],
+   [
+    "h48|r15px|p13px 55px|16px|w700|uppercase|lsnormal|bgrgb(150, 248, 120)|crgb(33, 36, 39)|bd3px rgba(0, 0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "CONTACT US"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "CONTACT US",
+    "family": "henderson-bcg-sans",
+    "cat": "serif",
+    "size": 16,
+    "lh": "16px",
+    "ls": "normal",
+    "weight": "700",
+    "tt": "uppercase",
+    "color": "rgb(33, 36, 39)",
+    "maxW": 193
+   }
+  ],
+  "dividers": [
+   [
+    "Top|1px|rgb(223, 215, 205)",
+    6
+   ],
+   [
+    "Bottom|1px|rgb(223, 215, 205)",
+    6
+   ],
+   [
+    "Left|1px|rgb(223, 215, 205)",
+    6
+   ],
+   [
+    "Top|1px|rgb(255, 255, 255)",
+    6
+   ],
+   [
+    "Bottom|1px|rgb(255, 255, 255)",
+    6
+   ],
+   [
+    "Top|1px|rgb(105, 105, 105)",
+    2
+   ],
+   [
+    "Bottom|1px|rgb(105, 105, 105)",
+    2
+   ],
+   [
+    "Left|1px|rgb(105, 105, 105)",
+    2
+   ]
+  ],
+  "cards": [
+   {
+    "w": 416,
+    "h": 174,
+    "imgW": 114,
+    "imgH": 114,
+    "ratio": 1,
+    "imgFilter": "none",
+    "title": "Sushmita Banerjee",
+    "titleSize": "24px",
+    "titleLh": "28.8px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -114,
+    "label": {
+     "t": "New York",
+     "size": "12px",
+     "w": "400",
+     "tt": "none",
+     "ls": "normal",
+     "color": "rgb(105, 105, 105)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 302,
+    "h": 403,
+    "imgW": 302,
+    "imgH": 403,
+    "ratio": 0.75,
+    "imgFilter": "none",
+    "title": "The 2026 Value Creators Rankings: Strong Markets, Hard Strat",
+    "titleSize": "24px",
+    "titleLh": "28.8px",
+    "titleW": "300",
+    "titleFam": "henderson-bcg-sans",
+    "titleGapFromImg": -153,
+    "label": {
+     "t": "CORPORATE FINANCE AND STRATEGY",
+     "size": "14px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "normal",
+     "color": "rgb(255, 255, 255)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(33, 36, 39)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 714,
+   "bg": "rgb(241, 238, 234)",
+   "color": "rgb(33, 36, 39)",
+   "pt": "56px",
+   "lists": 4,
+   "distinctColumnX": [
+    80,
+    271,
+    512,
+    1064
+   ],
+   "links": 22,
+   "linkSize": "24px",
+   "linkColor": "rgb(33, 36, 39)",
+   "headings": [
+    {
+     "tag": "div",
+     "text": "How can we assist you?",
+     "family": "henderson-bcg-sans",
+     "cat": "serif",
+     "size": 20,
+     "lh": "26px",
+     "ls": "normal",
+     "weight": "400",
+     "tt": "none",
+     "color": "rgb(33, 36, 39)",
+     "maxW": 308
+    }
+   ]
+  },
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    "15684k px2"
+   ],
+   [
+    "rgb(241, 238, 234)",
+    "1269k px2"
+   ],
+   [
+    "rgb(50, 50, 50)",
+    "868k px2"
+   ],
+   [
+    "rgb(12, 43, 21)",
+    "730k px2"
+   ],
+   [
+    "rgba(255, 255, 255, 0.7)",
+    "306k px2"
+   ],
+   [
+    "rgba(255, 255, 255, 0.9)",
+    "65k px2"
+   ],
+   [
+    "rgb(227, 253, 219)",
+    "50k px2"
+   ],
+   [
+    "rgba(1, 1, 1, 0.4)",
+    "46k px2"
+   ],
+   [
+    "rgb(150, 248, 120)",
+    "24k px2"
+   ],
+   [
+    "rgba(255, 255, 255, 0.1)",
+    "9k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(33, 36, 39)",
+    14433
+   ],
+   [
+    "rgb(12, 43, 21)",
+    199
+   ],
+   [
+    "rgb(255, 255, 255)",
+    181
+   ],
+   [
+    "rgb(50, 50, 50)",
+    99
+   ],
+   [
+    "rgb(35, 35, 38)",
+    86
+   ],
+   [
+    "rgb(105, 105, 105)",
+    46
+   ],
+   [
+    "rgb(0, 0, 0)",
+    24
+   ]
+  ],
+  "fontsLoaded": [
+   "henderson-bcg-sans 700",
+   "henderson-bcg-sans 300",
+   "henderson-bcg-sans 400",
+   "henderson-bcg-serif 700",
+   "henderson-bcg-serif 400"
+  ],
+  "navText": [],
+  "imgRatios": [
+   [
+    "0.75",
+    6
+   ],
+   [
+    "4.26",
+    1
+   ],
+   [
+    "1.48",
+    1
+   ],
+   [
+    "1.33",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 73,
+  "top": 40,
+  "pos": "fixed",
+  "bg": "rgba(0, 0, 0, 0)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": []
+ }
+}

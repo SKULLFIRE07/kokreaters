@@ -1,0 +1,487 @@
+{
+ "desktop": {
+  "url": "https://web.archive.org/web/20260612233044if_/https://www.mckinsey.com/industries/agriculture/our-insights",
+  "vw": 1440,
+  "docH": 900,
+  "body": {
+   "fam": "Times New Roman",
+   "size": "16px",
+   "lh": "normal",
+   "ls": "normal",
+   "w": "400",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Times New Roman",
+     "size": "32px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "21.44px",
+     "mt": "21.44px",
+     "maxW": "none",
+     "wpx": 1424,
+     "left": 8,
+     "top": 47,
+     "t": "Agriculture Insights"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "Times New Roman",
+     "size": "24px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "19.92px",
+     "mt": "19.92px",
+     "maxW": "none",
+     "wpx": 1424,
+     "left": 8,
+     "top": 280,
+     "t": "Connect with our Agriculture Practice"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Times New Roman",
+     "size": "18.72px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "18.72px",
+     "mt": "18.72px",
+     "maxW": "none",
+     "wpx": 1424,
+     "left": 8,
+     "top": 106,
+     "t": "How agility and AI could rewire agriculture trading"
+    },
+    {
+     "fam": "Times New Roman",
+     "size": "18.72px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "18.72px",
+     "mt": "18.72px",
+     "maxW": "none",
+     "wpx": 1424,
+     "left": 8,
+     "top": 201,
+     "t": "Energy & Materials Blog"
+    }
+   ],
+   "h4": [],
+   "h5": [],
+   "h6": []
+  },
+  "p": [],
+  "typeHist": [
+   {
+    "k": "Times New Roman|16px|400|normal|normal|none",
+    "count": 6,
+    "chars": 362,
+    "samples": [
+     "span:Skip to main content",
+     "em:May 12, 2026",
+     "div:– Global forces and algorithmic price di"
+    ],
+    "colors": [
+     "rgb(0, 0, 238)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Times New Roman|18.72px|700|normal|normal|none",
+    "count": 2,
+    "chars": 74,
+    "samples": [
+     "div:How agility and AI could rewire agricult",
+     "span:Energy & Materials Blog"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(0, 0, 238)"
+    ]
+   },
+   {
+    "k": "Times New Roman|24px|700|normal|normal|none",
+    "count": 1,
+    "chars": 37,
+    "samples": [
+     "div:Connect with our Agriculture Practice"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Times New Roman|32px|700|normal|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "div:Agriculture Insights"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 0,
+   "pos": "static",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(0, 0, 0)",
+   "shadow": "none",
+   "cls": "global-header global-header-r3 navigation-r3"
+  },
+  "headerLinks": [],
+  "fixed": [],
+  "containers": [],
+  "textLefts": [
+   [
+    8,
+    4
+   ]
+  ],
+  "rightEdges": [
+   [
+    1432,
+    4
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "OneUpMediumHero_mck-c-one-up-medium-hero__text-container__AWowr OneUpM",
+    "top": 106,
+    "h": 77,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "How agility and AI could rewire agriculture tradin"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium mck-o-edge-to-edge mck-c-module-wrapper",
+    "top": 201,
+    "h": 59,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "Energy & Materials Blog"
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 280,
+    "h": 65,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "Connect with our Agriculture Practice"
+   }
+  ],
+  "h2Tops": [
+   [
+    280,
+    "Connect with our Agriculture P"
+   ]
+  ],
+  "images": [],
+  "cards": [],
+  "buttons": [],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    6
+   ],
+   [
+    "rgb(0, 0, 238)",
+    4
+   ]
+  ],
+  "bgColors": [],
+  "stats": [],
+  "eyebrows": [],
+  "forms": [],
+  "dismissed": null,
+  "headerScrolled": {
+   "top": 26,
+   "h": 0,
+   "pos": "static",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  },
+  "articleLinks": []
+ },
+ "mobile": {
+  "url": "https://web.archive.org/web/20260612233044if_/https://www.mckinsey.com/industries/agriculture/our-insights",
+  "vw": 390,
+  "docH": 844,
+  "body": {
+   "fam": "Times New Roman",
+   "size": "16px",
+   "lh": "normal",
+   "ls": "normal",
+   "w": "400",
+   "tt": "none",
+   "color": "rgb(0, 0, 0)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Times New Roman",
+     "size": "32px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "21.44px",
+     "mt": "21.44px",
+     "maxW": "none",
+     "wpx": 374,
+     "left": 8,
+     "top": 47,
+     "t": "Agriculture Insights"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "Times New Roman",
+     "size": "24px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "19.92px",
+     "mt": "19.92px",
+     "maxW": "none",
+     "wpx": 374,
+     "left": 8,
+     "top": 374,
+     "t": "Connect with our Agriculture Practice"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Times New Roman",
+     "size": "18.72px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "18.72px",
+     "mt": "18.72px",
+     "maxW": "none",
+     "wpx": 374,
+     "left": 8,
+     "top": 106,
+     "t": "How agility and AI could rewire agriculture trading"
+    },
+    {
+     "fam": "Times New Roman",
+     "size": "18.72px",
+     "lh": "normal",
+     "ls": "normal",
+     "w": "700",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "18.72px",
+     "mt": "18.72px",
+     "maxW": "none",
+     "wpx": 374,
+     "left": 8,
+     "top": 277,
+     "t": "Energy & Materials Blog"
+    }
+   ],
+   "h4": [],
+   "h5": [],
+   "h6": []
+  },
+  "p": [],
+  "typeHist": [
+   {
+    "k": "Times New Roman|16px|400|normal|normal|none",
+    "count": 6,
+    "chars": 362,
+    "samples": [
+     "span:Skip to main content",
+     "em:May 12, 2026",
+     "div:– Global forces and algorithmic price di"
+    ],
+    "colors": [
+     "rgb(0, 0, 238)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Times New Roman|18.72px|700|normal|normal|none",
+    "count": 2,
+    "chars": 74,
+    "samples": [
+     "div:How agility and AI could rewire agricult",
+     "span:Energy & Materials Blog"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(0, 0, 238)"
+    ]
+   },
+   {
+    "k": "Times New Roman|24px|700|normal|normal|none",
+    "count": 1,
+    "chars": 37,
+    "samples": [
+     "div:Connect with our Agriculture Practice"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Times New Roman|32px|700|normal|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "div:Agriculture Insights"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 0,
+   "pos": "static",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(0, 0, 0)",
+   "shadow": "none",
+   "cls": "global-header global-header-r3 navigation-r3"
+  },
+  "headerLinks": [],
+  "fixed": [],
+  "containers": [],
+  "textLefts": [
+   [
+    8,
+    4
+   ]
+  ],
+  "rightEdges": [
+   [
+    382,
+    4
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "OneUpMediumHero_mck-c-one-up-medium-hero__text-container__AWowr OneUpM",
+    "top": 106,
+    "h": 153,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "How agility and AI could rewire agriculture tradin"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium mck-o-edge-to-edge mck-c-module-wrapper",
+    "top": 277,
+    "h": 77,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "Energy & Materials Blog"
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 374,
+    "h": 92,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "Connect with our Agriculture Practice"
+   }
+  ],
+  "h2Tops": [
+   [
+    374,
+    "Connect with our Agriculture P"
+   ]
+  ],
+  "images": [],
+  "cards": [],
+  "buttons": [],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    6
+   ],
+   [
+    "rgb(0, 0, 238)",
+    4
+   ]
+  ],
+  "bgColors": [],
+  "stats": [],
+  "eyebrows": [],
+  "forms": [],
+  "dismissed": null,
+  "headerScrolled": {
+   "top": 26,
+   "h": 0,
+   "pos": "static",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  }
+ }
+}

@@ -1,66 +1,91 @@
 ---
 /**
- * Filters (DESIGN-SPEC 5.7 item 3): two rows of aria-pressed text toggles, no chips.
- * Rendered `hidden`; scripts/pages/insights.ts un-hides them, so without JS the full list shows.
+ * Insight filters (REDESIGN-V3 §4 Insights hub; behaviour contract research/v3/inventory-insights.md A6).
+ * Two rows of small toggle buttons (aria-pressed), "All" first, then the expertise areas / the formats that have at
+ * least one visible insight (a button that can only lead to an empty list is not offered). A row that would offer a
+ * single option changes nothing, so it is left out; with no row left the whole filter bar is omitted.
+ * Server-rendered `hidden`: scripts/pages/insights.ts un-hides it, reads ?pillar= & ?format= (a value without a button
+ * falls back to "All"), filters the .insight-row items in [data-insight-list] and writes the count into
+ * [data-filter-status] (singular-aware).
+ * One navy highlight per row glides to the pressed button (Motion Primitives "AnimatedBackground", vanilla);
+ * without it the pressed button fills itself.
+ * Mobile: label above its row; buttons wrap onto as many lines as needed (never a horizontal scroll); 44px tap height
+ * on touch, 40px visual + 2px invisible hit margin on fine pointers; 24px between the two groups.
  */
-import PillarDot from '@/components/ui/PillarDot.astro';
+import type { CollectionEntry } from 'astro:content';
 import { pillars } from '@/data/pillars';
 import { microcopy, formatLabels } from '@/data/microcopy';
+import { insightsHub, articleCopy } from '@/data/insights';
 import { fill } from '@/lib/format';
-interface Props { total: number; }
-const { total } = Astro.props;
+interface Props { entries: CollectionEntry<'insights'>[]; }
+const { entries } = Astro.props;
+const total = entries.length;
+const usedPillars = new Set<string>(entries.map((e) => e.data.pillar));
+const usedFormats = new Set<string>(entries.map((e) => e.data.format));
 const formats = Object.entries(formatLabels) as [keyof typeof formatLabels, string][];
+const rows = [
+  { key: 'pillar', id: 'filter-pillar-label', label: articleCopy.expertise, opts: pillars.filter((p) => usedPillars.has(p.key)).map((p) => ({ value: p.key as string, label: p.shortLabel })) },
+  { key: 'format', id: 'filter-format-label', label: microcopy.filterFormat, opts: formats.filter(([k]) => usedFormats.has(k)).map(([k, label]) => ({ value: k as string, label })) },
+].filter((r) => r.opts.length > 1);
+const many = microcopy.insightsCount;
+const one = insightsHub.countOne;
 ---
+{rows.length > 0 && (
 <div class="filters" role="group" aria-label={microcopy.filterGroup} hidden data-filters>
-  <div class="filters__row">
-    <span class="filters__label t-dateline" id="filter-pillar-label">{microcopy.filterPillar}</span>
-    <ul class="filters__opts" role="list" aria-labelledby="filter-pillar-label">
-      <li><button type="button" class="filters__btn" aria-pressed="true" data-filter="pillar" data-value="">{microcopy.filterAll}</button></li>
-      {pillars.map((p) => (
-        <li><button type="button" class="filters__btn" aria-pressed="false" data-filter="pillar" data-value={p.key}><PillarDot pillar={p.key} size={8} />{p.shortLabel}</button></li>
-      ))}
-    </ul>
-  </div>
-  <div class="filters__row">
-    <span class="filters__label t-dateline" id="filter-format-label">{microcopy.filterFormat}</span>
-    <ul class="filters__opts" role="list" aria-labelledby="filter-format-label">
-      <li><button type="button" class="filters__btn" aria-pressed="true" data-filter="format" data-value="">{microcopy.filterAll}</button></li>
-      {formats.map(([k, label]) => (
-        <li><button type="button" class="filters__btn" aria-pressed="false" data-filter="format" data-value={k}>{label}</button></li>
-      ))}
-    </ul>
-  </div>
-  <p class="filters__status t-meta tnum" aria-live="polite" data-filter-status data-template={microcopy.insightsCount}>{fill(microcopy.insightsCount, { n: total })}</p>
+  {rows.map((r) => (
+    <div class="filters__row">
+      <span class="filters__label t-label" id={r.id}>{r.label}</span>
+      <div class="filters__track" data-filter-track>
+        <span class="filters__glide" aria-hidden="true" data-filter-glide></span>
+        <ul class="filters__opts" role="list" aria-labelledby={r.id}>
+          <li><button type="button" class="filters__btn" aria-pressed="true" data-filter={r.key} data-value="">{microcopy.filterAll}</button></li>
+          {r.opts.map((o) => (
+            <li><button type="button" class="filters__btn" aria-pressed="false" data-filter={r.key} data-value={o.value}>{o.label}</button></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ))}
+  <p class="filters__status tnum" aria-live="polite" data-filter-status data-template={many} data-template-one={one}>{fill(total === 1 ? one : many, { n: total })}</p>
 </div>
+)}
 <style>
-  /* v2 10.8 F3: two rows of 2px outlined mono pills; the pressed pill fills Ink and gets a hand-drawn circle. */
-  .filters { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-6); border: 2px solid var(--kk-ink); border-radius: var(--r-card); background: var(--kk-white); box-shadow: var(--shadow-hard); }
-  .filters__row { display: grid; grid-template-columns: 96px minmax(0, 1fr); align-items: center; gap: var(--s-4); }
-  .filters__label { margin: 0; }
-  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 12px; }
+  .filters { display: grid; gap: var(--s-5); margin-bottom: var(--s-7); }
+  .filters__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+  .filters__label { color: var(--fg-2); }
+  .filters__track { position: relative; isolation: isolate; }
+  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
   .filters__btn {
-    position: relative;
-    display: inline-flex; align-items: center; gap: 8px;
-    min-height: 44px; padding: 0 18px; border: 2px solid var(--kk-ink); border-radius: 999px; background: var(--kk-white); cursor: pointer;
-    font-family: var(--font-mono); font-size: 13px; font-weight: 500; line-height: 1.2; letter-spacing: .02em;
-    color: var(--kk-ink);
-    transition: background-color 260ms var(--ease-expo), color 260ms var(--ease-expo), box-shadow 260ms var(--ease-expo), translate 260ms var(--ease-expo);
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4);
+    border: 1px solid var(--rule); border-radius: var(--r-sm); background: var(--surface); color: var(--fg);
+    font: 500 var(--fs-small)/1.2 var(--font-sans); letter-spacing: 0; cursor: pointer;
+    transition: border-color var(--d-1) var(--ease-out), color var(--d-2) var(--ease-out), background-color var(--d-1) var(--ease-out);
   }
-  .filters__btn::after {
-    content: ""; position: absolute; inset: -9px -12px; pointer-events: none; background: var(--kk-orchid);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 64' preserveAspectRatio='none'%3E%3Cpath d='M30 9 C 80 1, 170 2, 190 22 C 204 40, 150 60, 92 60 C 40 60, 4 50, 6 32 C 8 16, 40 7, 120 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
-            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 64' preserveAspectRatio='none'%3E%3Cpath d='M30 9 C 80 1, 170 2, 190 22 C 204 40, 150 60, 92 60 C 40 60, 4 50, 6 32 C 8 16, 40 7, 120 6' fill='none' stroke='%23000' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
-    clip-path: inset(0 100% 0 0); transition: clip-path 420ms var(--ease-quart);
+  .filters__btn:hover { border-color: var(--fg-2); }
+  .filters__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .filters__btn[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
+  /* glide on: the moving highlight carries the fill, the pressed button only switches its text colour */
+  .filters__track.has-glide .filters__btn[aria-pressed="true"] { background: transparent; }
+  .filters__glide {
+    position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0;
+    border-radius: var(--r-sm); background: var(--btn-bg); opacity: 0; pointer-events: none;
+    transition: transform var(--d-2) var(--ease-out), width var(--d-2) var(--ease-out), height var(--d-2) var(--ease-out);
   }
-  .filters__btn:hover { background: var(--kk-butter); box-shadow: 3px 3px 0 var(--kk-ink); translate: -1px -1px; }
-  .filters__btn:focus-visible { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
-  .filters__btn[aria-pressed="true"] { background: var(--kk-ink); color: var(--kk-white); box-shadow: none; translate: none; }
-  .filters__btn[aria-pressed="true"]::after { clip-path: inset(0 0 0 0); }
-  .filters__btn[aria-pressed="true"] :global(.pillar-dot) { box-shadow: 0 0 0 2px var(--kk-white); }
-  .filters__status { margin: 0; color: var(--fg-2); }
-  @media (max-width: 767px) {
-    .filters { padding: var(--s-5); }
-    .filters__row { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+  .filters__glide.is-still { transition: none; }
+  .filters__status {
+    margin: var(--s-2) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--rule);
+    font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
   }
-  @media (prefers-reduced-motion: reduce) { .filters__btn, .filters__btn::after { transition: none; } }
+  .filters__status:empty { padding-top: 0; }   /* no filter chosen: the hairline alone closes the filter bar */
+
+  @media (pointer: fine) {
+    .filters__btn { min-height: 40px; }
+    .filters__btn::after { content: ""; position: absolute; inset: -2px 0; }
+  }
+  @media (min-width: 900px) {
+    .filters { gap: var(--s-4); }
+    .filters__row { grid-template-columns: 7.5rem minmax(0, 1fr); align-items: start; column-gap: var(--s-5); }
+    .filters__label { padding-top: 12px; }
+  }
 </style>

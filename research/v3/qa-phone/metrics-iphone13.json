@@ -1,0 +1,898 @@
+{
+ "iphone13 /": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 10306,
+  "overflow": [
+   "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>div.nl__hp L-10000 R-9999",
+   "form#nl-cta.nl.nl--light>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.hero__extra>div.hh-base>p.hh-base__where 15px",
+    1
+   ],
+   [
+    "li.is-in>article.xcard.xcard--home>p.xcard__promise 15px",
+    1
+   ],
+   [
+    "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>p#nl-cta-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 36,
+  "cplMin": 36,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-cta.nl.nl--light>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "40.003399px \"Where deep expertise meets shared ambition.\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [
+   "_image 390x242 nat390x259 fit=cover pos=50% 70%",
+   "_image 350x233 nat350x233 fit=cover pos=50% 55%",
+   "_image 112x112 nat112x64 fit=cover pos=50% 50%",
+   "_image 112x140 nat112x140 fit=cover pos=50% 18%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 5578,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "li.is-in>article.xcard.xcard--hub>p.xcard__promise 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 37,
+  "cplMin": 37,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Expertise that connects science, plants and strate\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [],
+  "errs": []
+ },
+ "iphone13 /expertise/product-innovation": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 6582,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.icard__inner>div.icard__body>p.icard__summary 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"From unmet need to a product that scales.\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw218 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x276 fit=cover pos=45% 35%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise/process-design": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 7043,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Plants that run better, cost less and grow with yo\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw258 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x233 fit=cover pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise/food-safety-quality": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 6371,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.icard__inner>div.icard__body>p.icard__summary 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Pass the audit. Protect the brand. Stay ahead of t\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw257 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x233 fit=cover pos=12% 45%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise/strategy-feasibility": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 5548,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Clear answers for Go/No-Go decisions.\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw246 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x262 fit=cover pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise/due-diligence": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 4548,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"See what is really behind the deal.\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw247 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x233 fit=cover pos=40% 45%"
+  ],
+  "errs": []
+ },
+ "iphone13 /expertise/capability": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 5237,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Leave stronger teams behind.\" w350",
+  "tables": [],
+  "clipped": [
+   "li.crumbs__item.crumbs__item--current>span.crumbs__current>span.crumbs__long sw280 cw1",
+   "section.band.band--white>div.container>h2#pager-title.visually-hidden sw312 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x233 fit=cover pos=45% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /industries": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 5688,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "article#confectionery.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#bakery.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#dairy-nutrition.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#plant-based.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#edible-oils-specialty-fats.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#personal-care-oleochemicals.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#pet-food-animal-nutrition.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "article#industrial-minerals.icard-ind>div.icard-ind__body>p.icard-ind__copy 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Food Safety, Quality and Conta\" 301x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Food Safety, Quality and Conta\" 301x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Product and Category Innovatio\" 258x44",
+   "ul>li>a.u-hover \"Process Design and Plant Perfo\" 302x44",
+   "ul>li>a.u-hover \"Strategy, Feasibility and Mark\" 290x44",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 19,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Where we work\" w350",
+  "tables": [],
+  "clipped": [
+   "section.band.band--white>div.container>h2#industries-list-h.visually-hidden sw174 cw1"
+  ],
+  "imgs": [],
+  "errs": []
+ },
+ "iphone13 /approach": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 8151,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 34,
+  "cplMin": 34,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"We create with you, not for you.\" w350",
+  "tables": [
+   "div.container>div.models__wide.is-in>table.mtable w0 sw0 parentOverflow=visible"
+  ],
+  "clipped": [],
+  "imgs": [
+   "_image 390x242 nat390x259 fit=cover pos=35% 60%"
+  ],
+  "errs": []
+ },
+ "iphone13 /impact": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 7649,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "ul.case__tags>li>a.tag.tag--md \"Product and Category Innovatio\" 247x32",
+   "ul.case__tags>li>a.tag.tag--md \"Process Design and Plant Perfo\" 287x32",
+   "ul.case__tags>li>a.tag.tag--md \"Edible oils and specialty fats\" 216x32",
+   "ul.case__tags>li>a.tag.tag--md \"Capability, Leadership and Tra\" 310x32",
+   "ul.case__tags>li>a.tag.tag--md \"Process Design and Plant Perfo\" 287x32",
+   "ul.case__tags>li>a.tag.tag--md \"Edible oils and specialty fats\" 216x32",
+   "ul.case__tags>li>a.tag.tag--md \"Process Design and Plant Perfo\" 287x32",
+   "ul.case__tags>li>a.tag.tag--md \"Edible oils\" 94x32",
+   "ul.case__tags>li>a.tag.tag--md \"Food Safety, Quality and Conta\" 286x32",
+   "ul.case__tags>li>a.tag.tag--md \"Product and Category Innovatio\" 247x32",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 13,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Results that started on the plant floor.\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [
+   "_image 390x242 nat390x243 fit=cover pos=30% 50%",
+   "_image 350x233 nat350x233 fit=cover pos=50% 50%",
+   "_image 350x233 nat350x233 fit=cover pos=45% 50%",
+   "_image 350x233 nat350x576 fit=cover pos=50% 45%",
+   "_image 350x233 nat350x621 fit=cover pos=50% 70%"
+  ],
+  "errs": []
+ },
+ "iphone13 /insights": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 5038,
+  "overflow": [
+   "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>div.nl__hp L-10000 R-9999",
+   "form#nl-cta.nl.nl--light>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.soon__grid>div.soon__head.is-in>p.soon__lead 15px",
+    1
+   ],
+   [
+    "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.cta-band__news.is-in>form#nl-cta.nl.nl--light>p#nl-cta-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-cta.nl.nl--light>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Ideas from the plant floor and the boardroom.\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [
+   "_image 350x233 nat350x233 fit=cover pos=50% 55%",
+   "_image 350x233 nat350x200 fit=cover pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /insights/3-mcpd-glycidyl-esters-playbook": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 12041,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "figure.exhibit.is-in>div.exhibit__head>p.exhibit__subtitle 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 39,
+  "cplMin": 34,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "div.byline>p.byline__text>a.byline__name \"Ganeaysh Kulkarni\" 171x23",
+   "div.share__row>div.share__items>a.tag.tag--md \"Food Safety, Quality and Conta\" 286x32",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 5,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"3-MCPD and glycidyl esters: a practical playbook f\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [
+   "_image 48x48 nat48x48 fit=cover pos=50% 50%",
+   "_image 350x263 nat366x244 fit=cover pos=50% 55%",
+   "_image 72x72 nat72x72 fit=cover pos=50% 50%",
+   "_image 350x233 nat350x200 fit=cover pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /insights/trans-fat-elimination-inside-a-plant": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 11994,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "figure.exhibit.is-in>div.exhibit__head>p.exhibit__subtitle 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 40,
+  "cplMin": 31,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "div.byline>p.byline__text>a.byline__name \"Ganeaysh Kulkarni\" 171x23",
+   "div.share__row>div.share__items>a.tag.tag--md \"Product and Category Innovatio\" 247x32",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 5,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Trans-fat elimination: what it really takes inside\" w350",
+  "tables": [
+   "figure.exhibit.is-in>div.exhibit__body>table w350 sw350 parentOverflow=visible"
+  ],
+  "clipped": [],
+  "imgs": [
+   "_image 48x48 nat48x48 fit=cover pos=50% 50%",
+   "_image 350x263 nat366x210 fit=cover pos=50% 50%",
+   "_image 72x72 nat72x72 fit=cover pos=50% 50%",
+   "_image 350x233 nat350x233 fit=cover pos=50% 55%"
+  ],
+  "errs": []
+ },
+ "iphone13 /about": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 7792,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "li.tl__stop.is-in>div.tl__text>p.tl__role 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 37,
+  "cplMin": 35,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Built on 25 years of making ingredients work.\" w350",
+  "tables": [],
+  "clipped": [
+   "a.btn.btn--tertiary>span.btn__label>span.visually-hidden sw122 cw1",
+   "ol.pmap__list>li.pmap__place.pmap__place--left>span.visually-hidden sw5 cw1",
+   "ol.pmap__list>li.pmap__place.pmap__place--right>span.visually-hidden sw5 cw1",
+   "ol.pmap__list>li.pmap__place.pmap__place--right>span.visually-hidden sw5 cw1",
+   "ol.pmap__list>li.pmap__place.pmap__place--left>span.visually-hidden sw5 cw1",
+   "ol.pmap__list>li.pmap__place.pmap__place--right>span.visually-hidden sw5 cw1"
+  ],
+  "imgs": [
+   "_image 350x263 nat350x437 fit=cover pos=50% 4%",
+   "places-map.svg 350x214 nat1200x734 fit=fill pos=50% 50%",
+   "kokreaters-logo-full-white.svg 260x73 nat300x84 fit=fill pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /contact": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 4266,
+  "overflow": [
+   "div.cf-body>form.cf>div.hp L-10000 R-9999",
+   "form.cf>div.hp>label L-10000 R-9767",
+   "div.hp>label>input L-10000 R-9767",
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "div.cf__grid>div.cf__field.cf__field--name>label.cf__label \"Name* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--company>label.cf__label \"Company* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--role>label.cf__label \"Role\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--email>label.cf__label \"Email* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--phone>label.cf__label \"Phone or WhatsApp\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--country>label.cf__label \"Country* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--interest>label.cf__label \"Area of interest* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--message>label.cf__label \"Message* (required)\" 350x20",
+   "div.cf__grid>div.cf__field.cf__field--source>label.cf__label \"How did you hear about us?\" 350x20",
+   "label.cf__check>span.cf__box>input#f-consent.cf__checkbox \"consent\" 20x20",
+   "label.cf__check>span.cf__checklabel>a \"Privacy Policy\" 99x19",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 14,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Let’s create something together.\" w350",
+  "tables": [],
+  "clipped": [
+   "dd.cd__value>a.cd__link.cd__link--ext>span.visually-hidden sw144 cw1",
+   "div.cf__field.cf__field--name>label.cf__label>span.visually-hidden sw72 cw1",
+   "div.cf__field.cf__field--company>label.cf__label>span.visually-hidden sw72 cw1",
+   "div.cf__field.cf__field--email>label.cf__label>span.visually-hidden sw72 cw1",
+   "div.cf__field.cf__field--country>label.cf__label>span.visually-hidden sw72 cw1",
+   "div.cf__field.cf__field--interest>label.cf__label>span.visually-hidden sw72 cw1"
+  ],
+  "imgs": [
+   "_image 64x64 nat64x64 fit=cover pos=50% 50%"
+  ],
+  "errs": []
+ },
+ "iphone13 /privacy": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 4442,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": 38,
+  "cplMin": 37,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Privacy Policy\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [],
+  "errs": []
+ },
+ "iphone13 /cookies": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 3546,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Cookie Policy\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [],
+  "errs": []
+ },
+ "iphone13 /terms": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 4311,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"Terms of Use\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [],
+  "errs": []
+ },
+ "iphone13 /404": {
+  "vw": 390,
+  "scrollW": 390,
+  "height": 2423,
+  "overflow": [
+   "div.ft-news>form#nl-footer.nl.nl--dark>div.nl__hp L-10000 R-9999",
+   "form#nl-footer.nl.nl--dark>div.nl__hp>label L-10000 R-9767",
+   "div.nl__hp>label>input L-10000 R-9767"
+  ],
+  "smallBody": [
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p.nl__lede 15px",
+    1
+   ],
+   [
+    "div.ft-news>form#nl-footer.nl.nl--dark>p#nl-footer-note.nl__note 14px",
+    1
+   ]
+  ],
+  "cplMax": null,
+  "cplMin": null,
+  "taps": [
+   "a.skip-link \"Skip to content\" 1x1",
+   "div.ann.band--navy>div.container.ann__inner>a.ann__link \"Latest insight—3-MCPD and glyc\" 350x40",
+   "form#nl-footer.nl.nl--dark>div.nl__row>label.visually-hidden \"Email address\" 1x1"
+  ],
+  "tapCount": 3,
+  "header": "64px pos=sticky",
+  "ann": 40,
+  "h1": "36.005501px \"This page could not be found.\" w350",
+  "tables": [],
+  "clipped": [],
+  "imgs": [],
+  "errs": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+ }
+}

@@ -1,13 +1,14 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "node node_modules/astro/bin/astro.mjs preview --host 127.0.0.1 --port 4413 --ignore-lock",
+      "startServerCommand": "node node_modules/astro/bin/astro.mjs preview --host 127.0.0.1 --port 4331 --ignore-lock",
       "startServerReadyPattern": "ready in",
       "startServerReadyTimeout": 60000,
       "url": [
-        "http://127.0.0.1:4413/",
-        "http://127.0.0.1:4413/about",
-        "http://127.0.0.1:4413/insights/3-mcpd-glycidyl-esters-playbook"
+        "http://127.0.0.1:4331/",
+        "http://127.0.0.1:4331/about",
+        "http://127.0.0.1:4331/expertise/food-safety-quality",
+        "http://127.0.0.1:4331/insights"
       ],
       "numberOfRuns": 3,
       "chromePath": "/usr/bin/google-chrome",

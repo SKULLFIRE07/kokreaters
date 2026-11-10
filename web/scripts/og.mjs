@@ -1,11 +1,18 @@
 #!/usr/bin/env node
 /**
- * Open Graph images and SEO checks (DESIGN-SPEC 9, W3-og-seo; v2 5.1: Bricolage + Plex Mono, vector lockup).
+ * Open Graph images and SEO checks (REDESIGN-V3 §1, §7; DESIGN-SPEC 3.7).
  *
- *   node scripts/og.mjs            render public/og/*.png (1200×627) from scripts/og/template.html
- *   node scripts/og.mjs check [dist]   validate a built site: titles, descriptions, canonicals,
- *                                  og:image files, JSON-LD, sitemap and (in production) drafts
+ *   PUBLIC_SITE_MODE=preview node scripts/og.mjs   render public/og/*.png (1200×630) from scripts/og/template.html:
+ *                                  one card per route (home, expertise hub, six pillars, industries, approach, impact,
+ *                                  insights, about, contact, privacy, cookies, terms, default) plus one per insight
+ *                                  visible in that mode (staging/preview: every non-coming-soon entry; production:
+ *                                  published + approved only). Cards no longer in the list are deleted.
+ *   node scripts/og.mjs check [dist]   validate a built site: titles, descriptions, canonicals, og:image files and
+ *                                  size, JSON-LD, sitemap, robots (keyed on `indexable`) and, for a production build,
+ *                                  that no unapproved insight is built, listed or linked. Mode comes from
+ *                                  dist/build-info.json (src/pages/build-info.json.ts).
  *
+ * v3 look: navy #0B1B33 field, white horizontal lockup, Inter label, Source Serif 4 title (the page's own H1).
  * Copy comes from src/data/* and the insight frontmatter only (no new claims). Node strips the
  * TypeScript types itself; a resolve hook maps the `@/` alias and extensionless imports.
  * Rendering uses headless Chrome (/usr/bin/google-chrome or $CHROME) against a throwaway local
@@ -24,7 +31,8 @@ const WEB = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(WEB, 'src');
 const OUT = join(WEB, 'public', 'og');
 const SITE = 'https://kokreaters.com';
-const W = 1200, H = 627;
+const W = 1200, H = 630;
+const MODE = ['preview', 'production'].includes(process.env.PUBLIC_SITE_MODE ?? '') ? process.env.PUBLIC_SITE_MODE : 'staging';
 const PORT = Number(process.env.OG_PORT ?? 4412);
 const CHROME = process.env.CHROME ?? '/usr/bin/google-chrome';
 
@@ -61,45 +69,49 @@ function insightEntries() {
     return { id: f.replace(/\.mdx?$/, ''), ...data };
   });
 }
-/** Routed in staging (everything except coming-soon). */
-const routedInStaging = (e) => e.status !== 'coming-soon';
+/** Routed in staging and preview (src/lib/mode.ts includeDrafts): everything except coming-soon. */
+const routedWithDrafts = (e) => e.status !== 'coming-soon';
 /** Routed in production (published and approved). */
 const routedInProduction = (e) => e.status === 'published' && e.review === 'approved';
+const routedIn = (mode) => (mode === 'production' ? routedInProduction : routedWithDrafts);
 
-/* ── Card list ── */
+/* ── Card list: label + title mirror each page's PageHero eyebrow + H1 ── */
 async function cards() {
-  const { hero, insights: homeInsights, impact: homeImpact, method } = await import('@/data/home');
+  const { hero, insights: insightsCopy, method } = await import('@/data/home');
   const { pillars, expertiseOverview } = await import('@/data/pillars');
   const { industriesPage } = await import('@/data/industries');
   const { approach } = await import('@/data/approach');
+  const { impactPage } = await import('@/data/impact');
   const { about, founderName } = await import('@/data/founder');
   const { contact } = await import('@/data/contact');
+  const { microcopy } = await import('@/data/microcopy');
   const lead = hero.overline.split(' · ')[0]; // "Independent technical and strategy consulting"
+  const legal = (slug) => {
+    const fm = readFileSync(join(SRC, 'pages', `${slug}.mdx`), 'utf8').match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
+    return { key: slug, overline: microcopy.legalDateline, title: fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1] ?? slug };
+  };
   const list = [
     { key: 'home', overline: lead, title: hero.headline },
     { key: 'expertise', overline: expertiseOverview.overline, title: expertiseOverview.headline },
-    ...pillars.map((p) => ({ key: p.slug, overline: p.name, title: p.headline })),
+    ...pillars.map((p) => ({ key: p.slug, overline: `${expertiseOverview.overline} · ${p.name}`, title: p.headline })),
     { key: 'industries', overline: industriesPage.overline, title: industriesPage.headline },
     { key: 'approach', overline: approach.overline, title: approach.headline },
-    { key: 'impact', overline: homeImpact.overline, title: homeImpact.headline }, // "Impact · From our founder’s career"
-    { key: 'insights', overline: homeInsights.overline, title: homeInsights.headline },
+    { key: 'impact', overline: impactPage.overline, title: impactPage.headline },
+    { key: 'insights', overline: insightsCopy.overline, title: insightsCopy.headline },
     { key: 'about', overline: `${about.overline} · ${founderName}`, title: about.headline },
     { key: 'contact', overline: contact.overline, title: contact.headline },
+    legal('privacy'), legal('cookies'), legal('terms'),
     { key: 'default', overline: lead, title: method.headline },
   ];
   const pillarName = Object.fromEntries(pillars.map((p) => [p.key, p.name]));
-  for (const e of insightEntries().filter(routedInStaging)) {
-    list.push({ key: `insights-${e.id}`, overline: ['Insights', pillarName[e.pillar]].filter(Boolean).join(' · '), title: e.title });
+  for (const e of insightEntries().filter(routedIn(MODE))) {
+    list.push({ key: `insights-${e.id}`, overline: [insightsCopy.overline, pillarName[e.pillar]].filter(Boolean).join(' · '), title: e.title });
   }
   return list;
 }
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** The vector node cluster in its true colours (v2 5.1: the mark is never recoloured). */
-function clusterSvg() {
-  return readFileSync(join(WEB, 'public', 'favicon.svg'), 'utf8').replace('<svg ', '<svg aria-hidden="true" ');
-}
 /** The white horizontal lockup (cluster + white wordmark), vector, inline. */
 function logoSvg() {
   return readFileSync(join(SRC, 'assets', 'brand', 'svg', 'kokreaters-logo-horizontal-white.svg'), 'utf8')
@@ -109,7 +121,6 @@ function logoSvg() {
 
 function serve(pages) {
   const template = readFileSync(join(WEB, 'scripts', 'og', 'template.html'), 'utf8');
-  const cluster = clusterSvg();
   const logo = logoSvg();
   const types = { '.woff2': 'font/woff2', '.png': 'image/png' };
   const server = createServer((req, res) => {
@@ -118,7 +129,7 @@ function serve(pages) {
     if (url.startsWith('/card/')) {
       const card = pages.get(url.slice(6));
       if (!card) { res.writeHead(404).end(); return; }
-      const html = template.replace('{{OVERLINE}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{CLUSTER}}', cluster).replace('{{LOGO}}', logo);
+      const html = template.replace('{{LABEL}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{LOGO}}', logo);
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end(html);
       return;
     }
@@ -145,7 +156,7 @@ function shoot(key, out) {
 }
 
 async function render() {
-  for (const f of ['bricolage-grotesque-latin-wdth-normal.woff2', 'ibm-plex-mono-latin-500-normal.woff2']) {
+  for (const f of ['source-serif-4-latin-opsz-normal.woff2', 'inter-latin-opsz-normal.woff2']) {
     if (!existsSync(join(WEB, 'public', 'fonts', f))) {
       await new Promise((ok) => spawn(process.execPath, [join(WEB, 'scripts', 'copy-fonts.mjs')], { stdio: 'inherit' }).on('close', ok));
       break;
@@ -174,7 +185,10 @@ async function render() {
     server.close();
     rmSync(tmp, { recursive: true, force: true });
   }
-  console.log(`og: ${list.length} images, ${W}×${H}`);
+  // Cards that no longer belong to a route in this mode (e.g. a draft insight before a production build) go.
+  const keep = new Set(list.map((c) => `${c.key}.png`));
+  for (const f of readdirSync(OUT)) if (f.endsWith('.png') && !keep.has(f)) { rmSync(join(OUT, f)); console.log(`og: removed stale public/og/${f}`); }
+  console.log(`og: ${list.length} images, ${W}×${H} (${MODE} mode)`);
 }
 
 /* ── check ── */
@@ -207,10 +221,16 @@ const EXPECT = (route) => {
 async function check(distArg) {
   const dist = resolve(distArg ?? join(WEB, 'dist'));
   if (!existsSync(join(dist, 'index.html'))) throw new Error(`no build at ${dist}`);
-  const production = !/Disallow:\s*\/\s*$/m.test(readFileSync(join(dist, 'robots.txt'), 'utf8'));
   const errors = [], warnings = [];
+  const robotsTxt = readFileSync(join(dist, 'robots.txt'), 'utf8');
+  const infoFile = join(dist, 'build-info.json');
+  const info = existsSync(infoFile) ? JSON.parse(readFileSync(infoFile, 'utf8')) : { mode: 'unknown', indexable: !/Disallow:\s*\/\s*$/m.test(robotsTxt) };
+  const production = info.mode === 'production';
+  const indexable = info.indexable === true;
+  if (!existsSync(infoFile)) warnings.push('dist/build-info.json missing: mode unknown, robots inferred from robots.txt');
   const titles = new Map(), descs = new Map();
-  const files = walk(dist).filter((f) => f.endsWith('.html')).sort();
+  // the styleguide is a staging-only dev page (a redirect stub to /404 in other modes): not part of the site
+  const files = walk(dist).filter((f) => f.endsWith('.html') && relative(dist, f) !== 'styleguide.html').sort();
   const routes = [];
   const ogSeen = new Set();
   for (const file of files) {
@@ -239,7 +259,7 @@ async function check(distArg) {
     if (metas(html, 'property', 'og:locale')[0] !== 'en_GB') e('og:locale is not en_GB');
     if (!/<html\b[^>]*lang="en-GB"/.test(html)) e('html lang is not en-GB');
     const robots = metas(html, 'name', 'robots')[0];
-    const wantRobots = !production || route === '/404' ? 'noindex, nofollow' : 'index, follow';
+    const wantRobots = !indexable || route === '/404' ? 'noindex, nofollow' : 'index, follow';
     if (robots !== wantRobots) e(`robots "${robots}" ≠ "${wantRobots}"`);
 
     for (const p of [['property', 'og:image'], ['name', 'twitter:image']]) {
@@ -253,11 +273,8 @@ async function check(distArg) {
         const m = await sharp(local).metadata();
         if (m.width !== W || m.height !== H) e(`${img} is ${m.width}×${m.height}`);
       }
-      if (p[1] === 'og:image' && route !== '/404' && !/\/og\/default\.png$/.test(img) && !['/privacy', '/cookies', '/terms'].includes(route)) {
-        // pages with their own card should not fall back to the default
-      } else if (p[1] === 'og:image' && /\/og\/default\.png$/.test(img) && !['/404', '/privacy', '/cookies', '/terms'].includes(route)) {
-        warnings.push(`${route}: uses /og/default.png`);
-      }
+      // every route has its own card (npm run og); only the 404 uses the default
+      if (p[1] === 'og:image' && /\/og\/default\.png$/.test(img) && route !== '/404') warnings.push(`${route}: uses /og/default.png`);
     }
     const ogW = metas(html, 'property', 'og:image:width')[0], ogH = metas(html, 'property', 'og:image:height')[0];
     if (ogW !== String(W) || ogH !== String(H)) e(`og:image:width/height ${ogW}×${ogH}`);
@@ -312,10 +329,11 @@ async function check(distArg) {
       if (llms.includes(path)) errors.push(`production llms.txt links unapproved ${path}`);
       if (existsSync(join(dist, `${path}.html`))) errors.push(`production build has a page for unapproved ${path}`);
     }
-    if (!/Sitemap: https:\/\/kokreaters\.com\/sitemap-index\.xml/.test(readFileSync(join(dist, 'robots.txt'), 'utf8'))) errors.push('production robots.txt lacks the sitemap line');
   }
+  if (indexable && !/Sitemap: https:\/\/kokreaters\.com\/sitemap-index\.xml/.test(robotsTxt)) errors.push('indexable robots.txt lacks the sitemap line');
+  if (!indexable && !/Disallow:\s*\/\s*$/m.test(robotsTxt)) errors.push('non-indexable build: robots.txt must be Disallow: /');
 
-  console.log(`og check: ${dist} (${production ? 'production' : 'staging'}), ${files.length} pages, ${have.size} sitemap URLs, ${ogSeen.size} OG images`);
+  console.log(`og check: ${dist} (${info.mode}${indexable ? ', indexable' : ', noindex'}), ${files.length} pages, ${have.size} sitemap URLs, ${ogSeen.size} OG images`);
   for (const w of warnings) console.log(`  warn  ${w}`);
   for (const er of errors) console.log(`  FAIL  ${er}`);
   if (errors.length) { console.log(`og check: ${errors.length} failure(s)`); process.exitCode = 1; }

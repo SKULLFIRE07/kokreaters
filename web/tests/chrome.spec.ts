@@ -1,52 +1,56 @@
 /**
- * chrome (DESIGN-SPEC v2 7.1, 12.2): every page renders the announcement bar (first region after the skip link, with
- * the insights link), and the Pause motion control toggles html.motion-paused, aria-pressed and its label, and
- * persists across a reload. Under reduced motion the control is not shown (nothing loops).
+ * chrome (infra.md §1.9, REDESIGN-V3 §3 chrome): body order skip link → (announcement line) → header; one
+ * footer#site-footer; the newsletter is a real <form> (labelled required email input, submit button, action = endpoint
+ * or mailto:); the v2 Pause-motion bar is gone; header compacts (`.is-scrolled`) once the page scrolls.
  */
 import { test, expect } from '@playwright/test';
-import { routes, settle } from './helpers';
+import { settle } from './helpers';
 
-for (const r of routes) {
-  test(`announcement bar on ${r.path}`, async ({ page }) => {
-    await page.goto(r.path, { waitUntil: 'load' });
-    const ann = page.locator('body > .ann[role="region"]');
-    await expect(ann).toHaveCount(1);
-    await expect(ann).toBeVisible();
-    await expect(ann.locator('a[href="/insights"]')).toHaveCount(1);
-    // order: skip link, then the bar, then the header
-    const order = await page.evaluate(() => Array.from(document.body.children).map((e) => e.className.split(' ')[0] || e.tagName.toLowerCase()).slice(0, 3));
-    expect(order).toEqual(['skip-link', 'ann', 'site-header']);
-  });
-}
-
-test.describe('Pause motion', () => {
-  test.use({ viewport: { width: 1440, height: 900 } });
-  test('toggles html.motion-paused and persists', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'load' });
-    await settle(page, 200);
-    const btn = page.locator('[data-motion-toggle]').first();
-    await expect(btn).toBeVisible();
-    const box = await btn.boundingBox();
-    expect(Math.min(box!.width, box!.height), 'target ≥ 44px').toBeGreaterThanOrEqual(44);
-    await expect(btn).toHaveAttribute('aria-pressed', 'false');
-    await btn.click();
-    await expect(btn).toHaveAttribute('aria-pressed', 'true');
-    expect(await page.evaluate(() => document.documentElement.classList.contains('motion-paused'))).toBe(true);
-    await expect(btn).toContainText('Play motion');
-    await page.reload({ waitUntil: 'load' });
-    await settle(page, 200);
-    expect(await page.evaluate(() => document.documentElement.classList.contains('motion-paused'))).toBe(true);
-    await expect(page.locator('[data-motion-toggle]').first()).toHaveAttribute('aria-pressed', 'true');
-    await page.locator('[data-motion-toggle]').first().click();
-    expect(await page.evaluate(() => document.documentElement.classList.contains('motion-paused'))).toBe(false);
-  });
+test('body order, footer and no motion toggle', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'load' });
+  const order = await page.evaluate(() => [...document.body.children]
+    .filter((el) => !['SCRIPT', 'STYLE', 'TEMPLATE'].includes(el.tagName))
+    .slice(0, 3)
+    .map((el) => (el.matches('a.skip-link') ? 'skip' : el.matches('[data-announcement]') ? 'ann' : el.matches('header.site-header') ? 'header' : el.tagName.toLowerCase())));
+  expect(order[0]).toBe('skip');
+  expect(order.slice(1).filter((x) => x !== 'ann')[0], 'header follows the skip link (and the announcement line)').toBe('header');
+  await expect(page.locator('footer#site-footer')).toHaveCount(1);
+  await expect(page.locator('[data-motion-toggle]')).toHaveCount(0);
 });
 
-test.describe('Pause motion under reduced motion', () => {
-  test.use({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
-  test('is not shown', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'load' });
-    await settle(page, 200);
-    await expect(page.locator('[data-motion-toggle]').first()).toBeHidden();
-  });
+test('newsletter forms are real forms', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'load' });
+  const forms = page.locator('form[data-newsletter]');
+  expect(await forms.count(), 'at least one newsletter form on home').toBeGreaterThan(0);
+  for (const f of await forms.all()) {
+    const action = await f.getAttribute('action');
+    expect(action, 'action = endpoint or mailto:').toMatch(/^(https:\/\/|mailto:)/);
+    const email = f.locator('input[type="email"]');
+    await expect(email).toHaveCount(1);
+    await expect(email).toHaveAttribute('required', '');
+    const id = await email.getAttribute('id');
+    await expect(page.locator(`label[for="${id}"]`), 'email input has a label').toHaveCount(1);
+    await expect(f.locator('button[type="submit"]')).toHaveCount(1);
+  }
+});
+
+test('newsletter rejects an invalid address inline (aria-live)', async ({ page }) => {
+  await page.goto('/insights', { waitUntil: 'load' });
+  await settle(page, 200);
+  const f = page.locator('form[data-newsletter]').first();
+  await f.scrollIntoViewIfNeeded();
+  await f.locator('input[type="email"]').fill('not-an-email');
+  await f.evaluate((form: HTMLFormElement) => form.requestSubmit());
+  await expect(f.locator('[data-newsletter-msg]')).not.toBeEmpty();
+  await expect(f.locator('input[type="email"]')).toHaveAttribute('aria-invalid', 'true');
+});
+
+test('header compacts on scroll', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/', { waitUntil: 'load' });
+  await settle(page, 200);
+  const header = page.locator('header.site-header');
+  await expect(header).not.toHaveClass(/is-scrolled/);
+  await page.mouse.wheel(0, 600);
+  await expect(header).toHaveClass(/is-scrolled/);
 });

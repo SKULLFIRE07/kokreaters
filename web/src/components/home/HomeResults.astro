@@ -1,0 +1,40 @@
+---
+/**
+ * Home 5 · Results (REDESIGN-V3 §4 Home 5). Navy band: SectionHeader from home.impact (label "Impact", the overline's
+ * first clause; "Results that started on the plant floor."; "See the impact") and four ResultCards from
+ * impact.founderResults in brief order (India, Indonesia, Ukraine, WHO). Figure = the result's own figure, else
+ * figureFallback (1st, WHO); the title is the brief's home line (Ukraine's 15% lives in that line). Source line under
+ * the cards names the employers, derived from the datelines (Wilmar / Cargill).
+ * Layout: 4-up from 1200px, 2 × 2 from 600 to 1199 (.card-grid--xl). Mobile (< 600px): one column of cards, figure
+ * 44px; the source line wraps under the last card.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ResultCard from '@/components/cards/ResultCard.astro';
+import { impact, proofSource } from '@/data/home';
+import { founderResults, figureFallback } from '@/data/impact';
+
+const results = founderResults.map((r) => ({
+  id: r.id,
+  eyebrow: r.dateline,
+  figure: r.figure?.value ?? figureFallback[r.id],
+  title: r.homeLine,
+}));
+// The band label is the overline's first clause ("Impact"); the attribution is the source line under the cards, as on
+// the track-record strip, so "From our founder’s career" is not said twice in one band.
+const [eyebrow] = impact.overline.split(' · ');
+const employers = [...new Set(founderResults.map((r) => r.dateline.split(' · ').pop() ?? ''))].filter(Boolean);
+---
+<Section ground="navy" labelledby="impact-heading" class="hr">
+  <SectionHeader id="impact-heading" eyebrow={eyebrow} title={impact.headline} link={impact.link} />
+  <ul class="card-grid card-grid--xl" style="--cols:4" role="list">
+    {results.map((r, i) => (
+      <li data-reveal style={`--i:${i}`}><ResultCard eyebrow={r.eyebrow} figure={r.figure} title={r.title} /></li>
+    ))}
+  </ul>
+  <p class="hr__source">{proofSource} ({employers.join(' / ')}).</p>
+</Section>
+
+<style>
+  .hr__source { margin-top: var(--s-6); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+</style>

@@ -1,0 +1,2894 @@
+{
+ "desktop": {
+  "url": "https://www.mckinsey.com/in/our-insights/wired-for-growth-indias-electrical-equipment-opportunity",
+  "vw": 1440,
+  "docH": 1950,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "52px",
+     "lh": "62.4px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1017,
+     "left": 108,
+     "top": 417,
+     "t": "Wired for growth: India’s electrical-equipment opportunity"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 1212,
+     "t": "About the authors"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 341,
+     "left": 140,
+     "top": 1452,
+     "t": "What is the electrical-equipment industry?"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "66px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 1706,
+     "t": "Capturing electrification-led growth in India"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "66px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 9875,
+     "t": "Scaling globally competitive electrical-equipment companies"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 304,
+     "left": 1028,
+     "top": 1152,
+     "t": "DOWNLOADS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 4297,
+     "t": "Scaling domestic manufacturing capacity by five times"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 304,
+     "left": 1028,
+     "top": 5058,
+     "t": "MOST POPULAR INSIGHTS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 5911,
+     "t": "Enhancing export competitiveness"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 8401,
+     "t": "Reducing dependence on imports from 33 percent to less than 14 percent"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 11515,
+     "t": "Improve cost and quality competitiveness (thermal, electrical, and mec"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 12681,
+     "t": "Increase access to R&D, innovation, and technology"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 13603,
+     "t": "Strengthen export capabilities and global market access"
+    }
+   ],
+   "h4": [],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 304,
+     "left": 1028,
+     "top": 4922,
+     "t": "How relevant and useful is this article for you?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 15720,
+     "t": "How relevant and useful is this article for you?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 811,
+     "left": 315,
+     "top": 15820,
+     "t": "ABOUT THE AUTHOR(S)"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 397,
+     "left": 521,
+     "top": 16199,
+     "t": "EXPLORE A CAREER WITH US"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 16448,
+     "t": "RELATED ARTICLES"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 376,
+     "left": 108,
+     "top": 16759,
+     "t": "India: The promise and possibilities for global companies"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 376,
+     "left": 532,
+     "top": 16759,
+     "t": "Future of tech services: Vijay Guntur on unlocking value through AI"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 376,
+     "left": 956,
+     "top": 16759,
+     "t": "Unlocking opportunities from industrial electrification"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "This article was written in collaboration between "
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Global power consumption could exceed 60,000 teraw"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "This article envisions India’s role in this rapidl"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Demand for electrical-equipment in India grew at a"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "The Indian electrical-equipment industry could acc"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Between 2020 and 2025, India’s consumption of elec"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Under a business-as-usual trajectory, with domesti"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "To avoid this outcome, the industry would need to "
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "However, capacity expansion alone will not be suff"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Much of the electrical-equipment industry is globa"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "However, despite this, across top categories (sola"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "In solar PV, India could aspire to capture more th"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "Quality improvements are equally important. Defect"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 811,
+    "left": 315,
+    "t": "In cables and wires, for which India already has a"
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 70,
+    "chars": 20659,
+    "samples": [
+     "em:This article was written in collaboratio",
+     "div:About the authors",
+     "p:could exceed 60,000 terawatt-hours by 20"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 17,
+    "chars": 3296,
+    "samples": [
+     "a:Overview",
+     "a:Our Work",
+     "a:Our People"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|44px|normal|none",
+    "count": 7,
+    "chars": 494,
+    "samples": [
+     "h3:Scaling domestic manufacturing capacity ",
+     "h3:Enhancing export competitiveness",
+     "h3:Reducing dependence on imports from 33 p"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 7,
+    "chars": 488,
+    "samples": [
+     "p:is a senior partner in McKinsey’s Gurugr",
+     "p:is a partner and",
+     "p:is an associate partner;"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 5,
+    "chars": 257,
+    "samples": [
+     "strong:McKinsey Technology Trends Outlook 2026",
+     "strong:The state of AI in 2026: On the road to ",
+     "strong:Workforce in motion: Skills and pathways"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|300|40px|normal|none",
+    "count": 1,
+    "chars": 181,
+    "samples": [
+     "div:Amid a global surge in electrification, "
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 3,
+    "chars": 179,
+    "samples": [
+     "div:India: The promise and possibilities for",
+     "div:Future of tech services: Vijay Guntur on",
+     "div:Unlocking opportunities from industrial "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|28px|normal|none",
+    "count": 5,
+    "chars": 139,
+    "samples": [
+     "h5:How relevant and useful is this article ",
+     "h5:How relevant and useful is this article ",
+     "strong:Bhavesh Mittal"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|44px|300|52px|normal|none",
+    "count": 2,
+    "chars": 104,
+    "samples": [
+     "h2:Capturing electrification-led growth in ",
+     "h2:Scaling globally competitive electrical-"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 13,
+    "chars": 97,
+    "samples": [
+     "time:May 21, 2026",
+     "div:| Article",
+     "div:Byline"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 5,
+    "chars": 89,
+    "samples": [
+     "h3:DOWNLOADS",
+     "h3:Most Popular Insights",
+     "h5:About the author(s)"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|16px|normal|none",
+    "count": 2,
+    "chars": 86,
+    "samples": [
+     "a:McKinsey_Website_Accessibility@mckinsey.",
+     "a:McKinsey_Website_Accessibility@mckinsey."
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 3,
+    "chars": 83,
+    "samples": [
+     "div:Wired for growth: India’s electrical-equ",
+     "button:Talk to us",
+     "span:Search openings"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(30, 50, 230)"
+    ]
+   },
+   {
+    "k": "Bower|52px|300|62.4px|normal|none",
+    "count": 1,
+    "chars": 58,
+    "samples": [
+     "div:Wired for growth: India’s electrical-equ"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|300|16px|normal|none",
+    "count": 9,
+    "chars": 49,
+    "samples": [
+     "span:Share",
+     "span:Print",
+     "span:Download"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|18px|normal|none",
+    "count": 3,
+    "chars": 43,
+    "samples": [
+     "a:Amit V. Gupta",
+     "a:Bikramjit Chaudhury",
+     "a:Rajat Gupta"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|300|20px|normal|none",
+    "count": 1,
+    "chars": 26,
+    "samples": [
+     "a:Such power sources include"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 24,
+    "samples": [
+     "strong:Global power consumption"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "span:Skip to main content"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|16px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(51, 51, 51)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 90,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 96
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "16px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "h": 16,
+    "x": 318
+   },
+   {
+    "t": "Overview",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 306
+   },
+   {
+    "t": "Our Work",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 391
+   },
+   {
+    "t": "Our People",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 477
+   },
+   {
+    "t": "Our Insights",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 90,
+    "x": 575
+   },
+   {
+    "t": "Careers",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 679
+   },
+   {
+    "t": "Contact Us",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 755
+   },
+   {
+    "t": "Sign In",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 24,
+    "x": 1284
+   },
+   {
+    "t": "Subscribe",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 24,
+    "x": 1345
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 64,
+    "x": 1380
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "DIV",
+    "cls": "mdc-c-desktop-logo__container_iJpfP",
+    "top": 664,
+    "h": 76,
+    "w": 92,
+    "bg": "rgba(0, 0, 0, 0)"
+   },
+   {
+    "tag": "DIV",
+    "cls": "grecaptcha-badge",
+    "top": 826,
+    "h": 60,
+    "w": 256,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  ],
+  "containers": [
+   [
+    "100% | w=811 | left=315 | pl=0px pr=0px",
+    4
+   ],
+   [
+    "1440px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "1232px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "100% | w=376 | left=108 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "100% | w=376 | left=532 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "100% | w=376 | left=956 | pl=0px pr=0px",
+    1
+   ]
+  ],
+  "textLefts": [
+   [
+    315,
+    48
+   ],
+   [
+    1060,
+    5
+   ],
+   [
+    314,
+    4
+   ],
+   [
+    1028,
+    2
+   ],
+   [
+    140,
+    2
+   ],
+   [
+    306,
+    1
+   ],
+   [
+    391,
+    1
+   ],
+   [
+    477,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    1125,
+    53
+   ],
+   [
+    315,
+    4
+   ],
+   [
+    1332,
+    3
+   ],
+   [
+    481,
+    2
+   ],
+   [
+    1432,
+    1
+   ],
+   [
+    1654,
+    1
+   ]
+  ],
+  "sectionsParent": "MAIN.mck-o-container--outer",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "ArticleDefault_mck-c-article-default__mwhiy",
+    "top": 90,
+    "h": 552,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "Wired for growth: India’s electrical-equipment opp"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-o-container",
+    "top": 706,
+    "h": 972,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "DOWNLOADS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "poool-widget",
+    "top": 1742,
+    "h": 208,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   }
+  ],
+  "h2Tops": [
+   [
+    1212,
+    "About the authors"
+   ],
+   [
+    1452,
+    "What is the electrical-equipme"
+   ],
+   [
+    1706,
+    "Capturing electrification-led "
+   ],
+   [
+    9875,
+    "Scaling globally competitive e"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 84,
+    "h": 69,
+    "ratio": 1.21,
+    "top": 664,
+    "left": 1348,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ask McKinsey chat bubbles"
+   },
+   {
+    "tag": "IMG",
+    "w": 202,
+    "h": 128,
+    "ratio": 1.58,
+    "top": 690,
+    "left": 1452,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ask McKinsey AI Chatbot"
+   },
+   {
+    "tag": "IMG",
+    "w": 34,
+    "h": 29,
+    "ratio": 1.17,
+    "top": 771,
+    "left": 1596,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ask McKinsey Close icon"
+   },
+   {
+    "tag": "IMG",
+    "w": 811,
+    "h": 607,
+    "ratio": 1.34,
+    "top": 2151,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Domestic production of electrical equipm"
+   },
+   {
+    "tag": "IMG",
+    "w": 811,
+    "h": 1092,
+    "ratio": 0.74,
+    "top": 3108,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Solar photovoltaic equipment, cables and"
+   },
+   {
+    "tag": "IMG",
+    "w": 811,
+    "h": 818,
+    "ratio": 0.99,
+    "top": 6296,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Solar photovoltaic equipment, cables and"
+   },
+   {
+    "tag": "IMG",
+    "w": 811,
+    "h": 677,
+    "ratio": 1.2,
+    "top": 10560,
+    "left": 315,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Electrical-equipment players have consis"
+   },
+   {
+    "tag": "IMG",
+    "w": 376,
+    "h": 212,
+    "ratio": 1.78,
+    "top": 16496,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Image of India at night viewed from spac"
+   },
+   {
+    "tag": "IMG",
+    "w": 376,
+    "h": 212,
+    "ratio": 1.78,
+    "top": 16496,
+    "left": 532,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A portrait of Vijay Anand Guntur shows h"
+   },
+   {
+    "tag": "IMG",
+    "w": 376,
+    "h": 212,
+    "ratio": 1.78,
+    "top": 16496,
+    "left": 956,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Electric car at charging station parked "
+   }
+  ],
+  "cards": [],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|34|12px|300",
+    "t": "Share",
+    "h": 34,
+    "w": "300",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "16px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "",
+    "h": 42,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(51, 51, 51)|0px none rgb(51, 51, 51)|2px solid rgb(34, 81, 255)|0px|24|20px|300",
+    "t": "Such power sources include",
+    "h": 24,
+    "w": "300",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(51, 51, 51)",
+    "border": "0px none rgb(51, 51, 51)",
+    "bb": "2px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(51, 51, 51)|0px none rgb(51, 51, 51)|2px solid rgb(51, 51, 51)|0px|22|18px|500",
+    "t": "Amit V. Gupta",
+    "h": 22,
+    "w": "500",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(51, 51, 51)",
+    "border": "0px none rgb(51, 51, 51)",
+    "bb": "2px solid rgb(51, 51, 51)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "18px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "Talk to us",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [
+   {
+    "t": "Such power sources include",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Amit V. Gupta",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Bikramjit Chaudhury",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Rajat Gupta",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   }
+  ],
+  "lines": [
+   [
+    "Bottom 1px rgb(179, 179, 179)",
+    8
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Bottom 2px rgb(34, 81, 255)",
+    3
+   ],
+   [
+    "Bottom 2px rgb(51, 51, 51)",
+    2
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Top 1px rgb(128, 128, 128)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(51, 51, 51)",
+    92
+   ],
+   [
+    "rgb(0, 0, 0)",
+    41
+   ],
+   [
+    "rgb(34, 81, 255)",
+    15
+   ],
+   [
+    "rgb(255, 255, 255)",
+    4
+   ],
+   [
+    "rgb(30, 50, 230)",
+    2
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    1022
+   ],
+   [
+    "rgb(5, 28, 44)",
+    795
+   ],
+   [
+    "rgb(255, 255, 255)",
+    428
+   ],
+   [
+    "rgb(34, 81, 255)",
+    8
+   ]
+  ],
+  "stats": [],
+  "footer": {
+   "h": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [],
+   "linkType": [],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1050,
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": [
+    {
+     "tag": "SECTION",
+     "cls": "StickyShare_mck-c-StickyShare__lI5kP StickyShare_mck-c-Stick",
+     "top": 0,
+     "h": 64,
+     "bg": "rgb(255, 255, 255)",
+     "shadow": "none"
+    }
+   ]
+  },
+  "articleLinks": []
+ },
+ "mobile": {
+  "url": "https://www.mckinsey.com/in/our-insights/wired-for-growth-indias-electrical-equipment-opportunity",
+  "vw": 390,
+  "docH": 1765,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 387,
+     "t": "Wired for growth: India’s electrical-equipment opportunity"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 1591,
+     "t": "About the authors"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 287,
+     "left": 52,
+     "top": 2067,
+     "t": "What is the electrical-equipment industry?"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2673,
+     "t": "Capturing electrification-led growth in India"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 15114,
+     "t": "Scaling globally competitive electrical-equipment companies"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 1242,
+     "t": "DOWNLOADS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4598,
+     "t": "Scaling domestic manufacturing capacity by five times"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6011,
+     "t": "MOST POPULAR INSIGHTS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 8262,
+     "t": "Enhancing export competitiveness"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 11900,
+     "t": "Reducing dependence on imports from 33 percent to less than 14 percent"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 17039,
+     "t": "Improve cost and quality competitiveness (thermal, electrical, and mec"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 19545,
+     "t": "Increase access to R&D, innovation, and technology"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "54px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 21343,
+     "t": "Strengthen export capabilities and global market access"
+    }
+   ],
+   "h4": [],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5875,
+     "t": "How relevant and useful is this article for you?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 25396,
+     "t": "How relevant and useful is this article for you?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 25524,
+     "t": "ABOUT THE AUTHOR(S)"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 26127,
+     "t": "EXPLORE A CAREER WITH US"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "24px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 26344,
+     "t": "RELATED ARTICLES"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 26641,
+     "t": "India: The promise and possibilities for global companies"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 27053,
+     "t": "Future of tech services: Vijay Guntur on unlocking value through AI"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 27466,
+     "t": "Unlocking opportunities from industrial electrification"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "This article was written in collaboration between "
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Global power consumption could exceed 60,000 teraw"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "This article envisions India’s role in this rapidl"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Demand for electrical-equipment in India grew at a"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "The Indian electrical-equipment industry could acc"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Between 2020 and 2025, India’s consumption of elec"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Under a business-as-usual trajectory, with domesti"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "To avoid this outcome, the industry would need to "
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "However, capacity expansion alone will not be suff"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Much of the electrical-equipment industry is globa"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "However, despite this, across top categories (sola"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "In solar PV, India could aspire to capture more th"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "Quality improvements are equally important. Defect"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "16px",
+    "wpx": 351,
+    "left": 20,
+    "t": "In cables and wires, for which India already has a"
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 70,
+    "chars": 20659,
+    "samples": [
+     "em:This article was written in collaboratio",
+     "div:About the authors",
+     "p:could exceed 60,000 terawatt-hours by 20"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 9,
+    "chars": 3225,
+    "samples": [
+     "span:Article (11 pages)",
+     "div:We strive to provide individuals with di",
+     "div:Image description:\nA tree map showers a "
+    ],
+    "colors": [
+     "rgb(34, 81, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|44px|normal|none",
+    "count": 9,
+    "chars": 598,
+    "samples": [
+     "h2:Capturing electrification-led growth in ",
+     "h3:Scaling domestic manufacturing capacity ",
+     "h3:Enhancing export competitiveness"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 7,
+    "chars": 488,
+    "samples": [
+     "p:is a senior partner in McKinsey’s Gurugr",
+     "p:is a partner and",
+     "p:is an associate partner;"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 5,
+    "chars": 257,
+    "samples": [
+     "strong:McKinsey Technology Trends Outlook 2026",
+     "strong:The state of AI in 2026: On the road to ",
+     "strong:Workforce in motion: Skills and pathways"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|28px|300|40px|normal|none",
+    "count": 1,
+    "chars": 181,
+    "samples": [
+     "div:Amid a global surge in electrification, "
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 3,
+    "chars": 179,
+    "samples": [
+     "div:India: The promise and possibilities for",
+     "div:Future of tech services: Vijay Guntur on",
+     "div:Unlocking opportunities from industrial "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|28px|normal|none",
+    "count": 5,
+    "chars": 139,
+    "samples": [
+     "h5:How relevant and useful is this article ",
+     "h5:How relevant and useful is this article ",
+     "strong:Bhavesh Mittal"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 13,
+    "chars": 97,
+    "samples": [
+     "time:May 21, 2026",
+     "div:| Article",
+     "div:Byline"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(0, 0, 0)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 5,
+    "chars": 89,
+    "samples": [
+     "h3:DOWNLOADS",
+     "h3:Most Popular Insights",
+     "h5:About the author(s)"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|16px|normal|none",
+    "count": 2,
+    "chars": 86,
+    "samples": [
+     "a:McKinsey_Website_Accessibility@mckinsey.",
+     "a:McKinsey_Website_Accessibility@mckinsey."
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|43.2px|normal|none",
+    "count": 1,
+    "chars": 58,
+    "samples": [
+     "div:Wired for growth: India’s electrical-equ"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|300|16px|normal|none",
+    "count": 9,
+    "chars": 49,
+    "samples": [
+     "span:Share",
+     "span:Print",
+     "span:Download"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|500|18px|normal|none",
+    "count": 3,
+    "chars": 43,
+    "samples": [
+     "a:Amit V. Gupta",
+     "a:Bikramjit Chaudhury",
+     "a:Rajat Gupta"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|300|20px|normal|none",
+    "count": 1,
+    "chars": 26,
+    "samples": [
+     "a:Such power sources include"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 2,
+    "chars": 25,
+    "samples": [
+     "button:Talk to us",
+     "span:Search openings"
+    ],
+    "colors": [
+     "rgb(30, 50, 230)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 24,
+    "samples": [
+     "strong:Global power consumption"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "span:Skip to main content"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|13px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(51, 51, 51)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 83,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 68
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "13px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "h": 13,
+    "x": 68
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 56,
+    "x": 330
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "DIV",
+    "cls": "mdc-c-mobile-logo__container_WclSy",
+    "top": 765,
+    "h": 79,
+    "w": 72,
+    "bg": "rgba(0, 0, 0, 0)"
+   },
+   {
+    "tag": "DIV",
+    "cls": "grecaptcha-badge",
+    "top": 770,
+    "h": 60,
+    "w": 256,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  ],
+  "containers": [
+   [
+    "100% | w=351 | left=20 | pl=0px pr=0px",
+    7
+   ]
+  ],
+  "textLefts": [
+   [
+    20,
+    51
+   ],
+   [
+    52,
+    7
+   ],
+   [
+    19,
+    4
+   ],
+   [
+    330,
+    1
+   ],
+   [
+    -1,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    371,
+    58
+   ],
+   [
+    20,
+    4
+   ],
+   [
+    339,
+    2
+   ],
+   [
+    342,
+    1
+   ],
+   [
+    370,
+    1
+   ],
+   [
+    374,
+    1
+   ]
+  ],
+  "sectionsParent": "MAIN.mck-o-container--outer",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "ArticleDefault_mck-c-article-default__mwhiy",
+    "top": 83,
+    "h": 545,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "Wired for growth: India’s electrical-equipment opp"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-o-container",
+    "top": 668,
+    "h": 787,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "DOWNLOADS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "poool-widget",
+    "top": 1494,
+    "h": 271,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   }
+  ],
+  "h2Tops": [
+   [
+    1591,
+    "About the authors"
+   ],
+   [
+    2067,
+    "What is the electrical-equipme"
+   ],
+   [
+    2673,
+    "Capturing electrification-led "
+   ],
+   [
+    15114,
+    "Scaling globally competitive e"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 40,
+    "h": 36,
+    "ratio": 1.11,
+    "top": 797,
+    "left": 302,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 51,
+    "h": 48,
+    "ratio": 1.06,
+    "top": 781,
+    "left": 319,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 72,
+    "h": 57,
+    "ratio": 1.27,
+    "top": 833,
+    "left": 302,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ask McKinsey Chat"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 263,
+    "ratio": 1.34,
+    "top": 3338,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Domestic production of electrical equipm"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 473,
+    "ratio": 0.74,
+    "top": 4047,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Solar photovoltaic equipment, cables and"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 354,
+    "ratio": 0.99,
+    "top": 8915,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Solar photovoltaic equipment, cables and"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 293,
+    "ratio": 1.2,
+    "top": 16339,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Electrical-equipment players have consis"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 26392,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Image of India at night viewed from spac"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 26805,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A portrait of Vijay Anand Guntur shows h"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 27217,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Electric car at charging station parked "
+   }
+  ],
+  "cards": [],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|34|12px|300",
+    "t": "Share",
+    "h": 34,
+    "w": "300",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "16px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "",
+    "h": 42,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|34|16px|400",
+    "t": "",
+    "h": 34,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(51, 51, 51)|0px none rgb(51, 51, 51)|2px solid rgb(34, 81, 255)|0px|24|20px|300",
+    "t": "Such power sources include",
+    "h": 24,
+    "w": "300",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(51, 51, 51)",
+    "border": "0px none rgb(51, 51, 51)",
+    "bb": "2px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(51, 51, 51)|0px none rgb(51, 51, 51)|2px solid rgb(51, 51, 51)|0px|22|18px|500",
+    "t": "Amit V. Gupta",
+    "h": 22,
+    "w": "500",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(51, 51, 51)",
+    "border": "0px none rgb(51, 51, 51)",
+    "bb": "2px solid rgb(51, 51, 51)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "18px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(51, 51, 51)|0px none rgb(51, 51, 51)|2px solid rgb(51, 51, 51)|0px|50|18px|500",
+    "t": "Rajat Gupta",
+    "h": 50,
+    "w": "500",
+    "pad": "0px 2px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(51, 51, 51)",
+    "border": "0px none rgb(51, 51, 51)",
+    "bb": "2px solid rgb(51, 51, 51)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "18px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "Talk to us",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [
+   {
+    "t": "Such power sources include",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Amit V. Gupta",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Bikramjit Chaudhury",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "Rajat Gupta",
+    "color": "rgb(51, 51, 51)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   }
+  ],
+  "lines": [
+   [
+    "Bottom 1px rgb(179, 179, 179)",
+    8
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    3
+   ],
+   [
+    "Bottom 2px rgb(34, 81, 255)",
+    3
+   ],
+   [
+    "Bottom 2px rgb(51, 51, 51)",
+    3
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Top 1px rgb(128, 128, 128)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(51, 51, 51)",
+    89
+   ],
+   [
+    "rgb(0, 0, 0)",
+    41
+   ],
+   [
+    "rgb(34, 81, 255)",
+    12
+   ],
+   [
+    "rgb(30, 50, 230)",
+    2
+   ],
+   [
+    "rgb(255, 255, 255)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    731
+   ],
+   [
+    "rgb(5, 28, 44)",
+    212
+   ],
+   [
+    "rgb(255, 255, 255)",
+    137
+   ],
+   [
+    "rgb(34, 81, 255)",
+    8
+   ]
+  ],
+  "stats": [],
+  "footer": {
+   "h": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [],
+   "linkType": [],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -921,
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": [
+    {
+     "tag": "SECTION",
+     "cls": "StickyShare_mck-c-StickyShare__lI5kP StickyShare_mck-c-Stick",
+     "top": 0,
+     "h": 64,
+     "bg": "rgb(255, 255, 255)",
+     "shadow": "none"
+    }
+   ]
+  },
+  "menuButton": {
+   "sel": "button[class*=\"menu\" i]",
+   "x": 191.515625,
+   "y": -85,
+   "width": 31.046875,
+   "height": 34
+  }
+ }
+}

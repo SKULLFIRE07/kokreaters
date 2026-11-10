@@ -1,4 +1,4 @@
-/* src/styles/utilities.css (DESIGN-SPEC 1.5; v2) */
+/* src/styles/utilities.css — small helpers (v3). */
 .visually-hidden {
   position: absolute !important;
   width: 1px !important; height: 1px !important;
@@ -8,31 +8,35 @@
   white-space: nowrap !important; border: 0 !important;
 }
 .nowrap { white-space: nowrap; }
-.measure { max-width: var(--measure); }
+
+/* Stack: vertical rhythm with one gap. Cluster: a wrapping row (buttons, tags, meta). */
+.stack { display: flex; flex-direction: column; gap: var(--stack-gap, var(--s-4)); }
+.stack > * { margin: 0; }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cluster-gap, var(--s-3) var(--s-4)); }
 .flow > * + * { margin-top: var(--flow, 1em); }
 
+/* Skip link (rendered by chrome/SkipLink): hidden until focused, then a navy tab top-left. */
 .skip-link {
   position: absolute; top: 0; left: 0;
   width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;
 }
 .skip-link:focus, .skip-link:focus-visible {
-  position: fixed; top: var(--s-4); left: var(--s-4); z-index: 1000;
+  position: fixed; top: var(--s-3); left: var(--s-3); z-index: 1000;
   width: auto; height: auto; overflow: visible; clip-path: none;
-  display: inline-flex; align-items: center; min-height: 44px;
-  padding: 0 var(--s-5);
-  border-radius: var(--r-pill);
-  background: var(--kk-saffron); color: var(--kk-ink); box-shadow: 0 0 0 2px var(--kk-ink), var(--shadow-hard);
-  font-family: var(--font-display); font-size: var(--fs-button); font-weight: 700; font-stretch: 95%;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-5);
+  border-radius: var(--r-sm);
+  background: var(--navy-900); color: var(--white);
+  font: 600 var(--fs-button) / 1 var(--font-sans);
   text-decoration: none;
+  outline: 2px solid var(--blue-500); outline-offset: 2px;
 }
 
 [hidden] { display: none !important; }
 
-/* JS / motion gates (html classes set by the BaseLayout head snippet) */
+/* JS gates (html.no-js → html.js is swapped by the inline head script) */
 html.no-js .js-only { display: none !important; }
 html:not(.no-js) .nojs-only { display: none !important; }
-html:not(.motion) .js-motion-only, html.motion-failed .js-motion-only { display: none !important; }
 
 /* Pointer gates */
 .pointer-only { display: none; }

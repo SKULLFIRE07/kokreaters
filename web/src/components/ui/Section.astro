@@ -1,40 +1,40 @@
 ---
 /**
- * A fold: <section class="band"> (DESIGN-SPEC v2 7.7). `ground` sets ONE ground class (v1 'dark' → imperial);
- * `paper="grid"` adds the lab-notebook grid (white grounds only), `grain` the print grain, `slab` an inset rounded block,
- * `notes` the `has-notes` positioning context for MarginNotes. Optional notebook-tab Folio row.
+ * Section band (REDESIGN-V3 §3): <section class="band band--{ground}"> + container. The ground re-declares the role
+ * tokens, so every component inside is coloured correctly without props.
+ *  pad: default 72 → 120px top/bottom · tight 48 → 80 · flush-top (no top padding) · none.
+ *  width: container width; 'bleed' = no container (full-bleed media).
+ *  rule: a 1px hairline at the top, inside the container — use it when two identical grounds touch.
+ * Mobile: padding scales down to 72px (tight 48px); container gutters 20px.
+ * Any other attribute (data-*, aria-*) is passed to the <section>.
  */
-import Folio from './Folio.astro';
-import type { GroundKey } from '@/data/types';
 interface Props {
+  ground?: 'white' | 'grey' | 'navy';
+  pad?: 'default' | 'tight' | 'flush-top' | 'none';
   id?: string;
-  ground?: GroundKey | 'dark';
-  paper?: 'grid' | null;
-  grain?: boolean;
-  slab?: boolean;
-  notes?: boolean;
-  folio?: { n?: string; label: string; right?: string };
   labelledby?: string;
+  width?: 'default' | 'narrow' | 'wide' | 'bleed';
+  rule?: boolean;
   class?: string;
-  container?: boolean;   // default true: wraps the content in .container
   [key: string]: unknown;
 }
-const { id, ground = 'white', paper = null, grain = false, slab = false, notes = false, folio, labelledby, class: cls, container = true, ...rest } = Astro.props;
-const g: GroundKey = ground === 'dark' ? 'imperial' : ground;
+const { ground = 'white', pad = 'default', id, labelledby, width = 'default', rule = false, class: cls, ...rest } = Astro.props;
 ---
-<section id={id} aria-labelledby={labelledby} class:list={['band', 'fold', `g-${g}`, { 'paper-grid': paper === 'grid', grain, slab, 'has-notes': notes, 'on-dark': ground === 'dark' }, cls]} {...rest}>
-  {container ? (
-    <div class="container">
-      {folio && <Folio {...folio} />}
-      <slot />
-    </div>
-  ) : (
+<section
+  id={id}
+  aria-labelledby={labelledby}
+  class:list={['band', `band--${ground}`, pad !== 'default' && `band--pad-${pad}`, rule && 'band--ruled', cls]}
+  {...rest}
+>
+  {width === 'bleed' ? (
     <>
-      {folio && <div class="container"><Folio {...folio} /></div>}
+      {rule && <div class="container"><div class="band__rule" /></div>}
       <slot />
     </>
+  ) : (
+    <div class:list={['container', width !== 'default' && `container--${width}`]}>
+      {rule && <div class="band__rule" />}
+      <slot />
+    </div>
   )}
 </section>
-<style>
-  .fold { position: relative; }
-</style>

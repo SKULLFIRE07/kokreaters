@@ -1,0 +1,24 @@
+---
+/**
+ * Track record (REDESIGN-V3 §4 Impact): the home credibility figures (home.proof: 25 · 5 · 3 · WHO) as a StatStrip
+ * directly under the navy hero, with its source line. Never other numbers. The heading is a small label-style h2
+ * (McKinsey stat-strip feel: the figures carry the band, not a serif title).
+ * Mobile: label, then the StatStrip's own 2 × 2 grid with hairlines; source under it.
+ */
+import Section from '@/components/ui/Section.astro';
+import StatStrip from '@/components/ui/StatStrip.astro';
+import { proof, proofSource } from '@/data/home';
+import { impactPage } from '@/data/impact';
+
+interface Props { ground?: 'white' | 'grey' }
+const { ground = 'grey' } = Astro.props;
+const items = proof.map(({ value, label }) => ({ value, label }));
+---
+<Section ground={ground} pad="tight" labelledby="record-h" class="record">
+  <h2 id="record-h" class="record__h t-label">{impactPage.recordLabel}</h2>
+  <StatStrip items={items} source={`${proofSource}.`} />
+</Section>
+<style>
+  .record__h { margin-bottom: var(--s-6); }
+  @media (min-width: 900px) { .record__h { margin-bottom: var(--s-7); } }
+</style>

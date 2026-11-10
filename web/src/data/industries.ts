@@ -1,4 +1,9 @@
-/** Industries (DESIGN-SPEC 4.5; brief 6.3). Pillar links are a COMPOSED mapping (C-10). No images until licensed photography exists (graft 13). */
+/**
+ * Industries (DESIGN-SPEC 4.5; brief 6.3). Pillar links are a COMPOSED mapping (C-10).
+ * v3: the /industries cards are text-only on purpose (REDESIGN-V3 §8.9; photos.md has no licensed pet-food photo, and
+ * one odd card out would look broken). `image`/`imageAlt` stay in the type for when all nine have one.
+ * The page intro (C-15) is drafted from the brief (10 Nov 2026, for approval) and renders in every mode.
+ */
 import type { Industry } from './types';
 
 export const industries: Industry[] = [
@@ -17,4 +22,14 @@ export const industriesPage = {
   overline: 'Industries',
   headline: 'Where we work',
   relevantExpertise: 'Relevant expertise',   // COMPOSED (8.3)
+  /**
+   * v3: the one-paragraph page intro (C-15), DRAFTED 10 Nov 2026 for Ganeaysh's approval
+   * (../CONTENT-DRAFTED-FOR-APPROVAL.md). Facts only: the roots in oils and fats and the five functionality words are
+   * the Product and Category Innovation intro (brief 6.2.1); the sectors are this list's own names (brief 6.3); "the
+   * inputs the oils industry depends on" is industries[8].copy; the count is `industries.length` (keep "nine" in step).
+   * It names groups, not all nine cards (the grid right below lists them).
+   */
+  lead: 'Our roots are in edible oils and specialty fats, so we are at our best where fat functionality decides whether a product succeeds: texture, bloom, shelf life, mouthfeel and cost. That knowledge runs from the refinery into confectionery, bakery, nutrition, plant-based foods and snacks, and on into personal care, pet food and the inputs the oils industry depends on. Each of the nine industries below links to the expertise it draws on most.',
+  /** v3: accessible name (visually hidden h2) of the nine-card grid under the hero. */
+  listHeading: 'All industries',              // COMPOSED (same wording as the nav's "All industries")
 };

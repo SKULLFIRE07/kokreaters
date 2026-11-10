@@ -7,12 +7,22 @@ format: point-of-view
 status: draft
 review: pending
 date: 2026-11-04
+image: "../../assets/photos/stock/bakery-02.jpg"
+imageAlt: "Bakers shaping dough pieces along a floured production line."
 ---
 import Note from '@/components/article/Note.astro';
 import Exhibit from '@/components/article/Exhibit.astro';
 import PullQuote from '@/components/article/PullQuote.astro';
 import Takeaways from '@/components/article/Takeaways.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+
+<Takeaways items={[
+  'List the functions the old fat delivered before choosing a replacement.',
+  'Combine fractionation, interesterification, blending and structuring as the product needs.',
+  'Aim for the lowest saturated fat that still delivers the function.',
+  'Prove the formulation at line speed and through shelf life, with the customer.',
+  'Verify elimination with analysis, specifications and supplier control.',
+]} />
 
 Taking industrial trans fat out of a product sounds like a single decision. Stop buying partially hydrogenated oil, buy something else, update the label. In practice it is one of the most demanding changes a fats plant and its customers can make. Partially hydrogenated oils did several jobs at once, and every one of those jobs still has to be done.
 
@@ -77,11 +87,3 @@ Check the current legal limit in every market you sell into, because the limits 
 ## Judge it on cost-in-use, not price per tonne
 
 A replacement fat may cost more per tonne and still cost less in use, if it runs faster, wastes less or allows a lower dose. Judge the change on the whole cost, across your plant and your customer’s.
-
-<Takeaways items={[
-  'List the functions the old fat delivered before choosing a replacement.',
-  'Combine fractionation, interesterification, blending and structuring as the product needs.',
-  'Aim for the lowest saturated fat that still delivers the function.',
-  'Prove the formulation at line speed and through shelf life, with the customer.',
-  'Verify elimination with analysis, specifications and supplier control.',
-]} />

@@ -1,7 +1,7 @@
 /**
- * a11y (DESIGN-SPEC 9 W3-tests, 10): axe-core with the WCAG 2.0/2.1/2.2 A and AA rule sets, zero violations,
- * on every route at 1440 and 390. The page is scrolled through first so every once-only reveal has finished
- * (axe would otherwise test text mid-fade).
+ * a11y (infra.md §1.3, REDESIGN-V3 §7): axe-core with the WCAG 2.0/2.1/2.2 A and AA rule sets, zero violations, on
+ * every route and the 404 at 1440 and 390. The page is scrolled through first so every once-only reveal has finished
+ * (axe would otherwise measure text mid-fade).
  */
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
@@ -16,7 +16,7 @@ for (const w of WIDTHS) {
     for (const r of [...routes, { path: '/this-page-does-not-exist', name: '404', file: '404.html' }]) {
       test(`axe ${r.path} @${w}`, async ({ page }) => {
         await page.goto(r.path, { waitUntil: 'load' });
-        await settle(page, 2400);
+        await settle(page, 300);
         await scrollThrough(page);
         const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
         const summary = results.violations.map((v) =>

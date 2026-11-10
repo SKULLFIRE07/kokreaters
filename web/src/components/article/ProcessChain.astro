@@ -1,25 +1,24 @@
 ---
 /**
- * ProcessChain (DESIGN-SPEC v2 10.9): ringed station nodes on a hand-drawn line, horizontal at ≥ 768px, vertical
- * below. The highlighted station is a Saffron die-cut sticker node. The line ships drawn; with motion,
- * scripts/pages/article.ts wipes it on (left → right) when the chain enters, then pops the nodes in order.
+ * ProcessChain (REDESIGN-V3 §4 article: "ProcessChain as the ProcessFlow style"). MDX:
+ * <ProcessChain steps={[{ name, note, highlight? }]} />, usually inside an Exhibit.
+ * The site's ringed-node signature: a 14px accent node with a white ring, joined by a 1px connector in --label,
+ * "01" numerals, the step name in serif and its note in sans. A `highlight` step gets a larger node with a soft halo
+ * and sits on a grey panel (its note says why). Static: no animation. An <ol>, so order is announced.
+ * Horizontal when the chain itself is ≥ 800px wide (container query; names never break mid-word), one column per step, connector running through
+ * the node centres. Mobile (narrower): vertical spine on the left, name + note to the right, 24px between steps.
  */
-import { hash } from '@/components/notes/paths';
+import { pad2 } from '@/lib/format';
 interface Step { name: string; note: string; highlight?: boolean; }
 interface Props { steps: Step[]; }
 const { steps } = Astro.props;
-// a slightly wobbly hand line, seeded by the step names so it is stable between builds
-let seed = hash(steps.map((s) => s.name).join('|'));
-const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-const pts = Array.from({ length: 9 }, (_, i) => [i * 125, 6 + (rnd() - 0.5) * 7]);
-const d = pts.reduce((acc, [x, y], i) => i === 0 ? `M${x} ${y.toFixed(1)}` : `${acc} Q${(x - 62.5).toFixed(1)} ${(6 + (rnd() - 0.5) * 9).toFixed(1)} ${x} ${y.toFixed(1)}`, '');
 ---
-<div class="pc" style={`--pc-n:${steps.length}`} data-pc>
-  <svg class="pc__line pc__line--h" viewBox="0 0 1000 12" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-pc-line><path d={d} /></svg>
-  <ol class="pc__list">
+<div class="pc" style={`--n:${steps.length}`}>
+  <ol class="pc__list" role="list">
     {steps.map((s, i) => (
-      <li class:list={['pc__step', { 'pc__step--hl': s.highlight }]} data-pc-step>
-        <span class="pc__node" aria-hidden="true"><span class="pc__num tnum">{String(i + 1).padStart(2, '0')}</span></span>
+      <li class:list={['pc__step', { 'pc__step--hl': s.highlight }]}>
+        <span class="pc__node" aria-hidden="true"></span>
+        <span class="pc__n" aria-hidden="true">{pad2(i + 1)}</span>
         <span class="pc__name">{s.name}</span>
         <span class="pc__note">{s.note}</span>
       </li>
@@ -27,40 +26,54 @@ const d = pts.reduce((acc, [x, y], i) => i === 0 ? `M${x} ${y.toFixed(1)}` : `${
   </ol>
 </div>
 <style>
-  .pc { --node: 36px; position: relative; font-family: var(--font-sans); padding-top: 4px; }
-  .pc__list { list-style: none; margin: 0; padding: 0; position: relative; z-index: 1; display: grid; gap: var(--s-6); }
-  .pc__list > li::before { content: none !important; }
-  .pc__step { position: relative; display: flex; flex-direction: column; gap: 4px; padding-left: calc(var(--node) + var(--s-4)); margin: 0 !important; min-width: 0; }
+  .pc { container-type: inline-size; --node: 20px; --ring: var(--bg, var(--white)); overflow-wrap: normal; hyphens: manual; }
+  .pc__list { list-style: none; margin: 0; padding: 0; display: grid; }
+
+  /* vertical (narrow) */
+  .pc__step {
+    position: relative; display: grid; grid-template-columns: var(--node) minmax(0, 1fr); column-gap: var(--s-4); row-gap: 2px;
+    margin: 0; padding: 0 0 var(--s-5);
+  }
+  .pc__step:last-child { padding-bottom: 0; }
   .pc__node {
-    position: absolute; left: 0; top: -4px;
-    display: grid; place-items: center;
-    width: var(--node); height: var(--node); border-radius: 50%;
-    background: var(--kk-white); box-shadow: inset 0 0 0 3px var(--kk-ink), 0 0 0 4px var(--kk-white);
+    grid-row: 1 / span 3; position: relative; z-index: 1;
+    width: 14px; height: 14px; margin: 3px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--ring); box-shadow: 0 0 0 3px var(--accent);
   }
-  .pc__num { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--kk-ink); }
-  .pc__step--hl .pc__node { --node: 48px; left: -6px; top: -10px; background: var(--kk-saffron); rotate: -8deg;
-    box-shadow: inset 0 0 0 2px var(--kk-ink), 0 0 0 5px var(--kk-white), var(--shadow-sticker); }
-  .pc__step--hl .pc__num { font-size: 13px; }
-  .pc__name { font-family: var(--font-display); font-weight: 720; font-stretch: 85%; font-size: 1.15rem; line-height: 1.05; color: var(--kk-ink); text-wrap: balance; }
-  .pc__step--hl .pc__name { background: linear-gradient(transparent 55%, var(--kk-butter) 55%); align-self: flex-start; }
-  .pc__note { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; color: var(--kk-graphite); text-wrap: pretty; }
-
-  .pc__line { position: absolute; overflow: visible; fill: none; z-index: 0; }
-  .pc__line path { stroke: var(--kk-sapphire); stroke-width: 3px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-  /* vertical (< 768px): a 3px segment from each node to the next */
-  .pc__step:not(:last-child)::after {
-    content: ""; position: absolute; z-index: -1;
-    left: calc(var(--node) / 2 - 1.5px); top: calc(var(--node) / 2);
-    width: 3px; height: calc(100% + var(--s-6)); background: var(--kk-sapphire); border-radius: 2px;
+  .pc__step:not(:last-child)::before {
+    content: ""; position: absolute; z-index: 0;
+    left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2); bottom: calc(var(--node) / -2);
+    width: 1px; background: var(--label);
   }
-  .pc__line--h { display: none; }
+  .pc__n { font-size: var(--fs-meta); line-height: var(--node); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .pc__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head); text-wrap: balance;
+  }
+  .pc__note { margin-top: 2px; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
 
-  @media (min-width: 768px) {
-    .pc__list { grid-template-columns: repeat(var(--pc-n), minmax(0, 1fr)); gap: var(--s-4); }
-    .pc__step { padding-left: 0; padding-top: calc(var(--node) + var(--s-4)); }
-    .pc__node { top: 0; }
-    .pc__step--hl .pc__node { top: -6px; }
-    .pc__step:not(:last-child)::after { content: none; }
-    .pc__line--h { display: block; top: calc(var(--node) / 2 - 6px); height: 12px; left: calc(var(--node) / 2); right: calc((100% - (var(--pc-n) - 1) * var(--s-4)) / var(--pc-n) - var(--node) / 2); }
+  /* highlight: halo node on a grey panel */
+  .pc__step--hl { --ring: var(--surface-hover); }
+  .pc__step--hl::after {
+    content: ""; position: absolute; z-index: -1; inset: calc(var(--s-3) * -1) calc(var(--s-3) * -1) calc(var(--s-5) - var(--s-3)) calc(var(--s-3) * -1);
+    background: var(--surface-hover); border-radius: var(--r-sm);
+  }
+  .pc__step--hl:last-child::after { bottom: calc(var(--s-3) * -1); }
+  .pc__step--hl .pc__node { box-shadow: 0 0 0 3px var(--accent), 0 0 0 8px color-mix(in srgb, var(--accent) 22%, transparent); }
+  .pc__step--hl .pc__note { color: var(--fg); }
+  .pc__list { isolation: isolate; }
+
+  /* horizontal: one column per step, the connector runs through the node centres */
+  @container (min-width: 800px) {
+    .pc__list { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: var(--s-4); }
+    .pc__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2); padding: 0; align-content: start; }
+    .pc__node { grid-row: auto; }
+    .pc__step:not(:last-child)::before {
+      left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto;
+      width: auto; height: 1px;
+    }
+    .pc__n { line-height: 1.2; margin-top: var(--s-2); }
+    .pc__name { padding-right: var(--s-2); font-size: 1.125rem; line-height: 1.3; }
+    .pc__step--hl::after, .pc__step--hl:last-child::after { inset: calc(var(--s-4) * -1) calc(var(--s-2) * -1) calc(var(--s-4) * -1) calc(var(--s-3) * -1); }
   }
 </style>

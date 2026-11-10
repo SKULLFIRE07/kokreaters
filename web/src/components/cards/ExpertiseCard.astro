@@ -1,0 +1,91 @@
+---
+/**
+ * Expertise card (REDESIGN-V3 §3). --surface card (white; navy-800 on navy) with a 2px --rule-strong top rule; on a
+ * white band it also gets a hairline border. Icon + "01" → serif title (pillar name) → promise → (hub: "Typical
+ * deliverables" small list) → "Learn more →" pinned to the bottom. The title link is stretched over the whole card.
+ * Hover: top rule → accent, title → --link, arrow nudges.
+ * Row alignment: inside a .card-grid the <li> and the card become row subgrids (4 rows: top · title · promise · foot;
+ * hub 5, deliverables before the foot), so across a row the titles, promises, "Typical deliverables" and "Learn more"
+ * lines share one baseline even when one title or promise wraps and its neighbour doesn't. Without subgrid support it
+ * falls back to the flex column with "Learn more" pinned to the bottom.
+ * Mobile: full-width card, 24px padding; in a .card-grid it is 1 col < 600, 2 cols 600–899, 3 cols ≥ 900.
+ */
+import type { Pillar } from '@/data/types';
+import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import { pad2 } from '@/lib/format';
+import { microcopy } from '@/data/microcopy';
+import { pillarPage } from '@/data/pillars';
+
+interface Props {
+  pillar: Pillar;
+  variant?: 'home' | 'hub';
+  level?: 2 | 3 | 4;
+  class?: string;
+}
+const { pillar, variant = 'home', level = 3, class: cls } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3' | 'h4';
+const href = `/expertise/${pillar.slug}`;
+---
+<article class:list={['xcard', `xcard--${variant}`, 'u-hover', cls]}>
+  <div class="xcard__top">
+    <ExpertiseIcon pillar={pillar.key} />
+    <span class="xcard__n" aria-hidden="true">{pad2(pillar.n)}</span>
+  </div>
+  <H class="xcard__title"><a href={href} class="xcard__link">{pillar.name}</a></H>
+  <p class="xcard__promise">{pillar.promise}</p>
+  {variant === 'hub' && (pillar.deliverables.length > 0 ? (
+    <div class="xcard__deliv">
+      <p class="xcard__dlabel t-label">{pillarPage.deliverables}</p>
+      <ul class="xcard__dlist" role="list">
+        {pillar.deliverables.map((d) => <li>{d}</li>)}
+      </ul>
+    </div>
+  ) : <div class="xcard__deliv xcard__deliv--empty" aria-hidden="true"></div>)}
+  <div class="xcard__foot"><ArrowLink aria-hidden="true">{microcopy.pillarLink}</ArrowLink></div>
+</article>
+<style>
+  .xcard {
+    position: relative; display: flex; flex-direction: column; height: 100%;
+    padding: var(--s-5) var(--s-5) var(--s-4);
+    background: var(--surface); border-top: 2px solid var(--rule-strong);
+    transition: border-color var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out);
+  }
+  :global(.band--white) .xcard { box-shadow: inset 1px 0 0 var(--rule), inset -1px 0 0 var(--rule), inset 0 -1px 0 var(--rule); }
+  .xcard:hover { border-top-color: var(--accent); }
+  .xcard__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--s-4); }
+  .xcard__n { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .xcard__title {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head); text-wrap: balance;
+  }
+  .xcard__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
+  .xcard__link::after { content: ""; position: absolute; inset: -2px 0 0; z-index: 1; }
+  .xcard__link:focus-visible { outline: none; }
+  .xcard:has(.xcard__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .xcard:hover .xcard__link { color: var(--link); }
+  .xcard__promise { margin-top: var(--s-3); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
+  .xcard__deliv--empty { display: none; }
+  .xcard__deliv { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+  .xcard__dlabel { color: var(--fg-2); margin-bottom: var(--s-2); }
+  .xcard__dlist { list-style: none; padding: 0; margin: 0; font-size: var(--fs-small); line-height: 1.45; color: var(--fg); }
+  .xcard__dlist li { position: relative; padding-left: 16px; }
+  .xcard__dlist li + li { margin-top: 6px; }
+  .xcard__dlist li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 1px; background: var(--accent); }
+  .xcard__dlist li::first-letter { text-transform: uppercase; }
+  /* the ArrowLink here is a padding-free <span> (the whole card is the link), so the foot carries the space */
+  .xcard__foot { margin-top: auto; padding-top: var(--s-4); }
+  @media (min-width: 900px) {
+    .xcard { padding: var(--s-6) var(--s-6) var(--s-5); }
+  }
+
+  /* row subgrid: the card's 4/5 parts line up with its neighbours' (see header) */
+  @supports (grid-template-rows: subgrid) {
+    :global(.card-grid > li:has(> .xcard)) { display: grid; grid-row: span var(--xrows-li, 5); grid-template-rows: subgrid; row-gap: 0; }
+    :global(.card-grid > li:has(> .xcard--home)) { --xrows-li: 4; }
+    .xcard { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
+    .xcard > * { min-width: 0; }
+    .xcard__deliv--empty { display: block; margin: 0; padding: 0; border: 0; }
+    .xcard__foot { margin-top: 0; align-self: end; }
+  }
+</style>

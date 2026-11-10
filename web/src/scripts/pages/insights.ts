@@ -1,74 +1,36 @@
 /**
- * /insights (DESIGN-SPEC 5.7, 6.7): un-hide the filters, read ?pillar=&format=, filter the rows.
- * Changes animate with GSAP Flip (dynamically imported, so it ships only here); instant when reduced.
+ * /insights filters (REDESIGN-V3 §4; contract: research/v3/inventory-insights.md A6). Loaded by pages/insights/index.astro.
+ * - Un-hides [data-filters] (server-rendered `hidden`, so without JS the unfiltered library shows and no dead controls
+ *   appear).
+ * - Reads ?pillar= and ?format= (unknown values fall back to "All"), keeps them in the URL with history.replaceState
+ *   (the hash is kept), AND-filters the .insight-row items in [data-insight-list] by data-pillar / data-format.
+ * - The featured row ([data-featured], shown in its own band above) stays hidden while both rows are on "All" and
+ *   joins the results only when a filter is chosen.
+ * - While a filter is chosen, writes "{n} insight(s)" into [data-filter-status] (aria-live; empty on "All", where the
+ *   featured band and the grid together show everything) and shows [data-filter-empty] when nothing matches;
+ *   its [data-filter-reset] button returns both rows to "All" and moves focus to the first filter.
+ * - One highlight per row glides to the pressed button (transform/width/height, --d-2; instant under reduced motion
+ *   because the duration tokens are 0 there). Filtering itself is instant: no layout animation.
  */
-import type { MotionContext } from '../motion/context';
-
 type Key = 'pillar' | 'format';
 
-export default function initInsights(ctx: MotionContext): void {
-  initFan(ctx);
-  initPlane(ctx);
-  initFilters(ctx);
-}
-
-/** F2: the card fan (bencho port), a lazy chunk loaded near the viewport. */
-function initFan(ctx: MotionContext): void {
-  const fan = document.querySelector<HTMLElement>('[data-card-fan]');
-  if (fan) ctx.whenNear(fan, async () => { (await import('../bencho/card-fan')).default(fan, ctx); });
-}
-
-/** F6: the paper plane's dashed flight path draws on, then the plane lands with a little wobble. */
-function initPlane(ctx: MotionContext): void {
-  const svg = document.querySelector<SVGSVGElement>('[data-plane]');
-  if (!svg || ctx.reduced) return;
-  const { gsap } = ctx;
-  const trail = svg.querySelector<SVGPathElement>('[data-plane-trail]');
-  const craft = svg.querySelector<SVGGElement>('[data-plane-craft]');
-  if (!trail || !craft) return;
-  const mask = document.createElementNS('http://www.w3.org/2000/svg', 'mask');
-  const id = `plane-m-${Math.random().toString(36).slice(2, 7)}`;
-  mask.id = id;
-  const m = trail.cloneNode() as SVGPathElement;
-  m.removeAttribute('class'); m.removeAttribute('data-plane-trail');
-  m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', '8'); m.setAttribute('fill', 'none');
-  m.style.strokeDasharray = '1'; m.style.strokeDashoffset = '1';
-  mask.appendChild(m);
-  svg.prepend(mask);
-  trail.setAttribute('mask', `url(#${id})`);
-  gsap.set(craft, { opacity: 0, x: -40, y: 30, rotation: -12, transformOrigin: '60% 50%' });
-  const tl = gsap.timeline({ scrollTrigger: { trigger: svg, start: 'top 80%', once: true } });
-  tl.to(m, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut' })
-    .to(craft, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.8, ease: 'back.out(2)' }, '-=0.35');
-  if (ctx.fine) {
-    svg.addEventListener('pointermove', (e) => {
-      const r = svg.getBoundingClientRect();
-      const dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
-      gsap.to(craft, { x: dx * 24, y: dy * 18, rotation: dx * 8, duration: 0.6, ease: 'power3.out', overwrite: 'auto' });
-    });
-    svg.addEventListener('pointerleave', () => gsap.to(craft, { x: 0, y: 0, rotation: 0, duration: 0.9, ease: 'elastic.out(1, 0.4)' }));
-  }
-}
-
-function initFilters(ctx: MotionContext): void {
+function initFilters(): void {
   const root = document.querySelector<HTMLElement>('[data-filters]');
   const list = document.querySelector<HTMLElement>('[data-insight-list]');
   if (!root || !list) return;
   const rows = Array.from(list.querySelectorAll<HTMLElement>('.insight-row'));
   const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+  const tracks = Array.from(root.querySelectorAll<HTMLElement>('[data-filter-track]'));
   const status = root.querySelector<HTMLElement>('[data-filter-status]');
-  const template = status?.dataset.template ?? '{n}';
+  const empty = document.querySelector<HTMLElement>('[data-filter-empty]');
+  const many = status?.dataset.template ?? '{n}';
+  const one = status?.dataset.templateOne ?? many;
 
   const valid = (key: Key, v: string | null): string =>
     v && buttons.some((b) => b.dataset.filter === key && b.dataset.value === v) ? v : '';
 
   const params = new URLSearchParams(window.location.search);
   const state: Record<Key, string> = { pillar: valid('pillar', params.get('pillar')), format: valid('format', params.get('format')) };
-
-  let flip: typeof import('gsap/Flip').Flip | null = null;
-  if (!ctx.reduced) {
-    import('gsap/Flip').then((m) => { ctx.gsap.registerPlugin(m.Flip); flip = m.Flip; }).catch(() => { flip = null; });
-  }
 
   function syncButtons(): void {
     buttons.forEach((b) => {
@@ -85,44 +47,64 @@ function initFilters(ctx: MotionContext): void {
     history.replaceState(history.state, '', `${url.pathname}${url.search}${url.hash}`);
   }
 
-  function apply(animate: boolean): void {
-    const match = (r: HTMLElement) =>
-      (!state.pillar || r.dataset.pillar === state.pillar) && (!state.format || r.dataset.format === state.format);
-    const changes = rows.some((r) => r.hidden === match(r));
-    const run = () => {
-      let n = 0;
-      rows.forEach((r) => { const ok = match(r); r.hidden = !ok; if (ok) n += 1; });
-      if (status) status.textContent = template.replace('{n}', String(n));
-    };
-    if (animate && changes && flip && !ctx.reduced) {
-      const { gsap } = ctx;
-      const st = flip.getState(rows);
-      run();
-      flip.from(st, {
-        duration: 0.4, ease: 'power2.inOut', absolute: true,
-        onEnter: (els) => gsap.fromTo(els, { opacity: 0 }, { opacity: 1, duration: 0.2 }),
-        onLeave: (els) => gsap.to(els, { opacity: 0, duration: 0.15 }),
-        onComplete: () => ctx.ScrollTrigger.refresh(),
-      });
-    } else {
-      run();
-      if (changes) ctx.ScrollTrigger.refresh();
-    }
+  function apply(): void {
+    const filtered = Boolean(state.pillar || state.format);
+    let n = 0;
+    rows.forEach((r) => {
+      const ok = (!state.pillar || r.dataset.pillar === state.pillar) && (!state.format || r.dataset.format === state.format);
+      r.hidden = !ok || (!filtered && r.dataset.featured !== undefined);
+      if (ok) n += 1;
+    });
+    // The count answers a filter: with both rows on "All" the featured insight sits in its own band above, so a total
+    // under the filters would not match the cards below it. The line (and its hairline) stays; the text appears on use.
+    if (status) status.textContent = filtered ? (n === 1 ? one : many).replace('{n}', String(n)) : '';
+    if (empty) empty.hidden = n > 0;
   }
 
-  root.addEventListener('click', (e) => {
-    const b = (e.target as Element).closest<HTMLButtonElement>('[data-filter]');
-    if (!b) return;
-    const key = b.dataset.filter as Key;
-    const v = b.dataset.value ?? '';
+  /* sliding highlight: one per row, placed on that row's pressed button */
+  function placeGlides(animate: boolean): void {
+    tracks.forEach((t) => {
+      const glide = t.querySelector<HTMLElement>('[data-filter-glide]');
+      const on = t.querySelector<HTMLElement>('[aria-pressed="true"]');
+      if (!glide || !on || !on.getClientRects().length) return;
+      glide.classList.toggle('is-still', !animate || glide.style.opacity !== '1');
+      glide.style.transform = `translate(${on.offsetLeft}px, ${on.offsetTop}px)`;
+      glide.style.width = `${on.offsetWidth}px`;
+      glide.style.height = `${on.offsetHeight}px`;
+      glide.style.opacity = '1';
+      t.classList.add('has-glide');
+    });
+  }
+
+  function set(key: Key, v: string): void {
     if (state[key] === v) return;
     state[key] = v;
     syncButtons();
     syncUrl();
-    apply(true);
+    apply();
+    placeGlides(true);
+  }
+
+  root.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLButtonElement>('[data-filter]');
+    if (b) set(b.dataset.filter as Key, b.dataset.value ?? '');
+  });
+
+  empty?.querySelector<HTMLButtonElement>('[data-filter-reset]')?.addEventListener('click', () => {
+    state.pillar = ''; state.format = '';
+    syncButtons(); syncUrl(); apply(); placeGlides(true);
+    root.querySelector<HTMLButtonElement>('[data-filter]')?.focus();
   });
 
   root.hidden = false;
   syncButtons();
-  apply(false);
+  syncUrl();   // drops a ?pillar= / ?format= value that has no button (it fell back to "All")
+  apply();
+  placeGlides(false);
+  let raf = 0;
+  window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => placeGlides(false)); }, { passive: true });
+  document.fonts?.ready.then(() => placeGlides(false)).catch(() => {});
 }
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFilters, { once: true });
+else initFilters();

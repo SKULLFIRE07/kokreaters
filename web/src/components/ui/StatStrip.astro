@@ -1,0 +1,59 @@
+---
+/**
+ * Stat strip (REDESIGN-V3 §3; McKinsey India pattern 2): big serif figures (--figure: blue-500 on light, white on navy,
+ * Source Serif 4 380, tabular lining), label under in Inter 15–16px. Desktop: one row, 1px vertical dividers between
+ * items. Source line in --fs-meta under the strip. No counters (banned); figures are plain text.
+ * Mobile: cols=4 → a 2×2 grid with horizontal hairlines between rows (and one vertical divider); cols=3 → a single
+ * column of rows divided by hairlines.
+ * Hyphenated words in a label ("trans-fat", "Director-General") are kept whole (nowrap spans), so a narrow phone
+ * column never sets "trans-" / "fat".
+ */
+interface Props {
+  items: { value: string; label: string }[];
+  source?: string;
+  cols?: 3 | 4;
+  class?: string;
+}
+const { items, source, cols = 4, class: cls } = Astro.props;
+// "for trans-fat elimination" → ["for ", {"trans-fat"}, " elimination"]: hyphenated words become unbreakable pieces
+const pieces = (t: string) => t.split(/(\S*\p{L}-\p{L}\S*)/u).filter(Boolean).map((p) => ({ t: p, keep: /\p{L}-\p{L}/u.test(p) && !/\s/.test(p) }));
+---
+<div class:list={['stats', `stats--${cols}`, cls]}>
+  <ul class="stats__list" role="list">
+    {items.map((it, i) => (
+      <li class="stats__item" data-reveal style={`--i:${i}`}>
+        <span class="stats__value t-stat">{it.value}</span>
+        <span class="stats__label">{pieces(it.label).map((p) => (p.keep ? <span class="nowrap">{p.t}</span> : p.t))}</span>
+      </li>
+    ))}
+  </ul>
+  {source && <p class="stats__source">{source}</p>}
+</div>
+<style>
+  .stats__list { display: grid; grid-template-columns: minmax(0, 1fr); list-style: none; padding: 0; margin: 0; }
+  .stats__item { display: flex; flex-direction: column; gap: var(--s-3); padding-block: var(--s-5); border-top: 1px solid var(--rule); }
+  .stats__item:last-child { border-bottom: 1px solid var(--rule); }
+  .stats__value { color: var(--figure); }
+  .stats__label { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); max-width: 26ch; text-wrap: pretty; }
+  .stats__source { margin-top: var(--s-5); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
+  /* 4 items on a phone: 2 × 2 */
+  @media (max-width: 899px) {
+    .stats--4 .stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats--4 .stats__item { padding-block: var(--s-5) var(--s-6); }
+    .stats--4 .stats__item:nth-child(odd) { padding-right: var(--s-4); }
+    .stats--4 .stats__item:nth-child(even) { padding-left: var(--s-4); border-left: 1px solid var(--rule); }
+    .stats--4 .stats__item:nth-last-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+  }
+
+  /* Desktop: one row, vertical dividers, no horizontal rules */
+  @media (min-width: 900px) {
+    .stats__list { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); }
+    .stats--3 .stats__list { --n: 3; }
+    .stats__item, .stats__item:last-child { border: 0; padding: var(--s-2) var(--s-6) var(--s-2); gap: var(--s-4); }
+    .stats__item + .stats__item { border-left: 1px solid var(--rule); }
+    .stats__item:first-child { padding-left: 0; }
+    .stats__item:last-child { padding-right: 0; }
+    .stats__source { margin-top: var(--s-6); }
+  }
+</style>

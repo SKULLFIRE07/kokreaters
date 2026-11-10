@@ -1,0 +1,1020 @@
+{
+ "slug": "rb-home",
+ "viewport": "mobile",
+ "url": "https://www.rolandberger.com/en/",
+ "status": 200,
+ "cookie": "button[data-testid=\"uc-accept-all-button\"]",
+ "titleSeen": "Global consulting | Roland Berger",
+ "bodyTextStart": "Expertise Insights About Locations Join Newsroom Think:Act Magazine Alumni Contact Us Newsletter EN DE Jobs OUR CONSULTING APPROACH Insights to drive real business outcomes STUDY Automotive Industry – Mobility in Motion STUDY Future of health 8: Resilience of healthcare systems STUDY The 2040 techn",
+ "m": {
+  "url": "https://www.rolandberger.com/en/",
+  "title": "Global consulting | Roland Berger",
+  "vw": 390,
+  "vh": 844,
+  "pageHeight": 5007,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "RBDesign Light",
+   "size": "18px",
+   "lh": "28px",
+   "color": "rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "Insights to drive real business outcomes",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 24,
+    "lh": "34px",
+    "ls": "0.3px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   },
+   {
+    "tag": "h2",
+    "text": "Automotive Industry – Mobility in Motion",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 24,
+    "lh": "30px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 337
+   },
+   {
+    "tag": "h2",
+    "text": "Future of health 8: Resilience of healthcare systems",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   },
+   {
+    "tag": "h2",
+    "text": "The 2040 technology game plan",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   },
+   {
+    "tag": "h2",
+    "text": "Advanced Technology Insights: Physical AI and Humanoid Robots",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   },
+   {
+    "tag": "h2",
+    "text": "Europe. All in.",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   },
+   {
+    "tag": "h2",
+    "text": "Becoming artificial",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   },
+   {
+    "tag": "h2",
+    "text": "Why Roland Berger",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 230
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [],
+  "pSamples": [],
+  "typeHist": [
+   [
+    "sans:RBDesign Medium|14px|w400|lh20px|lsnormal|none",
+    202
+   ],
+   [
+    "sans:RBDesign Bold|22px|w400|lh30px|ls0.37px|none",
+    116
+   ],
+   [
+    "sans:Arnhem Bold Italic|15px|w400|lh28px|ls0.17px|none",
+    97
+   ],
+   [
+    "sans:RBDesign Regular|14px|w400|lh22px|lsnormal|none",
+    92
+   ],
+   [
+    "sans:RBDesign Bold|12px|w400|lh16px|ls0.72px|uppercase",
+    58
+   ],
+   [
+    "sans:RBDesign Regular|10px|w400|lh16px|lsnormal|none",
+    57
+   ],
+   [
+    "sans:RBDesign Medium|18px|w400|lh35px|lsnormal|none",
+    56
+   ],
+   [
+    "sans:RBDesign Bold|12px|w400|lh16px|ls1px|uppercase",
+    51
+   ],
+   [
+    "sans:RBDesign Regular|17px|w400|lh22px|lsnormal|none",
+    42
+   ],
+   [
+    "sans:RBDesign Regular|13px|w400|lh21px|lsnormal|none",
+    41
+   ],
+   [
+    "sans:RBDesign Bold|24px|w400|lh34px|ls0.3px|none",
+    40
+   ],
+   [
+    "sans:RBDesign Medium|24px|w400|lh30px|lsnormal|none",
+    40
+   ],
+   [
+    "sans:RBDesign Bold|14px|w700|lh20px|ls2.35px|uppercase",
+    38
+   ],
+   [
+    "sans:RBDesign Medium|22px|w400|lh45px|lsnormal|none",
+    35
+   ],
+   [
+    "sans:RBDesign Bold|22px|w400|lh25px|ls0.4px|none",
+    26
+   ],
+   [
+    "sans:RBDesign Bold|14px|w400|lh22px|lsnormal|none",
+    18
+   ],
+   [
+    "sans:RBDesign Bold|13px|w400|lh21px|lsnormal|none",
+    13
+   ],
+   [
+    "sans:RBDesign Bold|10px|w400|lh20px|ls1px|uppercase",
+    13
+   ],
+   [
+    "sans:RBDesign Bold|14px|w400|lh22px|ls0.4px|none",
+    12
+   ],
+   [
+    "sans:RBDesign Bold|32px|w400|lh40px|lsnormal|none",
+    10
+   ],
+   [
+    "sans:RBDesign Regular|14px|w700|lh22px|lsnormal|none",
+    5
+   ],
+   [
+    "sans:RBDesign Medium|16px|w400|lh21px|lsnormal|none",
+    4
+   ]
+  ],
+  "labels": [
+   [
+    "RBDesign Bold|12px|w400|ls1px|uppercase|rgb(0, 0, 0)",
+    {
+     "n": 6,
+     "ex": [
+      "STUDY",
+      "STUDY",
+      "STUDY"
+     ]
+    }
+   ],
+   [
+    "RBDesign Medium|14px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 5,
+     "ex": [
+      "The 2040 technology game plan",
+      "Europe. All in.",
+      "Becoming artificial"
+     ]
+    }
+   ],
+   [
+    "RBDesign Bold|12px|w400|ls0.72px|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 4,
+     "ex": [
+      "OUR CONSULTING APPROACH",
+      "ALL EXPERTS",
+      "VIEW FULL PROFILE"
+     ]
+    }
+   ],
+   [
+    "RBDesign Regular|13px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 2,
+     "ex": [
+      "Principal",
+      "Frankfurt Office, Central Euro"
+     ]
+    }
+   ],
+   [
+    "RBDesign Bold|13px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "Carina Lainer"
+     ]
+    }
+   ],
+   [
+    "RBDesign Regular|14px|w700|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "Start"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 60,
+   "pos": "fixed",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(0, 0, 0)",
+   "boxShadow": "none",
+   "cls": "m-header ng-scope is-fixed"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 20,
+    "h": 47
+   },
+   {
+    "t": "Newsroom",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Think:Act Magazine",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Alumni",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Contact Us",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Newsletter",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "EN",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 23,
+    "h": 35
+   },
+   {
+    "t": "DE",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(160, 160, 160)",
+    "x": 58,
+    "h": 35
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(255, 255, 255)",
+    "x": 280,
+    "h": 60
+   },
+   {
+    "t": "Jobs",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 307,
+    "h": 28
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(255, 255, 255)",
+    "x": 348,
+    "h": 24
+   }
+  ],
+  "logo": {
+   "w": 0,
+   "h": 0,
+   "x": 0,
+   "y": 0
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "20",
+    7
+   ],
+   [
+    "26",
+    1
+   ],
+   [
+    "80",
+    1
+   ],
+   [
+    "87",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "140",
+    7
+   ],
+   [
+    "26",
+    1
+   ],
+   [
+    "32",
+    1
+   ],
+   [
+    "40",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "section",
+    "cls": "m-stage-overview new-overview   desktop tablet",
+    "top": 60,
+    "h": 100,
+    "bg": "rgb(21, 108, 156)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "",
+    "headingOffset": 40,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 160,
+    "h": 153,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Insights to drive real business outcomes",
+    "headingOffset": 55,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-grid m-load-more",
+    "top": 313,
+    "h": 1366,
+    "bg": "rgb(255, 255, 255)",
+    "pt": 1,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Automotive Industry – Mobility in Motion",
+    "headingOffset": 301,
+    "imgs": 12
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 1679,
+    "h": 172,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-flag-join",
+    "top": 1851,
+    "h": 104,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 10,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 1955,
+    "h": 144,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-expert",
+    "top": 2099,
+    "h": 607,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 26.3906,
+    "pb": 75,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 3
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 2706,
+    "h": 144,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-jobs m-grid",
+    "top": 2850,
+    "h": 525,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 1,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Why Roland Berger",
+    "headingOffset": 122,
+    "imgs": 6
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 3375,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 3471,
+    "h": 144,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 3615,
+    "h": 69,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 1
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 3685,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-contact-box is-turquoise",
+    "top": 3781,
+    "h": 224,
+    "bg": "rgb(209, 252, 222)",
+    "pt": 40,
+    "pb": 70,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Contact us",
+    "headingOffset": 40,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 4005,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-breadcrumb",
+    "top": 4101,
+    "h": 102,
+    "bg": "rgb(250, 250, 250)",
+    "pt": 40,
+    "pb": 40,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   }
+  ],
+  "buttons": [
+   [
+    "h48|r0px|p0px 20px|12px|w400|none|ls0.72px|bgrgb(0, 0, 0)|crgb(255, 255, 255)|bd0px rgb(255, 255, 255)",
+    {
+     "n": 4,
+     "ex": [
+      "OUR CONSULTING APPROACH",
+      "ALL EXPERTS",
+      "VIEW FULL PROFILE"
+     ]
+    }
+   ],
+   [
+    "h28|r0px|p0px 8px|18px|w400|none|lsnormal|bgrgb(255, 53, 50)|crgb(0, 0, 238)|bd0px rgb(0, 0, 238)",
+    {
+     "n": 1,
+     "ex": [
+      "Jobs"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Newsroom",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Think:Act Magazine",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Alumni",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Contact Us",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Newsletter",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Jobs",
+    "family": "RBDesign Light",
+    "cat": "sans",
+    "size": 18,
+    "lh": "28px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 238)",
+    "maxW": 66
+   }
+  ],
+  "dividers": [
+   [
+    "Bottom|1px|rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Top|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Bottom|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Left|1px|rgb(0, 0, 0)",
+    1
+   ]
+  ],
+  "cards": [
+   {
+    "w": 390,
+    "h": 411,
+    "imgW": 0,
+    "imgH": 0,
+    "ratio": 0,
+    "imgFilter": "none",
+    "title": "Automotive Industry – Mobility in Motion",
+    "titleSize": "24px",
+    "titleLh": "30px",
+    "titleW": "400",
+    "titleFam": "RBDesign Medium",
+    "titleGapFromImg": 300,
+    "label": {
+     "t": "STUDY",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "1px",
+     "color": "rgb(0, 0, 0)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 160,
+    "imgW": 100,
+    "imgH": 24,
+    "ratio": 4.17,
+    "imgFilter": "none",
+    "title": "Future of health 8: Resilience of healthcare systems",
+    "titleSize": "14px",
+    "titleLh": "20px",
+    "titleW": "400",
+    "titleFam": "RBDesign Medium",
+    "titleGapFromImg": 31,
+    "label": {
+     "t": "STUDY",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "1px",
+     "color": "rgb(0, 0, 0)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 160,
+    "imgW": 163,
+    "imgH": 24,
+    "ratio": 6.79,
+    "imgFilter": "none",
+    "title": "Why Roland Berger",
+    "titleSize": "14px",
+    "titleLh": "20px",
+    "titleW": "400",
+    "titleFam": "RBDesign Medium",
+    "titleGapFromImg": 51,
+    "label": null,
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   },
+   {
+    "w": 390,
+    "h": 160,
+    "imgW": 390,
+    "imgH": 24,
+    "ratio": 16.25,
+    "imgFilter": "none",
+    "title": "Search for jobs",
+    "titleSize": "14px",
+    "titleLh": "20px",
+    "titleW": "400",
+    "titleFam": "RBDesign Medium",
+    "titleGapFromImg": -3227,
+    "label": null,
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 804,
+   "bg": "rgb(240, 240, 240)",
+   "color": "rgb(0, 0, 0)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 12,
+   "linkSize": "14px",
+   "linkColor": "rgb(0, 0, 0)",
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    "1442k px2"
+   ],
+   [
+    "rgb(255, 255, 255)",
+    "1079k px2"
+   ],
+   [
+    "rgb(209, 252, 222)",
+    "175k px2"
+   ],
+   [
+    "rgb(0, 0, 0)",
+    "67k px2"
+   ],
+   [
+    "rgb(250, 250, 250)",
+    "40k px2"
+   ],
+   [
+    "rgb(21, 108, 156)",
+    "39k px2"
+   ],
+   [
+    "rgb(255, 53, 50)",
+    "35k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(0, 0, 0)",
+    868
+   ],
+   [
+    "rgb(255, 255, 255)",
+    88
+   ],
+   [
+    "rgb(160, 160, 160)",
+    72
+   ],
+   [
+    "rgb(141, 147, 153)",
+    38
+   ]
+  ],
+  "fontsLoaded": [
+   "RBDesign Regular normal",
+   "RBDesign Bold normal",
+   "RBDesign Medium normal",
+   "RBDesign Light normal",
+   "Arnhem Bold Italic normal"
+  ],
+  "navText": [
+   "Newsroom",
+   "Think:Act Magazine",
+   "Alumni",
+   "Contact Us",
+   "Newsletter",
+   "EN",
+   "DE"
+  ],
+  "imgRatios": [
+   [
+    "1.63",
+    2
+   ],
+   [
+    "2.22",
+    1
+   ],
+   [
+    "1.84",
+    1
+   ],
+   [
+    "1.00",
+    1
+   ],
+   [
+    "1.52",
+    1
+   ],
+   [
+    "2.50",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 60,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgba(0, 0, 0, 0)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": "m-header ng-scope is-fixed",
+    "h": 60,
+    "bg": "rgba(0, 0, 0, 0)",
+    "shadow": "none"
+   }
+  ]
+ },
+ "menuButton": null,
+ "menuItems": [
+  {
+   "t": "",
+   "size": "18px",
+   "w": "400",
+   "h": 24
+  }
+ ]
+}

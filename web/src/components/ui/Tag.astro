@@ -1,0 +1,30 @@
+---
+/**
+ * Tag (REDESIGN-V3 §3): 1px --rule border, radius 2px, Inter 13–14px. A link when `href` (hover: border → accent,
+ * text → --link). Never a pill. Mobile: same; tags wrap in their row (use a .cluster parent).
+ * A linked tag keeps its 32px (sm 26px) look but gets an invisible 44px-tall hit area (centred ::after), so a
+ * stack of tags with the .cluster 12px row gap meets the §7 tap target without overlapping hit areas.
+ */
+interface Props {
+  href?: string;
+  size?: 'sm' | 'md';
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, size = 'md', class: cls, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+<Tag href={href} class:list={['tag', `tag--${size}`, href && 'tag--link', cls]} {...rest}><slot /></Tag>
+<style>
+  .tag {
+    display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px;
+    border: 1px solid var(--rule); border-radius: var(--r-sm);
+    font-family: var(--font-sans); font-size: .875rem; font-weight: 500; line-height: 1.3; color: var(--fg);
+    text-decoration: none; background: transparent;
+  }
+  .tag--sm { min-height: 26px; padding: 2px 8px; font-size: .8125rem; color: var(--fg-2); }
+  .tag--link { position: relative; transition: border-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out); }
+  .tag--link::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: max(100%, 44px); transform: translateY(-50%); }
+  .tag--link:hover { border-color: var(--accent); color: var(--link); }
+  :global(.band--navy) .tag { border-color: rgba(255, 255, 255, .28); }
+</style>

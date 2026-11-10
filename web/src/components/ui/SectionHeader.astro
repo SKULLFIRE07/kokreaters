@@ -1,0 +1,49 @@
+---
+/**
+ * Section header (REDESIGN-V3 §3, §8.2): eyebrow → 16px → serif title → 20px → lead; 48px below the block.
+ * Optional "View all →" link: right-aligned on the title's last line at ≥ 900px; below the lead on mobile.
+ * `level` 2 (h2, --fs-h2) or 3 (h3, --fs-h3). Slot "lead" replaces the `lead` string when richer markup is needed.
+ * Mobile: one column, left (or centred) aligned; link sits under the lead with a 16px gap.
+ */
+import Eyebrow from './Eyebrow.astro';
+import ArrowLink from './ArrowLink.astro';
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  level?: 2 | 3;
+  id?: string;
+  align?: 'left' | 'center';
+  link?: { label: string; href: string };
+  class?: string;
+}
+const { eyebrow, title, lead, level = 2, id, align = 'left', link, class: cls } = Astro.props;
+const H = level === 3 ? 'h3' : 'h2';
+const hasLead = !!lead || Astro.slots.has('lead');
+---
+<header class:list={['sh', `sh--${align}`, link && 'sh--linked', cls]} data-reveal>
+  <div class="sh__text">
+    {eyebrow && <Eyebrow class="sh__eyebrow">{eyebrow}</Eyebrow>}
+    <H id={id} class:list={['sh__title', level === 3 ? 't-h3' : 't-h2']}>{title}</H>
+    {hasLead && (
+      <div class="sh__lead t-lead">{Astro.slots.has('lead') ? <slot name="lead" /> : <p>{lead}</p>}</div>
+    )}
+  </div>
+  {link && <ArrowLink href={link.href} class="sh__link">{link.label}</ArrowLink>}
+</header>
+<style>
+  .sh { display: grid; gap: var(--s-4); margin-bottom: var(--s-7); }
+  .sh__eyebrow { margin-bottom: var(--s-4); }
+  .sh__title { max-width: 28ch; }
+  .sh__title.t-h3 { max-width: 40ch; }
+  .sh__lead { margin-top: 20px; color: var(--fg); }
+  .sh__lead :global(p + p) { margin-top: .75em; }
+  .sh__link { justify-self: start; margin-block: -11px; }
+  .sh--center { justify-items: center; text-align: center; }
+  .sh--center .sh__link { justify-self: center; }
+  .sh--center .sh__title, .sh--center .sh__lead { margin-inline: auto; }
+  @media (min-width: 900px) {
+    .sh--left.sh--linked { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s-7); }
+    .sh--left .sh__link { justify-self: end; margin-bottom: -17px; }
+  }
+</style>

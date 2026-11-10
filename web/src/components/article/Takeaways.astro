@@ -1,24 +1,34 @@
 ---
-/** Key takeaways (DESIGN-SPEC v2 10.9): a Butter SpecLabel titled "Key takeaways", one numbered row per item with a
- * hand tick, plus N2 "the short version". */
-import SpecLabel from '@/components/notes/SpecLabel.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
+/**
+ * Key takeaways (REDESIGN-V3 §4 article). MDX: <Takeaways items={[…]} /> placed at the top of the body, so it is the
+ * first thing under the hero image. A grey panel (role tokens of .band--grey) with a 2px navy top rule, a serif h2
+ * "Key takeaways" and the points as the foundation NumberedList ("01" accent numerals, hairlines).
+ * Mobile (< 600px): the panel bleeds to the screen edges, its text aligned with the column (20px gutter), so each point
+ * keeps a readable line; NumberedList density="tight" (16px rows, 40px numerals) keeps the panel short.
+ */
+import NumberedList from '@/components/ui/NumberedList.astro';
 import { microcopy } from '@/data/microcopy';
-import { journalNotes } from '@/data/notes/journal';
 interface Props { items: string[]; }
 const { items } = Astro.props;
-const rows = items.map((v, i) => ({ k: String(i + 1).padStart(2, '0'), v: [v] }));
 ---
-<aside class="takeaways has-notes" aria-labelledby="takeaways-t" data-reveal>
-  <MarginNote text={journalNotes.article.short} tone="berry" rotate={6} arrow="arrow-curve" arrowAt="below" arrowAngle={150} place="right:-12px;top:-58px;" show="md" />
-  <SpecLabel title={microcopy.keyTakeaways} id="takeaways" rows={rows} ground="butter" headingLevel={2} rotate={-1} />
+<aside class="takeaways band--grey" aria-labelledby="takeaways-t">
+  <h2 id="takeaways-t" class="takeaways__title">{microcopy.keyTakeaways}</h2>
+  <NumberedList items={items} density="tight" class="takeaways__list" />
 </aside>
 <style>
-  .takeaways { position: relative; margin-block: var(--s-9) 0; }
-  .takeaways :global(.spec) { max-width: none; padding: 24px 28px 22px; box-shadow: var(--shadow-hard); }
-  .takeaways :global(.spec__title) { margin: 0 !important; font-size: clamp(2.25rem, 1.5rem + 2.4vw, 3.5rem) !important; line-height: .95 !important; }
-  .takeaways :global(.spec__title::before) { content: none !important; }
-  .takeaways :global(.spec__row) { grid-template-columns: 40px minmax(0, 1fr) !important; padding-block: 12px; }
-  .takeaways :global(.spec__row dd) { font-size: 15px; line-height: 1.55; }
-  .takeaways :global(.spec__list li) { margin: 0 !important; }
+  .takeaways {
+    background: var(--bg); color: var(--fg);
+    border-top: 2px solid var(--rule-strong);
+    padding: var(--s-5) var(--s-5) var(--s-3);
+  }
+  .takeaways__title {
+    margin: 0 0 var(--s-4);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 560; letter-spacing: 0; color: var(--head);
+  }
+  /* phones: the panel runs to the screen edges (text aligned with the column), so the points get the full measure */
+  @media (max-width: 599px) {
+    .takeaways { margin-inline: calc(-1 * var(--gutter-x)); padding-inline: var(--gutter-x); }
+  }
+  @media (min-width: 600px) { .takeaways { padding: var(--s-6) var(--s-6) var(--s-4); } }
 </style>

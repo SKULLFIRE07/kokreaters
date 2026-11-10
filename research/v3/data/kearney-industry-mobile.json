@@ -1,0 +1,374 @@
+{
+ "slug": "kearney-industry",
+ "viewport": "mobile",
+ "url": "https://www.kearney.com/industry",
+ "status": 200,
+ "cookie": null,
+ "titleSeen": "Your Industry | Kearney",
+ "bodyTextStart": "Skip to main content Skip to menu Skip to footer Open Accessibility Menu This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising. To learn more, view the following link: Cookie Policy Your indus",
+ "m": {
+  "url": "https://www.kearney.com/industry",
+  "title": "Your Industry | Kearney",
+  "vw": 390,
+  "vh": 844,
+  "pageHeight": 1809,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "Graphik Web",
+   "size": "16px",
+   "lh": "24px",
+   "color": "rgb(30, 30, 30)",
+   "bg": "rgb(245, 245, 245)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Your industry",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 36,
+    "lh": "40px",
+    "ls": "normal",
+    "weight": "600",
+    "tt": "none",
+    "color": "rgb(30, 30, 30)",
+    "maxW": 350
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "While we’re hardly shy about tackling any business problem faced by any company,",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 16,
+    "lh": "26px",
+    "ls": "normal",
+    "weight": "100",
+    "tt": "none",
+    "color": "rgb(30, 30, 30)",
+    "maxW": 350
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [],
+  "pSamples": [],
+  "typeHist": [
+   [
+    "sans:Graphik Web|24px|w400|lh30px|lsnormal|none",
+    240
+   ],
+   [
+    "sans:Helvetica|16px|w400|lh20px|lsnormal|none",
+    212
+   ],
+   [
+    "sans:Graphik Web|16px|w100|lh26px|lsnormal|none",
+    203
+   ],
+   [
+    "sans:Graphik Web|14px|w400|lh15px|lsnormal|none",
+    73
+   ],
+   [
+    "sans:EQ-Nunito Sans|15px|w500|lh22.5px|lsnormal|none",
+    69
+   ],
+   [
+    "sans:Graphik Web|14px|w400|lh18px|lsnormal|none",
+    62
+   ],
+   [
+    "sans:Graphik Web|22px|w400|lh33px|lsnormal|none",
+    47
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh18px|lsnormal|none",
+    42
+   ],
+   [
+    "sans:Graphik Web|36px|w600|lh40px|lsnormal|none",
+    13
+   ],
+   [
+    "sans:Graphik Web|16px|w400|lh38px|lsnormal|none",
+    7
+   ]
+  ],
+  "labels": [
+   [
+    "Graphik Web|14px|w400|lsnormal|none|rgb(204, 204, 204)",
+    {
+     "n": 6,
+     "ex": [
+      "Site map",
+      "Privacy policy",
+      "Legal disclaimer"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 0,
+   "pos": "fixed",
+   "bg": "rgb(255, 255, 255)",
+   "borderBottom": "0px none rgb(30, 30, 30)",
+   "boxShadow": "none",
+   "cls": "headerTopCorner"
+  },
+  "headerLinks": [],
+  "logo": {
+   "w": 0,
+   "h": 0,
+   "x": 0,
+   "y": 0
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "20",
+    2
+   ]
+  ],
+  "rightEdges": [
+   [
+    "20",
+    2
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "div",
+    "cls": "flipped",
+    "top": 0,
+    "h": 1809,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Your industry",
+    "headingOffset": 90,
+    "imgs": 36
+   }
+  ],
+  "buttons": [
+   [
+    "h54|r16px|p13px 25px|15px|w500|none|lsnormal|bgrgb(255, 255, 255)|crgb(0, 10, 20)|bd2px rgb(0, 10, 20)",
+    {
+     "n": 4,
+     "ex": [
+      "Skip to main content",
+      "Skip to menu",
+      "Skip to footer"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Skip to main content",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Skip to menu",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Skip to footer",
+    "family": "Graphik Web",
+    "cat": "sans",
+    "size": 15,
+    "lh": "22.5px",
+    "ls": "normal",
+    "weight": "500",
+    "tt": "none",
+    "color": "rgb(0, 10, 20)",
+    "maxW": 320
+   },
+   {
+    "tag": "a",
+    "text": "Cookie Policy",
+    "family": "Helvetica",
+    "cat": "sans",
+    "size": 16,
+    "lh": "20px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(172, 172, 172)",
+    "maxW": 97
+   }
+  ],
+  "dividers": [
+   [
+    "Top|2px|rgb(0, 10, 20)",
+    4
+   ],
+   [
+    "Bottom|2px|rgb(0, 10, 20)",
+    4
+   ],
+   [
+    "Left|2px|rgb(0, 10, 20)",
+    4
+   ],
+   [
+    "Bottom|1px|rgb(219, 219, 219)",
+    1
+   ],
+   [
+    "Top|1px|rgb(204, 204, 204)",
+    1
+   ],
+   [
+    "hr|1px|rgb(204, 204, 204)|h1|bgrgba(0, 0, 0, 0)",
+    1
+   ],
+   [
+    "Top|2px|rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Bottom|2px|rgb(255, 255, 255)",
+    1
+   ]
+  ],
+  "cards": [],
+  "stats": [],
+  "footer": {
+   "h": 0,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(30, 30, 30)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 0,
+   "linkSize": null,
+   "linkColor": null,
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    "1068k px2"
+   ],
+   [
+    "rgb(30, 30, 30)",
+    "273k px2"
+   ],
+   [
+    "rgb(50, 50, 50)",
+    "80k px2"
+   ],
+   [
+    "rgb(120, 35, 220)",
+    "59k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(255, 255, 255)",
+    295
+   ],
+   [
+    "rgb(120, 35, 220)",
+    240
+   ],
+   [
+    "rgb(30, 30, 30)",
+    216
+   ],
+   [
+    "rgb(204, 204, 204)",
+    135
+   ],
+   [
+    "rgb(0, 10, 20)",
+    69
+   ],
+   [
+    "rgb(172, 172, 172)",
+    13
+   ]
+  ],
+  "fontsLoaded": [
+   "Graphik Web normal",
+   "Graphik Web 100",
+   "Graphik Web bold",
+   "Graphik Web 600"
+  ],
+  "navText": [],
+  "imgRatios": [
+   [
+    "4.96",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 0,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgb(255, 255, 255)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": " osano-cm-info__info-dialog-header osano-cm-info-dialog-head",
+    "h": 52,
+    "bg": "rgba(0, 0, 0, 0)",
+    "shadow": "none"
+   },
+   {
+    "cls": "headerTopCorner",
+    "h": 51,
+    "bg": "rgb(255, 255, 255)",
+    "shadow": "none"
+   }
+  ]
+ },
+ "menuButton": {
+  "label": "Open Accessibility Menu",
+  "w": 320,
+  "h": 54,
+  "x": 30
+ },
+ "menuItems": [
+  {
+   "t": "Cookie Policy",
+   "size": "16px",
+   "w": "400",
+   "h": 20
+  },
+  {
+   "t": "",
+   "size": "16px",
+   "w": "400",
+   "h": 33
+  }
+ ]
+}

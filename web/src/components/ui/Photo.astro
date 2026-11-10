@@ -1,0 +1,56 @@
+---
+/**
+ * Photo (REDESIGN-V3 §2, §3): astro:assets <Picture> → AVIF + WebP (+ original as <img> fallback), responsive widths,
+ * explicit `sizes`, cover crop inside a ratio box (no layout shift), `position` = object-position.
+ * `priority` (the LCP image only): loading eager + fetchpriority high + decoding sync. Everything else lazy + async.
+ * `fill`: the box fills its positioned parent instead of keeping a ratio (hero backgrounds, half-bleed media).
+ * Widths larger than the source are dropped (never upscale). The default ladder has an 800 step so a full-width phone
+ * image at DPR 1.75–2 (412 × 1.75, 390 × 2 ≈ 720–780px) gets 800w, not 960w. Radius 2px unless `fill`.
+ * Mobile: the ratio box spans its container; pass `sizes` that match the mobile column (usually 100vw minus gutters).
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+type Ratio = '21/9' | '16/9' | '3/2' | '4/3' | '1/1' | '4/5';
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  ratio?: Ratio;
+  sizes: string;
+  priority?: boolean;
+  widths?: number[];
+  position?: string;
+  fill?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+const { src, alt, ratio, sizes, priority = false, widths = [400, 640, 800, 960, 1280, 1600, 2000, 2560], position, fill = false, class: cls, ...rest } = Astro.props;
+const usable = widths.filter((w) => w <= src.width);
+const list = usable.length ? usable : [src.width];
+const loadAttrs = priority
+  ? { loading: 'eager' as const, fetchpriority: 'high' as const, decoding: 'sync' as const }
+  : { loading: 'lazy' as const, decoding: 'async' as const };
+---
+<div
+  class:list={['photo', fill ? 'photo--fill' : ratio && 'photo--ratio', cls]}
+  style={ratio && !fill ? `--ratio:${ratio}` : undefined}
+  {...rest}
+>
+  <Picture
+    src={src}
+    alt={alt}
+    formats={['avif', 'webp']}
+    widths={list}
+    sizes={sizes}
+    class="photo__img"
+    style={position ? `object-position:${position}` : undefined}
+    {...loadAttrs}
+  />
+</div>
+<style>
+  .photo { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); }
+  .photo--ratio { aspect-ratio: var(--ratio); }
+  .photo--fill { position: absolute; inset: 0; border-radius: 0; background: var(--navy-900); }
+  .photo :global(picture) { display: contents; }
+  .photo :global(.photo__img) { display: block; width: 100%; height: auto; }
+  .photo:is(.photo--ratio, .photo--fill) :global(.photo__img) { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+</style>

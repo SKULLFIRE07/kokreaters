@@ -1,21 +1,21 @@
 ---
-/** [CONFIRM] marker (v1 0.4, v2 7.7): staging only, a hazard-tape pill (Saffron/Ink 45° stripes) with Ink-on-Butter
- * text "CONFIRM n". Nothing in production. */
-import { isStaging } from '@/lib/mode';
+/**
+ * [CONFIRM] marker for open client questions (REDESIGN-V3 §3, §6). Renders ONLY when `showConfirm` (staging);
+ * nothing at all in preview or production. Quiet dashed-outline tag in --fg-2, Inter 11px caps, inline.
+ * Mobile: inline, wraps with the text it annotates.
+ */
+import { showConfirm } from '@/lib/mode';
 interface Props { id: number | string; note?: string; }
 const { id, note } = Astro.props;
 ---
-{isStaging && <span class="confirm" data-confirm-id={id}><span class="confirm__txt">CONFIRM {id}{note && `: ${note}`}</span></span>}
+{showConfirm && <span class="confirm" data-confirm-id={id}>CONFIRM {id}{note && `: ${note}`}</span>}
 <style>
   .confirm {
     display: inline-flex; align-items: center; vertical-align: middle;
-    margin-inline: 4px; padding: 3px; border-radius: var(--r-pill);
-    background: repeating-linear-gradient(45deg, var(--kk-saffron) 0 6px, var(--kk-ink) 6px 12px);
-    font-style: normal; text-transform: none; white-space: normal;
-  }
-  .confirm__txt {
-    display: inline-block; padding: 1px 8px; border-radius: var(--r-pill);
-    background: var(--kk-butter); color: var(--kk-ink);
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: .04em;
+    margin-inline: 4px; padding: 1px 6px;
+    border: 1px dashed currentColor; border-radius: var(--r-sm);
+    font-family: var(--font-sans); font-size: 11px; font-weight: 600; font-style: normal; line-height: 18px;
+    letter-spacing: .06em; text-transform: none; white-space: normal;
+    color: var(--fg-2);
   }
 </style>

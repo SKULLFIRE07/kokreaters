@@ -1,0 +1,136 @@
+---
+/**
+ * Home 4 · Featured insights (REDESIGN-V3 §4 Home 4). White band: SectionHeader from home.insights + "All insights".
+ * ≥ 900px: 12-column grid, the feature card (featuredInsight(): 3:2 photo, serif title, standfirst, meta) in columns
+ * 1–7; columns 8–12 hold the next visible insights as default cards (photo, label, title, meta; no standfirst, so the
+ * column balances the feature) and, in the slots no real insight fills (two in all), an "In preparation" list of
+ * coming-soon titles with their format labels (unlinked: coming-soon pieces have no route; titles in --fg-2 with a "Soon" tag, no arrow, so
+ * they never read as links).
+ * Photos: frontmatter image, else the slug's photo from research/v3/photos.md (./insight-photo.ts).
+ * Mobile (< 900px): feature card full width, then the side insights as compact rows (112px thumb; format label only,
+ *  so "POINT OF VIEW · PRODUCT" never wraps beside the thumb on a 360px phone), then the list.
+ * Modes: preview/staging list drafts (includeDrafts); the Draft badge is staging-only. With no visible insight
+ * (production today) the section is not rendered at all.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import InsightCard from '@/components/cards/InsightCard.astro';
+import Tag from '@/components/ui/Tag.astro';
+import { insightsHub } from '@/data/insights';
+import { insights as fold, homeLabels } from '@/data/home';
+import { footer } from '@/data/nav';
+import { microcopy, formatLabels } from '@/data/microcopy';
+import { pillars } from '@/data/pillars';
+import { showDraftLabels } from '@/lib/mode';
+import {
+  visibleInsights, featuredInsight, comingSoon, isDraft, formatLabel, insightReadingTime, insightHref, type Insight,
+} from '@/lib/insights';
+import { insightPhoto } from './insight-photo';
+import { keepCompounds } from './typo';
+
+const feature = await featuredInsight();
+const visible = await visibleInsights();
+const side = feature ? visible.filter((e) => e.id !== feature.id).slice(0, 2) : [];
+
+// The side column has two slots (§4: two cards stacked). Coming-soon titles fill only the slots no real insight takes,
+// so the column never outgrows the feature card (one card + two titles ran ~80px past it at 1440 and made the band
+// the tallest on Home; the full list lives on /insights). Formats not shown yet come first (so the band shows more
+// than one kind of piece), then collection order.
+const shown = new Set([feature, ...side].filter(Boolean).map((e) => (e as Insight).data.format));
+const soon = (await comingSoon())
+  .map((e, i) => ({ e, i }))
+  .sort((a, b) => Number(shown.has(a.e.data.format)) - Number(shown.has(b.e.data.format)) || a.i - b.i)
+  .map(({ e }) => e)
+  .slice(0, Math.max(0, 2 - side.length));
+
+const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)?.shortLabel;
+const card = (e: Insight) => {
+  const ph = insightPhoto(e);
+  return {
+    href: insightHref(e), title: e.data.title, label: formatLabel(e), pillarName: pillarLabel(e),
+    date: e.data.date, readTime: insightReadingTime(e),
+    image: ph?.src, imageAlt: ph?.alt, imagePosition: ph?.position,
+  };
+};
+---
+{feature && (
+  <Section ground="white" labelledby="insights-heading" class="hi">
+    <SectionHeader id="insights-heading" eyebrow={fold.overline} title={fold.headline} link={footer.insights.all} />
+    <div class="hi__grid">
+      <div class="hi__feature" data-reveal>
+        <InsightCard {...card(feature)} size="feature" summary={feature.data.standfirst || undefined}>
+          {showDraftLabels && isDraft(feature) && <span slot="badge"> · {homeLabels.draft}</span>}
+        </InsightCard>
+      </div>
+      <div class="hi__side">
+        {side.length > 0 && (
+          <ul class="hi__cards" role="list">
+            {side.map((e, i) => (
+              <li data-reveal style={`--i:${i + 1}`}>
+                <InsightCard {...card(e)} class="hi__wide">
+                  {showDraftLabels && isDraft(e) && <span slot="badge"> · {homeLabels.draft}</span>}
+                </InsightCard>
+                <InsightCard {...card(e)} pillarName={undefined} size="compact" class="hi__narrow">
+                  {showDraftLabels && isDraft(e) && <span slot="badge"> · {homeLabels.draft}</span>}
+                </InsightCard>
+              </li>
+            ))}
+          </ul>
+        )}
+        {soon.length > 0 && (
+          <div class="hi__soon" data-reveal style={`--i:${side.length + 1}`}>
+            <h3 class="hi__soon-title t-label">{microcopy.inPreparation}</h3>
+            <ul class="hi__soon-list" role="list">
+              {soon.map((e) => (
+                <li class="hi__soon-item">
+                  <p class="hi__soon-format">{formatLabels[e.data.format]}</p>
+                  <p class="hi__soon-name">{keepCompounds(e.data.title)}</p>
+                  <Tag size="sm" class="hi__soon-tag">{insightsHub.soonTag}</Tag>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  </Section>
+)}
+
+<style>
+  .hi__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
+  .hi__side { display: flex; flex-direction: column; gap: var(--s-7); min-width: 0; }
+  .hi__cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-6); }
+
+  /* one render per layout: default card from 900px, compact row below (display:none keeps the twin out of the a11y tree) */
+  .hi__cards :global(.hi__wide) { display: none; }
+
+  .hi__soon { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
+  .hi__soon-title { margin: 0; color: var(--fg-2); }
+  .hi__soon-list { list-style: none; margin: var(--s-2) 0 0; padding: 0; }
+  .hi__soon-item {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-4); padding-block: var(--s-4);
+  }
+  .hi__soon-item :global(.hi__soon-tag) { grid-area: 1 / 2; justify-self: end; }
+  .hi__soon-item + .hi__soon-item { border-top: 1px solid var(--rule); }
+  .hi__soon-format { grid-area: 1 / 1; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .hi__soon-name {
+    grid-column: 1 / -1; margin-top: var(--s-1);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 450; color: var(--fg-2); text-wrap: balance;
+  }
+
+  @media (max-width: 899px) {
+    .hi__cards { gap: var(--s-5); padding-top: var(--s-6); border-top: 1px solid var(--rule); }
+    .hi__side { gap: var(--s-6); }
+  }
+  @media (min-width: 900px) {
+    .hi__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: 0; }
+    .hi__feature { grid-column: 1 / span 7; }
+    .hi__side { grid-column: 9 / -1; }
+    .hi__cards :global(.hi__wide) { display: block; }
+    .hi__cards :global(.hi__narrow) { display: none; }
+  }
+  @media (min-width: 1200px) {
+    .hi__side { grid-column: 8 / -1; padding-left: var(--s-5); }
+  }
+</style>

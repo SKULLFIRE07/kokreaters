@@ -1,13 +1,17 @@
 /** Founder and About copy (DESIGN-SPEC 4.8; brief 6.7). CONFIRM 13 covers the dates and "founded in 2026". */
 import type { BioSidenote, TimelineItem } from './types';
 import { minus25 } from '@/lib/typography';
+import { places } from './places';
+
+/** U+00A0: binds a figure to its unit where a headline could break between them ("25 years"). */
+const NBSP = '\u00A0';
 
 export const founderName = 'Ganeaysh Kulkarni';
 export const founderRole = 'Founder';
 
 export const about = {
   overline: 'About',
-  headline: 'Built on 25 years of making ingredients work.',
+  headline: `Built on 25${NBSP}years of making ingredients work.`,
   intro: 'KoKreaters is the consultancy Ganeaysh Kulkarni wished he could call when he was running plants and R&D teams: someone who has done the work, understands the business and builds the answer with you.',
 };
 
@@ -37,9 +41,20 @@ export const timeline: TimelineItem[] = [   // CONFIRM 13
   { label: 'KoKreaters', years: '2026' },
 ];
 
+/**
+ * v3: one line per timeline stop, keyed by `timeline[].label`. Each line restates the bio and education above (no new
+ * facts); COMPOSED wording, covered by CONFIRM 13 with the dates.
+ */
+export const timelineRoles: Record<string, string> = {
+  'CFTRI Mysore': 'Postgraduate degree in Food Technology',
+  Wilmar: 'Technical Head Specialties to Technical Director',
+  Cargill: 'Technical, R&D and FSQR leadership; Global Product and Process Design Director, 2023–2026',
+  KoKreaters: 'Founder, based in the Netherlands',
+};
+
 /** The About globe fold (5.9.4). */
 export const globe = {
-  overline: 'The map',
+  /** Not rendered in v3: the About map heading is aboutPage.mapHeading, because the lead already names the countries. */
   headline: 'India, Indonesia, Ukraine, Türkiye and the Netherlands',
   lead: 'His career has taken him across India, Indonesia, Ukraine, Türkiye and the Netherlands, leading teams in the Americas, EMEA and Asia-Pacific.',
 };
@@ -51,9 +66,11 @@ export const name = {
   quote: 'In Ganeaysh’s words, the work has “co-creation and creativity at its soul, at a global level”.',
   tagline: 'The tagline in the logo spells out the method: Connect · Collaborate · Create.',
   lockupAlt: 'KoKreaters: Connect · Collaborate · Create',
+  /** The two halves of the name, set large on About (were hard-coded in the v2 NamePanel). */
+  koWord: 'Ko',
+  kreatersWord: 'Kreaters',
 };
 
-export const educationHeading = 'Education and languages';
 export const educationLabel = 'Education';
 export const languagesLabel = 'Languages';
 export const education: string[] = [
@@ -66,6 +83,41 @@ export const languages: string[] = ['English', 'Hindi', 'Marathi', 'Bahasa Indon
 
 /** CONFIRM 5: sectors are shown, never company names. The bio's own phrase, as a sentence. */
 export const workedWith = 'Working with global leaders in nutrition, food, personal care and pet food.';
+
+/** "eight", "five": counts in a heading read as words, not figures. */
+const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const inWords = (n: number) => NUMBER_WORDS[n] ?? String(n);
+const placeCount = inWords(places.length);
+const countryCount = inWords(new Set(places.map((p) => p.country)).size);
+
+/**
+ * v3 About page labels (COMPOSED, plain UI copy; research/v3 About brief). The story eyebrow reuses `founderRole`; the
+ * career heading is derived from the timeline; the map heading is counted from places.ts (the lead names the
+ * countries, so the heading no longer repeats them); the recognition column reuses impact.ts `tfa`.
+ */
+export const aboutPage = {
+  bioMore: 'Read the long version',
+  careerHeading: `From ${timeline[0].label} to ${timeline[timeline.length - 1].label}`,
+  mapHeading: `${placeCount.charAt(0).toUpperCase()}${placeCount.slice(1)} places in ${countryCount} countries`,
+  credentialsHeading: 'Education, languages and recognition',
+  recognitionLabel: 'Recognition',
+  linkedin: 'View LinkedIn profile',
+  profilePdf: 'Download one-page profile (PDF)',
+  /** The same button below 390px wide, where the full label would wrap "(PDF)" onto a second line. */
+  profilePdfShort: 'Download profile (PDF)',
+  /** Written by scripts/make-profile-pdf.mjs from this file; re-run it when the founder data changes. */
+  profilePdfHref: '/downloads/ganeaysh-kulkarni-profile.pdf',
+  /** Headings inside the PDF itself. */
+  pdf: {
+    title: 'Ganeaysh Kulkarni, founder of KoKreaters: one-page profile',
+    profile: 'Profile',
+    career: 'Career',
+    results: 'Selected results',
+    resultsNote: 'From his career at Wilmar and Cargill.',
+    expertise: 'Expertise',
+    contact: 'Contact',
+  },
+};
 
 export const portraitAlt = {
   founder: 'Ganeaysh Kulkarni, founder of KoKreaters',

@@ -1,0 +1,76 @@
+---
+/**
+ * Home 1 · Hero (REDESIGN-V3 §4 Home 1). PageHero lg on navy with the refinery-01 dusk photo behind the scrim (LCP,
+ * priority via PageHero). Eyebrow = the first clause of hero.overline only (the full overline wrapped to 2–3 lines);
+ * its second clause ("Food, feed and specialty ingredients") leads the quiet base row at the foot of the hero,
+ * followed by the base line and the five places, all from src/data/home.ts. H1 = hero.headline (never hard-coded).
+ * ≥ 1240px (where it fits on one line): the base row is pinned to the bottom of the hero across the full container
+ *  width (hairline on top), so the hero stays near its 620px floor: focus, then "Based in … · India · … ".
+ * < 1240px it sits in flow under the buttons as three short lines: focus / base line / places. The places are a
+ *  balanced inline row (no lone "the Netherlands" on a second line); a wrapped line never starts with a "·" (each
+ *  line's leading separator is clipped).
+ * Mobile (< 900px): PageHero puts the photo in a 220–380px band above the text on solid navy; buttons go full width
+ *  below 600px.
+ */
+import PageHero from '@/components/ui/PageHero.astro';
+import { hero } from '@/data/home';
+import { photos } from '@/data/photos';
+
+const [eyebrow, ...rest] = hero.overline.split(' · ');
+const focus = rest.join(' · ');
+const photo = photos['refinery-01'];
+---
+<PageHero
+  ground="navy"
+  size="lg"
+  titleId="hero-heading"
+  eyebrow={eyebrow}
+  title={hero.headline}
+  lead={hero.sub}
+  image={photo.src}
+  imageAlt={photo.alt}
+  imagePosition={photo.position}
+  actions={[
+    { label: hero.primary.label, href: hero.primary.href },
+    { label: hero.secondary.label, href: hero.secondary.href, variant: 'secondary' },
+  ]}
+>
+  <div class="hh-base">
+    {focus && <p class="hh-base__focus">{focus}</p>}
+    <p class="hh-base__where">
+      <span class="hh-base__line">{hero.footLeft}</span><span class="hh-base__clip"><span class="hh-base__places">{
+        hero.footRight.map((place) => <span class="hh-base__item">{place}</span>)
+      }</span></span>
+    </p>
+  </div>
+</PageHero>
+
+<style>
+  .hh-base {
+    --sep: 1.4em;
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+    font-size: var(--fs-small); line-height: var(--lh-small);
+  }
+  .hh-base__focus { color: var(--fg); font-weight: 500; }
+  .hh-base__where { margin-top: var(--s-1); color: var(--fg-2); }
+  .hh-base__line { display: block; }
+  /* the places: inline-blocks with a leading "·" in their padding; the clip hides the dot that starts a line */
+  .hh-base__clip { display: block; overflow: hidden; }
+  .hh-base__places { display: block; margin-left: calc(-1 * var(--sep)); text-wrap: balance; }
+  .hh-base__item { display: inline-block; position: relative; padding-left: var(--sep); white-space: nowrap; }
+  .hh-base__item::before {
+    content: "·"; content: "·" / "";   /* decorative; the plain value is the fallback where alt text is unsupported */
+    position: absolute; left: 0; width: var(--sep); text-align: center;
+  }
+
+  @media (min-width: 1240px) {
+    .hh-base {
+      position: absolute; left: var(--gutter-x); right: var(--gutter-x); bottom: var(--s-6);
+      display: flex; align-items: baseline; column-gap: var(--s-7);
+    }
+    .hh-base__where { margin-top: 0; flex: 1 1 0; min-width: 0; }
+    .hh-base__line, .hh-base__clip, .hh-base__places { display: inline; }
+    .hh-base__places { margin-left: 0; }
+  }
+</style>

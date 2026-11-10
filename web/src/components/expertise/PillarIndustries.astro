@@ -1,0 +1,66 @@
+---
+/**
+ * Related industries for one pillar (REDESIGN-V3 §4 detail 7), as a rail section: the industries whose `pillars`
+ * include this one (data/industries, mapping C-10), each a link to its card on /industries#<slug>. A hairline list,
+ * serif name with the arrow at the right; the whole row is the link. The page omits the section when the list is empty.
+ * ≥ 600px: two columns (rows keep their hairlines; an odd last item simply ends the left column).
+ * Mobile (< 600px): one column, 56px rows (≥ 44px tap targets), arrow at the right edge.
+ * Below 900px the list spans the full width and the pager's top hairline follows one band-padding later, so the last
+ * row drops its closing line there (two parallel full-width rules 48px apart read as a double rule); from 900px the list
+ * sits in the right-hand column and closes normally.
+ * Staging only: a Confirm (C-10) under the list, since the industry → pillar mapping is composed, not from the brief.
+ */
+import RailSection from './RailSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { showConfirm } from '@/lib/mode';
+import { pillarPage } from '@/data/pillars';
+import type { Industry } from '@/data/types';
+
+interface Props {
+  items: Industry[];
+  ground?: 'white' | 'grey';
+  rule?: boolean;
+}
+const { items, ground = 'white', rule = false } = Astro.props;
+---
+<RailSection id="industries-title" title={pillarPage.relatedIndustries} ground={ground} rule={rule}>
+  <ul class:list={['inds', items.length > 1 && 'inds--2']} role="list" data-reveal style="--i:1">
+    {items.map((i) => (
+      <li>
+        <a class="inds__link u-hover" href={`/industries#${i.slug}`}>
+          <span class="inds__name u-draw">{i.name}</span>
+          <Icon name="arrow-right" size={20} stroke={1.75} class="inds__arrow u-nudge" />
+        </a>
+      </li>
+    ))}
+  </ul>
+  {showConfirm && <p class="inds__confirm"><Confirm id="C-10" note="industry ↔ expertise mapping is composed" /></p>}
+</RailSection>
+<style>
+  .inds { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); }
+  .inds li { display: flex; border-bottom: 1px solid var(--rule); }   /* the link fills its grid row: a one-line name centres beside a two-line neighbour */
+  .inds li:first-child { border-top: 1px solid var(--rule); }
+  .inds__link {
+    flex: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+    min-height: 56px; padding-block: var(--s-3);
+    color: var(--head); text-decoration: none;
+  }
+  .inds__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 450; text-wrap: pretty; transition: color var(--d-1) var(--ease-out);
+  }
+  .inds__link:hover .inds__name { color: var(--link); }
+  .inds__confirm { margin-top: var(--s-4); }
+  .inds__link :global(.inds__arrow) { flex: none; color: var(--accent); }
+  @media (min-width: 600px) {
+    .inds--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .inds--2 li:nth-child(2) { border-top: 1px solid var(--rule); }
+  }
+  @media (max-width: 899px) {
+    .inds li:last-child { border-bottom-color: transparent; }
+  }
+  @media (min-width: 600px) and (max-width: 899px) {
+    .inds--2 li:nth-last-child(2):nth-child(odd) { border-bottom-color: transparent; }
+  }
+</style>

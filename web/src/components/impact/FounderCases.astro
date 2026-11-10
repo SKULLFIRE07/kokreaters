@@ -1,0 +1,39 @@
+---
+/**
+ * "From our founder’s career" (REDESIGN-V3 §4 Impact): SectionHeader (bare h2 partOne, no eyebrow per the inner-page rule; lead naming
+ * Wilmar and Cargill), then the four cases in data order (India, Indonesia, Ukraine, WHO), each a CaseStudy with its
+ * photo from research/v3/photos.md. Shown once (v2 showed them twice: stack + chapters).
+ * Desktop: cases 96px apart, each opened by a 2px navy rule. Mobile: 64px apart, same rule.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import CaseStudy from './CaseStudy.astro';
+import { founderResults, impactPage } from '@/data/impact';
+import { photos, type PhotoSlug } from '@/data/photos';
+import type { FounderResult } from '@/data/types';
+
+interface Props { ground?: 'white' | 'grey' }
+const { ground = 'white' } = Astro.props;
+
+/**
+ * Placement plan (photos.md, "Impact"): one photo per case, none repeated on the page, and none that is also a pillar
+ * hero (plant-01 = Process design, factory-01 = Capability): someone coming from /expertise must not see the same image
+ * twice. India (specialty fats) → the stainless coating pan; Indonesia (growth) → the team reviewing figures.
+ */
+const casePhoto: Record<FounderResult['id'], PhotoSlug> = {
+  india: 'chocolate-02',
+  indonesia: 'people-02',
+  ukraine: 'cold-01',
+  tfa: 'bakery-01',
+};
+---
+<Section ground={ground} labelledby="part-founder">
+  <SectionHeader id="part-founder" title={impactPage.partOne} lead={impactPage.partOneLead} />
+  <div class="cases">
+    {founderResults.map((r) => <CaseStudy result={r} photo={photos[casePhoto[r.id]]} />)}
+  </div>
+</Section>
+<style>
+  .cases { display: grid; gap: var(--s-8); }
+  @media (min-width: 900px) { .cases { gap: var(--s-9); margin-top: var(--s-5); } }
+</style>

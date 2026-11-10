@@ -1,4 +1,4 @@
-/* src/styles/reset.css: modern minimal reset */
+/* src/styles/reset.css — modern minimal reset (v3). */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -8,8 +8,11 @@ img, video { height: auto; }
 input, button, textarea, select { font: inherit; color: inherit; letter-spacing: inherit; }
 button { cursor: pointer; background: none; border: 0; padding: 0; }
 textarea { resize: vertical; }
-p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+p, h1, h2, h3, h4, h5, h6, li, dd, blockquote, figcaption { overflow-wrap: break-word; }
 ul[class], ol[class] { list-style: none; padding: 0; }
 table { border-collapse: collapse; border-spacing: 0; }
 fieldset { border: 0; padding: 0; min-width: 0; }
-abbr[title] { text-decoration: underline dotted; text-underline-offset: 0.15em; }
+summary { cursor: pointer; }
+summary::-webkit-details-marker { display: none; }
+abbr[title] { text-decoration: underline dotted 1px; text-underline-offset: .15em; }
+hr { border: 0; }

@@ -1,0 +1,15 @@
+---
+/**
+ * Container (REDESIGN-V3 §1.3, §3): 1200px content (default) · 760 narrow · 1440 wide, centred, side gutter 20 → 48px.
+ * Mobile: full width minus the 20px gutters.
+ */
+import type { HTMLTag } from 'astro/types';
+interface Props {
+  width?: 'default' | 'narrow' | 'wide';
+  as?: HTMLTag;
+  class?: string;
+  [key: string]: unknown;
+}
+const { width = 'default', as: Tag = 'div', class: cls, ...rest } = Astro.props;
+---
+<Tag class:list={['container', width !== 'default' && `container--${width}`, cls]} {...rest}><slot /></Tag>

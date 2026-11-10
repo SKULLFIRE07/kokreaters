@@ -1,70 +1,77 @@
-/* ───────────────────────────────────────────────────────────────────────────
-   motion.css · DESIGN-SPEC v2 8 (v1 6.4 gates kept)
-   Gating applies ONLY while html.motion is set and html.motion-failed is not.
-   With no JS, under reduced motion, or after the 3 s failure timer, every rule
-   below is inert and the server-rendered final state shows.
-   .is-revealed / .is-drawn are added by reveal.ts when a tween finishes.
-   Kit gates (data-note, data-note-draw, data-scribble, data-sticker) live in
-   components/notes/notes.css.
-   ─────────────────────────────────────────────────────────────────────────── */
+/* src/styles/motion.css — REDESIGN-V3 §1.5 "Apple-grade polish, McKinsey-grade restraint".
+   Few motions, each precise; nothing moves on its own; no libraries. Every rule that moves something lives inside
+   `prefers-reduced-motion: no-preference`, and every hidden start state also requires html.js (set by the head script)
+   and no html.motion-failed (the head script's safety timer), so content is always visible without JS.
+   Hooks: [data-reveal] (+ style="--i:n" stagger, .is-in added by src/scripts/site.ts) · [data-reveal="lines"] on a hero H1 ·
+   [data-settle] around media · details[data-smooth] · .u-draw / .u-nudge / .u-zoom hover primitives. */
 
-html.motion:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(.is-revealed) { opacity: 0; transform: translateY(28px); }
-html.motion:not(.motion-failed) :is([data-reveal="lines"], [data-rise]) { visibility: hidden; }   /* text-rise sets visible after split */
-html.motion:not(.motion-failed) [data-rule]:not(.is-drawn) { transform: scaleX(0); transform-origin: 0 50%; }
-html.motion:not(.motion-failed) [data-hero-hide] { opacity: 0; }
-
-/* Never gate the H1 or anything inside it (0.2.4). */
-html.motion h1:is([data-reveal], [data-rise]), html.motion h1 :is([data-reveal], [data-rise]) { opacity: 1; transform: none; visibility: visible; }
-
-/* SplitText line masks: keep descenders and scribbles from being clipped oddly */
-:is([data-reveal="lines"], [data-rise]) :is(.split-mask, [class*="-mask"]) { padding-bottom: 0.1em; margin-bottom: -0.1em; }
-
-/* ── data-frost: 1px Ice underline 3px below the baseline (v1 graft 8) ── */
-:where([data-frost]) { position: relative; display: inline-block; }
-:where([data-frost])::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
-  background: var(--kk-ice); transform-origin: 0 50%; pointer-events: none;
-}
-html.motion:not(.motion-failed) [data-frost].frost-ready:not(.is-frosted)::after { transform: scaleX(0); }
-html.motion:not(.motion-failed) [data-frost].is-frosted::after { transition: transform 900ms var(--ease-inout); }
-
-/* Counters never jitter while counting */
-[data-count] { font-variant-numeric: lining-nums tabular-nums; }
-
-/* Magnetic targets: GSAP writes x/y; keep them on their own layer only while hovered */
-[data-magnetic]:hover { will-change: transform; }
-
-/* ── Page transitions (7.9): cross-document View Transitions, CSS only ── */
 @media (prefers-reduced-motion: no-preference) {
+  /* 1 · Blur-fade reveal (Magic UI BlurFade, ported): once, at 15 % visible. Never on an h1. */
+  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(h1) {
+    transition:
+      opacity var(--d-4) var(--ease-out),
+      transform var(--d-4) var(--ease-out),
+      filter var(--d-4) var(--ease-out);
+    transition-delay: calc(min(var(--i, 0), 5) * 70ms);
+  }
+  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(h1):not(.is-in) {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+  }
+
+  /* 2 · Headline line reveal: on load, not on scroll. The H1 is painted at full opacity without JS or with reduced
+     motion; `backwards` holds the start state only during the 120 ms delay. */
+  html.js:not(.motion-failed) [data-reveal="lines"] {
+    animation: kk-rise 900ms var(--ease-out) 120ms backwards;
+  }
+
+  /* 3 · Image settle (Apple product-shot feel): scroll-driven, CSS only; unsupported browsers just show the image. */
+  @supports (animation-timeline: view()) {
+    [data-settle] :is(img, video) {
+      animation: kk-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+  }
+
+  /* 6 · Smooth accordion: height eases with ::details-content + interpolate-size (progressive; instant elsewhere). */
+  :root { interpolate-size: allow-keywords; }
+  @supports selector(::details-content) {
+    details[data-smooth]::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition: block-size var(--d-3) var(--ease-out), content-visibility var(--d-3) allow-discrete;
+    }
+    details[data-smooth][open]::details-content { block-size: auto; }
+  }
+
+  /* 7 · Hover primitives (transform parts; colour parts are outside this block) */
+  .u-nudge { transition: transform var(--d-2) var(--ease-out); }
+  :is(a, button, .u-hover):is(:hover, :focus-visible) .u-nudge { transform: translateX(4px); }
+  .u-zoom :is(img, video) { transition: transform 700ms var(--ease-out); }
+  .u-zoom:hover :is(img, video), .u-zoom:has(a:focus-visible) :is(img, video) { transform: scale(1.04); }
+
+  /* 8 · Page transitions: cross-document View Transitions, a 220 ms crossfade. The header carries its own
+     view-transition-name (chrome) so it stays put. */
   @view-transition { navigation: auto; }
-  ::view-transition-old(root) { animation: kk-vt-out var(--d-page) var(--ease-expo) both; }
-  ::view-transition-new(root) { animation: kk-vt-in var(--d-page) var(--ease-expo) both; }
-  ::view-transition-group(site-header), ::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; }
+  ::view-transition-group(root) { animation-duration: 220ms; animation-timing-function: var(--ease-out); }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
 }
-@keyframes kk-vt-out { to { opacity: 0; transform: translateY(-24px); } }
-@keyframes kk-vt-in { from { opacity: 0; transform: translateY(24px); } }
 
-/* ── Cursor follower (7.9): decorative, never hides the native cursor ── */
-.kk-cursor {
-  position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none;
-  width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
-  background: var(--kk-ink); color: var(--kk-white);
-  display: grid; place-items: center;
-  font: 600 22px/1 var(--font-hand);
-  transition: width var(--d-ui) var(--ease-expo), height var(--d-ui) var(--ease-expo), margin var(--d-ui) var(--ease-expo), background-color var(--d-ui), opacity var(--d-ui);
-  opacity: 0;
+@keyframes kk-rise {
+  from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
 }
-.kk-cursor.is-on { opacity: 1; }
-.kk-cursor.is-big { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--kk-saffron); color: var(--kk-ink); box-shadow: 0 0 0 2px var(--kk-ink); }
-.kk-cursor__label { opacity: 0; transition: opacity var(--d-fast); }
-.kk-cursor.is-big .kk-cursor__label { opacity: 1; }
-
-/* ── Paused (MotionToggle): CSS loops stop too ── */
-html.motion-paused [data-stamp-spin] .stamp__ring { animation-play-state: paused !important; }
-
-/* ── Reduced motion: final state, always ── */
-@media (prefers-reduced-motion: reduce) {
-  html [data-reveal], html [data-rule], html [data-hero-hide], html [data-rise] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
-  html [data-frost]::after { transform: none !important; transition: none !important; }
-  .kk-cursor { display: none !important; }
+@keyframes kk-settle {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
 }
+
+/* 7 · Underline that draws from the left (colour only, so it also runs under reduced motion with 0 ms tokens). */
+.u-draw {
+  text-decoration: none;
+  background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out);
+}
+.u-draw:is(:hover, :focus-visible), :is(a, button, .u-hover):is(:hover, :focus-visible) .u-draw { background-size: 100% 1px; }

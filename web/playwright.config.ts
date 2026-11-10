@@ -1,23 +1,28 @@
 /**
- * Playwright config (W3-tests, DESIGN-SPEC 9 + 10).
+ * Playwright config (v3, research/v3/infra.md §1.11).
  *
- * By default it serves the built site with `astro preview` on 127.0.0.1:4413 (4400 + unit index 13, so it never
- * collides with the 4321 dev server or the 4322 preview the orchestrator leaves running).
- *   KK_DIST=<dir>       test another build directory (default ./dist); `npm run build` must have run
- *   KK_PORT=<port>      preview port (default 4413)
- *   KK_BASE_URL=<url>   test an already-running server instead (no webServer is started)
- *   KK_SHOTS=0          skip writing screenshots to research/shots/build/
- * Browser: Playwright's bundled Chromium when it is downloaded, otherwise /usr/bin/google-chrome (channel 'chrome').
+ * Tests a BUILT site. Build first, in the mode you want to test (the Vercel review link is preview):
+ *   npm run build:preview && node scripts/csp-hash.mjs --dist-only && npx playwright test
+ * The webServer serves that dist with `astro preview` on 127.0.0.1:4330, away from the shared dev server (4321).
+ * Routes come from dist/**.html and the mode from dist/build-info.json, so nothing here lists pages.
+ *   KK_DIST=<dir>       test another build directory (default ./dist)
+ *   KK_PORT=<port>      preview port (default 4330)
+ *   KK_BASE_URL=<url>   test an already-running server (no webServer), e.g. the deployed preview link:
+ *                       KK_BASE_URL=https://kokreaters-vercel.vercel.app npx playwright test tests/smoke.spec.ts tests/review-marks.spec.ts
+ *   KK_SHOTS=1          write reduced-motion screenshots to research/v3/shots/tests/
+ * Projects: `chromium` (Desktop Chrome; viewports set per spec) runs everything except iphone.spec.ts; `iphone`
+ * (WebKit, iPhone 13) runs iphone.spec.ts. Browser: bundled Chromium, else /usr/bin/google-chrome.
  */
 import { defineConfig, devices, chromium } from '@playwright/test';
 import { existsSync } from 'node:fs';
 
-const PORT = Number(process.env.KK_PORT ?? 4413);
+const PORT = Number(process.env.KK_PORT ?? 4330);
 const BASE = process.env.KK_BASE_URL ?? `http://127.0.0.1:${PORT}`;
 const DIST = process.env.KK_DIST ?? 'dist';
 
 let bundled = false;
 try { bundled = existsSync(chromium.executablePath()); } catch { bundled = false; }
+const chrome = bundled ? {} : { channel: 'chrome' as const };
 
 export default defineConfig({
   testDir: './tests',
@@ -35,9 +40,11 @@ export default defineConfig({
     locale: 'en-GB',
     timezoneId: 'Europe/Amsterdam',
     trace: 'retain-on-failure',
-    ...(bundled ? {} : { channel: 'chrome' }),
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], ...(bundled ? {} : { channel: 'chrome' }) } }],
+  projects: [
+    { name: 'chromium', testIgnore: /iphone\.spec\.ts$/, use: { ...devices['Desktop Chrome'], ...chrome } },
+    { name: 'iphone', testMatch: /iphone\.spec\.ts$/, use: { ...devices['iPhone 13'] } },
+  ],
   webServer: process.env.KK_BASE_URL ? undefined : {
     command: `node node_modules/astro/bin/astro.mjs preview --host 127.0.0.1 --port ${PORT} --ignore-lock --outDir ${DIST}`,
     url: `${BASE}/robots.txt`,

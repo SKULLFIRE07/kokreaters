@@ -1,8 +1,10 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  /** 'staging' (default when unset) | 'production'. Read through src/lib/mode.ts. */
-  readonly PUBLIC_SITE_MODE?: 'staging' | 'production' | string;
+  /** 'staging' (default when unset) | 'preview' (Vercel review link) | 'production'. Read through src/lib/mode.ts. */
+  readonly PUBLIC_SITE_MODE?: 'staging' | 'preview' | 'production' | string;
+  /** '1' = indexable. Honoured only when PUBLIC_SITE_MODE=production (launch checklist item). */
+  readonly PUBLIC_INDEXABLE?: string;
   /** Form POST endpoint. Empty = mailto fallback. */
   readonly PUBLIC_FORM_ENDPOINT?: string;
   /** Newsletter endpoint. Empty = mailto:office@kokreaters.com?subject=Subscribe. */
@@ -17,9 +19,4 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
-}
-
-interface Window {
-  /** Set by src/scripts/motion/lenis.ts when smooth scroll is active; undefined under reduced motion. */
-  __lenis?: unknown;
 }

@@ -1,0 +1,108 @@
+---
+/**
+ * Newsletter sign-up (REDESIGN-V3 §3). A real <form>: optional heading + one line, a labelled email field and a
+ * Subscribe button on one 48px row, a honeypot, an aria-live status line and a privacy micro-line.
+ * Submit (site.ts, delegated on [data-newsletter]): validates, then POSTs JSON {email} to PUBLIC_NEWSLETTER_ENDPOINT
+ * with inline success / error; without an endpoint it opens mailto:office@kokreaters.com?subject=Subscribe&body=<email>
+ * (documented gap: provider to be chosen). Without JS the form posts natively (endpoint) or hands off to the mail app.
+ * Ground-aware through role tokens; `tone="dark"` = on navy (light outline field, white button).
+ * Mobile: the field and button stay on one row down to 360px; `compact` drops the description line.
+ */
+import Button from './Button.astro';
+import { newsletterForm as copy } from '@/data/nav';
+import { microcopy } from '@/data/microcopy';
+import { site } from '@/config/site';
+
+interface Props {
+  id: string;
+  tone?: 'light' | 'dark';
+  compact?: boolean;
+  heading?: string;
+  class?: string;
+}
+const { id, tone = 'light', compact = false, heading, class: cls } = Astro.props;
+const endpoint = site.newsletterEndpoint;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(copy.mailtoSubject)}`;
+---
+<form
+  id={id}
+  class:list={['nl', `nl--${tone}`, compact && 'nl--compact', cls]}
+  action={endpoint || mailto}
+  method="post"
+  enctype={endpoint ? undefined : 'text/plain'}
+  novalidate
+  data-newsletter
+  data-endpoint={endpoint || undefined}
+  data-mailto={site.email}
+  data-subject={copy.mailtoSubject}
+  data-msg-success={copy.success}
+  data-msg-error={microcopy.formError}
+  data-msg-invalid={copy.invalid}
+  data-msg-mailto={microcopy.mailtoSent}
+  aria-labelledby={heading ? `${id}-heading` : undefined}
+  aria-label={heading ? undefined : microcopy.newsletterButton}
+>
+  {heading && <p class="nl__heading" id={`${id}-heading`}>{heading}</p>}
+  {!compact && <p class="nl__lede">{microcopy.newsletter}</p>}
+  <div class="nl__row">
+    <label class="visually-hidden" for={`${id}-email`}>{microcopy.emailLabel}</label>
+    <input
+      class="nl__input"
+      id={`${id}-email`}
+      type="email"
+      name="email"
+      inputmode="email"
+      autocomplete="email"
+      autocapitalize="off"
+      spellcheck="false"
+      required
+      placeholder={copy.placeholder}
+      aria-describedby={`${id}-msg ${id}-note`}
+    />
+    <Button type="submit" class="nl__btn">{microcopy.newsletterButton}</Button>
+  </div>
+  <div class="nl__hp" aria-hidden="true">
+    <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" data-hp /></label>
+  </div>
+  <p class="nl__msg" id={`${id}-msg`} role="status" aria-live="polite" data-newsletter-msg></p>
+  <p class="nl__note" id={`${id}-note`}>{copy.note} <a href={copy.privacy.href}>{copy.privacy.label}</a>.</p>
+</form>
+
+<style>
+  .nl { --nl-field-bg: var(--field-bg, var(--white)); --nl-field-fg: var(--ink); --nl-field-border: var(--field-border, var(--grey-500)); width: 100%; max-width: 34rem; }
+  .nl--dark { --nl-field-bg: transparent; --nl-field-fg: var(--on-navy); --nl-field-border: rgb(255 255 255 / .55); }
+
+  .nl__heading {
+    margin: 0 0 var(--s-2);
+    font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
+    color: var(--label);
+  }
+  .nl__lede { margin: 0 0 var(--s-4); font: 400 var(--fs-small)/var(--lh-small) var(--font-sans); color: var(--fg-2); max-width: 44ch; text-wrap: balance; }
+  .nl__row { display: flex; align-items: stretch; gap: 0; }
+  .nl__input {
+    flex: 1 1 auto; width: 0; min-width: 0; height: 48px; margin: 0; padding: 0 var(--s-4);
+    border: 1px solid var(--nl-field-border); border-right: 0; border-radius: var(--r-sm) 0 0 var(--r-sm);
+    background: var(--nl-field-bg); color: var(--nl-field-fg);
+    font: 400 1rem/1 var(--font-sans);
+    transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out);
+  }
+  .nl__input::placeholder { color: var(--fg-2); opacity: 1; }
+  .nl__input:hover { border-color: var(--fg); }
+  .nl__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .nl__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 -2px 0 var(--danger); }
+  .nl--dark .nl__input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 -2px 0 #FFB4AB; }
+  .nl :global(.nl__btn) { flex: none; height: 48px; border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+
+  .nl__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .nl__msg { margin: 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); }
+  .nl__msg:not(:empty) { margin-top: var(--s-3); }
+  .nl__msg[data-state="error"] { color: var(--danger); }
+  .nl__msg[data-state="success"] { color: var(--success); }
+  .nl--dark .nl__msg[data-state="error"] { color: #FFB4AB; }
+  .nl--dark .nl__msg[data-state="success"] { color: var(--on-navy); }
+  .nl__note { margin: var(--s-3) 0 0; font: 400 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2); }
+  /* inline link in a sentence: vertical padding on an inline box widens the tap area to ~45px without moving a line */
+  .nl__note a { color: inherit; padding-block: 12px; }
+  .nl__note a:hover { color: var(--fg); }
+  .nl[aria-busy="true"] .nl__input { opacity: .6; }
+</style>

@@ -1,0 +1,45 @@
+---
+/**
+ * Accordion (REDESIGN-V3 §3, §1.5.6): native <details>/<summary>, so it works with no JS. Hairlines between rows,
+ * serif question, plus icon whose vertical stroke turns to make a minus when open. Height eases open via
+ * ::details-content + interpolate-size where supported (motion.css, details[data-smooth]); instant elsewhere.
+ * Mobile: full width; the summary is ≥ 56px tall; the icon stays top-right on wrapped questions.
+ */
+interface Props {
+  items: { q: string; a: string }[];
+  id?: string;
+  class?: string;
+}
+const { items, id = 'faq', class: cls } = Astro.props;
+---
+<div class:list={['acc', cls]} id={id}>
+  {items.map((it, i) => (
+    <details class="acc__item" data-smooth id={`${id}-${i + 1}`}>
+      <summary class="acc__q">
+        <span class="acc__qtext">{it.q}</span>
+        <svg class="acc__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M3 10h14" /><path class="acc__v" d="M10 3v14" />
+        </svg>
+      </summary>
+      <div class="acc__a"><p>{it.a}</p></div>
+    </details>
+  ))}
+</div>
+<style>
+  .acc { border-top: 1px solid var(--rule); }
+  .acc__item { border-bottom: 1px solid var(--rule); }
+  .acc__q {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-5);
+    min-height: 56px; padding-block: 20px; list-style: none;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head); text-wrap: balance;
+    transition: color var(--d-1) var(--ease-out);
+  }
+  .acc__q::-webkit-details-marker { display: none; }
+  .acc__q:hover { color: var(--link); }
+  .acc__q:focus-visible { outline-offset: 4px; }
+  .acc__icon { flex: none; margin-top: .2em; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; }
+  .acc__v { transform-origin: 10px 10px; transition: transform var(--d-2) var(--ease-out); }
+  .acc__item[open] .acc__v { transform: rotate(90deg); }
+  .acc__a { padding-bottom: var(--s-5); padding-right: calc(20px + var(--s-5)); color: var(--fg); max-width: calc(var(--measure) + 44px); }
+</style>

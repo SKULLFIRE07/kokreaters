@@ -1,0 +1,399 @@
+{
+ "navPos": [
+  {
+   "t": "Your industry",
+   "x": 604.9375,
+   "y": 40,
+   "w": 102,
+   "h": 24,
+   "vis": "visible"
+  },
+  {
+   "t": "Your needs",
+   "x": 729.9375,
+   "y": 40,
+   "w": 85,
+   "h": 24,
+   "vis": "visible"
+  },
+  {
+   "t": "Your industry",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": "visible"
+  },
+  {
+   "t": "Your needs",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": "visible"
+  },
+  {
+   "t": "Your industry",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": "visible"
+  },
+  {
+   "t": "Your industry",
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0,
+   "vis": "visible"
+  }
+ ],
+ "mega_Your industry": [
+  [
+   "Aerospace and Defense",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   464
+  ],
+  [
+   "Automotive",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   504
+  ],
+  [
+   "Consumer and Retail",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   544
+  ],
+  [
+   "Communications",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   584
+  ],
+  [
+   "Energy and Resources",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   624
+  ],
+  [
+   "Financial Services",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   664
+  ],
+  [
+   "Healthcare and Life Sciences",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   704
+  ],
+  [
+   "Industrial Goods and Services",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   464
+  ],
+  [
+   "Infrastructure",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   504
+  ],
+  [
+   "Media",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   544
+  ],
+  [
+   "Private Equity",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   584
+  ],
+  [
+   "Public Sector",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   624
+  ],
+  [
+   "Technology",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   664
+  ],
+  [
+   "Transportation and Travel",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   704
+  ]
+ ],
+ "mega_Your needs": [
+  [
+   "Aerospace and Defense",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   464
+  ],
+  [
+   "Automotive",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   504
+  ],
+  [
+   "Consumer and Retail",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   544
+  ],
+  [
+   "Communications",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   584
+  ],
+  [
+   "Energy and Resources",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   624
+  ],
+  [
+   "Financial Services",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   664
+  ],
+  [
+   "Healthcare and Life Sciences",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   220,
+   704
+  ],
+  [
+   "Industrial Goods and Services",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   464
+  ],
+  [
+   "Infrastructure",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   504
+  ],
+  [
+   "Media",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   544
+  ],
+  [
+   "Private Equity",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   584
+  ],
+  [
+   "Public Sector",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   624
+  ],
+  [
+   "Technology",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   664
+  ],
+  [
+   "Transportation and Travel",
+   "22px",
+   "400",
+   "rgb(120, 35, 220)",
+   564,
+   704
+  ]
+ ],
+ "mBurger": {
+  "tag": "IMG",
+  "cls": "",
+  "al": null
+ },
+ "mMenu": [
+  [
+   "Your industry",
+   "24px",
+   "400",
+   26,
+   20,
+   85
+  ],
+  [
+   "Your needs",
+   "24px",
+   "400",
+   26,
+   20,
+   145
+  ],
+  [
+   "About us",
+   "24px",
+   "400",
+   26,
+   20,
+   205
+  ],
+  [
+   "Careers",
+   "24px",
+   "400",
+   26,
+   20,
+   265
+  ],
+  [
+   "Insights",
+   "24px",
+   "400",
+   26,
+   20,
+   325
+  ],
+  [
+   "Contact",
+   "24px",
+   "400",
+   26,
+   20,
+   385
+  ],
+  [
+   "Your industry",
+   "18px",
+   "600",
+   22,
+   455,
+   147
+  ],
+  [
+   "Aerospace and Defense",
+   "18px",
+   "100",
+   26,
+   455,
+   195
+  ],
+  [
+   "Automotive",
+   "18px",
+   "100",
+   26,
+   455,
+   245
+  ],
+  [
+   "Consumer and Retail",
+   "18px",
+   "100",
+   26,
+   455,
+   295
+  ],
+  [
+   "Agriculture and food",
+   "16px",
+   "100",
+   28,
+   470,
+   328
+  ],
+  [
+   "Beauty and personal care",
+   "16px",
+   "100",
+   28,
+   470,
+   356
+  ],
+  [
+   "Beverages",
+   "16px",
+   "100",
+   28,
+   470,
+   384
+  ],
+  [
+   "Fashion and luxury",
+   "16px",
+   "100",
+   28,
+   470,
+   412
+  ]
+ ]
+}

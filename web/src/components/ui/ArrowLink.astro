@@ -1,0 +1,31 @@
+---
+/**
+ * "Learn more →" text link (REDESIGN-V3 §3). Inter 600 in --link, arrow in --accent; on hover the underline draws in
+ * from the left and the arrow moves 4px. Without `href` it renders a <span> with the same look (for use inside a card
+ * that is already one big link). Mobile: 44px tap height; a wrapped label keeps the arrow after its last word.
+ */
+import Icon from './Icon.astro';
+interface Props {
+  href?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, class: cls, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+<Tag href={href} class:list={['arrow-link', 'u-hover', cls]} {...rest}>
+  <span class="arrow-link__label u-draw"><slot /></span><Icon name="arrow-right" size={18} stroke={2} class="arrow-link__icon u-nudge" />
+</Tag>
+<style>
+  /* inline-block, so a wrapped label keeps the arrow right after its last word; 12px padding + the 1.375 line gives
+     ≥ 44px tap height at every size (44.6 at 15px, 46 at 16px). Inside a card that is already a link (no href) the
+     span drops the padding: it is not a target there. */
+  .arrow-link {
+    display: inline-block; padding-block: 12px;
+    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; line-height: 1.375; letter-spacing: var(--tr-button);
+    color: var(--link); text-decoration: none;
+  }
+  span.arrow-link { padding-block: 0; }
+  .arrow-link__label { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .arrow-link__icon { color: var(--accent); vertical-align: -4px; margin-left: 6px; }
+</style>

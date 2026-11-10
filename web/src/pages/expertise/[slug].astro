@@ -1,29 +1,43 @@
 ---
 /**
- * /expertise/[slug] (DESIGN-SPEC v2 10.3 + 00.2): one template, six pages at the brief slugs.
- * Grounds: pillar colour (hero) → ink (signature diagram) → white grid (the honest label) → pillar tint (deliverables)
- * → white (from the record) → cloud (related) → butter (prompt) → saffron (CtaField, BaseLayout) → ink (footer).
+ * /expertise/[slug] (REDESIGN-V3 §4 "Expertise detail"): one template, six pages at the brief slugs.
+ * Sections and grounds (identical neighbours get a hairline; optional sections drop out cleanly):
+ *  1 PageHero navy split — pillar photo (research/v3/photos.md), crumbs Expertise / <name>, "Expertise · 0n",
+ *    H1 = the pillar headline (promise), lead = the pillar name.
+ *  2 The challenge we solve (white rail) — the pillar intro as two paragraphs: a serif opening, then the rest.
+ *  3 What we help with (white rail) — NumberedList of helpWith.
+ *  4 Exhibit (grey) — ProcessFlow, only where pillarExhibits holds a true sequence that adds to the page (process, strategy).
+ *  5 Typical deliverables (rail; grey when the page has no exhibit, so one grey band always breaks the whites) — a short
+ *    dash list in body type, two columns from 600px. Not Tags: bordered chips that link nowhere read as filters/buttons.
+ *  6 From our founder’s career (navy) — the matching ResultCard (impactId). No result (C-8): staging shows the band
+ *    with a Confirm, preview/production omit it. Innovation's help list carries Confirm 7 in staging (CBE wording).
+ *  7 Related insights + related industries (white rails) — each omitted when empty.
+ *  8 Previous / next pillar, then BaseLayout's CtaBand (grey).
+ * Acronyms: first use per page gets <abbr title> (intro); FSQR / 3-MCPD expansions also print as a small note under
+ * the paragraph or list that first uses them (touch users never see a title tooltip).
+ * Mobile: every rail stacks heading → content; hero photo sits under the text at 4:3; see each component's header.
  */
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import TextLink from '@/components/ui/TextLink.astro';
-import ImpactCard from '@/components/shared/ImpactCard.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import PillarHero from '@/components/expertise/PillarHero.astro';
-import PillarDiagram from '@/components/expertise/PillarDiagram.astro';
-import HelpList from '@/components/expertise/HelpList.astro';
-import Deliverables from '@/components/expertise/Deliverables.astro';
-import RelatedInsights from '@/components/expertise/RelatedInsights.astro';
-import PromptRow from '@/components/expertise/PromptRow.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import NumberedList from '@/components/ui/NumberedList.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import RailSection from '@/components/expertise/RailSection.astro';
+import PillarExhibit from '@/components/expertise/PillarExhibit.astro';
+import PillarProof from '@/components/expertise/PillarProof.astro';
+import PillarInsights from '@/components/expertise/PillarInsights.astro';
+import PillarIndustries from '@/components/expertise/PillarIndustries.astro';
+import PillarPager from '@/components/expertise/PillarPager.astro';
 import { createAbbreviator } from '@/components/expertise/abbr';
-import { pillars, pillarPage } from '@/data/pillars';
-import { founderResults, secondaryFigures } from '@/data/impact';
-import { microcopy } from '@/data/microcopy';
-import { expertiseNotes } from '@/data/notes/expertise';
+import { expertiseOverview, pillarHelpConfirm, pillarPage, pillarPhoto, pillars } from '@/data/pillars';
+import { photos } from '@/data/photos';
+import { founderResults } from '@/data/impact';
+import { industries } from '@/data/industries';
 import { byPillar, comingSoonByPillar } from '@/lib/insights';
-import { pillarTintGround, pillarNumber } from '@/lib/pillars';
+import { pillarHref, pillarNumber } from '@/lib/pillars';
 import { pageSeo } from '@/lib/seo';
-import type { GroundKey, Pillar } from '@/data/types';
+import { showConfirm } from '@/lib/mode';
+import type { Pillar, PillarKey } from '@/data/types';
 
 export const getStaticPaths = (() => pillars.map((p) => ({ params: { slug: p.slug }, props: { pillar: p } }))) satisfies GetStaticPaths;
 
@@ -31,66 +45,116 @@ interface Props { pillar: Pillar }
 const { pillar } = Astro.props;
 
 const crumbs = [
-  { label: 'Expertise', href: '/expertise' },
-  { label: pillar.name, href: `/expertise/${pillar.slug}` },
+  { label: expertiseOverview.overline, href: '/expertise' },
+  { label: pillar.name, href: pillarHref(pillar.key) },
 ];
+const hero = pillarPhoto[pillar.key];
+const photo = photos[hero.slug];
+
+/* 2 · the intro as two paragraphs: all sentences but the last, then the last (two-sentence intros split 1 + 1). */
+const sentences = pillar.intro.split(/(?<=[.?!])\s+(?=[A-Z0-9“‘])/);
+const paras = sentences.length > 1 ? [sentences.slice(0, -1).join(' '), sentences[sentences.length - 1]] : sentences;
 const expand = createAbbreviator();
-const intro = expand(pillar.intro);
-const help = pillar.helpWith.map((t) => expand(t));
+const introParts = paras.map((t) => expand(t));
+const introNotes = introParts.flatMap((x) => x.notes);
+const helpNotes = pillar.helpWith.flatMap((t) => expand(t).notes);
+const helpConfirm = showConfirm ? pillarHelpConfirm[pillar.key] : undefined;
+
+/*
+ * 4 · exhibits only where the chain is a true sequence AND adds something the page does not already say:
+ *  process  — the refining chain (contract §4), nowhere else on the page;
+ *  strategy — the Go/No-Go gate (idea → three questions → decision).
+ * Skipped: quality (layers, not a sequence), deals (a contrast, not a chain), innovation (its title repeats the H1 and
+ * its steps repeat the deliverables), capability (three verbs already in the intro).
+ */
+const EXHIBIT: PillarKey[] = ['process', 'strategy'];
+const hasExhibit = EXHIBIT.includes(pillar.key);
+
+/* 5 · deliverables are stored as a sentence continuation ("Innovation roadmaps, technical briefs, …"): capitalise. */
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/* 6–7 */
 const result = pillar.impactId ? founderResults.find((r) => r.id === pillar.impactId) : undefined;
-const figure: Record<string, string | undefined> = { india: expertiseNotes.record.indiaFigure, tfa: 'WHO' };
+const hasProof = !!result || showConfirm;   // no result: staging shows the band with a Confirm (C-8); elsewhere omitted
 const related = await byPillar(pillar.key);
 const coming = await comingSoonByPillar(pillar.key);
-const hasRelated = related.length > 0 || coming.length > 0;
-const tint = pillarTintGround(pillar.key);
-// no two adjacent bands on one ground: if the tint fold would touch the Butter prompt, the prompt goes Lavender
-const promptGround: GroundKey = !result && !hasRelated && tint === 'butter' ? 'lavender' : 'butter';
+const hasInsights = related.length > 0 || coming.length > 0;
+const relatedIndustries = industries.filter((i) => i.pillars.includes(pillar.key));
+
+/*
+ * grounds: rails are white (tight padding, hairline between neighbours); one grey band per page — the exhibit where
+ * there is one, otherwise the deliverables — so every page alternates navy · white · grey · (navy) · white.
+ */
+const delivGround = hasExhibit ? 'white' : 'grey';
+const beforeInsights = hasProof ? 'navy' : delivGround;
+const insightsRule = beforeInsights === 'white';
+const industriesRule = hasInsights || beforeInsights === 'white';
+const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights === 'white';
 ---
-<BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs} showCrumbs={false}>
-  <PillarHero pillar={pillar} crumbs={crumbs} introHtml={intro.html} introNotes={intro.notes} />
+<BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}>
+  <PageHero
+    ground="navy" imageMode="split" image={photo.src} imageAlt={photo.alt} imagePosition={hero.position ?? photo.position}
+    crumbs={crumbs} eyebrow={`${expertiseOverview.overline} · ${pillarNumber(pillar)}`}
+    title={pillar.headline} lead={pillar.name} leadTone="muted" titleId="pillar-title"
+    crumbsCurrentShort={pillar.shortLabel}
+  />
 
-  <section class="band fold g-ink grain p-diag" aria-label={pillar.name}>
-    <div class="container"><PillarDiagram pillar={pillar} /></div>
-  </section>
+  <RailSection id="challenge-title" title={pillarPage.challenge}>
+    <div class="challenge" data-reveal style="--i:1">
+      {introParts.map((x, i) => <p class:list={['challenge__p', i === 0 && 'challenge__p--lede']} set:html={x.html} />)}
+      {introNotes.length > 0 && <p class="note">{introNotes.join(' · ')}</p>}
+    </div>
+  </RailSection>
 
-  <section class="band fold g-white paper-grid p-help has-notes" aria-labelledby="help-title">
-    <div class="container"><HelpList pillar={pillar.key} items={help} fig={pillarNumber(pillar)} /></div>
-  </section>
+  <RailSection id="help-title" title={pillarPage.helpWith} rule>
+    <NumberedList items={pillar.helpWith} />
+    {(helpNotes.length > 0 || helpConfirm) && (
+      <p class="note">{helpNotes.join(' · ')}{helpConfirm && <Confirm id={helpConfirm.id} note={helpConfirm.note} />}</p>
+    )}
+  </RailSection>
 
-  <section class:list={['band', 'fold', `g-${tint}`, 'grain', 'p-deliv']} aria-labelledby="deliverables-title">
-    <div class="container"><Deliverables items={pillar.deliverables} /></div>
-  </section>
+  {hasExhibit && <PillarExhibit pillar={pillar.key} />}
 
-  {result && (
-    <section class="band fold g-white p-record has-notes" aria-labelledby="record-title">
-      <div class="container p-record__grid">
-        <div class="p-record__head">
-          <h2 id="record-title" class="t-dateline p-record__dateline"><span class="p-record__dot" aria-hidden="true"></span>{pillarPage.fromTheRecord}</h2>
-          <MarginNote text={expertiseNotes.record.proof} anchor="block" arrow="arrow-curve" rotate={-6} arrowAngle={-10} show="md" />
-          <div class="p-record__link"><TextLink href={`/impact#${result.id}`}>{microcopy.impactLink}</TextLink></div>
-        </div>
-        <div class="p-record__card" data-sticker>
-          <ImpactCard result={result} size="lg" border={pillar.key} figure={figure[result.id] ?? result.figure?.value} secondary={secondaryFigures[result.id]} />
-        </div>
-      </div>
-    </section>
-  )}
+  <RailSection id="deliverables-title" title={pillarPage.deliverables} ground={delivGround} pad={hasExhibit ? 'tight' : 'default'}>
+    <ul class="deliv" role="list" data-reveal style="--i:1">
+      {pillar.deliverables.map((d) => <li>{cap(d)}</li>)}
+    </ul>
+  </RailSection>
 
-  {hasRelated && (
-    <section class="band fold g-cloud p-related" aria-labelledby="related-title">
-      <div class="container"><RelatedInsights visible={related} coming={coming} /></div>
-    </section>
-  )}
+  {hasProof && <PillarProof result={result} />}
 
-  <PromptRow ground={promptGround} />
+  {hasInsights && <PillarInsights visible={related} coming={coming} rule={insightsRule} />}
+
+  {relatedIndustries.length > 0 && <PillarIndustries items={relatedIndustries} rule={industriesRule} />}
+
+  <PillarPager pillar={pillar.key} flush={pagerFlush} />
 </BaseLayout>
 <style>
-  .p-diag { overflow: clip; }
-  .p-record__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s-7); align-items: center; }
-  .p-record__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-6); font-size: var(--fs-label); color: var(--fg); }
-  .p-record__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--pillar); }
-  .p-record__link { margin-top: var(--s-6); }
-  .p-record__card { rotate: -1.5deg; }
-  .p-record__card :global(.icard) { box-shadow: 12px 12px 0 var(--pillar); }
-  @media (max-width: 1023px) { .p-record__grid { grid-template-columns: 1fr; gap: var(--s-5); } .p-record__card { rotate: 0deg; } }
+  /* 2 · first paragraph as a serif opening, the rest in body type; the measure stays ≤ 68ch */
+  .challenge { max-width: var(--measure); }
+  .challenge__p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  .challenge__p + .challenge__p { margin-top: var(--s-5); }
+  .challenge__p--lede {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.4;
+    font-weight: 400; letter-spacing: var(--tr-h3); color: var(--head);
+  }
+  .challenge :global(abbr[title]) { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+
+  /* acronym expansions printed once, under the text that first uses them */
+  .note { margin-top: var(--s-5); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
+  /* 5 · deliverables: a quiet dash list (the hub card's marker), body size; two columns from 600px */
+  .deliv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3) var(--grid-gap); }
+  .deliv li {
+    position: relative; padding-left: var(--s-5);
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty;
+  }
+  .deliv li::before { content: ""; position: absolute; left: 0; top: .8em; width: 12px; height: 1px; background: var(--label); }
+  @media (min-width: 600px) { .deliv { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  /* the rail body starts level with the h2's cap height */
+  @media (min-width: 900px) {
+    .challenge { padding-top: 6px; }
+    .deliv { padding-top: 6px; }
+  }
 </style>

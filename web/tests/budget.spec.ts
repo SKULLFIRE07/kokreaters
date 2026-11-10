@@ -1,9 +1,9 @@
 /**
- * Budgets measured in a real browser (DESIGN-SPEC 9 W3-tests): home total transfer ≤ 600KB (internal goal; the brief
- * caps at 1.5MB), after scrolling the whole page so lazy images load. `astro preview` does not compress, so text
+ * Budgets measured in a real browser (REDESIGN-V3 §7; infra.md §1.8). `astro preview` does not compress, so text
  * responses are counted at their gzip size and binary responses at their real size, which is what a host sends.
- * Also: three.js is never requested outside /about, and never at 390, under reduced motion or with WebGL off.
- * The static gates (JS/CSS/fonts gzip per page) live in scripts/check-budget.mjs (`npm run verify`).
+ *   home total transfer ≤ 600 KB at 1440 and 390 after scrolling the whole page (the photography guard)
+ *   every route: JavaScript transferred ≤ 15 KB gzip, only the three v3 fonts, no GSAP / Lenis / three.js request
+ * The static gates (per-page JS/CSS gzip, font files, banned signatures, palette) live in scripts/check-budget.mjs.
  */
 import { test, expect, type Page } from '@playwright/test';
 import { gzipSync } from 'node:zlib';
@@ -11,27 +11,28 @@ import { routes, settle, scrollThrough } from './helpers';
 
 const KB = 1024;
 const TEXT = /^(text\/|application\/(javascript|json|xml|manifest\+json)|image\/svg\+xml)/;
+const FONTS = ['inter-latin-opsz-normal.woff2', 'source-serif-4-latin-opsz-normal.woff2', 'source-serif-4-latin-opsz-italic.woff2'];
+const BANNED = /GreenSock|gsap\.registerPlugin|__lenis|new Lenis\b|WebGLRenderer|THREE\.REVISION/;
 
 async function measure(page: Page, path: string) {
-  const rows: { url: string; type: string; bytes: number }[] = [];
+  const rows: { url: string; type: string; bytes: number; body: string }[] = [];
   const pending: Promise<void>[] = [];
   page.on('response', (res) => {
     pending.push((async () => {
       try {
         const body = await res.body();
         const type = (res.headers()['content-type'] ?? '').split(';')[0];
-        rows.push({ url: res.url(), type, bytes: TEXT.test(type) ? gzipSync(body, { level: 6 }).length : body.length });
+        rows.push({ url: res.url(), type, bytes: TEXT.test(type) ? gzipSync(body, { level: 6 }).length : body.length, body: /javascript/.test(type) ? body.toString('utf8') : '' });
       } catch { /* redirects and aborted prefetches have no body */ }
     })());
   });
   await page.goto(path, { waitUntil: 'load' });
-  await settle(page, 2400);
-  await scrollThrough(page);
+  await settle(page, 300);
+  await scrollThrough(page, 40);
   await page.waitForLoadState('networkidle');
   await Promise.all(pending);
   return rows;
 }
-const isThree = (u: string) => /\/_astro\/(three|scene)[^/]*\.js$/.test(u);
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
   test(`home total transfer ≤ 600KB @${vp.width}`, async ({ browser }) => {
@@ -40,44 +41,31 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     const rows = await measure(page, '/');
     const total = rows.reduce((s, r) => s + r.bytes, 0);
     const by = (re: RegExp) => rows.filter((r) => re.test(r.type)).reduce((s, r) => s + r.bytes, 0);
-    test.info().annotations.push({ type: 'transfer', description:
-      `total ${(total / KB).toFixed(1)}KB · js ${(by(/javascript/) / KB).toFixed(1)} · css ${(by(/css/) / KB).toFixed(1)} · fonts ${(by(/font|woff/) / KB).toFixed(1)} · images ${(by(/^image\//) / KB).toFixed(1)} · html ${(by(/html/) / KB).toFixed(1)} · ${rows.length} requests` });
-    console.log(`[budget] home @${vp.width}: ${test.info().annotations.at(-1)!.description}`);
+    const note = `total ${(total / KB).toFixed(1)}KB · js ${(by(/javascript/) / KB).toFixed(1)} · css ${(by(/css/) / KB).toFixed(1)} · fonts ${(by(/font|woff/) / KB).toFixed(1)} · images ${(by(/^image\//) / KB).toFixed(1)} · html ${(by(/html/) / KB).toFixed(1)} · ${rows.length} requests`;
+    test.info().annotations.push({ type: 'transfer', description: note });
+    console.log(`[budget] home @${vp.width}: ${note}`);
     expect(total, 'home transfer bytes').toBeLessThanOrEqual(600 * KB);
-    expect(rows.filter((r) => isThree(r.url)).map((r) => r.url), 'no three.js on home').toEqual([]);
     await ctx.close();
   });
 }
 
-test('three.js is requested on no route except /about (1440)', async ({ browser }) => {
+test('every route: JS ≤ 15KB gzip, only the v3 fonts, no GSAP / Lenis / three.js (1440)', async ({ browser }) => {
+  test.setTimeout(240_000);
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const bad: string[] = [];
-  for (const r of routes.filter((x) => x.path !== '/about')) {
+  const problems: string[] = [];
+  for (const r of routes) {
     const page = await ctx.newPage();
-    page.on('request', (req) => { if (isThree(req.url())) bad.push(`${r.path} → ${req.url()}`); });
-    await page.goto(r.path, { waitUntil: 'load' });
-    await settle(page, 300);
-    await scrollThrough(page, 30);
+    const rows = await measure(page, r.path);
+    const js = rows.filter((x) => /javascript/.test(x.type));
+    const jsBytes = js.reduce((s, x) => s + x.bytes, 0);
+    if (jsBytes > 15 * KB) problems.push(`${r.path}: JS ${(jsBytes / KB).toFixed(1)}KB gzip > 15KB`);
+    for (const x of js) if (BANNED.test(x.body)) problems.push(`${r.path}: banned library signature in ${x.url}`);
+    for (const x of rows.filter((x) => /\/fonts\//.test(x.url))) {
+      const name = x.url.split('/').pop()!.split('?')[0];
+      if (!FONTS.includes(name)) problems.push(`${r.path}: unexpected font ${name}`);
+    }
     await page.close();
   }
   await ctx.close();
-  expect(bad).toEqual([]);
+  expect(problems).toEqual([]);
 });
-
-for (const variant of [
-  { name: '390', opts: { viewport: { width: 390, height: 844 } } },
-  { name: 'reduced motion', opts: { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' as const } },
-]) {
-  test(`/about requests no three.js chunk @ ${variant.name}`, async ({ browser }) => {
-    const ctx = await browser.newContext(variant.opts);
-    const page = await ctx.newPage();
-    const hits: string[] = [];
-    page.on('request', (req) => { if (isThree(req.url())) hits.push(req.url()); });
-    await page.goto('/about', { waitUntil: 'load' });
-    await settle(page, 600);
-    await scrollThrough(page);
-    expect(hits).toEqual([]);
-    await expect(page.locator('[data-globe] svg').first()).toBeVisible();
-    await ctx.close();
-  });
-}

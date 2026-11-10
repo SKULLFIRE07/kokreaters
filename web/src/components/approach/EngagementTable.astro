@@ -1,36 +1,101 @@
 ---
 /**
- * Approach F5, ways to work with us (DESIGN-SPEC v2 10.5 F5): Ice ground; five FaqAccordion rows. Summary = the model
- * + its "Typical shape" in mono; body = a <dl> "Typical shape" / "Good for" (labels `modelColumns`). CONFIRM 10.
+ * /approach §5 — "Ways to work with us": the five engagement models (REDESIGN-V3 §4 Approach; brief 6.4).
+ * Grey band. Model names verbatim from data. The values are the brief's draft (CONFIRM 10, staging only).
+ * ≥ 700px: a real <table> — column heads from `modelColumns` (th scope="col"), the model name as the row header
+ *   (th scope="row", serif), a 2px navy rule under the head, hairlines between rows.
+ * < 700px: the same five rows as stacked definition cards (white surface, 2px navy top rule): serif h3 model name,
+ *   then "Typical shape" and "Good for" as label/value pairs. Only one of the two renders per viewport
+ *   (display: none on the other), so assistive tech never meets both; nothing scrolls sideways.
  */
-import FaqAccordion from '@/components/bencho/FaqAccordion.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Confirm from '@/components/ui/Confirm.astro';
-import { isStaging } from '@/lib/mode';
-import { models, modelsHeading, modelColumns } from '@/data/approach';
-import { storyNotes } from '@/data/notes/story';
-const items = models.map((m) => ({ title: m.model, preview: m.shape, rows: [{ k: modelColumns.shape, v: m.shape }, { k: modelColumns.goodFor, v: m.goodFor }] }));
+import { models, modelColumns, modelsHeading } from '@/data/approach';
+import { showConfirm } from '@/lib/mode';
+
+/** Keep number ranges whole ("4–16 weeks" never breaks after the dash): a word joiner after the en dash. */
+const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
 ---
-<section class="ways g-ice has-notes" aria-labelledby="ways-title">
-  <div class="container ways__grid">
-    <div class="ways__head">
-      <h2 id="ways-title" class="ways__h2" data-rise="lines">{modelsHeading}</h2>
-      <MarginNote text={storyNotes.models.shape} tone="sapphire" rotate={-6} arrow="arrow-curve" arrowAt="below" arrowAngle={70} anchor="block" show="md" class="ways__note" />
-      {isStaging && <p class="ways__confirm"><Confirm id={10} /></p>}
-    </div>
-    <FaqAccordion items={items} class="ways__faq" />
+<Section ground="grey" labelledby="models-h" class="models">
+  <SectionHeader id="models-h" title={modelsHeading} />
+
+  <div class="models__wide" data-reveal>
+    <table class="mtable">
+      <caption class="visually-hidden">{modelsHeading}</caption>
+      <colgroup><col class="mtable__c1" /><col class="mtable__c2" /><col class="mtable__c3" /></colgroup>
+      <thead>
+        <tr>
+          <th scope="col">{modelColumns.model}</th>
+          <th scope="col">{modelColumns.shape}</th>
+          <th scope="col">{modelColumns.goodFor}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {models.map((m) => (
+          <tr>
+            <th scope="row">{m.model}</th>
+            <td>{bind(m.shape)}</td>
+            <td>{m.goodFor}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
-</section>
+
+  <ul class="models__cards" role="list">
+    {models.map((m, i) => (
+      <li class="mcard" data-reveal style={`--i:${i}`}>
+        <h3 class="mcard__name">{m.model}</h3>
+        <dl class="mcard__dl">
+          <div><dt>{modelColumns.shape}</dt><dd>{bind(m.shape)}</dd></div>
+          <div><dt>{modelColumns.goodFor}</dt><dd>{m.goodFor}</dd></div>
+        </dl>
+      </li>
+    ))}
+  </ul>
+
+  {showConfirm && <p class="models__confirm"><Confirm id={10} note="engagement models and durations" /></p>}
+</Section>
 <style>
-  .ways { padding-block: var(--section); }
-  .ways__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s-8); align-items: start; }
-  .ways__head { position: sticky; top: calc(var(--header-h) + 24px); }
-  .ways__h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.03em; line-height: .9;
-    font-size: clamp(3rem, 1rem + 5.6vw, 7rem); text-wrap: balance; }
-  .ways :global(.ways__note) { margin-top: var(--s-5); }
-  .ways__confirm { margin: var(--s-5) 0 0; }
-  @media (max-width: 1023px) {
-    .ways__grid { grid-template-columns: 1fr; gap: var(--s-6); }
-    .ways__head { position: static; }
+  /* ── table (≥ 700px) ── */
+  .models__wide { display: none; }
+  .mtable { width: 100%; text-align: left; }
+  .mtable__c1 { width: 26%; }
+  .mtable__c2 { width: 30%; }
+  .mtable thead th {
+    padding: 0 var(--s-6) var(--s-4) 0; border-bottom: 2px solid var(--rule-strong); vertical-align: bottom;
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--fg-2);
+  }
+  .mtable tbody :is(th, td) { padding: var(--s-5) var(--s-6) var(--s-5) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .mtable :is(th, td):last-child { padding-right: 0; }
+  .mtable tbody th {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head); text-wrap: balance;
+  }
+  .mtable td { font-size: var(--fs-body); line-height: 1.5; color: var(--fg); text-wrap: pretty; }
+
+  /* ── stacked cards (< 700px) ── */
+  .models__cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+  .mcard { background: var(--surface); border-top: 2px solid var(--rule-strong); padding: var(--s-5); }
+  .mcard__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head);
+  }
+  .mcard__dl { margin-top: var(--s-3); }
+  .mcard__dl > div { padding-top: var(--s-3); }
+  .mcard__dl > div + div { margin-top: var(--s-3); border-top: 1px solid var(--rule); }
+  .mcard__dl dt {
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--fg-2);
+  }
+  .mcard__dl dd { margin: var(--s-1) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--fg); text-wrap: pretty; }
+
+  .models__confirm { margin-top: var(--s-5); }
+
+  @media (min-width: 700px) {
+    .models__wide { display: block; }
+    .models__cards { display: none; }
   }
 </style>

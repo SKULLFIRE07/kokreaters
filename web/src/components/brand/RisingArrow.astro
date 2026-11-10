@@ -1,8 +1,0 @@
----
-/** v1 RisingArrow, now a wrapper over the v2 Scribble swoosh (DESIGN-SPEC v2 12.2) so old imports keep working.
- * `manual` hands timing to a page module (hero.ts swooshInto): the scribble is then not drawn by notes.ts. */
-import Scribble from '../notes/Scribble.astro';
-interface Props { phrase: string; tone?: 'light' | 'dark'; manual?: boolean; class?: string; }
-const { phrase, tone = 'light', manual = false, class: cls } = Astro.props;
----
-<Scribble kind="swoosh" tone={tone === 'dark' ? 'saffron' : 'orchid'} manual={manual} class:list={['swoosh', cls]}>{phrase}</Scribble>

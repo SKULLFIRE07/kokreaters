@@ -1,6 +1,13 @@
 /**
- * Shared helpers for the W3-tests suites. Routes are discovered from the build output, so a new page is tested
- * without editing a list. The build directory is KK_DIST (default ./dist), the same one playwright.config.ts serves.
+ * Shared helpers for the v3 suites (research/v3/infra.md §1). Routes are discovered from the build output, so a new
+ * page is tested without editing a list. The build directory is KK_DIST (default ./dist), the same one
+ * playwright.config.ts serves; the build mode comes from dist/build-info.json (src/pages/build-info.json.ts).
+ *
+ * Global DOM contracts every spec relies on (REDESIGN-V3 §8.7):
+ *   <html lang="en-GB" class="no-js"> → head script swaps to `js`; site.ts adds `motion-booted` (3 s fallback:
+ *   `motion-failed`) · body[data-page] · one header.site-header · main#main[tabindex=-1] · one h1 (PageHero) ·
+ *   a.skip-link first in <body> · footer#site-footer · [data-header-cta] · [data-menu-toggle] → #mobile-menu
+ *   (.m-menu__link) · [data-nav-toggle] → #mega-expertise / #menu-industries.
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, resolve, sep } from 'node:path';
@@ -9,9 +16,9 @@ import type { Page } from '@playwright/test';
 
 export const WEB = resolve(fileURLToPath(new URL('..', import.meta.url)));
 export const DIST = resolve(WEB, process.env.KK_DIST ?? 'dist');
-export const SHOTS = resolve(WEB, '..', 'research', 'shots', 'build');
+export const SHOTS = resolve(WEB, '..', 'research', 'v3', 'shots', 'tests');
 export const SITE = 'https://kokreaters.com';
-export const shotsOn = process.env.KK_SHOTS !== '0';
+export const shotsOn = process.env.KK_SHOTS === '1';
 
 export interface Route { path: string; file: string; name: string }
 
@@ -24,22 +31,40 @@ function walk(dir: string, out: string[] = []): string[] {
   return out;
 }
 
-/** Every built page except 404.html, as clean URLs (build.format 'file', trailingSlash 'never'). */
+/** Every built page except 404.html and the staging-only styleguide, as clean URLs (build.format 'file'). */
 export const routes: Route[] = walk(DIST)
   .map((abs) => relative(DIST, abs).split(sep).join('/'))
-  .filter((rel) => rel !== '404.html')
+  .filter((rel) => rel !== '404.html' && rel !== 'styleguide.html')
   .sort()
   .map((rel) => {
     const path = rel === 'index.html' ? '/' : '/' + rel.replace(/\.html$/, '').replace(/\/index$/, '');
     return { path, file: rel, name: path === '/' ? 'home' : path.slice(1).replace(/\//g, '-') };
   });
 
-if (!routes.length) throw new Error(`No built pages in ${DIST}. Run "npm run build" first (or set KK_DIST).`);
+if (!routes.length) throw new Error(`No built pages in ${DIST}. Run "npm run build:preview" first (or set KK_DIST).`);
 
-export const mode: 'staging' | 'production' =
-  /Disallow:\s*\/\s*$/m.test(existsSync(join(DIST, 'robots.txt')) ? readFileSync(join(DIST, 'robots.txt'), 'utf8') : '') ? 'staging' : 'production';
+export interface BuildInfo { mode: 'staging' | 'preview' | 'production'; indexable: boolean; includeDrafts: boolean; showConfirm: boolean; showPendingConsent: boolean }
+const infoFile = join(DIST, 'build-info.json');
+if (!existsSync(infoFile)) throw new Error(`${infoFile} is missing: rebuild (src/pages/build-info.json.ts writes it).`);
+export const build: BuildInfo = JSON.parse(readFileSync(infoFile, 'utf8'));
+export const mode = build.mode;
+export const indexable = build.indexable;
 
 export const readHtml = (file: string) => readFileSync(join(DIST, file), 'utf8');
+
+/** Visible text of a built HTML file (scripts, styles, inline SVG and comments removed, entities decoded). */
+export function htmlText(html: string): string {
+  return decode(html
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<(script|style|svg|noscript|template)\b[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]+>/g, ' '))
+    .replace(/\s+/g, ' ');
+}
+export function decode(s: string): string {
+  return s.replace(/&nbsp;|&#160;|&#xa0;/gi, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;|&#x27;|&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
+}
 
 export function shotPath(name: string) { mkdirSync(SHOTS, { recursive: true }); return join(SHOTS, name); }
 
@@ -50,7 +75,7 @@ export function builtCsp(): string | null {
   return (readFileSync(f, 'utf8').match(/^\s*Content-Security-Policy:\s*(.+)$/m) ?? [])[1]?.trim() ?? null;
 }
 
-/** Waits until motion/index.ts has booted (or motion is off), then lets the hero timeline finish (≈2.1 s). */
+/** Waits until site.ts has booted (html.motion-booted), JS is off, or the 3 s fallback fired; then `extraMs`. */
 export async function settle(page: Page, extraMs = 400) {
   await page.waitForFunction(() => {
     const h = document.documentElement;
@@ -59,16 +84,14 @@ export async function settle(page: Page, extraMs = 400) {
   await page.waitForTimeout(extraMs);
 }
 
-/** Scrolls the whole page in steps (through Lenis when it exists) so every once-only reveal fires, then returns to the top. */
+/** Scrolls the whole page in steps so every once-only reveal fires (and lazy images load), then returns to the top. */
 export async function scrollThrough(page: Page, stepMs = 70) {
   await page.evaluate(async (ms) => {
-    const w = window as unknown as { __lenis?: { scrollTo: (y: number, o: { immediate: boolean; force?: boolean }) => void } };
-    const go = (y: number) => { if (w.__lenis) w.__lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); };
     const step = Math.max(200, Math.floor(window.innerHeight * 0.6));
-    for (let y = 0; y < document.documentElement.scrollHeight; y += step) { go(y); await new Promise((r) => setTimeout(r, ms)); }
-    go(document.documentElement.scrollHeight);
-    await new Promise((r) => setTimeout(r, 1200));
-    go(0);
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, ms)); }
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    await new Promise((r) => setTimeout(r, 1000));   // reveals: 800 ms blur-fade
+    window.scrollTo(0, 0);
     await new Promise((r) => setTimeout(r, 300));
   }, stepMs);
 }
@@ -91,14 +114,29 @@ export async function hiddenInMain(page: Page) {
       if (cs.display === 'none') continue;
       const r = el.getBoundingClientRect();
       if (r.width < 2 || r.height < 2) continue;
-      // honeypot-style fields that are deliberately removed for people (aria-hidden + off-screen) are not "content"
+      // honeypot fields that are deliberately removed for people (aria-hidden + off-screen) are not "content"
       if (el.closest('[aria-hidden="true"]') && (r.right < 0 || r.left > innerWidth)) continue;
-      // empty decorative marks (an indicator bar with no current item) carry no content
+      // empty decorative marks carry no content
       const media = 'img, svg, canvas, picture, video, input, select, textarea, button';
       if (!(el.textContent ?? '').trim() && !el.matches(media) && !el.querySelector(media)) continue;
       if (cs.opacity === '0') out.push(`${describe(el)} opacity:0`);
       else if (cs.visibility === 'hidden' && el.parentElement && getComputedStyle(el.parentElement).visibility !== 'hidden') out.push(`${describe(el)} visibility:hidden`);
     }
     return out;
+  });
+}
+
+/** Description of the focused element: is it visible, does it show a focus indicator, where does it live. */
+export async function focusInfo(page: Page) {
+  return page.evaluate(() => {
+    const el = document.activeElement as HTMLElement | null;
+    if (!el || el === document.body) return null;
+    const cs = getComputedStyle(el);
+    const ring = (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 1) || cs.boxShadow !== 'none';
+    return {
+      tag: el.tagName.toLowerCase(), href: el.getAttribute('href'), text: (el.textContent ?? '').trim().replace(/\s+/g, ' ').slice(0, 40),
+      inHeader: !!el.closest('header'), inMenu: !!el.closest('#mobile-menu'), isToggle: el.hasAttribute('data-menu-toggle'),
+      isCta: el.hasAttribute('data-header-cta'), ring,
+    };
   });
 }

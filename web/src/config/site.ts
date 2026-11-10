@@ -7,7 +7,11 @@ const env = import.meta.env;
 export const site = {
   name: 'KoKreaters',
   url: 'https://kokreaters.com',
-  mode: (env.PUBLIC_SITE_MODE === 'production' ? 'production' : 'staging') as 'staging' | 'production',
+  /** staging (default, local dev) | preview (the Vercel review link) | production (kokreaters.com). See src/lib/mode.ts. */
+  mode: (env.PUBLIC_SITE_MODE === 'production' || env.PUBLIC_SITE_MODE === 'preview' ? env.PUBLIC_SITE_MODE : 'staging') as
+    'staging' | 'preview' | 'production',
+  /** Opt-in: only a production build with PUBLIC_INDEXABLE=1 is indexable (forgetting it gives noindex, never an indexed preview). */
+  indexable: env.PUBLIC_SITE_MODE === 'production' && env.PUBLIC_INDEXABLE === '1',
   email: 'office@kokreaters.com',                              // CONFIRM 9
   whatsapp: { display: '+31 6 2215 7910', href: 'https://wa.me/31622157910' },
   linkedin: { display: 'linkedin.com/in/ganeayshkulkarni', href: 'https://www.linkedin.com/in/ganeayshkulkarni' },
@@ -19,7 +23,6 @@ export const site = {
   analytics: env.PUBLIC_ANALYTICS === '1',
   legal: { registration: null as string | null },             // CONFIRM 11 e.g. "KvK 00000000 · VAT NL000000000B00"
   trademark: '™',                                             // CONFIRM 12
-  motion: { proofCountUp: true },                             // 600 ms count on 25/5/3 (brief 3.7). false = rules draw only
 } as const;
 
 export type Site = typeof site;

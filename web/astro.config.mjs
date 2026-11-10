@@ -8,18 +8,23 @@ void MODE;
 
 export default defineConfig({
   site: 'https://kokreaters.com',          // bare domain canonical; www → bare at the host. C-3
-  // GitHub Pages project sites live under /<repo>; BASE_PATH is set only by the Pages workflow.
-  ...(process.env.BASE_PATH ? { base: process.env.BASE_PATH } : {}),
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'auto' },
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   image: { responsiveStyles: false },
+  devToolbar: { enabled: false },          // keeps the dev overlay out of QA screenshots (scripts/qa-shoot.mjs)
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
-      // drafts are not built in production, so they never reach the sitemap
+      // 404 and the staging-only styleguide never belong in the sitemap; drafts are not built in production.
+      filter: (page) => !page.includes('/404') && !/\/styleguide\/?$/.test(page),
     }),
   ],
-  vite: { build: { assetsInlineLimit: 2048 } },
+  vite: {
+    build: {
+      // REDESIGN-V3 §8.6: never inline processed scripts (each inline module would need its own CSP hash);
+      // only the tiny is:inline head script stays inline. Other assets keep the 2 KB inline threshold.
+      assetsInlineLimit: (file, content) => (/\.(?:[cm]?js|[cm]?ts)$/.test(file) ? false : content.length < 2048),
+    },
+  },
 });

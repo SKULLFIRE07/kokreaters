@@ -1,0 +1,6 @@
+{
+ "slug": "india",
+ "viewport": "mobile",
+ "url": "https://www.mckinsey.com/in/overview",
+ "error": "Error: page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.mckinsey.com/in/overview\nCall log:\n\u001b[2m  - navigating to \"https://www.mckinsey.com/in/overview\", waiting until \"domcontentloaded\"\u001b[22m\n"
+}

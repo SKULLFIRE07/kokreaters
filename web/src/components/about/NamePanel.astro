@@ -1,58 +1,92 @@
 ---
 /**
- * The name (DESIGN-SPEC v2 10.7 F6): Sapphire + grain. h2 "The name"; two giant decorative stickers, "Ko" (Saffron,
- * mega) with "= together" and "Kreaters" (White, display) with "= the people who make things happen"; the real
- * sentences follow as White leads; then the full lockup on a White sticker (role img, alt name.lockupAlt), −3°.
+ * About · the name (REDESIGN-V3 §4 About, section 5). Navy band, aria-labelledby="name-title".
+ * A quiet label-style h2 ("The name"), then the name set as one formula, "Ko + Kreaters", in the display serif (white,
+ * the "+" in the accent: the band's one highlight). The two definitions (name.ko / name.kreaters) follow; each sentence
+ * opens with its own term, so they read as the entry for the formula above. Under a hairline: the founder's words
+ * (name.quote, serif italic) and the tagline beside the full white lockup, which spells Connect · Collaborate · Create.
+ * ≥ 1200px: formula in columns 1–7; the two definitions stacked in columns 8–12, their last line on the formula's
+ * baseline. Foot: quote and tagline in columns 1–7, the lockup right-aligned in columns 9–12.
+ * 600–1199px: formula full width, the definitions stacked under it (one line each from ~768px); foot as desktop from 900.
+ * Mobile (< 600px): one column. The formula is set at --fs-display (40px at 390 → 64px at 1440, never above the Home
+ * H1; it may wrap after "+" on the narrowest phones), the definitions under it, then quote, tagline and the 260px lockup.
+ * The tagline's method ("Connect · Collaborate · Create.") always sits on its own line, so "method:" never strands.
+ * Hyphenated compounds ("co-creation") never break at the hyphen.
  */
+import Section from '@/components/ui/Section.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
 import Logo from '@/components/brand/Logo.astro';
-import Sticker from '@/components/notes/Sticker.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
 import { name } from '@/data/founder';
-import { storyNotes } from '@/data/notes/story';
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const keepCompounds = (s: string) => esc(s).replace(/(\S+-\S+)/g, '<span class="nowrap">$1</span>');
+/** Split the tagline after its colon: the lead balances on its own line(s), the method stays whole below it. */
+const cut = name.tagline.indexOf(': ');
+const taglineLead = cut < 0 ? '' : name.tagline.slice(0, cut + 1);
+const taglineMethod = cut < 0 ? name.tagline : name.tagline.slice(cut + 2);
 ---
-<section class="name-panel g-sapphire grain has-notes" aria-labelledby="name-title">
-  <div class="container">
-    <h2 id="name-title" class="name-panel__h2 t-dateline">{name.heading}</h2>
-    <div class="name-panel__words" aria-hidden="true">
-      <div class="name-panel__word name-panel__word--ko">
-        <Sticker shape="rect" ground="saffron" rotate={-5} drop dropFrom="left" class="name-panel__sticker"><span class="name-panel__ko">Ko</span></Sticker>
-        <MarginNote text={storyNotes.about.ko} tone="saffron" size="lg" rotate={-6} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-20} anchor="block" show="all" class="name-panel__note" />
-      </div>
-      <div class="name-panel__word name-panel__word--kr">
-        <Sticker shape="rect" ground="white" rotate={3} drop dropFrom="right" class="name-panel__sticker"><span class="name-panel__kr">Kreaters</span></Sticker>
-        <MarginNote text={storyNotes.about.kreaters} tone="saffron" size="lg" rotate={-4} arrow="arrow-curve" arrowAt="start" flip arrowAngle={-30} anchor="block" show="all" class="name-panel__note" />
-      </div>
-    </div>
-    <div class="name-panel__foot">
-      <div class="name-panel__copy">
-        <p class="t-lead">{name.ko} {name.kreaters}</p>
-        <p class="t-lead">{name.quote} {name.tagline}</p>
-      </div>
-      <Sticker shape="rect" ground="white" rotate={-3} decorative={false} class="name-panel__lockup">
-        <Logo variant="full" alt={name.lockupAlt} width={320} class="name-panel__img" />
-      </Sticker>
+<Section ground="navy" labelledby="name-title" class="np">
+  <Eyebrow as="div" class="np__label" data-reveal><h2 id="name-title" class="np__h2">{name.heading}</h2></Eyebrow>
+  <div class="np__entry">
+    <p class="np__formula" data-reveal style="--i:1"><span class="np__word">{name.koWord}</span>&nbsp;<span class="np__plus">+</span> <span class="np__word">{name.kreatersWord}</span></p>
+    <div class="np__defs" data-reveal style="--i:2">
+      <p class="np__def" set:html={keepCompounds(name.ko)} />
+      <p class="np__def" set:html={keepCompounds(name.kreaters)} />
     </div>
   </div>
-</section>
+  <div class="np__foot" data-reveal>
+    <div class="np__copy">
+      <p class="np__quote" set:html={keepCompounds(name.quote)} />
+      <p class="np__tagline">
+        {taglineLead && <span class="np__tagline-lead">{taglineLead} </span>}
+        <span class="np__tagline-method nowrap">{taglineMethod}</span>
+      </p>
+    </div>
+    <Logo variant="full-white" alt={name.lockupAlt} width={260} class="np__lockup" />
+  </div>
+</Section>
 <style>
-  .name-panel { padding-block: var(--section); overflow: clip; }
-  .name-panel__h2 { margin: 0 0 var(--s-7); }
-  .name-panel__words { display: flex; flex-direction: column; gap: clamp(20px, 3vw, 44px); }
-  .name-panel__word { display: flex; align-items: center; gap: var(--s-6); flex-wrap: wrap; }
-  .name-panel__word--kr { padding-left: clamp(0px, 12vw, 220px); }
-  .name-panel__ko, .name-panel__kr { font-family: var(--font-display); font-weight: 800; font-stretch: 75%; letter-spacing: -.035em; line-height: .86; color: var(--kk-ink); display: block; padding: .02em .06em .1em; }
-  .name-panel__ko { font-size: clamp(6rem, 2rem + 16vw, 18rem); }
-  .name-panel__kr { font-size: clamp(4rem, 1.4rem + 10.4vw, 12rem); color: var(--kk-sapphire); }
-  .name-panel :global(.name-panel__note) { max-width: 24ch; }
-  .name-panel__foot { margin-top: var(--s-9); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8); align-items: center; }
-  .name-panel__copy p { margin: 0; max-width: 48ch; }
-  .name-panel__copy p + p { margin-top: var(--s-5); }
-  .name-panel :global(.name-panel__lockup) { justify-self: end; }
-  .name-panel :global(.name-panel__lockup .sticker__face) { padding: 28px 32px; border-radius: 20px; }
-  .name-panel :global(.name-panel__img) { display: block; width: min(320px, 70vw); height: auto; }
-  @media (max-width: 767px) {
-    .name-panel__foot { grid-template-columns: 1fr; }
-    .name-panel :global(.name-panel__lockup) { justify-self: start; }
-    .name-panel__word--kr { padding-left: 0; }
+  .np__h2 { margin: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; max-width: none; }
+  :global(.np__label) { margin-bottom: var(--s-7); }
+
+  .np__entry { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); }
+  .np__formula {
+    margin: 0; max-width: none;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 380;
+    font-size: var(--fs-display); line-height: 1; letter-spacing: -.03em; color: var(--head);   /* capped at the display step: the Home H1 stays the largest type */
+  }
+  .np__word { white-space: nowrap; }
+  .np__plus { font-weight: 300; color: var(--accent); margin-inline: .06em; }
+
+  .np__defs { display: grid; row-gap: var(--s-3); }
+  .np__def { margin: 0; max-width: 34ch; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg); text-wrap: pretty; }
+
+  .np__foot {
+    margin-top: var(--s-8); padding-top: var(--s-7); border-top: 1px solid var(--rule);
+    display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-7); align-items: end;
+  }
+  .np__quote {
+    margin: 0; max-width: 30ch;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 400;
+    font-size: var(--fs-h3); line-height: 1.4; color: var(--head); text-wrap: pretty;
+  }
+  .np__tagline { margin: var(--s-5) 0 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
+  .np__tagline-lead { display: block; text-wrap: balance; }
+  .np__tagline-method { display: block; }
+
+  @media (min-width: 600px) {
+    .np__def { max-width: 52ch; }
+  }
+  @media (min-width: 900px) {
+    .np__foot { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .np__copy { grid-column: 1 / 8; }
+    :global(.np__lockup) { grid-column: 9 / -1; justify-self: end; }
+  }
+  /* desktop: big formula left, its two definitions right, sharing the formula's baseline */
+  @media (min-width: 1200px) {
+    .np__entry { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: last baseline; }
+    .np__formula { grid-column: 1 / 8; }
+    .np__defs { grid-column: 8 / -1; row-gap: var(--s-4); }
+    .np__def { max-width: 34ch; }
   }
 </style>

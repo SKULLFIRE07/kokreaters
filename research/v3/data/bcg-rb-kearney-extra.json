@@ -1,0 +1,1413 @@
+{
+ "kearneyHome": {
+  "h": [
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "18px",
+    "lh": "28px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 131,
+    "wd": 352,
+    "ht": 28
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "18px",
+    "lh": "28px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 131,
+    "wd": 352,
+    "ht": 28
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "18px",
+    "lh": "28px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 131,
+    "wd": 352,
+    "ht": 28
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "18px",
+    "lh": "28px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 131,
+    "wd": 352,
+    "ht": 28
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "18px",
+    "lh": "28px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 131,
+    "wd": 352,
+    "ht": 28
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "66px",
+    "lh": "66px",
+    "w": "600",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 396,
+    "wd": 1000,
+    "ht": 66
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "22px",
+    "lh": "28px",
+    "w": "300",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "25px 0px 15px",
+    "x": 220,
+    "y": 462,
+    "wd": 1000,
+    "ht": 68
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "66px",
+    "lh": "66px",
+    "w": "600",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 392,
+    "wd": 1000,
+    "ht": 66
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "22px",
+    "lh": "28px",
+    "w": "300",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "25px 0px 15px",
+    "x": 220,
+    "y": 458,
+    "wd": 1000,
+    "ht": 68
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "COO ambition is outrunning execution across value ",
+    "fs": "66px",
+    "lh": "66px",
+    "w": "600",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 347,
+    "wd": 1000,
+    "ht": 132
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "22px",
+    "lh": "28px",
+    "w": "300",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "25px 0px 15px",
+    "x": 220,
+    "y": 479,
+    "wd": 1000,
+    "ht": 40
+   },
+   {
+    "sel": "h1,h2,h3,h4",
+    "t": "",
+    "fs": "66px",
+    "lh": "66px",
+    "w": "600",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 396,
+    "wd": 1000,
+    "ht": 66
+   }
+  ],
+  "p": [
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 189,
+    "wd": 352,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 880,
+    "y": 189,
+    "wd": 352,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 189,
+    "wd": 248,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 460,
+    "y": 189,
+    "wd": 248,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 700,
+    "y": 189,
+    "wd": 248,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 940,
+    "y": 189,
+    "wd": 191,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "600",
+    "c": "rgb(30, 30, 30)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(30, 30, 30)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 550,
+    "y": 189,
+    "wd": 352,
+    "ht": 24
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 677,
+    "y": 547,
+    "wd": 87,
+    "ht": 38
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 677,
+    "y": 543,
+    "wd": 87,
+    "ht": 38
+   },
+   {
+    "sel": "p",
+    "t": "Learn more",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 677,
+    "y": 539,
+    "wd": 87,
+    "ht": 38
+   },
+   {
+    "sel": "p",
+    "t": "",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 677,
+    "y": 547,
+    "wd": 87,
+    "ht": 38
+   },
+   {
+    "sel": "p",
+    "t": "Impact First.",
+    "fs": "16px",
+    "lh": "24px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "0px",
+    "pad": "0px",
+    "x": 220,
+    "y": 795,
+    "wd": 234,
+    "ht": 56
+   }
+  ],
+  "btn": [
+   {
+    "sel": "a.btn, .btn, a[class*=\"button\" i], a[class*=\"cta\" i]",
+    "t": "Learn more",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(120, 35, 220)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(120, 35, 220)",
+    "rad": "1px",
+    "pad": "0px 30px",
+    "x": 222,
+    "y": 1884,
+    "wd": 147,
+    "ht": 38
+   },
+   {
+    "sel": "a.btn, .btn, a[class*=\"button\" i], a[class*=\"cta\" i]",
+    "t": "Learn more",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(120, 35, 220)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(120, 35, 220)",
+    "rad": "1px",
+    "pad": "0px 30px",
+    "x": 822,
+    "y": 2443,
+    "wd": 147,
+    "ht": 38
+   },
+   {
+    "sel": "a.btn, .btn, a[class*=\"button\" i], a[class*=\"cta\" i]",
+    "t": "Sign up",
+    "fs": "16px",
+    "lh": "38px",
+    "w": "400",
+    "c": "rgb(255, 255, 255)",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bd": "0px none rgb(255, 255, 255)",
+    "rad": "1px",
+    "pad": "0px 30px",
+    "x": 916,
+    "y": 2970,
+    "wd": 118,
+    "ht": 38
+   }
+  ],
+  "imgs": [
+   {
+    "w": 232,
+    "h": 25,
+    "y": 38,
+    "f": "none"
+   },
+   {
+    "w": 1440,
+    "h": 800,
+    "y": 100,
+    "f": "none"
+   },
+   {
+    "w": 1440,
+    "h": 800,
+    "y": 100,
+    "f": "none"
+   },
+   {
+    "w": 1440,
+    "h": 800,
+    "y": 100,
+    "f": "none"
+   },
+   {
+    "w": 1440,
+    "h": 800,
+    "y": 100,
+    "f": "none"
+   },
+   {
+    "w": 402,
+    "h": 336,
+    "y": 978,
+    "f": "none"
+   },
+   {
+    "w": 402,
+    "h": 336,
+    "y": 978,
+    "f": "none"
+   },
+   {
+    "w": 719,
+    "h": 600,
+    "y": 1464,
+    "f": "none"
+   },
+   {
+    "w": 720,
+    "h": 600,
+    "y": 2064,
+    "f": "none"
+   }
+  ]
+ },
+ "kearneyMegaErr_Your industry": "TimeoutError: locator.hover: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('header a, header button, nav a').filter({ hasText: 'Your industry' }).first()\u001b[22m\n\u001b[2m    - locator resolv",
+ "kearneyMegaErr_Your needs": "TimeoutError: locator.hover: Timeout 4000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('header a, header button, nav a').filter({ hasText: 'Your needs' }).first()\u001b[22m\n\u001b[2m    - locator resolved ",
+ "kearneyIndustry": [
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 403,
+   "ht": 26,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 434,
+   "ht": 33,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 220,
+   "y": 469,
+   "ht": 39,
+   "wd": 245
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 220,
+   "y": 510,
+   "ht": 32,
+   "wd": 245
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 547,
+   "ht": 26,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 578,
+   "ht": 26,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 609,
+   "ht": 26,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 235,
+   "y": 640,
+   "ht": 33,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 565,
+   "y": 424,
+   "ht": 26,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 565,
+   "y": 450,
+   "ht": 51,
+   "wd": 230
+  },
+  {
+   "t": "",
+   "fs": "16px",
+   "lh": "24px",
+   "w": "100",
+   "c": "rgb(30, 30, 30)",
+   "td": "none auto rgb(30, 30, 30)",
+   "bb": "0px none rgb(30, 30, 30)",
+   "x": 550,
+   "y": 503,
+   "ht": 39,
+   "wd": 245
+  },
+  {
+   "t": "Aerospace and Defense",
+   "fs": "22px",
+   "lh": "28px",
+   "w": "400",
+   "c": "rgb(120, 35, 220)",
+   "td": "underline auto rgb(230, 230, 230)",
+   "bb": "0px none rgb(120, 35, 220)",
+   "x": 220,
+   "y": 464,
+   "ht": 34,
+   "wd": 251
+  },
+  {
+   "t": "Automotive",
+   "fs": "22px",
+   "lh": "28px",
+   "w": "400",
+   "c": "rgb(120, 35, 220)",
+   "td": "underline auto rgb(230, 230, 230)",
+   "bb": "0px none rgb(120, 35, 220)",
+   "x": 220,
+   "y": 504,
+   "ht": 34,
+   "wd": 123
+  },
+  {
+   "t": "Consumer and Retail",
+   "fs": "22px",
+   "lh": "28px",
+   "w": "400",
+   "c": "rgb(120, 35, 220)",
+   "td": "underline auto rgb(230, 230, 230)",
+   "bb": "0px none rgb(120, 35, 220)",
+   "x": 220,
+   "y": 544,
+   "ht": 34,
+   "wd": 219
+  },
+  {
+   "t": "Communications",
+   "fs": "22px",
+   "lh": "28px",
+   "w": "400",
+   "c": "rgb(120, 35, 220)",
+   "td": "underline auto rgb(230, 230, 230)",
+   "bb": "0px none rgb(120, 35, 220)",
+   "x": 220,
+   "y": 584,
+   "ht": 34,
+   "wd": 179
+  },
+  {
+   "t": "Energy and Resources",
+   "fs": "22px",
+   "lh": "28px",
+   "w": "400",
+   "c": "rgb(120, 35, 220)",
+   "td": "underline auto rgb(230, 230, 230)",
+   "bb": "0px none rgb(120, 35, 220)",
+   "x": 220,
+   "y": 624,
+   "ht": 34,
+   "wd": 236
+  }
+ ],
+ "rbMega": {
+  "columnsX": [
+   158,
+   559,
+   961,
+   1087,
+   1294
+  ],
+  "links": [
+   [
+    "Jobs",
+    "18px",
+    "400",
+    "rgb(0, 0, 238)",
+    1087,
+    176
+   ],
+   [
+    "",
+    "18px",
+    "400",
+    "rgb(0, 0, 238)",
+    1294,
+    200
+   ],
+   [
+    "Aerospace & Defense",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    264
+   ],
+   [
+    "Automotive & Commercial Vehicl",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    294
+   ],
+   [
+    "Battery",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    324
+   ],
+   [
+    "Capital Goods",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    354
+   ],
+   [
+    "Chemicals",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    384
+   ],
+   [
+    "Construction",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    414
+   ],
+   [
+    "Consumer Goods, Retail & Agric",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    444
+   ],
+   [
+    "Electrics and Electronics",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    504
+   ],
+   [
+    "Energy & Utilities",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    534
+   ],
+   [
+    "Financial Services",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    158,
+    564
+   ],
+   [
+    "Infrastructure",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    263
+   ],
+   [
+    "Pharma & Healthcare",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    293
+   ],
+   [
+    "Private Equity & Strategic Inv",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    323
+   ],
+   [
+    "Public Sector",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    353
+   ],
+   [
+    "Technology, Media & Telecoms",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    383
+   ],
+   [
+    "Transportation, Tourism & Logi",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    413
+   ],
+   [
+    "Water Management",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    559,
+    443
+   ],
+   [
+    "Corporate Performance",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    264
+   ],
+   [
+    "CRO Management",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    294
+   ],
+   [
+    "Digital",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    324
+   ],
+   [
+    "Interim Management",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    354
+   ],
+   [
+    "Mergers & Acquisitions",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    384
+   ],
+   [
+    "Operations",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    414
+   ],
+   [
+    "People & Organization",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    444
+   ],
+   [
+    "Restructuring & Turnaround",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    474
+   ],
+   [
+    "Sales & Marketing",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    504
+   ],
+   [
+    "Sustainability",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    534
+   ],
+   [
+    "Transaction Services",
+    "17px",
+    "500",
+    "rgb(255, 255, 255)",
+    961,
+    564
+   ]
+  ]
+ },
+ "kearney-home_mobileTopButtons": [
+  {
+   "tag": "A",
+   "t": "Skip to main content",
+   "al": "Skip to main content",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": 24,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "A",
+   "t": "Skip to footer",
+   "al": "Skip to footer",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": -138,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "BUTTON",
+   "t": "Open Accessibility M",
+   "al": "Open Accessibility Menu",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": -138,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "A",
+   "t": "Skip to Main Content",
+   "al": null,
+   "cls": "d-block p-2 sr-only sr-only-focusable text-reset",
+   "x": -1,
+   "y": -1,
+   "w": 16,
+   "h": 16
+  },
+  {
+   "tag": "A",
+   "t": "",
+   "al": null,
+   "cls": "",
+   "x": 20,
+   "y": 0,
+   "w": 162,
+   "h": 33
+  },
+  {
+   "tag": "SPAN",
+   "t": "",
+   "al": null,
+   "cls": "custom-search-icon",
+   "x": 292,
+   "y": -8,
+   "w": 46,
+   "h": 65
+  }
+ ],
+ "kearney-home_mobileHeader": [
+  {
+   "tag": "HEADER",
+   "cls": "headerTopCorner",
+   "h": 51,
+   "bg": "rgb(255, 255, 255)"
+  }
+ ],
+ "kearney-home_burger": null,
+ "kearney-industry_mobileTopButtons": [
+  {
+   "tag": "A",
+   "t": "Skip to main content",
+   "al": "Skip to main content",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": 24,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "A",
+   "t": "Skip to menu",
+   "al": "Skip to menu",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": -138,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "A",
+   "t": "Skip to footer",
+   "al": "Skip to footer",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": -138,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "BUTTON",
+   "t": "Open Accessibility M",
+   "al": "Open Accessibility Menu",
+   "cls": "equally-ai___a11y-menu___btn",
+   "x": 30,
+   "y": -138,
+   "w": 320,
+   "h": 54
+  },
+  {
+   "tag": "A",
+   "t": "",
+   "al": null,
+   "cls": "",
+   "x": 20,
+   "y": 0,
+   "w": 162,
+   "h": 33
+  },
+  {
+   "tag": "SPAN",
+   "t": "",
+   "al": null,
+   "cls": "custom-search-icon",
+   "x": 292,
+   "y": -8,
+   "w": 46,
+   "h": 65
+  }
+ ],
+ "kearney-industry_mobileHeader": [
+  {
+   "tag": "HEADER",
+   "cls": "headerTopCorner",
+   "h": 51,
+   "bg": "rgb(255, 255, 255)"
+  }
+ ],
+ "kearney-industry_burger": null,
+ "rb-home_mobileTopButtons": [
+  {
+   "tag": "A",
+   "t": "",
+   "al": null,
+   "cls": "logo-img",
+   "x": 20,
+   "y": 0,
+   "w": 55,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "Expertise",
+   "al": null,
+   "cls": "toplevel ng-scope",
+   "x": 0,
+   "y": -1619,
+   "w": 390,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "Insights",
+   "al": null,
+   "cls": "toplevel ng-scope",
+   "x": 0,
+   "y": -1572,
+   "w": 390,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "About",
+   "al": null,
+   "cls": "toplevel ng-scope",
+   "x": 0,
+   "y": -1525,
+   "w": 390,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "Locations",
+   "al": null,
+   "cls": "toplevel",
+   "x": 0,
+   "y": -1478,
+   "w": 390,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "Join",
+   "al": null,
+   "cls": "toplevel ng-scope",
+   "x": 0,
+   "y": -1431,
+   "w": 390,
+   "h": 47
+  },
+  {
+   "tag": "A",
+   "t": "Newsroom",
+   "al": null,
+   "cls": "",
+   "x": 0,
+   "y": -1374,
+   "w": 390,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "Think:Act Magazine",
+   "al": null,
+   "cls": "",
+   "x": 0,
+   "y": -1339,
+   "w": 390,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "Alumni",
+   "al": null,
+   "cls": "",
+   "x": 0,
+   "y": -1304,
+   "w": 390,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "Contact Us",
+   "al": null,
+   "cls": "",
+   "x": 0,
+   "y": -1269,
+   "w": 390,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "Newsletter",
+   "al": null,
+   "cls": "",
+   "x": 0,
+   "y": -1234,
+   "w": 390,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "EN",
+   "al": null,
+   "cls": "lng selected",
+   "x": 23,
+   "y": -1169,
+   "w": 25,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "DE",
+   "al": null,
+   "cls": "lng",
+   "x": 58,
+   "y": -1169,
+   "w": 35,
+   "h": 35
+  },
+  {
+   "tag": "A",
+   "t": "",
+   "al": null,
+   "cls": "search",
+   "x": 280,
+   "y": 0,
+   "w": 50,
+   "h": 60
+  },
+  {
+   "tag": "A",
+   "t": "Jobs",
+   "al": null,
+   "cls": "button",
+   "x": 307,
+   "y": 51,
+   "w": 66,
+   "h": 28
+  },
+  {
+   "tag": "A",
+   "t": "",
+   "al": null,
+   "cls": "",
+   "x": 348,
+   "y": 18,
+   "w": 30,
+   "h": 24
+  }
+ ],
+ "rb-home_mobileHeader": [
+  {
+   "tag": "HEADER",
+   "cls": "m-header ng-scope is-fixed",
+   "h": 60,
+   "bg": "rgba(0, 0, 0, 0)"
+  }
+ ],
+ "rb-home_burger": {
+  "tag": "A",
+  "t": "",
+  "al": null,
+  "cls": "",
+  "x": 348,
+  "y": 18,
+  "w": 30,
+  "h": 24
+ },
+ "rb-home_menuItems": [
+  [
+   "Expertise",
+   "22px",
+   "400",
+   47,
+   0,
+   110
+  ],
+  [
+   "Insights",
+   "22px",
+   "400",
+   47,
+   0,
+   157
+  ],
+  [
+   "About",
+   "22px",
+   "400",
+   47,
+   0,
+   204
+  ],
+  [
+   "Locations",
+   "22px",
+   "400",
+   47,
+   0,
+   251
+  ],
+  [
+   "Join",
+   "22px",
+   "400",
+   47,
+   0,
+   298
+  ],
+  [
+   "Newsroom",
+   "18px",
+   "400",
+   35,
+   0,
+   365
+  ],
+  [
+   "Think:Act Magazine",
+   "18px",
+   "400",
+   35,
+   0,
+   400
+  ],
+  [
+   "Alumni",
+   "18px",
+   "400",
+   35,
+   0,
+   435
+  ],
+  [
+   "Contact Us",
+   "18px",
+   "400",
+   35,
+   0,
+   470
+  ],
+  [
+   "Newsletter",
+   "18px",
+   "400",
+   35,
+   0,
+   505
+  ],
+  [
+   "EN",
+   "18px",
+   "400",
+   35,
+   23,
+   570
+  ],
+  [
+   "DE",
+   "18px",
+   "400",
+   35,
+   58,
+   570
+  ],
+  [
+   "Jobs",
+   "18px",
+   "400",
+   28,
+   307,
+   51
+  ],
+  [
+   "OUR CONSULTING APPROACH",
+   "12px",
+   "400",
+   48,
+   155,
+   159
+  ],
+  [
+   "STUDY\nAutomotive Industry – ",
+   "18px",
+   "400",
+   410,
+   0,
+   314
+  ],
+  [
+   "STUDY\nFuture of health 8: Re",
+   "18px",
+   "400",
+   159,
+   0,
+   765
+  ]
+ ]
+}

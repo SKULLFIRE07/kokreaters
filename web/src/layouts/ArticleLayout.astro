@@ -1,21 +1,34 @@
 ---
 /**
- * Article page (DESIGN-SPEC 5.8). Grid at ≥ 1280px: cols 1–3 sidenotes, 4–10 body (≤ 64ch),
- * 11–12 the route rail. Single column below, with notes inline in reading order.
+ * Insight article (REDESIGN-V3 §4 "Insight article"). Order: PageHero (white: crumbs, "Format · Expertise" label, H1,
+ * standfirst, byline) → wide hero photo (21:9 ≥ 900px, 16:9 ≥ 600px, 4:3 phones) → article column: MDX body (Key
+ * takeaways first, then prose with Note / Exhibit / ProcessChain / PullQuote) → share row → author box → related
+ * insights (grey) → CtaBand (white, so the grey related band and the navy footer stay apart).
+ * Column: left-aligned with the hero text, max 45rem (≈ 70 characters at 20px). ≥ 1200px the right column stays open
+ * for sidenotes, and exhibits/pull quotes reach into it (the body grid is the size container for that).
+ * Print ("Download PDF"): chrome, share, related and CTA are hidden; the article prints as a clean document.
+ * Mobile: one column, 20px gutters, 18px body; the hero photo is 4:3 inside the gutters.
  */
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
-import ProgressRule from '@/components/article/ProgressRule.astro';
-import ArticleHeader from '@/components/article/ArticleHeader.astro';
-import RouteRail from '@/components/article/RouteRail.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Photo from '@/components/ui/Photo.astro';
+import InsightCard from '@/components/cards/InsightCard.astro';
+import Byline from '@/components/article/Byline.astro';
+import ShareRow from '@/components/article/ShareRow.astro';
 import AuthorBox from '@/components/article/AuthorBox.astro';
-import CoverStory from '@/components/shared/CoverStory.astro';
-import { article as articleNode } from '@/components/seo/schema';
-import { articleSeo } from '@/lib/seo';
-import { getPillar } from '@/lib/pillars';
-import { microcopy } from '@/data/microcopy';
-import type { SeoProps } from '@/components/seo/schema';
+import { article as articleNode, type SeoProps } from '@/components/seo/schema';
+import { articleSeo, canonical } from '@/lib/seo';
+import { getPillar, pillarHref } from '@/lib/pillars';
+import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft } from '@/lib/insights';
+import { showDraftLabels } from '@/lib/mode';
+import { dotJoin } from '@/lib/format';
+import { microcopy, formatLabels } from '@/data/microcopy';
+import { footer } from '@/data/nav';
+import { articleCopy } from '@/data/insights';
 
 interface Props {
   entry: CollectionEntry<'insights'>;
@@ -23,7 +36,7 @@ interface Props {
   minutes: number;
   related: CollectionEntry<'insights'>[];
 }
-const { entry, headings, minutes, related } = Astro.props;
+const { entry, minutes, related } = Astro.props;
 const d = entry.data;
 const pillar = getPillar(d.pillar);
 const base = articleSeo({ id: entry.id, title: d.title, description: d.description });
@@ -34,49 +47,98 @@ const seo: SeoProps = {
   article: { published: published?.toISOString(), modified: modified?.toISOString(), section: pillar.name },
   jsonLd: [articleNode({ title: d.title, standfirst: d.standfirst || d.description, path: base.path, published, modified, section: pillar.name, ogImage: base.ogImage })],
 };
-const crumbs = [{ label: 'Insights', href: '/insights' }, { label: d.title, href: base.path }];
-const showRail = headings.filter((h) => h.depth === 2).length >= 3;
+const crumbs = [{ label: footer.insights.heading, href: '/insights' }, { label: d.title, href: base.path }];
+// Visible trail: the H1 sits right below it, so the current item is the title's short form (the part before the
+// colon), which keeps the trail on one line on phones. The JSON-LD trail (BaseLayout `breadcrumbs`) keeps the full title.
+const shortTitle = d.title.split(':')[0].trim();
+const heroCrumbs = [crumbs[0], { label: shortTitle, href: base.path }];
+const url = canonical(base.path);
+const hero = insightImage(entry);
+const eyebrow = dotJoin([formatLabels[d.format], pillar.name]);
+const relatedCards = related.map((r) => ({ r, img: insightImage(r) }));
 ---
-<BaseLayout page="article" seo={seo} breadcrumbs={crumbs} pillar={d.pillar} showCrumbs={false}>
-  <ProgressRule />
+<BaseLayout page="article" seo={seo} breadcrumbs={crumbs} cta={{ ground: 'white' }}>
   <article class="article" data-article data-minutes={minutes}>
-    <ArticleHeader entry={entry} minutes={minutes} />
-    <div class="container">
-      <div class="article__grid">
-        <div class="article__body prose" data-article-body><slot /></div>
-        {showRail && <aside class="article__rail"><RouteRail headings={headings} /></aside>}
-        <div class="article__author"><AuthorBox /></div>
+    <PageHero ground="white" titleId="article-title" crumbs={heroCrumbs} eyebrow={eyebrow} title={d.title} lead={d.standfirst || undefined}>
+      <Byline entry={entry} minutes={minutes} />
+    </PageHero>
+
+    {hero && (
+      <div class="container a-media">
+        <div class="a-media__frame">
+          <Photo src={hero.src} alt={hero.alt} position={hero.position} fill priority sizes="(min-width: 1296px) 1200px, 94vw" />
+        </div>
+      </div>
+    )}
+
+    <div class="container a-body">
+      <div class="a-body__grid">
+        <div class="a-body__col">
+          <div class="prose prose--article" data-article-body><slot /></div>
+          <ShareRow url={url} title={d.title} summary={d.standfirst || d.description} pillar={{ name: pillar.name, href: pillarHref(d.pillar) }} />
+          <AuthorBox />
+        </div>
       </div>
     </div>
   </article>
+
   {related.length > 0 && (
-    <section class="article__related g-cloud paper-grid" aria-labelledby="related-h">
-      <div class="container">
-        <h2 id="related-h" class="t-h2 related__h" data-rise>{microcopy.relatedInsights}</h2>
-        <ul class="related__list" role="list">
-          {related.map((r) => <li><CoverStory entry={r} variant="card" headingLevel="h3" /></li>)}
-        </ul>
-      </div>
-    </section>
+    <Section ground="grey" labelledby="related-h" class="a-related">
+      <SectionHeader id="related-h" title={microcopy.relatedInsights} link={footer.insights.all} />
+      {/* Always the three-up grid of default cards (left aligned): 'feature' stays the hub's Featured band, so one
+          related insight reads as the start of a grid, not as a second hero card. */}
+      <ul class="card-grid" role="list" style="--cols:3">
+        {relatedCards.map(({ r, img }, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <InsightCard
+              href={insightHref(r)} title={r.data.title} label={formatLabel(r)} pillarName={getPillar(r.data.pillar).shortLabel}
+              summary={r.data.description || r.data.standfirst} date={r.data.date} readTime={insightReadingTime(r)}
+              image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
+            >
+              {showDraftLabels && isDraft(r) && <span slot="badge"> · {articleCopy.draft}</span>}
+            </InsightCard>
+          </li>
+        ))}
+      </ul>
+    </Section>
   )}
 </BaseLayout>
-<style>
-  .article { padding-bottom: var(--section); }
-  .article__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); padding-top: clamp(3rem, 2rem + 3vw, 5rem); }
-  .article__body, .article__author { width: 100%; max-width: var(--measure-article); margin-inline: auto; }
-  .article__rail { display: none; }
-  .article__author { margin-top: var(--s-6); }
-  .article__related { padding-block: clamp(4rem, 2rem + 5vw, 7rem); border-top: 2px solid var(--kk-ink); }
-  .related__h { margin: 0 0 var(--s-7); }
-  .related__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
-  .related__list :global(.cover--card) { width: 100%; min-height: 380px; box-shadow: var(--shadow-hard); border: 2px solid var(--kk-ink); }
-  @media (min-width: 768px) { .related__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .related__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-  @media (min-width: 1280px) {
-    .article__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-    .article__body { grid-column: 4 / 11; grid-row: 1; margin: 0; }
-    .article__author { grid-column: 4 / 11; margin: var(--s-6) 0 0; max-width: var(--measure-article); }
-    .article__rail { display: block; grid-column: 11 / 13; grid-row: 1; }
+<style>
+  /* hero photo: pulled up into the hero's bottom padding so it reads as part of the header */
+  .a-media { position: relative; z-index: 1; margin-top: calc(-1 * clamp(1.5rem, .9rem + 2.4vw, 3rem)); }
+  .a-media__frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); }
+  @media (min-width: 600px) { .a-media__frame { aspect-ratio: 16 / 9; } }
+  @media (min-width: 900px) { .a-media__frame { aspect-ratio: 21 / 9; } }
+
+  .a-body { padding-block: clamp(3rem, 2rem + 3vw, 5rem) var(--section); }
+  .a-body__grid { container-type: inline-size; }
+  .a-body__col { width: 100%; max-width: 45rem; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
+</style>
+
+<style is:global>
+  /* "Download PDF" → window.print(): the article as a clean document. */
+  @media print {
+    @page { margin: 18mm 16mm; }
+    /* document type scale: the components keep their structure, the tokens they read shrink to print sizes */
+    body[data-page="article"] {
+      background: var(--white);
+      --fs-h1: 24pt; --fs-h3: 13pt; --fs-h4: 11.5pt; --fs-quote: 14pt; --fs-lead: 12pt;
+      --fs-body: 10.5pt; --fs-small: 9.5pt; --fs-meta: 8.5pt; --fs-label: 7.5pt;
+      --s-5: 12px; --s-6: 16px; --s-7: 24px; --s-8: 32px;
+    }
+    body[data-page="article"] .a-media__frame { aspect-ratio: 21 / 9; }
+    body[data-page="article"] .exhibit { break-inside: avoid; }
+    body[data-page="article"] .takeaways__title, body[data-page="article"] .exhibit__head { break-after: avoid; }
+    body[data-page="article"] :is(.skip-link, .ann, .site-header, .site-footer, .cta-band, .cookie-bar, .a-related, .hero__crumbs, .share__row) { display: none !important; }
+    body[data-page="article"] main { padding: 0 !important; }
+    body[data-page="article"] .hero__inner { padding-block: 0 8mm !important; }
+    body[data-page="article"] .a-media { margin: 0 0 6mm; padding: 0; }
+    body[data-page="article"] .a-body { padding: 0; }
+    body[data-page="article"] .a-body__col { max-width: none; row-gap: 8mm; }
+    body[data-page="article"] .share { border-bottom: 0; padding-block: 4mm 0; }
+    body[data-page="article"] .share__url { display: block; margin: 0; font-size: 9pt; color: var(--ink-2); }
+    body[data-page="article"] .author { break-inside: avoid; }
+    body[data-page="article"] [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
   }
 </style>

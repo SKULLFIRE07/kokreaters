@@ -1,59 +1,21 @@
 ---
 /**
- * /industries (DESIGN-SPEC v2 10.4 + 00.2). Grounds: white grid (header) → imperial (the pinned sector wheel) →
- * white (index + nine sectors) → saffron (CtaField, BaseLayout). No lead: the brief has none (C-15).
+ * /industries (REDESIGN-V3 §4 Industries, §8.8–8.9). Grounds: grey hero → white (nine cards) → grey CtaBand
+ * (BaseLayout) → navy footer.
+ *  1. PageHero grey: crumbs, eyebrow "Industries", H1 "Where we work", and the one-paragraph intro
+ *     (`industriesPage.lead`, drafted 10 Nov 2026 for approval; C-15 closed) in every mode.
+ *  2. IndustriesGrid: nine IndustryTile cards with id={slug} anchors and "Relevant expertise" links.
+ * Mobile: one column; the intro at lead size; the grid is one column (IndustriesGrid).
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Breadcrumbs from '@/components/chrome/Breadcrumbs.astro';
-import Confirm from '@/components/ui/Confirm.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import Scribble from '@/components/notes/Scribble.astro';
-import SectorWheel from '@/components/industries/SectorWheel.astro';
-import SectorIndex from '@/components/industries/SectorIndex.astro';
-import SectorSection from '@/components/industries/SectorSection.astro';
-import { industries, industriesPage } from '@/data/industries';
-import { expertiseNotes } from '@/data/notes/expertise';
+import PageHero from '@/components/ui/PageHero.astro';
+import IndustriesGrid from '@/components/industries/IndustriesGrid.astro';
+import { industriesPage } from '@/data/industries';
 import { pageSeo } from '@/lib/seo';
 
-const crumbs = [{ label: 'Industries', href: '/industries' }];
-const words = industriesPage.headline.split(' ');
-const last = words.pop();
+const crumbs = [{ label: industriesPage.overline, href: '/industries' }];
 ---
-<BaseLayout page="industries" seo={pageSeo('industries')} breadcrumbs={crumbs} showCrumbs={false}>
-  <section class="band fold g-white paper-grid ind-head has-notes" aria-labelledby="industries-title">
-    <div class="container">
-      <Breadcrumbs items={crumbs} />
-      <div class="ind-head__text">
-        <p class="t-dateline ind-head__dateline"><span class="ind-head__dot" aria-hidden="true"></span>{industriesPage.overline}</p>
-        <h1 id="industries-title" class="t-mega ind-head__title">{words.join(' ')} <Scribble kind="circle" tone="orchid" thickness={4} pad="0.02em 0.08em">{last}</Scribble></h1>
-        <Confirm id="C-15" note="industries intro" />
-      </div>
-      <MarginNote text={expertiseNotes.industries.pick} tone="orchid" arrow="arrow-bounce" arrowAt="below" rotate={-6} arrowAngle={80} place="left: min(60%, 52rem); top: 46%;" size="lg" show="md" />
-    </div>
-  </section>
-
-  <section class="band fold g-imperial grain ind-wheel" aria-label={expertiseNotes.industries.wheel} data-wheel-section>
-    <div class="container"><SectorWheel /></div>
-  </section>
-
-  <div class="band fold g-white ind-body">
-    <div class="container ind-body__grid">
-      <div class="ind-body__index"><SectorIndex /></div>
-      <div class="ind-body__sectors">
-        {industries.map((i) => <SectorSection industry={i} />)}
-      </div>
-    </div>
-  </div>
+<BaseLayout page="industries" seo={pageSeo('industries')} breadcrumbs={crumbs}>
+  <PageHero ground="grey" eyebrow={industriesPage.overline} title={industriesPage.headline} lead={industriesPage.lead} crumbs={crumbs} titleId="industries-title" />
+  <IndustriesGrid />
 </BaseLayout>
-<style>
-  .ind-head { padding-top: var(--s-5); padding-bottom: clamp(4rem, 2rem + 6vw, 8rem); overflow: clip; }
-  .ind-head__text { margin-top: var(--s-8); }
-  .ind-head__dateline { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 var(--s-5); }
-  .ind-head__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--kk-saffron); box-shadow: 0 0 0 3px var(--kk-ink); }
-  .ind-head__title { margin: 0 0 var(--s-4); max-width: 9ch; font-size: clamp(4rem, 1rem + 13vw, 14rem); }
-  .ind-wheel { overflow: clip; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding-block: var(--s-8); }
-  .ind-wheel > .container { width: 100%; }
-  .ind-body__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: var(--s-7); align-items: start; }
-  @media (max-width: 1023px) { .ind-body__grid { grid-template-columns: 1fr; gap: var(--s-6); } }
-  @media (max-width: 767px) { .ind-head__text { margin-top: var(--s-6); } .ind-head__title { font-size: clamp(4rem, 2rem + 12vw, 6rem); } }
-</style>

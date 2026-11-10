@@ -1,5 +1,5 @@
 ---
-/** Article route (DESIGN-SPEC 5.8). Built from visibleInsights() only: coming-soon stubs have no page. */
+/** Article route (REDESIGN-V3 §4). Built from visibleInsights() only: coming-soon stubs have no page. */
 import { render } from 'astro:content';
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import { visibleInsights, insightReadingTime, type Insight } from '@/lib/insights';
@@ -24,3 +24,5 @@ const minutes = insightReadingTime(entry);
 <ArticleLayout entry={entry} headings={headings} minutes={minutes} related={related}>
   <Content />
 </ArticleLayout>
+
+<script>import '@/scripts/pages/article.ts';</script>

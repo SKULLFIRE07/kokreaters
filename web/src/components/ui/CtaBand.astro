@@ -1,0 +1,85 @@
+---
+/**
+ * Closing call to action (REDESIGN-V3 §3, §4 Home 8). Rendered by BaseLayout on every page except contact, legal and
+ * 404. Defaults come from src/data/home.ts `cta`: "Have a challenge worth solving together?", one line, and
+ * "Book a 30-minute call" → PUBLIC_BOOKING_URL (fallback /contact#form); the secondary is the email address.
+ * `newsletter` adds a second column with the newsletter form, divided by a hairline.
+ * Layout ≥ 900px, 12 columns: title in 1–6, body + actions bottom-aligned in 8–12; with newsletter the CTA stacks in
+ * 1–6 and the form takes 8–12 behind a vertical hairline. Mobile: one column, full-width primary button, the
+ * newsletter under a horizontal hairline.
+ * Gaps rule (§8.8): the default body's second sentence ("The first conversation is free of charge.") is CONFIRM 9.
+ * Only staging shows it (with the Confirm tag); preview and production print the plain, true first sentence alone
+ * ("Tell us about your product, your plant or your decision.").
+ */
+import Section from './Section.astro';
+import Button from './Button.astro';
+import Confirm from './Confirm.astro';
+import NewsletterForm from './NewsletterForm.astro';
+import { cta } from '@/data/home';
+import { footer } from '@/data/nav';
+import { site } from '@/config/site';
+import { showConfirm } from '@/lib/mode';
+
+// cta.body = "<plain line> <CONFIRM 9 claim>": outside staging only the first sentence is a confirmed fact
+const ctaBodyPlain = cta.body.split(/(?<=\.)\s+/)[0];
+
+interface Link { label: string; href: string }
+interface Props {
+  title?: string;
+  body?: string;
+  primary?: Link;
+  secondary?: Link;
+  newsletter?: boolean;
+  ground?: 'grey' | 'navy' | 'white';
+}
+const {
+  title = cta.headline,
+  body = showConfirm ? cta.body : ctaBodyPlain,
+  primary = { label: cta.button, href: site.bookingUrl },
+  secondary = { label: site.email, href: `mailto:${site.email}` },
+  newsletter = false,
+  ground = 'grey',
+} = Astro.props;
+const isDefaultBody = !Astro.props.body;
+---
+<Section ground={ground} labelledby="cta-heading" class="cta-band">
+  <div class:list={['cta-band__grid', newsletter && 'cta-band__grid--news']}>
+    <h2 id="cta-heading" class="cta-band__title" data-reveal>{title}</h2>
+    <div class="cta-band__side" data-reveal style="--i:1">
+      {body && <p class="cta-band__body">{body}{isDefaultBody && showConfirm && <Confirm id={9} note="free first call" />}</p>}
+      <div class="cta-band__actions">
+        <Button href={primary.href} size="lg" icon="arrow" class="cta-band__primary">{primary.label}</Button>
+        {secondary && <a class="cta-band__secondary" href={secondary.href}>{secondary.label}</a>}
+      </div>
+    </div>
+    {newsletter && (
+      <div class="cta-band__news" data-reveal style="--i:2">
+        <NewsletterForm id="nl-cta" tone={ground === 'navy' ? 'dark' : 'light'} heading={footer.newsletter.heading} />
+      </div>
+    )}
+  </div>
+</Section>
+
+<style>
+  /* a short closing band: 64 → 96px padding instead of the full 72 → 120 section rhythm, so it never reads hollow */
+  :global(.cta-band.band) { --_pad: clamp(64px, 3.4rem + 2.4vw, 96px); }
+  .cta-band__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); }
+  .cta-band__title { margin: 0; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); }
+  .cta-band__body { margin: 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
+  .cta-band__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin-top: var(--s-6); }
+  .cta-band__secondary { display: inline-flex; align-items: center; min-height: 44px; font: 500 var(--fs-small)/1.3 var(--font-sans); color: var(--link); }
+  .cta-band__news { margin-top: var(--s-6); padding-top: var(--s-7); border-top: 1px solid var(--rule); }
+
+  @media (max-width: 599px) {
+    .cta-band__actions { flex-direction: column; align-items: stretch; }
+    .cta-band__actions :global(.cta-band__primary) { width: 100%; justify-content: center; }
+  }
+  @media (min-width: 900px) {
+    .cta-band__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .cta-band__title { grid-column: 1 / span 6; max-width: 24ch; }
+    .cta-band__side { grid-column: 8 / span 5; align-self: end; }
+    .cta-band__grid--news .cta-band__title, .cta-band__grid--news .cta-band__side { grid-column: 1 / span 6; align-self: start; }
+    .cta-band__news { grid-column: 8 / span 5; grid-row: 1 / span 2; margin: 0; padding: 0 0 0 var(--grid-gap); border-top: 0; border-left: 1px solid var(--rule); align-self: stretch; }
+    .cta-band__news :global(.nl__heading) { margin-top: .5rem; }   /* label cap line sits level with the title's cap line */
+  }
+</style>

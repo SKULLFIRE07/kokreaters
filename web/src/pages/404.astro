@@ -1,46 +1,67 @@
 ---
-/** 404 (DESIGN-SPEC v2 10.12). White lab-notebook grid, noindex (BaseLayout forces it for page="notfound").
- * The H1 is real, static text; below/beside it the FallingText pit throws the same words around (aria-hidden). */
+/**
+ * 404 (REDESIGN-V3 §4 Legal and 404). One navy band: eyebrow "404", H1 "This page could not be found.", the brief's
+ * line "Let’s connect you back.", then four plain links (Home, Expertise, Insights, Contact) and the NodeMark as the
+ * quiet signature. noindex and no CtaBand (BaseLayout, page="notfound"); no breadcrumbs, no JSON-LD.
+ * The band runs straight into the navy footer, so a container-width hairline separates the two.
+ * Mobile (< 900px): one column; the links stack as full-width 56px rows with hairlines; the NodeMark leaves the flow
+ * and sits small (48px) at the top right, level with the "404" eyebrow, as a folio mark (not an orphan under the list).
+ * 900–1199px: links in a 2 × 2 grid (four columns would crowd label and arrow); ≥ 1200px: one row of four. The label
+ * and arrow are centred on one line in every layout. NodeMark large in the right-hand column from 900px.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Button from '@/components/ui/Button.astro';
-import FallingText from '@/components/bencho/FallingText.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import Scribble from '@/components/notes/Scribble.astro';
-import { microcopy } from '@/data/microcopy';
-import { journalNotes } from '@/data/notes/journal';
+import PageHero from '@/components/ui/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import NodeMark from '@/components/brand/NodeMark.astro';
+import { notFoundPage } from '@/data/notfound';
 import { pageSeo } from '@/lib/seo';
-const h = microcopy.notFoundHeadline;
-const W = 'yet';
-const i = h.lastIndexOf(W);
-const parts = i > -1 ? [h.slice(0, i), h.slice(i + W.length)] : null;
 ---
 <BaseLayout page="notfound" seo={pageSeo('notfound')}>
-  <section class="nf g-white paper-grid has-notes" aria-labelledby="nf-title">
-    <div class="container nf__grid">
-      <div class="nf__copy">
-        <p class="nf__code" aria-hidden="true">404</p>
-        <h1 class="t-display nf__title" id="nf-title">{parts ? <>{parts[0]}<Scribble kind="underline" tone="orchid" delay={0.5}>{W}</Scribble>{parts[1]}</> : h}</h1>
-        <p class="t-lead nf__line">{microcopy.notFoundLine}</p>
-        <div class="nf__cta">
-          <Button href="/" variant="primary" arrow>{microcopy.takeHome}</Button>
-        </div>
-      </div>
-      <div class="nf__toy has-notes">
-        <MarginNote text={journalNotes.notfound.mess} tone="orchid" rotate={-6} arrow="arrow-bounce" arrowAt="below" arrowAngle={55} place="left:24px;top:-84px;max-width:none;" show="pointer" delay={0.6} />
-        <FallingText text={h} />
-      </div>
-    </div>
-  </section>
+  <PageHero ground="navy" eyebrow={notFoundPage.code} title={notFoundPage.headline} lead={notFoundPage.line} titleId="nf-title" class="nf-hero" asideMobile="corner">
+    <ul class="nf-links" role="list">
+      {notFoundPage.links.map((l) => (
+        <li>
+          <a class="nf-link u-hover" href={l.href}>
+            <span class="nf-link__label u-draw">{l.label}</span>
+            <Icon name="arrow-right" size={20} stroke={2} class="nf-link__arrow u-nudge" />
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div slot="aside" class="nf-mark"><NodeMark size={200} tone="blue" /></div>
+  </PageHero>
+  <div class="band band--navy band--pad-none" aria-hidden="true"><div class="container"><div class="hairline"></div></div></div>
 </BaseLayout>
 
 <style>
-  .nf { position: relative; min-height: calc(100svh - var(--ann-h) - var(--header-h)); display: grid; align-items: center; padding-block: var(--s-8); overflow: clip; }
-  .nf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-9); align-items: center; }
-  .nf__copy { position: relative; }
-  .nf__code { position: absolute; z-index: 0; left: -0.06em; top: -0.62em; margin: 0; font-family: var(--font-display); font-weight: 800; font-stretch: 75%; font-size: clamp(10rem, 4rem + 22vw, 22rem); line-height: 1; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 2px var(--kk-lavender); pointer-events: none; }
-  .nf__title { position: relative; margin: 0; max-width: 12ch; text-wrap: balance; }
-  .nf__line { position: relative; margin: var(--s-5) 0 0; }
-  .nf__cta { position: relative; margin-top: var(--s-7); }
-  .nf__toy { position: relative; justify-self: start; width: min(100%, 520px); }
-  @media (min-width: 1024px) { .nf__grid { grid-template-columns: minmax(0, 1fr) 520px; } .nf__toy { justify-self: end; } }
+  .nf-links {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    border-top: 1px solid var(--rule);
+  }
+  .nf-link {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+    min-height: 56px; padding-block: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+    font: 450 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto;
+    color: var(--head); text-decoration: none;
+  }
+  .nf-link :global(.nf-link__arrow) { flex: none; color: var(--accent); }
+
+  .nf-mark { display: flex; }
+  .nf-mark :global(.nodemark) { width: 200px; height: 200px; }
+
+  /* Mobile: PageHero asideMobile="corner" puts the mark top right, level with the eyebrow; here it only shrinks */
+  @media (max-width: 899px) {
+    .nf-mark :global(.nodemark) { width: 48px; height: 48px; }
+  }
+
+  @media (min-width: 900px) {
+    .nf-links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--grid-gap); border-top: 0; }
+    .nf-link { border-bottom: 0; border-top: 1px solid var(--rule); min-height: 64px; padding-block: var(--s-4); }
+    .nf-mark { justify-content: flex-end; }
+  }
+  @media (min-width: 1200px) {
+    .nf-links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
 </style>

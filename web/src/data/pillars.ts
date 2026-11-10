@@ -1,5 +1,6 @@
 /** The six pillars (DESIGN-SPEC 4.4; brief 5). Order and slugs are the brief's. */
 import type { Pillar } from './types';
+import type { PhotoSlug } from './photos';
 
 export const pillars: Pillar[] = [
   {
@@ -112,14 +113,44 @@ export const pillarPage = {
   helpWith: 'What we help with',
   deliverables: 'Typical deliverables',
   fromTheRecord: 'From our founder’s career',
+  /* v3 (REDESIGN-V3 §4 expertise detail) */
+  challenge: 'The challenge we solve',
+  relatedIndustries: 'Related industries',   // COMPOSED
+  previous: 'Previous',                       // COMPOSED (pillar pager)
+  next: 'Next',                               // COMPOSED (pillar pager)
 };
 
-/** Hero node labels, COMPOSED from the pillar names (5.1, 8.3). */
-export const heroNodeLabels: Record<Pillar['key'], string> = {
-  innovation: 'Product innovation',      // COMPOSED
-  process: 'Process design',             // COMPOSED
-  quality: 'Food safety and quality',    // COMPOSED
-  strategy: 'Strategy and feasibility',  // COMPOSED
-  deals: 'Due diligence',                // COMPOSED
-  capability: 'Capability',              // COMPOSED
+/** v3: open client questions on a pillar's help list, shown as <Confirm> under the list in staging only. */
+export const pillarHelpConfirm: Partial<Record<Pillar['key'], { id: number | string; note: string }>> = {
+  innovation: { id: 7, note: 'CBE and specialty-fats wording, item 01' },
 };
+
+/**
+ * v3: the hero photo of each pillar page (research/v3/photos.md, "Expertise detail heroes"). Slugs from
+ * src/data/photos.ts; alt text travels with the photo record. `position` overrides the record's crop only where the
+ * split hero (a near-square box from a 3:2 photo) would cut the subject: lab-01's analyst sits at the left edge.
+ */
+export const pillarPhoto: Record<Pillar['key'], { slug: PhotoSlug; position?: string }> = {
+  innovation: { slug: 'oils-01' },
+  process: { slug: 'plant-01' },
+  quality: { slug: 'lab-01', position: '12% 45%' },
+  strategy: { slug: 'oilseeds-01' },
+  deals: { slug: 'people-03' },
+  capability: { slug: 'factory-01' },
+};
+
+/**
+ * v3: labels for one quiet static exhibit per pillar page (were expertiseNotes.diagram.*, minus the
+ * "scroll, it draws itself" hint). Each is a restatement of that pillar's own brief copy, never a new claim.
+ * `steps` read in order; `from` is the label before the first step and `to` the outcome(s) after the last, where the
+ * old diagram had them.
+ */
+export const pillarExhibits: Record<Pillar['key'], { title: string; steps: string[]; from?: string; to?: string[] }> = {
+  innovation: { title: 'From unmet need to a product that scales', steps: ['Unmet need', 'Technical brief', 'Prototype', 'Scale-up', 'Launch'] },
+  process: { title: 'Crude oil in, customer specification out', from: 'Crude', steps: ['Degumming', 'Bleaching', 'Deodorisation', 'Fractionation', 'Interesterification'], to: ['Spec'] },
+  quality: { title: 'Process contaminants, stopped layer by layer', from: 'Risk', steps: ['3-MCPD and GE', 'Trans fats', 'Mineral oil hydrocarbons'], to: ['Your brand'] },
+  strategy: { title: 'Three questions before you commit capital', from: 'Your idea', steps: ['Is the market real?', 'Does the technology work?', 'Do the numbers hold?'], to: ['Go', 'No-Go'] },
+  deals: { title: 'What the spreadsheet shows, and what it does not', from: 'What the spreadsheet shows', steps: ['A tired refinery', 'A fragile quality system', 'A technology that will not transfer'] },
+  capability: { title: 'Train, transfer, coach: stronger teams', steps: ['Train', 'Transfer', 'Coach'], to: ['Stronger teams'] },
+};
+

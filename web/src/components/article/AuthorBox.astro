@@ -1,30 +1,41 @@
 ---
-/** AuthorBox (DESIGN-SPEC v2 10.9): a Saffron block: the 96px avatar, name in Bricolage, role and short bio in mono,
- * and the hand pill "Meet Ganeaysh". */
-import FounderPhoto from '@/components/brand/FounderPhoto.astro';
-import Button from '@/components/ui/Button.astro';
+/**
+ * Author box (REDESIGN-V3 §4 article): a round crop of the square founder portrait, "About the author", the name as
+ * the h2, role, the short bio and "Meet Ganeaysh" (→ /about). Sits in the article column under the share row.
+ * ≥ 600px: photo (112px) left, text right. Mobile: 72px photo above the text, left-aligned.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import portrait from '@/assets/photos/ganeaysh-portrait-square.jpg';
 import { shortBio, founderName, founderRole } from '@/data/founder';
 import { founderQuote } from '@/data/home';
+import { articleCopy } from '@/data/insights';
+import { site } from '@/config/site';
 ---
-<section class="author g-saffron grain" aria-labelledby="author-h" data-reveal>
-  <FounderPhoto variant="avatar" size={96} ground="white" alt="" class="author__avatar" />
+<section class="author" aria-labelledby="author-h" data-reveal>
+  <div class="author__photo"><Photo src={portrait} alt="" ratio="1/1" sizes="(min-width: 600px) 112px, 72px" widths={[72, 112, 144, 224, 336]} /></div>
   <div class="author__text">
+    <Eyebrow class="author__eyebrow">{articleCopy.aboutAuthor}</Eyebrow>
     <h2 id="author-h" class="author__name">{founderName}</h2>
-    <p class="author__role t-label">{founderRole}</p>
-    <p class="author__bio t-mono">{shortBio}</p>
-    <Button href={founderQuote.link.href} variant="hand">{founderQuote.link.label}</Button>
+    <p class="author__role">{founderRole}, {site.name}</p>
+    <p class="author__bio">{shortBio}</p>
+    <ArrowLink href={founderQuote.link.href} class="author__link">{founderQuote.link.label}</ArrowLink>
   </div>
 </section>
 <style>
-  .author {
-    position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-6); align-items: start;
-    padding: var(--s-7); border-radius: 28px; box-shadow: var(--shadow-hard); border: 2px solid var(--kk-ink);
+  .author { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+  .author__photo { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; }
+  .author__eyebrow { color: var(--fg-2); }
+  .author__name {
+    margin: var(--s-3) 0 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3);
+    line-height: var(--lh-h3); font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head);
   }
-  .author p { margin: 0; }
-  .author :global(.author__avatar) { rotate: -4deg; }
-  .author__text { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); }
-  .author__name { margin: 0; font-family: var(--font-display); font-weight: 780; font-stretch: 75%; font-size: clamp(2rem, 1.5rem + 2vw, 3rem); line-height: .95; letter-spacing: -0.02em; color: var(--head); }
-  .author__role { color: var(--fg-2); }
-  .author__bio { max-width: 58ch; color: var(--fg); margin-bottom: var(--s-2) !important; }
-  @media (max-width: 559px) { .author { grid-template-columns: minmax(0, 1fr); padding: var(--s-5); } }
+  .author__role { margin: var(--s-1) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .author__bio { margin: var(--s-4) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); max-width: 60ch; text-wrap: pretty; }
+  .author :global(.author__link) { margin-top: var(--s-2); }
+  @media (min-width: 600px) {
+    .author { grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    .author__photo { width: 112px; height: 112px; }
+  }
 </style>

@@ -1,16 +1,82 @@
 # Third-party notices
 
-## Bencho blocks (bencho.dev)
+What ships in, or is used to build, the KoKreaters website (v3 "Editorial"). Runtime code is our own: no third-party
+JavaScript, font, image or style is loaded from another origin (enforced by the CSP and by `tests/smoke.spec.ts`).
 
-Several interactive blocks on this site are ports of free blocks from [Bencho](https://bencho.dev), rewritten from
-React + motion to vanilla TypeScript + GSAP + CSS and restyled to the KoKreaters v2 tokens (DESIGN-SPEC v2 section 9).
-No Bencho name, mark, demo images or sounds are used. Only free (MIT) blocks are ported; no Pro block is used.
-Each ported file carries the MIT notice in its header comment.
+v3 removed every v2 dependency and port that used to be listed here: the Bencho block ports (MIT), GSAP, Lenis, three.js,
+the Bricolage Grotesque / IBM Plex Mono / Caveat / Instrument Sans fonts and the home route map.
 
-```
-MIT License
+## Fonts
 
-Copyright (c) 2026 Lorenzo Cabra
+Source Serif 4 (Adobe, `@fontsource-variable/source-serif-4`: `source-serif-4-latin-opsz-normal.woff2` and
+`…-italic.woff2`) and Inter (Rasmus Andersson, `@fontsource-variable/inter`: `inter-latin-opsz-normal.woff2`) are
+self-hosted from the Fontsource npm packages (copied to `public/fonts/` by `scripts/copy-fonts.mjs`) and licensed under the
+SIL Open Font License 1.1.
+
+## Stock photography
+
+Twenty photographs from [Unsplash](https://unsplash.com/license) and [Pexels](https://www.pexels.com/license/), each used
+under that site's own free licence (commercial use allowed, attribution not required; we credit anyway). No photo shows a
+legible brand logo or names a company; two were cropped to remove a partial uniform emblem and a cut-off face. Originals
+are kept unedited in `../assets/photos/stock-src/`; `scripts/grade-photos.mjs` writes the graded copies to
+`src/assets/photos/stock/` (resize to 2400px, saturation x0.78, cool cast, 25% logo-blue luminance wash, navy shadow lift).
+Typed records with alt text and these credits: `src/data/photos.ts`. All twenty are pending client approval (brief).
+
+| Slug | Subject | Photographer | Source | Licence |
+|---|---|---|---|---|
+| refinery-01 | Process plant at dusk | Igor Passchier | https://www.pexels.com/photo/industrial-facility-in-zuid-holland-at-dusk-32399139/ | Pexels License |
+| refinery-02 | Refinery columns and tanks | Red Shuheart | https://unsplash.com/photos/industrial-refinery-with-storage-tanks-Wb4vcBqyGT8 | Unsplash License |
+| plant-01 | Stainless process vessels and pipework | Crystal Kwok | https://unsplash.com/photos/xD5SWy7hMbw | Unsplash License |
+| cold-01 | Tanks and plant in snow at sunrise | Kay Mayer | https://unsplash.com/photos/industrial-tanks-in-a-snowy-landscape-at-sunrise-qvCvkdiHXZU | Unsplash License |
+| texture-01 | Steel roof trusses in low light | Declan Sun | https://unsplash.com/photos/steel-beams-of-an-industrial-buildings-roof-Jfr7YZWcyVY | Unsplash License |
+| texture-02 | Pipework in a plant room | iSawRed | https://unsplash.com/photos/a-large-machine-with-pipes-WB9HyqF8lKA | Unsplash License |
+| oils-01 | Oil running from a steel spout | Xavier von Erlach | https://unsplash.com/photos/golden-oil-pouring-from-a-metal-spout-into-a-container-dDWVq_XEhus | Unsplash License |
+| oils-02 | A drop of golden oil | Colin Lloyd | https://unsplash.com/photos/clear-glass-bottle-with-yellow-liquid-OacW0FPpNMw | Unsplash License |
+| oilseeds-01 | Sunflower seeds | Engin Akyurt | https://www.pexels.com/photo/close-up-of-sunflower-seeds-in-bulk-34313442/ | Pexels License |
+| lab-01 | Analyst checking sample tubes | Jeetendra Vyas Fashionpfotographer | https://www.pexels.com/photo/scientist-checking-test-tubes-in-laboratory-machine-9408640/ | Pexels License |
+| lab-02 | Technician pipetting samples | CDC | https://unsplash.com/photos/scientist-using-pipette-in-laboratory-_N7I1JyPYJw | Unsplash License |
+| chocolate-01 | Chocolate bars in metal moulds | Daniel Fazio | https://unsplash.com/photos/chocolate-bar-on-gray-container-JBN6FHP5VXk | Unsplash License |
+| chocolate-02 | Centres in a coating pan | Amine Kübranur Çakıroğlu | https://www.pexels.com/photo/truffle-coating-in-industrial-chocolate-machine-38594567/ | Pexels License |
+| bakery-01 | Unbaked croissants on a tray | Arda Kaykısız | https://www.pexels.com/photo/close-up-of-raw-croissants-lying-on-a-baking-tray-20002816/ | Pexels License |
+| bakery-02 | Dough on a production line | Anna Shvets | https://www.pexels.com/photo/dough-on-tape-6291408/ | Pexels License |
+| factory-01 | Food production hall, hygiene wear | Anna Shvets | https://www.pexels.com/photo/woman-working-machinery-5953714/ | Pexels License |
+| audit-01 | Checklist on a clipboard | cottonbro studio | https://www.pexels.com/photo/man-with-black-gloves-looking-at-checklist-5532844/ | Pexels License |
+| people-01 | Working session at a table | Dylan Gillis | https://unsplash.com/photos/people-sitting-on-chair-in-front-of-table-while-holding-pens-during-daytime-KdeqA3aTnBY | Unsplash License |
+| people-02 | Meeting-room review | Beatriz Cattel | https://unsplash.com/photos/business-meeting-with-people-around-a-conference-table-3tCLyPBSQ5k | Unsplash License |
+| people-03 | Reviewing documents | Olena Kholina | https://unsplash.com/photos/two-people-reviewing-documents-at-a-table-MhqUBTxQ3Hw | Unsplash License |
+
+## Icons: Lucide (v3)
+
+UI and expertise icons are inlined at build time from `lucide-static` 1.70.0 (https://lucide.dev), by
+`src/components/ui/Icon.astro` and `src/components/ui/ExpertiseIcon.astro`. Used: arrow-right, arrow-up-right, arrow-left,
+chevron-down, chevron-right, menu, x, plus, minus, mail, message-circle, phone, download, calendar, check,
+external-link, clock, map-pin, search, circle-alert, circle-check, flask-conical, factory, shield-check, split,
+file-search, users. The LinkedIn "in" glyph is drawn by hand (not from Lucide).
+
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Some Lucide icons (among those used: arrow-right, arrow-up-right, arrow-left, calendar, check, chevron-down,
+chevron-right, download, external-link, clock, minus, plus, search, x) derive from Feather
+(https://feathericons.com):
+
+The MIT License (MIT) (for the Feather-derived icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,59 +95,29 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## About: places map (build time only)
+
+`src/assets/map/places-map.svg` and `src/data/map/places-map.json` are generated by `scripts/build-map.mjs` from
+`world-atlas` 2.0.2 `countries-50m.json` (ISC, Mike Bostock; geometry from Natural Earth, public domain), projected with
+`d3-geo` (ISC) and decoded with `topojson-client` (ISC). The three packages are dev dependencies; no map code ships to the
+browser.
+
 ```
+ISC License (world-atlas, d3-geo, topojson-client)
 
-Each unit appends rows **only** under its own heading below (append-only).
+Copyright 2013-2019 Michael Bostock (world-atlas); Copyright 2012-2019 Michael Bostock (topojson-client);
+Copyright 2010-2026 Mike Bostock (d3-geo)
 
-## FOUNDATION
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright notice
+and this permission notice appear in all copies.
 
-| Block (slug) | Source | Ported files | Used on |
-|---|---|---|---|
-| text-rise | https://bencho.dev/blocks/text-rise | `src/components/bencho/TextRise.astro`, `src/scripts/bencho/text-rise.ts` | site-wide headings (R1, `data-rise`) |
-| sweep-button | https://bencho.dev/blocks/sweep-button | `src/components/ui/Button.astro` (CSS), `src/scripts/bencho/sweep-button.ts` | every primary pill |
-| magnetic-dots | https://bencho.dev/blocks/magnetic-dots | `src/components/bencho/MagneticDots.astro`, `src/scripts/bencho/magnetic-dots.ts` | CTA field background |
-| edge-light | https://bencho.dev/blocks/edge-light | `src/components/bencho/EdgeLight.astro`, `src/scripts/bencho/edge-light.ts` | PillarCards, About photo frame |
-| flap-board | https://bencho.dev/blocks/flap-board | `src/components/bencho/FlapBoard.astro`, `src/scripts/bencho/flap-board.ts` | Home proof band, About |
-
-`src/scripts/bencho/physics.ts` is an original KoKreaters helper (no Bencho code), used by the gravity-tags and
-falling-text ports.
-
-## P-home
-
-| Block (slug) | Source | Ported files | Used on |
-|---|---|---|---|
-| magnetic-letters | https://bencho.dev/blocks/magnetic-letters | `src/components/bencho/MagneticLetters.astro`, `src/scripts/bencho/magnetic-letters.ts` | Home hero H1 (desktop, fine pointer) |
-| gravity-tags | https://bencho.dev/blocks/gravity-tags | `src/components/bencho/GravityTags.astro`, `src/scripts/bencho/gravity-tags.ts` (on `physics.ts`) | Home "Where we work" |
-
-Home route map (`src/components/home/RouteMap.astro`): land outline from `world-atlas` 110m (ISC, Mike Bostock), derived from Natural Earth (public domain), projected at build time with `d3-geo` (ISC) and `topojson-client` (ISC). No map code ships to the browser.
-
-## P-expertise
-
-| Block (slug) | Source | Ported files | Used on |
-|---|---|---|---|
-| hub-diagram | https://bencho.dev/blocks/hub-diagram | `src/components/bencho/HubDiagram.astro`, `src/scripts/bencho/hub-diagram.ts` | `/expertise` hub (F2) |
-| spec-inspector | https://bencho.dev/blocks/spec-inspector | `src/components/bencho/SpecInspector.astro`, `src/scripts/bencho/spec-inspector.ts` | pillar pages, over the "What’s inside" SpecLabel (F2) |
-
-## P-story
-
-| Block (slug) | Source | Ported files | Used on |
-|---|---|---|---|
-| crumple | https://bencho.dev/blocks/crumple | `src/components/bencho/Crumple.astro`, `src/scripts/bencho/crumple.ts` | `/approach` F3 (the report) |
-| faq-accordion | https://bencho.dev/blocks/faq-accordion | `src/components/bencho/FaqAccordion.astro`, `src/scripts/bencho/faq-accordion.ts` | `/approach` F5 (ways to work with us) |
-| foggy-word | https://bencho.dev/blocks/foggy-word | `src/components/bencho/FoggyWord.astro`, `src/scripts/bencho/foggy-word.ts` | `/impact` Ukraine case, −25 °C |
-| card-swap | https://bencho.dev/blocks/card-swap | `src/components/bencho/CardSwap.astro`, `src/scripts/bencho/card-swap.ts` | `/impact` F2 (results stack) |
-
-## P-journal
-
-| Block (slug) | Source | Ported files | Used on |
-|---|---|---|---|
-| card-fan | https://bencho.dev/blocks/card-fan | `src/components/bencho/CardFan.astro`, `src/scripts/bencho/card-fan.ts` | `/insights` featured fan |
-| ticket | https://bencho.dev/blocks/ticket | `src/components/bencho/Ticket.astro`, `src/scripts/bencho/ticket.ts` | `/contact` boarding pass |
-| confetti | https://bencho.dev/blocks/confetti | `src/components/bencho/Confetti.astro`, `src/scripts/bencho/confetti.ts` | `/contact` form success |
-| falling-text | https://bencho.dev/blocks/falling-text | `src/components/bencho/FallingText.astro`, `src/scripts/bencho/falling-text.ts` (on `physics.ts`) | 404 word pit |
-
-
-## Fonts
-
-Bricolage Grotesque, IBM Plex Mono, Caveat and Instrument Sans are self-hosted from the Fontsource npm packages and
-licensed under the SIL Open Font License 1.1.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
+```

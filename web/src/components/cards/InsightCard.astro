@@ -1,0 +1,111 @@
+---
+/**
+ * Insight card (REDESIGN-V3 §3). The whole card is one link: the title's <a> is stretched over the card.
+ * Label row "POINT OF VIEW · Process design" (format label + pillar), serif title, optional summary, meta line
+ * "12 Nov 2026 · 6 min read" (lib/format formatDate + microcopy.readingTime). Hover: title → --link, image 1.04.
+ *  feature — large 3:2 image, title at h2-ish size. When the card itself is ≥ 880px wide (container query) it turns
+ *            into a side-by-side row: image 7/12 left, text right (Insights hub featured article).
+ *  default — 3:2 image, label, h3, summary, meta.
+ *  compact — 112px square thumb left, label + title + meta right (no summary).
+ *  text    — no image; 1px hairline on top.
+ * Slot "badge": an extra item at the end of the label row (e.g. the staging-only Draft label).
+ * `sizes` (optional) overrides the image `sizes` hint when the card sits in a column the defaults do not describe
+ *  (e.g. the home Insights side cards); the defaults fit the hub/rail grids.
+ * Mobile: feature/default stack image → text at full width; compact keeps its thumb row (designed for phones).
+ */
+import type { ImageMetadata } from 'astro';
+import Photo from '@/components/ui/Photo.astro';
+import { formatDate, isoDate, fill } from '@/lib/format';
+import { microcopy } from '@/data/microcopy';
+
+interface Props {
+  href: string;
+  title: string;
+  label: string;
+  pillarName?: string;
+  summary?: string;
+  date?: Date;
+  readTime?: number;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  imagePosition?: string;
+  size?: 'feature' | 'default' | 'compact' | 'text';
+  level?: 2 | 3 | 4;
+  priority?: boolean;
+  /** Image `sizes` override for a column the defaults below do not describe. */
+  sizes?: string;
+  class?: string;
+}
+const {
+  href, title, label, pillarName, summary, date, readTime, image, imageAlt = '', imagePosition, size = 'default',
+  level = 3, priority = false, sizes: sizesProp, class: cls,
+} = Astro.props;
+const H = `h${level}` as 'h2' | 'h3' | 'h4';
+const mc = microcopy as Record<string, string>;
+const readLabel = readTime ? (mc.readingTime ? fill(mc.readingTime, { n: readTime }) : `${readTime} min read`) : '';
+const showImage = !!image && size !== 'text';
+const sizes = sizesProp ?? (size === 'feature'
+  ? '(min-width: 1200px) 700px, (min-width: 900px) 58vw, calc(100vw - 40px)'
+  : size === 'compact' ? '112px' : '(min-width: 1200px) 400px, (min-width: 600px) 46vw, calc(100vw - 40px)');
+const showSummary = !!summary && size !== 'compact';
+---
+<article class:list={['icard', `icard--${size}`, showImage && 'icard--has-image', 'u-zoom', cls]}>
+  <div class="icard__inner">
+    {showImage && image && (
+      <Photo
+        class="icard__media" src={image} alt={imageAlt} ratio={size === 'compact' ? '1/1' : '3/2'}
+        sizes={sizes} priority={priority} position={imagePosition} widths={size === 'compact' ? [112, 224, 336] : undefined}
+      />
+    )}
+    <div class="icard__body">
+      <p class="icard__label t-label">
+        <span>{label}</span>{pillarName && <span class="icard__pillar"> · {pillarName}</span>}<slot name="badge" />
+      </p>
+      <H class="icard__title"><a href={href} class="icard__link">{title}</a></H>
+      {showSummary && <p class="icard__summary">{summary}</p>}
+      {(date || readLabel) && (
+        <p class="icard__meta">
+          {date && <time datetime={isoDate(date)}>{formatDate(date)}</time>}
+          {date && readLabel && <span aria-hidden="true"> · </span>}
+          {readLabel && <span>{readLabel}</span>}
+        </p>
+      )}
+    </div>
+  </div>
+</article>
+<style>
+  .icard { position: relative; container-type: inline-size; height: 100%; }
+  .icard__inner { display: flex; flex-direction: column; gap: var(--s-5); height: 100%; }
+  .icard__body { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+  .icard__label { color: var(--label); }
+  .icard__pillar { color: var(--fg-2); }
+  .icard__title {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head); text-wrap: balance;
+  }
+  .icard__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
+  .icard__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .icard__link:focus-visible { outline: none; }
+  .icard:has(.icard__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 6px; }
+  .icard:hover .icard__link { color: var(--link); }
+  .icard__summary { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; max-width: 60ch; }
+  .icard__meta { margin-top: auto; padding-top: var(--s-1); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+
+  /* feature */
+  .icard--feature .icard__title { font-size: clamp(1.625rem, 1.393rem + .952vw, 2.25rem); line-height: 1.18; font-weight: 450; letter-spacing: -0.01em; }
+  .icard--feature .icard__summary { font-size: var(--fs-body); line-height: var(--lh-body); }
+  @container (min-width: 880px) {
+    .icard--feature.icard--has-image .icard__inner { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-7); align-items: center; }
+    .icard--feature .icard__title { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 430; letter-spacing: var(--tr-h2); }
+  }
+
+  /* compact */
+  .icard--compact .icard__inner { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .icard--compact:not(.icard--has-image) .icard__inner { grid-template-columns: minmax(0, 1fr); }
+  .icard--compact .icard__body { gap: var(--s-2); }
+  .icard--compact .icard__title { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 500; }
+
+  /* text */
+  .icard--text .icard__inner { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
+  .icard--text:hover .icard__inner { border-top-color: var(--accent); }
+</style>

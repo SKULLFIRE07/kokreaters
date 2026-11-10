@@ -1,158 +1,211 @@
 ---
 /**
- * Contact form (DESIGN-SPEC 5.10, fields 4.10). Works with no JS: a native POST to
- * PUBLIC_FORM_ENDPOINT, or a text/plain mailto to office@ when no endpoint is set.
- * scripts/pages/contact.ts layers validation, the traps, fetch/mailto and the status message.
- * There is no motion on the form, ever (only the connection line above it).
- * `novalidate` is set by contact.ts (form.noValidate = true), so with JS off the browser's own
- * required/email checks still guard the native submit.
+ * Contact form, right column (REDESIGN-V3 §4 Contact; fields brief 6.8 in brief order).
+ * Works with no JS: a native POST to PUBLIC_FORM_ENDPOINT, or a text/plain mailto to office@ when no endpoint is set;
+ * the browser's own required/email checks guard that submit. scripts/pages/contact.ts (loaded by the page) sets
+ * form.noValidate and layers on: inline errors (aria-invalid + aria-describedby, focus on the first invalid field), the
+ * honeypot and 3 s time trap, Turnstile lazy-load on first focus, fetch or mailto, and the thank-you panel that replaces
+ * the form on success ([data-form-done]).
+ * Hooks the script reads: form[data-form] + its data-* messages, [data-form-status], [data-submit], [data-started-at],
+ * input[name="company_website"], .cf__label[data-label], .cf__field controls, #<name>-error [data-error-text],
+ * [data-form-wrap] / [data-form-body] / [data-form-done] and the [data-done-*] parts inside it.
+ * `id="form"` (the /contact#form anchor used by every "Book a 30-minute call" fallback) sits on the wrapper so the
+ * heading is in view when the anchor lands.
+ * Inputs: 48px, 1px --field-border (grey-500, 3:1 on white), radius 2, labels above, 18px text (no iOS zoom).
+ * Layout: one column; two columns of short fields once the form itself is ≥ 520px wide (container query), so it
+ * adapts to the page column rather than the viewport. Mobile: one column, full-width Send button, 44px consent hit box.
  */
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { fields, consentLink, contact } from '@/data/contact';
+import { fields, consentLink, contact, contactPage } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import { journalNotes } from '@/data/notes/journal';
 
 const action = site.formEndpoint || `mailto:${site.email}`;
 const enctype = site.formEndpoint ? 'multipart/form-data' : 'text/plain';
+const consent = fields.find((f) => f.type === 'checkbox')!;
 const [consentBefore, consentAfter] = (() => {
-  const c = fields.find((f) => f.name === 'consent')!.label;
-  const i = c.indexOf(consentLink.text);
-  return i < 0 ? [c, ''] : [c.slice(0, i), c.slice(i + consentLink.text.length)];
+  const i = consent.label.indexOf(consentLink.text);
+  return i < 0 ? [consent.label, ''] : [consent.label.slice(0, i), consent.label.slice(i + consentLink.text.length)];
 })();
 const inputs = fields.filter((f) => f.type !== 'checkbox');
-const consent = fields.find((f) => f.type === 'checkbox')!;
 const id = (n: string) => `f-${n}`;
+const wide = (n: string, t: string) => t === 'textarea' || t === 'select' || n === 'source';
+const d = contactPage.done;
 ---
-<form
-  id="form"
-  class="cf"
-  method="post"
-  action={action}
-  enctype={enctype}
-  data-form
-  data-endpoint={site.formEndpoint || undefined}
-  data-mailto={site.email}
-  data-msg-required={microcopy.required}
-  data-msg-email={microcopy.invalidEmail}
-  data-msg-success={microcopy.formSuccess}
-  data-msg-error={microcopy.formError}
-  data-msg-mailto={microcopy.mailtoSent}
-  data-turnstile={site.turnstileSiteKey || undefined}
-  aria-labelledby="contact-title"
->
-  <div class="cf__grid">
-    {inputs.map((f) => (
-      <div class:list={['cf__field', `cf__field--${f.name}`, { 'cf__field--wide': f.type === 'textarea' || f.type === 'select' || f.name === 'source', 'has-notes': f.name === 'message' }]} data-field={f.name}>
-        {f.name === 'message' && <MarginNote text={journalNotes.form.detail} tone="orchid" rotate={-3} arrow="arrow-curve" arrowAt="start" arrowAngle={190} flip place="left:96px;top:-38px;max-width:none;" show="md" />}
-        <label class="cf__label" for={id(f.name)}>
-          {f.label}
-          {f.required && <><span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></>}
-        </label>
-        {f.type === 'textarea' ? (
-          <textarea id={id(f.name)} name={f.name} rows={f.rows ?? 6} required={f.required} autocomplete={f.autocomplete} class="cf__input cf__input--area"></textarea>
-        ) : f.type === 'select' ? (
-          <span class="cf__select">
-            <select id={id(f.name)} name={f.name} required={f.required} autocomplete={f.autocomplete} class="cf__input">
-              <option value="" selected disabled></option>
-              {f.options?.map((o) => <option value={o}>{o}</option>)}
-            </select>
-            <Icon name="chevron" size={20} class="cf__chev" />
-          </span>
-        ) : (
-          <input
-            id={id(f.name)} name={f.name} type={f.type} required={f.required} autocomplete={f.autocomplete} class="cf__input"
-            {...(f.type === 'email' ? { inputmode: 'email', spellcheck: 'false' } : {})}
-            {...(f.type === 'tel' ? { inputmode: 'tel' } : {})}
-          />
-        )}
-        <p id={`${f.name}-error`} class="field-error" hidden><Icon name="error" size={18} /><span data-error-text></span></p>
-      </div>
-    ))}
+<div class="cf-wrap" id="form" data-form-wrap>
+  <div class="cf-body" data-form-body>
+    <div class="cf-head">
+      <h2 id="contact-form-h" class="cf-head__title t-h3">{contactPage.formHeading}</h2>
+      <p class="cf-head__note" aria-hidden="true">{contactPage.requiredNote}</p>
+    </div>
 
-    <div class="cf__field cf__field--wide cf__consent" data-field="consent">
-      <div class="cf__check">
-        <span class="cf__box">
-          <input id={id('consent')} name="consent" type="checkbox" value="yes" required={consent.required} class="cf__checkbox" />
-        </span>
-        <label for={id('consent')} class="cf__checklabel">
-          {consentBefore}<a href={consentLink.href}>{consentLink.text}</a>{consentAfter}
-          <span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span>
-        </label>
+    <form
+      class="cf"
+      method="post"
+      action={action}
+      enctype={enctype}
+      data-form
+      data-endpoint={site.formEndpoint || undefined}
+      data-mailto={site.email}
+      data-msg-required={microcopy.required}
+      data-msg-consent={contactPage.consentRequired}
+      data-msg-email={microcopy.invalidEmail}
+      data-msg-success={microcopy.formSuccess}
+      data-msg-error={microcopy.formError}
+      data-msg-mailto={microcopy.mailtoSent}
+      data-turnstile={site.turnstileSiteKey || undefined}
+      aria-labelledby="contact-form-h"
+    >
+      <div class="cf__grid">
+        {inputs.map((f) => (
+          <div class:list={['cf__field', `cf__field--${f.name}`, { 'cf__field--wide': wide(f.name, f.type) }]} data-field={f.name}>
+            <label class="cf__label" for={id(f.name)} data-label={f.label}>
+              {f.label}
+              {f.required && <><span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></>}
+            </label>
+            {f.type === 'textarea' ? (
+              <textarea id={id(f.name)} name={f.name} rows={f.rows ?? 6} required={f.required} autocomplete={f.autocomplete} class="cf__input cf__input--area"></textarea>
+            ) : f.type === 'select' ? (
+              <span class="cf__select">
+                <select id={id(f.name)} name={f.name} required={f.required} autocomplete={f.autocomplete} class="cf__input">
+                  <option value="" selected disabled>{contactPage.selectPlaceholder}</option>
+                  {f.options?.map((o) => <option value={o}>{o}</option>)}
+                </select>
+                <Icon name="chevron-down" size={20} class="cf__chev" />
+              </span>
+            ) : (
+              <input
+                id={id(f.name)} name={f.name} type={f.type} required={f.required} autocomplete={f.autocomplete} class="cf__input"
+                {...(f.type === 'email' ? { inputmode: 'email', spellcheck: 'false', autocapitalize: 'off' } : {})}
+                {...(f.type === 'tel' ? { inputmode: 'tel' } : {})}
+              />
+            )}
+            <p id={`${f.name}-error`} class="cf__error" hidden><Icon name="error" size={18} /><span data-error-text></span></p>
+          </div>
+        ))}
+
+        <div class="cf__field cf__field--wide cf__consent" data-field="consent">
+          {/* One <label> wraps box and text, so the whole 44px box around the 20px checkbox toggles it on touch. */}
+          <label class="cf__check" for={id('consent')}>
+            <span class="cf__box">
+              <input id={id('consent')} name="consent" type="checkbox" value="yes" required={consent.required} class="cf__checkbox" />
+            </span>
+            <span class="cf__checklabel">
+              {consentBefore}<a href={consentLink.href} target="_blank" rel="noopener">{consentLink.text}<span class="visually-hidden"> ({consentLink.newTab})</span></a>{consentAfter}
+              <span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span>
+            </span>
+          </label>
+          <p id="consent-error" class="cf__error" hidden><Icon name="error" size={18} /><span data-error-text></span></p>
+        </div>
       </div>
-      <p id="consent-error" class="field-error" hidden><Icon name="error" size={18} /><span data-error-text></span></p>
+
+      <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+      <input type="hidden" name="started_at" value="" data-started-at />
+      {site.turnstileSiteKey && <div class="cf-turnstile cf__turnstile" data-sitekey={site.turnstileSiteKey}></div>}
+
+      <div class="cf__actions">
+        <Button type="submit" variant="primary" icon="arrow" class="cf__submit" data-submit>{contact.submit}</Button>
+      </div>
+      <div class="cf__status" role="status" aria-live="polite" data-form-status></div>
+      <template data-icon="success"><Icon name="success" size={20} /></template>
+      <template data-icon="error"><Icon name="error" size={20} /></template>
+    </form>
+  </div>
+
+  <div class="cf-done" hidden data-form-done data-sent-heading={d.sentHeading} data-mailto-heading={d.mailtoHeading}>
+    <div class="cf-done__head">
+      <Icon name="success" size={28} stroke={1.5} class="cf-done__icon" />
+      <h2 class="cf-done__title t-h3" id="cf-done-h" tabindex="-1" aria-describedby="cf-done-text" data-done-heading>{d.sentHeading}</h2>
+    </div>
+    <p class="cf-done__text" id="cf-done-text" data-done-text>{microcopy.formSuccess}</p>
+    <div class="cf-done__actions">
+      <Button type="button" variant="secondary" data-done-again>{d.again}</Button>
+      <Button type="button" variant="secondary" data-done-back hidden>{d.back}</Button>
+      <Button href={`mailto:${site.email}`} variant="tertiary" icon="external" data-done-reopen hidden>{d.reopen}</Button>
     </div>
   </div>
-
-  <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
-  <input type="hidden" name="started_at" value="" data-started-at />
-  {site.turnstileSiteKey && <div class="cf-turnstile cf__turnstile" data-sitekey={site.turnstileSiteKey}></div>}
-
-  <div class="cf__actions">
-    <Button type="submit" variant="primary" arrow data-submit>{contact.submit}</Button>
-  </div>
-  <div class="cf__done has-notes">
-    <div class="cf__status" role="status" aria-live="polite" data-form-status></div>
-    <div class="cf__soon" hidden data-soon><MarginNote text={journalNotes.form.soon} tone="orchid" size="lg" rotate={-6} arrow="arrow-curve" arrowAt="start" arrowAngle={200} flip anchor="inline" show="all" /></div>
-  </div>
-  <template data-icon="success"><Icon name="success" size={20} /></template>
-  <template data-icon="error"><Icon name="error" size={20} /></template>
-</form>
+</div>
 
 <style>
+  .cf-wrap { container-type: inline-size; }
+  .cf-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-5); padding-bottom: var(--s-4); border-bottom: 2px solid var(--rule-strong); }
+  .cf-head__title { margin: 0; color: var(--head); }
+  .cf-head__note { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
   .cf { margin: 0; }
-  .cf__grid { display: grid; grid-template-columns: 1fr; gap: var(--s-5) var(--s-5); }
-  @media (min-width: 768px) {
-    .cf__grid { grid-template-columns: 1fr 1fr; }
+  .cf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5) var(--s-5); }
+  @container (min-width: 520px) {
+    .cf__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cf__field--wide { grid-column: 1 / -1; }
   }
-  .cf__field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-  .cf__label, .cf__checklabel { font-family: var(--font-display); font-size: 1rem; line-height: 1.3; font-weight: 600; font-stretch: 90%; color: var(--kk-ink); }
-  .cf__checklabel { font-family: var(--font-sans); font-stretch: 100%; font-size: .9375rem; }
-  .cf__field { position: relative; }
-  .cf__req { color: var(--c-text); margin-left: 2px; }
+  .cf__field { position: relative; display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
+  .cf__label { font: 600 var(--fs-small)/1.35 var(--font-sans); color: var(--head); }
+  .cf__req { margin-left: 3px; color: var(--fg-2); font-weight: 500; }
+
   .cf__input {
-    width: 100%; min-width: 0; height: 56px; padding: 0 var(--s-4);
-    border: 2px solid var(--kk-ink); border-radius: 14px; background: var(--kk-white);
-    font: inherit; font-family: var(--font-mono); font-size: 1rem; color: var(--kk-ink);
-    transition: box-shadow 220ms var(--ease-expo), translate 220ms var(--ease-expo);
+    display: block; width: 100%; min-width: 0; height: 48px; margin: 0; padding: 0 var(--s-4);
+    border: 1px solid var(--field-border); border-radius: var(--r-sm);
+    background: var(--field-bg); color: var(--fg);
+    font: 400 var(--fs-body)/1.4 var(--font-sans);
+    transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out);
   }
-  .cf__input:hover { box-shadow: 3px 3px 0 var(--kk-ink); }
-  .cf__input:focus { box-shadow: 4px 4px 0 var(--kk-saffron), 4px 4px 0 2px var(--kk-ink); }
-  @media (prefers-reduced-motion: reduce) { .cf__input { transition: none; } }
-  .cf__input--area { height: auto; min-height: 180px; padding: var(--s-3) var(--s-4); line-height: var(--lh-body); resize: vertical; }
-  .cf__input:focus-visible, .cf__checkbox:focus-visible { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
-  .cf__input:focus:not(:focus-visible) { outline: 3px solid var(--kk-cobalt); outline-offset: 3px; }
-  .cf__input[aria-invalid="true"], .cf__checkbox[aria-invalid="true"] { border-color: var(--kk-coral); }
-  .cf__input[aria-invalid="true"] { box-shadow: inset 0 0 0 1px var(--kk-coral), 3px 3px 0 var(--kk-coral); }
+  .cf__input:hover { border-color: var(--fg-2); }
+  .cf__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--head); }
+  .cf__input--area { height: auto; min-height: 176px; padding: var(--s-3) var(--s-4); line-height: 1.55; resize: vertical; }
+  .cf__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 0 0 1px var(--danger); }
 
   .cf__select { position: relative; display: block; }
-  .cf__select select { appearance: none; -webkit-appearance: none; padding-right: 48px; cursor: pointer; }
-  .cf__select :global(.cf__chev) { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--c-text); }
+  .cf__select select { appearance: none; -webkit-appearance: none; padding-right: 48px; cursor: pointer; text-overflow: ellipsis; }
+  .cf__select select:invalid { color: var(--fg-2); }
+  .cf__select option { color: var(--ink); }
+  .cf__select :global(.cf__chev) { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--head); }
 
-  .cf__check { display: grid; grid-template-columns: 44px 1fr; align-items: start; column-gap: var(--s-2); }
-  .cf__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -10px 0 0 -10px; }
-  .cf__checkbox { width: 24px; height: 24px; margin: 0; accent-color: var(--c-action); cursor: pointer; border-radius: 4px; }
-  .cf__checklabel { font-weight: 500; cursor: pointer; padding-top: 1px; }
-  .cf__checklabel a { color: var(--c-link); text-underline-offset: 3px; }
+  .cf__error { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--danger); }
+  .cf__error :global(.icon) { flex: none; margin-top: 1px; }
 
-  .field-error { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font-family: var(--font-sans); font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 500; color: var(--c-text); }
-  .field-error :global(.icon) { color: var(--c-error); margin-top: 2px; }
-  .field-error[hidden] { display: none; }
-  .cf__consent .field-error { padding-left: calc(44px + var(--s-2) - 10px); }
+  .cf__consent { margin-top: var(--s-2); padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  /* the 20px box sits in a 28px column; its 44px hit area overhangs by 12px on the left and into the gap */
+  .cf__check { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: var(--s-2); }
+  .cf__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -10px 0 -10px -12px; cursor: pointer; }
+  .cf__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--head); cursor: pointer; }
+  .cf__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
+  .cf__checkbox:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .cf__checklabel { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); cursor: pointer; text-wrap: pretty; }
+  .cf__checklabel a { color: var(--link); text-underline-offset: .2em; }
+  .cf__consent .cf__error { padding-left: calc(28px + var(--s-2)); }
 
   .hp { position: absolute !important; left: -10000px !important; top: auto; width: 1px; height: 1px; overflow: hidden; }
   .cf__turnstile { margin-top: var(--s-5); }
-  .cf__actions { margin-top: var(--s-7); }
-  .cf__done { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
-  .cf__soon[hidden] { display: none; }
-  .cf__soon :global(.note) { position: relative; }
-  .cf__status:not(:empty) { padding: var(--s-4) var(--s-5); border: 2px solid var(--kk-ink); border-radius: 14px; background: var(--kk-butter); }
-  .cf__status { margin-top: var(--s-4); font-family: var(--font-sans); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--c-text); max-width: 40em; }
+  .cf__actions { margin-top: var(--s-6); }
+  .cf__actions :global(.cf__submit) { min-width: 160px; }
+  @container (max-width: 519px) { .cf__actions :global(.cf__submit) { width: 100%; } }
+
+  .cf__status { margin-top: var(--s-4); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); max-width: 40em; }
   .cf__status:empty { display: none; }
-  .cf__status :global(.icon) { margin-right: var(--s-2); vertical-align: -4px; }
-  .cf__status[data-tone="success"] :global(.icon) { color: var(--c-success); }
-  .cf__status[data-tone="error"] :global(.icon) { color: var(--c-error); }
+  .cf__status[data-tone] { display: flex; align-items: flex-start; gap: var(--s-3); padding: var(--s-4) var(--s-5); border-left: 2px solid var(--danger); background: var(--surface-hover); }
+  .cf__status[data-tone="info"] { display: none; }
+  .cf__status[data-tone="success"] { border-left-color: var(--success); }
+  .cf__status :global(.icon) { flex: none; margin-top: 2px; }
+  .cf__status[data-tone="error"] :global(.icon) { color: var(--danger); }
+  .cf__status[data-tone="success"] :global(.icon) { color: var(--success); }
+
+  /* Thank-you state: replaces the heading + form once the message is sent or handed to the mail app. It keeps the
+     form's own structure (serif heading over a 2px rule, then body and actions), so its heading and rule sit exactly
+     where "Send a message" and its rule were, level with "Contact details" in the left column. */
+  .cf-done {
+    /* scrollIntoView lands it below the sticky header (it has no id, so the global [id] rule does not cover it) */
+    scroll-margin-top: var(--scroll-offset);
+  }
+  .cf-done__head { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-4); border-bottom: 2px solid var(--rule-strong); }
+  .cf-done__head :global(.cf-done__icon) { flex: none; color: var(--success); }
+  .cf-done__title { margin: 0; color: var(--head); }
+  .cf-done__title:focus { outline: none; }
+  .cf-done__title:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .cf-done__text { margin: var(--s-5) 0 0; max-width: 46ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  .cf-done__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); margin-top: var(--s-6); }
+  @container (max-width: 519px) {
+    .cf-done__actions :global(.btn--secondary) { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cf__input { transition: none; } }
 </style>

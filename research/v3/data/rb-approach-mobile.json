@@ -1,0 +1,875 @@
+{
+ "slug": "rb-approach",
+ "viewport": "mobile",
+ "url": "https://www.rolandberger.com/en/About/Who-we-are/",
+ "status": 200,
+ "cookie": "button[data-testid=\"uc-accept-all-button\"]",
+ "titleSeen": "Loading https://www.rolandberger.com/en/About/Who-we-are/",
+ "bodyTextStart": "Expertise Insights About Locations Join Newsroom Think:Act Magazine Alumni Contact Us Newsletter Jobs",
+ "m": {
+  "url": "https://www.rolandberger.com/en/About/Who-we-are/",
+  "title": "Who we are | Roland Berger",
+  "vw": 390,
+  "vh": 844,
+  "pageHeight": 3823,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "RBDesign Light",
+   "size": "18px",
+   "lh": "28px",
+   "color": "rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Who we are",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 32,
+    "lh": "35px",
+    "ls": "0.4px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 222
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "We're in like you",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 24,
+    "lh": "34px",
+    "ls": "0.3px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   },
+   {
+    "tag": "h2",
+    "text": "All jobs",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 306
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [
+   [
+    "RBDesign Regular|13px|23px|400|normal",
+    1079
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "Waiting might feel like the rational thing to do. Technologies rewire whole indu",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 13,
+    "lh": "23px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   },
+   {
+    "tag": "p",
+    "text": "And yet. Every transformation begins with someone deciding not to wait. Someone ",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 13,
+    "lh": "23px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   },
+   {
+    "tag": "p",
+    "text": "Our teams spend years immersed in your sector. A turnaround in need of rethinkin",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 13,
+    "lh": "23px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   },
+   {
+    "tag": "p",
+    "text": "Since our founding in Munich in 1967, Roland Berger has remained an independent ",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 13,
+    "lh": "23px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 271
+   }
+  ],
+  "typeHist": [
+   [
+    "sans:RBDesign Regular|13px|w400|lh23px|lsnormal|none",
+    1097
+   ],
+   [
+    "sans:RBDesign Regular|14px|w400|lh22px|lsnormal|none",
+    102
+   ],
+   [
+    "sans:RBDesign Medium|14px|w400|lh22px|ls1.14px|none",
+    82
+   ],
+   [
+    "sans:RBDesign Medium|18px|w400|lh35px|lsnormal|none",
+    56
+   ],
+   [
+    "sans:RBDesign Bold|14px|w700|lh20px|ls2.35px|uppercase",
+    38
+   ],
+   [
+    "sans:RBDesign Medium|22px|w400|lh45px|lsnormal|none",
+    35
+   ],
+   [
+    "sans:RBDesign Bold|18px|w400|lh27px|ls1.06px|uppercase",
+    26
+   ],
+   [
+    "sans:RBDesign Bold|14px|w400|lh22px|lsnormal|none",
+    18
+   ],
+   [
+    "sans:RBDesign Bold|24px|w400|lh34px|ls0.3px|none",
+    17
+   ],
+   [
+    "sans:RBDesign Bold|14px|w400|lh22px|ls0.4px|none",
+    12
+   ],
+   [
+    "sans:RBDesign Bold|32px|w400|lh35px|ls0.4px|none",
+    10
+   ],
+   [
+    "sans:RBDesign Regular|14px|w700|lh22px|lsnormal|none",
+    10
+   ],
+   [
+    "sans:RBDesign Bold|12px|w400|lh16px|ls1px|uppercase",
+    9
+   ],
+   [
+    "sans:RBDesign Bold|21px|w400|lh27px|lsnormal|none",
+    8
+   ],
+   [
+    "sans:Arnhem Bold Italic|15px|w400|lh28px|ls0.17px|none",
+    7
+   ],
+   [
+    "sans:RBDesign Medium|16px|w400|lh21px|lsnormal|none",
+    4
+   ]
+  ],
+  "labels": [
+   [
+    "RBDesign Medium|14px|w400|ls1.14px|none|rgb(0, 0, 0)",
+    {
+     "n": 6,
+     "ex": [
+      "Overview",
+      "Who we are",
+      "Our values"
+     ]
+    }
+   ],
+   [
+    "RBDesign Regular|14px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 2,
+     "ex": [
+      "Start",
+      "About"
+     ]
+    }
+   ],
+   [
+    "RBDesign Bold|18px|w400|ls1.06px|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 1,
+     "ex": [
+      "SIGN UP FOR OUR NEWSLETTER"
+     ]
+    }
+   ],
+   [
+    "RBDesign Regular|13px|w400|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "We're in like you."
+     ]
+    }
+   ],
+   [
+    "RBDesign Bold|12px|w400|ls1px|uppercase|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "WORLDWIDE"
+     ]
+    }
+   ],
+   [
+    "RBDesign Regular|14px|w700|lsnormal|none|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "Who we are"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 60,
+   "pos": "fixed",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(0, 0, 0)",
+   "boxShadow": "none",
+   "cls": "m-header ng-scope is-fixed"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 20,
+    "h": 47
+   },
+   {
+    "t": "Newsroom",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Think:Act Magazine",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Alumni",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Contact Us",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "Newsletter",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 0,
+    "h": 35
+   },
+   {
+    "t": "EN",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 0)",
+    "x": 23,
+    "h": 35
+   },
+   {
+    "t": "DE",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(160, 160, 160)",
+    "x": 58,
+    "h": 35
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(255, 255, 255)",
+    "x": 280,
+    "h": 60
+   },
+   {
+    "t": "Jobs",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 307,
+    "h": 28
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(255, 255, 255)",
+    "x": 348,
+    "h": 24
+   }
+  ],
+  "logo": {
+   "w": 0,
+   "h": 0,
+   "x": 0,
+   "y": 0
+  },
+  "containers": [],
+  "leftEdges": [
+   [
+    "87",
+    6
+   ],
+   [
+    "42",
+    1
+   ],
+   [
+    "84",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "32",
+    6
+   ],
+   [
+    "42",
+    1
+   ],
+   [
+    "84",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "section",
+    "cls": "m-stage-overview",
+    "top": 60,
+    "h": 275,
+    "bg": "rgb(21, 108, 156)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Who we are",
+    "headingOffset": 180,
+    "imgs": 4
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator desktop",
+    "top": 335,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-subnavigation type-link is-grey",
+    "top": 431,
+    "h": 190,
+    "bg": "rgb(240, 240, 240)",
+    "pt": 14,
+    "pb": 14,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 621,
+    "h": 119,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "We're in like you",
+    "headingOffset": 55,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 740,
+    "h": 343,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-videoplayer ng-scope",
+    "top": 1083,
+    "h": 219,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 1302,
+    "h": 603,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-image-caption",
+    "top": 1905,
+    "h": 236,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 2141,
+    "h": 144,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 30,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-teaser-hero type-join",
+    "top": 2285,
+    "h": 403,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "All jobs",
+    "headingOffset": 286,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 2688,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 2784,
+    "h": 50,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 2834,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-breadcrumb",
+    "top": 2930,
+    "h": 190,
+    "bg": "rgb(250, 250, 250)",
+    "pt": 40,
+    "pb": 40,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   }
+  ],
+  "buttons": [
+   [
+    "h28|r0px|p0px 8px|18px|w400|none|lsnormal|bgrgb(255, 53, 50)|crgb(0, 0, 238)|bd0px rgb(0, 0, 238)",
+    {
+     "n": 1,
+     "ex": [
+      "Jobs"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Newsroom",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Think:Act Magazine",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Alumni",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Contact Us",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Newsletter",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 18,
+    "lh": "35px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 390
+   },
+   {
+    "tag": "a",
+    "text": "Jobs",
+    "family": "RBDesign Light",
+    "cat": "sans",
+    "size": 18,
+    "lh": "28px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 238)",
+    "maxW": 66
+   }
+  ],
+  "dividers": [
+   [
+    "Bottom|1px|rgba(0, 0, 0, 0)",
+    2
+   ],
+   [
+    "Bottom|1px|rgb(255, 255, 255)",
+    1
+   ],
+   [
+    "Top|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Bottom|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Left|1px|rgb(0, 0, 0)",
+    1
+   ]
+  ],
+  "cards": [
+   {
+    "w": 390,
+    "h": 403,
+    "imgW": 390,
+    "imgH": 256,
+    "ratio": 1.52,
+    "imgFilter": "none",
+    "title": "All jobs",
+    "titleSize": "21px",
+    "titleLh": "27px",
+    "titleW": "400",
+    "titleFam": "RBDesign Bold",
+    "titleGapFromImg": 30,
+    "label": {
+     "t": "WORLDWIDE",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "1px",
+     "color": "rgb(0, 0, 0)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 703,
+   "bg": "rgb(240, 240, 240)",
+   "color": "rgb(0, 0, 0)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 12,
+   "linkSize": "14px",
+   "linkColor": "rgb(0, 0, 0)",
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(240, 240, 240)",
+    "348k px2"
+   ],
+   [
+    "rgb(77, 0, 55)",
+    "157k px2"
+   ],
+   [
+    "rgb(21, 108, 156)",
+    "107k px2"
+   ],
+   [
+    "rgb(250, 250, 250)",
+    "74k px2"
+   ],
+   [
+    "rgb(0, 0, 0)",
+    "65k px2"
+   ],
+   [
+    "rgb(255, 255, 255)",
+    "3k px2"
+   ],
+   [
+    "rgb(255, 53, 50)",
+    "2k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(0, 0, 0)",
+    1443
+   ],
+   [
+    "rgb(255, 255, 255)",
+    48
+   ],
+   [
+    "rgb(141, 147, 153)",
+    38
+   ],
+   [
+    "rgb(160, 160, 160)",
+    2
+   ]
+  ],
+  "fontsLoaded": [
+   "RBDesign Regular normal",
+   "RBDesign Bold normal",
+   "RBDesign Medium normal",
+   "RBDesign Light normal",
+   "Arnhem Bold Italic normal"
+  ],
+  "navText": [
+   "Newsroom",
+   "Think:Act Magazine",
+   "Alumni",
+   "Contact Us",
+   "Newsletter",
+   "EN",
+   "DE"
+  ],
+  "imgRatios": [
+   [
+    "2.22",
+    1
+   ],
+   [
+    "0.83",
+    1
+   ],
+   [
+    "1.78",
+    1
+   ],
+   [
+    "1.66",
+    1
+   ],
+   [
+    "1.52",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 60,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgba(0, 0, 0, 0)",
+  "transform": "none",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": "m-header ng-scope is-fixed",
+    "h": 60,
+    "bg": "rgba(0, 0, 0, 0)",
+    "shadow": "none"
+   }
+  ]
+ },
+ "menuButton": null,
+ "menuItems": [
+  {
+   "t": "",
+   "size": "18px",
+   "w": "400",
+   "h": 24
+  }
+ ]
+}

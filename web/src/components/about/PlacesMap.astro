@@ -1,0 +1,106 @@
+---
+/**
+ * About · the map (REDESIGN-V3 §4 About, section 4). White band, id="the-map", aria-labelledby="globe-title".
+ * SectionHeader (bare h2 aboutPage.mapHeading "Eight places in five countries", counted from places.ts /
+ * globe.lead, which names the countries), then a static Equal Earth map cropped from Western Europe to Sumatra
+ * (scripts/build-map.mjs → assets/map/places-map.svg: land grey-100, the five career countries grey-200; a decorative
+ * <img alt="">, lazy). The eight places are ringed nodes in brand blue placed from data/map/places-map.json (percent of
+ * the map box) in an aria-hidden layer; the accessible carrier of the names is the places <ol>
+ * (aria-label microcopy.placesLabel), "Name, Country" per item. No WebGL, no JS, nothing moves.
+ * ≥ 600px: the <ol> is laid over the map: each name sits beside its node (left for Mundra and Pune, so the four Indian
+ * cities never collide; right for the rest); the country is visually hidden there (the countries are shaded and named
+ * in the lead). Labels carry a thin white halo so they stay legible over the land.
+ * Every width: a 1px hairline frames the crop, so the land cut at the edges reads as a deliberate exhibit, not a bleed.
+ * Mobile (< 600px): the map scales to the column (≈ 350 × 214px at 390) with 12px nodes and no labels; the <ol> follows
+ * as a two-column list (name over country, small ringed bullet, hairlines, ≥ 48px rows).
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import mapUrl from '@/assets/map/places-map.svg?url';
+import mapData from '@/data/map/places-map.json';
+import { globe, aboutPage } from '@/data/founder';
+import { places } from '@/data/places';
+import { microcopy } from '@/data/microcopy';
+
+/** Label side per place (desktop overlay). Default right. */
+const LEFT = new Set(['Mundra', 'Pune']);
+const pos = new Map(mapData.places.map((p) => [p.name, p]));
+const items = places.map((p) => {
+  const at = pos.get(p.name);
+  if (!at) throw new Error(`places-map.json has no "${p.name}"; run node scripts/build-map.mjs`);
+  return { ...p, x: at.x, y: at.y, side: LEFT.has(p.name) ? 'left' : 'right' };
+});
+---
+<Section ground="white" id="the-map" labelledby="globe-title" class="places">
+  <SectionHeader id="globe-title" title={aboutPage.mapHeading} lead={globe.lead} />
+  <div class="pmap" data-reveal style={`--ratio:${mapData.width} / ${mapData.height}`}>
+    <div class="pmap__stage">
+      <img class="pmap__img" src={mapUrl} width={mapData.width} height={mapData.height} alt="" loading="lazy" decoding="async" />
+      <div class="pmap__nodes" aria-hidden="true">
+        {items.map((p) => <span class="pmap__node" style={`--x:${p.x}%;--y:${p.y}%`}></span>)}
+      </div>
+    </div>
+    <ol class="pmap__list" role="list" aria-label={microcopy.placesLabel}>
+      {items.map((p) => (
+        <li class:list={['pmap__place', `pmap__place--${p.side}`]} style={`--x:${p.x}%;--y:${p.y}%`}>
+          <span class="pmap__name">{p.name}</span><span class="visually-hidden">, </span><span class="pmap__country">{p.country}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Section>
+<style>
+  .pmap { position: relative; --node: 12px; }
+  .pmap__stage { position: relative; aspect-ratio: var(--ratio); outline: 1px solid var(--rule); outline-offset: -1px; }
+  .pmap__img { display: block; width: 100%; height: 100%; }
+
+  /* ringed node in brand blue: disc · white ring · outer ring (12px phone, 14px tablet, 16px desktop) */
+  .pmap__nodes { position: absolute; inset: 0; pointer-events: none; }
+  .pmap__node {
+    position: absolute; left: var(--x); top: var(--y); width: var(--node); height: var(--node); translate: -50% -50%;
+    border-radius: 50%; background: var(--label);
+    border: calc(var(--node) * .1) solid var(--white); box-shadow: 0 0 0 calc(var(--node) * .15) var(--label);
+  }
+
+  /* mobile: the list follows the map as a 2-column legend */
+  .pmap__list {
+    list-style: none; margin: var(--s-6) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--grid-gap);
+    border-top: 1px solid var(--rule);
+  }
+  .pmap__place {
+    position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 64px;
+    padding: var(--s-3) 0 var(--s-3) 22px; border-bottom: 1px solid var(--rule);
+  }
+  .pmap__place::before {
+    content: ""; position: absolute; left: 1px; top: calc(var(--s-3) + .62em); width: 8px; height: 8px; border-radius: 50%;
+    background: var(--label); border: 1.5px solid var(--white); box-shadow: 0 0 0 1.5px var(--label); box-sizing: content-box;
+    translate: 0 -2px;
+  }
+  .pmap__name { font-size: var(--fs-body); line-height: 1.35; font-weight: 500; color: var(--head); }
+  .pmap__country { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .pmap__country::first-letter { text-transform: uppercase; }
+
+  /* ≥ 600px: the list is laid over the map, each name beside its node */
+  @media (min-width: 600px) {
+    .pmap { --node: 14px; }
+    .pmap__list { position: absolute; inset: 0; margin: 0; border: 0; display: block; pointer-events: none; }
+    .pmap__place {
+      position: absolute; left: var(--x); top: var(--y); min-height: 0; padding: 0; border: 0;
+      translate: calc(var(--node) / 2 + 8px) -50%; white-space: nowrap;
+    }
+    .pmap__place--left { translate: calc(-100% - var(--node) / 2 - 8px) -50%; }
+    .pmap__place::before { display: none; }
+    .pmap__name {
+      font-size: var(--fs-small); line-height: 1.3; font-weight: 600;
+      text-shadow: 0 0 2px var(--white), 0 0 3px var(--white), 0 0 6px var(--white);
+    }
+    .pmap__country {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+    }
+  }
+  @media (min-width: 900px) {
+    .pmap { --node: 16px; }
+  }
+</style>

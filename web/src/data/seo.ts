@@ -27,9 +27,9 @@ export const seo: Record<SeoKey, SeoEntry> = {
   'strategy-feasibility': { og: '/og/strategy-feasibility.png', composed: true, path: '/expertise/strategy-feasibility', title: 'Strategy, Feasibility and Market Entry | KoKreaters', description: 'Clear answers for Go/No-Go decisions: market analysis, feasibility studies, business plans and market entry, including India and Asia.' },
   'due-diligence': { og: '/og/due-diligence.png', composed: true, path: '/expertise/due-diligence', title: 'M&A, Due Diligence and Partnerships | KoKreaters', description: 'See what is really behind the deal: technical due diligence of plants, products, R&D and quality systems, and post-acquisition integration.' },
   capability: { og: '/og/capability.png', composed: true, path: '/expertise/capability', title: 'Capability, Leadership and Transformation | KoKreaters', description: 'Leave stronger teams behind: technical training, technology transfer, leadership development and interim technical leadership.' },
-  privacy: { composed: true, path: '/privacy', title: 'Privacy Policy | KoKreaters', description: 'How KoKreaters collects, uses and protects personal data.' },
-  cookies: { composed: true, path: '/cookies', title: 'Cookie Policy | KoKreaters', description: 'Which cookies and browser storage the KoKreaters website uses, and how to control them.' },
-  terms: { composed: true, path: '/terms', title: 'Terms of Use | KoKreaters', description: 'The terms that apply when you use the KoKreaters website.' },
+  privacy: { og: '/og/privacy.png', composed: true, path: '/privacy', title: 'Privacy policy | KoKreaters', description: 'How KoKreaters collects, uses and protects personal data.' },
+  cookies: { og: '/og/cookies.png', composed: true, path: '/cookies', title: 'Cookie policy | KoKreaters', description: 'Which cookies and browser storage the KoKreaters website uses, and how to control them.' },
+  terms: { og: '/og/terms.png', composed: true, path: '/terms', title: 'Terms of use | KoKreaters', description: 'The terms that apply when you use the KoKreaters website.' },
   notfound: { path: '/404', noindex: true, title: 'Page not found | KoKreaters', description: 'This page hasn’t been created yet. Let’s connect you back.' },
 };
 

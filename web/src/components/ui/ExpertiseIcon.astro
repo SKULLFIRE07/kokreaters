@@ -1,0 +1,30 @@
+---
+/**
+ * Expertise icon (REDESIGN-V3 §2): one thin-line Lucide glyph per pillar, 32px box, 1.5px rendered stroke, brand blue (--label:
+ * blue-700 on light grounds, blue-300 on navy). Chosen from a contact sheet (research/v3/shots/foundation/
+ * icons-candidates.png): the contract set read best at 32px and share one visual weight.
+ * innovation flask-conical · process factory · quality shield-check · strategy split (the Go/No-Go fork) ·
+ * deals file-search · capability users. Decorative (the card title names the pillar). Mobile: same.
+ */
+import type { PillarKey } from '@/data/types';
+import flask from 'lucide-static/icons/flask-conical.svg?raw';
+import factory from 'lucide-static/icons/factory.svg?raw';
+import shield from 'lucide-static/icons/shield-check.svg?raw';
+import split from 'lucide-static/icons/split.svg?raw';
+import fileSearch from 'lucide-static/icons/file-search.svg?raw';
+import users from 'lucide-static/icons/users.svg?raw';
+interface Props { pillar: PillarKey; size?: number; class?: string; }
+const { pillar, size = 32, class: cls } = Astro.props;
+const raw: Record<PillarKey, string> = { innovation: flask, process: factory, quality: shield, strategy: split, deals: fileSearch, capability: users };
+// 1.5px rendered at any size (24-unit viewBox → scale the stroke).
+const stroke = +(1.5 * 24 / size).toFixed(3);
+const body = raw[pillar].replace(/<!--[\s\S]*?-->/g, '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace(/\s+/g, ' ').trim();
+---
+<svg
+  class:list={['xicon', cls]} width={size} height={size} viewBox="0 0 24 24"
+  fill="none" stroke="currentColor" stroke-width={stroke} stroke-linecap="round" stroke-linejoin="round"
+  aria-hidden="true" focusable="false" set:html={body}
+/>
+<style>
+  .xicon { display: block; flex: none; color: var(--label); }
+</style>

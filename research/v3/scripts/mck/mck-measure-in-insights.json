@@ -1,0 +1,4930 @@
+{
+ "desktop": {
+  "url": "https://www.mckinsey.com/in/our-insights",
+  "vw": 1440,
+  "docH": 17137,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 500 italic",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52.8px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 870,
+     "left": 108,
+     "top": 154,
+     "t": "Our Insights"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 336,
+     "t": "India’s new insurance track: The marathon becomes an AI-led decathlon"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 964,
+     "t": "Wired for growth: India’s electrical-equipment opportunity"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 1592,
+     "t": "Strengthening the future: Steel for growth and resilience"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 2220,
+     "t": "India’s future arenas: Engines of growth and dynamism"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 2848,
+     "t": "Value creation in Indian agriculture"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 3476,
+     "t": "Turning things around: An interview with Natarajan Srinivasan"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 4104,
+     "t": "Future of tech services: Vijay Guntur on unlocking value through AI"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 4732,
+     "t": "India: The promise and possibilities for global companies"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52.8px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 12968,
+     "t": "Harness the Power of Digital"
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 349,
+     "left": 983,
+     "top": 16711,
+     "t": ""
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 108,
+     "top": 13451,
+     "t": "Driving sustainable, enterprise-wide performance acceleration"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 422,
+     "top": 13451,
+     "t": "Social media as a service differentiator: How to win"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 736,
+     "top": 13451,
+     "t": "Asia: The highway of value for global logistics"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 1050,
+     "top": 13451,
+     "t": "AI-powered decision making for the bank of the future"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 108,
+     "top": 14224,
+     "t": "Shapers and Founders: Scaling without losing soul"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 422,
+     "top": 14224,
+     "t": "Meesho: Making e-commerce everyone’s business"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 736,
+     "top": 14224,
+     "t": "Author Talks: Can you fulfill your ambition and compose a life?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 282,
+     "left": 1050,
+     "top": 14224,
+     "t": "Reimagining trade spend: From cost center to growth catalyst"
+    }
+   ],
+   "h6": []
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "0px",
+    "wpx": 349,
+    "left": 983,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 70,
+    "chars": 6142,
+    "samples": [
+     "time:September 23, 2026",
+     "div:As India’s economy continues to ramp up,",
+     "time:May 21, 2026"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|44px|300|52px|normal|none",
+    "count": 20,
+    "chars": 1104,
+    "samples": [
+     "span:India’s new insurance track: The maratho",
+     "span:Wired for growth: India’s electrical-equ",
+     "span:Strengthening the future: Steel for grow"
+    ],
+    "colors": [
+     "rgb(34, 81, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 17,
+    "chars": 822,
+    "samples": [
+     "span:Driving sustainable, enterprise-wide per",
+     "span:Social media as a service differentiator",
+     "span:Asia: The highway of value for global lo"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 39,
+    "chars": 386,
+    "samples": [
+     "span:Report",
+     "span:Article",
+     "span:Report"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 2,
+    "chars": 259,
+    "samples": [
+     "div:Addressing the new economics of AI—and m",
+     "div:MGI’s mission is to help leaders in the "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 13,
+    "chars": 158,
+    "samples": [
+     "a:Overview",
+     "a:Our Work",
+     "a:Our People"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|500|20px|normal|none",
+    "count": 8,
+    "chars": 128,
+    "samples": [
+     "a:Scam warning",
+     "a:FAQ",
+     "a:Privacy policy"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 2,
+    "chars": 91,
+    "samples": [
+     "span:McKinsey Quarterly: Is that AI agent wor",
+     "span:McKinsey Global Institute"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 3,
+    "chars": 63,
+    "samples": [
+     "span:Read more about India on our Global Them",
+     "button:View More",
+     "span:Contact"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(30, 50, 230)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|400|32px|normal|none",
+    "count": 5,
+    "chars": 47,
+    "samples": [
+     "a:Careers",
+     "a:About us",
+     "a:Alumni"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|44px|300|52.8px|normal|none",
+    "count": 2,
+    "chars": 40,
+    "samples": [
+     "div:Our Insights",
+     "div:Harness the Power of Digital"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 2,
+    "chars": 31,
+    "samples": [
+     "div:MORE INSIGHTS",
+     "div:More from McKinsey"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|43.2px|normal|none",
+    "count": 1,
+    "chars": 27,
+    "samples": [
+     "div:Connect with McKinsey India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "span:Skip to main content"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Subscribe"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|400|20px|normal|none",
+    "count": 1,
+    "chars": 6,
+    "samples": [
+     "button:Submit"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|16px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "span:Watch"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(51, 51, 51)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 90,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 96
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "16px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "h": 16,
+    "x": 318
+   },
+   {
+    "t": "Overview",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 306
+   },
+   {
+    "t": "Our Work",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 391
+   },
+   {
+    "t": "Our People",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 477
+   },
+   {
+    "t": "Our Insights",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 90,
+    "x": 575
+   },
+   {
+    "t": "Careers",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 679
+   },
+   {
+    "t": "Contact Us",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 90,
+    "x": 755
+   },
+   {
+    "t": "Sign In",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 24,
+    "x": 1284
+   },
+   {
+    "t": "Subscribe",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 24,
+    "x": 1345
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 64,
+    "x": 1380
+   }
+  ],
+  "fixed": [],
+  "containers": [
+   [
+    "100% | w=596 | left=108 | pl=0px pr=0px",
+    21
+   ],
+   [
+    "1440px | w=1440 | left=0 | pl=0px pr=0px",
+    2
+   ],
+   [
+    "1440px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "1232px | w=1042 | left=306 | pl=0px pr=0px",
+    1
+   ]
+  ],
+  "textLefts": [
+   [
+    736,
+    20
+   ],
+   [
+    108,
+    8
+   ],
+   [
+    284,
+    2
+   ],
+   [
+    306,
+    1
+   ],
+   [
+    391,
+    1
+   ],
+   [
+    477,
+    1
+   ],
+   [
+    575,
+    1
+   ],
+   [
+    679,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    1332,
+    28
+   ],
+   [
+    704,
+    24
+   ],
+   [
+    1018,
+    4
+   ],
+   [
+    390,
+    3
+   ],
+   [
+    1022,
+    2
+   ],
+   [
+    978,
+    1
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 312,
+    "h": 12528,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "India’s new insurance track: The marathon becomes "
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBanner_mck-c-promo-banner__J4moB mck-c-module-wrapper mck-o-edge-",
+    "top": 12904,
+    "h": 277,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": true,
+    "head": "Harness the Power of Digital"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-c-module-wrapper",
+    "top": 13245,
+    "h": 498,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-u-screen-only",
+    "top": 13807,
+    "h": 48,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "AllInsightsGrid_mck-c-all-insights-grid__q21Uc",
+    "top": 13919,
+    "h": 1795,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "MORE INSIGHTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-two-up-small mck-c-module-wrapper",
+    "top": 15778,
+    "h": 375,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "MORE FROM MCKINSEY"
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 16217,
+    "h": 305,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "Connect with McKinsey India"
+   }
+  ],
+  "h2Tops": [
+   [
+    336,
+    "India’s new insurance track: T"
+   ],
+   [
+    964,
+    "Wired for growth: India’s elec"
+   ],
+   [
+    1592,
+    "Strengthening the future: Stee"
+   ],
+   [
+    2220,
+    "India’s future arenas: Engines"
+   ],
+   [
+    2848,
+    "Value creation in Indian agric"
+   ],
+   [
+    3476,
+    "Turning things around: An inte"
+   ],
+   [
+    4104,
+    "Future of tech services: Vijay"
+   ],
+   [
+    4732,
+    "India: The promise and possibi"
+   ],
+   [
+    5360,
+    "Steering Indian insurance from"
+   ],
+   [
+    5988,
+    "A road map for revving up the "
+   ],
+   [
+    6616,
+    "Innovation hubs: How GCCs are "
+   ],
+   [
+    7244,
+    "Five differentiators of outper"
+   ],
+   [
+    7872,
+    "Securing competitiveness in In"
+   ],
+   [
+    8500,
+    "Achieving extraordinary growth"
+   ],
+   [
+    9128,
+    "India Ahead"
+   ],
+   [
+    9756,
+    "Driving sustainable and inclus"
+   ],
+   [
+    10384,
+    "Indian banks: Building resilie"
+   ],
+   [
+    11012,
+    "Decarbonising India: Charting "
+   ],
+   [
+    11640,
+    "How a steel plant in India tap"
+   ],
+   [
+    12268,
+    "India’s economic turning point"
+   ],
+   [
+    13919,
+    "MORE INSIGHTS"
+   ],
+   [
+    15778,
+    "MORE FROM MCKINSEY"
+   ],
+   [
+    16281,
+    "Connect with McKinsey India"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 312,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": " Bombay at Twilight"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 940,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Wired for growth: India’s electrical-equ"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 1568,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Digital generated image of abstract toru"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 2196,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Universal grass stadium illuminated by s"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 2824,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Circle of land divided into three parts,"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 3452,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Natarajan Srinivasan headshot"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 4080,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A portrait of Vijay Anand Guntur shows h"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 4708,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Image of India at night viewed from spac"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 5336,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Umbrella on abstract technological backg"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 5964,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Charging of an electric two-wheeler"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 6592,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A technical support manager at a call ce"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 7220,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Businesspeople smiling"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 7848,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Steel pipelines and valves at at oil-ref"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 8476,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Computer neural network concept image - "
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 9104,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India Ahead"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 9732,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Children holding a planet outdoors - sto"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 10360,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Dusk on the streets of Mumbai - stock ph"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 10988,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Stylized view of India from space"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 11616,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "How a steel plant in India tapped the va"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 596,
+    "ratio": 1,
+    "top": 12244,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India’s economic turning point"
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 158,
+    "ratio": 1.78,
+    "top": 13245,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "\" \""
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 158,
+    "ratio": 1.78,
+    "top": 13245,
+    "left": 422,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "\"\""
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 158,
+    "ratio": 1.78,
+    "top": 13245,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Asia: The highway of value for global lo"
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 158,
+    "ratio": 1.78,
+    "top": 13245,
+    "left": 1050,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "AI-powered decision making for the bank "
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 168,
+    "ratio": 1.68,
+    "top": 14008,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ultra-wide, side profile of young Asian "
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 168,
+    "ratio": 1.68,
+    "top": 14008,
+    "left": 422,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Vidit Aatrey headshot"
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 168,
+    "ratio": 1.68,
+    "top": 14008,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "3D rendering of a magenta book on a ligh"
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 168,
+    "ratio": 1.68,
+    "top": 14008,
+    "left": 1050,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": " Advisor Using KPI Dashboard With Financ"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 354,
+    "ratio": 1.68,
+    "top": 14516,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Workers on engine production line in car"
+   },
+   {
+    "tag": "IMG",
+    "w": 282,
+    "h": 168,
+    "ratio": 1.68,
+    "top": 14516,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Wired for growth: India’s electrical-equ"
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 498,
+    "left": 108,
+    "top": 13245,
+    "img": {
+     "w": 282,
+     "h": 158,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Driving sustainable, enterprise-wide performance a",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Leading pharma companies are achieving r",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 10, 2022",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 498,
+    "left": 422,
+    "top": 13245,
+    "img": {
+     "w": 282,
+     "h": 158,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Social media as a service differentiator: How to w",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "With customers increasingly moving their",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "April 27, 2022",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 498,
+    "left": 736,
+    "top": 13245,
+    "img": {
+     "w": 282,
+     "h": 158,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Asia: The highway of value for global logistics",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Logistics—a bright spot in a global econ",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 19, 2021",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 498,
+    "left": 1050,
+    "top": 13245,
+    "img": {
+     "w": 282,
+     "h": 158,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "AI-powered decision making for the bank of the fut",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Banks are already strengthening customer",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "March 23, 2021",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 476,
+    "left": 108,
+    "top": 14008,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Podcast",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Shapers and Founders: Scaling without losing soul",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "A closer look at Asia’s successful found",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "October 30, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 476,
+    "left": 422,
+    "top": 14008,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Interview",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Meesho: Making e-commerce everyone’s business",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Scaling an e-commerce start-up in India’",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "October 12, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 476,
+    "left": 736,
+    "top": 14008,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Interview",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Author Talks: Can you fulfill your ambition and co",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Mayfield’s former Chief Marketing Office",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "September 29, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 476,
+    "left": 1050,
+    "top": 14008,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Reimagining trade spend: From cost center to growt",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Despite costing companies 8 to 11 percen",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "June 9, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 542,
+    "left": 108,
+    "top": 14516,
+    "img": {
+     "w": 596,
+     "h": 354,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Shifting into high gear: India’s auto component se",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Several intersecting trends are shaping ",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 26, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 542,
+    "left": 736,
+    "top": 14516,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Wired for growth: India’s electrical-equipment opp",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Amid a global surge in electrification, ",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 21, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 542,
+    "left": 1050,
+    "top": 14516,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "Indian banks: Navigating through the turbulence",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Indian banks have been outperforming glo",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 5, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 536,
+    "left": 108,
+    "top": 15090,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "From challenges to possibilities: Leading India’s ",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "In an era of global volatility, overcapa",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "March 16, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 536,
+    "left": 422,
+    "top": 15090,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "India’s private markets: The global limited partne",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "The private alternatives market is incre",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "March 11, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 282,
+    "h": 536,
+    "left": 736,
+    "top": 15090,
+    "img": {
+     "w": 282,
+     "h": 168,
+     "ratio": 1.68,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 26,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Insights Collection",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "title": {
+     "t": "India: From ambition to action",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "A curation of McKinsey insights about th",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "January 15, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(51, 51, 51)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Read more about India on our G",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "View More",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|14px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "4px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "14px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgb(0, 0, 0)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    1
+   ],
+   [
+    "Top 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Left 1px rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Top 1px rgb(179, 179, 179)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    152
+   ],
+   [
+    "rgb(51, 51, 51)",
+    56
+   ],
+   [
+    "rgb(255, 255, 255)",
+    7
+   ],
+   [
+    "rgb(34, 81, 255)",
+    4
+   ],
+   [
+    "rgb(30, 50, 230)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    16544
+   ],
+   [
+    "rgb(240, 240, 240)",
+    543
+   ],
+   [
+    "rgb(34, 81, 255)",
+    44
+   ],
+   [
+    "rgb(5, 28, 44)",
+    0
+   ]
+  ],
+  "stats": [],
+  "footer": {
+   "h": 615,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [
+    {
+     "x": 108,
+     "w": 313,
+     "y": 189,
+     "items": 5,
+     "first": ""
+    }
+   ],
+   "linkType": [
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "h": 32
+    }
+   ],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 240,
+    "border": "1px solid rgb(0, 0, 0)",
+    "bt": "1px solid rgb(0, 0, 0)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1400,
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  },
+  "articleLinks": []
+ },
+ "mobile": {
+  "url": "https://www.mckinsey.com/in/our-insights",
+  "vw": 390,
+  "docH": 26219,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 500 italic",
+   "McKinsey Sans 300 normal",
+   "McKinsey Sans 300 italic",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 139,
+     "t": "Our Insights"
+    }
+   ],
+   "h2": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 694,
+     "t": "India’s new insurance track: The marathon becomes an AI-led decathlon"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 1517,
+     "t": "Wired for growth: India’s electrical-equipment opportunity"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2308,
+     "t": "Strengthening the future: Steel for growth and resilience"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3087,
+     "t": "India’s future arenas: Engines of growth and dynamism"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3898,
+     "t": "Value creation in Indian agriculture"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4601,
+     "t": "Turning things around: An interview with Natarajan Srinivasan"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5424,
+     "t": "Future of tech services: Vijay Guntur on unlocking value through AI"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6151,
+     "t": "India: The promise and possibilities for global companies"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 15971,
+     "t": "Harness the Power of Digital"
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 349,
+     "left": 20,
+     "top": 25601,
+     "t": ""
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 16527,
+     "t": "Driving sustainable, enterprise-wide performance acceleration"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 17004,
+     "t": "Social media as a service differentiator: How to win"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 17481,
+     "t": "Asia: The highway of value for global logistics"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 17959,
+     "t": "AI-powered decision making for the bank of the future"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 18706,
+     "t": "Shapers and Founders: Scaling without losing soul"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 19195,
+     "t": "Meesho: Making e-commerce everyone’s business"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 19684,
+     "t": "Author Talks: Can you fulfill your ambition and compose a life?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 20172,
+     "t": "Reimagining trade spend: From cost center to growth catalyst"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 374,
+     "left": 16,
+     "top": 570,
+     "t": "Open article with"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "0px",
+    "wpx": 349,
+    "left": 20,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 70,
+    "chars": 6142,
+    "samples": [
+     "time:September 23, 2026",
+     "div:As India’s economy continues to ramp up,",
+     "time:May 21, 2026"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|44px|normal|none",
+    "count": 20,
+    "chars": 1104,
+    "samples": [
+     "span:India’s new insurance track: The maratho",
+     "span:Wired for growth: India’s electrical-equ",
+     "span:Strengthening the future: Steel for grow"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 17,
+    "chars": 822,
+    "samples": [
+     "span:Driving sustainable, enterprise-wide per",
+     "span:Social media as a service differentiator",
+     "span:Asia: The highway of value for global lo"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 39,
+    "chars": 386,
+    "samples": [
+     "span:Report",
+     "span:Article",
+     "span:Report"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 2,
+    "chars": 259,
+    "samples": [
+     "div:Addressing the new economics of AI—and m",
+     "div:MGI’s mission is to help leaders in the "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|500|20px|normal|none",
+    "count": 8,
+    "chars": 128,
+    "samples": [
+     "a:Scam warning",
+     "a:FAQ",
+     "a:Privacy policy"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 2,
+    "chars": 91,
+    "samples": [
+     "span:McKinsey Quarterly: Is that AI agent wor",
+     "span:McKinsey Global Institute"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 5,
+    "chars": 87,
+    "samples": [
+     "span:Twitter",
+     "span:Facebook",
+     "span:LinkedIn"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "Bower|36px|300|43.2px|normal|none",
+    "count": 3,
+    "chars": 67,
+    "samples": [
+     "div:Our Insights",
+     "div:Harness the Power of Digital",
+     "div:Connect with McKinsey India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 3,
+    "chars": 63,
+    "samples": [
+     "span:Read more about India on our Global Them",
+     "button:View More",
+     "span:Contact"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(30, 50, 230)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|400|32px|normal|none",
+    "count": 5,
+    "chars": 47,
+    "samples": [
+     "a:Careers",
+     "a:About us",
+     "a:Alumni"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|15px|400|20px|normal|none",
+    "count": 4,
+    "chars": 43,
+    "samples": [
+     "div:McKinsey Insights app",
+     "div:Recommended",
+     "div:Safari"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)",
+     "rgb(179, 179, 179)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 3,
+    "chars": 32,
+    "samples": [
+     "span:Skip to main content",
+     "a:Open",
+     "span:Continue"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 2,
+    "chars": 31,
+    "samples": [
+     "div:MORE INSIGHTS",
+     "div:More from McKinsey"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|24px|normal|none",
+    "count": 1,
+    "chars": 17,
+    "samples": [
+     "h6:Open article with"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 1,
+    "chars": 9,
+    "samples": [
+     "h4:Subscribe"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|400|20px|normal|none",
+    "count": 1,
+    "chars": 6,
+    "samples": [
+     "button:Submit"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|12px|500|13px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "a:India"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|normal|none",
+    "count": 1,
+    "chars": 5,
+    "samples": [
+     "span:Watch"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(51, 51, 51)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 83,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 68
+   },
+   {
+    "t": "India",
+    "fam": "McKinsey Sans",
+    "size": "12px",
+    "lh": "13px",
+    "ls": "normal",
+    "w": "500",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "h": 13,
+    "x": 68
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 56,
+    "x": 330
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "DIV",
+    "cls": "",
+    "top": 0,
+    "h": 844,
+    "w": 390,
+    "bg": "rgba(0, 0, 0, 0)"
+   },
+   {
+    "tag": "DIV",
+    "cls": "",
+    "top": 534,
+    "h": 310,
+    "w": 390,
+    "bg": "rgb(240, 240, 240)"
+   }
+  ],
+  "containers": [
+   [
+    "100% | w=351 | left=20 | pl=0px pr=0px",
+    37
+   ],
+   [
+    "390px | w=390 | left=0 | pl=0px pr=0px",
+    2
+   ]
+  ],
+  "textLefts": [
+   [
+    20,
+    29
+   ],
+   [
+    172,
+    2
+   ],
+   [
+    330,
+    1
+   ],
+   [
+    -1,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    371,
+    62
+   ],
+   [
+    96,
+    2
+   ],
+   [
+    369,
+    1
+   ],
+   [
+    139,
+    1
+   ],
+   [
+    290,
+    1
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 287,
+    "h": 15588,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "India’s new insurance track: The marathon becomes "
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBanner_mck-c-promo-banner__J4moB mck-c-module-wrapper mck-o-edge-",
+    "top": 15939,
+    "h": 278,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": true,
+    "head": "Harness the Power of Digital"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-c-module-wrapper",
+    "top": 16282,
+    "h": 1877,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-u-screen-only",
+    "top": 18223,
+    "h": 74,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "AllInsightsGrid_mck-c-all-insights-grid__q21Uc",
+    "top": 18361,
+    "h": 5488,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "bgImg": false,
+    "head": "MORE INSIGHTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-two-up-small mck-c-module-wrapper",
+    "top": 23913,
+    "h": 930,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "MORE FROM MCKINSEY"
+   },
+   {
+    "tag": "DIV",
+    "cls": "PromoBar_mck-c-promo-bar__dq_Oz mck-o-edge-to-edge mck-c-module-wrappe",
+    "top": 24907,
+    "h": 391,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": "Connect with McKinsey India"
+   }
+  ],
+  "h2Tops": [
+   [
+    694,
+    "India’s new insurance track: T"
+   ],
+   [
+    1517,
+    "Wired for growth: India’s elec"
+   ],
+   [
+    2308,
+    "Strengthening the future: Stee"
+   ],
+   [
+    3087,
+    "India’s future arenas: Engines"
+   ],
+   [
+    3898,
+    "Value creation in Indian agric"
+   ],
+   [
+    4601,
+    "Turning things around: An inte"
+   ],
+   [
+    5424,
+    "Future of tech services: Vijay"
+   ],
+   [
+    6151,
+    "India: The promise and possibi"
+   ],
+   [
+    6898,
+    "Steering Indian insurance from"
+   ],
+   [
+    7689,
+    "A road map for revving up the "
+   ],
+   [
+    8448,
+    "Innovation hubs: How GCCs are "
+   ],
+   [
+    9195,
+    "Five differentiators of outper"
+   ],
+   [
+    9986,
+    "Securing competitiveness in In"
+   ],
+   [
+    10777,
+    "Achieving extraordinary growth"
+   ],
+   [
+    11492,
+    "India Ahead"
+   ],
+   [
+    12247,
+    "Driving sustainable and inclus"
+   ],
+   [
+    13090,
+    "Indian banks: Building resilie"
+   ],
+   [
+    13869,
+    "Decarbonising India: Charting "
+   ],
+   [
+    14628,
+    "How a steel plant in India tap"
+   ],
+   [
+    15451,
+    "India’s economic turning point"
+   ],
+   [
+    18361,
+    "MORE INSIGHTS"
+   ],
+   [
+    23913,
+    "MORE FROM MCKINSEY"
+   ],
+   [
+    24939,
+    "Connect with McKinsey India"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 287,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": " Bombay at Twilight"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 1110,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Wired for growth: India’s electrical-equ"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 1901,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Digital generated image of abstract toru"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 2680,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Universal grass stadium illuminated by s"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 3491,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Circle of land divided into three parts,"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 4194,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Natarajan Srinivasan headshot"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 5017,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A portrait of Vijay Anand Guntur shows h"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 5744,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Image of India at night viewed from spac"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 6491,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Umbrella on abstract technological backg"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 7282,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Charging of an electric two-wheeler"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 8041,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "A technical support manager at a call ce"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 8788,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Businesspeople smiling"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 9579,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Steel pipelines and valves at at oil-ref"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 10370,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Computer neural network concept image - "
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 11085,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India Ahead"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 11840,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Children holding a planet outdoors - sto"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 12683,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Dusk on the streets of Mumbai - stock ph"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 13462,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Stylized view of India from space"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 14221,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "How a steel plant in India tapped the va"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 351,
+    "ratio": 1,
+    "top": 15044,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "India’s economic turning point"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 16282,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "\" \""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 16759,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "\"\""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 17236,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Asia: The highway of value for global lo"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 17713,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "AI-powered decision making for the bank "
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 18450,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ultra-wide, side profile of young Asian "
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 18938,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Vidit Aatrey headshot"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 19427,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "3D rendering of a magenta book on a ligh"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 19916,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": " Advisor Using KPI Dashboard With Financ"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 20404,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Workers on engine production line in car"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 209,
+    "ratio": 1.68,
+    "top": 20893,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Wired for growth: India’s electrical-equ"
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 791,
+    "left": 20,
+    "top": 287,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "India’s new insurance track: The marathon becomes ",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "As India’s economy continues to ramp up,",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "September 23, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 759,
+    "left": 20,
+    "top": 1110,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Wired for growth: India’s electrical-equipment opp",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Amid a global surge in electrification, ",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 21, 2026",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 747,
+    "left": 20,
+    "top": 1901,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Strengthening the future: Steel for growth and res",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "The global steel industry stands at an i",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "December 12, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 779,
+    "left": 20,
+    "top": 2680,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "India’s future arenas: Engines of growth and dynam",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "India, which played a limited role in th",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "June 19, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 671,
+    "left": 20,
+    "top": 3491,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Value creation in Indian agriculture",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Indian agriculture is thriving. Understa",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "June 4, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 791,
+    "left": 20,
+    "top": 4194,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Interview",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Turning things around: An interview with Natarajan",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Under Natarajan Srinivasan’s leadership,",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "May 23, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 695,
+    "left": 20,
+    "top": 5017,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Interview",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Future of tech services: Vijay Guntur on unlocking",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Companies are making big bets on AI. But",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "April 30, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 715,
+    "left": 20,
+    "top": 5744,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "India: The promise and possibilities for global co",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "India often attracts multinationals seek",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "April 10, 2025",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 759,
+    "left": 20,
+    "top": 6491,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Steering Indian insurance from growth to value in ",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "A significant share of India’s people an",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "November 14, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 727,
+    "left": 20,
+    "top": 7282,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "A road map for revving up the Asian electric two-w",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "As demand for electric two-wheelers take",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "September 23, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 715,
+    "left": 20,
+    "top": 8041,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Podcast",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Innovation hubs: How GCCs are shaping the future o",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Global capability centers (GCCs) are rap",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "September 11, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 759,
+    "left": 20,
+    "top": 8788,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Five differentiators of outperforming family-owned",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "India has many family-owned businesses, ",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "August 2, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 759,
+    "left": 20,
+    "top": 9579,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Report",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Securing competitiveness in India’s chemical indus",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Boosting competitiveness could help chem",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "June 18, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 683,
+    "left": 20,
+    "top": 10370,
+    "img": {
+     "w": 351,
+     "h": 351,
+     "ratio": 1,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 34,
+    "gapEyebrowToTitle": 7,
+    "eyebrow": {
+     "t": "Article",
+     "fam": "McKinsey Sans",
+     "size": "14px",
+     "lh": "20px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "title": {
+     "t": "Achieving extraordinary growth: Myths and realitie",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Companies in India can be a powerful eng",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 21
+    },
+    "meta": {
+     "t": "February 19, 2024",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|74|18px|400",
+    "t": "Read more about India on our G",
+    "h": 74,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(30, 50, 230)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "View More",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(30, 50, 230)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Contact",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|14px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "4px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "14px",
+    "lh": "20px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|0px none rgb(255, 255, 255)|0px none rgb(255, 255, 255)|0px|40|16px|400",
+    "t": "Open",
+    "h": 40,
+    "w": "400",
+    "pad": "8px 22px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "0px none rgb(255, 255, 255)",
+    "bb": "0px none rgb(255, 255, 255)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    4
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    4
+   ],
+   [
+    "Bottom 1px rgb(0, 0, 0)",
+    2
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Top 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Left 1px rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Top 1px rgb(179, 179, 179)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(0, 0, 0)",
+    153
+   ],
+   [
+    "rgb(51, 51, 51)",
+    54
+   ],
+   [
+    "rgb(255, 255, 255)",
+    8
+   ],
+   [
+    "rgb(179, 179, 179)",
+    2
+   ],
+   [
+    "rgb(30, 50, 230)",
+    1
+   ],
+   [
+    "rgb(34, 81, 255)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(255, 255, 255)",
+    6562
+   ],
+   [
+    "rgb(240, 240, 240)",
+    302
+   ],
+   [
+    "rgb(34, 81, 255)",
+    51
+   ],
+   [
+    "rgb(5, 28, 44)",
+    0
+   ]
+  ],
+  "stats": [],
+  "footer": {
+   "h": 920,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [
+    {
+     "x": 20,
+     "w": 289,
+     "y": 158,
+     "items": 5,
+     "first": ""
+    }
+   ],
+   "linkType": [
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "400",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "h": 22
+    },
+    {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(51, 51, 51)",
+     "h": 32
+    }
+   ],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 240,
+    "border": "1px solid rgb(0, 0, 0)",
+    "bt": "1px solid rgb(0, 0, 0)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1400,
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": [
+    {
+     "tag": "DIV",
+     "cls": "",
+     "top": 0,
+     "h": 844,
+     "bg": "rgba(0, 0, 0, 0)",
+     "shadow": "none"
+    }
+   ]
+  }
+ }
+}

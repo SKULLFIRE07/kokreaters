@@ -1,0 +1,32 @@
+---
+/**
+ * Home 3 · What we do (REDESIGN-V3 §4 Home 3). Grey band: SectionHeader from home.whatWeDo (eyebrow, the brief's
+ * "Six ways we create value, together.", intro) with "All expertise" on the right, then the six ExpertiseCards
+ * (home variant: icon, 01, name, promise, Learn more) in a .card-grid--xl: 3 × 2 from 1200px, 2 × 3 from 600 to 1199.
+ * Mobile (< 600px): one column of full-width cards; the header link drops under the intro.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
+import { whatWeDo } from '@/data/home';
+import { pillars } from '@/data/pillars';
+import { megaMenu } from '@/data/nav';
+import { keepCompounds } from './typo';
+
+// Promise lines are short display strings: keep "Go/No-Go" whole on a 360px phone.
+const cards = pillars.map((p) => ({ ...p, promise: keepCompounds(p.promise) }));
+---
+<Section ground="grey" labelledby="whatwedo-heading">
+  <SectionHeader
+    id="whatwedo-heading"
+    eyebrow={whatWeDo.overline}
+    title={whatWeDo.headline}
+    lead={whatWeDo.intro}
+    link={megaMenu.all}
+  />
+  <ul class="card-grid card-grid--xl" role="list">
+    {cards.map((p, i) => (
+      <li data-reveal style={`--i:${i % 3}`}><ExpertiseCard pillar={p} /></li>
+    ))}
+  </ul>
+</Section>

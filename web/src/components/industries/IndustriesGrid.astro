@@ -1,0 +1,38 @@
+---
+/**
+ * /industries — the nine industries as Kearney-style text cards (REDESIGN-V3 §4 Industries, §8.9).
+ * White band under the grey hero. Each card: "01", serif name (links to its own #slug anchor), the brief's one-line
+ * description, then "Relevant expertise" links to the pillar pages (pillarHref). Text-only for all nine (§8.9:
+ * consistent, no odd card out). The card root carries id={slug} for the /industries#<slug> links from home, the
+ * header dropdown and the mobile menu. The grid's h2 is visually hidden (the hero H1 already says "Where we work");
+ * card titles are h3.
+ * Mobile (< 600px): one column, full-width cards, 24px between cards; expertise links keep a 40px+ tap row.
+ * 600–899: two columns. ≥ 900: three columns (3 × 3), equal-height rows.
+ */
+import Section from '@/components/ui/Section.astro';
+import IndustryTile from '@/components/cards/IndustryTile.astro';
+import { industries, industriesPage } from '@/data/industries';
+import { getPillar, pillarHref } from '@/lib/pillars';
+---
+<Section ground="white" pad="tight" labelledby="industries-list-h" class="ind-grid">
+  <h2 id="industries-list-h" class="visually-hidden">{industriesPage.listHeading}</h2>
+  <ul class="card-grid" role="list">
+    {industries.map((ind, i) => (
+      <li data-reveal style={`--i:${i % 3}`}>
+        <IndustryTile
+          variant="card"
+          id={ind.slug}
+          href={`/industries#${ind.slug}`}
+          n={ind.n}
+          name={ind.name}
+          copy={ind.copy}
+          expertise={ind.pillars.map((k) => ({ label: getPillar(k).name, href: pillarHref(k) }))}
+        />
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  /* the grid sits close under the compact hero; rows breathe a little more than the default gap */
+  .ind-grid :global(.card-grid) { row-gap: clamp(24px, 1rem + 1.6vw, 40px); }
+</style>

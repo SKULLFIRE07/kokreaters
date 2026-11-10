@@ -1,0 +1,34 @@
+---
+/**
+ * Featured insight (REDESIGN-V3 §4 Insights hub): `featuredInsight()` as a feature InsightCard: large 3:2 photo left
+ * (7/12), label, serif title, standfirst and meta right. White band under the white hero, so it opens on a hairline.
+ * The photo is the page's LCP candidate (priority); the hero above has no image.
+ * Mobile: photo full width on top, text below (the card's own stacking).
+ */
+import type { CollectionEntry } from 'astro:content';
+import Section from '@/components/ui/Section.astro';
+import InsightCard from '@/components/cards/InsightCard.astro';
+import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft } from '@/lib/insights';
+import { getPillar } from '@/lib/pillars';
+import { showDraftLabels } from '@/lib/mode';
+import { microcopy } from '@/data/microcopy';
+import { articleCopy } from '@/data/insights';
+interface Props { entry: CollectionEntry<'insights'>; }
+const { entry: e } = Astro.props;
+const img = insightImage(e);
+---
+<Section ground="white" pad="tight" rule labelledby="featured-h" class="featured">
+  <h2 id="featured-h" class="featured__label t-label">{microcopy.featuredInsight}</h2>
+  <InsightCard
+    size="feature" level={3} priority
+    href={insightHref(e)} title={e.data.title} label={formatLabel(e)} pillarName={getPillar(e.data.pillar).shortLabel}
+    summary={e.data.standfirst || e.data.description} date={e.data.date} readTime={insightReadingTime(e)}
+    image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
+  >
+    {showDraftLabels && isDraft(e) && <span slot="badge" class="featured__draft"> · {articleCopy.draft}</span>}
+  </InsightCard>
+</Section>
+<style>
+  .featured__label { margin: 0 0 var(--s-5); }   /* --label via .t-label, like every section eyebrow */
+  .featured__draft { color: var(--fg-2); }
+</style>

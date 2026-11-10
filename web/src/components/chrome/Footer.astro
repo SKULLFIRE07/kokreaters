@@ -1,128 +1,252 @@
 ---
-/** Footer (DESIGN-SPEC v2 7.6): Ink with print grain. Row 1: the full white lockup + a margin note by "Back to top".
- * Row 2: the four v1 columns. Bottom row: © + legal + cookie settings + Confirm 11. Last: the giant white wordmark
- * sign-off (aria-hidden), shown whole (v2 QA: the mark is never cropped; --signoff-crop > 0 bleeds it off the band edge). */
+/**
+ * Footer (REDESIGN-V3 §3 chrome). Navy-900 band (role tokens from .band--navy).
+ *  Top: white horizontal logo + one-line statement (left, cols 1–5) · newsletter form, dark tone (cols 7–12).
+ *  Middle: four columns on a hairline, on the 12-col grid ≥ 1120 (4·2·3·3) — Expertise (six) · Company · Insights (latest three visible in this mode +
+ *  "All insights") · Contact (email, WhatsApp, base with time zone, LinkedIn icon link).
+ *  Bottom: hairline, the node mark (quiet signature) + "© 2026 KoKreaters", KvK only when site.legal.registration exists (Confirm 11 in staging only),
+ *  Privacy · Cookies · Terms (+ Cookie settings when analytics is on).
+ * Mobile: logo, statement and the newsletter stack full width; the columns go 2 × 2 from 600px. Below 600px Expertise,
+ * Company and Insights fold into closed hairline accordion rows (plus → minus, 56px rows; site.ts [data-ft-group]
+ * toggles .is-open + aria-expanded), so the phone footer is about one screen, not two; Contact, the newsletter and
+ * the legal row stay open. Without JS every group renders open (the footer is the no-JS menu). Company links pair
+ * up in two short columns; the legal row wraps above the copyright line.
+ * `id="site-footer" tabindex="-1"` is the no-JS target of the header's Menu link.
+ * `newsletter={false}` (BaseLayout, when the page's CtaBand already carries the form, i.e. home) drops the footer
+ * form so a page never shows two (BaseLayout's `footerNewsletter` can also turn it off for a page with its own
+ * newsletter band). Without the form the top row rebalances: ≥ 900 the logo sits in columns 1–5 and the statement
+ * moves up beside it on the column-7 line (the Insights column below), so the row is one line high, not a stacked
+ * block next to an empty half.
+ * "·" separators use the alt-text syntax (content: "·" / "") with a plain content: "·" declared first as the
+ * fallback for browsers that drop the whole declaration. The "based in" line keeps "Netherlands (CET)," together.
+ */
 import Logo from '@/components/brand/Logo.astro';
+import NodeMark from '@/components/brand/NodeMark.astro';
 import Icon from '@/components/ui/Icon.astro';
+import Container from '@/components/ui/Container.astro';
 import Confirm from '@/components/ui/Confirm.astro';
-import Newsletter from '@/components/shared/Newsletter.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
+import NewsletterForm from '@/components/ui/NewsletterForm.astro';
 import { footer, legal } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
-import { chromeNotes } from '@/data/notes/chrome';
 import { site } from '@/config/site';
+import { visibleInsights, insightHref } from '@/lib/insights';
+
+interface Props { newsletter?: boolean }
+const { newsletter = true } = Astro.props;
+const latest = (await visibleInsights()).slice(0, 3);
+const c = footer.contact;
+// "Based in the Netherlands (CET), working worldwide": never strand "(CET)," at the start of a line
+const base = c.base.replace(/ \(/g, '\u00A0(');
+// the three link groups that fold into accordion rows on phones (Contact, the form and the legal row stay open)
+const groups = [
+  { key: 'expertise', id: 'ft-expertise', heading: footer.expertise.heading },
+  { key: 'company', id: 'ft-company', heading: footer.company.heading },
+  { key: 'insights', id: 'ft-insights', heading: footer.insights.heading },
+] as const;
 ---
-<footer id="site-footer" class="site-footer g-ink grain" tabindex="-1">
-  <div class="container">
-    <div class="site-footer__top">
-      <Logo variant="full-white" href="/" label="KoKreaters home" width={260} class="site-footer__logo" />
-      <div class="site-footer__back has-notes">
-        <a class="site-footer__top-link t-mono" href="#main"><span class="site-footer__up"><Icon name="arrow-up" size={18} /></span>{chromeNotes.top}</a>
-        <MarginNote text={chromeNotes.footer} tone="saffron" arrow="arrow-curve" arrowAt="end" arrowAngle={-6} rotate={-4}
-          show="md" place="right:calc(100% + 4px); top:-58px;" trigger=".site-footer" />
+<footer id="site-footer" class="site-footer band--navy" tabindex="-1">
+  <Container>
+    <div class:list={['ft-top', !newsletter && 'ft-top--solo']}>
+      <div class="ft-brand">
+        <Logo variant="horizontal-white" href="/" label={footer.homeLabel} height={40} class="ft-logo" />
+        <p class="ft-statement">{footer.statement}</p>
       </div>
+      {newsletter && (
+        <div class="ft-news">
+          <NewsletterForm id="nl-footer" tone="dark" heading={footer.newsletter.heading} />
+        </div>
+      )}
     </div>
 
-    <div class="site-footer__cols">
-      <nav class="site-footer__col" aria-labelledby="ft-expertise">
-        <h2 id="ft-expertise" class="site-footer__head t-label">{footer.expertise.heading}</h2>
-        <ul role="list">
-          {footer.expertise.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-        </ul>
-      </nav>
-      <nav class="site-footer__col" aria-labelledby="ft-company">
-        <h2 id="ft-company" class="site-footer__head t-label">{footer.company.heading}</h2>
-        <ul role="list">
-          {footer.company.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-        </ul>
-      </nav>
-      <div class="site-footer__col">
-        <h2 class="site-footer__head t-label">{footer.contact.heading}</h2>
-        <ul role="list">
-          <li><a href={footer.contact.email.href}>{footer.contact.email.label}</a></li>
-          <li><a href={footer.contact.whatsapp.href} rel="noopener">{footer.contact.whatsapp.label}</a></li>
+    <div class="ft-cols">
+      {groups.map((g) => (
+        <nav class="ft-col ft-col--group" aria-labelledby={g.id} data-ft-col>
+          <div class="ft-headrow">
+            <h2 id={g.id} class="ft-head">{g.heading}</h2>
+            <button type="button" class="ft-head__btn" aria-expanded="false" aria-controls={`${g.id}-panel`} aria-labelledby={g.id} data-ft-group>
+              <svg class="ft-head__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                <path d="M2 8h12" /><path class="ft-head__v" d="M8 2v12" />
+              </svg>
+            </button>
+          </div>
+          <div id={`${g.id}-panel`} class="ft-panel"><div class="ft-panel__in">
+            {g.key === 'expertise' && (
+              <ul class="ft-list" role="list">
+                {footer.expertise.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+              </ul>
+            )}
+            {g.key === 'company' && (
+              <ul class="ft-list ft-list--pairs" role="list">
+                {footer.company.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+              </ul>
+            )}
+            {g.key === 'insights' && (
+              <ul class="ft-list ft-list--titles" role="list">
+                {latest.map((e) => <li><a href={insightHref(e)}>{e.data.title}</a></li>)}
+                <li><a class="ft-all" href={footer.insights.all.href}>{footer.insights.all.label}<Icon name="arrow-right" size={16} class="u-nudge" /></a></li>
+              </ul>
+            )}
+          </div></div>
+        </nav>
+      ))}
+      <div class="ft-col ft-col--contact">
+        <h2 class="ft-head">{c.heading}</h2>
+        <ul class="ft-list" role="list">
+          <li><a href={c.email.href}>{c.email.label}</a></li>
+          <li><a href={c.whatsapp.href} rel="noopener">{c.whatsapp.label}</a></li>
+          <li class="ft-base">{base}</li>
           <li>
-            <a class="site-footer__ext" href={footer.contact.linkedin.href} rel="me noopener">
-              {footer.contact.linkedin.label}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
-              <span class="site-footer__icon" aria-hidden="true"><Icon name="external" /></span>
+            <a class="ft-social" href={c.linkedin.href} rel="me noopener">
+              <Icon name="linkedin" size={22} /><span>{c.linkedin.label}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
             </a>
           </li>
-          <li class="site-footer__base t-mono">{footer.contact.base}</li>
         </ul>
       </div>
-      <div class="site-footer__col site-footer__col--news">
-        <h2 class="site-footer__head t-label">{footer.newsletter.heading}</h2>
-        <Newsletter variant="footer" />
-      </div>
     </div>
 
-    <div class="site-footer__bottom">
-      <p class="site-footer__legal">
-        <span class="nowrap">© 2026 {site.name}{site.trademark}</span>
-        {legal.map((l) => (
-          <><span class="site-footer__sep" aria-hidden="true">·</span><a href={l.href}>{l.label}</a></>
-        ))}
-        <span class="site-footer__sep js-only" aria-hidden="true">·</span>
-        <button type="button" class="site-footer__settings js-only" data-cookie-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettings}</button>
+    <div class="ft-bottom">
+      <p class="ft-legal">
+        {legal.map((l) => <a href={l.href}>{l.label}</a>)}
+        {site.analytics && (
+          <button type="button" class="ft-settings" data-cookie-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettings}</button>
+        )}
       </p>
-      <p class="site-footer__reg">
-        {site.legal.registration ?? <Confirm id={11} note="KvK / VAT / registered address" />}
+      <p class="ft-copy">
+        <NodeMark size={20} tone="blue" class="ft-mark" />
+        <span>{footer.copyright}</span>
+        {site.legal.registration
+          ? <span class="ft-reg">{site.legal.registration}</span>
+          : <Confirm id={11} note={footer.registrationNote} />}
       </p>
     </div>
-
-    <div class="site-footer__signoff" aria-hidden="true">
-      <Logo variant="wordmark-white" width="100%" />
-    </div>
-  </div>
+  </Container>
 </footer>
 
-<style is:global>
-  .site-footer { padding-block: var(--s-9) 0; overflow: clip; }
+<style>
+  .site-footer {
+    position: relative;
+    padding-block: clamp(64px, 3.4rem + 2.4vw, 80px) var(--s-6);
+    background: var(--bg); color: var(--fg);
+    view-transition-name: site-footer;
+  }
   .site-footer:focus { outline: none; }
-  .site-footer__top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--s-6); }
-  .site-footer__logo { max-width: 100%; }
-  .site-footer__back { position: relative; }
-  .site-footer__top-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--kk-white); text-decoration: none; }
-  .site-footer__top-link:hover { color: var(--kk-saffron); }
-  .site-footer__up { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; box-shadow: inset 0 0 0 2px currentColor; }
+  .site-footer :global(.ft-logo) { box-sizing: content-box; padding-block: 2px; margin-block: -2px; }   /* 44px home target */
 
-  .site-footer__cols { display: grid; grid-template-columns: 1fr; gap: var(--s-7) var(--gutter); margin-top: var(--s-8); padding-top: var(--s-7); border-top: 1.5px dashed var(--kk-white-20); }
-  @media (min-width: 600px) { .site-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .site-footer__cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .site-footer__head { margin: 0 0 var(--s-4); color: var(--kk-lavender); }
-  .site-footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-  .site-footer__col a {
-    position: relative; display: inline-flex; align-items: center; gap: 6px;
-    padding-block: 9px; min-height: 44px; box-sizing: border-box;
-    font: 600 1.0625rem/1.25 var(--font-display); font-stretch: 95%;
-    color: var(--kk-white); text-decoration: none;
+  /* ── top ── */
+  .ft-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
+  .ft-brand { display: grid; gap: var(--s-5); justify-items: start; }
+  .ft-statement {
+    margin: 0; max-width: 30ch;
+    font: 400 var(--fs-h4)/1.4 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.003em;
+    color: var(--fg); text-wrap: balance;
   }
-  .site-footer__col a:hover, .site-footer__col a:focus-visible { color: var(--kk-saffron); text-decoration: underline wavy 1.5px; text-underline-offset: .3em; }
-  .site-footer__icon { display: inline-flex; width: 14px; height: 14px; }
-  .site-footer__icon svg { width: 14px; height: 14px; }
-  .site-footer__base { color: var(--kk-lavender); padding-block: 10px; text-wrap: balance; }
-  .site-footer__col--news { color: var(--kk-white); }
+  @media (min-width: 900px) {
+    .ft-top { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
+    .ft-brand { grid-column: 1 / span 5; }
+    .ft-news { grid-column: 7 / -1; }      /* starts on the same column line as the Insights column below */
+    .ft-news :global(.nl) { max-width: none; }   /* …and ends on the container edge */
+    /* no form: logo left, statement beside it on the column-7 line; one row */
+    .ft-top--solo .ft-brand { display: contents; }
+    .ft-top--solo :global(.ft-logo) { grid-column: 1 / span 5; align-self: start; }
+    .ft-top--solo .ft-statement { grid-column: 7 / -1; max-width: 46ch; margin-top: -4px; }
+    .ft-top--solo + .ft-cols { margin-top: var(--s-7); }
+  }
 
-  .site-footer__bottom {
-    position: relative; z-index: 1;
-    margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--kk-white-20);
-    display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); justify-content: space-between; align-items: center;
-    font: 400 13px/1.4 var(--font-mono); color: var(--kk-lavender);
+  /* ── columns ── */
+  .ft-cols {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap);
+    margin-top: var(--s-8); padding-top: var(--s-7);
+    border-top: 1px solid var(--rule);
   }
-  .site-footer__legal { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-2); }
-  .site-footer__legal a, .site-footer__settings {
+  @media (min-width: 600px) { .ft-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* ≥ 1120: the four columns sit on the 12-column grid (4 · 2 · 3 · 3), so Insights shares the newsletter's line */
+  @media (min-width: 1120px) {
+    .ft-cols { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .ft-col:nth-child(1) { grid-column: 1 / span 4; }
+    .ft-col:nth-child(2) { grid-column: 5 / span 2; }
+    .ft-col:nth-child(3) { grid-column: 7 / span 3; }
+    .ft-col:nth-child(4) { grid-column: 10 / span 3; }
+  }
+  .ft-head {
+    margin: 0 0 var(--s-4);
+    font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
+    color: var(--label);
+  }
+  .ft-list { margin: 0; padding: 0; list-style: none; display: grid; }
+  .ft-list a, .ft-base, .ft-settings {
+    display: inline-flex; align-items: center; gap: var(--s-2);
+    min-height: 44px; padding-block: var(--s-2);
+    font: 400 var(--fs-small)/1.4 var(--font-sans);
+    color: var(--fg-2); text-decoration: none;
+  }
+  .ft-list a { transition: color var(--d-1) var(--ease-out); }
+  .ft-list a:hover { color: var(--fg); }
+  .ft-list a:hover, .ft-legal a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .25em; }
+  .ft-list--titles a { align-items: flex-start; text-wrap: pretty; }
+  .ft-list--titles li + li { margin-top: var(--s-1); }
+  .ft-all { color: var(--fg) !important; font-weight: 500 !important; align-items: center !important; }
+  .ft-all :global(.icon) { color: var(--accent); }
+  .ft-base { color: var(--fg-2); text-wrap: pretty; }
+  .ft-social { color: var(--fg) !important; }
+  .ft-social :global(.icon) { color: var(--fg); }
+  @media (max-width: 599px) {
+    .ft-list--pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+  }
+
+  /* ── phone accordion (< 600px, once site.ts has booted): Expertise · Company · Insights fold into hairline rows
+     with a plus that turns into a minus (the Accordion / mobile-menu pattern); Contact stays open below them.
+     The h2 stays a plain heading; a toggle button named by it covers the whole 56px row. No JS (or a failed boot)
+     keeps every group open and the button hidden. ── */
+  .ft-headrow { position: relative; }
+  .ft-head__btn { display: none; }
+  @media (max-width: 599px) {
+    :global(html.chrome-ready) .ft-cols { row-gap: 0; padding-top: 0; margin-top: var(--s-7); }
+    :global(html.chrome-ready) .ft-col--group { border-bottom: 1px solid var(--rule); }
+    :global(html.chrome-ready) .ft-headrow { display: flex; align-items: center; min-height: 56px; padding-right: 40px; }
+    :global(html.chrome-ready) .ft-col--group .ft-head { margin: 0; }
+    :global(html.chrome-ready) .ft-head__btn {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end;
+      margin: 0; padding: 0; border: 0; background: none; cursor: pointer; color: inherit;
+    }
+    :global(html.chrome-ready) .ft-head__btn:focus-visible { outline-offset: -2px; }
+    .ft-head__icon { flex: none; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; }
+    .ft-head__v { transform-origin: 8px 8px; transition: transform var(--d-2) var(--ease-out); }
+    .ft-head__btn[aria-expanded="true"] .ft-head__v { transform: rotate(90deg); }
+    /* grid rows 0fr → 1fr; collapsed links are visibility:hidden (not focusable, not read) */
+    :global(html.chrome-ready) .ft-panel {
+      display: grid; grid-template-rows: 0fr; visibility: hidden;
+      transition: grid-template-rows var(--d-3) var(--ease-out), visibility 0s linear var(--d-3);
+    }
+    :global(html.chrome-ready) .ft-col--group.is-open .ft-panel {
+      grid-template-rows: 1fr; visibility: visible;
+      transition: grid-template-rows var(--d-3) var(--ease-out), visibility 0s;
+    }
+    :global(html.chrome-ready) .ft-panel__in { min-height: 0; overflow: hidden; }
+    :global(html.chrome-ready) .ft-panel .ft-list { padding-bottom: var(--s-4); }
+    :global(html.chrome-ready) .ft-col--contact { padding-top: var(--s-6); }
+    :global(html.chrome-ready) .ft-bottom { margin-top: var(--s-6); }
+  }
+  @media (min-width: 1120px) {
+    .ft-list a, .ft-base { min-height: 36px; padding-block: 6px; }
+  }
+
+  /* ── bottom ── */
+  .ft-bottom {
+    display: flex; flex-direction: column; gap: var(--s-2);
+    margin-top: var(--s-7); padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+    font: 400 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2);
+  }
+  @media (min-width: 900px) { .ft-bottom { flex-direction: row-reverse; justify-content: space-between; align-items: center; } }
+  .ft-legal, .ft-copy { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); }
+  .ft-legal > * + *::before { content: "·"; content: "·" / ""; margin-right: var(--s-3); color: var(--fg-2); }
+  .ft-legal a, .ft-settings {
     display: inline-flex; align-items: center; min-height: 44px;
-    color: var(--kk-lavender); text-decoration: none;
-    font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+    color: var(--fg-2); text-decoration: none; font: inherit;
+    background: none; border: 0; padding: 0; cursor: pointer;
   }
-  .site-footer__legal a:hover, .site-footer__settings:hover { color: var(--kk-saffron); }
-  .site-footer__sep { color: var(--kk-lavender); opacity: 0.7; }
-  @media (max-width: 767px) {
-    .site-footer__legal { column-gap: var(--s-5); }
-    .site-footer__sep { display: none; }
-  }
-  .site-footer__reg { margin: 0; }
-
-  .site-footer__signoff { --signoff-crop: 0; margin-top: var(--s-7); margin-bottom: calc(var(--signoff-crop) * -21.8%); padding-bottom: clamp(24px, 3vw, 48px); line-height: 0; pointer-events: none; }
-  .site-footer__signoff .logo { width: 100%; }
+  .ft-legal a:hover, .ft-settings:hover { color: var(--fg); }
+  .ft-copy { min-height: 44px; }
+  .ft-copy :global(.ft-mark) { margin-right: var(--s-1); }
+  .ft-reg::before { content: "·"; content: "·" / ""; margin-right: var(--s-3); }
 </style>

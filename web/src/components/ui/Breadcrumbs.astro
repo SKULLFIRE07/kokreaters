@@ -1,0 +1,63 @@
+---
+/**
+ * Visible breadcrumb trail (REDESIGN-V3 §3). Home is prepended by withHome(). Inter 14px in --fg-2, "/" separators,
+ * current page in --fg with aria-current. The BreadcrumbList JSON-LD twin is emitted by BaseLayout.
+ * Mobile: wraps onto a second line if needed. Every link is a ≥ 44px-tall target (12px padding above and below, 7px
+ * at the sides so even "Home" is 44px wide), taken back by negative margins so the row looks as before.
+ * Current item on phones (< 600px): `currentShort` shows a short label instead (the full label stays for assistive
+ * tech), or `hideCurrentOnPhone` drops the current item and its separator so the trail ends on its parent.
+ * `tone` (v2) is accepted and ignored: the ground's role tokens colour it. `label` (default "Breadcrumb") names the nav.
+ */
+import { withHome, type Crumb } from '@/components/seo/schema';
+interface Props {
+  items: Crumb[];
+  tone?: 'light' | 'dark';
+  label?: string;
+  /** Short label for the current (last) item below 600px. */
+  currentShort?: string;
+  /** Hide the current item (and the separator before it) below 600px. */
+  hideCurrentOnPhone?: boolean;
+  class?: string;
+}
+const { items, label = 'Breadcrumb', currentShort, hideCurrentOnPhone = false, class: cls } = Astro.props;
+const trail = withHome(items);
+const last = trail.length - 1;
+const short = currentShort && currentShort !== trail[last]?.label ? currentShort : undefined;
+---
+{trail.length > 0 && (
+  <nav class:list={['crumbs', hideCurrentOnPhone && last > 0 && 'crumbs--hide-current', cls]} aria-label={label}>
+    <ol class="crumbs__list">
+      {trail.map((c, i) => (
+        <li class:list={['crumbs__item', i === last && 'crumbs__item--current', i === last - 1 && 'crumbs__item--parent']}>
+          {i === last
+            ? (short
+                ? <span class="crumbs__current" aria-current="page"><span class="crumbs__long">{c.label}</span><span class="crumbs__short" aria-hidden="true">{short}</span></span>
+                : <span class="crumbs__current" aria-current="page">{c.label}</span>)
+            : <a href={c.href}>{c.label}</a>}
+          {i < last && <span class="crumbs__sep" aria-hidden="true">/</span>}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+<style>
+  .crumbs { font-family: var(--font-sans); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .crumbs__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; }
+  .crumbs__item { display: inline-flex; align-items: center; gap: 10px; }
+  .crumbs a {
+    display: inline-block; padding: 12px 7px; margin: -2px -7px;
+    color: var(--fg-2); text-decoration-color: transparent; text-underline-offset: .25em;
+  }
+  .crumbs a:hover { color: var(--fg); text-decoration-color: var(--accent); }
+  .crumbs__current { color: var(--fg); }
+  .crumbs__short { display: none; }
+  .crumbs__sep { color: var(--fg-2); opacity: .6; }
+  @media (max-width: 599px) {
+    .crumbs__current:has(.crumbs__short) .crumbs__long {
+      position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+    }
+    .crumbs__short { display: inline; }
+    .crumbs--hide-current .crumbs__item--current { display: none; }
+    .crumbs--hide-current .crumbs__item--parent .crumbs__sep { display: none; }
+  }
+</style>

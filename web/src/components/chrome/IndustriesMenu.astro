@@ -1,0 +1,60 @@
+---
+/**
+ * Industries dropdown (REDESIGN-V3 §3 chrome; Kearney "your industry" idea). A white panel hung from the header's bottom
+ * edge under its trigger: the nine industries as one quiet list (each → /industries#<slug>) and "All industries →".
+ * Same mechanics as MegaMenu (click, hover intent, Esc, outside click; site.ts), same easing, no scrim.
+ * Desktop only (≥ 1120px); the mobile menu has its own Industries accordion.
+ */
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import { industryLinks, industriesMenu } from '@/data/nav';
+
+interface Props { id: string }
+const { id } = Astro.props;
+---
+<div id={id} class="drop" hidden>
+  <ul class="drop__list" role="list">
+    {industryLinks.map((l, i) => (
+      <li class="drop__fx" style={`--i:${i}`}><a class="drop__link" href={l.href}>{l.label}</a></li>
+    ))}
+  </ul>
+  <div class="drop__foot drop__fx" style={`--i:${industryLinks.length}`}>
+    <ArrowLink href={industriesMenu.all.href}>{industriesMenu.all.label}</ArrowLink>
+  </div>
+</div>
+
+<style>
+  .drop {
+    position: absolute; top: 100%; left: -20px;
+    width: 340px;
+    padding: var(--s-3) 0 var(--s-4);
+    background: var(--white);
+    box-shadow: inset 0 1px 0 var(--grey-200), inset 1px 0 0 var(--grey-200), inset -1px 0 0 var(--grey-200), inset 0 -1px 0 var(--grey-200), var(--shadow-panel);
+    clip-path: inset(0 -64px 100% -64px);
+    transition: clip-path var(--d-2) var(--ease-in-out);
+  }
+  .drop.is-open { clip-path: inset(0 -64px -64px -64px); transition: clip-path var(--d-3) var(--ease-out); }
+  .drop.is-instant { transition: none; }
+
+  .drop__list { margin: 0; padding: 0; list-style: none; }
+  .drop__link {
+    display: flex; align-items: center; min-height: 44px; padding: var(--s-2) 20px;
+    font: 400 var(--fs-small)/1.35 var(--font-sans); color: var(--fg); text-decoration: none;
+    transition: color var(--d-1) var(--ease-out), background-color var(--d-1) var(--ease-out);
+  }
+  .drop__link:hover, .drop__link:focus-visible { color: var(--link); background: var(--grey-50); }
+  .drop__link:focus-visible { outline-offset: -2px; }
+  .drop__foot { margin: var(--s-3) 20px 0; padding-top: var(--s-4); border-top: 1px solid var(--grey-200); }
+
+  .drop__fx {
+    opacity: 0; transform: translateY(-4px); filter: blur(3px);
+    transition: opacity 120ms var(--ease-out), transform 0s linear 120ms, filter 0s linear 120ms;
+  }
+  .drop.is-open .drop__fx {
+    opacity: 1; transform: none; filter: none;
+    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out), filter var(--d-3) var(--ease-out);
+    transition-delay: calc(40ms + var(--i, 0) * 24ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drop, .drop.is-open, .drop__fx, .drop.is-open .drop__fx { transition: none; filter: none; transform: none; }
+  }
+</style>

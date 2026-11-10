@@ -1,123 +1,144 @@
 ---
 /**
- * Mobile menu, < 1024px (DESIGN-SPEC v2 7.4): a full-screen Ink panel under the header bar (the bar itself turns Ink
- * and shows the white logo while it is open, so the two read as one screen). chrome.ts opens it, sets `inert` on
- * main/footer, stops Lenis and traps focus; Esc closes and returns focus. Open: a circle grows from the Menu button
- * (420ms expo), links rise with a 50ms stagger. Reduced: instant.
+ * Mobile menu, < 1120px (REDESIGN-V3 §3 chrome). A full-screen white sheet under the header bar; the bar stays visible
+ * and its Menu button becomes the close button (label swap + the icon turns into a cross).
+ * Order: Expertise (accordion → six areas + "All expertise"), Industries (accordion → nine + "All industries"),
+ * Approach, Impact, Insights, About, Contact — 24px serif rows on hairlines — then a full-width "Start a conversation"
+ * button, the email address and LinkedIn.
+ * Behaviour (site.ts): body scroll lock without layout jump, `inert` on the rest of the page, focus trapped between the
+ * Menu button and the sheet, Esc closes and returns focus, any link closes. Motion: the sheet fades in (240ms) and the
+ * rows blur-fade up with a 30ms stagger; accordions ease their height (grid rows 0fr → 1fr). Reduced motion: instant.
  */
-import PillarDot from '@/components/ui/PillarDot.astro';
+import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
-import MarginNote from '@/components/notes/MarginNote.astro';
-import { pillars } from '@/data/pillars';
-import { pillarGround } from '@/lib/pillars';
-import { mobile, main } from '@/data/nav';
+import { main, mobile, expertiseLinks, industryLinks, megaMenu, industriesMenu, header as labels } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
-import { chromeNotes } from '@/data/notes/chrome';
 import { site } from '@/config/site';
-import type { PillarKey } from '@/data/types';
 
-const xp = main.find((l) => l.panel);
-const cycle: PillarKey[] = ['innovation', 'process', 'quality', 'strategy', 'deals', 'capability'];
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
+const groups = main.filter((l) => l.panel).map((l) => {
+  const list = l.panel === 'list';
+  return {
+    id: list ? 'm-menu-industries' : 'm-menu-expertise',
+    label: l.label,
+    current: isCurrent(l.href),
+    links: list ? industryLinks : expertiseLinks,
+    all: list ? industriesMenu.all : megaMenu.all,
+  };
+});
 ---
-<div id="mobile-menu" class="m-menu g-ink" hidden data-lenis-prevent>
-  <div class="m-menu__inner container">
-    <nav aria-label="Menu">
+<div id="mobile-menu" class="m-menu" hidden>
+  <Container class="m-menu__inner">
+    <nav aria-label={labels.menuLabel}>
       <ul class="m-menu__list" role="list">
-        {xp && (
-          <li class="m-menu__item" style="--i:0">
-            <button type="button" class="m-menu__link m-menu__group" aria-expanded="false" aria-controls="m-menu-xp" data-menu-group>
-              <span class="m-menu__dot" style={`--dot:var(--pillar-${cycle[0]})`} aria-hidden="true"></span>
-              <span class="m-menu__txt">{xp.label}</span>
-              <span class="m-menu__chev"><Icon name="chevron" size={24} /></span>
+        {groups.map((g, i) => (
+          <li class="m-menu__item m-menu__fx" style={`--i:${i}`}>
+            <button type="button" class:list={['m-menu__link', 'm-menu__group', g.current && 'is-current']}
+              aria-expanded="false" aria-controls={g.id} data-menu-group>
+              <span>{g.label}</span><span class="m-menu__pm" aria-hidden="true"></span>
             </button>
-            <ul id="m-menu-xp" class="m-menu__pillars" role="list" hidden>
-              {pillars.map((p) => (
-                <li>
-                  <a class:list={['m-menu__pillar', `g-${pillarGround(p.key)}`]} href={`/expertise/${p.slug}`}>
-                    <PillarDot pillar={p.key} size={8} />
-                    <span>{p.name}</span>
-                  </a>
-                </li>
-              ))}
-              <li><a class="m-menu__all" href={xp.href}>{microcopy.allExpertise}</a></li>
-            </ul>
+            <div id={g.id} class="m-menu__panel">
+              <div class="m-menu__panel-in">
+                <ul class="m-menu__sub" role="list">
+                  {g.links.map((l) => <li><a class="m-menu__sublink" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a></li>)}
+                  <li><a class="m-menu__sublink m-menu__all" href={g.all.href}>{g.all.label}<Icon name="arrow-right" size={18} /></a></li>
+                </ul>
+              </div>
+            </div>
           </li>
-        )}
+        ))}
         {mobile.map((l, i) => (
-          <li class="m-menu__item" style={`--i:${i + 1}`}>
-            <a class="m-menu__link" href={l.href}>
-              <span class="m-menu__dot" style={`--dot:var(--pillar-${cycle[(i + 1) % 6]})`} aria-hidden="true"></span>
-              <span class="m-menu__txt">{l.label}</span>
-            </a>
+          <li class="m-menu__item m-menu__fx" style={`--i:${i + groups.length}`}>
+            <a class:list={['m-menu__link', isCurrent(l.href) && 'is-current']} href={l.href}
+              aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
           </li>
         ))}
       </ul>
     </nav>
-    <div class="m-menu__cta">
-      <Button href="/contact" variant="primary" magnetic={false}>{microcopy.primaryCta}</Button>
-    </div>
-    <div class="m-menu__details has-notes">
-      <ul class="m-menu__list-details t-mono" role="list">
-        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-        <li><a href={site.whatsapp.href} rel="noopener">WhatsApp: {site.whatsapp.display}</a></li>
-        <li><a href={site.linkedin.href} rel="me noopener">LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
+    <div class="m-menu__foot m-menu__fx" style={`--i:${groups.length + mobile.length}`}>
+      <Button href="/contact" full size="lg">{microcopy.primaryCta}</Button>
+      <ul class="m-menu__contact" role="list">
+        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={20} />{site.email}</a></li>
+        <li><a href={site.linkedin.href} rel="me noopener"><Icon name="linkedin" size={20} />LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
       </ul>
-      <MarginNote text={chromeNotes.menu} tone="saffron" show="all" arrow="arrow-curve" arrowAt="start" flip arrowAngle={-30}
-        rotate={-5} place="top:-8px; right:0;" />
     </div>
-  </div>
+  </Container>
 </div>
 
-<style is:global>
+<style>
   .m-menu {
-    position: absolute; top: 100%; left: 0; right: 0;
-    height: calc(100dvh - var(--bar-h, var(--header-h)));
-    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; touch-action: pan-y;
-    clip-path: circle(0 at var(--mx, 90%) var(--my, -30px));
-    transition: clip-path 260ms var(--ease-inout);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 1;
+    top: calc(var(--menu-hdr-top, 0px) + var(--header-h));
+    pointer-events: auto;
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    background: var(--white); color: var(--fg);
+    opacity: 0;
+    transition: opacity var(--d-1) var(--ease-in-out);
   }
-  .m-menu.is-open { clip-path: circle(150% at var(--mx, 90%) var(--my, -30px)); transition: clip-path 420ms var(--ease-expo); }
-  .m-menu.is-open .m-menu__item { animation: m-rise 600ms var(--ease-expo) both; animation-delay: calc(80ms + var(--i) * 50ms); }
-  @keyframes m-rise { from { opacity: 0; translate: 0 24px; } }
-  @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open { transition: none; clip-path: none; } .m-menu.is-open .m-menu__item { animation: none; } }
-  @media (min-width: 1024px) { .m-menu { display: none !important; } }
-  /* While the menu is open the body is position:fixed, so pin the header to the viewport too. */
-  html.menu-open .site-header { position: fixed; top: 0; left: 0; right: 0; }
+  .m-menu.is-open { opacity: 1; transition: opacity var(--d-2) var(--ease-out); }
+  @media (min-width: 1120px) { .m-menu { display: none !important; } }
 
-  /* the bar joins the menu while it is open */
-  html.menu-open .site-header__bar { background: var(--kk-ink); border-bottom-color: var(--kk-white-20); }
-  .site-header__logo--white { display: none !important; }
-  html.menu-open .site-header__logo--white { display: inline-flex !important; }
-  html.menu-open .site-header__logo:not(.site-header__logo--white) { display: none !important; }
-  html.menu-open .site-header__cta { display: none; }
-
-  .m-menu__inner { padding-block: var(--s-5) var(--s-8); }
-  .m-menu__list { list-style: none; margin: 0; padding: 0; }
-  .m-menu__item { border-bottom: 1px solid var(--kk-white-20); }
+  .m-menu :global(.m-menu__inner) { padding-block: var(--s-3) calc(var(--s-8) + env(safe-area-inset-bottom, 0px)); }
+  .m-menu__list { margin: 0; padding: 0; list-style: none; }
+  .m-menu__item { border-bottom: 1px solid var(--grey-200); }
   .m-menu__link {
-    display: flex; align-items: center; gap: 14px; width: 100%;
-    padding: 12px 0; border: 0; background: none; cursor: pointer; text-align: left;
-    font-family: var(--font-display); font-weight: 780; font-stretch: 75%; font-size: 2.75rem; line-height: 1; letter-spacing: -0.02em;
-    color: var(--kk-white); text-decoration: none;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+    width: 100%; min-height: 64px; margin: 0; padding: var(--s-3) 0; border: 0; background: none; cursor: pointer; text-align: left;
+    font: 420 1.5rem/1.2 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.005em;
+    color: var(--head); text-decoration: none;
   }
-  .m-menu__link:hover, .m-menu__link:focus-visible { color: var(--kk-saffron); }
-  .m-menu__txt { flex: 1 1 auto; }
-  .m-menu__dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 2px var(--kk-ink), 0 0 0 3.5px var(--kk-white); }
-  .m-menu__chev { display: inline-flex; width: 24px; height: 24px; transition: rotate var(--d-ui) var(--ease-expo); }
-  .m-menu__group[aria-expanded="true"] .m-menu__chev { rotate: 180deg; }
-  .m-menu__pillars { list-style: none; margin: 0; padding: 4px 0 var(--s-5); display: flex; flex-wrap: wrap; gap: 8px; }
-  .m-menu__pillar {
-    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 12px; border-radius: var(--r-pill);
-    font: 500 12px/1.2 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg); text-decoration: none;
+  .m-menu__link.is-current { color: var(--link); }
+  .m-menu__link:focus-visible { outline-offset: -2px; }
+
+  /* plus → minus */
+  .m-menu__pm { position: relative; width: 16px; height: 16px; flex: none; color: var(--ink-2); }
+  .m-menu__pm::before, .m-menu__pm::after {
+    content: ""; position: absolute; left: 0; top: calc(50% - .75px); width: 100%; height: 1.5px; background: currentColor;
+    transition: transform var(--d-2) var(--ease-out);
   }
-  .m-menu__pillar .pillar-dot { box-shadow: 0 0 0 1.5px var(--kk-white); }
-  .m-menu__all { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font: 500 13px/1.2 var(--font-mono); color: var(--kk-saffron); text-decoration: underline; text-underline-offset: .22em; }
-  .m-menu__cta { margin-top: var(--s-6); }
-  .m-menu__cta > * { width: 100%; justify-content: center; }
-  .m-menu__details { margin-top: var(--s-7); padding-top: var(--s-2); }
-  .m-menu__list-details { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; color: var(--kk-lavender); }
-  .m-menu__list-details a { display: inline-flex; align-items: center; min-height: 44px; color: var(--kk-lavender); text-decoration: none; }
-  .m-menu__list-details a:hover, .m-menu__list-details a:focus-visible { color: var(--kk-saffron); text-decoration: underline; }
-  .m-menu__details .note { max-width: 12ch; }
+  .m-menu__pm::after { transform: rotate(90deg); }
+  .m-menu__group[aria-expanded="true"] .m-menu__pm::after { transform: rotate(0deg); }
+
+  /* accordion: grid rows 0fr → 1fr; collapsed content is visibility:hidden (not focusable, not read) */
+  .m-menu__panel {
+    display: grid; grid-template-rows: 0fr; visibility: hidden;
+    transition: grid-template-rows var(--d-3) var(--ease-out), visibility 0s linear var(--d-3);
+  }
+  .m-menu__group[aria-expanded="true"] + .m-menu__panel {
+    grid-template-rows: 1fr; visibility: visible;
+    transition: grid-template-rows var(--d-3) var(--ease-out), visibility 0s;
+  }
+  .m-menu__panel-in { min-height: 0; overflow: hidden; }
+  .m-menu__sub { margin: 0; padding: 0 0 var(--s-4); list-style: none; }
+  .m-menu__sublink {
+    display: flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: var(--s-2) 0;
+    font: 400 1.0625rem/1.35 var(--font-sans); color: var(--fg); text-decoration: none;
+  }
+  .m-menu__sublink[aria-current="page"] { color: var(--link); }
+  .m-menu__all { color: var(--link); font-weight: 500; }
+  .m-menu__all :global(svg) { transition: transform var(--d-1) var(--ease-out); }
+  .m-menu__all:hover :global(svg) { transform: translateX(4px); }
+
+  .m-menu__foot { padding-top: var(--s-7); }
+  .m-menu__contact { margin: var(--s-5) 0 0; padding: 0; list-style: none; }
+  .m-menu__contact a {
+    display: inline-flex; align-items: center; gap: var(--s-3); min-height: 44px;
+    font: 400 var(--fs-small)/1.3 var(--font-sans); color: var(--fg); text-decoration: none;
+  }
+  .m-menu__contact a :global(svg) { color: var(--blue-700); }
+  .m-menu__contact a:hover { color: var(--link); }
+
+  /* rows blur-fade up, 30ms stagger */
+  .m-menu__fx { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  .m-menu.is-open .m-menu__fx {
+    opacity: 1; transform: none; filter: none;
+    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out), filter var(--d-3) var(--ease-out);
+    transition-delay: calc(40ms + var(--i, 0) * 30ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .m-menu, .m-menu.is-open, .m-menu__panel, .m-menu__fx, .m-menu.is-open .m-menu__fx { transition: none !important; }
+    .m-menu__fx { opacity: 1; transform: none; filter: none; }
+  }
 </style>

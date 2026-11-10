@@ -1,0 +1,448 @@
+---
+/**
+ * /styleguide — v3 foundation QA page (REDESIGN-V3 §3 "Dev/QA helpers"). Renders every primitive and card on white,
+ * grey and navy with real data from src/data, the type scale, the palette with measured contrast, and buttons in every
+ * state. Staging only: any other PUBLIC_SITE_MODE gets a redirect to /404; noindex; excluded from the sitemap
+ * (astro.config sitemap filter). Standalone shell on purpose (does not depend on BaseLayout).
+ * Mobile: every section is the component's own mobile layout; the swatch and type tables reflow to one column.
+ */
+import '@/styles/global.css';
+import Section from '@/components/ui/Section.astro';
+import Container from '@/components/ui/Container.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Button from '@/components/ui/Button.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import Icon, { type IconName } from '@/components/ui/Icon.astro';
+import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
+import Tag from '@/components/ui/Tag.astro';
+import Photo from '@/components/ui/Photo.astro';
+import StatStrip from '@/components/ui/StatStrip.astro';
+import NumberedList from '@/components/ui/NumberedList.astro';
+import ProcessFlow from '@/components/ui/ProcessFlow.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import InsightCard from '@/components/cards/InsightCard.astro';
+import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
+import ResultCard from '@/components/cards/ResultCard.astro';
+import IndustryTile from '@/components/cards/IndustryTile.astro';
+import Logo from '@/components/brand/Logo.astro';
+import NodeMark from '@/components/brand/NodeMark.astro';
+
+import { pillars, pillarExhibits, expertiseOverview, pillarPage } from '@/data/pillars';
+import { founderResults, figureFallback, impactPage } from '@/data/impact';
+import { industries } from '@/data/industries';
+import { hero, proof, proofSource, whatWeDo, impact as impactFold, insights as insightsFold, industries as industriesFold, founderQuote } from '@/data/home';
+import { approach, principles } from '@/data/approach';
+import { photos } from '@/data/photos';
+import { microcopy } from '@/data/microcopy';
+import { visibleInsights, comingSoon, formatLabel, insightReadingTime, insightHref } from '@/lib/insights';
+import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
+
+export const prerender = true;
+if (import.meta.env.PUBLIC_SITE_MODE && import.meta.env.PUBLIC_SITE_MODE !== 'staging') return Astro.redirect('/404');
+
+/* ── data ── */
+const pillarName = (k: string) => pillars.find((p) => p.key === k)?.shortLabel;
+const live = await visibleInsights();
+const soon = await comingSoon();
+const insightPhoto = ['refinery-02', 'bakery-02', 'cold-01', 'chocolate-01'] as const;
+const cards = [...live, ...soon].slice(0, 4).map((e, i) => ({
+  href: e.data.status === 'coming-soon' ? '#' : insightHref(e),
+  title: e.data.title,
+  label: formatLabel(e),
+  pillarName: pillarName(e.data.pillar),
+  summary: e.data.standfirst,
+  date: e.data.date,
+  readTime: e.data.status === 'coming-soon' ? undefined : insightReadingTime(e),
+  photo: photos[insightPhoto[i]],
+}));
+const results = founderResults.map((r) => ({
+  eyebrow: r.dateline,
+  figure: r.figure?.value ?? figureFallback[r.id],
+  title: r.homeLine,
+  body: r.done ?? undefined,
+  tags: r.sectors,
+}));
+const statItems = proof.map((p) => ({ value: p.value, label: p.label }));
+const faq = [
+  { q: 'Do you sign an NDA before we talk details?', a: principles[4].copy },
+  { q: 'Where are you based?', a: `${hero.footLeft}: ${hero.footRight.join(', ')}.` },
+  { q: 'How do we start?', a: 'We agree the scope and fee with you before any work starts.' },
+];
+const xpLinks = (keys: string[]) => keys.map((k) => pillars.find((p) => p.key === k)!).map((p) => ({ label: p.name, href: `/expertise/${p.slug}` }));
+const flowSteps = [pillarExhibits.process.from!, ...pillarExhibits.process.steps, ...(pillarExhibits.process.to ?? [])];
+
+/* ── contrast (WCAG 2.x) ── */
+const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const lum = ([r, g, b]: number[]) => {
+  const c = [r, g, b].map((v) => { const s = v / 255; return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4; });
+  return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+};
+const ratio = (a: string, b: string) => { const [x, y] = [lum(hex(a)), lum(hex(b))].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+const grade = (r: number) => (r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : r >= 3 ? 'large' : 'no');
+const swatches = [
+  ['navy-900', '#0B1B33', 'Hero bands, footer, primary button'], ['navy-800', '#13284A', 'Cards on navy, button hover'],
+  ['navy-700', '#1D3660', 'Borders on navy'], ['blue-700', '#2C509E', 'Brand blue: links, labels, icons'],
+  ['blue-500', '#306FE0', 'Accent: figures ≥ 24px, arrows, focus'], ['blue-300', '#8DB2F7', 'Accent on navy'],
+  ['grey-50', '#F2F2F0', 'Alternate bands'], ['grey-100', '#E7E7E3', 'Hover on grey, skeleton'],
+  ['grey-200', '#D9D9D4', 'Hairlines'], ['grey-500', '#8A8A85', 'Input borders, disabled'],
+  ['ink', '#1A1A1A', 'Body text'], ['ink-2', '#5A5A5A', 'Secondary text'], ['white', '#FFFFFF', 'Ground, text on navy'],
+  ['danger', '#B42318', 'Form errors'], ['success', '#1F6F43', 'Form success'],
+] as const;
+const grounds = [['white', '#FFFFFF'], ['grey-50', '#F2F2F0'], ['navy-900', '#0B1B33']] as const;
+
+const typeScale = [
+  ['--fs-display', 't-display', '40 → 64 · 1.06 · serif 420 · −0.02em', hero.headline],
+  ['--fs-h1', 't-h1', '36 → 56 · 1.08 · serif 420 · −0.018em', approach.headline],
+  ['--fs-h2', 't-h2', '30 → 42 · 1.14 · serif 430 · −0.012em', whatWeDo.headline],
+  ['--fs-h3', 't-h3', '21 → 26 · 1.25 · serif 500', pillars[1].name],
+  ['--fs-h4', 't-h4', '19 → 21 · 1.3 · serif 560', principles[0].name],
+  ['--fs-stat', 't-stat', '48 → 76 · 1.0 · serif 380 · tabular', '25 · 21% · −25 °C'],
+  ['--fs-quote', 't-quote', '24 → 34 · 1.3 · serif 400 italic', founderQuote.quote],
+  ['--fs-lead', 't-lead', '18 → 21 · 1.5 · sans 400', hero.sub],
+  ['--fs-body', 't-body', '18 · 1.6 · sans 400', approach.intro],
+  ['--fs-small', 't-small', '15 → 16 · 1.55 · sans 400', pillars[0].intro],
+  ['--fs-meta', 't-meta', '14 · 1.45 · sans 400', '4 Nov 2026 · 6 min read'],
+  ['--fs-label', 't-label', '12 → 13 · sans 600 caps · 0.12em', whatWeDo.overline],
+] as const;
+
+const icons: IconName[] = ['arrow-right', 'arrow-up-right', 'arrow-left', 'chevron-down', 'chevron-right', 'menu', 'close', 'plus', 'minus', 'linkedin', 'mail', 'whatsapp', 'phone', 'download', 'calendar', 'check', 'external', 'clock', 'pin', 'search', 'error', 'success'];
+const groundList = ['white', 'grey', 'navy'] as const;
+const mode = import.meta.env.PUBLIC_SITE_MODE ?? 'staging (unset)';
+---
+<html lang="en-GB" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Styleguide · KoKreaters v3</title>
+  <link rel="preload" href="/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <header class="sg-bar">
+    <Container class="sg-bar__in">
+      <Logo variant="horizontal" href="/" height={30} />
+      <p class="sg-bar__title">Foundation styleguide <span class="t-meta">· mode {mode}</span></p>
+      <nav aria-label="Styleguide sections" class="sg-bar__nav">
+        <a href="#colour">Colour</a><a href="#type">Type</a><a href="#buttons">Buttons</a>
+        {groundList.map((g) => <a href={`#on-${g}`}>On {g}</a>)}<a href="#heroes">Heroes</a><a href="#media">Media</a>
+      </nav>
+    </Container>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <PageHero
+      size="lg" ground="navy" eyebrow={hero.overline} title={hero.headline} lead={hero.sub}
+      image={photos['refinery-01'].src} imageAlt={photos['refinery-01'].alt} imagePosition={photos['refinery-01'].position}
+      actions={[{ label: hero.primary.label, href: hero.primary.href }, { label: hero.secondary.label, href: hero.secondary.href }]}
+      titleId="hero-heading"
+    >
+      <p class="sg-places">{hero.footLeft}<span aria-hidden="true"> · </span>{hero.footRight.join(' · ')}</p>
+    </PageHero>
+
+    <!-- Colour -->
+    <Section ground="white" id="colour" labelledby="colour-h">
+      <SectionHeader eyebrow="Tokens" title="Colour and contrast" id="colour-h" lead="WCAG 2 contrast of every token as text on the three grounds. Blue-500 is for figures of 24px and up on light grounds; small text uses blue-700 (light) or blue-300 (navy)." />
+      <ul class="sg-swatches" role="list">
+        {swatches.map(([name, value, use]) => (
+          <li class="sg-swatch">
+            <span class="sg-swatch__chip" style={`background:${value}`}></span>
+            <div class="sg-swatch__text">
+              <p class="sg-swatch__name">--{name} <span class="t-meta">{value}</span></p>
+              <p class="t-meta">{use}</p>
+              <p class="sg-swatch__ratios">
+                {grounds.map(([gn, gv]) => {
+                  const r = ratio(value, gv);
+                  return <span class:list={['sg-ratio', `sg-ratio--${grade(r)}`]}>{gn} {r.toFixed(2)} <b>{grade(r)}</b></span>;
+                })}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Section>
+
+    <!-- Type -->
+    <Section ground="grey" id="type" labelledby="type-h">
+      <SectionHeader eyebrow="Tokens" title="Type scale" id="type-h" lead="Source Serif 4 (optical sizes) for headlines, figures and quotes; Inter for everything else. Fluid from 390 to 1440px." />
+      <div class="sg-type">
+        {typeScale.map(([token, cls, spec, sample]) => (
+          <div class="sg-type__row">
+            <div class="sg-type__meta"><p class="sg-type__token">{token}</p><p class="t-meta">{spec}</p></div>
+            <p class={cls}>{sample}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <!-- Buttons, every state, every ground -->
+    <section id="buttons" aria-labelledby="buttons-h">
+      {groundList.map((g, gi) => (
+        <Section ground={g} pad="tight" aria-label={`Buttons on ${g}`}>
+          {gi === 0 && <SectionHeader eyebrow="Primitives" title="Buttons" id="buttons-h" lead="48px (lg 56), radius 2px, sentence case. Rows: default · hover · focus-visible · disabled · loading." />}
+          <p class="sg-sub t-label">On {g}</p>
+          <div class="sg-btn-grid">
+            {(['primary', 'secondary', 'tertiary'] as const).map((v) => (
+              <div class="sg-btn-col">
+                <p class="t-meta">{v}</p>
+                <Button href="#buttons" variant={v}>{microcopy.primaryCta}</Button>
+                <Button href="#buttons" variant={v} class="is-hover">Hover</Button>
+                <Button href="#buttons" variant={v} class="is-focus">Focus visible</Button>
+                <Button variant={v} disabled>Disabled</Button>
+                <Button variant={v} loading>Sending</Button>
+              </div>
+            ))}
+            <div class="sg-btn-col">
+              <p class="t-meta">sizes and icons</p>
+              <Button href="#buttons" size="lg" icon="arrow">{microcopy.bookingCta}</Button>
+              <Button href="#buttons" variant="secondary" icon="download">Download one-page profile</Button>
+              <Button href="#buttons" variant="secondary" icon="calendar">{microcopy.bookingCta}</Button>
+              <Button href="#buttons" variant="tertiary" icon="external">LinkedIn</Button>
+            </div>
+          </div>
+        </Section>
+      ))}
+    </section>
+
+    <!-- Every primitive and card, on each ground -->
+    {groundList.map((g) => (
+      <section id={`on-${g}`} aria-label={`Primitives on ${g}`}>
+        <Section ground={g} rule={g !== 'navy'}>
+          <SectionHeader eyebrow={`Primitives on ${g}`} title={whatWeDo.headline} lead={whatWeDo.intro} id={`on-${g}-h`} link={{ label: microcopy.allExpertise, href: '/expertise' }} />
+
+          <div class="sg-row">
+            <div class="sg-cell">
+              <p class="sg-sub t-label">Eyebrow · ArrowLink · Breadcrumbs · Confirm</p>
+              <Eyebrow>{impactFold.overline}</Eyebrow>
+              <ArrowLink href="/impact">{impactFold.link.label}</ArrowLink>
+              <Breadcrumbs label={`Breadcrumb example on ${g}`} items={[{ label: expertiseOverview.overline, href: '/expertise' }, { label: pillars[2].name, href: `/expertise/${pillars[2].slug}` }]} />
+              <p class="t-small">{founderQuote.quote}<Confirm id={4} note="founder quote wording" /></p>
+            </div>
+            <div class="sg-cell">
+              <p class="sg-sub t-label">Tags</p>
+              <div class="cluster">
+                {pillars[0].deliverables.slice(0, 3).map((d) => <Tag>{d}</Tag>)}
+                <Tag href="/expertise/process-design">{pillars[1].shortLabel}</Tag>
+                <Tag size="sm">{industries[5].name}</Tag>
+              </div>
+              <p class="sg-sub t-label">Icons (24px, stroke 1.75)</p>
+              <ul class="sg-icons" role="list">
+                {icons.map((n) => <li title={n}><Icon name={n} /></li>)}
+              </ul>
+              <p class="sg-sub t-label">Expertise icons (32px, 1.5px) · NodeMark</p>
+              <div class="sg-xicons">
+                {pillars.map((p) => <ExpertiseIcon pillar={p.key} />)}
+                <span class="sg-sep"></span>
+                {g === 'navy' ? <NodeMark tone="white" /> : <NodeMark tone="color" />}
+                <NodeMark tone="blue" />
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-block">
+            <p class="sg-sub t-label">StatStrip · cols 4</p>
+            <StatStrip items={statItems} source={`${proofSource}.`} />
+          </div>
+          {g === 'grey' && (
+            <div class="sg-block">
+              <p class="sg-sub t-label">StatStrip · cols 3</p>
+              <StatStrip items={statItems.slice(0, 3)} cols={3} />
+            </div>
+          )}
+
+          <div class="sg-block grid-12">
+            <div style="--col: 1 / 5">
+              <p class="sg-sub t-label">NumberedList</p>
+              <h3 class="t-h3 sg-mini-h">{pillarPage.helpWith}</h3>
+            </div>
+            <div style="--col: 5 / -1"><NumberedList items={pillars[1].helpWith} /></div>
+          </div>
+          {g === 'white' && (
+            <div class="sg-block">
+              <p class="sg-sub t-label">NumberedList · cols 2</p>
+              <NumberedList items={principles.map((p) => `${p.name}. ${p.copy}`)} cols={2} />
+            </div>
+          )}
+
+          <div class="sg-block">
+            <p class="sg-sub t-label">ProcessFlow</p>
+            <ProcessFlow steps={flowSteps} title={pillarExhibits.process.title} caption={`${proofSource} (Wilmar).`} />
+          </div>
+
+          <div class="sg-block grid-12">
+            <div style="--col: 1 / 5"><p class="sg-sub t-label">Accordion</p><h3 class="t-h3 sg-mini-h">Questions</h3></div>
+            <div style="--col: 5 / -1"><Accordion items={faq} id={`faq-${g}`} /></div>
+          </div>
+
+          <div class="sg-block">
+            <p class="sg-sub t-label">ExpertiseCard · {g === 'white' ? 'hub' : 'home'}</p>
+            <ul class:list={['card-grid', 'sg-cards', g !== 'white' && 'card-grid--xl']} role="list">
+              {(g === 'grey' ? pillars : pillars.slice(0, 3)).map((p) => <li><ExpertiseCard pillar={p} variant={g === 'white' ? 'hub' : 'home'} /></li>)}
+            </ul>
+          </div>
+
+          <div class="sg-block">
+            <SectionHeader level={3} eyebrow={insightsFold.overline} title={insightsFold.headline} link={{ label: 'All insights', href: '/insights' }} />
+            <div class="grid-12 sg-insights">
+              <div style="--col: 1 / 8">
+                <InsightCard size="feature" href={cards[0].href} title={cards[0].title} label={cards[0].label} pillarName={cards[0].pillarName} summary={cards[0].summary} date={cards[0].date} readTime={cards[0].readTime} image={cards[0].photo.src} imageAlt={cards[0].photo.alt} imagePosition={cards[0].photo.position} />
+              </div>
+              <div class="sg-stack" style="--col: 8 / -1">
+                <InsightCard href={cards[1].href} title={cards[1].title} label={cards[1].label} pillarName={cards[1].pillarName} summary={cards[1].summary} date={cards[1].date} readTime={cards[1].readTime} image={cards[1].photo.src} imageAlt={cards[1].photo.alt} imagePosition={cards[1].photo.position} />
+                <InsightCard size="compact" href={cards[2].href} title={cards[2].title} label={cards[2].label} pillarName={cards[2].pillarName} image={cards[2].photo.src} imageAlt={cards[2].photo.alt} imagePosition={cards[2].photo.position} />
+                <InsightCard size="text" href={cards[3].href} title={cards[3].title} label={cards[3].label} pillarName={cards[3].pillarName} summary={cards[3].summary} />
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-block">
+            <SectionHeader level={3} eyebrow={impactFold.overline} title={impactFold.headline} link={impactFold.link} />
+            <ul class="card-grid card-grid--xl sg-cards" style="--cols: 4" role="list">
+              {results.map((r, i) => <li><ResultCard {...r} href={i === 0 ? '/impact' : undefined} /></li>)}
+            </ul>
+            <p class="t-meta sg-note">{proofSource} (Wilmar / Cargill).</p>
+          </div>
+
+          <div class="sg-block">
+            <SectionHeader level={3} eyebrow={industriesFold.overline} title={industriesFold.headline} />
+            <ul class="tile-grid" role="list">
+              {(g === 'white' ? industries : industries.slice(0, 6)).map((ind) => (
+                <li><IndustryTile href={`/industries#${ind.slug}`} name={ind.name} n={ind.n} copy={g === 'grey' ? ind.copy : undefined} /></li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="sg-block">
+            <p class="sg-sub t-label">IndustryTile · card</p>
+            <ul class="card-grid sg-cards" role="list">
+              {industries.slice(0, 3).map((ind, i) => (
+                <li><IndustryTile variant="card" id={`sg-${g}-${ind.slug}`} href={`/industries#${ind.slug}`} name={ind.name} n={ind.n} copy={ind.copy} expertise={xpLinks(ind.pillars)}
+                  image={i === 0 && g !== 'navy' ? photos['chocolate-01'].src : undefined} imageAlt={photos['chocolate-01'].alt} /></li>
+              ))}
+            </ul>
+          </div>
+        </Section>
+      </section>
+    ))}
+
+    <!-- Hero variants -->
+    <div id="heroes">
+      <PageHero
+        ground="navy" imageMode="split" image={portrait} imageAlt="Ganeaysh Kulkarni, founder of KoKreaters" imagePosition="50% 20%"
+        crumbs={[{ label: 'About', href: '/about' }]} eyebrow="About" title="Built on 25 years of making ingredients work."
+        lead={founderQuote.quote} titleId="hero-split" actions={[{ label: 'Download one-page profile', href: '#', variant: 'secondary' }]}
+      />
+      <PageHero
+        ground="grey" crumbs={[{ label: expertiseOverview.overline, href: '/expertise' }]} crumbsLabel="Breadcrumb (grey hero)" eyebrow={expertiseOverview.overline}
+        title={expertiseOverview.headline} lead={expertiseOverview.intro} titleId="hero-grey"
+      >
+        <Fragment slot="aside"><StatStrip items={statItems.slice(0, 3)} cols={3} /></Fragment>
+      </PageHero>
+      <PageHero ground="white" align="center" eyebrow={insightsFold.overline} title={insightsFold.headline} lead={microcopy.newsletter} titleId="hero-white" />
+      <PageHero
+        ground="navy" eyebrow={impactPage.overline} title={impactPage.headline} lead={impactPage.lead} titleId="hero-navy-md"
+        image={photos['texture-01'].src} imageAlt={photos['texture-01'].alt} imagePosition={photos['texture-01'].position}
+        crumbs={[{ label: impactPage.overline, href: '/impact' }]} crumbsLabel="Breadcrumb (navy hero)"
+      />
+    </div>
+
+    <!-- Media + brand -->
+    <Section ground="white" id="media" labelledby="media-h">
+      <SectionHeader eyebrow="Media" title="Photo ratios and the logo" id="media-h" lead="One cool, quiet grade across the set. Cover crops keep the subject via object-position." />
+      <div class="sg-ratios">
+        {([['21/9', 'refinery-01'], ['16/9', 'plant-01'], ['3/2', 'lab-01'], ['4/3', 'oils-01'], ['1/1', 'oilseeds-01'], ['4/5', 'audit-01']] as const).map(([r, slug]) => (
+          <figure>
+            <Photo src={photos[slug].src} alt={photos[slug].alt} ratio={r} position={photos[slug].position} sizes="(min-width: 900px) 33vw, calc(100vw - 40px)" data-settle />
+            <figcaption class="t-meta">{r} · {slug}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="sg-logos">
+        <Logo variant="horizontal" height={36} />
+        <Logo variant="full" width={240} />
+        <NodeMark size={64} />
+      </div>
+    </Section>
+    <Section ground="navy" pad="tight">
+      <div class="sg-logos">
+        <Logo variant="horizontal-white" height={36} />
+        <Logo variant="full-white" width={240} />
+        <NodeMark size={64} tone="white" />
+        <NodeMark size={64} tone="blue" />
+      </div>
+    </Section>
+  </main>
+
+  <script>
+    // Styleguide-only stand-in for src/scripts/site.ts: js class + the reveal observer.
+    const root = document.documentElement;
+    root.classList.replace('no-js', 'js');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    }, { threshold: 0.15 });
+    document.querySelectorAll('[data-reveal]:not([data-reveal="lines"])').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
+
+<style>
+  .sg-bar { position: sticky; top: 0; z-index: 10; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--grey-200); }
+  .sg-bar__in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; min-height: 64px; padding-block: 10px; }
+  .sg-bar__title { font-weight: 600; font-size: var(--fs-small); color: var(--navy-900); }
+  .sg-bar__nav { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; font-size: var(--fs-meta); }
+  .sg-bar__nav a { color: var(--ink-2); text-decoration: none; padding-block: 6px; }
+  .sg-bar__nav a:hover { color: var(--blue-700); }
+  @media (max-width: 899px) { .sg-bar { position: static; } .sg-bar__nav { margin-left: 0; } }
+
+  .sg-places { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
+  .sg-sub { color: var(--fg-2); margin-bottom: var(--s-4); }
+  .sg-block { margin-top: var(--s-9); }
+  .sg-row { display: grid; gap: var(--s-7) var(--grid-gap); }
+  .sg-cell { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-4); }
+  .sg-cell .sg-sub:not(:first-child) { margin-top: var(--s-4); margin-bottom: 0; }
+  .sg-mini-h { margin-bottom: var(--s-5); }
+  .sg-note { margin-top: var(--s-5); }
+  .sg-cards { list-style: none; padding: 0; margin: 0; }
+  .sg-cards > li { display: flex; flex-direction: column; }
+  .sg-stack { display: flex; flex-direction: column; gap: var(--s-6); }
+  .sg-insights { row-gap: var(--s-7); }
+  .sg-icons { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 14px 18px; color: var(--head); }
+  .sg-xicons { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+  .sg-sep { width: 1px; height: 32px; background: var(--rule); }
+  @media (min-width: 900px) { .sg-row { grid-template-columns: 1fr 1fr; } }
+
+  .sg-swatches { list-style: none; padding: 0; display: grid; gap: var(--s-5) var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 600px) { .sg-swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .sg-swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sg-swatch { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: var(--s-4); align-items: start; padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+  .sg-swatch__chip { width: 64px; height: 64px; border-radius: var(--r-sm); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+  .sg-swatch__name { font-weight: 600; font-size: var(--fs-small); color: var(--head); }
+  .sg-swatch__ratios { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 6px; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .sg-ratio b { font-weight: 600; }
+  .sg-ratio--AAA b, .sg-ratio--AA b { color: var(--success); }
+  .sg-ratio--large b { color: var(--blue-700); }
+  .sg-ratio--no b { color: var(--danger); }
+
+  .sg-type { border-top: 1px solid var(--rule); }
+  .sg-type__row { display: grid; gap: var(--s-3) var(--grid-gap); padding-block: var(--s-6); border-bottom: 1px solid var(--rule); }
+  .sg-type__token { font-weight: 600; font-size: var(--fs-small); color: var(--head); }
+  @media (min-width: 900px) { .sg-type__row { grid-template-columns: 3fr 9fr; align-items: baseline; } }
+
+  .sg-btn-grid { display: grid; gap: var(--s-6) var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 600px) { .sg-btn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .sg-btn-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .sg-btn-col { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+
+  .sg-ratios { display: grid; gap: var(--s-6) var(--grid-gap); grid-template-columns: minmax(0, 1fr); align-items: start; }
+  @media (min-width: 600px) { .sg-ratios { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .sg-ratios { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sg-ratios figcaption { margin-top: var(--s-2); }
+  .sg-logos { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-7); margin-top: var(--s-8); }
+  :global(.band--navy) .sg-logos { margin-top: 0; }
+</style>

@@ -1,47 +1,72 @@
 ---
 /**
- * Exhibit (DESIGN-SPEC 5.8 item 6): numbered figure. Title states the finding; the source
- * is the figcaption. Qualitative only until the author supplies data (4.13).
+ * Exhibit (REDESIGN-V3 §4 article). MDX: <Exhibit n title subtitle? source>ProcessChain or a markdown table</Exhibit>.
+ * McKinsey-style figure: 2px navy top rule, "Exhibit 1" label, serif title (states the finding), subtitle, the body,
+ * then "Source: …" over a hairline. The figure is labelled by its title.
+ * Markdown tables are prepared on the server: every cell gets data-label (its column heading) and explicit table roles,
+ * so prose.css can stack the table into one card per row on phones without losing table semantics.
+ * ≥ 900px: the exhibit spans the full content width (it reaches into the empty right column, flush with the hero image).
+ * Mobile: full column width; tables become stacked cards below 600px; ProcessChain goes vertical.
  */
 import { microcopy } from '@/data/microcopy';
 interface Props { n: number | string; title: string; subtitle?: string; source: string; }
 const { n, title, subtitle, source } = Astro.props;
 const tid = `exhibit-${n}-title`;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const text = (html: string) => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+/** Adds data-label + ARIA table roles to simple GFM tables (thead/tbody, one header row). */
+function prepareTables(html: string): string {
+  return html.replace(/<table([^>]*)>([\s\S]*?)<\/table>/g, (whole, attrs: string, inner: string) => {
+    const head = inner.match(/<thead[^>]*>[\s\S]*?<\/thead>/)?.[0] ?? '';
+    const labels = [...head.matchAll(/<th(?:\s[^>]*)?>([\s\S]*?)<\/th>/g)].map((m) => text(m[1]));
+    if (!labels.length) return whole;
+    let out = inner
+      .replace(/<thead([^>]*)>/, '<thead$1 role="rowgroup">')
+      .replace(/<tbody([^>]*)>/, '<tbody$1 role="rowgroup">')
+      .replace(/<th(\s[^>]*)?>/g, (_m, a = '') => `<th${a} role="columnheader">`);
+    out = out.replace(/<tr([^>]*)>([\s\S]*?)<\/tr>/g, (_m, ra: string, row: string) => {
+      let i = 0;
+      const cells = row.replace(/<td(\s[^>]*)?>/g, (_c, a = '') => `<td${a} role="cell" data-label="${esc(labels[i++] ?? '')}">`);
+      return `<tr${ra} role="row">${cells}</tr>`;
+    });
+    return `<table${attrs} role="table" data-stack>${out}</table>`;
+  });
+}
+const body = prepareTables(await Astro.slots.render('default'));
 ---
 <figure class="exhibit" aria-labelledby={tid} data-reveal>
   <div class="exhibit__head">
-    <p class="exhibit__n t-label">{microcopy.exhibit} <span class="tnum">{String(n).padStart(2, '0')}</span></p>
+    <p class="exhibit__n t-label">{microcopy.exhibit} <span class="tnum">{n}</span></p>
     <p class="exhibit__title" id={tid}>{title}</p>
-    {subtitle && <p class="exhibit__subtitle t-meta">{subtitle}</p>}
+    {subtitle && <p class="exhibit__subtitle">{subtitle}</p>}
   </div>
-  <div class="exhibit__body table-wrap" tabindex="0" role="region" aria-labelledby={tid}><slot /></div>
+  <div class="exhibit__body"><Fragment set:html={body} /></div>
   <figcaption class="exhibit__source">{microcopy.source}: {source}</figcaption>
 </figure>
 <style>
-  /* v2 10.9: a SpecLabel-style frame: 2px Ink border, heavy rule under the title, "Exhibit 0n" mono chip. */
   .exhibit {
+    clear: right;
     margin-block: var(--s-8);
-    padding: var(--s-6);
-    border: 2px solid var(--kk-ink); border-radius: 20px;
-    background: var(--kk-white);
-    box-shadow: var(--shadow-hard);
+    padding-top: var(--s-5);
+    border-top: 2px solid var(--rule-strong);
     font-family: var(--font-sans);
-    font-variant-numeric: lining-nums tabular-nums;
+    font-variant-numeric: lining-nums;   /* tabular figures only where columns need them (tables, the "Exhibit 1" numeral) */
   }
   .exhibit p { margin: 0; }
-  .exhibit__head { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-2); padding-bottom: var(--s-4); margin-bottom: var(--s-5); border-bottom: 10px solid var(--kk-ink); }
-  .exhibit__n { padding: 5px 12px; border-radius: 999px; background: var(--kk-saffron); color: var(--kk-ink); box-shadow: inset 0 0 0 1.5px var(--kk-ink); }
+  .exhibit__head { display: grid; gap: var(--s-2); margin-bottom: var(--s-6); max-width: 46rem; }
+  .exhibit__n { margin-bottom: var(--s-1); }
   .exhibit__title {
-    font-family: var(--font-display); font-weight: 760; font-stretch: 80%;
-    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1; letter-spacing: -0.015em;
-    color: var(--kk-ink); text-wrap: balance;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 500;
+    font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3);
+    color: var(--head); text-wrap: balance;
   }
-  .exhibit__subtitle { font-family: var(--font-mono); font-size: 13px; color: var(--kk-graphite); }
-  .exhibit__body { overflow-x: auto; max-width: 100%; }
-  .exhibit__body :global(table) { min-width: 520px; margin: 0; }
-  .exhibit__body :global(thead th) { white-space: nowrap; }
-  .exhibit__body :global(td:first-child) { font-weight: 600; color: var(--kk-ink); }
-  .exhibit__source { margin-top: var(--s-5); padding-top: var(--s-3); border-top: 3px solid var(--kk-ink); font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--kk-graphite); }
-  @media (min-width: 900px) { .exhibit { margin-inline: -48px; padding: var(--s-7); } }
-  @media (max-width: 767px) { .exhibit { padding: var(--s-5); } }
+  .exhibit__subtitle { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
+  .exhibit__body { max-width: 100%; }
+  .exhibit__source {
+    margin-top: var(--s-6); padding-top: var(--s-3); border-top: 1px solid var(--rule);
+    font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
+  }
+  /* reach across the empty right column: the article body grid is the size container */
+  @media (min-width: 900px) { .exhibit { width: 100cqw; } }
 </style>

@@ -1,0 +1,50 @@
+---
+/**
+ * Numbered list (REDESIGN-V3 §3): "01" serif numerals in --accent (≥ 24px, so AA as large text on every ground),
+ * Inter body text, a hairline between rows, generous 24px rows. `cols` 2 = two columns from 900px.
+ * A real <ol> (with `start`), so screen readers announce position. Mobile: one column; numeral column narrows to 48px.
+ * `density="tight"` for long lists (key takeaways): 16px rows on phones, 20px from 900px, numerals 24px at every width
+ * (never below 24px: --accent on grey-50 is only 4.18:1, so the numerals must stay large text; §8.1).
+ */
+import { pad2 } from '@/lib/format';
+interface Props {
+  items: string[];
+  start?: number;
+  cols?: 1 | 2;
+  density?: 'default' | 'tight';
+  class?: string;
+}
+const { items, start = 1, cols = 1, density = 'default', class: cls } = Astro.props;
+---
+<ol class:list={['nlist', `nlist--${cols}`, density === 'tight' && 'nlist--tight', cls]} start={start} role="list">
+  {items.map((text, i) => (
+    <li class="nlist__item" data-reveal style={`--i:${i}`}>
+      <span class="nlist__n" aria-hidden="true">{pad2(start + i)}</span>
+      <span class="nlist__text">{text}</span>
+    </li>
+  ))}
+</ol>
+<style>
+  .nlist { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); }
+  .nlist__item {
+    display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: baseline; column-gap: var(--s-4);
+    padding-block: var(--s-5); border-bottom: 1px solid var(--rule);
+  }
+  .nlist__item:first-child { border-top: 1px solid var(--rule); }
+  .nlist__n {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.5rem; line-height: 1; font-weight: 400;
+    letter-spacing: -0.01em; color: var(--accent); font-variant-numeric: lining-nums tabular-nums;
+  }
+  .nlist__text { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; max-width: 60ch; }
+  .nlist--tight .nlist__item { padding-block: var(--s-4); grid-template-columns: 40px minmax(0, 1fr); column-gap: var(--s-3); }
+  .nlist--tight .nlist__n { font-size: 1.5rem; }   /* 24px floor = large text (accent on grey is 4.18:1) */
+  @media (min-width: 900px) {
+    .nlist--tight .nlist__item { padding-block: 20px; grid-template-columns: 56px minmax(0, 1fr); }
+  }
+  @media (min-width: 900px) {
+    .nlist__item { grid-template-columns: 64px minmax(0, 1fr); padding-block: 28px; }
+    .nlist__n { font-size: 1.75rem; }
+    .nlist--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nlist--2 .nlist__item:nth-child(2) { border-top: 1px solid var(--rule); }
+  }
+</style>

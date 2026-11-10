@@ -1,38 +1,45 @@
 ---
-/** Announcement bar (DESIGN-SPEC v2 7.1): first element in <body> after the SkipLink, not sticky. Thin Ink band,
- * mono 13px: the newsletter words + a link to the insights; right (≥ 768) the base line and the Pause motion control. */
-import MotionToggle from './MotionToggle.astro';
-import { chromeNotes } from '@/data/notes/chrome';
-import { hero } from '@/data/home';
+/**
+ * Announcement line (REDESIGN-V3 §3 chrome): a slim navy line above the header, "Latest insight — <title> →", linking
+ * the newest insight visible in the current mode (staging/preview include drafts; production only approved ones).
+ * Renders nothing when there is none. The whole line is one link; the arrow nudges 4px on hover.
+ * Mobile: one line, the title truncates with an ellipsis. 44px tall below 600px and on any touch screen (the §7
+ * tap-target minimum); 36px (--ann-h) from 600px with a fine pointer. Nothing else depends on its height (the header
+ * is sticky below it; --scroll-offset is header-only).
+ */
+import Container from '@/components/ui/Container.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { visibleInsights, insightHref } from '@/lib/insights';
+import { announcement } from '@/data/nav';
+
+const latest = (await visibleInsights())[0];
 ---
-<div class="ann g-ink" role="region" aria-label="Announcement">
-  <div class="ann__inner container">
-    <p class="ann__lead">
-      <span class="ann__dot" aria-hidden="true"></span>
-      <span class="ann__text">{chromeNotes.ann.lead}</span>
-      <a class="ann__link" href="/insights">{chromeNotes.ann.link}</a>
-    </p>
-    <div class="ann__right">
-      <span class="ann__base">{hero.footLeft}</span>
-      <MotionToggle />
-    </div>
+{latest && (
+  <div class="ann band--navy" role="region" aria-label={announcement.region} data-announcement>
+    <Container class="ann__inner">
+      <a class="ann__link" href={insightHref(latest)}>
+        <span class="ann__label">{announcement.label}</span>
+        <span class="ann__sep" aria-hidden="true">—</span>
+        <span class="ann__title">{latest.data.title}</span>
+        <Icon name="arrow-right" size={16} stroke={2} class="ann__arrow u-nudge" />
+      </a>
+    </Container>
   </div>
-</div>
+)}
+
 <style>
-  .ann { position: relative; z-index: 51; min-height: var(--ann-h); font: 400 13px/1.35 var(--font-mono); letter-spacing: .01em; }
-  .ann__inner { min-height: var(--ann-h); display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: 4px; }
-  .ann__lead { margin: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 2px 10px; color: var(--fg); }
-  .ann__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--kk-saffron); box-shadow: 0 0 0 2px var(--kk-ink), 0 0 0 3px var(--kk-saffron); flex: none; }
-  .ann__link { color: var(--kk-saffron); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .22em; display: inline-flex; align-items: center; min-height: 24px; }
-  .ann__link:hover { color: var(--kk-white); }
-  .ann__right { display: flex; align-items: center; gap: var(--s-5); flex: none; color: var(--fg-2); }
-  .ann__base { display: none; }
-  @media (min-width: 1024px) { .ann__base { display: inline; } }
-  @media (max-width: 767px) {
-    .ann { font-size: 12px; }
-    .ann__lead { display: block; }
-    .ann__link { margin-left: 6px; }
-    .ann__dot { display: none; }
-    .ann__link { display: inline; }
+  .ann { background: var(--bg); color: var(--fg); }
+  .ann :global(.ann__inner) { display: flex; justify-content: center; }
+  .ann__link {
+    display: inline-flex; align-items: center; gap: var(--s-2);
+    min-width: 0; max-width: 100%; height: 44px;
+    font: 400 var(--fs-meta)/1 var(--font-sans); color: var(--fg-2); text-decoration: none;
   }
+  @media (min-width: 600px) and (pointer: fine) { .ann__link { height: var(--ann-h); } }   /* touch tablets keep 44 */
+  .ann__label { flex: none; font-weight: 600; color: var(--fg); }
+  .ann__sep { flex: none; color: var(--fg-2); }
+  .ann__title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-2); transition: color var(--d-1) var(--ease-out); }
+  .ann__link:hover .ann__title { color: var(--fg); }
+  .ann__link :global(.ann__arrow) { flex: none; color: var(--accent); }
+  .ann__link:focus-visible { outline-offset: -2px; }
 </style>

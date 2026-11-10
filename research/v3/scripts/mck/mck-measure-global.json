@@ -1,0 +1,3599 @@
+{
+ "desktop": {
+  "url": "https://web.archive.org/web/20261030013959/https://www.mckinsey.com/",
+  "vw": 1440,
+  "docH": 5682,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 475,
+     "left": 853,
+     "top": 222,
+     "t": "Turning data into decisions: Lessons from professional cycling"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "8px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1440,
+     "left": 0,
+     "top": 1387,
+     "t": "FEATURED NEWSLETTER"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 3000,
+     "t": "HOW WE HELP CLIENTS"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 3730,
+     "t": "CAREERS"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(34, 81, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 108,
+     "top": 3826,
+     "t": "Looking for your next move?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 4158,
+     "t": "SOCIETAL IMPACT"
+    },
+    {
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 596,
+     "left": 736,
+     "top": 5085,
+     "t": "Download the McKinsey Insights app"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "64px",
+     "lh": "76.8px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 548,
+     "left": 108,
+     "top": 1499,
+     "t": "Insights to navigate what’s next"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "76px",
+     "lh": "91.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 918,
+     "left": 108,
+     "top": 1861,
+     "t": "The McKinsey Podcast"
+    },
+    {
+     "fam": "Bower",
+     "size": "52px",
+     "lh": "62.4px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 918,
+     "left": 261,
+     "top": 3056,
+     "t": "Let’s turn your biggest opportunities into your next big moves."
+    },
+    {
+     "fam": "Bower",
+     "size": "52px",
+     "lh": "62.4px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 918,
+     "left": 261,
+     "top": 4214,
+     "t": "Sharing our best to help more people succeed"
+    },
+    {
+     "fam": "Bower",
+     "size": "52px",
+     "lh": "62.4px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 918,
+     "left": 261,
+     "top": 4920,
+     "t": "The world moves fast. Don’t just keep pace. Stay ahead."
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 523,
+     "left": 141,
+     "top": 2221,
+     "t": "The algorithm isn’t the advantage–the team is"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 1224,
+     "left": 108,
+     "top": 5549,
+     "t": "Deferred Prosecution Agreement Relating to Our Work for Purdue Pharma"
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 443,
+     "left": 869,
+     "top": 982,
+     "t": "Subscribe to the latest McKinsey Insights on the topics you care about"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 108,
+     "top": 3462,
+     "t": "Industry expertise"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 527,
+     "top": 3462,
+     "t": "Capabilities"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 945,
+     "top": 3462,
+     "t": "Tech & AI"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 108,
+     "top": 4620,
+     "t": "McKinsey.org"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 527,
+     "top": 4620,
+     "t": "McKinsey.org Forward"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 387,
+     "left": 945,
+     "top": 4620,
+     "t": "Sustainable inclusive growth"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 306,
+     "left": 104,
+     "top": 822,
+     "t": "What AI can’t replace—and why it matters for value"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 306,
+     "left": 474,
+     "top": 694,
+     "t": "Strategy and value in turbulent times: The four foundations that drive"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 306,
+     "left": 104,
+     "top": 1143,
+     "t": "The rise of the agentic coworker: A banking CIO’s guide to the next wa"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "36px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 306,
+     "left": 474,
+     "top": 1227,
+     "t": "Healthy longevity is having a moment. What comes next?"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "mb": "0px",
+    "wpx": 109,
+    "left": 1036,
+    "t": "Or continue with"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 596,
+    "left": 736,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 9,
+    "chars": 1070,
+    "samples": [
+     "div:Sharper decisions start with The CEO Sho",
+     "div:FICO CEO Will Lansing says a strong owne",
+     "div:Deep industry insights and knowledge bas"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 8,
+    "chars": 533,
+    "samples": [
+     "p:Or continue with",
+     "div:What trends are influencing the food and",
+     "div:Place, purpose, and the path to economic"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|36px|normal|none",
+    "count": 4,
+    "chars": 274,
+    "samples": [
+     "span:What AI can’t replace—and why it matters",
+     "span:Strategy and value in turbulent times: T",
+     "span:The rise of the agentic coworker: A bank"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|300|36px|normal|none",
+    "count": 1,
+    "chars": 270,
+    "samples": [
+     "div:A shortcut to clarity in a noisy world, "
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 6,
+    "chars": 181,
+    "samples": [
+     "div:Game-changing work. People and AI poweri",
+     "span:PODCAST",
+     "span:UPCOMING WEBINAR"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|52px|300|62.4px|normal|none",
+    "count": 3,
+    "chars": 162,
+    "samples": [
+     "span:Let’s turn your biggest opportunities in",
+     "span:Sharing our best to help more people suc",
+     "span:The world moves fast. Don’t just keep pa"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|44px|300|52px|normal|none",
+    "count": 3,
+    "chars": 123,
+    "samples": [
+     "div:Turning data into decisions: Lessons fro",
+     "span:Looking for your next move?",
+     "span:Download the McKinsey Insights app"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(34, 81, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 6,
+    "chars": 108,
+    "samples": [
+     "span:Read the case study",
+     "span:Listen here",
+     "span:Explore Careers"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)",
+     "rgb(255, 255, 255)",
+     "rgb(34, 81, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 6,
+    "chars": 99,
+    "samples": [
+     "span:Industry expertise",
+     "span:Capabilities",
+     "span:Tech & AI"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 7,
+    "chars": 88,
+    "samples": [
+     "span:Skip to main content",
+     "span:Apple",
+     "span:Google"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|300|28px|normal|none",
+    "count": 1,
+    "chars": 71,
+    "samples": [
+     "h5:Subscribe to the latest McKinsey Insight"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|32px|normal|none",
+    "count": 1,
+    "chars": 69,
+    "samples": [
+     "span:Deferred Prosecution Agreement Relating "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 4,
+    "chars": 60,
+    "samples": [
+     "div:Featured Newsletter",
+     "div:How we help clients",
+     "div:Careers"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|36px|500|43.2px|normal|none",
+    "count": 1,
+    "chars": 45,
+    "samples": [
+     "span:The algorithm isn’t the advantage–the te"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|64px|300|76.8px|normal|none",
+    "count": 1,
+    "chars": 32,
+    "samples": [
+     "span:Insights to navigate what’s next"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|28px|normal|none",
+    "count": 2,
+    "chars": 27,
+    "samples": [
+     "a:Cookie Notice",
+     "a:Privacy Notice"
+    ],
+    "colors": [
+     "rgb(51, 51, 51)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|76px|300|91.2px|normal|none",
+    "count": 1,
+    "chars": 20,
+    "samples": [
+     "div:The McKinsey Podcast"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 1,
+    "chars": 16,
+    "samples": [
+     "time:October 29, 2026"
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|300|24px|normal|none",
+    "count": 2,
+    "chars": 8,
+    "samples": [
+     "span:0:00",
+     "span:0:00"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgb(255, 255, 255)",
+   "bb": "1px solid rgb(208, 208, 208)",
+   "shadow": "none",
+   "cls": "global-header global-header-r3 navigation-r3"
+  },
+  "headerLinks": [],
+  "fixed": [
+   {
+    "tag": "DIV",
+    "cls": "otCenterRounded default ot-wo-title vertical-align-content",
+    "top": 288,
+    "h": 370,
+    "w": 850,
+    "bg": "rgb(255, 255, 255)"
+   }
+  ],
+  "containers": [
+   [
+    "1440px | w=1440 | left=0 | pl=0px pr=0px",
+    5
+   ],
+   [
+    "100% | w=387 | left=108 | pl=0px pr=0px",
+    2
+   ],
+   [
+    "100% | w=387 | left=527 | pl=0px pr=0px",
+    2
+   ],
+   [
+    "100% | w=387 | left=945 | pl=0px pr=0px",
+    2
+   ],
+   [
+    "1440px | w=1440 | left=0 | pl=80px pr=80px",
+    1
+   ],
+   [
+    "100% | w=549 | left=80 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "472px | w=443 | left=869 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "100% | w=596 | left=108 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "850px | w=850 | left=304 | pl=0px pr=0px",
+    1
+   ],
+   [
+    "100% | w=850 | left=304 | pl=70px pr=70px",
+    1
+   ],
+   [
+    "100% | w=516 | left=471 | pl=0px pr=0px",
+    1
+   ]
+  ],
+  "textLefts": [
+   [
+    108,
+    6
+   ],
+   [
+    261,
+    3
+   ],
+   [
+    736,
+    2
+   ],
+   [
+    853,
+    1
+   ],
+   [
+    1036,
+    1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    -1,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    1332,
+    7
+   ],
+   [
+    1179,
+    3
+   ],
+   [
+    495,
+    2
+   ],
+   [
+    913,
+    2
+   ],
+   [
+    704,
+    2
+   ],
+   [
+    629,
+    1
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "BentoBox_mck-c-bento-box__Tzflu mck-c-module-wrapper mck-c-module-wrap",
+    "top": 90,
+    "h": 1297,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "Turning data into decisions: Lessons from professi"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium mck-o-edge-to-edge mck-c-module-wrapper",
+    "top": 1387,
+    "h": 410,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "FEATURED NEWSLETTER"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-o-edge-to-edge mck-c-module-wrapper mck-c-module-wrapper--collapse",
+    "top": 1797,
+    "h": 1139,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(4, 42, 118)",
+    "bgImg": true,
+    "head": "The McKinsey Podcast"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-o-edge-to-edge mck-c-module",
+    "top": 2936,
+    "h": 730,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "HOW WE HELP CLIENTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 3730,
+    "h": 300,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "CAREERS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-o-edge-to-edge mck-c-module",
+    "top": 4094,
+    "h": 762,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "bgImg": false,
+    "head": "SOCIETAL IMPACT"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 4920,
+    "h": 500,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "The world moves fast. Don’t just keep pace. Stay a"
+   },
+   {
+    "tag": "DIV",
+    "cls": "Accordion_mck-c-accordion__7mGHf mck-c-module-wrapper mck-o-edge-to-ed",
+    "top": 5484,
+    "h": 198,
+    "pt": "64px",
+    "pb": "64px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": ""
+   }
+  ],
+  "h2Tops": [
+   [
+    222,
+    "Turning data into decisions: L"
+   ],
+   [
+    1387,
+    "FEATURED NEWSLETTER"
+   ],
+   [
+    3000,
+    "HOW WE HELP CLIENTS"
+   ],
+   [
+    3730,
+    "CAREERS"
+   ],
+   [
+    3826,
+    "Looking for your next move?"
+   ],
+   [
+    4158,
+    "SOCIETAL IMPACT"
+   ],
+   [
+    5085,
+    "Download the McKinsey Insights"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 549,
+    "h": 102,
+    "ratio": 5.36,
+    "top": 154,
+    "left": 80,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "What&rsquo;s your next brilliant move?"
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 217,
+    "ratio": 1.78,
+    "top": 3221,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 218,
+    "ratio": 1.78,
+    "top": 3221,
+    "left": 527,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Digitally generated cylinders stacking u"
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 217,
+    "ratio": 1.78,
+    "top": 3221,
+    "left": 945,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "VIDEO",
+    "w": 596,
+    "h": 204,
+    "ratio": 2.92,
+    "top": 3826,
+    "left": 736,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 217,
+    "ratio": 1.78,
+    "top": 4379,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 218,
+    "ratio": 1.78,
+    "top": 4379,
+    "left": 527,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 387,
+    "h": 217,
+    "ratio": 1.78,
+    "top": 4379,
+    "left": 945,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "The opportunity of our era"
+   },
+   {
+    "tag": "IMG",
+    "w": 596,
+    "h": 335,
+    "ratio": 1.78,
+    "top": 5085,
+    "left": 108,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "An iPhone, iPad, and Android phone with "
+   },
+   {
+    "tag": "IMG",
+    "w": 120,
+    "h": 40,
+    "ratio": 2.99,
+    "top": 5205,
+    "left": 736,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Download on the App Store"
+   },
+   {
+    "tag": "IMG",
+    "w": 136,
+    "h": 40,
+    "ratio": 3.39,
+    "top": 5205,
+    "left": 860,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Download Android app on Google Play"
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 661,
+    "h": 197,
+    "left": 80,
+    "top": 154,
+    "img": {
+     "w": 549,
+     "h": 102,
+     "ratio": 5.36,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -102,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Game-changing work. People and AI poweri",
+     "fam": "McKinsey Sans",
+     "size": "18px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 26
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 381,
+    "left": 108,
+    "top": 3221,
+    "img": {
+     "w": 387,
+     "h": 217,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Industry expertise",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Deep industry insights and knowledge bas",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 381,
+    "left": 527,
+    "top": 3221,
+    "img": {
+     "w": 387,
+     "h": 218,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Capabilities",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Practical experience and know-how on tra",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 381,
+    "left": 945,
+    "top": 3221,
+    "img": {
+     "w": 387,
+     "h": 217,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Tech & AI",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "We help clients unlock the power of AI a",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 414,
+    "left": 108,
+    "top": 4379,
+    "img": {
+     "w": 387,
+     "h": 217,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey.org",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Skill building programs—at no cost—so no",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 414,
+    "left": 527,
+    "top": 4379,
+    "img": {
+     "w": 387,
+     "h": 218,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey.org Forward",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "An online learning journey designed to e",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 387,
+    "h": 414,
+    "left": 945,
+    "top": 4379,
+    "img": {
+     "w": 387,
+     "h": 217,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Sustainable inclusive growth",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "We support organizations in innovating s",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 596,
+    "h": 169,
+    "left": 736,
+    "top": 5085,
+    "img": {
+     "w": 120,
+     "h": 40,
+     "ratio": 2.99,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -160,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Download the McKinsey Insights app",
+     "fam": "Bower",
+     "size": "44px",
+     "lh": "52px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": null,
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Read the case study",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(0, 169, 244)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|16px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgb(0, 169, 244)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|0px|42|16px|400",
+    "t": "Apple",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgb(255, 255, 255)",
+    "bb": "1px solid rgb(255, 255, 255)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|0px|48|18px|400",
+    "t": "Listen here",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgb(255, 255, 255)",
+    "bb": "1px solid rgb(255, 255, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|34|16px|400",
+    "t": "15",
+    "h": 34,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|26|16px|400",
+    "t": "",
+    "h": 26,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|24|16px|400",
+    "t": "",
+    "h": 24,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Explore Careers",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgb(34, 81, 255)|1px solid rgb(34, 81, 255)|0px|48|18px|400",
+    "t": "Decline optional cookies",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgb(34, 81, 255)",
+    "bb": "1px solid rgb(34, 81, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [
+   {
+    "t": "",
+    "color": "rgb(34, 81, 255)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "",
+    "color": "rgb(34, 81, 255)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   }
+  ],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    9
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    9
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    9
+   ],
+   [
+    "Top 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Bottom 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Left 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    2
+   ],
+   [
+    "Top 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Bottom 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Left 1px rgb(34, 81, 255)",
+    2
+   ],
+   [
+    "Top 1px rgb(208, 208, 208)",
+    1
+   ],
+   [
+    "Left 1px rgb(208, 208, 208)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(255, 255, 255)",
+    50
+   ],
+   [
+    "rgb(0, 0, 0)",
+    9
+   ],
+   [
+    "rgb(51, 51, 51)",
+    3
+   ],
+   [
+    "rgb(34, 81, 255)",
+    2
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(5, 28, 44)",
+    3510
+   ],
+   [
+    "rgb(255, 255, 255)",
+    2806
+   ],
+   [
+    "rgb(4, 42, 118)",
+    1983
+   ],
+   [
+    "rgb(34, 81, 255)",
+    1150
+   ],
+   [
+    "rgb(240, 240, 240)",
+    389
+   ],
+   [
+    "rgba(255, 255, 255, 0.15)",
+    169
+   ],
+   [
+    "rgb(0, 169, 244)",
+    4
+   ]
+  ],
+  "stats": [],
+  "eyebrows": [
+   {
+    "t": "CASE STUDY",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "gap": 8,
+    "for": "Turning data into decisions: L"
+   }
+  ],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 443,
+    "border": "1px solid rgb(255, 255, 255)",
+    "bt": "1px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "range",
+    "ph": "",
+    "h": 2,
+    "w": 424,
+    "border": "0px none rgb(157, 150, 142)",
+    "bt": "0px none rgb(157, 150, 142)",
+    "radius": "16px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": null,
+  "headerScrolled": {
+   "top": -1400,
+   "h": 90,
+   "pos": "relative",
+   "bg": "rgb(255, 255, 255)",
+   "fixed": []
+  },
+  "articleLinks": []
+ },
+ "mobile": {
+  "url": "https://web.archive.org/web/20261030013959/https://www.mckinsey.com/",
+  "vw": 390,
+  "docH": 7190,
+  "body": {
+   "fam": "McKinsey Sans",
+   "size": "16px",
+   "lh": "24px",
+   "ls": "normal",
+   "w": "300",
+   "tt": "none",
+   "color": "rgb(51, 51, 51)"
+  },
+  "bodyBg": "rgba(0, 0, 0, 0)",
+  "fontsLoaded": [
+   "VideoJS 400 normal",
+   "Bower 300 normal",
+   "McKinsey Sans 400 normal",
+   "McKinsey Sans 500 normal",
+   "McKinsey Sans 300 normal",
+   "mck-icons 400 normal"
+  ],
+  "headings": {
+   "h1": [],
+   "h2": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "8px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 390,
+     "left": 0,
+     "top": 1452,
+     "t": "FEATURED NEWSLETTER"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2714,
+     "t": "HOW WE HELP CLIENTS"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4120,
+     "t": "CAREERS"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(34, 81, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4438,
+     "t": "Looking for your next move?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "1.2px",
+     "w": "500",
+     "tt": "uppercase",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4838,
+     "t": "SOCIETAL IMPACT"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6770,
+     "t": "Download the McKinsey Insights app"
+    }
+   ],
+   "h3": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 1532,
+     "t": "Insights to navigate what’s next"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 1858,
+     "t": "The McKinsey Podcast"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 2770,
+     "t": "Let’s turn your biggest opportunities into your next big moves."
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 4894,
+     "t": "Sharing our best to help more people succeed"
+    },
+    {
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6372,
+     "t": "The world moves fast. Don’t just keep pace. Stay ahead."
+    }
+   ],
+   "h4": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 236,
+     "left": 45,
+     "top": 2489,
+     "t": "The algorithm isn’t the advantage–the team is"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 236,
+     "left": 378,
+     "top": 2489,
+     "t": "What trends are influencing the food and beverage industry?"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 236,
+     "left": 712,
+     "top": 2489,
+     "t": "Place, purpose, and the path to economic mobility"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 236,
+     "left": 1045,
+     "top": 2489,
+     "t": "The playbook for seeing around geopolitical corners"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "28px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 7020,
+     "t": "Deferred Prosecution Agreement Relating to Our Work for Purdue Pharma"
+    }
+   ],
+   "h5": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 326,
+     "left": 32,
+     "top": 1026,
+     "t": "Subscribe to the latest McKinsey Insights on the topics you care about"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3161,
+     "t": "Industry expertise"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3523,
+     "t": "Capabilities"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 3884,
+     "t": "Tech & AI"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5285,
+     "t": "McKinsey.org"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 5678,
+     "t": "McKinsey.org Forward"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 351,
+     "left": 20,
+     "top": 6104,
+     "t": "Sustainable inclusive growth"
+    }
+   ],
+   "h6": [
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 250,
+     "left": 40,
+     "top": 818,
+     "t": "Turning data into decisions: Lessons from professional cycling"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 250,
+     "left": 338,
+     "top": 850,
+     "t": "What AI can’t replace—and why it matters for value"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 250,
+     "left": 637,
+     "top": 786,
+     "t": "Strategy and value in turbulent times: The four foundations that drive"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 250,
+     "left": 935,
+     "top": 818,
+     "t": "The rise of the agentic coworker: A banking CIO’s guide to the next wa"
+    },
+    {
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "mb": "0px",
+     "mt": "0px",
+     "maxW": "none",
+     "wpx": 250,
+     "left": 1233,
+     "top": 850,
+     "t": "Healthy longevity is having a moment. What comes next?"
+    }
+   ]
+  },
+  "p": [
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "mb": "0px",
+    "wpx": 109,
+    "left": 141,
+    "t": "Or continue with"
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "20px",
+    "lh": "32px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "mb": "0px",
+    "wpx": 351,
+    "left": 20,
+    "t": ""
+   },
+   {
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "mb": "-1px",
+    "wpx": 1,
+    "left": -1,
+    "t": ""
+   }
+  ],
+  "typeHist": [
+   {
+    "k": "McKinsey Sans|20px|300|32px|normal|none",
+    "count": 8,
+    "chars": 905,
+    "samples": [
+     "div:Sharper decisions start with The CEO Sho",
+     "div:Deep industry insights and knowledge bas",
+     "div:Practical experience and know-how on tra"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|20px|500|32px|normal|none",
+    "count": 9,
+    "chars": 540,
+    "samples": [
+     "span:Turning data into decisions: Lessons fro",
+     "span:What AI can’t replace—and why it matters",
+     "span:Strategy and value in turbulent times: T"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|300|28px|normal|none",
+    "count": 1,
+    "chars": 270,
+    "samples": [
+     "div:A shortcut to clarity in a noisy world, "
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|36px|300|43.2px|normal|none",
+    "count": 5,
+    "chars": 214,
+    "samples": [
+     "span:Insights to navigate what’s next",
+     "div:The McKinsey Podcast",
+     "span:Let’s turn your biggest opportunities in"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|300|24px|normal|none",
+    "count": 10,
+    "chars": 185,
+    "samples": [
+     "div:Game-changing work. People and AI poweri",
+     "p:Or continue with",
+     "span:0:00"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|14px|300|20px|normal|none",
+    "count": 9,
+    "chars": 107,
+    "samples": [
+     "span:CASE STUDY",
+     "span:PODCAST",
+     "span:UPCOMING WEBINAR"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|28px|normal|none",
+    "count": 6,
+    "chars": 99,
+    "samples": [
+     "span:Industry expertise",
+     "span:Capabilities",
+     "span:Tech & AI"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|300|28px|normal|none",
+    "count": 1,
+    "chars": 71,
+    "samples": [
+     "h5:Subscribe to the latest McKinsey Insight"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|24px|500|32px|normal|none",
+    "count": 1,
+    "chars": 69,
+    "samples": [
+     "span:Deferred Prosecution Agreement Relating "
+    ],
+    "colors": [
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|36px|300|44px|normal|none",
+    "count": 2,
+    "chars": 61,
+    "samples": [
+     "span:Looking for your next move?",
+     "span:Download the McKinsey Insights app"
+    ],
+    "colors": [
+     "rgb(34, 81, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|500|24px|1.2px|uppercase",
+    "count": 4,
+    "chars": 60,
+    "samples": [
+     "div:Featured Newsletter",
+     "div:How we help clients",
+     "div:Careers"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)",
+     "rgb(0, 0, 0)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|16px|400|24px|normal|none",
+    "count": 12,
+    "chars": 55,
+    "samples": [
+     "span:Skip to main content",
+     "span:Apple",
+     "span:Google"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "McKinsey Sans|18px|400|28px|normal|none",
+    "count": 2,
+    "chars": 26,
+    "samples": [
+     "span:Listen here",
+     "span:Explore Careers"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   },
+   {
+    "k": "Arial|49px|400|73.5px|normal|none",
+    "count": 1,
+    "chars": 10,
+    "samples": [
+     "span:Play Video"
+    ],
+    "colors": [
+     "rgb(255, 255, 255)"
+    ]
+   }
+  ],
+  "header": {
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "bb": "0px none rgb(51, 51, 51)",
+   "shadow": "none",
+   "cls": "global-header-wrapper mck-c-global-header_ROPqd"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 83,
+    "x": 0
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(34, 81, 255)",
+    "h": 52,
+    "x": 68
+   },
+   {
+    "t": "",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "w": "300",
+    "tt": "none",
+    "color": "rgb(51, 51, 51)",
+    "h": 56,
+    "x": 330
+   }
+  ],
+  "fixed": [
+   {
+    "tag": "DIV",
+    "cls": "mdc-c-mobile-logo__container_WclSy",
+    "top": 765,
+    "h": 79,
+    "w": 72,
+    "bg": "rgba(0, 0, 0, 0)"
+   },
+   {
+    "tag": "DIV",
+    "cls": "grecaptcha-badge",
+    "top": 770,
+    "h": 60,
+    "w": 256,
+    "bg": "rgba(0, 0, 0, 0)"
+   }
+  ],
+  "containers": [
+   [
+    "100% | w=351 | left=20 | pl=0px pr=0px",
+    7
+   ],
+   [
+    "390px | w=390 | left=0 | pl=0px pr=0px",
+    6
+   ],
+   [
+    "472px | w=326 | left=32 | pl=0px pr=0px",
+    1
+   ]
+  ],
+  "textLefts": [
+   [
+    20,
+    11
+   ],
+   [
+    330,
+    1
+   ],
+   [
+    141,
+    1
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    -1,
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    371,
+    18
+   ],
+   [
+    342,
+    2
+   ],
+   [
+    370,
+    1
+   ],
+   [
+    374,
+    1
+   ],
+   [
+    249,
+    1
+   ],
+   [
+    390,
+    1
+   ]
+  ],
+  "sectionsParent": "DIV.mdc-u-grid mdc-u-grid-col-1 mdc-u-grid-gutter-xxs ",
+  "sections": [
+   {
+    "tag": "DIV",
+    "cls": "BentoBox_mck-c-bento-box__Tzflu mck-c-module-wrapper mck-c-module-wrap",
+    "top": 83,
+    "h": 1369,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": ""
+   },
+   {
+    "tag": "DIV",
+    "cls": "mdc-u-grid mck-c-two-up-medium mck-o-edge-to-edge mck-c-module-wrapper",
+    "top": 1452,
+    "h": 374,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "FEATURED NEWSLETTER"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-o-edge-to-edge mck-c-module-wrapper mck-c-module-wrapper--collapse",
+    "top": 1826,
+    "h": 856,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(4, 42, 118)",
+    "bgImg": true,
+    "head": "The McKinsey Podcast"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-o-edge-to-edge mck-c-module",
+    "top": 2682,
+    "h": 1374,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "0px",
+    "mb": "0px",
+    "bg": "rgb(5, 28, 44)",
+    "bgImg": false,
+    "head": "HOW WE HELP CLIENTS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 4120,
+    "h": 621,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "CAREERS"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-general-up__inner-module-wrapper mck-o-edge-to-edge mck-c-module",
+    "top": 4806,
+    "h": 1502,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "bgImg": false,
+    "head": "SOCIETAL IMPACT"
+   },
+   {
+    "tag": "DIV",
+    "cls": "mck-c-module-wrapper",
+    "top": 6372,
+    "h": 552,
+    "pt": "0px",
+    "pb": "0px",
+    "mt": "64px",
+    "mb": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "bgImg": false,
+    "head": "The world moves fast. Don’t just keep pace. Stay a"
+   },
+   {
+    "tag": "DIV",
+    "cls": "Accordion_mck-c-accordion__7mGHf mck-c-module-wrapper mck-o-edge-to-ed",
+    "top": 6987,
+    "h": 202,
+    "pt": "32px",
+    "pb": "32px",
+    "mt": "64px",
+    "mb": "-64px",
+    "bg": "rgb(240, 240, 240)",
+    "bgImg": false,
+    "head": ""
+   }
+  ],
+  "h2Tops": [
+   [
+    1452,
+    "FEATURED NEWSLETTER"
+   ],
+   [
+    2714,
+    "HOW WE HELP CLIENTS"
+   ],
+   [
+    4120,
+    "CAREERS"
+   ],
+   [
+    4438,
+    "Looking for your next move?"
+   ],
+   [
+    4838,
+    "SOCIETAL IMPACT"
+   ],
+   [
+    6770,
+    "Download the McKinsey Insights"
+   ]
+  ],
+  "images": [
+   {
+    "tag": "IMG",
+    "w": 40,
+    "h": 36,
+    "ratio": 1.11,
+    "top": 797,
+    "left": 302,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 51,
+    "h": 48,
+    "ratio": 1.06,
+    "top": 781,
+    "left": 319,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 72,
+    "h": 57,
+    "ratio": 1.27,
+    "top": 833,
+    "left": 302,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Ask McKinsey Chat"
+   },
+   {
+    "tag": "IMG",
+    "w": 294,
+    "h": 195,
+    "ratio": 1.51,
+    "top": 115,
+    "left": 48,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "What&rsquo;s your next brilliant move?"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 2940,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 3301,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Digitally generated cylinders stacking u"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 3663,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "VIDEO",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 4208,
+    "left": 0,
+    "radius": "0px",
+    "fit": "contain",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 5063,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 5457,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": ""
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 5882,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "The opportunity of our era"
+   },
+   {
+    "tag": "IMG",
+    "w": 351,
+    "h": 197,
+    "ratio": 1.78,
+    "top": 6541,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "An iPhone, iPad, and Android phone with "
+   },
+   {
+    "tag": "IMG",
+    "w": 120,
+    "h": 40,
+    "ratio": 2.99,
+    "top": 6874,
+    "left": 20,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Download on the App Store"
+   },
+   {
+    "tag": "IMG",
+    "w": 136,
+    "h": 40,
+    "ratio": 3.39,
+    "top": 6874,
+    "left": 143,
+    "radius": "0px",
+    "fit": "fill",
+    "alt": "Download Android app on Google Play"
+   }
+  ],
+  "cards": [
+   {
+    "tag": "DIV",
+    "w": 390,
+    "h": 395,
+    "left": 0,
+    "top": 115,
+    "img": {
+     "w": 294,
+     "h": 195,
+     "ratio": 1.51,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -195,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Game-changing work. People and AI poweri",
+     "fam": "McKinsey Sans",
+     "size": "16px",
+     "lh": "24px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 329,
+    "left": 20,
+    "top": 2940,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Industry expertise",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Deep industry insights and knowledge bas",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 329,
+    "left": 20,
+    "top": 3301,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Capabilities",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Practical experience and know-how on tra",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 361,
+    "left": 20,
+    "top": 3663,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Tech & AI",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "We help clients unlock the power of AI a",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 361,
+    "left": 20,
+    "top": 5063,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey.org",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "Skill building programs—at no cost—so no",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 393,
+    "left": 20,
+    "top": 5457,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "McKinsey.org Forward",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "An online learning journey designed to e",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 393,
+    "left": 20,
+    "top": 5882,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": 24,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "Sustainable inclusive growth",
+     "fam": "McKinsey Sans",
+     "size": "24px",
+     "lh": "28px",
+     "ls": "normal",
+     "w": "500",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)"
+    },
+    "desc": {
+     "t": "We support organizations in innovating s",
+     "fam": "McKinsey Sans",
+     "size": "20px",
+     "lh": "32px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(255, 255, 255)",
+     "gap": 16
+    },
+    "meta": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "border": "0px none rgb(255, 255, 255)",
+    "radius": "0px",
+    "shadow": "none"
+   },
+   {
+    "tag": "DIV",
+    "w": 351,
+    "h": 552,
+    "left": 20,
+    "top": 6372,
+    "img": {
+     "w": 351,
+     "h": 197,
+     "ratio": 1.78,
+     "radius": "0px",
+     "leftOfText": false
+    },
+    "gapImgToText": -367,
+    "gapEyebrowToTitle": null,
+    "eyebrow": null,
+    "title": {
+     "t": "The world moves fast. Don’t just keep pace. Stay a",
+     "fam": "Bower",
+     "size": "36px",
+     "lh": "43.2px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)"
+    },
+    "desc": {
+     "t": "Download the McKinsey Insights app",
+     "fam": "McKinsey Sans",
+     "size": "36px",
+     "lh": "44px",
+     "ls": "normal",
+     "w": "300",
+     "tt": "none",
+     "color": "rgb(0, 0, 0)",
+     "gap": 271
+    },
+    "meta": null,
+    "bg": "rgb(255, 255, 255)",
+    "border": "0px none rgb(0, 0, 0)",
+    "radius": "0px",
+    "shadow": "none"
+   }
+  ],
+  "buttons": [
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|42|16px|400",
+    "t": "Skip to main content",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(0, 169, 244)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|16px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgb(0, 169, 244)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|0px|42|16px|400",
+    "t": "Apple",
+    "h": 42,
+    "w": "400",
+    "pad": "8px 16px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgb(255, 255, 255)",
+    "bb": "1px solid rgb(255, 255, 255)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(255, 255, 255)|rgb(0, 0, 0)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "color": "rgb(0, 0, 0)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|1px solid rgb(255, 255, 255)|0px|48|18px|400",
+    "t": "Listen here",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgb(255, 255, 255)",
+    "bb": "1px solid rgb(255, 255, 255)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|72|16px|400",
+    "t": "15",
+    "h": 72,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|26|16px|400",
+    "t": "",
+    "h": 26,
+    "w": "400",
+    "pad": "0px",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "16px",
+    "lh": "24px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgba(0, 0, 0, 0.3)|rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|2px solid rgb(255, 255, 255)|50%|74|49px|400",
+    "t": "Play Video",
+    "h": 74,
+    "w": "400",
+    "pad": "0px",
+    "radius": "50%",
+    "bg": "rgba(0, 0, 0, 0.3)",
+    "color": "rgb(255, 255, 255)",
+    "border": "2px solid rgb(255, 255, 255)",
+    "bb": "2px solid rgb(255, 255, 255)",
+    "fam": "Arial",
+    "size": "49px",
+    "lh": "73.5px",
+    "ls": "normal",
+    "tt": "none"
+   },
+   {
+    "k": "rgb(34, 81, 255)|rgb(255, 255, 255)|1px solid rgba(0, 0, 0, 0)|1px solid rgba(0, 0, 0, 0)|0px|48|18px|400",
+    "t": "Explore Careers",
+    "h": 48,
+    "w": "400",
+    "pad": "8px 24px",
+    "radius": "0px",
+    "bg": "rgb(34, 81, 255)",
+    "color": "rgb(255, 255, 255)",
+    "border": "1px solid rgba(0, 0, 0, 0)",
+    "bb": "1px solid rgba(0, 0, 0, 0)",
+    "fam": "McKinsey Sans",
+    "size": "18px",
+    "lh": "28px",
+    "ls": "normal",
+    "tt": "none"
+   }
+  ],
+  "arrowLinks": [],
+  "inlineLinks": [
+   {
+    "t": "",
+    "color": "rgb(34, 81, 255)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   },
+   {
+    "t": "",
+    "color": "rgb(34, 81, 255)",
+    "deco": "none",
+    "decoThick": "auto",
+    "offset": "auto"
+   }
+  ],
+  "lines": [
+   [
+    "Top 1px rgba(0, 0, 0, 0)",
+    13
+   ],
+   [
+    "Bottom 1px rgba(0, 0, 0, 0)",
+    13
+   ],
+   [
+    "Left 1px rgba(0, 0, 0, 0)",
+    13
+   ],
+   [
+    "Bottom 1px rgb(208, 208, 208)",
+    5
+   ],
+   [
+    "Top 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Bottom 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Left 1px rgb(255, 255, 255)",
+    5
+   ],
+   [
+    "Left 1px rgb(208, 208, 208)",
+    4
+   ],
+   [
+    "Top 1px rgb(0, 0, 0)",
+    3
+   ],
+   [
+    "Bottom 1px rgb(0, 0, 0)",
+    2
+   ],
+   [
+    "Left 1px rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Top 2px rgb(255, 255, 255)",
+    1
+   ]
+  ],
+  "textColors": [
+   [
+    "rgb(255, 255, 255)",
+    57
+   ],
+   [
+    "rgb(0, 0, 0)",
+    13
+   ],
+   [
+    "rgb(34, 81, 255)",
+    1
+   ]
+  ],
+  "bgColors": [
+   [
+    "rgb(5, 28, 44)",
+    1216
+   ],
+   [
+    "rgb(255, 255, 255)",
+    1161
+   ],
+   [
+    "rgb(34, 81, 255)",
+    610
+   ],
+   [
+    "rgb(4, 42, 118)",
+    334
+   ],
+   [
+    "rgba(255, 255, 255, 0.15)",
+    166
+   ],
+   [
+    "rgb(240, 240, 240)",
+    107
+   ],
+   [
+    "rgba(0, 0, 0, 0.3)",
+    5
+   ],
+   [
+    "rgb(0, 169, 244)",
+    2
+   ],
+   [
+    "rgb(179, 179, 179)",
+    0
+   ]
+  ],
+  "stats": [],
+  "footer": {
+   "h": 1,
+   "bg": "rgba(0, 0, 0, 0)",
+   "color": "rgb(51, 51, 51)",
+   "pt": "0px",
+   "pb": "0px",
+   "lists": [],
+   "linkType": [],
+   "text": ""
+  },
+  "eyebrows": [],
+  "forms": [
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 326,
+    "border": "1px solid rgb(255, 255, 255)",
+    "bt": "1px solid rgb(255, 255, 255)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "email",
+    "ph": "Email address",
+    "h": 48,
+    "w": 269,
+    "border": "1px solid rgb(0, 0, 0)",
+    "bt": "1px solid rgb(0, 0, 0)",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "range",
+    "ph": "",
+    "h": 2,
+    "w": 188,
+    "border": "0px none rgb(157, 150, 142)",
+    "bt": "0px none rgb(157, 150, 142)",
+    "radius": "16px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "range",
+    "ph": "",
+    "h": 2,
+    "w": 188,
+    "border": "0px none rgb(157, 150, 142)",
+    "bt": "0px none rgb(157, 150, 142)",
+    "radius": "16px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "range",
+    "ph": "",
+    "h": 2,
+    "w": 188,
+    "border": "0px none rgb(157, 150, 142)",
+    "bt": "0px none rgb(157, 150, 142)",
+    "radius": "16px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   },
+   {
+    "type": "range",
+    "ph": "",
+    "h": 2,
+    "w": 188,
+    "border": "0px none rgb(157, 150, 142)",
+    "bt": "0px none rgb(157, 150, 142)",
+    "radius": "16px",
+    "bg": "rgb(255, 255, 255)",
+    "size": "16px"
+   }
+  ],
+  "dismissed": "#onetrust-accept-btn-handler",
+  "headerScrolled": {
+   "top": -1400,
+   "h": 83,
+   "pos": "relative",
+   "bg": "rgba(0, 0, 0, 0)",
+   "fixed": []
+  }
+ }
+}

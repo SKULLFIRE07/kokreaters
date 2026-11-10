@@ -1,38 +1,54 @@
 ---
-/** Contact `/contact` (DESIGN-SPEC v2 10.10). White lab-notebook grid, grid 5/7, no CtaField: the page is the CTA.
- * Left: H1, details, the boarding-pass Ticket. Right: the connection path + the form. Confetti on success. */
+/**
+ * Contact `/contact` (REDESIGN-V3 §4 Contact). No CtaBand: the page is the call to action.
+ *  1 PageHero, grey, compact: crumbs, eyebrow "Start a conversation", H1 contact.headline (#contact-title), intro.
+ *  2 White band: contact details left (email, WhatsApp, LinkedIn, base + CET, founder, booking card) · form right.
+ * Mobile (< 900px): one column, details first (a short block) then the form at full width. ≥ 900px: details in the
+ * left 5 columns (4 from 1200px), sticky under the header while the longer form scrolls; form on the right.
+ * Grounds: grey hero → white band → navy footer.
+ * The form behaviour lives in scripts/pages/contact.ts, loaded here (§8.6), not through the site bundle.
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import Section from '@/components/ui/Section.astro';
 import ContactDetails from '@/components/contact/ContactDetails.astro';
-import ConnectionMoment from '@/components/contact/ConnectionMoment.astro';
 import ContactForm from '@/components/contact/ContactForm.astro';
-import Confetti from '@/components/bencho/Confetti.astro';
+import { contact } from '@/data/contact';
+import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
-const crumbs = [{ label: 'Contact', href: '/contact' }];
+
+const crumbs = [{ label: contact.overline, href: '/contact' }];
 ---
-<BaseLayout page="contact" seo={pageSeo('contact')} breadcrumbs={crumbs} showCrumbs={false}>
-  <section class="band contact g-white paper-grid has-notes" aria-labelledby="contact-title">
-    <div class="container">
-      <div class="grid contact__grid">
-        <div class="c-1-5 contact__left">
-          <ContactDetails />
-        </div>
-        <div class="c-7-12 contact__right">
-          <ConnectionMoment />
-          <ContactForm />
-        </div>
-      </div>
+<BaseLayout page="contact" seo={pageSeo('contact')} breadcrumbs={crumbs}>
+  <PageHero
+    ground="grey"
+    crumbs={crumbs}
+    eyebrow={microcopy.primaryCta}
+    title={contact.headline}
+    lead={contact.intro}
+    titleId="contact-title"
+  />
+
+  <Section ground="white" labelledby="contact-details-h" pad="tight" class="contact">
+    <div class="contact__grid">
+      <div class="contact__details"><ContactDetails /></div>
+      <div class="contact__form"><ContactForm /></div>
     </div>
-  </section>
-  <Confetti />
+  </Section>
+
+  <script>import '@/scripts/pages/contact.ts';</script>
 </BaseLayout>
 
 <style>
-  .contact { padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(4rem, 2rem + 6vw, 8rem); }
-  .contact__grid { row-gap: var(--s-9); align-items: start; }
-  @media (min-width: 1024px) {
-    .contact__right { padding-top: var(--s-2); }
+  .contact { padding-bottom: var(--section); }
+  .contact__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); align-items: start; }
+  @media (min-width: 900px) {
+    .contact__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .contact__details { grid-column: 1 / 6; position: sticky; top: calc(var(--header-h-compact) + var(--s-6)); }
+    .contact__form { grid-column: 7 / -1; }
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .contact__left, .contact__right { grid-column: 1 / -1; }
+  @media (min-width: 1200px) {
+    .contact__details { grid-column: 1 / 5; }
+    .contact__form { grid-column: 6 / -1; }
   }
 </style>

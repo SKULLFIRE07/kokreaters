@@ -10,7 +10,7 @@ export const microcopy = {
   pillarLink: 'Learn more',
   insightsLink: 'Read the insight',
   impactLink: 'See the impact',
-  newsletter: 'Field notes from the plant floor and the boardroom. Once a month. No noise.',
+  newsletter: 'Field notes from the plant floor and the boardroom, once a month.', // v3 tone: "No noise." aside dropped
   newsletterButton: 'Subscribe',
   formSuccess: 'Thank you. Your message is with us and Ganeaysh will reply within one working day.',
   formError: 'Something went wrong. Please try again, or email office@kokreaters.com.',
@@ -39,7 +39,7 @@ export const microcopy = {
   readingTime: '{n} min read', // COMPOSED
   minutesLeft: '{n} min left', // COMPOSED
   insightsCount: '{n} insights', // COMPOSED
-  reconnect: 'Reconnect the node and go home', // COMPOSED
+  reconnect: 'Return to the home page', // COMPOSED (v3: was a 404 toy instruction; currently unused)
   cookieSettings: 'Cookie settings', // COMPOSED
   analyticsNotInUse: 'Analytics: not in use on this site', // COMPOSED
   essentialOn: 'Essential: always on', // COMPOSED
@@ -65,6 +65,16 @@ export const microcopy = {
   opensLinkedIn: 'opens LinkedIn', // COMPOSED
   insightsRunningHead: 'KoKreaters Insights', // COMPOSED
   newsletterMailtoSubject: 'Subscribe to field notes', // COMPOSED
+
+  /* ── v3 (research/v3/copy-edits.md): plain UI labels moved out of data/notes/*, which is deleted in v3 ── */
+  announcement: 'Field notes from the plant floor and the boardroom.', // was chromeNotes.ann.lead
+  announcementLink: 'Read the insights', // was chromeNotes.ann.link
+  backToTop: 'Back to top', // was chromeNotes.top
+  readMore: 'Read more', // replaces "Read the whole truth", "Read the full note", "Read the long version"
+  expertiseAreas: 'The six areas of expertise', // was expertiseNotes.hub.label
+  otherExpertise: 'Other areas of expertise', // replaces "the other five" (expertiseNotes.pillar.others)
+  readingTimeLabel: 'Reading time', // was journalNotes.article.labelTime
+  writtenByLabel: 'Written by', // was journalNotes.article.labelBy
 } as const;
 
 export type MicrocopyKey = keyof typeof microcopy;

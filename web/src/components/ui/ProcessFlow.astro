@@ -1,0 +1,162 @@
+---
+/**
+ * Process flow (REDESIGN-V3 §2–3): a static line diagram with the ringed-node signature (a 20px node: accent disc,
+ * white ring, accent dot — the logo's node, flattened) joined by a 1px connector in --label. No animation.
+ * An <ol> inside a <figure>: optional serif `title` above, `caption` (source/notes) below.
+ * Horizontal only when every step fits: the figure is a size container and the server works out the width the
+ * steps need (longest unbreakable word, soft hyphens respected, × step count + gaps), so the flow switches to the
+ * horizontal row at that container width (one of a few fixed thresholds) and stays vertical below it. Words never
+ * break mid-letter (no auto hyphenation, no overflow-wrap); soft hyphens placed in the data are honoured.
+ * Horizontal: one column per step, the last column sized to its label, so the line and the last label reach the
+ * figure's right edge instead of stopping short in an empty equal-width column.
+ * Vertical (narrow containers, phones): nodes on a left spine, labels to the right, 24px between steps.
+ */
+import { pad2 } from '@/lib/format';
+interface Props {
+  steps: string[];
+  caption?: string;
+  title?: string;
+  class?: string;
+}
+const { steps, caption, title, class: cls } = Astro.props;
+// width needed for a horizontal row: each column ≥ the longest unbreakable piece of its label (Inter 500 at 16px
+// ≈ 8.8px per character, a little over the measured average) + the 8px right padding, never under 96px; gaps are 16px.
+const piece = (t: string) => Math.max(...t.split(/[\s\u00AD\u2010-]+/).map((w) => w.length), 1);
+const colMin = (t: string) => Math.max(96, Math.ceil(piece(t) * 8.8) + 8 + (/\u00AD/.test(t) ? 10 : 0));
+// the first n−1 columns are equal (1fr), so the widest of them sets their width; the last column is auto
+const firstMax = Math.max(0, ...steps.slice(0, -1).map(colMin));
+const need = firstMax * (steps.length - 1) + colMin(steps[steps.length - 1] ?? '') + (steps.length - 1) * 16;
+const THRESHOLDS = [560, 640, 720, 800, 880, 960, 1040, 1120, 1200, 1280];
+const at = THRESHOLDS.find((t) => t >= need) ?? null;   // null → always vertical
+const cols = `repeat(${Math.max(steps.length - 1, 1)}, minmax(0, 1fr)) auto`;
+---
+<figure class:list={['flow', at && `flow--h${at}`, cls]} style={`--n:${steps.length}; --cols:${steps.length > 1 ? cols : 'auto'}`}>
+  {title && <p class="flow__title">{title}</p>}
+  <ol class="flow__steps" role="list">
+    {steps.map((s, i) => (
+      <li class="flow__step">
+        <span class="flow__node" aria-hidden="true"></span>
+        <span class="flow__n" aria-hidden="true">{pad2(i + 1)}</span>
+        <span class="flow__label">{s}</span>
+      </li>
+    ))}
+  </ol>
+  {caption && <figcaption class="flow__caption">{caption}</figcaption>}
+</figure>
+<style>
+  .flow { margin: 0; --node: 20px; --ring: var(--white); container: flow / inline-size; }
+  :global(.band--navy) .flow { --ring: var(--navy-900); }
+  .flow__title {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
+    font-weight: 500; color: var(--head); text-wrap: balance; margin-bottom: var(--s-6); max-width: 36ch;
+  }
+  .flow__steps { list-style: none; margin: 0; padding: 0; display: grid; }
+  .flow__step { position: relative; display: grid; grid-template-columns: var(--node) minmax(0, 1fr); column-gap: var(--s-4); row-gap: 2px; padding-bottom: var(--s-5); }
+  .flow__step:last-child { padding-bottom: 0; }
+  /* ringed node: accent dot · white ring · accent disc (10 / 2 / 3 px, the logo's proportions) */
+  .flow__node {
+    grid-row: 1 / span 2; position: relative; z-index: 1;
+    width: 14px; height: 14px; margin: 3px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--ring); box-shadow: 0 0 0 3px var(--accent);
+  }
+  /* connector: node centre → next node centre */
+  .flow__step:not(:last-child)::before {
+    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2); bottom: calc(var(--node) / -2);
+    width: 1px; background: var(--label);
+  }
+  .flow__n { font-size: var(--fs-meta); line-height: var(--node); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .flow__label { font-size: var(--fs-small); line-height: 1.4; font-weight: 500; color: var(--fg); hyphens: manual; overflow-wrap: normal; }
+  .flow__caption { margin-top: var(--s-6); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: var(--measure); }
+
+  /* horizontal row from the container width the steps need (see header); generated, one block per threshold */
+  @container flow (min-width: 560px) {
+    .flow--h560 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h560 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h560 .flow__node { grid-row: auto; }
+    .flow--h560 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h560 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h560 .flow__label { padding-right: var(--s-2); }
+    .flow--h560 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 640px) {
+    .flow--h640 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h640 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h640 .flow__node { grid-row: auto; }
+    .flow--h640 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h640 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h640 .flow__label { padding-right: var(--s-2); }
+    .flow--h640 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 720px) {
+    .flow--h720 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h720 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h720 .flow__node { grid-row: auto; }
+    .flow--h720 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h720 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h720 .flow__label { padding-right: var(--s-2); }
+    .flow--h720 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 800px) {
+    .flow--h800 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h800 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h800 .flow__node { grid-row: auto; }
+    .flow--h800 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h800 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h800 .flow__label { padding-right: var(--s-2); }
+    .flow--h800 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 880px) {
+    .flow--h880 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h880 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h880 .flow__node { grid-row: auto; }
+    .flow--h880 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h880 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h880 .flow__label { padding-right: var(--s-2); }
+    .flow--h880 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 960px) {
+    .flow--h960 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h960 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h960 .flow__node { grid-row: auto; }
+    .flow--h960 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h960 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h960 .flow__label { padding-right: var(--s-2); }
+    .flow--h960 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 1040px) {
+    .flow--h1040 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h1040 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h1040 .flow__node { grid-row: auto; }
+    .flow--h1040 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h1040 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h1040 .flow__label { padding-right: var(--s-2); }
+    .flow--h1040 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 1120px) {
+    .flow--h1120 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h1120 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h1120 .flow__node { grid-row: auto; }
+    .flow--h1120 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h1120 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h1120 .flow__label { padding-right: var(--s-2); }
+    .flow--h1120 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 1200px) {
+    .flow--h1200 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h1200 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h1200 .flow__node { grid-row: auto; }
+    .flow--h1200 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h1200 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h1200 .flow__label { padding-right: var(--s-2); }
+    .flow--h1200 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+  @container flow (min-width: 1280px) {
+    .flow--h1280 .flow__steps { grid-template-columns: var(--cols); column-gap: var(--s-4); }
+    .flow--h1280 .flow__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3); padding-bottom: 0; align-content: start; }
+    .flow--h1280 .flow__node { grid-row: auto; }
+    .flow--h1280 .flow__step:not(:last-child)::before { left: calc(var(--node) / 2); right: calc((var(--s-4) + var(--node) / 2) * -1); top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px; }
+    .flow--h1280 .flow__n { line-height: 1.2; margin-top: var(--s-2); }
+    .flow--h1280 .flow__label { padding-right: var(--s-2); }
+    .flow--h1280 .flow__step:last-child .flow__label { padding-right: 0; }
+  }
+</style>

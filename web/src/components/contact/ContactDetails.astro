@@ -1,67 +1,123 @@
 ---
 /**
- * Contact, left column (DESIGN-SPEC 5.10): dateline, the page H1, intro, direct details in an
- * <address>, then the page's one primary pill. Copy from @/data/contact and @/config/site (brief 6.8).
+ * Contact, left column (REDESIGN-V3 §4 Contact): "Contact details" h2, an <address> with email, WhatsApp and LinkedIn
+ * as a hairline definition list, the base line with the time zone, the founder who answers, then the booking card.
+ * Facts from @/config/site, @/data/nav (base + CET) and @/data/founder; labels from @/data/contact.
+ * Booking card: an external link when PUBLIC_BOOKING_URL is set. Unset (bookingUrl falls back to /contact#form) it is a
+ * gap (CONFIRM 9, booking tool): staging shows it pointing at the form (a[data-booking="form"] → contact.ts focuses the
+ * first field), preview and production leave it out.
+ * Mobile (< 600px): one column; each row stacks its label over the value, values wrap anywhere (the LinkedIn URL is
+ * long), every link keeps a 44px tap height. 600–899px: label left (9rem) and value right on one line.
+ * ≥ 900px the column sits left of the form and stays in view while the form scrolls (sticky, set by the page).
  */
-import Dateline from '@/components/ui/Dateline.astro';
-import Scribble from '@/components/notes/Scribble.astro';
-import Ticket from '@/components/bencho/Ticket.astro';
-import Confirm from '@/components/ui/Confirm.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { contact } from '@/data/contact';
+import Photo from '@/components/ui/Photo.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { contact, contactPage } from '@/data/contact';
+import { footer } from '@/data/nav';
+import { founderName, founderRole, portraitAlt } from '@/data/founder';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
+import { showConfirm } from '@/lib/mode';
+import portrait from '@/assets/photos/ganeaysh-portrait-square.jpg';
 
-const W = 'together';
-const hi = contact.headline.indexOf(W);
-const head = hi > -1 ? [contact.headline.slice(0, hi), contact.headline.slice(hi + W.length)] : null;
+const bookingSet = !site.bookingUrl.startsWith('/contact');
+const showBooking = bookingSet || showConfirm;
+const bookingHref = bookingSet ? site.bookingUrl : '#form';
 ---
 <div class="cd">
-  <Dateline text={contact.overline} />
-  <h1 class="t-display cd__title" id="contact-title">{head ? <>{head[0]}<Scribble kind="highlight" delay={0.4}>{W}</Scribble>{head[1]}</> : contact.headline}</h1>
-  <p class="t-lead cd__intro">{contact.intro}<Confirm id={9} /></p>
+  <h2 id="contact-details-h" class="cd__title t-h3">{contactPage.detailsHeading}</h2>
 
   <address class="cd__address">
     <dl class="cd__list">
-      <div class="cd__item">
-        <dt class="t-dateline">{contact.details.email}</dt>
-        <dd class="t-lead"><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      <div class="cd__row">
+        <dt class="cd__label">{contact.details.email}</dt>
+        <dd class="cd__value">
+          <a class="cd__link" href={`mailto:${site.email}`}>{site.email}</a>
+          <Confirm id={9} note="public email and reply-time promise" />
+        </dd>
       </div>
-      <div class="cd__item">
-        <dt class="t-dateline">{contact.details.whatsapp}</dt>
-        <dd class="t-lead"><a href={site.whatsapp.href} rel="noopener"><span class="nowrap">{site.whatsapp.display}</span></a></dd>
+      <div class="cd__row">
+        <dt class="cd__label">{contact.details.whatsapp}</dt>
+        <dd class="cd__value"><a class="cd__link" href={site.whatsapp.href} rel="noopener"><span class="nowrap">{site.whatsapp.display}</span></a></dd>
       </div>
-      <div class="cd__item">
-        <dt class="t-dateline">{contact.details.linkedin}</dt>
-        <dd class="t-lead">
-          <a href={site.linkedin.href} rel="noopener me">{site.linkedin.display}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="external" size={16} class="cd__ext" /></a>
+      <div class="cd__row">
+        <dt class="cd__label">{contact.details.linkedin}</dt>
+        <dd class="cd__value">
+          <a class="cd__link cd__link--ext" href={site.linkedin.href} rel="noopener me">{site.linkedin.display}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="arrow-up-right" size={18} stroke={2} class="cd__ext" /></a>
         </dd>
       </div>
     </dl>
-    <p class="t-lead cd__base">{site.base}</p>
+    <p class="cd__base"><Icon name="pin" size={20} class="cd__pin" />{footer.contact.base}</p>
   </address>
 
-  <div class="cd__cta"><Ticket /></div>
+  <div class="cd__person">
+    <Photo src={portrait} alt={portraitAlt.founder} ratio="1/1" sizes="64px" widths={[128, 192]} class="cd__photo" />
+    <p class="cd__who"><span class="cd__name">{founderName}</span><span class="cd__role">{founderRole}</span></p>
+  </div>
+
+  {showBooking && (
+    <div class="cd__booking">
+      <a class="cd-book u-hover" href={bookingHref} {...(bookingSet ? { rel: 'noopener' } : { 'data-booking': 'form' })}>
+        <Icon name="calendar" size={24} class="cd-book__icon" />
+        <span class="cd-book__title u-draw">{contact.booking}</span>
+        <Icon name={bookingSet ? 'arrow-up-right' : 'arrow-right'} size={20} stroke={2} class="cd-book__arrow u-nudge" />
+      </a>
+      {!bookingSet && <Confirm id={9} note="booking tool: set PUBLIC_BOOKING_URL; hidden outside staging until then" />}
+    </div>
+  )}
 </div>
 
 <style>
-  .cd__title { margin: var(--s-5) 0 0; font-size: clamp(3.25rem, 1.6rem + 5.6vw, 7.5rem); line-height: .9; text-wrap: balance; max-width: 9ch; }
-  .cd__intro { margin: var(--s-6) 0 0; color: var(--fg); text-wrap: pretty; }
-  .cd__address { font-style: normal; margin-top: var(--s-8); }
-  .cd__list { margin: 0; display: grid; gap: 0; border-top: 2px solid var(--kk-ink); }
-  .cd__item { display: grid; grid-template-columns: 104px minmax(0, 1fr); align-items: center; gap: var(--s-4); padding-block: var(--s-3); border-bottom: 1.5px dashed var(--kk-ink); }
-  .cd__item dt { margin: 0; }
-  .cd__item dd { margin: 0; overflow-wrap: anywhere; }
-  .cd__item a {
-    color: var(--kk-sapphire); text-decoration: none; font-weight: 500;
-    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
-    background-image: linear-gradient(var(--kk-saffron), var(--kk-saffron)); background-size: 0 40%; background-repeat: no-repeat; background-position: 0 75%;
-    transition: background-size 320ms var(--ease-expo);
+  .cd { display: grid; gap: 0; }
+  .cd__title { margin: 0; padding-bottom: var(--s-4); border-bottom: 2px solid var(--rule-strong); color: var(--head); }
+
+  .cd__address { font-style: normal; }
+  .cd__list { margin: var(--s-2) 0 0; }
+  .cd__row { display: grid; gap: 0; padding-block: var(--s-3) var(--s-2); border-bottom: 1px solid var(--rule); }
+  @media (min-width: 900px) { .cd__row { gap: var(--s-1); padding-block: var(--s-4) var(--s-3); } }
+  .cd__label {
+    font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
+    color: var(--fg-2);
   }
-  .cd__item a:is(:hover, :focus-visible) { background-size: 100% 40%; color: var(--kk-ink); }
-  .cd__item :global(.cd__ext) { color: var(--fg-2); }
-  .cd__base { margin: var(--s-4) 0 0; color: var(--fg-2); }
-  .cd__cta { margin-top: var(--s-8); }
-  @media (max-width: 479px) { .cd__item { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: var(--s-4); } }
-  @media (prefers-reduced-motion: reduce) { .cd__item a { transition: none; } }
+  .cd__value { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+  .cd__link {
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
+    font: 500 var(--fs-lead)/1.35 var(--font-sans); color: var(--head);
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em;
+    text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+    transition: text-decoration-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
+  }
+  .cd__link:hover { color: var(--link); text-decoration-color: var(--accent); }
+  .cd__link :global(.cd__ext) { flex: none; color: var(--accent); }
+
+  .cd__base {
+    display: flex; align-items: flex-start; gap: var(--s-3); margin: var(--s-5) 0 0;
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg);
+  }
+  .cd__base :global(.cd__pin) { flex: none; margin-top: 3px; color: var(--label); }
+
+  .cd__person { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  .cd__person :global(.cd__photo) { flex: none; width: 64px; border-radius: 50%; overflow: hidden; }
+  .cd__who { margin: 0; display: grid; gap: 2px; }
+  .cd__name { font: 560 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; color: var(--head); }
+  .cd__role { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
+  .cd__booking { margin-top: var(--s-6); }
+  .cd-book {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-4);
+    min-height: 72px; padding: var(--s-4) var(--s-5);
+    background: var(--surface-hover); border-top: 2px solid var(--rule-strong); border-radius: 0 0 var(--r-sm) var(--r-sm);
+    color: var(--head); text-decoration: none;
+    transition: border-color var(--d-1) var(--ease-out);
+  }
+  .cd-book:hover { border-top-color: var(--accent); }
+  .cd-book :global(.cd-book__icon) { color: var(--label); }
+  .cd-book__title { font: 500 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; }
+  .cd-book :global(.cd-book__arrow) { color: var(--accent); }
+
+  @media (min-width: 600px) and (max-width: 899px) {
+    .cd__row { grid-template-columns: 9rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5); padding-block: var(--s-2); }
+  }
+  @media (prefers-reduced-motion: reduce) { .cd__link, .cd-book { transition: none; } }
 </style>

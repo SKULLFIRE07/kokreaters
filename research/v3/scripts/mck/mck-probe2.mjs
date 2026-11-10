@@ -1,0 +1,10 @@
+import { chromium } from '/home/aryan-budukh/Desktop/ganeshkaka-folder/web/node_modules/playwright/index.mjs';
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36';
+const [url, ch, http2] = process.argv.slice(2);
+const args = ['--disable-blink-features=AutomationControlled']; if (http2 !== 'h2') args.push('--disable-http2');
+const browser = await chromium.launch({ channel: ch, headless: true, args });
+const ctx = await browser.newContext({ ...(ch === 'chrome' ? {} : { userAgent: UA }), viewport: { width: 1440, height: 900 }, locale: 'en-IN' });
+const page = await ctx.newPage();
+const r = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(e => null);
+console.log(ch, http2, url, r?.status(), await page.title().catch(()=>''), await page.evaluate(() => navigator.userAgent).catch(()=>''));
+await browser.close();

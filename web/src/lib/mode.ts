@@ -1,12 +1,30 @@
 /**
- * Site mode (DESIGN-SPEC 0.3). `staging` is the default when PUBLIC_SITE_MODE is unset.
+ * Site mode (REDESIGN-V3 §6, §8.5). PUBLIC_SITE_MODE = staging | preview | production; unset = staging.
+ *
+ * | export            | staging | preview | production |
+ * |-------------------|---------|---------|------------|
+ * | showConfirm       | yes     | no      | no         |  <Confirm> tags
+ * | showDraftLabels   | yes     | no      | no         |  "Draft" labels on insights
+ * | includeDrafts     | yes     | yes     | no         |  draft / pending insights listed and built
+ * | showPendingConsent| yes     | no      | no         |  engagements with consent 'pending'
+ * | indexable         | no      | no      | PUBLIC_INDEXABLE=1 only |  robots meta + robots.txt
  */
 import { site } from '@/config/site';
 
-export type SiteMode = 'staging' | 'production';
+export type SiteMode = 'staging' | 'preview' | 'production';
 export const mode: SiteMode = site.mode;
 export const isStaging: boolean = mode === 'staging';
-export const isProduction: boolean = !isStaging;
+export const isPreview: boolean = mode === 'preview';
+export const isProduction: boolean = mode === 'production';
+
+export const showConfirm: boolean = isStaging;
+export const showDraftLabels: boolean = isStaging;
+export const includeDrafts: boolean = isStaging || isPreview;
+/** Alias used by §6 wording. */
+export const showDrafts: boolean = includeDrafts;
+/** Client consent: engagements with consent 'pending' render only in staging, never on a shared link. */
+export const showPendingConsent: boolean = isStaging;
+export const indexable: boolean = site.indexable;
 
 /**
  * The brief's section 11 [CONFIRM] items (ids 1–14), for reference by <Confirm id={n}>.

@@ -1,29 +1,24 @@
 ---
 /**
- * KoKreaters logo, vector (DESIGN-SPEC v2 5.1). The SVGs live in src/assets/brand/svg/ (copied from
- * assets/logo/vector/ by scripts/prepare-brand.mjs, which also writes the two halves of the horizontal lockup to
- * svg/derived/). The mark is never recoloured, stretched or re-set: only the whole mark is scaled uniformly.
- * Decorative and repeated logos load as cached <img> files (crisp at any DPR, nothing repeated in every HTML page);
- * only the header cluster is inline, because the home dock flies it.
+ * KoKreaters logo, vector (REDESIGN-V3 §2–3). The SVGs live in src/assets/brand/svg/. The mark is never recoloured,
+ * stretched or re-set: only the whole mark is scaled uniformly. Every variant loads as a cached <img> (crisp at any DPR,
+ * not repeated inline in each page); `inline` renders a single-file variant as inline SVG instead.
+ * v3: the v2 home "dock" (header cluster hidden on home, flown in by dock.ts) is gone; the header shows the whole
+ * horizontal lockup from the first paint.
  *
  * Variants
- *  - horizontal: the cluster (inline <svg>, inside <span data-dock-slot>) + the wordmark half (<img>), both cut from
- *    kokreaters-logo-horizontal.svg with its shared vertical viewBox, so side by side they render exactly like the
- *    single file. Height via `height` (default 44; the header sets 36px below 1024 in CSS).
- *  - horizontal-white: the same from -horizontal-white.svg, both halves as <img> (mobile menu bar on Ink).
+ *  - horizontal / horizontal-white: cluster + wordmark on one line (`height`, default 44; chrome sets 36 desktop /
+ *    30 mobile). White header → horizontal; navy footer / menu bar → horizontal-white.
  *  - full / full-white: cluster + wordmark + tagline (`width`, default 320 / 260).
  *  - wordmark / wordmark-white: the wordmark alone (`width` any CSS length, default 100%).
- *  - cluster: the node cluster alone (`size`, default 64).
- *  `inline` renders any single-file variant as inline SVG instead of <img>. `isolation: isolate` keeps the discs'
- *  multiply blend inside the mark on every ground.
- * Accessible name: inside a link (`href`) the images are alt="" and the link carries `label`; standalone `full` /
+ *  - cluster: the node cluster alone (`size`, default 64). For a monochrome cluster use brand/NodeMark.
+ * Accessible name: inside a link (`href`) the image is alt="" and the link carries `label`; standalone `full` /
  * `full-white` get `alt` (default "KoKreaters: Connect · Collaborate · Create"); other standalone variants are
  * decorative unless `alt` is passed.
+ * Mobile: scales with `height` / `width`; never wider than its container.
  */
-import clusterRaw from '@/assets/brand/svg/derived/horizontal-cluster.svg?raw';
-import wordUrl from '@/assets/brand/svg/derived/horizontal-word.svg?url';
-import clusterWhiteUrl from '@/assets/brand/svg/derived/horizontal-white-cluster.svg?url';
-import wordWhiteUrl from '@/assets/brand/svg/derived/horizontal-white-word.svg?url';
+import horizontalUrl from '@/assets/brand/svg/kokreaters-logo-horizontal.svg?url';
+import horizontalWhiteUrl from '@/assets/brand/svg/kokreaters-logo-horizontal-white.svg?url';
 import fullRaw from '@/assets/brand/svg/kokreaters-logo-full.svg?raw';
 import fullUrl from '@/assets/brand/svg/kokreaters-logo-full.svg?url';
 import fullWhiteRaw from '@/assets/brand/svg/kokreaters-logo-full-white.svg?raw';
@@ -61,10 +56,9 @@ const inner = (raw: string) => raw.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+i
 const viewBoxOf = (raw: string) => (raw.match(/viewBox="([^"]+)"/) ?? [])[1] ?? '0 0 100 100';
 const ratioOf = (raw: string) => { const [, , w, h] = viewBoxOf(raw).split(/\s+/).map(Number); return w / h; };
 
-const height = Astro.props.height ?? 44;
 const isHorizontal = variant === 'horizontal' || variant === 'horizontal-white';
-// halves: cluster 570 × 615, wordmark 1610 × 615 (shared vertical extent of the horizontal file)
-const cW = Math.round(height * 570 / 615), wW = Math.round(height * 1610 / 615);
+const height = Astro.props.height ?? 44;
+const HORIZONTAL_RATIO = 2180 / 615; // viewBox of kokreaters-logo-horizontal(-white).svg
 
 const files = {
   full: [fullRaw, fullUrl], 'full-white': [fullWhiteRaw, fullWhiteUrl], wordmark: [wordmarkRaw, wordmarkUrl],
@@ -75,22 +69,17 @@ const defaultWidth = variant === 'full' ? 320 : variant === 'full-white' ? 260 :
 const w = Astro.props.width ?? defaultWidth;
 const cssW = typeof w === 'number' ? `${w}px` : w;
 const pxW = typeof w === 'number' ? w : 600;
-const ratio = single ? ratioOf(single[0]) : 1;
+const ratio = single ? ratioOf(single[0]) : HORIZONTAL_RATIO;
 
 const name = !href ? (Astro.props.alt ?? (variant === 'full' || variant === 'full-white' ? 'KoKreaters: Connect · Collaborate · Create' : '')) : '';
 const svgA11y: Record<string, string> = name ? { role: 'img', 'aria-label': name } : { 'aria-hidden': 'true' };
 ---
 {isHorizontal ? (
-  <Tag href={href ?? undefined} id={id} class:list={['logo', 'logo--horizontal', `logo--${variant}`, cls]} aria-label={href ? label : undefined} style={`--logo-h:${height}px`}
-    {...(!href && Astro.props.alt ? { role: 'img', 'aria-label': Astro.props.alt } : {})}>
-    {variant === 'horizontal' ? (
-      <span class="logo__cluster" data-dock-slot>
-        <svg class="logo__svg" viewBox={viewBoxOf(clusterRaw)} aria-hidden="true" focusable="false" set:html={inner(clusterRaw)} />
-      </span>
-    ) : (
-      <img class="logo__img logo__cluster" src={clusterWhiteUrl} alt="" width={cW} height={height} loading={loading} decoding="async" />
-    )}
-    <img class="logo__img logo__word" src={variant === 'horizontal' ? wordUrl : wordWhiteUrl} alt="" width={wW} height={height} loading={loading} decoding="async" />
+  <Tag href={href ?? undefined} id={id} class:list={['logo', 'logo--horizontal', `logo--${variant}`, cls]} aria-label={href ? label : undefined} style={`--logo-h:${height}px`}>
+    <img
+      class="logo__img" src={variant === 'horizontal' ? horizontalUrl : horizontalWhiteUrl} alt={name}
+      width={Math.round(height * HORIZONTAL_RATIO)} height={height} loading={loading} decoding="async"
+    />
   </Tag>
 ) : single && (
   <Tag href={href ?? undefined} id={id} class:list={['logo', `logo--${variant}`, cls]} aria-label={href ? label : undefined} style={`--logo-w:${cssW}`}>
@@ -104,17 +93,8 @@ const svgA11y: Record<string, string> = name ? { role: 'img', 'aria-label': name
 <style>
   .logo { display: inline-flex; align-items: center; text-decoration: none; color: inherit; line-height: 0; flex: none; }
   .logo__svg, .logo__img { display: block; overflow: visible; isolation: isolate; max-width: none; }
-  .logo--horizontal { height: var(--logo-h); gap: 0; }
-  .logo--horizontal .logo__svg, .logo--horizontal .logo__img { height: 100%; width: auto; }
-  .logo__cluster { display: block; height: 100%; aspect-ratio: 570 / 615; flex: none; }
-  .logo__word { aspect-ratio: 1610 / 615; }
+  .logo--horizontal { height: var(--logo-h); }
+  .logo--horizontal .logo__img { height: 100%; width: auto; aspect-ratio: 2180 / 615; }
   .logo:not(.logo--horizontal) { width: var(--logo-w); max-width: 100%; }
   .logo:not(.logo--horizontal) .logo__svg, .logo:not(.logo--horizontal) .logo__img { width: 100%; height: auto; }
-  /* Home dock: the header cluster is hidden on home ≥ 1024 until dock.ts docks the hero cluster (v1 6.5). Space reserved. */
-  @media (min-width: 1024px) {
-    :global(html.motion:not(.motion-failed) body[data-page="home"]) [data-dock-slot] { visibility: hidden; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :global(html body[data-page="home"]) [data-dock-slot] { visibility: visible; }
-  }
 </style>

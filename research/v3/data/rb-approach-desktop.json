@@ -1,0 +1,1165 @@
+{
+ "slug": "rb-approach",
+ "viewport": "desktop",
+ "url": "https://www.rolandberger.com/en/About/Who-we-are/",
+ "status": 200,
+ "cookie": "button[data-testid=\"uc-accept-all-button\"]",
+ "titleSeen": "Who we are | Roland Berger",
+ "bodyTextStart": "Expertise Insights About Locations Join Newsroom Think:Act Magazine Alumni Contact Us Newsletter EN DE Jobs Industries Aerospace & Defense Automotive & Commercial Vehicles Battery Capital Goods Chemicals Construction Consumer Goods, Retail & Agriculture Electrics and Electronics Energy & Utilities ",
+ "m": {
+  "url": "https://www.rolandberger.com/en/About/Who-we-are/",
+  "title": "Who we are | Roland Berger",
+  "vw": 1440,
+  "vh": 900,
+  "pageHeight": 4390,
+  "htmlFontSize": "16px",
+  "body": {
+   "family": "RBDesign Light",
+   "size": "18px",
+   "lh": "28px",
+   "color": "rgb(0, 0, 0)",
+   "bg": "rgba(0, 0, 0, 0)"
+  },
+  "h1": [
+   {
+    "tag": "h1",
+    "text": "Who we are",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 64,
+    "lh": "72px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 517
+   }
+  ],
+  "h2": [
+   {
+    "tag": "h2",
+    "text": "COP31",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 14,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 506
+   },
+   {
+    "tag": "h2",
+    "text": "SZ Business Summit",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 14,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 506
+   },
+   {
+    "tag": "h2",
+    "text": "We're in like you",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 45,
+    "lh": "59px",
+    "ls": "0.5px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 629
+   },
+   {
+    "tag": "h2",
+    "text": "All jobs",
+    "family": "RBDesign Bold",
+    "cat": "sans",
+    "size": 48,
+    "lh": "56px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 538
+   }
+  ],
+  "h3": [],
+  "h4": [],
+  "pHist": [
+   [
+    "RBDesign Regular|13px|19px|400|normal",
+    2119
+   ],
+   [
+    "RBDesign Regular|17px|28px|400|normal",
+    1079
+   ],
+   [
+    "RBDesign Regular|14px|19px|400|normal",
+    372
+   ],
+   [
+    "RBDesign Bold|14px|19px|400|normal",
+    104
+   ]
+  ],
+  "pSamples": [
+   {
+    "tag": "p",
+    "text": "Europe's research base is strong, yet innovation leadership lags. Explore the ch",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 14,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 320
+   },
+   {
+    "tag": "p",
+    "text": "An approach for private equity firms to optimize value creation in acquired publ",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 14,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 320
+   },
+   {
+    "tag": "p",
+    "text": "Most M&A deals miss their synergy targets. Roland Berger reveals the root causes",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 14,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 320
+   },
+   {
+    "tag": "p",
+    "text": "As COP31 gets underway in Antalya, the focus is increasingly shifting from clima",
+    "family": "RBDesign Regular",
+    "cat": "sans",
+    "size": 13,
+    "lh": "19px",
+    "ls": "normal",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 506
+   }
+  ],
+  "typeHist": [
+   [
+    "sans:RBDesign Regular|13px|w400|lh19px|lsnormal|none",
+    2116
+   ],
+   [
+    "sans:RBDesign Regular|17px|w400|lh28px|lsnormal|none",
+    1097
+   ],
+   [
+    "sans:RBDesign Regular|14px|w400|lh19px|lsnormal|none",
+    1016
+   ],
+   [
+    "sans:RBDesign Medium|17px|w500|lh30px|ls0.18px|none",
+    881
+   ],
+   [
+    "sans:RBDesign Bold|14px|w400|lh19px|lsnormal|none",
+    796
+   ],
+   [
+    "sans:RBDesign Bold|18px|w400|lh30px|ls0.178px|none",
+    105
+   ],
+   [
+    "sans:RBDesign Regular|15px|w400|lh22px|lsnormal|none",
+    92
+   ],
+   [
+    "sans:RBDesign Medium|16px|w400|lh22px|ls1.14px|none",
+    82
+   ],
+   [
+    "sans:RBDesign Regular|18px|w400|lh16px|ls0.178px|uppercase",
+    80
+   ],
+   [
+    "sans:RBDesign SemiBold|12px|w400|lh12px|ls1.2px|uppercase",
+    60
+   ],
+   [
+    "sans:RBDesign Medium|14px|w400|lh22px|ls1px|none",
+    56
+   ],
+   [
+    "sans:RBDesign Bold|14px|w700|lh20px|ls2.35px|uppercase",
+    38
+   ],
+   [
+    "sans:RBDesign Medium|21px|w400|lh27px|ls1px|none",
+    35
+   ],
+   [
+    "sans:RBDesign Medium|12px|w400|lh22px|ls0.5px|uppercase",
+    32
+   ],
+   [
+    "sans:RBDesign Bold|16px|w700|lh18px|ls0.2px|none",
+    28
+   ],
+   [
+    "sans:RBDesign Bold|18px|w400|lh27px|ls1.06px|uppercase",
+    26
+   ],
+   [
+    "sans:RBDesign Bold|18px|w500|lh30px|ls0.178px|none",
+    21
+   ],
+   [
+    "sans:RBDesign Bold|15px|w400|lh22px|lsnormal|none",
+    18
+   ],
+   [
+    "sans:RBDesign Bold|45px|w400|lh59px|ls0.5px|none",
+    17
+   ],
+   [
+    "sans:RBDesign Bold|15px|w400|lh22px|ls0.2px|none",
+    12
+   ],
+   [
+    "sans:RBDesign Bold|64px|w400|lh72px|ls1px|none",
+    10
+   ],
+   [
+    "sans:RBDesign Regular|15px|w400|lh18px|lsnormal|none",
+    10
+   ],
+   [
+    "sans:RBDesign Regular|15px|w700|lh18px|lsnormal|none",
+    10
+   ],
+   [
+    "sans:RBDesign Light|18px|w400|lh28px|lsnormal|none",
+    9
+   ],
+   [
+    "sans:RBDesign Bold|12px|w400|lh16px|ls1px|uppercase",
+    9
+   ]
+  ],
+  "labels": [
+   [
+    "RBDesign Bold|18px|w400|ls1.06px|uppercase|rgb(255, 255, 255)",
+    {
+     "n": 1,
+     "ex": [
+      "SIGN UP FOR OUR NEWSLETTER"
+     ]
+    }
+   ],
+   [
+    "RBDesign Bold|12px|w400|ls1px|uppercase|rgb(0, 0, 0)",
+    {
+     "n": 1,
+     "ex": [
+      "WORLDWIDE"
+     ]
+    }
+   ]
+  ],
+  "header": {
+   "h": 104,
+   "pos": "absolute",
+   "bg": "rgba(0, 0, 0, 0)",
+   "borderBottom": "0px none rgb(0, 0, 0)",
+   "boxShadow": "none",
+   "cls": "m-header ng-scope"
+  },
+  "headerLinks": [
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 161,
+    "h": 58
+   },
+   {
+    "t": "Expertise",
+    "size": "21px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(255, 255, 255)",
+    "x": 443,
+    "h": 29
+   },
+   {
+    "t": "Insights",
+    "size": "21px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(255, 255, 255)",
+    "x": 603,
+    "h": 29
+   },
+   {
+    "t": "About",
+    "size": "21px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(255, 255, 255)",
+    "x": 743,
+    "h": 29
+   },
+   {
+    "t": "Locations",
+    "size": "21px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(255, 255, 255)",
+    "x": 863,
+    "h": 29
+   },
+   {
+    "t": "Join",
+    "size": "21px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(255, 255, 255)",
+    "x": 1027,
+    "h": 29
+   },
+   {
+    "t": "Newsroom",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 420,
+    "h": 48
+   },
+   {
+    "t": "Think:Act Magazine",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 535,
+    "h": 48
+   },
+   {
+    "t": "Alumni",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 723,
+    "h": 48
+   },
+   {
+    "t": "Contact Us",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 807,
+    "h": 48
+   },
+   {
+    "t": "Newsletter",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 927,
+    "h": 48
+   },
+   {
+    "t": "EN",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(0, 0, 0)",
+    "x": 1182,
+    "h": 22
+   },
+   {
+    "t": "DE",
+    "size": "14px",
+    "w": "400",
+    "tt": "none",
+    "ls": "1px",
+    "color": "rgb(160, 160, 160)",
+    "x": 1224,
+    "h": 22
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(255, 255, 255)",
+    "x": 1230,
+    "h": 22
+   },
+   {
+    "t": "Jobs",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 1087,
+    "h": 28
+   },
+   {
+    "t": "",
+    "size": "18px",
+    "w": "400",
+    "tt": "none",
+    "ls": "normal",
+    "color": "rgb(0, 0, 238)",
+    "x": 1294,
+    "h": 28
+   },
+   {
+    "t": "Aerospace & Defense",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Automotive & Commercial Vehicl",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Battery",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Capital Goods",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Chemicals",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Construction",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Consumer Goods, Retail & Agric",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 53
+   },
+   {
+    "t": "Electrics and Electronics",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Energy & Utilities",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Financial Services",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 158,
+    "h": 23
+   },
+   {
+    "t": "Infrastructure",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 559,
+    "h": 23
+   },
+   {
+    "t": "Pharma & Healthcare",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 559,
+    "h": 23
+   },
+   {
+    "t": "Private Equity & Strategic Inv",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 559,
+    "h": 23
+   },
+   {
+    "t": "Public Sector",
+    "size": "17px",
+    "w": "500",
+    "tt": "none",
+    "ls": "0.18px",
+    "color": "rgb(255, 255, 255)",
+    "x": 559,
+    "h": 23
+   }
+  ],
+  "logo": {
+   "w": 100,
+   "h": 58,
+   "x": 161,
+   "y": 109
+  },
+  "containers": [
+   [
+    "1280px|pl0px|pr0px|w1280|x80",
+    21
+   ],
+   [
+    "1280px|pl0px|pr0px|w723|x559",
+    1
+   ],
+   [
+    "1160px|pl0px|pr0px|w1160|x140",
+    1
+   ]
+  ],
+  "leftEdges": [
+   [
+    "627",
+    6
+   ],
+   [
+    "709",
+    6
+   ],
+   [
+    "962",
+    3
+   ],
+   [
+    "131",
+    1
+   ],
+   [
+    "626",
+    1
+   ]
+  ],
+  "rightEdges": [
+   [
+    "184",
+    6
+   ],
+   [
+    "224",
+    6
+   ],
+   [
+    "158",
+    3
+   ],
+   [
+    "297",
+    1
+   ],
+   [
+    "771",
+    1
+   ]
+  ],
+  "sections": [
+   {
+    "tag": "section",
+    "cls": "m-stage-overview",
+    "top": 48,
+    "h": 670,
+    "bg": "rgb(21, 108, 156)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "Who we are",
+    "headingOffset": 481,
+    "imgs": 4
+   },
+   {
+    "tag": "section",
+    "cls": "m-subnavigation type-link is-grey",
+    "top": 718,
+    "h": 60,
+    "bg": "rgb(240, 240, 240)",
+    "pt": 14,
+    "pb": 14,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 778,
+    "h": 184,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 50,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "We're in like you",
+    "headingOffset": 75,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 962,
+    "h": 258,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-videoplayer ng-scope",
+    "top": 1220,
+    "h": 720,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 1940,
+    "h": 456,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-image-caption",
+    "top": 2396,
+    "h": 568,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-section-headline ",
+    "top": 2964,
+    "h": 162,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 40,
+    "pb": 50,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-teaser-hero type-join",
+    "top": 3126,
+    "h": 420,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": "All jobs",
+    "headingOffset": 289,
+    "imgs": 2
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 3546,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-text",
+    "top": 3642,
+    "h": 66,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-separator",
+    "top": 3708,
+    "h": 96,
+    "bg": "rgba(0, 0, 0, 0)",
+    "pt": 0,
+    "pb": 0,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   },
+   {
+    "tag": "section",
+    "cls": "m-breadcrumb",
+    "top": 3804,
+    "h": 108,
+    "bg": "rgb(250, 250, 250)",
+    "pt": 40,
+    "pb": 40,
+    "mt": "0px",
+    "mb": "0px",
+    "firstHeading": null,
+    "headingOffset": null,
+    "imgs": 0
+   }
+  ],
+  "buttons": [
+   [
+    "h28|r0px|p0px 8px|18px|w400|none|lsnormal|bgrgb(255, 53, 50)|crgb(0, 0, 238)|bd0px rgb(0, 0, 238)",
+    {
+     "n": 1,
+     "ex": [
+      "Jobs"
+     ]
+    }
+   ]
+  ],
+  "arrowLinks": [
+   {
+    "tag": "a",
+    "text": "Expertise",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 110
+   },
+   {
+    "tag": "a",
+    "text": "Insights",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 90
+   },
+   {
+    "tag": "a",
+    "text": "About",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 70
+   },
+   {
+    "tag": "a",
+    "text": "Locations",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 114
+   },
+   {
+    "tag": "a",
+    "text": "Join",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 21,
+    "lh": "27px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(255, 255, 255)",
+    "maxW": 46
+   },
+   {
+    "tag": "a",
+    "text": "Newsroom",
+    "family": "RBDesign Medium",
+    "cat": "sans",
+    "size": 14,
+    "lh": "22px",
+    "ls": "1px",
+    "weight": "400",
+    "tt": "none",
+    "color": "rgb(0, 0, 0)",
+    "maxW": 85
+   }
+  ],
+  "dividers": [
+   [
+    "Bottom|1px|rgba(0, 0, 0, 0)",
+    2
+   ],
+   [
+    "Left|1px|rgb(172, 172, 172)",
+    1
+   ],
+   [
+    "Top|1px|rgb(172, 172, 172)",
+    1
+   ],
+   [
+    "Top|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Bottom|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Left|1px|rgb(0, 0, 0)",
+    1
+   ],
+   [
+    "Bottom|2px|rgb(246, 246, 0)",
+    1
+   ],
+   [
+    "Bottom|2px|rgb(0, 0, 0)",
+    1
+   ]
+  ],
+  "cards": [
+   {
+    "w": 723,
+    "h": 393,
+    "imgW": 0,
+    "imgH": 0,
+    "ratio": 0,
+    "imgFilter": "none",
+    "title": "COP31",
+    "titleSize": "14px",
+    "titleLh": "19px",
+    "titleW": "400",
+    "titleFam": "RBDesign Bold",
+    "titleGapFromImg": 22,
+    "label": {
+     "t": "NOVEMBER 9, 2026",
+     "size": "12px",
+     "w": "400",
+     "tt": "uppercase",
+     "ls": "0.5px",
+     "color": "rgb(160, 160, 160)"
+    },
+    "cardBg": "rgba(0, 0, 0, 0)",
+    "cardRadius": "0px",
+    "cardBorder": "0px none rgb(0, 0, 0)",
+    "cardShadow": "none"
+   }
+  ],
+  "stats": [],
+  "footer": {
+   "h": 478,
+   "bg": "rgb(240, 240, 240)",
+   "color": "rgb(0, 0, 0)",
+   "pt": "0px",
+   "lists": 0,
+   "distinctColumnX": [],
+   "links": 15,
+   "linkSize": "16px",
+   "linkColor": "rgb(0, 0, 0)",
+   "headings": []
+  },
+  "bgColors": [
+   [
+    "rgb(0, 0, 0)",
+    "3012k px2"
+   ],
+   [
+    "rgb(255, 255, 255)",
+    "1384k px2"
+   ],
+   [
+    "rgb(21, 108, 156)",
+    "965k px2"
+   ],
+   [
+    "rgb(132, 0, 58)",
+    "902k px2"
+   ],
+   [
+    "rgb(240, 240, 240)",
+    "844k px2"
+   ],
+   [
+    "rgb(77, 0, 55)",
+    "538k px2"
+   ],
+   [
+    "rgb(0, 128, 128)",
+    "524k px2"
+   ],
+   [
+    "rgb(0, 59, 70)",
+    "345k px2"
+   ],
+   [
+    "rgb(0, 74, 194)",
+    "199k px2"
+   ],
+   [
+    "rgb(250, 250, 250)",
+    "156k px2"
+   ]
+  ],
+  "fgColors": [
+   [
+    "rgb(0, 0, 0)",
+    5487
+   ],
+   [
+    "rgb(255, 255, 255)",
+    1107
+   ],
+   [
+    "rgb(141, 147, 153)",
+    38
+   ],
+   [
+    "rgb(160, 160, 160)",
+    34
+   ],
+   [
+    "rgb(0, 0, 238)",
+    9
+   ]
+  ],
+  "fontsLoaded": [
+   "RBDesign Regular normal",
+   "RBDesign Bold normal",
+   "RBDesign SemiBold normal",
+   "RBDesign Medium normal",
+   "RBDesign Light normal",
+   "Arnhem Bold Italic normal"
+  ],
+  "navText": [
+   "Expertise",
+   "Insights",
+   "About",
+   "Locations",
+   "Join",
+   "Newsroom",
+   "Think:Act Magazine",
+   "Alumni",
+   "Contact Us",
+   "Newsletter",
+   "EN",
+   "DE",
+   "Aerospace & Defense",
+   "Automotive & Commercial Vehicles",
+   "Battery",
+   "Capital Goods",
+   "Chemicals",
+   "Construction",
+   "Consumer Goods, Retail & Agriculture",
+   "Electrics and Electronics",
+   "Energy & Utilities",
+   "Financial Services",
+   "Infrastructure",
+   "Pharma & Healthcare",
+   "Private Equity & Strategic Investors"
+  ],
+  "imgRatios": [
+   [
+    "1.49",
+    5
+   ],
+   [
+    "1.69",
+    5
+   ],
+   [
+    "1.66",
+    2
+   ],
+   [
+    "2.22",
+    1
+   ],
+   [
+    "0.83",
+    1
+   ],
+   [
+    "1.78",
+    1
+   ],
+   [
+    "1.65",
+    1
+   ],
+   [
+    "1.52",
+    1
+   ]
+  ],
+  "motion": {
+   "reducedMotionQuery": false
+  }
+ },
+ "scrolledHeader": {
+  "h": 72,
+  "top": 0,
+  "pos": "fixed",
+  "bg": "rgb(0, 0, 0)",
+  "transform": "matrix(1, 0, 0, 1, 0, -86)",
+  "shadow": "none",
+  "fixedBars": [
+   {
+    "cls": "m-header ng-scope is-fixed",
+    "h": 72,
+    "bg": "rgb(0, 0, 0)",
+    "shadow": "none"
+   }
+  ]
+ }
+}
