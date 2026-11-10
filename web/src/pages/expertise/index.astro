@@ -1,41 +1,41 @@
 ---
 /**
- * /expertise (REDESIGN-V3 §4 "Expertise hub").
- *  1 PageHero grey — crumbs, eyebrow "Expertise", H1 "Expertise that connects science, plants and strategy.",
- *    lead = the overview intro (shown whole: trimming it to two sentences would be a copy change).
- *  2 The six areas (white) — SectionHeader + six ExpertiseCards `hub` (name, promise, typical deliverables, Learn more).
- *    3×2 from 1200px, 2×3 from 600px, one column below.
+ * /expertise (REDESIGN-V3 §4 "Expertise hub", re-composed for §9 "elegant full-screen", v3.1).
+ *  1 PillarHero (the expertise section's hero, shared with the six pillar pages): expertiseHubPhoto fills the right
+ *    ≈ 2/3 at full height and dissolves into navy; crumbs, eyebrow "Expertise", H1 "Expertise that connects science,
+ *    plants and strategy." bottom-left. The intro moves to the section header below, so the first screen is the
+ *    headline alone.
+ *  2 The six areas (white) — SectionHeader split (title cols 1–7, the overview intro shown whole in cols 8–12), then the
+ *    PillarIndex: six editorial rows, photo 7 cols / text 4 cols, alternating sides.
  *  3 "Not sure where you fit?" — this page's CtaBand (BaseLayout `cta` props): the prompt as the headline and
- *    "Start a conversation" → /contact as the button, so the page closes on one CTA band, not two.
- * Mobile: hero text full width; cards one column, full width, 24px padding; the CtaBand button goes full width.
+ *    "Start a conversation" → /contact as the button.
+ * Mobile: the hero photo is a band above the H1; the intro stacks under the section title; each row is photo then text.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/ui/PageHero.astro';
+import PillarHero from '@/components/expertise/PillarHero.astro';
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
-import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
-import { expertiseOverview, pillars } from '@/data/pillars';
+import PillarIndex from '@/components/expertise/PillarIndex.astro';
+import { expertiseHubPhoto, expertiseOverview, pillars } from '@/data/pillars';
+import { photos } from '@/data/photos';
 import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
 
 const crumbs = [{ label: expertiseOverview.overline, href: '/expertise' }];
 const prompt = expertiseOverview.prompt;
+const hero = photos[expertiseHubPhoto.slug];
 ---
 <BaseLayout
   page="expertise" seo={pageSeo('expertise')} breadcrumbs={crumbs}
   cta={{ title: prompt.text, primary: { label: prompt.link.label, href: prompt.link.href } }}
 >
-  <PageHero
-    ground="grey" crumbs={crumbs} eyebrow={expertiseOverview.overline}
-    title={expertiseOverview.headline} lead={expertiseOverview.intro} titleId="expertise-title"
+  <PillarHero
+    crumbs={crumbs} eyebrow={expertiseOverview.overline} title={expertiseOverview.headline} titleId="expertise-title"
+    image={hero.src} imageAlt={hero.alt} imagePosition={expertiseHubPhoto.position ?? hero.position}
   />
 
   <Section ground="white" labelledby="areas-title">
-    <SectionHeader id="areas-title" title={microcopy.expertiseAreas} />
-    <ul class="card-grid card-grid--xl" role="list">
-      {pillars.map((p, i) => (
-        <li data-reveal style={`--i:${i}`}><ExpertiseCard pillar={p} variant="hub" /></li>
-      ))}
-    </ul>
+    <SectionHeader id="areas-title" title={microcopy.expertiseAreas} lead={expertiseOverview.intro} />
+    <PillarIndex items={pillars} />
   </Section>
 </BaseLayout>

@@ -1,12 +1,17 @@
 ---
 /**
- * Section header (REDESIGN-V3 §3, §8.2): eyebrow → 16px → serif title → 20px → lead; 48px below the block.
- * Optional "View all →" link: right-aligned on the title's last line at ≥ 900px; below the lead on mobile.
- * `level` 2 (h2, --fs-h2) or 3 (h3, --fs-h3). Slot "lead" replaces the `lead` string when richer markup is needed.
+ * Section header (REDESIGN-V3 §3, §8.2, §9.3): eyebrow → serif title → lead, then the content 64–96px below.
+ * Layout `auto` (default): ≥ 1200px with a lead, an asymmetric editorial split — eyebrow + title in columns 1–7, the lead
+ *  (and link) in columns 8–12, bottom-aligned with the title's last line; otherwise the classic stack. `stack` forces the
+ *  stack at every width. Optional "View all →" link: right-aligned on the title's last line at ≥ 900px (no lead), under
+ *  the lead in the split, below the lead on mobile. `level` 2 (h2, --fs-h2 32 → 56) or 3 (h3, --fs-h3).
+ *  Slot "lead" replaces the `lead` string when richer markup is needed.
+ * Motion: data-reveal="split" — the title's words rise line by line, then eyebrow, lead and link ([data-part]) fade in.
  * Mobile: one column, left (or centred) aligned; link sits under the lead with a 16px gap.
  */
 import Eyebrow from './Eyebrow.astro';
 import ArrowLink from './ArrowLink.astro';
+import SplitText from './SplitText.astro';
 interface Props {
   eyebrow?: string;
   title: string;
@@ -14,36 +19,52 @@ interface Props {
   level?: 2 | 3;
   id?: string;
   align?: 'left' | 'center';
+  layout?: 'auto' | 'stack';
   link?: { label: string; href: string };
   class?: string;
 }
-const { eyebrow, title, lead, level = 2, id, align = 'left', link, class: cls } = Astro.props;
+const { eyebrow, title, lead, level = 2, id, align = 'left', layout = 'auto', link, class: cls } = Astro.props;
 const H = level === 3 ? 'h3' : 'h2';
 const hasLead = !!lead || Astro.slots.has('lead');
+const split = layout === 'auto' && align === 'left' && hasLead && level === 2;
 ---
-<header class:list={['sh', `sh--${align}`, link && 'sh--linked', cls]} data-reveal>
-  <div class="sh__text">
-    {eyebrow && <Eyebrow class="sh__eyebrow">{eyebrow}</Eyebrow>}
-    <H id={id} class:list={['sh__title', level === 3 ? 't-h3' : 't-h2']}>{title}</H>
-    {hasLead && (
-      <div class="sh__lead t-lead">{Astro.slots.has('lead') ? <slot name="lead" /> : <p>{lead}</p>}</div>
-    )}
+<header class:list={['sh', `sh--${align}`, link && 'sh--linked', split && 'sh--split', cls]} data-reveal="split">
+  <div class="sh__head">
+    {eyebrow && <Eyebrow class="sh__eyebrow" data-part>{eyebrow}</Eyebrow>}
+    <H id={id} class:list={['sh__title', level === 3 ? 't-h3' : 't-h2']}><SplitText text={title} /></H>
   </div>
-  {link && <ArrowLink href={link.href} class="sh__link">{link.label}</ArrowLink>}
+  {(hasLead || link) && (
+    <div class="sh__side">
+      {hasLead && (
+        <div class="sh__lead t-lead" data-part style="--i:1">{Astro.slots.has('lead') ? <slot name="lead" /> : <p>{lead}</p>}</div>
+      )}
+      {link && <span class="sh__linkwrap" data-part style="--i:2"><ArrowLink href={link.href} class="sh__link">{link.label}</ArrowLink></span>}
+    </div>
+  )}
 </header>
 <style>
-  .sh { display: grid; gap: var(--s-4); margin-bottom: var(--s-7); }
-  .sh__eyebrow { margin-bottom: var(--s-4); }
-  .sh__title { max-width: 28ch; }
+  .sh { display: grid; margin-bottom: clamp(3rem, 2.2rem + 3.3vw, 6rem); }
+  .sh__eyebrow { margin-bottom: var(--s-5); }
+  .sh__title { max-width: 22ch; }
   .sh__title.t-h3 { max-width: 40ch; }
-  .sh__lead { margin-top: 20px; color: var(--fg); }
+  .sh__side { display: grid; gap: var(--s-4); }
+  .sh__lead { margin-top: var(--s-5); color: var(--fg-2); }
   .sh__lead :global(p + p) { margin-top: .75em; }
-  .sh__link { justify-self: start; margin-block: -11px; }
+  .sh__linkwrap { justify-self: start; margin-top: var(--s-2); }
   .sh--center { justify-items: center; text-align: center; }
-  .sh--center .sh__link { justify-self: center; }
+  .sh--center .sh__linkwrap { justify-self: center; }
   .sh--center .sh__title, .sh--center .sh__lead { margin-inline: auto; }
   @media (min-width: 900px) {
-    .sh--left.sh--linked { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s-7); }
-    .sh--left .sh__link { justify-self: end; margin-bottom: -17px; }
+    .sh--left.sh--linked:not(.sh--split) { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s-7); }
+    .sh--left.sh--linked:not(.sh--split) .sh__side { display: contents; }
+    .sh--left.sh--linked:not(.sh--split) .sh__lead { grid-column: 1; grid-row: 2; }
+    .sh--left.sh--linked:not(.sh--split) .sh__linkwrap { grid-column: 2; grid-row: 1; align-self: end; justify-self: end; margin: 0 0 -6px; }
+  }
+  @media (min-width: 1200px) {
+    .sh--split { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; }
+    .sh--split .sh__head { grid-column: 1 / 8; }
+    .sh--split .sh__side { grid-column: 8 / -1; padding-bottom: .35em; }
+    .sh--split .sh__lead { margin-top: 0; }
+    .sh--split .sh__title { max-width: 18ch; }
   }
 </style>

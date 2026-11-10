@@ -1,32 +1,30 @@
 ---
 /**
- * Contact, left column (REDESIGN-V3 §4 Contact): "Contact details" h2, an <address> with email, WhatsApp and LinkedIn
- * as a hairline definition list, the base line with the time zone, the founder who answers, then the booking card.
- * Facts from @/config/site, @/data/nav (base + CET) and @/data/founder; labels from @/data/contact.
+ * Contact, left column (REDESIGN-V3 §4 Contact, §9.3): "Contact details" h2 over a hairline, then an <address> with
+ * email, WhatsApp and LinkedIn as large serif lines (small uppercase label above each, hairline below), the base line
+ * with the time zone, then the booking card. (The founder who answers sits in the hero: ContactFounder.)
+ * Facts from @/config/site and @/data/nav (base + CET); labels from @/data/contact.
  * Booking card: an external link when PUBLIC_BOOKING_URL is set. Unset (bookingUrl falls back to /contact#form) it is a
  * gap (CONFIRM 9, booking tool): staging shows it pointing at the form (a[data-booking="form"] → contact.ts focuses the
  * first field), preview and production leave it out.
- * Mobile (< 600px): one column; each row stacks its label over the value, values wrap anywhere (the LinkedIn URL is
- * long), every link keeps a 44px tap height. 600–899px: label left (9rem) and value right on one line.
- * ≥ 900px the column sits left of the form and stays in view while the form scrolls (sticky, set by the page).
+ * Mobile (< 900px): one column; each row stacks its label over the value; values wrap anywhere (the LinkedIn URL is
+ * long); every link keeps a 44px tap height; values set at --fs-h4 (19 → 22). ≥ 900px the column sits left of the form
+ * and stays in view while the form scrolls (sticky, set by the page); values at --fs-h3 from 1200px.
  */
 import Icon from '@/components/ui/Icon.astro';
-import Photo from '@/components/ui/Photo.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { contact, contactPage } from '@/data/contact';
 import { footer } from '@/data/nav';
-import { founderName, founderRole, portraitAlt } from '@/data/founder';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 import { showConfirm } from '@/lib/mode';
-import portrait from '@/assets/photos/ganeaysh-portrait-square.jpg';
 
 const bookingSet = !site.bookingUrl.startsWith('/contact');
 const showBooking = bookingSet || showConfirm;
 const bookingHref = bookingSet ? site.bookingUrl : '#form';
 ---
 <div class="cd">
-  <h2 id="contact-details-h" class="cd__title t-h3">{contactPage.detailsHeading}</h2>
+  <h2 id="contact-details-h" class="cd__title">{contactPage.detailsHeading}</h2>
 
   <address class="cd__address">
     <dl class="cd__list">
@@ -44,17 +42,12 @@ const bookingHref = bookingSet ? site.bookingUrl : '#form';
       <div class="cd__row">
         <dt class="cd__label">{contact.details.linkedin}</dt>
         <dd class="cd__value">
-          <a class="cd__link cd__link--ext" href={site.linkedin.href} rel="noopener me">{site.linkedin.display}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="arrow-up-right" size={18} stroke={2} class="cd__ext" /></a>
+          <a class="cd__link cd__link--ext" href={site.linkedin.href} rel="noopener me"><span class="cd__url">{site.linkedin.display}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="arrow-up-right" size={20} stroke={1.75} class="cd__ext" /></a>
         </dd>
       </div>
     </dl>
     <p class="cd__base"><Icon name="pin" size={20} class="cd__pin" />{footer.contact.base}</p>
   </address>
-
-  <div class="cd__person">
-    <Photo src={portrait} alt={portraitAlt.founder} ratio="1/1" sizes="64px" widths={[128, 192]} class="cd__photo" />
-    <p class="cd__who"><span class="cd__name">{founderName}</span><span class="cd__role">{founderRole}</span></p>
-  </div>
 
   {showBooking && (
     <div class="cd__booking">
@@ -70,54 +63,51 @@ const bookingHref = bookingSet ? site.bookingUrl : '#form';
 
 <style>
   .cd { display: grid; gap: 0; }
-  .cd__title { margin: 0; padding-bottom: var(--s-4); border-bottom: 2px solid var(--rule-strong); color: var(--head); }
+  .cd__title {
+    margin: 0; padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule-strong);
+    font: 450 var(--fs-h3)/var(--lh-h3) var(--font-serif); font-optical-sizing: auto; letter-spacing: var(--tr-h3); color: var(--head);
+  }
 
   .cd__address { font-style: normal; }
-  .cd__list { margin: var(--s-2) 0 0; }
-  .cd__row { display: grid; gap: 0; padding-block: var(--s-3) var(--s-2); border-bottom: 1px solid var(--rule); }
-  @media (min-width: 900px) { .cd__row { gap: var(--s-1); padding-block: var(--s-4) var(--s-3); } }
+  .cd__list { margin: 0; }
+  .cd__row { display: grid; gap: var(--s-1); padding-block: var(--s-5) var(--s-4); border-bottom: 1px solid var(--rule); }
+  @media (min-width: 900px) { .cd__row { gap: var(--s-2); padding-block: var(--s-6) var(--s-5); } }
   .cd__label {
     font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
     color: var(--fg-2);
   }
   .cd__value { margin: 0; min-width: 0; overflow-wrap: anywhere; }
   .cd__link {
-    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
-    font: 500 var(--fs-lead)/1.35 var(--font-sans); color: var(--head);
-    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em;
-    text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+    display: inline-flex; align-items: center; gap: var(--s-3); min-height: 44px; max-width: 100%;
+    font: 400 var(--fs-h4)/1.3 var(--font-serif); font-optical-sizing: auto; color: var(--head);
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .24em;
+    text-decoration-color: color-mix(in srgb, currentColor 25%, transparent);
     transition: text-decoration-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
   }
+  @media (min-width: 1200px) { .cd__link { font-size: var(--fs-h3); } }
+  .cd__url { min-width: 0; }
   .cd__link:hover { color: var(--link); text-decoration-color: var(--accent); }
+  .cd__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
   .cd__link :global(.cd__ext) { flex: none; color: var(--accent); }
 
   .cd__base {
-    display: flex; align-items: flex-start; gap: var(--s-3); margin: var(--s-5) 0 0;
-    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg);
+    display: flex; align-items: flex-start; gap: var(--s-3); margin: var(--s-6) 0 0;
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2);
   }
   .cd__base :global(.cd__pin) { flex: none; margin-top: 3px; color: var(--label); }
 
-  .cd__person { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--rule); }
-  .cd__person :global(.cd__photo) { flex: none; width: 64px; border-radius: 50%; overflow: hidden; }
-  .cd__who { margin: 0; display: grid; gap: 2px; }
-  .cd__name { font: 560 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; color: var(--head); }
-  .cd__role { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
-
-  .cd__booking { margin-top: var(--s-6); }
+  .cd__booking { margin-top: var(--s-7); }
   .cd-book {
     display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-4);
-    min-height: 72px; padding: var(--s-4) var(--s-5);
-    background: var(--surface-hover); border-top: 2px solid var(--rule-strong); border-radius: 0 0 var(--r-sm) var(--r-sm);
+    min-height: 72px; padding: var(--s-4) 0;
+    border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule);
     color: var(--head); text-decoration: none;
     transition: border-color var(--d-1) var(--ease-out);
   }
   .cd-book:hover { border-top-color: var(--accent); }
   .cd-book :global(.cd-book__icon) { color: var(--label); }
-  .cd-book__title { font: 500 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; }
+  .cd-book__title { font: 450 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; }
   .cd-book :global(.cd-book__arrow) { color: var(--accent); }
 
-  @media (min-width: 600px) and (max-width: 899px) {
-    .cd__row { grid-template-columns: 9rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5); padding-block: var(--s-2); }
-  }
   @media (prefers-reduced-motion: reduce) { .cd__link, .cd-book { transition: none; } }
 </style>

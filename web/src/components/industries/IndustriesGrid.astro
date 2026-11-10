@@ -1,38 +1,123 @@
 ---
 /**
- * /industries — the nine industries as Kearney-style text cards (REDESIGN-V3 §4 Industries, §8.9).
- * White band under the grey hero. Each card: "01", serif name (links to its own #slug anchor), the brief's one-line
- * description, then "Relevant expertise" links to the pillar pages (pillarHref). Text-only for all nine (§8.9:
- * consistent, no odd card out). The card root carries id={slug} for the /industries#<slug> links from home, the
- * header dropdown and the mobile menu. The grid's h2 is visually hidden (the hero H1 already says "Where we work");
- * card titles are h3.
- * Mobile (< 600px): one column, full-width cards, 24px between cards; expertise links keep a 40px+ tap row.
- * 600–899: two columns. ≥ 900: three columns (3 × 3), equal-height rows.
+ * /industries — the nine industries as a 3 × 3 editorial grid (REDESIGN-V3 §4 Industries, §8.9, §9.3). White band
+ * under the navy photo hero.
+ *  Header: the visible h2 "All industries" (`industriesPage.listHeading`) in columns 1–5 and the rest of the page intro
+ *  at lead size in columns 7–12, both top-aligned; stacked below 900px.
+ *  Each industry (page-local variant of the foundation IndustryTile `card`, reported to the orchestrator): no box, a 1px
+ *  hairline on top that an accent line draws across on hover / focus, a light serif numeral, the serif h3 name, the
+ *  brief's one-line description, then "Relevant expertise" links to the pillar pages (each a 44px+ tap row; the last
+ *  word and its arrow never part). Text-only for all nine on purpose (§8.9: there is no honest pet-food or bleaching-
+ *  earth photo, and one odd card out would look broken). The <article> carries id={slug} for the /industries#<slug>
+ *  links from home, the header dropdown and the mobile menu; card titles are h3.
+ *  The <li>s are row subgrids (numeral · name · description · expertise), so names, descriptions and the expertise
+ *  hairline line up across each row whatever the length of the text.
+ * Mobile (< 600px): one column, 64px between industries. 600–1199: two columns (the ninth closes the list on the left,
+ *  no hairline across an empty cell; at 1024 three columns would wrap the expertise links and three-line names). ≥ 1200: 3 × 3, 72 → 96px between rows.
  */
 import Section from '@/components/ui/Section.astro';
-import IndustryTile from '@/components/cards/IndustryTile.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Icon from '@/components/ui/Icon.astro';
 import { industries, industriesPage } from '@/data/industries';
 import { getPillar, pillarHref } from '@/lib/pillars';
+import { pad2 } from '@/lib/format';
+
+interface Props { lead?: string }
+const { lead } = Astro.props;
+// "Product and Category " + "Innovation→" (the last word and the arrow never part)
+const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)]; };
 ---
-<Section ground="white" pad="tight" labelledby="industries-list-h" class="ind-grid">
-  <h2 id="industries-list-h" class="visually-hidden">{industriesPage.listHeading}</h2>
-  <ul class="card-grid" role="list">
+<Section ground="white" labelledby="industries-list-h" class="ig">
+  <div class="grid-12 ig__head">
+    <div style="--col: 1 / 6">
+      <SectionHeader id="industries-list-h" title={industriesPage.listHeading} layout="stack" class="ig__sh" />
+    </div>
+    {lead && <p class="ig__lead" style="--col: 7 / -1" data-reveal>{lead}</p>}
+  </div>
+  <ul class="ig__grid" role="list">
     {industries.map((ind, i) => (
-      <li data-reveal style={`--i:${i % 3}`}>
-        <IndustryTile
-          variant="card"
-          id={ind.slug}
-          href={`/industries#${ind.slug}`}
-          n={ind.n}
-          name={ind.name}
-          copy={ind.copy}
-          expertise={ind.pillars.map((k) => ({ label: getPillar(k).name, href: pillarHref(k) }))}
-        />
+      <li class="ig__item" data-reveal style={`--i:${i % 3}`}>
+        <article id={ind.slug} class="ind" aria-labelledby={`${ind.slug}-h`}>
+          <span class="ind__n" aria-hidden="true">{pad2(ind.n)}</span>
+          <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
+          <p class="ind__copy">{ind.copy}</p>
+          <div class="ind__xp">
+            <p class="t-label ind__xplabel">{industriesPage.relevantExpertise}</p>
+            <ul role="list">
+              {ind.pillars.map((k) => {
+                const [head, last] = splitLast(getPillar(k).name);
+                return (
+                  <li><a href={pillarHref(k)} class="u-hover">{head && <span class="u-draw">{head}</span>}<span class="ind__last"><span class="u-draw">{last}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></span></a></li>
+                );
+              })}
+            </ul>
+          </div>
+        </article>
       </li>
     ))}
   </ul>
 </Section>
 <style>
-  /* the grid sits close under the compact hero; rows breathe a little more than the default gap */
-  .ind-grid :global(.card-grid) { row-gap: clamp(24px, 1rem + 1.6vw, 40px); }
+  .ig__head { margin-bottom: clamp(3rem, 2.2rem + 3.3vw, 6rem); row-gap: var(--s-5); }
+  .ig :global(.ig__sh) { margin-bottom: 0; }
+  .ig__lead { font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: var(--tr-lead); color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
+  @media (min-width: 900px) { .ig__lead { padding-top: .4em; } }
+  .ig__grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    column-gap: clamp(24px, 1rem + 2.4vw, 64px); row-gap: var(--s-8);
+  }
+  .ind { position: relative; display: flex; flex-direction: column; height: 100%; border-top: 1px solid var(--rule); }
+  /* accent line draws across the hairline on hover / keyboard focus */
+  .ind::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
+  }
+  .ind:hover::before, .ind:focus-within::before { transform: scaleX(1); }
+
+  .ind__n {
+    padding-top: var(--s-5);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 300;
+    font-size: clamp(2.25rem, 1.8rem + 1.6vw, 3.5rem); line-height: 1; letter-spacing: -0.03em;
+    color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums;
+  }
+  .ind__name {
+    margin-top: var(--s-5);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+    font-size: clamp(1.5rem, 1.3rem + .6vw, 2rem); line-height: 1.15; letter-spacing: -0.012em; color: var(--head);
+    text-wrap: balance; max-width: 22ch;
+  }
+  .ind__copy {
+    margin-top: var(--s-3); max-width: 38ch;
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty;
+  }
+  .ind__xp { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+  .ind__xplabel { color: var(--fg-2); margin-bottom: var(--s-1); }
+  .ind__xp ul { list-style: none; padding: 0; margin-block: -6px -11px; }
+  /* the <a> itself is the 45px tap row */
+  .ind__xp a {
+    display: inline-block; padding-block: 11px;
+    font-size: var(--fs-small); line-height: 1.45; font-weight: 500; color: var(--link); text-decoration: none;
+  }
+  .ind__last { white-space: nowrap; }
+  .ind__xp a :global(.icon) { display: inline-block; color: var(--accent); vertical-align: -3px; margin-left: 6px; }
+
+  @media (min-width: 600px) {
+    .ig__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 900px) {
+    .ig__grid { row-gap: clamp(4.5rem, 2rem + 3.6vw, 6rem); }
+    .ind__n { padding-top: var(--s-6); }
+  }
+  /* three across only where a column holds "Process Design and Plant Performance →" on one line */
+  @media (min-width: 1200px) {
+    .ig__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* row subgrids: numeral · name · description · expertise share their tracks with the row's other industries */
+  @supports (grid-template-rows: subgrid) {
+    .ig__item { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+    .ind { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
+    .ind__xp { align-self: start; }
+  }
 </style>

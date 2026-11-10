@@ -1,35 +1,40 @@
 ---
 /**
- * /approach (REDESIGN-V3 §4 Approach, §8.3, §8.8). Grounds: navy photo hero → white (promise) → grey (how we work)
- * → white (principles) → grey (ways to work with us) → white (FAQ) → grey CtaBand (BaseLayout) → navy footer.
- *  1. PageHero navy, background photo `people-01` (a working session; photos.md): crumbs, eyebrow "Approach",
+ * /approach (REDESIGN-V3 §4 Approach, §8.3, §8.8, §9 "elegant full-screen"). Grounds: navy photo hero → white (promise)
+ * → photo interlude → grey (how we work, sticky storytelling) → white (principles) → grey (ways to work with us)
+ * → white (FAQ) → grey CtaBand (BaseLayout) → navy footer.
+ *  1. PageHero md, full-bleed background `people-02` (a working session; BLEED_SAFE: the faces sit in the middle band
+ *     of the frame, so the wide crop keeps every head; people-01 lost them): crumbs, eyebrow "Approach",
  *     H1 "We create with you, not for you.", the intro in full (two sentences).
  *  2. Positioning: headline, promise, range (moved from Home, §8.3).
- *  3. Steps: Connect / Collaborate / Create on a ringed-node connector (ids connect / collaborate / create).
- *  4. Principles: five, numbered grid.
- *  5. EngagementTable: the five models, table ≥ 700px, stacked cards below.
- *  6. Faq: Accordion, answers from data only (C-22 in staging where approval is needed).
- * The crumpled report, the stamp, scribbles and margin notes are gone (copy-edits.md B5, C2–C5).
- * Mobile: the hero photo becomes a band above the text; every section is one column (see each component).
+ *  3. PhotoInterlude `plant-01` (the plant floor), captioned with the brand line from data/home.ts `method.headline`
+ *     (caption only: plant-01 is a light photo; large italic type on the scrim keeps AA where a 12px eyebrow might not).
+ *  4. Steps: Connect / Collaborate / Create as sticky storytelling (heading + ringed-node index left, steps right).
+ *  5. Principles: five, as a numbered editorial list.
+ *  6. EngagementTable: the five models, table ≥ 700px, stacked hairline cards below.
+ *  7. Faq: Accordion, answers from data only (C-22 in staging where approval is needed).
+ * Mobile: the hero photo becomes a band above the text; the interlude is about square; every section is one column.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
+import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
 import Positioning from '@/components/approach/Positioning.astro';
 import Steps from '@/components/approach/Steps.astro';
 import Principles from '@/components/approach/Principles.astro';
 import EngagementTable from '@/components/approach/EngagementTable.astro';
 import Faq from '@/components/approach/Faq.astro';
 import { approach } from '@/data/approach';
+import { method } from '@/data/home';
 import { photos } from '@/data/photos';
 import { pageSeo } from '@/lib/seo';
 
 const crumbs = [{ label: approach.overline, href: '/approach' }];
-const photo = photos['people-01'];
+const photo = photos['people-02'];
 // Line-break discipline (§8 rule 9): "with you" is the phrase the headline turns on, so it never splits
 // ("We create with you, / not for you." rather than "We create with / you, not for you."); "25 years" never breaks
-// between number and unit (it did at 1024).
-const title = approach.headline.replace(approach.swooshPhrase, approach.swooshPhrase.replace(' ', '\u00A0'));
-const lead = approach.intro.replace(/(\d+) (years?)\b/g, '$1\u00A0$2');
+// between number and unit.
+const title = approach.headline.replace(approach.swooshPhrase, approach.swooshPhrase.replace(' ', ' '));
+const lead = approach.intro.replace(/(\d+) (years?)\b/g, '$1 $2');
 ---
 <BaseLayout page="approach" seo={pageSeo('approach')} breadcrumbs={crumbs}>
   <PageHero
@@ -40,10 +45,11 @@ const lead = approach.intro.replace(/(\d+) (years?)\b/g, '$1\u00A0$2');
     crumbs={crumbs}
     image={photo.src}
     imageAlt={photo.alt}
-    imagePosition={photo.position}
+    imagePosition="62% 46%"
     titleId="ap-title"
   />
   <Positioning />
+  <PhotoInterlude slug="plant-01" caption={method.headline} />
   <Steps />
   <Principles />
   <EngagementTable />

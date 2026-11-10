@@ -47,7 +47,7 @@ const body = prepareTables(await Astro.slots.render('default'));
 <style>
   .exhibit {
     clear: right;
-    margin-block: var(--s-8);
+    margin-block: var(--s-9);
     padding-top: var(--s-5);
     border-top: 2px solid var(--rule-strong);
     font-family: var(--font-sans);
@@ -69,4 +69,6 @@ const body = prepareTables(await Astro.slots.render('default'));
   }
   /* reach across the empty right column: the article body grid is the size container */
   @media (min-width: 900px) { .exhibit { width: 100cqw; } }
+  /* ≥ 1360px: reading column + notes column (the rail on the left stays clear for the sticky contents) */
+  @media (min-width: 1360px) { .exhibit { width: calc(var(--col, 44rem) + var(--gap, 4rem) + var(--side, 15rem)); } }
 </style>

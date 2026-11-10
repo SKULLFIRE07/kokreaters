@@ -1,15 +1,16 @@
 ---
 /**
- * Proof from the founder's career (REDESIGN-V3 §4 detail 6), navy band. Eyebrow "Impact", h2 "From our founder’s
- * career", the matching ResultCard (dateline, big figure, the result line), and "See the impact →" to /impact#<id>.
+ * Proof from the founder's career (REDESIGN-V3 §4 detail 6), navy band; v3.1 (§9.3 "big numbers", asymmetric split).
+ * Eyebrow "Impact", h2 "From our founder’s career" and "See the impact →" (to /impact#<id>) in columns 1–5; in columns
+ * 6–12 an editorial figure plate: a hairline, the dateline label, the result figure at display scale (--accent, counts
+ * up once via the foundation's data-count) and the result line in large serif type. Page-local (not ResultCard): the
+ * card's 76px figure and 26ch title read as a small card adrift in a wide navy band at 1440–1920.
  * Without a result (strategy, deals: no founder result maps to them, C-8) the page renders this band in staging only,
  * holding the heading and a <Confirm>; preview and production omit it entirely.
- * ≥ 900px: the RailSection grid — heading and link in columns 1–4, the card in columns 6–12 (same start as the rails).
- * Mobile (< 900px): heading → card (full width) → link, so the link follows what it points at.
+ * Mobile (< 900px): heading → plate (figure 64px) → link, so the link follows what it points at.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
-import ResultCard from '@/components/cards/ResultCard.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { pillarPage } from '@/data/pillars';
@@ -26,8 +27,10 @@ const figure = r ? (r.figure?.value ?? figureFallback[r.id]) : undefined;
     <SectionHeader id="record-title" eyebrow={impactPage.overline} title={pillarPage.fromTheRecord} class="proof__head" />
     {r ? (
       <>
-        <div class="proof__card" data-reveal style="--i:1">
-          <ResultCard eyebrow={r.dateline} figure={figure} title={r.homeLine} />
+        <div class="proof__card plate" data-reveal style="--i:1">
+          <p class="plate__eyebrow t-label">{r.dateline}</p>
+          {figure && <p class="plate__figure" data-count>{figure}</p>}
+          <p class="plate__line">{r.homeLine}</p>
         </div>
         <div class="proof__link"><ArrowLink href={`/impact#${r.id}`}>{microcopy.impactLink}</ArrowLink></div>
       </>
@@ -38,12 +41,27 @@ const figure = r ? (r.figure?.value ?? figureFallback[r.id]) : undefined;
 </Section>
 <style>
   .proof { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .proof > :global(.proof__head) { margin-bottom: var(--s-6); }
-  .proof__link { margin-top: var(--s-4); }
+  .proof > :global(.proof__head) { margin-bottom: var(--s-7); }
+  .proof__link { margin-top: var(--s-6); }
+
+  .plate { border-top: 1px solid var(--rule); padding-top: var(--s-6); }
+  .plate__eyebrow { color: var(--label); }
+  .plate__figure {
+    margin-top: var(--s-6);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(4rem, 2.4rem + 6.4vw, 9.5rem);
+    line-height: .95; font-weight: 300; letter-spacing: -0.035em; color: var(--accent);
+    font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+  }
+  .plate__line {
+    margin-top: var(--s-6);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.375rem, 1.1rem + .9vw, 2rem);
+    line-height: 1.3; font-weight: 380; color: var(--head); text-wrap: pretty; max-width: 32ch;
+  }
   @media (min-width: 900px) {
     .proof { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: var(--grid-gap); }
-    .proof > :global(.proof__head) { grid-column: 1 / 5; grid-row: 1; margin-bottom: 0; }
-    .proof__link { grid-column: 1 / 5; grid-row: 2; align-self: start; margin-top: var(--s-5); }
-    .proof__card { grid-column: 6 / -1; grid-row: 1 / 3; }
+    .proof > :global(.proof__head) { grid-column: 1 / 6; grid-row: 1; margin-bottom: 0; }
+    .proof__link { grid-column: 1 / 6; grid-row: 2; align-self: start; margin-top: var(--s-6); }
+    .proof__card { grid-column: 7 / -1; grid-row: 1 / 3; }
+    .plate { padding-top: var(--s-7); }
   }
 </style>

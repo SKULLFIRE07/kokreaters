@@ -27,4 +27,8 @@ export const articleCopy = {
   aboutAuthor: 'About the author',
   draft: 'Draft',
   note: 'Note',
+  /** Heading of the sticky contents rail beside the article body (≥ 1360px). */
+  contents: 'In this article',
+  /** Prefix of the hero photo credit line: "Photo: {name}, {source}". */
+  photo: 'Photo',
 } as const;

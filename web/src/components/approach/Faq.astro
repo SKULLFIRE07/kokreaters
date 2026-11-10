@@ -3,7 +3,7 @@
  * /approach §6 — FAQ (REDESIGN-V3 §4 Approach, §8.8). White band. Native <details> Accordion (works without JS).
  * Answers come from data/approach.ts `faq` (drafted for approval 10 Nov 2026; none carries `confirm` today). An answer
  * that carries `confirm` gets a <Confirm id="C-22"> tag under the accordion in staging only (plain-text answers).
- * Desktop (≥ 900): heading in columns 1–4, accordion in columns 6–12 (asymmetric reading layout).
+ * Desktop (≥ 900): heading in columns 1–5 (sticky under the header), accordion in columns 7–12 (asymmetric 5/6 split).
  * Mobile: one column — heading, then the accordion full width (summary rows ≥ 56px).
  */
 import Section from '@/components/ui/Section.astro';
@@ -20,10 +20,10 @@ const pending = faq.map((f, i) => ({ n: i + 1, note: f.confirm })).filter((f) =>
 ---
 <Section ground="white" labelledby="faq-h" class="faq">
   <div class="grid-12">
-    <div style="--col: 1 / 5">
-      <SectionHeader id="faq-h" title={faqHeading} class="faq__head" />
+    <div class="faq__aside" style="--col: 1 / 6">
+      <SectionHeader id="faq-h" title={faqHeading} layout="stack" class="faq__head" />
     </div>
-    <div style="--col: 6 / -1" data-reveal>
+    <div style="--col: 7 / -1" data-reveal>
       <Accordion id="approach-faq" items={items} />
       {showConfirm && pending.length > 0 && (
         <p class="faq__confirm">
@@ -37,5 +37,8 @@ const pending = faq.map((f, i) => ({ n: i + 1, note: f.confirm })).filter((f) =>
   .faq__confirm { margin-top: var(--s-4); display: flex; flex-wrap: wrap; gap: var(--s-2); }
   @media (min-width: 900px) {
     .faq :global(.faq__head) { margin-bottom: 0; }
+    .faq :global(.faq__head .sh__title) { max-width: 11ch; }
+    /* the heading stays in view while the answers open beside it */
+    .faq__aside { align-self: start; position: sticky; top: calc(var(--header-h-compact) + var(--s-8)); }
   }
 </style>

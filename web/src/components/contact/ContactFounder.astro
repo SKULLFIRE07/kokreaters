@@ -1,0 +1,50 @@
+---
+/**
+ * Contact hero aside (REDESIGN-V3 §4 Contact, §9.2 "no image cut"): the person who reads every message. The 4:5 studio
+ * portrait (src/assets/photos/ganeaysh-portrait.jpg) in its natural 4:5 frame, so nothing is cropped, standing on the
+ * hero band's bottom edge (it cancels the hero's bottom padding, `--_bottom`, which PageHero sets on the band), with the
+ * name (serif) and role to its left, aligned to the photo's foot.
+ * Mobile (< 900px): a row under the lead: name and role left, the portrait 104px wide right, still standing on the band
+ * edge. 900–1199px: portrait 180px; ≥ 1200px: 280px; ≥ 1600px: 320px. The whole figure sits at the right of the
+ * hero's 7/5 grid.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import { founderName, founderRole, portraitAlt } from '@/data/founder';
+import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
+---
+<figure class="cfo">
+  <figcaption class="cfo__cap">
+    <span class="cfo__name">{founderName}</span>
+    <span class="cfo__role">{founderRole}</span>
+  </figcaption>
+  <Photo
+    src={portrait}
+    alt={portraitAlt.founder}
+    ratio="4/5"
+    position="50% 50%"
+    sizes="(min-width: 1600px) 320px, (min-width: 1200px) 280px, (min-width: 900px) 180px, 104px"
+    widths={[208, 320, 440, 560, 640]}
+    class="cfo__photo"
+  />
+</figure>
+
+<style>
+  .cfo {
+    display: flex; align-items: flex-end; justify-content: flex-end; gap: var(--s-5);
+    margin: 0 0 calc(-1 * var(--_bottom, 64px));
+  }
+  .cfo__cap { display: grid; gap: 2px; padding-bottom: var(--s-5); text-align: right; }
+  .cfo__name { white-space: nowrap; font: 450 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; color: var(--head); }
+  .cfo__role { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .cfo :global(.cfo__photo) { flex: none; width: 104px; }
+
+  @media (min-width: 900px) {
+    .cfo__cap { padding-bottom: var(--s-6); }
+    .cfo :global(.cfo__photo) { width: 180px; }
+  }
+  @media (min-width: 1200px) {
+    .cfo { gap: var(--s-6); }
+    .cfo :global(.cfo__photo) { width: 280px; }
+  }
+  @media (min-width: 1600px) { .cfo :global(.cfo__photo) { width: 320px; } }
+</style>

@@ -3,7 +3,7 @@
  * Coming soon (REDESIGN-V3 §4 Insights hub): the `coming-soon` stubs as a small, unlinked text list (no thin pages).
  * Ordered by format, then title. Each item: label row (format · expertise) with a "Soon" tag at its end, and the serif
  * title in --fg-2 (not --head, no arrow), hairline between items: visibly not a link next to the linked insight cards.
- * Layout ≥ 900px: heading + one line in columns 1–4, the list in 5–12 as two columns.
+ * Layout ≥ 900px: heading (h2 size) + one line in columns 1–4, the list in 5–12 as two columns; full section spacing (§9.3).
  * 600–899px: heading and line above a two-column list. Mobile: one column of items; titles at 19px serif, labels 12px.
  */
 import type { CollectionEntry } from 'astro:content';
@@ -16,10 +16,10 @@ interface Props { entries: CollectionEntry<'insights'>[]; rule?: boolean; }
 const { entries, rule = false } = Astro.props;
 ---
 {entries.length > 0 && (
-  <Section ground="white" pad="tight" labelledby="soon-h" rule={rule} class="soon">
+  <Section ground="white" labelledby="soon-h" rule={rule} class="soon">
     <div class="soon__grid">
       <div class="soon__head" data-reveal>
-        <h2 id="soon-h" class="soon__title t-h3">{insightsHub.comingSoon}</h2>
+        <h2 id="soon-h" class="soon__title t-h2">{insightsHub.comingSoon}</h2>
         <p class="soon__lead">{insightsHub.comingSoonLead}</p>
       </div>
       <ul class="soon__list" role="list" aria-labelledby="soon-h">
@@ -35,19 +35,19 @@ const { entries, rule = false } = Astro.props;
   </Section>
 )}
 <style>
-  .soon__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .soon__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
   .soon__title { margin: 0; }
-  .soon__lead { margin: var(--s-3) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); max-width: 34ch; }
+  .soon__lead { margin: var(--s-5) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); max-width: 30ch; text-wrap: pretty; }
   .soon__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); border-top: 1px solid var(--rule); }
   .soon__item {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; align-content: start; align-items: center;
-    gap: var(--s-2) var(--s-4); padding-block: var(--s-5); border-bottom: 1px solid var(--rule);
+    gap: var(--s-3) var(--s-4); padding-block: var(--s-6); border-bottom: 1px solid var(--rule);
   }
   .soon__label { grid-area: 1 / 1; margin: 0; color: var(--fg-2); }
   .soon__item :global(.soon__tag) { grid-area: 1 / 2; justify-self: end; }
   .soon__name {
-    grid-column: 1 / -1; margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4);
-    line-height: var(--lh-h4); font-weight: 450; color: var(--fg-2); text-wrap: balance; max-width: 34ch;
+    grid-column: 1 / -1; margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3);
+    line-height: 1.25; font-weight: 420; letter-spacing: -0.01em; color: var(--fg-2); text-wrap: balance; max-width: 26ch;
   }
   @media (min-width: 600px) {
     .soon__list { grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 0; }

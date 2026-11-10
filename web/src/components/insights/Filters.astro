@@ -7,10 +7,11 @@
  * Server-rendered `hidden`: scripts/pages/insights.ts un-hides it, reads ?pillar= & ?format= (a value without a button
  * falls back to "All"), filters the .insight-row items in [data-insight-list] and writes the count into
  * [data-filter-status] (singular-aware).
- * One navy highlight per row glides to the pressed button (Motion Primitives "AnimatedBackground", vanilla);
- * without it the pressed button fills itself.
- * Mobile: label above its row; buttons wrap onto as many lines as needed (never a horizontal scroll); 44px tap height
- * on touch, 40px visual + 2px invisible hit margin on fine pointers; 24px between the two groups.
+ * v3.1: borderless text toggles; one 2px navy underline per row glides to the pressed button (the script positions
+ * [data-filter-glide]); without it the pressed button draws its own underline. ≥ 900px: label column 8rem, options
+ * on one line, the live count right-aligned on the bar.
+ * Mobile: label above its row; options wrap onto as many lines as needed (never a horizontal scroll); 44px tap
+ * height everywhere.
  */
 import type { CollectionEntry } from 'astro:content';
 import { pillars } from '@/data/pillars';
@@ -50,42 +51,40 @@ const one = insightsHub.countOne;
 </div>
 )}
 <style>
-  .filters { display: grid; gap: var(--s-5); margin-bottom: var(--s-7); }
-  .filters__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+  /* Refined text toggles (§9.3: fewer boxes): the options are quiet sans labels; the pressed one turns --head and a
+     2px navy underline glides beneath it. A hairline closes the bar; the live count sits on it. */
+  .filters { display: grid; gap: var(--s-4); margin-bottom: var(--s-6); }
+  .filters__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); }
   .filters__label { color: var(--fg-2); }
   .filters__track { position: relative; isolation: isolate; }
-  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
   .filters__btn {
     position: relative; z-index: 1;
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4);
-    border: 1px solid var(--rule); border-radius: var(--r-sm); background: var(--surface); color: var(--fg);
-    font: 500 var(--fs-small)/1.2 var(--font-sans); letter-spacing: 0; cursor: pointer;
-    transition: border-color var(--d-1) var(--ease-out), color var(--d-2) var(--ease-out), background-color var(--d-1) var(--ease-out);
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
+    border: 0; border-radius: 0; background: none; color: var(--fg-2);
+    font: 500 var(--fs-body)/1.2 var(--font-sans); letter-spacing: -0.005em; cursor: pointer;
+    transition: color var(--d-2) var(--ease-out);
   }
-  .filters__btn:hover { border-color: var(--fg-2); }
+  .filters__btn:hover { color: var(--head); }
   .filters__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-  .filters__btn[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
-  /* glide on: the moving highlight carries the fill, the pressed button only switches its text colour */
-  .filters__track.has-glide .filters__btn[aria-pressed="true"] { background: transparent; }
+  .filters__btn[aria-pressed="true"] { color: var(--head); box-shadow: inset 0 -2px 0 var(--head); }
+  /* glide on: the moving underline carries the mark, the pressed button only switches its text colour */
+  .filters__track.has-glide .filters__btn[aria-pressed="true"] { box-shadow: none; }
   .filters__glide {
     position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0;
-    border-radius: var(--r-sm); background: var(--btn-bg); opacity: 0; pointer-events: none;
-    transition: transform var(--d-2) var(--ease-out), width var(--d-2) var(--ease-out), height var(--d-2) var(--ease-out);
+    border-bottom: 2px solid var(--head); opacity: 0; pointer-events: none;
+    transition: transform var(--d-3) var(--ease-out), width var(--d-3) var(--ease-out), height var(--d-3) var(--ease-out);
   }
   .filters__glide.is-still { transition: none; }
   .filters__status {
-    margin: var(--s-2) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--rule);
+    margin: 0; min-height: calc(var(--lh-meta) * 1em); padding-top: var(--s-3);
     font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
   }
-  .filters__status:empty { padding-top: 0; }   /* no filter chosen: the hairline alone closes the filter bar */
 
-  @media (pointer: fine) {
-    .filters__btn { min-height: 40px; }
-    .filters__btn::after { content: ""; position: absolute; inset: -2px 0; }
-  }
+  @media (max-width: 899px) { .filters__status:empty { min-height: 0; padding-top: 0; } }
   @media (min-width: 900px) {
-    .filters { gap: var(--s-4); }
-    .filters__row { grid-template-columns: 7.5rem minmax(0, 1fr); align-items: start; column-gap: var(--s-5); }
-    .filters__label { padding-top: 12px; }
+    .filters { gap: var(--s-2); grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-8); align-items: end; }
+    .filters__row { grid-column: 1; grid-template-columns: 8rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5); }
+    .filters__status { grid-column: 2; grid-row: 1 / span 2; align-self: end; padding: 0 0 12px; text-align: right; }
   }
 </style>

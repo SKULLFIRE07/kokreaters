@@ -1,13 +1,15 @@
 ---
 /**
- * Insights hub (REDESIGN-V3 §4). Bands: white centred hero → featured insight (white, hairline) → library with filters
- * (grey) → coming soon (white) → CtaBand with the newsletter (grey, BaseLayout) → footer (navy).
+ * Insights hub (REDESIGN-V3 §4, §9 v3.1 "elegant full-screen"). Bands: white airy hero (H1 left in columns 1–7, the
+ * lead right in 8–12, bottom-aligned) → featured insight (white, hairline; the cover story, photo bleeding off the
+ * left edge) → library with filters (grey; index rows) → coming soon (white) → CtaBand with the newsletter (grey,
+ * BaseLayout) → footer (navy).
  * The newsletter is the CtaBand's second column (as on Home): one sign-up on the page, and the footer drops its own.
  * The featured insight is not repeated in the library until a filter is chosen; with a single visible insight the
  * featured band stands alone (no library, no filters).
  * Production with no approved insight: hero, coming soon and the CtaBand with the newsletter. Coming soon opens on a
  * hairline whenever there is no grey library above it (it then touches the white hero or featured band).
- * Mobile: every band is one column; the hero stays centred; filters wrap; cards stack.
+ * Mobile: every band is one column; the hero lead follows the H1; filters wrap; rows stack photo → text.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
@@ -30,10 +32,9 @@ const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
 const showLibrary = list.length > (featured ? 1 : 0);
 ---
 <BaseLayout page="insights" seo={seo} breadcrumbs={crumbs} cta={{ newsletter: true }}>
-  <PageHero
-    ground="white" align="center" titleId="hub-title" crumbs={crumbs}
-    eyebrow={insightsCopy.overline} title={insightsCopy.headline} lead={seo.description}
-  />
+  <PageHero ground="white" titleId="hub-title" class="hub-hero" crumbs={crumbs} eyebrow={insightsCopy.overline} title={insightsCopy.headline}>
+    <p slot="aside" class="hub-lead">{seo.description}</p>
+  </PageHero>
 
   {featured && <FeaturedInsight entry={featured} />}
 
@@ -49,3 +50,11 @@ const showLibrary = list.length > (featured ? 1 : 0);
 </BaseLayout>
 
 <script>import '@/scripts/pages/insights.ts';</script>
+
+<style>
+  .hub-lead {
+    margin: 0; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); max-width: 34ch; text-wrap: pretty;
+  }
+  @media (min-width: 900px) { .hub-lead { padding-bottom: .4em; } }
+  @media (max-width: 899px) { :global(.hero.hub-hero) { --_bottom: var(--s-7); } :global(.hub-hero .hero__aside) { margin-top: var(--s-6); } }
+</style>

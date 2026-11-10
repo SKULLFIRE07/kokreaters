@@ -1,37 +1,61 @@
-/* src/styles/motion.css — REDESIGN-V3 §1.5 "Apple-grade polish, McKinsey-grade restraint".
-   Few motions, each precise; nothing moves on its own; no libraries. Every rule that moves something lives inside
+/* src/styles/motion.css — REDESIGN-V3 §1.5 + §9.4 (v3.1 "elegant full-screen": Apple-like, still no toys).
+   Nothing moves on its own; no libraries. Every rule that moves something lives inside
    `prefers-reduced-motion: no-preference`, and every hidden start state also requires html.js (set by the head script)
    and no html.motion-failed (the head script's safety timer), so content is always visible without JS.
-   Hooks: [data-reveal] (+ style="--i:n" stagger, .is-in added by src/scripts/site.ts) · [data-reveal="lines"] on a hero H1 ·
-   [data-settle] around media · details[data-smooth] · .u-draw / .u-nudge / .u-zoom hover primitives. */
+   Hooks:
+     [data-reveal]            blur-fade once at 15 % visible (+ style="--i:n" stagger; .is-in from src/scripts/site.ts)
+     [data-reveal="split"]    a block whose heading is split into words (ui/SplitText → .wd, --w); the words rise line by
+                              line (site.ts sets --l per word), the block's [data-part] children blur-fade after them
+     [data-reveal="lines"]    the PageHero H1 only: its words rise in a stagger on load (CSS only, no JS, no flash)
+     [data-settle] / <Photo settle>   image scales 1.06 → 1 while it scrolls in (CSS scroll-driven, `scale` property, so
+                              it composes with the .u-zoom hover `transform`)
+     [data-parallax]          (PhotoInterlude) the image drifts ≤ 8 % against the scroll (CSS scroll-driven)
+     [data-count]             (site.ts) a stat figure counts up once from 0 to its server-rendered value
+     details[data-smooth] · .u-draw / .u-nudge / .u-zoom hover primitives. */
 
 @media (prefers-reduced-motion: no-preference) {
   /* 1 · Blur-fade reveal (Magic UI BlurFade, ported): once, at 15 % visible. Never on an h1. */
-  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(h1) {
+  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not([data-reveal="split"]):not(h1) {
     transition:
       opacity var(--d-4) var(--ease-out),
       transform var(--d-4) var(--ease-out),
       filter var(--d-4) var(--ease-out);
     transition-delay: calc(min(var(--i, 0), 5) * 70ms);
   }
-  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not(h1):not(.is-in) {
+  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not([data-reveal="split"]):not(h1):not(.is-in) {
     opacity: 0;
     transform: translateY(20px);
     filter: blur(6px);
   }
 
-  /* 2 · Headline line reveal: on load, not on scroll. The H1 is painted at full opacity without JS or with reduced
-     motion; `backwards` holds the start state only during the 120 ms delay. */
-  html.js:not(.motion-failed) [data-reveal="lines"] {
-    animation: kk-rise 900ms var(--ease-out) 120ms backwards;
+  /* 1b · Split heading block: words rise line by line (--l from site.ts; --w word index before it measures), then the
+     block's other parts ([data-part]: eyebrow, lead, link) blur-fade in after the heading. */
+  html.js:not(.motion-failed) [data-reveal="split"] .wd {
+    transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out), filter 900ms var(--ease-out);
+    transition-delay: calc(min(var(--l, 0), 4) * 110ms + var(--d0, 0ms));
   }
+  html.js:not(.motion-failed) [data-reveal="split"]:not(.is-in) .wd { opacity: 0; transform: translateY(.42em); filter: blur(6px); }
+  html.js:not(.motion-failed) [data-reveal="split"] [data-part] {
+    transition: opacity var(--d-4) var(--ease-out), transform var(--d-4) var(--ease-out), filter var(--d-4) var(--ease-out);
+    transition-delay: calc(var(--d0, 0ms) + 180ms + min(var(--i, 0), 5) * 90ms);
+  }
+  html.js:not(.motion-failed) [data-reveal="split"]:not(.is-in) [data-part] { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+
+  /* 2 · Hero headline: its words rise in a stagger on load, not on scroll. The H1 is painted at full opacity without JS
+     or with reduced motion; `backwards` holds each word's start state only during its own delay. */
+  html.js:not(.motion-failed) [data-reveal="lines"] .wd {
+    animation: kk-rise 1000ms var(--ease-out) calc(120ms + min(var(--w, 0), 14) * 45ms) backwards;
+  }
+  html.js:not(.motion-failed) [data-reveal="lines"]:not(:has(.wd)) { animation: kk-rise 900ms var(--ease-out) 120ms backwards; }
+  /* …and what follows it in the hero (lead, actions) settles in just after the headline */
+  html.js:not(.motion-failed) [data-hero-after] { animation: kk-rise 900ms var(--ease-out) calc(420ms + var(--i, 0) * 90ms) backwards; }
 
   /* 3 · Image settle (Apple product-shot feel): scroll-driven, CSS only; unsupported browsers just show the image. */
   @supports (animation-timeline: view()) {
     [data-settle] :is(img, video) {
       animation: kk-settle linear both;
       animation-timeline: view();
-      animation-range: entry 0% cover 40%;
+      animation-range: entry 0% cover 45%;
     }
   }
 
@@ -60,12 +84,15 @@
 }
 
 @keyframes kk-rise {
-  from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+  from { opacity: 0; transform: translateY(.4em); filter: blur(6px); }
 }
 @keyframes kk-settle {
-  from { transform: scale(1.08); }
-  to { transform: scale(1); }
+  from { scale: 1.06; }
+  to { scale: 1; }
 }
+
+/* Split words (ui/SplitText): inline-blocks so they can move; the real spaces between them still wrap and balance. */
+.wd { display: inline-block; }
 
 /* 7 · Underline that draws from the left (colour only, so it also runs under reduced motion with 0 ms tokens). */
 .u-draw {

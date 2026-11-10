@@ -101,6 +101,8 @@ export const aboutPage = {
   mapHeading: `${placeCount.charAt(0).toUpperCase()}${placeCount.slice(1)} places in ${countryCount} countries`,
   credentialsHeading: 'Education, languages and recognition',
   recognitionLabel: 'Recognition',
+  /** v3.1 photo interlude caption: the sectors from longBio[0], word for word; no new fact. */
+  interludeCaption: 'Edible oils, specialty fats and food ingredients.',
   linkedin: 'View LinkedIn profile',
   profilePdf: 'Download one-page profile (PDF)',
   /** The same button below 390px wide, where the full label would wrap "(PDF)" onto a second line. */

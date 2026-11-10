@@ -1,0 +1,95 @@
+---
+/**
+ * Photo interlude (REDESIGN-V3 §9.1): a single full-bleed photograph between two sections on a long page, with an
+ * optional one-line serif caption. One per page at most (Home, Approach, Impact, About). Use the strongest LANDSCAPE
+ * photos whose subject survives a wide crop (§9.2); the record's focal point applies automatically.
+ *  Height: md = 40vw (≈ 2.5:1) · lg = 46vw (≈ 2.2:1), capped at 86 / 92svh and 900 / 1000px, 320 / 360px floor, so a
+ *  3:2 photo keeps at least ~60 % of its height on every wide screen (1440 → 1920).
+ *  Motion: the image drifts up to 6 % against the scroll (CSS scroll-driven [data-parallax], 3 % overscan each side);
+ *  static under reduced motion or where scroll timelines are unsupported.
+ *  Caption: white serif on a soft bottom gradient, bottom-left on the container grid (AA on the gradient).
+ *  It is a <figure>; the caption is its <figcaption>. Without a caption the photo keeps its alt text.
+ * Mobile: height = min(64svh, 100vw) so a landscape photo is never cut to a sliver (about 1:1 on a 390px phone);
+ *  the caption sits on the gradient at 20px gutters, --fs-h4 size.
+ * Usage:
+ *   <PhotoInterlude slug="refinery-02" caption="From crude oil to customer specification." />
+ *   <PhotoInterlude src={p.src} alt={p.alt} position={p.position} size="lg" />
+ */
+import type { ImageMetadata } from 'astro';
+import Photo from './Photo.astro';
+import { photos, type BleedSafeSlug } from '@/data/photos';
+
+interface Props {
+  /** Only full-bleed-safe photos (BLEED_SAFE in src/data/photos.ts) are accepted. */
+  slug?: BleedSafeSlug;
+  src?: ImageMetadata;
+  alt?: string;
+  position?: string;
+  caption?: string;
+  /** Small label above the caption (e.g. a place). */
+  eyebrow?: string;
+  size?: 'md' | 'lg';
+  class?: string;
+}
+const { slug, src: srcProp, alt: altProp, position: posProp, caption, eyebrow, size = 'md', class: cls } = Astro.props;
+const record = slug ? photos[slug] : undefined;
+const src = srcProp ?? record?.src;
+if (!src) throw new Error('PhotoInterlude: pass `slug` or `src`.');
+const alt = altProp ?? record?.alt ?? '';
+const position = posProp ?? record?.position;
+const hasCap = !!(caption || eyebrow);
+---
+<figure class:list={['interlude', `interlude--${size}`, hasCap && 'interlude--cap', cls]}>
+  <div class="interlude__frame" data-parallax>
+    <Photo src={src} alt={alt} position={position} fill sizes="100vw" class="interlude__photo" />
+  </div>
+  {hasCap && (
+    <figcaption class="interlude__cap">
+      <div class="container">
+        {eyebrow && <p class="interlude__eyebrow t-label">{eyebrow}</p>}
+        {caption && <p class="interlude__caption">{caption}</p>}
+      </div>
+    </figcaption>
+  )}
+</figure>
+<style>
+  .interlude { position: relative; margin: 0; overflow: clip; background: var(--navy-900); isolation: isolate; }
+  .interlude__frame { position: relative; height: max(280px, min(64svh, 100vw)); }
+  @media (min-width: 900px) {
+    /* tied to the width (≈ 2.5:1 md, ≈ 2.2:1 lg) so a 3:2 photo keeps ≥ 60 % of its height on any wide screen;
+       capped by the viewport height so it never becomes a full screen of photo */
+    .interlude--md .interlude__frame { height: clamp(320px, min(40vw, 86svh), 900px); }
+    .interlude--lg .interlude__frame { height: clamp(360px, min(46vw, 92svh), 1000px); }
+  }
+  .interlude__frame :global(.interlude__photo) { background: var(--navy-900); }
+
+  .interlude--cap .interlude__frame::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(0deg, rgba(11, 27, 51, .82) 0%, rgba(11, 27, 51, .42) 30%, rgba(11, 27, 51, 0) 58%);
+  }
+  .interlude__cap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding-bottom: clamp(1.5rem, .9rem + 2.4vw, 3.5rem);
+    color: var(--white);
+  }
+  .interlude__eyebrow { color: var(--blue-300); margin-bottom: var(--s-3); }
+  .interlude__caption {
+    max-width: 34ch; margin: 0;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; font-style: italic;
+    font-size: clamp(1.25rem, 1.02rem + .95vw, 2.25rem); line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--white); text-wrap: balance;
+  }
+
+  /* subtle parallax: 3 % overscan top and bottom, the image drifts from -3 % to +3 % while the frame crosses the view */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .interlude .interlude__frame[data-parallax] :global(.photo .photo__img) {
+        top: -3%; height: 106%;
+        animation: kk-drift linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+      @keyframes kk-drift { from { translate: 0 -3%; } to { translate: 0 3%; } }
+    }
+  }
+</style>

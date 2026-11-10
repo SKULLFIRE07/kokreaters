@@ -1,21 +1,37 @@
 ---
 /**
- * /industries (REDESIGN-V3 §4 Industries, §8.8–8.9). Grounds: grey hero → white (nine cards) → grey CtaBand
- * (BaseLayout) → navy footer.
- *  1. PageHero grey: crumbs, eyebrow "Industries", H1 "Where we work", and the one-paragraph intro
- *     (`industriesPage.lead`, drafted 10 Nov 2026 for approval; C-15 closed) in every mode.
- *  2. IndustriesGrid: nine IndustryTile cards with id={slug} anchors and "Relevant expertise" links.
- * Mobile: one column; the intro at lead size; the grid is one column (IndustriesGrid).
+ * /industries (REDESIGN-V3 §4 Industries, §8.8–8.9, §9 "elegant full-screen"). Grounds: navy photo hero → white (nine
+ * industries) → grey CtaBand (BaseLayout) → navy footer.
+ *  1. PageHero md, full-bleed background `oilseeds-01` (sunflower seeds: the raw material every industry here starts
+ *     from; BLEED_SAFE, an all-over texture, so no crop can cut a subject): crumbs, eyebrow "Industries",
+ *     H1 "Where we work", and the first sentence of the page intro (`industriesPage.lead`, C-15 closed) as the lead.
+ *  2. IndustriesGrid: the rest of the intro as the section lead under a visible "All industries" h2, then the nine
+ *     industries as a 3 × 3 editorial grid with id={slug} anchors and "Relevant expertise" links.
+ *  The whole intro paragraph is on the page, in its original order (hero lead, then the section lead).
+ * Mobile: the hero photo becomes a band above the text; the grid is one column (IndustriesGrid).
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import IndustriesGrid from '@/components/industries/IndustriesGrid.astro';
 import { industriesPage } from '@/data/industries';
+import { photos } from '@/data/photos';
 import { pageSeo } from '@/lib/seo';
 
 const crumbs = [{ label: industriesPage.overline, href: '/industries' }];
+const photo = photos['oilseeds-01'];
+// the intro's first sentence leads the hero; the rest introduces the grid (split on sentence ends, nothing dropped)
+const [first, ...rest] = industriesPage.lead.split(/(?<=\.)\s+/);
 ---
 <BaseLayout page="industries" seo={pageSeo('industries')} breadcrumbs={crumbs}>
-  <PageHero ground="grey" eyebrow={industriesPage.overline} title={industriesPage.headline} lead={industriesPage.lead} crumbs={crumbs} titleId="industries-title" />
-  <IndustriesGrid />
+  <PageHero
+    ground="navy"
+    eyebrow={industriesPage.overline}
+    title={industriesPage.headline}
+    lead={first}
+    crumbs={crumbs}
+    image={photo.src}
+    imageAlt={photo.alt}
+    titleId="industries-title"
+  />
+  <IndustriesGrid lead={rest.join(' ')} />
 </BaseLayout>

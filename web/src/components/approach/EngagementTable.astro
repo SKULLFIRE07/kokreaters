@@ -3,8 +3,9 @@
  * /approach §5 — "Ways to work with us": the five engagement models (REDESIGN-V3 §4 Approach; brief 6.4).
  * Grey band. Model names verbatim from data. The values are the brief's draft (CONFIRM 10, staging only).
  * ≥ 700px: a real <table> — column heads from `modelColumns` (th scope="col"), the model name as the row header
- *   (th scope="row", serif), a 2px navy rule under the head, hairlines between rows.
- * < 700px: the same five rows as stacked definition cards (white surface, 2px navy top rule): serif h3 model name,
+ *   (th scope="row", serif), a navy hairline under the head, hairlines between rows;
+ *   rows breathe (32 → 48px) and the values set at lead size from 1200px.
+ * < 700px: the same five rows as stacked hairline entries (no box, §9.3; a navy rule over the first): serif h3 model name,
  *   then "Typical shape" and "Good for" as label/value pairs. Only one of the two renders per viewport
  *   (display: none on the other), so assistive tech never meets both; nothing scrolls sideways.
  */
@@ -60,32 +61,32 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
 <style>
   /* ── table (≥ 700px) ── */
   .models__wide { display: none; }
-  .mtable { width: 100%; text-align: left; }
-  .mtable__c1 { width: 26%; }
+  .mtable { width: 100%; text-align: left; border-collapse: collapse; }
+  .mtable__c1 { width: 30%; }
   .mtable__c2 { width: 30%; }
   .mtable thead th {
-    padding: 0 var(--s-6) var(--s-4) 0; border-bottom: 2px solid var(--rule-strong); vertical-align: bottom;
+    padding: 0 var(--s-6) var(--s-4) 0; border-bottom: 1px solid var(--rule-strong); vertical-align: bottom;
     font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
     text-transform: uppercase; color: var(--fg-2);
   }
-  .mtable tbody :is(th, td) { padding: var(--s-5) var(--s-6) var(--s-5) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .mtable tbody :is(th, td) { padding: var(--s-6) var(--s-6) var(--s-6) 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
   .mtable :is(th, td):last-child { padding-right: 0; }
   .mtable tbody th {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    font-weight: 500; color: var(--head); text-wrap: balance;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 400; letter-spacing: var(--tr-h3); color: var(--head); text-wrap: balance;
   }
-  .mtable td { font-size: var(--fs-body); line-height: 1.5; color: var(--fg); text-wrap: pretty; }
+  .mtable td { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  .mtable td:last-child { color: var(--fg-2); }
 
-  /* ── stacked cards (< 700px) ── */
-  .models__cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
-  .mcard { background: var(--surface); border-top: 2px solid var(--rule-strong); padding: var(--s-5); }
+  /* ── stacked hairline cards (< 700px; §9.3: no boxes) ── */
+  .models__cards { list-style: none; margin: 0; padding: 0; display: grid; border-bottom: 1px solid var(--rule); }
+  .mcard { border-top: 1px solid var(--rule-strong); padding-block: var(--s-5) var(--s-6); }
+  .mcard + .mcard { border-top-color: var(--rule); }
   .mcard__name {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    font-weight: 500; color: var(--head);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
+    font-weight: 400; color: var(--head);
   }
-  .mcard__dl { margin-top: var(--s-3); }
-  .mcard__dl > div { padding-top: var(--s-3); }
-  .mcard__dl > div + div { margin-top: var(--s-3); border-top: 1px solid var(--rule); }
+  .mcard__dl { margin-top: var(--s-3); display: grid; gap: var(--s-4); }
   .mcard__dl dt {
     font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
     text-transform: uppercase; color: var(--fg-2);
@@ -97,5 +98,9 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
   @media (min-width: 700px) {
     .models__wide { display: block; }
     .models__cards { display: none; }
+  }
+  @media (min-width: 1200px) {
+    .mtable tbody :is(th, td) { padding-block: var(--s-7); }
+    .mtable td { font-size: var(--fs-lead); line-height: var(--lh-lead); }
   }
 </style>

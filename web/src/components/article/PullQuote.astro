@@ -9,16 +9,16 @@
 <blockquote class="pull" data-reveal><p class="pull__text"><slot /></p></blockquote>
 <style>
   .pull {
-    margin-block: var(--s-8);
+    margin-block: var(--s-9);
     padding: var(--s-1) 0 var(--s-1) var(--s-5);
     border-left: 2px solid var(--accent);
   }
   .pull__text {
     margin: 0;
     font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 400;
-    font-size: var(--fs-quote); line-height: var(--lh-quote); letter-spacing: var(--tr-quote);
+    font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.22; letter-spacing: var(--tr-quote);
     color: var(--head); text-wrap: balance; font-variant-numeric: lining-nums;
   }
   @media (min-width: 600px) { .pull { padding-left: var(--s-6); } }
-  @media (min-width: 1200px) { .pull { margin-right: -96px; } }
+  @media (min-width: 1200px) { .pull { margin-right: -96px; padding-left: var(--s-7); } }
 </style>

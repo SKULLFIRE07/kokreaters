@@ -24,7 +24,7 @@ interface Props {
 }
 const { items, ground = 'white', rule = false } = Astro.props;
 ---
-<RailSection id="industries-title" title={pillarPage.relatedIndustries} ground={ground} rule={rule}>
+<RailSection id="industries-title" title={pillarPage.relatedIndustries} ground={ground} rule={rule} pad={rule ? 'tight' : 'default'}>
   <ul class:list={['inds', items.length > 1 && 'inds--2']} role="list" data-reveal style="--i:1">
     {items.map((i) => (
       <li>

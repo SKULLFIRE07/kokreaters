@@ -1,48 +1,53 @@
 ---
 /**
- * /approach §4 — five principles as a numbered grid (REDESIGN-V3 §4 Approach). White band.
- * Six equal cells: the first holds the section heading, the other five the principles, so the grid closes with no
- * orphan cell. Every cell opens on a top rule (2px navy on the heading cell, 1px hairline on the principles);
- * a principle is "01" (serif numeral in --accent, ≥ 24px), serif h3 name, Inter body copy.
- * Desktop (≥ 900): 3 × 2. Tablet (600–899): 2 × 3. Mobile (< 600): one column — heading, then the five principles,
- * 40px apart, body 18px.
+ * /approach §5 — five principles as a numbered editorial list (REDESIGN-V3 §4 Approach, §9.3). White band.
+ * The h2 (SectionHeader), then five rows, each on a hairline: a light serif numeral, the serif h3 name, the copy.
+ * Desktop (≥ 900): the rows run on the 12-column grid — numeral in columns 1–2, name in 3–7, copy in 8–12, top-aligned
+ *  (the copy's first line sits level with the name's first line). 40 → 56px of air per row.
+ * Mobile (< 900): numeral and name side by side, the copy below at body size; rows 32px apart.
  */
 import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
 import { principles, principlesHeading } from '@/data/approach';
 import { pad2 } from '@/lib/format';
 ---
 <Section ground="white" labelledby="principles-h" class="principles">
-  <div class="pr">
-    <div class="pr__cell pr__cell--head" data-reveal>
-      <h2 id="principles-h" class="t-h2 pr__title">{principlesHeading}</h2>
-    </div>
+  <SectionHeader id="principles-h" title={principlesHeading} />
+  <ol class="pr" role="list">
     {principles.map((p, i) => (
-      <div class="pr__cell" data-reveal style={`--i:${(i + 1) % 3}`}>
+      <li class="pr__row" data-reveal style={`--i:${i % 3}`}>
         <span class="pr__n" aria-hidden="true">{pad2(i + 1)}</span>
-        <h3 class="t-h3 pr__name">{p.name}</h3>
+        <h3 class="pr__name">{p.name}</h3>
         <p class="pr__copy">{p.copy}</p>
-      </div>
+      </li>
     ))}
-  </div>
+  </ol>
 </Section>
 <style>
-  .pr { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); row-gap: var(--s-7); }
-  .pr__cell { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
-  .pr__cell--head { border-top: 2px solid var(--rule-strong); }
-  .pr__title { margin: 0; }
-  .pr__n {
-    display: block; font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.75rem; line-height: 1;
-    font-weight: 400; letter-spacing: -0.01em; color: var(--accent); font-variant-numeric: lining-nums tabular-nums;
+  .pr { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .pr__row {
+    display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: var(--s-4); align-items: baseline;
+    padding-block: var(--s-6) var(--s-7); border-top: 1px solid var(--rule);
   }
-  .pr__name { margin-top: var(--s-4); }
-  .pr__copy { margin-top: var(--s-3); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; max-width: 40ch; }
-  @media (min-width: 600px) {
-    .pr { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-8); }
+  .pr__n {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 300;
+    font-size: 1.75rem; line-height: 1; letter-spacing: -0.02em; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums;
+  }
+  .pr__name {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.25rem); line-height: 1.15; letter-spacing: -0.012em; color: var(--head); text-wrap: balance;
+  }
+  .pr__copy {
+    grid-column: 2; margin-top: var(--s-3);
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; max-width: 44ch;
   }
   @media (min-width: 900px) {
-    .pr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .pr__cell { padding-top: var(--s-6); padding-right: var(--s-5); }
-    .pr__n { font-size: 2rem; }
-    .pr__name { max-width: 18ch; }
+    .pr__row {
+      grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start;
+      padding-block: var(--s-7) var(--s-8);
+    }
+    .pr__n { grid-column: 1 / 3; font-size: clamp(2rem, 1.4rem + 1.2vw, 3rem); }
+    .pr__name { grid-column: 3 / 8; max-width: 20ch; }
+    .pr__copy { grid-column: 8 / -1; margin-top: .35em; font-size: var(--fs-lead); line-height: var(--lh-lead); }
   }
 </style>

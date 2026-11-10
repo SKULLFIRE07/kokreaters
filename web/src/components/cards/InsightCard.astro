@@ -1,6 +1,8 @@
 ---
 /**
- * Insight card (REDESIGN-V3 §3). The whole card is one link: the title's <a> is stretched over the card.
+ * Insight card (REDESIGN-V3 §3, §9.3). The whole card is one link: the title's <a> is stretched over the card.
+ * Light: image + text, no chrome. Images are 3:2 with the photo's focal point from src/data/photos.ts applied
+ * automatically (pass `imagePosition` only to override); they settle 1.06 → 1 on scroll and zoom 1.04 on hover.
  * Label row "POINT OF VIEW · Process design" (format label + pillar), serif title, optional summary, meta line
  * "12 Nov 2026 · 6 min read" (lib/format formatDate + microcopy.readingTime). Hover: title → --link, image 1.04.
  *  feature — large 3:2 image, title at h2-ish size. When the card itself is ≥ 880px wide (container query) it turns
@@ -55,6 +57,7 @@ const showSummary = !!summary && size !== 'compact';
       <Photo
         class="icard__media" src={image} alt={imageAlt} ratio={size === 'compact' ? '1/1' : '3/2'}
         sizes={sizes} priority={priority} position={imagePosition} widths={size === 'compact' ? [112, 224, 336] : undefined}
+        settle={size !== 'compact' && !priority}
       />
     )}
     <div class="icard__body">
@@ -76,12 +79,13 @@ const showSummary = !!summary && size !== 'compact';
 <style>
   .icard { position: relative; container-type: inline-size; height: 100%; }
   .icard__inner { display: flex; flex-direction: column; gap: var(--s-5); height: 100%; }
+  .icard--has-image:not(.icard--compact) .icard__inner { gap: var(--s-6); }
   .icard__body { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
   .icard__label { color: var(--label); }
   .icard__pillar { color: var(--fg-2); }
   .icard__title {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
-    font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head); text-wrap: balance;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.22;
+    font-weight: 450; letter-spacing: -0.01em; color: var(--head); text-wrap: balance;
   }
   .icard__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
   .icard__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
@@ -92,10 +96,10 @@ const showSummary = !!summary && size !== 'compact';
   .icard__meta { margin-top: auto; padding-top: var(--s-1); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
 
   /* feature */
-  .icard--feature .icard__title { font-size: clamp(1.625rem, 1.393rem + .952vw, 2.25rem); line-height: 1.18; font-weight: 450; letter-spacing: -0.01em; }
+  .icard--feature .icard__title { font-size: clamp(1.75rem, 1.43rem + 1.3vw, 2.75rem); line-height: 1.14; font-weight: 420; letter-spacing: -0.016em; }
   .icard--feature .icard__summary { font-size: var(--fs-body); line-height: var(--lh-body); }
   @container (min-width: 880px) {
-    .icard--feature.icard--has-image .icard__inner { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-7); align-items: center; }
+    .icard--feature.icard--has-image .icard__inner { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(3rem, 2rem + 3vw, 6rem); align-items: center; }
     .icard--feature .icard__title { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 430; letter-spacing: var(--tr-h2); }
   }
 

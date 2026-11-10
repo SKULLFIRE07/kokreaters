@@ -1,41 +1,62 @@
 ---
 /**
- * /approach §3 — Connect / Collaborate / Create (REDESIGN-V3 §4 Approach). Grey band.
- * A static ringed-node diagram (the logo's node: accent disc, white ring, accent outline; §0 signature) joined by a
- * 1px connector, with the three steps as an ordered list. Each step: node, "Step n", serif h3, the brief's copy, then
- * What we do / What you get / Typical duration. All nine values are drafted in data/approach.ts (10 Nov 2026, for
- * approval) and render in every mode. Should a value ever be null again, staging renders that row with a Confirm
- * (CONFIRM 10) and preview/production drop it (never "—"). Ids connect / collaborate / create are kept on the steps.
- * Desktop (≥ 900): three equal columns; the connector runs node to node along the top. The list is a 7-row grid
- * (node · Step n · name · copy · three rows) and each step, its body and its <dl> are row subgrids, so What we do /
- * What you get / Typical duration start on one line across the three columns whatever the length of each text.
- * Mobile (< 900): vertical — nodes on a left spine (connector runs down to the next node), text to the right,
- * 40px between steps; body copy 18px.
+ * /approach §3 — Connect / Collaborate / Create as sticky storytelling (REDESIGN-V3 §4 Approach, §9.4). Grey band.
+ * Desktop (≥ 900): two columns on the 12-column grid. Left (columns 1–4) is sticky under the header: the h2 "How we
+ *  work" and a vertical index of the three steps on the ringed-node connector (the logo's node: accent disc, white
+ *  ring, accent outline; §0 signature), each an in-page link to its step. Right (columns 6–12): the
+ *  three steps scroll past, each opening on a hairline: a large serif numeral, the serif h3 name, the brief's copy at
+ *  lead size, then What we do / What you get / Typical duration (three columns with their own hairlines from 1200px,
+ *  stacked rows below). Where CSS scroll-driven animations exist (and motion is allowed) the index item of the step in
+ *  view brightens; otherwise every item stays at full strength. No JS, no scroll-jacking.
+ * All nine values are drafted in data/approach.ts (10 Nov 2026, for approval) and render in every mode. Should a value
+ *  ever be null again, staging renders that row with a Confirm (CONFIRM 10) and preview/production drop it (never "—").
+ *  Ids connect / collaborate / create stay on the steps (links from home and the index).
+ * Mobile (< 900): one column — the h2, then the three steps stacked (numeral, name, copy, the three rows), 64px apart
+ *  on hairlines; the index is not shown (the steps follow straight after the heading).
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { steps, stepLabels, stepsHeading } from '@/data/approach';
 import { showConfirm } from '@/lib/mode';
+import { pad2 } from '@/lib/format';
 
 const FIELDS = ['whatWeDo', 'whatYouGet', 'duration'] as const;
 /** Keep number ranges whole ("2–5 days" never breaks after the dash), as in the models table and the FAQ. */
-const bind = (v: string | null) => (v === null ? null : v.replace(/(\d)–(\d)/g, '$1–\u2060$2'));
+const bind = (v: string | null) => (v === null ? null : v.replace(/(\d)–(\d)/g, '$1–⁠$2'));
 const rowsFor = (s: (typeof steps)[number]) =>
   FIELDS.filter((f) => s[f] !== null || showConfirm).map((f) => ({ label: stepLabels[f], value: bind(s[f]) }));
+const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
 ---
-<Section ground="grey" labelledby="steps-h" class="steps">
-  <SectionHeader id="steps-h" title={stepsHeading} />
-  <ol class="steps__list" role="list">
-    {steps.map((s, i) => {
-      const slug = s.name.toLowerCase();
-      const rows = rowsFor(s);
-      return (
-        <li id={slug} class="step" data-reveal style={`--i:${i}`}>
-          <span class="step__node" aria-hidden="true"></span>
-          <div class="step__body">
-            <p class="step__n">{stepLabels.step} {s.n}</p>
-            <h3 id={`${slug}-h`} class="t-h3 step__name">{s.name}</h3>
+<Section ground="grey" labelledby="steps-h" class="how">
+  <div class="how__grid">
+    <div class="how__aside">
+      <div class="how__sticky">
+        <SectionHeader id="steps-h" title={stepsHeading} layout="stack" class="how__head" />
+        <nav class="how__index" aria-label={stepsHeading}>
+          <ol role="list">
+            {steps.map((s) => (
+              <li class="idx">
+                <a href={`#${slugOf(s)}`} class="idx__link u-hover">
+                  <span class="idx__node" aria-hidden="true"></span>
+                  <span class="idx__n" aria-hidden="true">{pad2(s.n)}</span>
+                  <span class="idx__name u-draw">{s.name}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <ol class="how__steps" role="list">
+      {steps.map((s, i) => {
+        const slug = slugOf(s);
+        const rows = rowsFor(s);
+        return (
+          <li id={slug} class="step" data-reveal style={`--i:${i}`}>
+            <p class="step__num"><span class="visually-hidden">{stepLabels.step} {s.n}</span><span aria-hidden="true">{pad2(s.n)}</span></p>
+            <h3 id={`${slug}-h`} class="step__name">{s.name}</h3>
             <p class="step__copy">{s.copy}</p>
             {rows.length > 0 && (
               <dl class="step__rows">
@@ -47,54 +68,105 @@ const rowsFor = (s: (typeof steps)[number]) =>
                 ))}
               </dl>
             )}
-          </div>
-        </li>
-      );
-    })}
-  </ol>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
 </Section>
 <style>
-  .steps__list {
-    --node: 20px; --ring: var(--white); --gap: var(--s-7);
-    list-style: none; margin: 0; padding: 0; display: grid; row-gap: var(--gap);
+  .how__grid { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); }
+  .how :global(.how__head) { margin-bottom: var(--s-8); }
+  .how__index { display: none; }
+
+  .how__steps { list-style: none; margin: 0; padding: 0; display: grid; }
+  .step { border-top: 1px solid var(--rule); padding-block: var(--s-7) var(--s-8); }
+  .step:last-child { padding-bottom: 0; }
+  .step__num {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 300;
+    font-size: clamp(2.75rem, 2.2rem + 2.2vw, 4.5rem); line-height: 1; letter-spacing: -0.03em;
+    color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums;
   }
-  .step { position: relative; display: grid; grid-template-columns: var(--node) minmax(0, 1fr); column-gap: var(--s-5); }
-  /* ringed node: accent disc · white ring · accent outline (the logo's node, flattened; same as ProcessFlow) */
-  .step__node {
-    position: relative; z-index: 1; width: 14px; height: 14px; margin: 3px;
-    border-radius: 50%; background: var(--accent); border: 2px solid var(--ring); box-shadow: 0 0 0 3px var(--accent);
+  .step__name {
+    margin-top: var(--s-5);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+    font-size: clamp(2rem, 1.7rem + 1.2vw, 3rem); line-height: 1.08; letter-spacing: -0.018em; color: var(--head);
   }
-  /* connector, mobile: node centre → next node centre, down the left spine */
-  .step:not(:last-child)::before {
-    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2);
-    bottom: calc((var(--gap) + var(--node) / 2) * -1); width: 1px; background: var(--label);
+  .step__copy {
+    margin-top: var(--s-4); max-width: 34ch;
+    font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: var(--tr-lead); color: var(--fg); text-wrap: pretty;
   }
-  .step__n {
-    font-size: var(--fs-label); line-height: var(--node); font-weight: 600; letter-spacing: var(--tr-label);
-    text-transform: uppercase; color: var(--label);
+  .step__rows { margin-top: var(--s-7); display: grid; }
+  .step__row { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
+  .step__row:last-child { border-bottom: 1px solid var(--rule); }
+  .step__row dt {
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--fg-2);
   }
-  /* one step above the card h3 (the three words are the brand tagline) but clearly under the section h2:
-     24 → ~29px against the h2's 30 → 42px (was 28 → 38px, which read as a second h2) */
-  .step__name { margin-top: var(--s-3); font-size: clamp(1.5rem, 1.3rem + .6vw, 1.875rem); line-height: 1.2; letter-spacing: -0.01em; font-weight: 450; }
-  .step__copy { margin-top: var(--s-3); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; max-width: 40ch; }
-  .step__rows { margin-top: var(--s-5); border-top: 1px solid var(--rule); }
-  .step__row { padding-block: var(--s-3); border-bottom: 1px solid var(--rule); }
-  .step__row dt { font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 600; color: var(--fg-2); }
-  .step__row dd { margin: 2px 0 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); text-wrap: pretty; }
+  .step__row dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
 
   @media (min-width: 900px) {
-    .steps__list { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(7, auto); column-gap: var(--grid-gap); row-gap: 0; }
-    /* row subgrids: node (1) · Step n (2) · name (3) · copy (4) · the three definition rows (5–7) */
-    .step { grid-row: span 7; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); row-gap: 0; }
-    .step__body { grid-row: span 6; display: grid; grid-template-rows: subgrid; row-gap: 0; padding-right: var(--s-6); }
-    .step__n { margin-top: var(--s-5); }
-    .step__rows { grid-row: span 3; display: grid; grid-template-rows: subgrid; row-gap: 0; }
-    /* connector, desktop: node centre → next column's node centre, along the top */
-    .step:not(:last-child)::before {
-      left: calc(var(--node) / 2); right: calc((var(--grid-gap) + var(--node) / 2) * -1);
-      top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px;
+    .how__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .how__aside { grid-column: 1 / 5; }
+    .how__steps { grid-column: 6 / -1; }
+    .how__sticky { position: sticky; top: calc(var(--header-h-compact) + var(--s-8)); }
+    .how :global(.how__head) { margin-bottom: var(--s-8); }
+
+    /* ringed-node index: nodes on a 1px spine, number, name */
+    .how__index { display: block; }
+    .how__index ol { --node: 20px; list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: var(--s-2); }
+    .how__index ol::before {
+      content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: 28px; bottom: 28px; width: 1px; background: var(--label);
     }
-    .step__name { margin-top: var(--s-2); }
-    .step__copy { margin-top: var(--s-4); }
+    .idx__link {
+      display: grid; grid-template-columns: var(--node) 2.5rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5);
+      min-height: 56px; color: var(--head); text-decoration: none;
+    }
+    .idx__node {
+      position: relative; z-index: 1; width: 14px; height: 14px; margin: 3px; border-radius: 50%;
+      background: var(--accent); border: 2px solid var(--white); box-shadow: 0 0 0 3px var(--accent);
+    }
+    .idx__n { font-size: var(--fs-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+    .idx__name { font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.2; font-weight: 400; }
+    .idx__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+    .step { padding-block: var(--s-8) var(--s-9); }
+    .step:first-child { border-top: 0; padding-top: 0; }
+    .step__copy { margin-top: var(--s-5); }
+  }
+  @media (min-width: 1200px) {
+    /* the three definitions side by side, each on its own hairline */
+    .step__rows { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-6); margin-top: var(--s-8); }
+    .step__row, .step__row:last-child { border-bottom: 0; padding-block: var(--s-4) 0; }
+    .step__row dd { font-size: var(--fs-small); line-height: var(--lh-small); }
+  }
+
+  /* the index item of the step in view brightens (CSS scroll-driven; static where unsupported or reduced motion) */
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    @supports (timeline-scope: --a) and (animation-timeline: view()) {
+      .how__grid { timeline-scope: --kk-step-1, --kk-step-2, --kk-step-3; }
+      .step:nth-child(1) { view-timeline-name: --kk-step-1; }
+      .step:nth-child(2) { view-timeline-name: --kk-step-2; }
+      .step:nth-child(3) { view-timeline-name: --kk-step-3; }
+      /* only the step name's colour (--fg-2 → --head, both AA) and the node fade: no opacity on text, so every state
+         keeps its contrast (the small numerals never dim) */
+      .idx :is(.idx__name, .idx__node) { animation: linear both; animation-range: cover 0% cover 100%; }
+      .idx:nth-child(1) :is(.idx__name, .idx__node) { animation-timeline: --kk-step-1; }
+      .idx:nth-child(2) :is(.idx__name, .idx__node) { animation-timeline: --kk-step-2; }
+      .idx:nth-child(3) :is(.idx__name, .idx__node) { animation-timeline: --kk-step-3; }
+      .idx .idx__name { animation-name: kk-idx-name; }
+      .idx .idx__node { animation-name: kk-idx-node; }
+      @keyframes kk-idx-name { 0%, 22% { color: var(--fg-2); } 32%, 68% { color: var(--head); } 78%, 100% { color: var(--fg-2); } }
+      @keyframes kk-idx-node { 0%, 22% { opacity: .45; } 32%, 68% { opacity: 1; } 78%, 100% { opacity: .45; } }
+      /* the first step is in view from the start of the section; the last stays lit to the end */
+      .idx:nth-child(1) .idx__name { animation-name: kk-idx-name-first; }
+      .idx:nth-child(1) .idx__node { animation-name: kk-idx-node-first; }
+      .idx:nth-child(3) .idx__name { animation-name: kk-idx-name-last; }
+      .idx:nth-child(3) .idx__node { animation-name: kk-idx-node-last; }
+      @keyframes kk-idx-name-first { 0%, 68% { color: var(--head); } 78%, 100% { color: var(--fg-2); } }
+      @keyframes kk-idx-node-first { 0%, 68% { opacity: 1; } 78%, 100% { opacity: .45; } }
+      @keyframes kk-idx-name-last { 0%, 22% { color: var(--fg-2); } 32%, 100% { color: var(--head); } }
+      @keyframes kk-idx-node-last { 0%, 22% { opacity: .45; } 32%, 100% { opacity: 1; } }
+    }
   }
 </style>

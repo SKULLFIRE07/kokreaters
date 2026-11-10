@@ -121,16 +121,28 @@
   }
 }
 
-/* ── Article mode ── */
+/* ── Article mode (v3.1: larger, airier headings; a serif drop cap opens the text) ── */
 .prose--article {
   max-width: none;
   font-size: clamp(1.125rem, 1.079rem + .19vw, 1.25rem);   /* 18 → 20 */
-  line-height: 1.7;
+  line-height: 1.72;
   letter-spacing: -0.003em;
 }
-.prose--article > * + * { margin-top: 1.15em; }
-/* Takeaways open the body; the first paragraph after it starts a new block */
+.prose--article > * + * { margin-top: 1.2em; }
+.prose--article h2:not([class]) {
+  font-size: clamp(1.75rem, 1.45rem + 1.25vw, 2.5rem);    /* 28 → 40 */
+  line-height: 1.15; font-weight: 420; letter-spacing: -0.018em;
+  margin-top: clamp(3.5rem, 2.6rem + 3.2vw, 6rem);
+}
+.prose--article h3:not([class]) { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 500; margin-top: 2.2em; }
+.prose--article > :is(h2, h3):not([class]) + * { margin-top: .8em; }
+/* Takeaways open the body; the first paragraph after it starts the text with a drop cap */
 .prose--article > .takeaways + * { margin-top: var(--s-8); }
+.prose--article > .takeaways + p:not([class])::first-letter {
+  float: left; margin: .08em .1em 0 -.02em;
+  font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+  font-size: 4.1em; line-height: .8; color: var(--head);
+}
 /* run-in heads: "**1. Raw material and crude oil.**" */
 .prose--article p:not([class]) > strong:first-child { color: var(--head); font-weight: 650; }
 .prose--article p:not([class]):has(> strong:first-child) + p:has(> strong:first-child) { margin-top: 1em; }

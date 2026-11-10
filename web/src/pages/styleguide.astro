@@ -18,6 +18,7 @@ import Icon, { type IconName } from '@/components/ui/Icon.astro';
 import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
 import Tag from '@/components/ui/Tag.astro';
 import Photo from '@/components/ui/Photo.astro';
+import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
 import StatStrip from '@/components/ui/StatStrip.astro';
 import NumberedList from '@/components/ui/NumberedList.astro';
 import ProcessFlow from '@/components/ui/ProcessFlow.astro';
@@ -349,7 +350,14 @@ const mode = import.meta.env.PUBLIC_SITE_MODE ?? 'staging (unset)';
         image={photos['texture-01'].src} imageAlt={photos['texture-01'].alt} imagePosition={photos['texture-01'].position}
         crumbs={[{ label: impactPage.overline, href: '/impact' }]} crumbsLabel="Breadcrumb (navy hero)"
       />
+      <PageHero
+        ground="navy" imageMode="portrait" image={portrait} imageAlt="Ganeaysh Kulkarni, founder of KoKreaters" imagePosition="50% 0%"
+        eyebrow="About" title="Built on 25 years of making ingredients work." lead={founderQuote.quote} titleId="hero-portrait"
+      />
     </div>
+
+    <!-- Photo interlude (§9.1) -->
+    <PhotoInterlude slug="refinery-02" eyebrow="Photo interlude" caption="A single wide photograph between two sections, with one serif line." />
 
     <!-- Media + brand -->
     <Section ground="white" id="media" labelledby="media-h">

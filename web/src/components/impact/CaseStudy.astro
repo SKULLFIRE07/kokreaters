@@ -1,23 +1,25 @@
 ---
 /**
- * One founder-career case (REDESIGN-V3 §4 Impact): eyebrow (context) → h3 (outcome) → photo → figure highlight →
- * The challenge / What was done / The result as a definition row → tags (expertise + industry links).
+ * One founder-career case (REDESIGN-V3 §4 Impact, §9 v3.1 "cinematic case studies"): a magazine spread.
+ * Index (01 / 04) + eyebrow (context) → h3 (outcome) → large figure(s) with count-up → The challenge / What was done /
+ * The result as a definition list → tags (expertise + industry links). The photo is framed in its NATURAL orientation
+ * (§9.2): portrait photos in a 3:4 frame, landscape photos in a 3:2 frame; the record's focal point applies, and the
+ * image settles 1.06 → 1 on scroll.
  * `id` = the result id (#india · #indonesia · #ukraine · #tfa), deep-linked from /expertise/<slug>.
  * Null fields: staging shows the row with <Confirm id="C-9">; preview/production omit the row (no "—").
  * A row whose text only repeats the headline (India's result = its outcome; Indonesia's "21% growth.") is not shown:
  * the h3 and the figure already say it, so each fact is said once. No fact is lost.
- * No per-figure source line: the section h2 ("From our founder’s career") and the eyebrow's employer attribute every
- * case, which keeps the four cases identical in structure (only two of them carry figure.source).
  * The eyebrow is the data's `context` with its trailing "From our founder’s career (Wilmar)" shortened to the employer
  * ("Process · Ukraine · Wilmar"): the section h2 already says "From our founder’s career".
  *
- * Desktop (≥ 900): 2px navy rule, then a 12-column grid. Head (eyebrow + h3) in columns 1–6 at the top, the figure(s)
- *   in columns 1–6 a fixed --s-7 (48px) under the h3 in every case (one rhythm for all four); photo 3:2 (FOUNDATION §6 feature ratio) in columns 8–12 spanning
- *   both. Below, full width: the definition row with hairlines (3 rows → 4 + 4 + 4 columns; 2 rows → 1–6 and 8–12,
- *   aligned with head and photo; 1 row → 1–6). The iTFA definition sits under the row that uses the term.
- * Tablet (600–899): head full width; photo (5 of 12) beside the figure block (7, bottom-aligned); rows as columns.
- * Mobile (< 600): one column in reading order: eyebrow, h3, photo (3:2, full width), figure(s) side by side with a
- *   hairline divider, the rows stacked (label over text, hairline above each), tags wrapping.
+ * Desktop (≥ 900): a 12-column spread, alternating sides (`side`). Portrait photo: 5 columns (1–5 or 8–12), text in the
+ *   other 6 (7–12 or 1–6). Landscape photo: a wide 16:9 frame over 10 columns, offset to its side (3–12 or 1–10), with
+ *   the head (1–5) and the body (7–12) side by side beneath it. Text vertically centred on the photo.
+ *   Figures in a large serif (≈ 112px at 1440, 144px at 1920; a pair sets at 78 % so it stays on one line).
+ * Tablet (600–899): photo 5 columns beside the text (7), same order for every case; a landscape photo runs full width
+ *   above the text instead (3:2).
+ * Mobile (< 600): one column in reading order: index + eyebrow, h3, photo (full width, natural orientation), figure(s),
+ *   rows (label over text, hairline above each), tags wrapping.
  */
 import Photo from '@/components/ui/Photo.astro';
 import Tag from '@/components/ui/Tag.astro';
@@ -29,11 +31,13 @@ import { industries } from '@/data/industries';
 import { getPillar, pillarHref } from '@/lib/pillars';
 import { abbreviations } from '@/lib/typography';
 import { showConfirm } from '@/lib/mode';
+import { pad2 } from '@/lib/format';
 
-interface Props { result: FounderResult; photo: PhotoRecord }
-const { result, photo } = Astro.props;
+interface Props { result: FounderResult; photo: PhotoRecord; index: number; total: number; side?: 'left' | 'right' }
+const { result, photo, index, total, side = 'left' } = Astro.props;
 const { labels } = impactPage;
 const titleId = `case-${result.id}-title`;
+const orient = photo.orientation;
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -42,10 +46,9 @@ const eyebrow = result.context
   .split(' · ')
   .map((part) => (part.startsWith(impactPage.partOne) ? (/\(([^)]+)\)\s*$/.exec(part)?.[1] ?? '') : part))
   .filter(Boolean)
-  .join('\u00A0· ');   // NBSP before the dot: a wrapped line never starts with "·"
+  .join(' · ');   // NBSP before the dot: a wrapped line never starts with "·"
 
 // Keep short hyphenated compounds whole ("world-class", "Director-General") so a line never ends on a hyphen.
-// Long ones ("design-to-execution") may still break in narrow columns.
 const keepCompounds = (h: string) => h.replace(/(?<![\w-])([\w’]+(?:-[\w’]+)+)(?![\w-])/g, (m) => (m.length <= 18 ? `<span class="nowrap">${m}</span>` : m));
 const outcomeHtml = keepCompounds(esc(result.outcome));
 
@@ -54,7 +57,7 @@ const main = result.figure?.value ?? figureFallback[result.id];
 const values = [main, secondaryFigures[result.id]].filter((v): v is string => !!v);
 const figures = values.map((value) => ({ value, caption: figureCaptions[result.id]?.[value] }));
 
-// <abbr> on the first iTFA (C-11) + the short definition under the rows.
+// <abbr> on the first iTFA (C-11) + the short definition under the row that uses it.
 let itfa = false;
 const withAbbr = (t: string) => {
   let h = keepCompounds(esc(t));
@@ -73,10 +76,10 @@ const rows = [
   .map((r) => {
     const had = itfa;
     const html = r.value === null ? null : withAbbr(r.value);
-    return { ...r, html, note: !had && itfa };   // the iTFA definition sits in the row that uses the term
+    return { ...r, html, note: !had && itfa };
   });
 
-// Tags: expertise (pillar pages, full name) + industry (the sector's /industries anchor; sectors carry industries.ts names)
+// Tags: expertise (pillar pages, full name) + industry (the sector's /industries anchor)
 const industryFor = (s: string) => {
   const k = s.toLowerCase();
   return industries.find((i) => i.name.toLowerCase() === k) ?? industries.find((i) => i.name.toLowerCase().startsWith(k));
@@ -85,114 +88,166 @@ const tags = [
   ...result.pillars.map((k) => ({ label: getPillar(k).name, href: pillarHref(k) })),
   ...result.sectors.map((s) => { const i = industryFor(s); return { label: s, href: i ? `/industries#${i.slug}` : undefined }; }),
 ];
+const sizes = orient === 'portrait'
+  ? '(min-width: 1600px) 600px, (min-width: 900px) 38vw, (min-width: 600px) 40vw, calc(100vw - 40px)'
+  : '(min-width: 1600px) 1200px, (min-width: 900px) 80vw, calc(100vw - 40px)';
 ---
-<article id={result.id} class="case" aria-labelledby={titleId}>
+<article id={result.id} class:list={['case', `case--${orient}`, `case--media-${side}`]} aria-labelledby={titleId}>
   <header class="case__head" data-reveal>
-    <p class="case__eyebrow t-label">{eyebrow}</p>
+    <p class="case__kicker">
+      <span class="case__no tnum" aria-hidden="true"><span>{pad2(index)}<span class="case__of"> / {pad2(total)}</span></span></span>
+      <span class="case__eyebrow t-label">{eyebrow}</span>
+    </p>
     <h3 id={titleId} class="case__title" set:html={outcomeHtml} />
   </header>
 
   <div class="case__media" data-reveal style="--i:1">
-    <Photo
-      src={photo.src} alt={photo.alt} position={photo.position} ratio="3/2" data-settle
-      sizes="(min-width: 1200px) 480px, (min-width: 600px) 40vw, calc(100vw - 40px)"
-    />
+    <div class="case__frame">
+      <Photo src={photo.src} alt={photo.alt} position={photo.position} fill settle sizes={sizes} />
+    </div>
   </div>
 
   {figures.length > 0 && (
-    <div class="case__fig" data-reveal style="--i:2">
-      <ul class:list={['case__figs', figures.length > 1 && 'case__figs--pair']} role="list">
-        {figures.map((f) => (
-          <li class="case__figure">
-            <span class="case__value t-stat">{f.value}</span>
-            {f.caption && <span class="case__caption">{f.caption}</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )}
-
-  {rows.length > 0 && (
-    <dl class="case__rows" data-n={rows.length} data-reveal>
-      {rows.map((r) => (
-        <div class="case__row" data-row={r.key}>
-          <dt class="case__dt t-label">{r.label}</dt>
-          <dd class="case__dd">{r.html === null ? <Confirm id="C-9" note="case detail" /> : <Fragment set:html={r.html} />}</dd>
-          {r.note && <dd class="case__note">{abbreviations.iTFA.note}</dd>}
-        </div>
+    <ul class:list={['case__figs', figures.length > 1 && 'case__figs--pair']} role="list" data-reveal style="--i:1">
+      {figures.map((f) => (
+        <li class="case__figure">
+          <span class="case__value" data-count>{f.value}</span>
+          {f.caption && <span class="case__caption">{f.caption}</span>}
+        </li>
       ))}
-    </dl>
-  )}
-
-  {tags.length > 0 && (
-    <ul class="case__tags" role="list" aria-label={impactPage.tagsLabel}>
-      {tags.map((t) => <li><Tag href={t.href}>{t.label}</Tag></li>)}
     </ul>
   )}
+
+  <div class="case__body">
+
+    {rows.length > 0 && (
+      <dl class="case__rows" data-reveal style="--i:2">
+        {rows.map((r) => (
+          <div class="case__row" data-row={r.key}>
+            <dt class="case__dt t-label">{r.label}</dt>
+            <dd class="case__dd">{r.html === null ? <Confirm id="C-9" note="case detail" /> : <Fragment set:html={r.html} />}</dd>
+            {r.note && <dd class="case__note">{abbreviations.iTFA.note}</dd>}
+          </div>
+        ))}
+      </dl>
+    )}
+
+    {tags.length > 0 && (
+      <ul class="case__tags" role="list" aria-label={impactPage.tagsLabel}>
+        {tags.map((t) => <li><Tag href={t.href}>{t.label}</Tag></li>)}
+      </ul>
+    )}
+  </div>
 </article>
 
 <style>
   .case {
     display: grid; grid-template-columns: minmax(0, 1fr);
-    padding-top: var(--s-6); border-top: 2px solid var(--rule-strong);
-    scroll-margin-top: calc(var(--scroll-offset) + var(--s-6));   /* /impact#<id> lands with the rule clear of the header */
+    scroll-margin-top: calc(var(--scroll-offset) + var(--s-6));   /* /impact#<id> lands clear of the header */
+    --fig: clamp(4rem, 1.5rem + 6.2vw, 9rem);                      /* 64 (390) → ≈ 113 (1440) → 144 (1920) */
   }
-  .case__eyebrow { max-width: 60ch; }
-  .case__title {
-    margin-top: var(--s-4); max-width: 36ch;   /* WHO headline sets in 2 lines in the 6-column head */
-    font-size: calc(var(--fs-h2) * .8); line-height: 1.18; font-weight: 440; letter-spacing: var(--tr-h2);
-  }
-  .case__media { margin-top: var(--s-6); }
 
-  /* figure highlight: serif figure in --figure (accent on light), caption under it, hairline between a pair */
-  .case__fig { margin-top: var(--s-6); }
-  .case__figs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) 0; }
-  .case__figure { display: flex; flex-direction: column; gap: var(--s-2); min-width: 0; }
-  .case__figs--pair .case__figure { flex: 1 1 0; }
-  .case__figure + .case__figure { margin-left: var(--s-5); padding-left: var(--s-5); border-left: 1px solid var(--rule); }
-  .case__value { color: var(--figure); white-space: nowrap; }
-  .case__caption { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); max-width: 24ch; text-wrap: pretty; }
+  /* index + eyebrow: a small serif numeral, a hairline, then the context label */
+  .case__kicker { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+  .case__no {
+    display: inline-flex; align-items: center; gap: var(--s-4);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.0625rem; line-height: 1; color: var(--head);
+  }
+  .case__of { color: var(--fg-2); }
+  .case__no::after { content: ""; width: 40px; height: 1px; background: var(--rule-strong); }
+  .case__eyebrow { color: var(--label); }
+  /* phones: the index sits on its own line above the context label (a long label never strands the rule) */
+  @media (max-width: 599px) {
+    .case__kicker { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+    .case__no::after { width: 24px; }
+  }
+  .case__title {
+    margin-top: var(--s-5); max-width: 22ch;
+    font-size: calc(var(--fs-h2) * .84); line-height: 1.14; font-weight: 400; letter-spacing: var(--tr-h2);
+    text-wrap: balance;
+  }
+
+  /* the photo, in its natural orientation */
+  .case__media { margin-top: var(--s-7); }
+  .case__frame { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); aspect-ratio: 3 / 2; }
+  .case--portrait .case__frame { aspect-ratio: 3 / 4; }
+
+  /* large figures */
+  .case__body { min-width: 0; }
+  .case__figs { list-style: none; margin: var(--s-7) 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s-6) var(--s-8); min-width: 0; }
+  .case__figure { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+  .case__value {
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 340;
+    font-size: var(--fig); line-height: .92; letter-spacing: -0.035em; color: var(--figure);
+    font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+  }
+  .case__figs--pair { column-gap: var(--s-6); }
+  .case__figs--pair .case__value { font-size: calc(var(--fig) * .72); }
+  .case__caption { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); max-width: 24ch; text-wrap: pretty; }
 
   /* The challenge / What was done / The result */
   .case__rows { margin: var(--s-7) 0 0; display: grid; }
   .case__row { padding-block: var(--s-4) var(--s-5); border-top: 1px solid var(--rule); }
-  .case__row:last-child { border-bottom: 1px solid var(--rule); }
   .case__dt { color: var(--fg-2); }
-  .case__dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); max-width: 52ch; }
+  .case__dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); max-width: 46ch; text-wrap: pretty; }
   .case__row[data-row='result'] .case__dd { color: var(--head); font-weight: 500; }
   .case__dd :global(abbr) { text-decoration-thickness: 1px; text-underline-offset: .18em; cursor: help; }
+  .case__note { margin: var(--s-3) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 46ch; }
 
-  .case__note { margin: var(--s-3) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
-  .case__tags { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-2); }   /* 32px tags + 12px rows ≈ 44px pitch on touch */
+  .case__tags { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-2); }   /* 32px tags + 12px rows ≈ 44px pitch */
 
-  /* Tablet: head full width; photo (5) beside the figure (7, on the photo's bottom line); rows as columns */
+  /* Tablet: the photo (5) beside the text (7); a landscape photo runs full width above the text */
   @media (min-width: 600px) and (max-width: 899px) {
-    .case { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--grid-gap); }
-    .case__head, .case__rows, .case__tags { grid-column: 1 / -1; }
-    .case__media { grid-column: 1; }
-    .case__fig { grid-column: 2; align-self: end; }
-    .case__rows { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .case__rows[data-n='2'] { --n: 2; }
-    .case__rows[data-n='1'] { --n: 1; }
-    .case__row, .case__row:last-child { border-bottom: 0; padding-block: var(--s-4) 0; }
+    .case { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .case__head { grid-column: 1 / -1; }
+    .case--portrait { grid-template-rows: auto auto 1fr; }
+    .case--portrait .case__media { grid-column: 1 / 6; grid-row: 2 / 4; }
+    .case--portrait :is(.case__figs, .case__body) { grid-column: 6 / -1; }
+    .case--portrait .case__figs { grid-row: 2; }
+    .case--portrait .case__body { grid-row: 3; }
+    .case--landscape :is(.case__media, .case__figs, .case__body) { grid-column: 1 / -1; }
   }
 
+  /* Desktop: a 12-column spread, the photo alternating sides, the text centred on it; frames never taller than the
+     screen (the width follows the viewport height on short, wide screens) */
   @media (min-width: 900px) {
     .case {
+      --_vh: calc(100svh - var(--header-h) - var(--s-8));
       grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap);
-      grid-template-rows: auto 1fr;   /* row 1 = the head's own height; a taller photo grows row 2, never the head row */
-      padding-top: var(--s-7);
+      grid-template-rows: 1fr auto auto auto 1fr;   /* head, figures, body centred against the photo */
+      align-items: start;
     }
-    .case__head { grid-column: 1 / 7; grid-row: 1; }
-    .case__fig { grid-column: 1 / 7; grid-row: 2; align-self: start; margin-top: var(--s-7); }   /* a fixed 48px under the h3 in every case */
-    .case__media { grid-column: 8 / -1; grid-row: 1 / span 2; align-self: start; margin-top: 0; }
-    .case__rows, .case__tags { grid-column: 1 / -1; }
-    .case__rows { margin-top: var(--s-8); grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .case__row, .case__row:last-child { border-bottom: 0; padding-block: var(--s-4) 0; }
-    .case__rows[data-n='3'] .case__row { grid-column: span 4; }
-    .case__rows[data-n='2'] .case__row:first-child { grid-column: 1 / 7; }
-    .case__rows[data-n='2'] .case__row:last-child { grid-column: 8 / -1; }
-    .case__rows[data-n='1'] .case__row { grid-column: 1 / 7; }
-    .case__tags { margin-top: var(--s-6); }
+    .case__media { grid-row: 1 / -1; margin-top: 0; align-self: center; }
+    .case__head { grid-row: 2; }
+    .case__figs { grid-row: 3; margin-top: var(--s-8); }
+    .case__body { grid-row: 4; }
+    .case--portrait .case__frame { width: min(100%, calc(var(--_vh) * 3 / 4)); }
+    .case--media-right .case__frame { margin-left: auto; }
+
+    /* portrait: the photo track is 5 columns wide OR the frame's height-capped width, whichever is smaller, so the text
+       always sits one column-and-a-gap from the photo (no wide empty gutter on short, wide screens) */
+    .case--portrait {
+      --_col: calc((100% - 11 * var(--grid-gap)) / 12);
+      --_media: min(calc(var(--_col) * 5 + var(--grid-gap) * 4), calc(var(--_vh) * 3 / 4));
+      column-gap: calc(var(--_col) + var(--grid-gap) * 2);
+    }
+    .case--portrait .case__frame { width: 100%; }
+    .case--portrait.case--media-left { grid-template-columns: var(--_media) minmax(0, 1fr); }
+    .case--portrait.case--media-left .case__media { grid-column: 1; }
+    .case--portrait.case--media-left :is(.case__head, .case__figs, .case__body) { grid-column: 2; }
+    .case--portrait.case--media-right { grid-template-columns: minmax(0, 1fr) var(--_media); }
+    .case--portrait.case--media-right .case__media { grid-column: 2; }
+    .case--portrait.case--media-right :is(.case__head, .case__figs, .case__body) { grid-column: 1; }
+
+    /* landscape: a wide, offset 16:9 photo (10 columns); beneath it the head and figure (1–5) beside the body (7–12) */
+    .case--landscape { grid-template-rows: auto auto 1fr; }
+    .case--landscape .case__media { grid-row: 1; align-self: start; }
+    .case--landscape.case--media-right .case__media { grid-column: 3 / -1; }
+    .case--landscape.case--media-left .case__media { grid-column: 1 / 11; }
+    .case--landscape .case__frame { aspect-ratio: 16 / 9; width: min(100%, calc(var(--_vh) * 16 / 9)); }
+    .case--landscape .case__head { grid-row: 2; grid-column: 1 / 6; margin-top: var(--s-8); }
+    .case--landscape .case__figs { grid-row: 3; grid-column: 1 / 6; margin-top: var(--s-7); }
+    .case--landscape .case__body { grid-row: 2 / 4; grid-column: 7 / -1; margin-top: var(--s-8); }
+    .case--landscape .case__body .case__rows { margin-top: 0; }
   }
 </style>

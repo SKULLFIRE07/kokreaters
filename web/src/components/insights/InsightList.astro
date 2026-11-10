@@ -1,27 +1,26 @@
 ---
 /**
- * Insight library grid (REDESIGN-V3 §4 Insights hub): every visible insight as an InsightCard, newest first.
+ * Insight library (REDESIGN-V3 §4 Insights hub, §9.3): every visible insight as an index row (InsightRow), newest
+ * first, on the 12-column grid; hairline between rows and one under the last.
  * Filter hooks (scripts/pages/insights.ts): the <ul> carries [data-insight-list]; each <li> is .insight-row with
- * data-pillar / data-format. The empty-state line under the grid is shown by the script when a filter matches nothing.
+ * data-pillar / data-format. The empty-state line under the list is shown by the script when a filter matches nothing.
  * The featured insight (`featuredId`) is in the list, so filters and counts cover everything, but its row carries
  * [data-featured] and is server-rendered `hidden`: the band above already shows it, so the unfiltered library never
  * repeats it (also without JS). The script reveals it only while a filter is chosen and it matches.
- * Always a three-up grid of default cards from 900px (.card-grid --cols:3), left aligned, whatever the count: the
- * 'feature' size belongs to the Featured band only, so a single remaining insight reads as the start of a grid, not
- * as a second hero card, and a filter that reveals the featured row simply adds a card to the same grid.
- * Mobile: one column below 600px, two to 899px (.card-grid); cards stack image → text.
+ * Rows, not a three-up card grid: one or two remaining insights read as a finished index, not a grid with holes.
+ * Mobile: each row stacks photo → label → title → summary → meta (see InsightRow).
  */
 import type { CollectionEntry } from 'astro:content';
-import InsightCard from '@/components/cards/InsightCard.astro';
+import InsightRow from './InsightRow.astro';
 import Button from '@/components/ui/Button.astro';
 import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft } from '@/lib/insights';
 import { getPillar } from '@/lib/pillars';
 import { showDraftLabels } from '@/lib/mode';
 import { insightsHub, articleCopy } from '@/data/insights';
-interface Props { entries: CollectionEntry<'insights'>[]; featuredId?: string; }
-const { entries, featuredId } = Astro.props;
+interface Props { entries: CollectionEntry<'insights'>[]; featuredId?: string; level?: 2 | 3 | 4; filterable?: boolean; }
+const { entries, featuredId, level = 3, filterable = true } = Astro.props;
 ---
-<ul class="card-grid library__grid" role="list" style="--cols:3" data-insight-list>
+<ul class="ilist" role="list" data-insight-list={filterable ? '' : undefined}>
   {entries.map((e, i) => {
     const img = insightImage(e);
     const isFeatured = e.id === featuredId;
@@ -29,27 +28,28 @@ const { entries, featuredId } = Astro.props;
       <li
         class="insight-row" data-pillar={e.data.pillar} data-format={e.data.format}
         data-featured={isFeatured ? '' : undefined} hidden={isFeatured}
-        data-reveal style={`--i:${i % 3}`}
+        data-reveal style={`--i:${Math.min(i, 3)}`}
       >
-        <InsightCard
+        <InsightRow
           href={insightHref(e)} title={e.data.title} label={formatLabel(e)} pillarName={getPillar(e.data.pillar).shortLabel}
-          summary={e.data.description || e.data.standfirst}
-          date={e.data.date} readTime={insightReadingTime(e)}
-          image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
+          summary={e.data.description || e.data.standfirst} level={level}
+          date={e.data.date} readTime={insightReadingTime(e)} image={img?.src} imageAlt={img?.alt}
         >
-          {showDraftLabels && isDraft(e) && <span slot="badge" class="library__draft"> · {articleCopy.draft}</span>}
-        </InsightCard>
+          {showDraftLabels && isDraft(e) && <span slot="badge" class="ilist__draft"> · {articleCopy.draft}</span>}
+        </InsightRow>
       </li>
     );
   })}
 </ul>
-<div class="library__empty" hidden data-filter-empty>
-  <p class="library__empty-text">{insightsHub.empty}</p>
-  <Button variant="secondary" data-filter-reset>{insightsHub.emptyReset}</Button>
-</div>
+{filterable && (
+  <div class="ilist__empty" hidden data-filter-empty>
+    <p class="ilist__empty-text">{insightsHub.empty}</p>
+    <Button variant="secondary" data-filter-reset>{insightsHub.emptyReset}</Button>
+  </div>
+)}
 <style>
-  .library__grid { row-gap: var(--s-8); }
-  .library__draft { color: var(--fg-2); }
-  .library__empty { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); padding-bottom: var(--s-4); }
-  .library__empty-text { margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4); color: var(--head); }
+  .ilist { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .ilist__draft { color: var(--fg-2); }
+  .ilist__empty { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); padding-top: var(--s-7); }
+  .ilist__empty-text { margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4); color: var(--head); }
 </style>

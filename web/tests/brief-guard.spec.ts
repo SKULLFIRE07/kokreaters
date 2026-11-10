@@ -35,7 +35,7 @@ const BANNED_COPY = [
 ];
 const TOY_HOOKS = ['data-flap-board', 'data-flap-tile', 'data-scramble', 'data-crumple', 'data-gravity-tags', 'data-falling-text',
   'data-ticket', 'data-magnetic', 'data-magnetic-letters', 'data-magnetic-dots', 'data-note', 'data-scribble', 'data-sticker',
-  'data-stamp-spin', 'data-marquee', 'data-rail', 'data-cursor', 'data-parallax', 'data-pipeline', 'data-venn', 'data-emulsion',
+  'data-stamp-spin', 'data-marquee', 'data-rail', 'data-cursor', 'data-pipeline', 'data-venn', 'data-emulsion',
   'data-fan-item', 'data-globe', 'data-motion-toggle', 'data-lenis-prevent'];
 const V2_HEXES = ['#F4C841', '#E5494D', '#3A1C5C', '#5B2A86', '#7B4BC4', '#8C5B88', '#C8457E', '#EADCFF', '#FFEEB0', '#F6DCE8',
   '#A2335F', '#6F4470', '#F8F6FC'];
@@ -60,6 +60,8 @@ test('no v2 toy hooks in the markup', () => {
     const html = readHtml(r.file);
     for (const h of TOY_HOOKS) if (new RegExp(`\\s${h}(?:[\\s=>])`).test(html)) hits.push(`${r.path}: [${h}]`);
     if (/\sdraggable="true"/.test(html)) hits.push(`${r.path}: [draggable="true"]`);
+    // v3.1 §9.4: the CSS-only drift is allowed, but only on the foundation PhotoInterlude frame
+    for (const m of html.matchAll(/<[^>]*\sdata-parallax[\s=>][^>]*>/g)) if (!/class="[^"]*\binterlude__frame\b/.test(m[0])) hits.push(`${r.path}: [data-parallax] outside PhotoInterlude`);
   }
   expect(hits).toEqual([]);
 });

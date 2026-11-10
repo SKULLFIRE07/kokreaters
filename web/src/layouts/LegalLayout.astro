@@ -2,13 +2,16 @@
 /**
  * Legal pages (REDESIGN-V3 §4 Legal, §8.5). The MDX `layout:` of privacy.mdx, cookies.mdx and terms.mdx.
  * Frontmatter: title, description?, updated?, reviewed?, seoKey?. Non-MDX use passes the same as props.
- *  1 PageHero, grey, compact: crumbs (Home / <title>), eyebrow "Legal", H1 = title, lead = description, "Last updated".
- *  2 White band: the MDX body as narrow prose (.prose.prose--legal) and, when the page has more than two h2s, an
- *    "On this page" contents list. The lawyer-review note and every <Confirm> render in staging only (§8.5).
+ *  1 PageHero, grey, size sm (compact): crumbs (Home / <title>), eyebrow "Legal", H1 = title, lead = description,
+ *    "Last updated" under a hairline.
+ *  2 White band, wide grid: the MDX body as measured prose (.prose.prose--legal, 68ch), each h2 opening on a hairline
+ *    with generous space above, and, when the page has more than two h2s, a numbered "On this page" contents list.
+ *    The lawyer-review note and every <Confirm> render in staging only (§8.5).
  * The whole page is one <article> named by its H1. BaseLayout page="legal": no CtaBand, BreadcrumbList JSON-LD.
  * Mobile (< 600px): one column; the contents list sits above the text as full-width 44px rows with hairlines.
  * 600–1023px: the same list in two columns (read down, then across), so it takes half the height above the text.
- * ≥ 1024px: text left (aligned with the H1, 68ch measure), contents list in a 280px column on the right, sticky.
+ * ≥ 1024px: a 12-column editorial split: the contents list in columns 1–3 (aligned with the H1, sticky under the
+ * header), the text from column 5 at a 68ch measure.
  */
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
@@ -41,7 +44,7 @@ const hasToc = h2s.length > 2;
 ---
 <BaseLayout page="legal" seo={seoProps} breadcrumbs={crumbs}>
   <article class="legal" aria-labelledby="page-title">
-    <PageHero ground="grey" crumbs={crumbs} eyebrow={microcopy.legalDateline} title={fm.title} lead={fm.description}>
+    <PageHero ground="grey" size="sm" crumbs={crumbs} eyebrow={microcopy.legalDateline} title={fm.title} lead={fm.description}>
       {updated && (
         <p class="legal__updated">{updatedLabel} <time datetime={isoDate(updated)}>{formatDate(updated)}</time></p>
       )}
@@ -54,7 +57,7 @@ const hasToc = h2s.length > 2;
             <nav class="legal__toc" aria-labelledby="legal-toc-t">
               <p class="legal__toc-title t-label" id="legal-toc-t">{microcopy.onThisPage}</p>
               <ol class="legal__toc-list" role="list">
-                {h2s.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+                {h2s.map((h, i) => <li><a href={`#${h.slug}`}><span class="legal__toc-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{h.text}</span></a></li>)}
               </ol>
             </nav>
           )}
@@ -72,23 +75,25 @@ const hasToc = h2s.length > 2;
 
 <style>
   .legal__updated {
-    margin: 0; padding-top: var(--s-4); border-top: 1px solid var(--rule);
+    margin: 0; padding-top: var(--s-4); border-top: 1px solid var(--rule); max-width: 46ch;
     font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
     font-variant-numeric: lining-nums tabular-nums;
   }
   .legal__updated time { color: var(--fg); font-weight: 500; }
 
-  .legal__band { --_pad: var(--section-tight); padding-bottom: var(--section); }
-  .legal__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-7); align-items: start; }
+  .legal__band { padding-block: var(--section-tight) var(--section); }
+  .legal__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); align-items: start; }
 
   .legal__toc-title { margin: 0 0 var(--s-3); color: var(--label); }
-  .legal__toc-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--rule-strong); }
+  .legal__toc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule-strong); }
   .legal__toc-list li { border-bottom: 1px solid var(--rule); }
   .legal__toc-list a {
-    display: flex; align-items: center; min-height: 44px; padding-block: var(--s-2);
+    display: flex; align-items: baseline; gap: var(--s-4); min-height: 48px; padding-block: var(--s-3);
     font-size: var(--fs-small); line-height: 1.4; color: var(--fg); text-decoration: none;
     transition: color var(--d-1) var(--ease-out);
   }
+  .legal__toc-n { flex: none; min-width: 2ch; font-size: var(--fs-meta); font-variant-numeric: lining-nums tabular-nums; color: var(--fg-2); }
+  .legal__toc-list a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
   .legal__toc-list a:hover { color: var(--link); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .2em; }
 
   .legal__review {
@@ -99,15 +104,21 @@ const hasToc = h2s.length > 2;
   .legal__body { max-width: var(--measure); }
   /* the first heading sits at the top of the column, not 2.5em below it */
   .legal__body > :global(:first-child) { margin-top: 0; }
+  /* each section opens on a hairline: the long page reads as calm, separate clauses */
+  .legal__body :global(h2:not([class])) {
+    margin-top: clamp(3rem, 2.4rem + 2.4vw, 5rem); padding-top: var(--s-6); border-top: 1px solid var(--rule);
+    scroll-margin-top: calc(var(--scroll-offset) + var(--s-4));
+  }
+  .legal__body > :global(h2:first-child) { margin-top: 0; border-top: 0; padding-top: 0; }
 
   @media (min-width: 600px) and (max-width: 1023px) {
     .legal__toc-list { columns: 2; column-gap: var(--grid-gap); }
     .legal__toc-list li { break-inside: avoid; }
   }
   @media (min-width: 1024px) {
-    .legal__grid--toc { grid-template-columns: minmax(0, 1fr) 280px; column-gap: clamp(3rem, 1rem + 4vw, 6rem); }
-    .legal__grid--toc .legal__toc { grid-column: 2; grid-row: 1; position: sticky; top: calc(var(--header-h-compact) + var(--s-6)); }
-    .legal__grid--toc .legal__main { grid-column: 1; grid-row: 1; }
+    .legal__grid--toc { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .legal__grid--toc .legal__toc { grid-column: 1 / 4; grid-row: 1; position: sticky; top: calc(var(--header-h-compact) + var(--s-7)); }
+    .legal__grid--toc .legal__main { grid-column: 5 / -1; grid-row: 1; }
   }
   @media (prefers-reduced-motion: reduce) { .legal__toc-list a { transition: none; } }
 </style>

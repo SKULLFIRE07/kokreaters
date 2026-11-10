@@ -1,13 +1,15 @@
 ---
 /**
- * Insight article (REDESIGN-V3 §4 "Insight article"). Order: PageHero (white: crumbs, "Format · Expertise" label, H1,
- * standfirst, byline) → wide hero photo (21:9 ≥ 900px, 16:9 ≥ 600px, 4:3 phones) → article column: MDX body (Key
- * takeaways first, then prose with Note / Exhibit / ProcessChain / PullQuote) → share row → author box → related
- * insights (grey) → CtaBand (white, so the grey related band and the navy footer stay apart).
- * Column: left-aligned with the hero text, max 45rem (≈ 70 characters at 20px). ≥ 1200px the right column stays open
- * for sidenotes, and exhibits/pull quotes reach into it (the body grid is the size container for that).
- * Print ("Download PDF"): chrome, share, related and CTA are hidden; the article prints as a clean document.
- * Mobile: one column, 20px gutters, 18px body; the hero photo is 4:3 inside the gutters.
+ * Insight article (REDESIGN-V3 §4 "Insight article", §9 v3.1 "elegant full-screen"). Order: PageHero (white, compact:
+ * crumbs, "Format · Expertise" label, H1 and standfirst in columns 1–7, the byline bottom-right in 8–12) → full-bleed
+ * hero photo (edge to edge; 2:1 from 900px, capped to the first screen; its natural 3:2 below 900px, so phones and
+ * tablets see the whole frame; focal point from photos.ts) with the photo credit under it → article body → related
+ * insights (grey, index rows) → CtaBand (white, so the grey related band and the navy footer stay apart).
+ * Body ≥ 1360px: three columns on the wide grid: a sticky "In this article" rail (the h2s, current one marked) left,
+ * the reading column (44rem ≈ 70 characters at 20px) centre, sidenotes right; exhibits span centre + right.
+ * 1200–1359px: the column sits left with sidenotes in the open right side (no rail). Below: one column.
+ * Print ("Download PDF"): chrome, rail, share, related and CTA are hidden; the article prints as a clean document.
+ * Mobile: one column, 20px gutters, 18px body; the hero photo runs edge to edge at 3:2.
  */
 import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
@@ -16,19 +18,19 @@ import PageHero from '@/components/ui/PageHero.astro';
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Photo from '@/components/ui/Photo.astro';
-import InsightCard from '@/components/cards/InsightCard.astro';
 import Byline from '@/components/article/Byline.astro';
 import ShareRow from '@/components/article/ShareRow.astro';
 import AuthorBox from '@/components/article/AuthorBox.astro';
 import { article as articleNode, type SeoProps } from '@/components/seo/schema';
 import { articleSeo, canonical } from '@/lib/seo';
 import { getPillar, pillarHref } from '@/lib/pillars';
-import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft } from '@/lib/insights';
-import { showDraftLabels } from '@/lib/mode';
+import { insightImage } from '@/lib/insights';
 import { dotJoin } from '@/lib/format';
 import { microcopy, formatLabels } from '@/data/microcopy';
 import { footer } from '@/data/nav';
 import { articleCopy } from '@/data/insights';
+import InsightList from '@/components/insights/InsightList.astro';
+import { photoBySrc } from '@/data/photos';
 
 interface Props {
   entry: CollectionEntry<'insights'>;
@@ -36,7 +38,7 @@ interface Props {
   minutes: number;
   related: CollectionEntry<'insights'>[];
 }
-const { entry, minutes, related } = Astro.props;
+const { entry, headings, minutes, related } = Astro.props;
 const d = entry.data;
 const pillar = getPillar(d.pillar);
 const base = articleSeo({ id: entry.id, title: d.title, description: d.description });
@@ -55,24 +57,45 @@ const heroCrumbs = [crumbs[0], { label: shortTitle, href: base.path }];
 const url = canonical(base.path);
 const hero = insightImage(entry);
 const eyebrow = dotJoin([formatLabels[d.format], pillar.name]);
-const relatedCards = related.map((r) => ({ r, img: insightImage(r) }));
+const heroRecord = hero ? photoBySrc(hero.src) : undefined;
+const credit = heroRecord?.credit;
+// Page-local focal overrides for the 2:1 → 2.6:1 full-bleed frame (wider than the card crops photos.ts is tuned for):
+// bakery-02's bakers' hands and refinery-02's chimney tops sit along the top edge, so the frame anchors high to keep them in.
+const HERO_POSITION: Record<string, string> = { 'bakery-02': '50% 10%', 'refinery-02': '50% 0%' };
+const heroPosition = (heroRecord && HERO_POSITION[heroRecord.slug]) || hero?.position;
+const creditSource = credit ? (credit.license.startsWith('Pexels') ? 'Pexels' : 'Unsplash') : '';
+const toc = headings.filter((h) => h.depth === 2);
 ---
 <BaseLayout page="article" seo={seo} breadcrumbs={crumbs} cta={{ ground: 'white' }}>
   <article class="article" data-article data-minutes={minutes}>
-    <PageHero ground="white" titleId="article-title" crumbs={heroCrumbs} eyebrow={eyebrow} title={d.title} lead={d.standfirst || undefined}>
-      <Byline entry={entry} minutes={minutes} />
+    <PageHero ground="white" size="sm" titleId="article-title" crumbs={heroCrumbs} eyebrow={eyebrow} title={d.title} class="a-hero">
+      <div slot="aside" class="a-hero__aside">
+        {d.standfirst && <p class="a-hero__standfirst">{d.standfirst}</p>}
+        <div class="a-hero__byline"><Byline entry={entry} minutes={minutes} /></div>
+      </div>
     </PageHero>
 
     {hero && (
-      <div class="container a-media">
+      <figure class="a-media">
         <div class="a-media__frame">
-          <Photo src={hero.src} alt={hero.alt} position={hero.position} fill priority sizes="(min-width: 1296px) 1200px, 94vw" />
+          <Photo src={hero.src} alt={hero.alt} position={heroPosition} fill priority sizes="100vw" />
         </div>
-      </div>
+        {credit && (
+          <figcaption class="container a-media__cap">{articleCopy.photo}: {credit.name}, {creditSource}</figcaption>
+        )}
+      </figure>
     )}
 
     <div class="container a-body">
       <div class="a-body__grid">
+        {toc.length > 1 && (
+          <nav class="a-toc" aria-labelledby="toc-h" data-toc>
+            <p id="toc-h" class="a-toc__title t-label">{articleCopy.contents}</p>
+            <ol class="a-toc__list" role="list">
+              {toc.map((h) => <li><a class="a-toc__link" href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
         <div class="a-body__col">
           <div class="prose prose--article" data-article-body><slot /></div>
           <ShareRow url={url} title={d.title} summary={d.standfirst || d.description} pillar={{ name: pillar.name, href: pillarHref(d.pillar) }} />
@@ -85,35 +108,72 @@ const relatedCards = related.map((r) => ({ r, img: insightImage(r) }));
   {related.length > 0 && (
     <Section ground="grey" labelledby="related-h" class="a-related">
       <SectionHeader id="related-h" title={microcopy.relatedInsights} link={footer.insights.all} />
-      {/* Always the three-up grid of default cards (left aligned): 'feature' stays the hub's Featured band, so one
-          related insight reads as the start of a grid, not as a second hero card. */}
-      <ul class="card-grid" role="list" style="--cols:3">
-        {relatedCards.map(({ r, img }, i) => (
-          <li data-reveal style={`--i:${i}`}>
-            <InsightCard
-              href={insightHref(r)} title={r.data.title} label={formatLabel(r)} pillarName={getPillar(r.data.pillar).shortLabel}
-              summary={r.data.description || r.data.standfirst} date={r.data.date} readTime={insightReadingTime(r)}
-              image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
-            >
-              {showDraftLabels && isDraft(r) && <span slot="badge"> · {articleCopy.draft}</span>}
-            </InsightCard>
-          </li>
-        ))}
-      </ul>
+      {/* Index rows, as in the hub library: one or two related insights read as a finished list, not a grid with holes. */}
+      <InsightList entries={related} filterable={false} />
     </Section>
   )}
 </BaseLayout>
 
 <style>
-  /* hero photo: pulled up into the hero's bottom padding so it reads as part of the header */
-  .a-media { position: relative; z-index: 1; margin-top: calc(-1 * clamp(1.5rem, .9rem + 2.4vw, 3rem)); }
-  .a-media__frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); }
-  @media (min-width: 600px) { .a-media__frame { aspect-ratio: 16 / 9; } }
-  @media (min-width: 900px) { .a-media__frame { aspect-ratio: 21 / 9; } }
+  /* hero: compact; H1 left (columns 1–7), standfirst + byline right (8–12), bottom-aligned; less air under it so the
+     photo follows the header closely */
+  :global(.hero.a-hero) { --_bottom: clamp(2.5rem, 1.6rem + 3vw, 4.5rem); }
+  :global(.a-hero .hero__title) { max-width: 20ch; }
+  .a-hero__standfirst {
+    margin: 0 0 var(--s-6); font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg);
+    max-width: 40ch; text-wrap: pretty;
+  }
+  .a-hero__byline { padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  @media (min-width: 900px) {
+    :global(.a-hero.hero--aside .hero__text) { grid-column: 1 / 8; }
+    :global(.a-hero.hero--aside .hero__aside) { grid-column: 8 / -1; padding-left: clamp(0px, -2rem + 3.5vw, 3rem); }
+    .a-hero__aside { padding-bottom: .5rem; }
+  }
+  @media (max-width: 899px) {
+    :global(.a-hero.hero--aside .hero__aside) { margin-top: var(--s-6); }
+  }
 
-  .a-body { padding-block: clamp(3rem, 2rem + 3vw, 5rem) var(--section); }
-  .a-body__grid { container-type: inline-size; }
-  .a-body__col { width: 100%; max-width: 45rem; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
+  /* full-bleed photo: natural 3:2 on phones and tablets; 2:1 on desktop, never taller than the first screen */
+  .a-media { margin: 0; }
+  .a-media__frame { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--grey-100); }
+  @media (min-width: 900px) {
+    .a-media__frame { aspect-ratio: 2 / 1; max-height: max(480px, calc(100svh - var(--chrome-top) - 2rem)); width: 100%; }
+  }
+  .a-media__cap { padding-top: var(--s-3); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); text-align: right; }
+
+  .a-body {
+    --col: 44rem; --gap: clamp(3rem, 4cqw, 5rem);
+    --side: calc((100cqw - var(--col) - 2 * var(--gap)) / 2);
+    container-type: inline-size;
+    padding-block: clamp(3.5rem, 2rem + 4vw, 7rem) var(--section);
+  }
+  .a-body__col { width: 100%; max-width: var(--col); display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-9); }
+  .a-toc { display: none; }
+
+  @media (min-width: 1360px) {
+    .a-body__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, var(--col)) minmax(0, 1fr); column-gap: var(--gap); }
+    .a-body__col { grid-column: 2; grid-row: 1; }
+    /* the rail: sticky under the compact header for the whole length of the body */
+    .a-toc {
+      display: block; grid-column: 1; grid-row: 1; align-self: start;
+      position: sticky; top: calc(var(--header-h-compact, 72px) + var(--s-8));
+      max-width: 17rem; padding-top: var(--s-4); border-top: 1px solid var(--rule);
+    }
+    .a-toc__title { margin: 0 0 var(--s-4); color: var(--fg-2); }
+    .a-toc__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .a-toc__link {
+      position: relative; display: block; padding: 6px 0 6px var(--s-4);
+      font-size: var(--fs-small); line-height: 1.4; color: var(--fg-2); text-decoration: none; text-wrap: pretty;
+      transition: color var(--d-2) var(--ease-out);
+    }
+    .a-toc__link::before {
+      content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--rule);
+      transition: background-color var(--d-2) var(--ease-out);
+    }
+    .a-toc__link:hover { color: var(--head); }
+    .a-toc__link[aria-current="true"] { color: var(--head); font-weight: 500; }
+    .a-toc__link[aria-current="true"]::before { background: var(--head); }
+  }
 </style>
 
 <style is:global>
@@ -130,10 +190,13 @@ const relatedCards = related.map((r) => ({ r, img: insightImage(r) }));
     body[data-page="article"] .a-media__frame { aspect-ratio: 21 / 9; }
     body[data-page="article"] .exhibit { break-inside: avoid; }
     body[data-page="article"] .takeaways__title, body[data-page="article"] .exhibit__head { break-after: avoid; }
-    body[data-page="article"] :is(.skip-link, .ann, .site-header, .site-footer, .cta-band, .cookie-bar, .a-related, .hero__crumbs, .share__row) { display: none !important; }
+    body[data-page="article"] :is(.skip-link, .ann, .site-header, .site-footer, .cta-band, .cookie-bar, .a-related, .hero__crumbs, .share__row, .a-toc, .a-media__cap) { display: none !important; }
+    body[data-page="article"] .a-body__grid { display: block; }
+    body[data-page="article"] .a-media__frame { max-height: none; }
     body[data-page="article"] main { padding: 0 !important; }
     body[data-page="article"] .hero__inner { padding-block: 0 8mm !important; }
     body[data-page="article"] .a-media { margin: 0 0 6mm; padding: 0; }
+    body[data-page="article"] .a-hero__byline { border-top: 0; padding-top: 0; }
     body[data-page="article"] .a-body { padding: 0; }
     body[data-page="article"] .a-body__col { max-width: none; row-gap: 8mm; }
     body[data-page="article"] .share { border-bottom: 0; padding-block: 4mm 0; }

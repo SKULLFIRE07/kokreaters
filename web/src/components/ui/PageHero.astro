@@ -1,20 +1,28 @@
 ---
 /**
- * Page hero — every page's H1 lives here (REDESIGN-V3 §3).
- *  ground navy | grey | white. size md (page H1, --fs-h1) | lg (home: --fs-display, min-height 620px on desktop).
+ * Page hero — every page's H1 lives here (REDESIGN-V3 §3, §9.1 "elegant full-screen").
+ *  ground navy | grey | white.
+ *  size lg — the home hero: a true first screen (min-height = 100svh minus the header and announcement bar, ≥ 640px),
+ *            display type (--fs-display, 44 → 96px), text anchored bottom-left, a soft navy gradient, and a small scroll
+ *            cue in the right gutter (`scrollCue`, default on with a background photo).
+ *  size sm — a compact inner hero (md type, no minimum height): contact, legal, utility pages.
+ *  size md — inner pages: with a background photo a tall, full-bleed hero (≈ 76svh, 560–940px) with the text bottom-left;
+ *            without a photo an airy band (≈ 52svh on desktop) with the H1 (--fs-h1, 38 → 72px) bottom-aligned.
  *  image + imageMode:
- *    background — photo behind a navy scrim (§2: 90° gradient .94 → .86 → .45), text bottom-left on lg. A background
- *                 photo always gets the navy treatment, whatever `ground` says.
+ *    background — full-bleed photo behind a two-way navy gradient (bottom + left) so white type is AA over any photo; a
+ *                 background photo always gets the navy treatment, whatever `ground` says. Pick landscape photos only
+ *                 (§9.2); the record's focal point from src/data/photos.ts applies automatically.
+ *    portrait   — text in 7 columns, the whole 4:5 portrait framed in columns 8–12 standing on the band's bottom edge:
+ *                 never a background, never cropped to the face (About).
  *    split      — text in the left 6 columns, the photo half-bleeds to the right edge at full height.
  *  crumbs: a visible breadcrumb row at the top. actions: buttons (first primary, the rest secondary unless `variant`).
  *  Slots: default (under the actions, e.g. the home places line) · aside (right column when there is no split photo).
- *  The H1 gets data-reveal="lines" (load-time fade, never hidden without JS) and `titleId` (default "page-title");
+ *  The H1 gets data-reveal="lines" and is split into words (SplitText): the words rise in a stagger on load (CSS only,
+ *  never hidden without JS); the lead / actions / extra follow ([data-hero-after]). `titleId` (default "page-title"):
  *  the section is aria-labelledby it. The photo is the LCP image: priority (eager, fetchpriority high).
- * Mobile (< 900px): one column. background → the photo becomes a 220–380px band at the top that fades into navy, the
- *  text sits below it on solid navy (no type over a busy photo on a phone). split → photo below the text at 4:3.
- *  size lg + background below 600px: a 100–168px strip and tighter lead/actions gaps, so the primary button is in the
- *  first screen of a 390 × 664 phone.
- *  Actions stack full width below 600px.
+ * Mobile (< 900px): one column. background → the photo becomes a band at the top (lg 200–340px ≈ 34svh, md 200–320px)
+ *  that fades into navy, and the text sits below it on solid navy (no type over a busy photo on a phone). portrait →
+ *  the framed 4:5 portrait under the text. split → photo below the text at 4:3. Actions stack full width below 600px.
  * Options: `leadTone="muted"` sets the lead in --fg-2 so it reads as a subtitle under the H1 (e.g. a pillar name).
  *  `crumbsCurrentShort` / `crumbsHideCurrentOnPhone` pass through to Breadcrumbs (short or no current item < 600px).
  *  `asideMobile="corner"` (< 900px): the aside leaves the flow and sits top right, level with the eyebrow (a small
@@ -26,6 +34,8 @@ import Breadcrumbs from './Breadcrumbs.astro';
 import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
 import Photo from './Photo.astro';
+import SplitText from './SplitText.astro';
+import { photoBySrc, isBleedSafe } from '@/data/photos';
 
 interface Props {
   ground?: 'navy' | 'grey' | 'white';
@@ -40,24 +50,32 @@ interface Props {
   imagePosition?: string;
   imageMode?: 'background' | 'split' | 'portrait';
   actions?: { label: string; href: string; variant?: 'primary' | 'secondary' | 'tertiary' }[];
-  size?: 'lg' | 'md';
+  size?: 'lg' | 'md' | 'sm';
   align?: 'left' | 'center';
   titleId?: string;
   leadTone?: 'default' | 'muted';
   crumbsCurrentShort?: string;
   crumbsHideCurrentOnPhone?: boolean;
   asideMobile?: 'below' | 'corner';
+  /** lg + background only: the small scroll cue in the right gutter (default true). */
+  scrollCue?: boolean;
   class?: string;
 }
 const {
   ground: g = 'navy', eyebrow, title, lead, crumbs, crumbsLabel, image, imageAlt = '', imagePosition, imageMode = 'background',
   actions = [], size = 'md', align = 'left', titleId = 'page-title', leadTone = 'default',
-  crumbsCurrentShort, crumbsHideCurrentOnPhone = false, asideMobile = 'below', class: cls,
+  crumbsCurrentShort, crumbsHideCurrentOnPhone = false, asideMobile = 'below', scrollCue = true, class: cls,
 } = Astro.props;
 const mode = image ? imageMode : 'none';
 const ground = mode === 'background' ? 'navy' : g;
 const hasAside = Astro.slots.has('aside') && mode !== 'split' && mode !== 'portrait';
 const hasExtra = Astro.slots.has('default');
+const showCue = scrollCue && size === 'lg' && mode === 'background';
+// §9.2: a full-bleed background must be a photo whose subject survives a very wide crop (BLEED_SAFE)
+const bgRecord = mode === 'background' ? photoBySrc(image) : undefined;
+if (import.meta.env.DEV && bgRecord && !isBleedSafe(bgRecord.slug)) {
+  console.warn(`[PageHero] "${bgRecord.slug}" is not in BLEED_SAFE (src/data/photos.ts): its subject is cut by a full-bleed hero crop (${Astro.url.pathname}).`);
+}
 ---
 <section
   class:list={['hero', 'band', `band--${ground}`, `hero--${size}`, `hero--${mode}`, `hero--${align}`, hasAside && 'hero--aside', hasAside && asideMobile === 'corner' && 'hero--aside-corner', cls]}
@@ -75,16 +93,16 @@ const hasExtra = Astro.slots.has('default');
   <div class="container hero__inner">
     <div class="hero__text">
       {eyebrow && <Eyebrow class="hero__eyebrow">{eyebrow}</Eyebrow>}
-      <h1 id={titleId} class:list={['hero__title', size === 'lg' ? 't-display' : 't-h1']} data-reveal="lines">{title}</h1>
-      {lead && <p class:list={['hero__lead', 't-lead', leadTone === 'muted' && 'hero__lead--muted']}>{lead}</p>}
+      <h1 id={titleId} class:list={['hero__title', size === 'lg' ? 't-display' : 't-h1']} data-reveal="lines"><SplitText text={title} /></h1>
+      {lead && <p class:list={['hero__lead', 't-lead', leadTone === 'muted' && 'hero__lead--muted']} data-hero-after>{lead}</p>}
       {actions.length > 0 && (
-        <div class="hero__actions">
+        <div class="hero__actions" data-hero-after style="--i:1">
           {actions.map((a, i) => (
             <Button href={a.href} variant={a.variant ?? (i === 0 ? 'primary' : 'secondary')} size={size === 'lg' ? 'lg' : 'md'}>{a.label}</Button>
           ))}
         </div>
       )}
-      {hasExtra && <div class="hero__extra"><slot /></div>}
+      {hasExtra && <div class="hero__extra" data-hero-after style="--i:2"><slot /></div>}
     </div>
     {hasAside && <div class="hero__aside"><slot name="aside" /></div>}
     {mode === 'split' && image && (
@@ -94,27 +112,31 @@ const hasExtra = Astro.slots.has('default');
     )}
     {mode === 'portrait' && image && (
       <div class="hero__media hero__media--portrait">
-        <Photo src={image} alt={imageAlt} fill priority sizes="(min-width: 900px) 34vw, calc(100vw - 40px)" position={imagePosition ?? '50% 20%'} />
+        <Photo src={image} alt={imageAlt} fill priority sizes="(min-width: 1600px) 560px, (min-width: 900px) 36vw, min(100vw - 40px, 480px)" position={imagePosition ?? '50% 20%'} />
       </div>
     )}
   </div>
+  {showCue && (
+    <div class="hero__cue" aria-hidden="true"><span class="hero__cue-label">Scroll</span><span class="hero__cue-line"></span></div>
+  )}
 </section>
 <style>
   .hero {
-    --_top: clamp(3rem, 2.1rem + 3.7vw, 5.5rem);      /* 48 → 88 */
-    --_bottom: clamp(3.5rem, 2.6rem + 3.7vw, 6rem);   /* 56 → 96 */
+    --_top: clamp(3rem, 1.9rem + 4.5vw, 7rem);       /* 48 → 112 */
+    --_bottom: clamp(4rem, 2.6rem + 5.7vw, 9rem);     /* 64 → 144 */
     padding-block: 0; position: relative; isolation: isolate; overflow: clip;
   }
-  .hero__crumbs { position: relative; z-index: 2; padding-top: var(--s-3); }
-  .hero__crumbs + .hero__inner, .hero__crumbs + .hero__bg + .hero__inner { --_top: clamp(1.5rem, .8rem + 2.9vw, 3.5rem); }
+  .hero__crumbs { position: relative; z-index: 2; padding-top: var(--s-4); }
+  .hero__crumbs + .hero__inner, .hero__crumbs + .hero__bg + .hero__inner { --_top: clamp(2rem, 1.2rem + 3.3vw, 4.5rem); }
   .hero__inner { position: relative; z-index: 1; padding-block: var(--_top) var(--_bottom); }
-  .hero__text { max-width: 760px; }
-  .hero__eyebrow { margin-bottom: var(--s-4); }
+  .hero__text { max-width: 920px; }
+  .hero__eyebrow { margin-bottom: var(--s-5); }
   .hero__title { color: var(--head); }
-  .hero--md .hero__title { max-width: 22ch; }
-  .hero__lead { margin-top: var(--s-5); color: var(--fg); }
+  .hero:is(.hero--md, .hero--sm) .hero__title { max-width: 20ch; }
+  .hero--lg .hero__title { max-width: 16ch; }
+  .hero__lead { margin-top: var(--s-6); color: var(--fg); max-width: var(--measure-lead); }
   .hero__lead--muted { color: var(--fg-2); }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-top: var(--s-7); }
   .hero__extra { margin-top: var(--s-7); }
   .hero__aside { margin-top: var(--s-7); }
 
@@ -125,26 +147,28 @@ const hasExtra = Astro.slots.has('default');
   .hero--center .hero__crumbs :global(.crumbs__list) { justify-content: center; }
 
   /* background photo, mobile: a band at the top fading into navy; text below on solid navy */
-  .hero__bg { position: relative; height: clamp(220px, 62vw, 380px); }
+  .hero__bg { position: relative; height: clamp(200px, 52vw, 320px); }
+  .hero--lg .hero__bg { height: clamp(200px, 34svh, 340px); }
   .hero__scrim {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(11, 27, 51, .25) 0%, rgba(11, 27, 51, 0) 35%, rgba(11, 27, 51, .55) 75%, var(--navy-900) 100%);
+    background: linear-gradient(180deg, rgba(11, 27, 51, .3) 0%, rgba(11, 27, 51, 0) 30%, rgba(11, 27, 51, .5) 72%, var(--navy-900) 100%);
   }
-  .hero--background .hero__inner { --_top: var(--s-3); }
+  .hero--background .hero__inner { --_top: var(--s-4); }
 
   /* split, mobile: photo under the text at 4:3 */
   .hero__media { position: relative; aspect-ratio: 4 / 3; margin-top: var(--s-7); border-radius: var(--r-sm); overflow: hidden; }
   .hero--split .hero__inner { padding-bottom: var(--gutter-x); }
-  /* portrait, mobile: a framed 4:5 photo under the text, never cropped to the face */
-  .hero__media--portrait { aspect-ratio: 4 / 5; max-width: 420px; }
+  /* portrait, mobile: the whole framed 4:5 photo under the text, never cropped to the face */
+  .hero__media--portrait { aspect-ratio: 4 / 5; max-width: 480px; }
+  .hero--portrait .hero__inner { padding-bottom: 0; }
+
+  /* scroll cue (lg + background, ≥ 900px): a hairline in the right gutter with a light running down it */
+  .hero__cue { display: none; }
 
   @media (max-width: 599px) {
     .hero__actions :global(.btn) { flex: 1 1 100%; }
-    /* home (lg + background photo) on a phone: the photo is a short strip, not a 240px block, and the lead/actions
-       sit a step closer, so the primary button is inside the first screen on a 390 × 664 iPhone viewport (QA phone) */
-    .hero--lg.hero--background .hero__bg { height: clamp(100px, 28vw, 168px); }
-    .hero--lg .hero__lead { margin-top: var(--s-4); }
-    .hero--lg .hero__actions { margin-top: var(--s-5); }
+    .hero--lg .hero__lead { margin-top: var(--s-5); }
+    .hero--lg .hero__actions { margin-top: var(--s-6); }
   }
   /* aside in the top-right corner on phones/tablets, level with the eyebrow (the first line of the text column) */
   @media (max-width: 899px) {
@@ -152,20 +176,44 @@ const hasExtra = Astro.slots.has('default');
   }
 
   @media (min-width: 900px) {
-    .hero--lg { min-height: 620px; display: flex; flex-direction: column; }
+    /* lg: the first screen, whatever the viewport (header + announcement bar subtracted) */
+    .hero--lg { min-height: max(640px, calc(100svh - var(--chrome-top))); display: flex; flex-direction: column; }
     .hero--lg .hero__inner { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .hero--lg.hero--background .hero__inner { justify-content: flex-end; }
-    .hero--md.hero--background { min-height: 480px; display: flex; flex-direction: column; }
+    /* the first screen must hold the whole hero: bottom-anchored text needs little top room, and the display size also
+       follows the viewport height so a short laptop (1440 × 800) still fits headline, lead and buttons */
+    .hero--lg.hero--background .hero__inner { --_top: var(--s-8); --_bottom: clamp(6rem, 4rem + 4vw, 8.5rem); }
+    .hero--lg .hero__title { font-size: min(var(--fs-display), 9.4svh); }
+    .hero--lg .hero__lead { max-width: 54ch; }
+    .hero--lg .hero__actions { margin-top: var(--s-6); }
+    /* md with a photo: tall and full-bleed */
+    .hero--md.hero--background { min-height: clamp(560px, 76svh, 940px); display: flex; flex-direction: column; }
     .hero--md.hero--background .hero__inner { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+    /* md without a photo: an airy band, the H1 bottom-aligned on the grid */
+    .hero--md.hero--none { min-height: clamp(420px, 52svh, 620px); display: flex; flex-direction: column; }
+    .hero--md.hero--none .hero__inner { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero--md.hero--none.hero--aside .hero__inner { display: grid; align-content: end; }
 
-    /* background photo, desktop: full-bleed behind, horizontal scrim keeps the text column ≥ 4.5:1 */
+    /* background photo, desktop: full-bleed behind; a soft two-way navy gradient keeps the bottom-left text AA */
     .hero__bg { position: absolute; inset: 0; height: auto; z-index: 0; }
+    .hero--lg .hero__bg { height: auto; }
     .hero__scrim {
-      background: linear-gradient(90deg, rgba(11, 27, 51, .94) 0%, rgba(11, 27, 51, .86) 45%, rgba(11, 27, 51, .45) 100%);
+      background:
+        linear-gradient(0deg, rgba(11, 27, 51, .9) 0%, rgba(11, 27, 51, .62) 30%, rgba(11, 27, 51, .18) 62%, rgba(11, 27, 51, .1) 100%),
+        linear-gradient(90deg, rgba(11, 27, 51, .72) 0%, rgba(11, 27, 51, .4) 42%, rgba(11, 27, 51, 0) 78%);
     }
-    .hero--center .hero__scrim { background: rgba(11, 27, 51, .84); }
-    .hero--background .hero__inner { --_top: clamp(3rem, 2.1rem + 3.7vw, 5.5rem); }
-    .hero--background .hero__text { max-width: 720px; }
+    .hero--center .hero__scrim { background: rgba(11, 27, 51, .78); }
+    .hero--background .hero__inner { --_top: clamp(4rem, 2.6rem + 5.7vw, 9rem); --_bottom: clamp(4rem, 2.6rem + 4vw, 7.5rem); }
+    .hero--background .hero__text { max-width: 1040px; }
+
+    .hero__cue {
+      position: absolute; z-index: 2; right: calc(var(--gutter-x) / 2); bottom: 0; transform: translateX(50%);
+      display: flex; flex-direction: column; align-items: center; gap: var(--s-4);
+      color: var(--fg-2); font: 600 11px/1 var(--font-sans); letter-spacing: .2em; text-transform: uppercase;
+    }
+    .hero__cue-label { writing-mode: vertical-rl; }
+    .hero__cue-line { position: relative; width: 1px; height: 72px; background: var(--rule); overflow: hidden; }
+    .hero__cue-line::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 40%; background: var(--fg); }
 
     /* aside: text 7 columns, aside 5 */
     .hero--aside .hero__inner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; }
@@ -173,28 +221,43 @@ const hasExtra = Astro.slots.has('default');
     .hero--aside .hero__aside { grid-column: 8 / -1; margin-top: 0; }
 
     /* split: text left 6 columns; photo half-bleeds from the column-7 line to the viewport edge */
-    .hero--split { min-height: 560px; }
-    .hero--split.hero--lg { min-height: 640px; }
-    .hero--split { display: flex; flex-direction: column; }
+    .hero--split { min-height: clamp(560px, 70svh, 820px); display: flex; flex-direction: column; }
+    .hero--split.hero--lg { min-height: max(640px, calc(100svh - var(--chrome-top))); }
     .hero--split .hero__inner {
       position: static; flex: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap);
       align-items: center; padding-bottom: var(--_bottom);
     }
     .hero--split .hero__text { grid-column: 1 / 7; padding-right: var(--s-5); }
-    /* a half-width column: the H1 tops out at 48px (not 56), so a 40–50 character headline sets in two even lines
-       instead of three with a short middle one (about: "Built on 25 years of making / ingredients work.") */
-    .hero--split.hero--md .hero__title { font-size: min(var(--fs-h1), 3rem); }
-    /* portrait: text 7 columns, the whole 4:5 portrait framed in columns 8–12, standing on the band's bottom edge */
-    .hero--portrait .hero__inner {
-      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap);
-      align-items: end; padding-bottom: 0;
-    }
-    .hero--portrait .hero__text { grid-column: 1 / 8; align-self: center; padding-block: var(--s-6) var(--_bottom); }
-    .hero--portrait .hero__media--portrait { grid-column: 8 / -1; margin: 0; max-width: none; border-radius: 0; justify-self: end; width: min(100%, 460px); }
-    .hero--portrait.hero--md .hero__title { font-size: min(var(--fs-h1), 3.25rem); }
+    /* a half-width column: the H1 tops out at 56px so a 40–50 character headline sets in two or three even lines */
+    .hero--split.hero--md .hero__title { font-size: min(var(--fs-h1), 3.5rem); }
     .hero--split .hero__media {
       position: absolute; top: 0; bottom: 0; right: 0; left: calc(50% + var(--grid-gap) / 2);
       aspect-ratio: auto; margin: 0; border-radius: 0;
     }
+
+    /* portrait: text 7 columns, the whole 4:5 portrait framed in columns 8–12, standing on the band's bottom edge */
+    .hero--portrait { min-height: clamp(600px, 80svh, 920px); display: flex; flex-direction: column; }
+    .hero--portrait .hero__inner {
+      flex: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap);
+      align-items: end; padding-bottom: 0;
+    }
+    .hero--portrait .hero__text { grid-column: 1 / 8; align-self: center; padding-block: var(--s-6) var(--_bottom); }
+    .hero--portrait .hero__media--portrait {
+      grid-column: 8 / -1; margin: 0; max-width: none; border-radius: 0; justify-self: end;
+      width: min(100%, 560px, calc((80svh - var(--_top)) * .8));
+      min-width: min(100%, 380px);
+    }
+    .hero--portrait.hero--md .hero__title { font-size: min(var(--fs-h1), 3.5rem); max-width: 24ch; }
+  }
+  /* wide screens: the portrait is capped by the screen height, so the text grows into the space instead of leaving a
+     wide empty gap between the copy and the photo */
+  @media (min-width: 1600px) {
+    .hero--portrait.hero--md .hero__title { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--tr-display); max-width: 17ch; }
+    .hero--portrait .hero__lead { max-width: 44ch; }
+  }
+
+  @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+    :global(html.js) .hero__cue-line::after { animation: kk-cue 2.4s var(--ease-in-out) 1.4s infinite; }
+    @keyframes kk-cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(250%); } }
   }
 </style>

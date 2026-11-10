@@ -1,38 +1,56 @@
 ---
 /**
- * Photo (REDESIGN-V3 §2, §3): astro:assets <Picture> → AVIF + WebP (+ original as <img> fallback), responsive widths,
- * explicit `sizes`, cover crop inside a ratio box (no layout shift), `position` = object-position.
+ * Photo (REDESIGN-V3 §2, §3, §9.2): astro:assets <Picture> → AVIF + WebP (+ original as <img> fallback), responsive
+ * widths, explicit `sizes`, cover crop inside a ratio box (no layout shift).
+ * Focal point (§9.2 "no image cut"): `position` = object-position. When it is omitted and `src` is one of the stock
+ * photos in src/data/photos.ts, that record's tuned `position` is applied automatically (photoBySrc). `slug` is a
+ * shortcut: <Photo slug="lab-01" sizes="…" /> takes src, alt and position from the record (explicit props still win).
+ * `ratio` 'auto' (or omitted, without `fill`) keeps the photo's natural proportions: nothing is cropped at all.
  * `priority` (the LCP image only): loading eager + fetchpriority high + decoding sync. Everything else lazy + async.
- * `fill`: the box fills its positioned parent instead of keeping a ratio (hero backgrounds, half-bleed media).
+ * `fill`: the box fills its positioned parent instead of keeping a ratio (hero backgrounds, interludes, half-bleed media).
+ * `settle`: the image scales 1.06 → 1 as it scrolls into view (CSS scroll-driven, motion.css; same as data-settle).
  * Widths larger than the source are dropped (never upscale). The default ladder has an 800 step so a full-width phone
- * image at DPR 1.75–2 (412 × 1.75, 390 × 2 ≈ 720–780px) gets 800w, not 960w. Radius 2px unless `fill`.
+ * image at DPR 1.75–2 gets 800w, not 960w. Radius 2px unless `fill`.
  * Mobile: the ratio box spans its container; pass `sizes` that match the mobile column (usually 100vw minus gutters).
  */
 import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-type Ratio = '21/9' | '16/9' | '3/2' | '4/3' | '1/1' | '4/5';
+import { photos, photoBySrc, type PhotoSlug } from '@/data/photos';
+type Ratio = '21/9' | '16/9' | '3/2' | '4/3' | '1/1' | '4/5' | '3/4' | 'auto';
 interface Props {
-  src: ImageMetadata;
-  alt: string;
+  src?: ImageMetadata;
+  alt?: string;
+  slug?: PhotoSlug;
   ratio?: Ratio;
   sizes: string;
   priority?: boolean;
   widths?: number[];
   position?: string;
   fill?: boolean;
+  settle?: boolean;
   class?: string;
   [key: string]: unknown;
 }
-const { src, alt, ratio, sizes, priority = false, widths = [400, 640, 800, 960, 1280, 1600, 2000, 2560], position, fill = false, class: cls, ...rest } = Astro.props;
+const {
+  src: srcProp, alt: altProp, slug, ratio, sizes, priority = false, widths = [400, 640, 800, 960, 1280, 1600, 2000, 2560],
+  position: posProp, fill = false, settle = false, class: cls, ...rest
+} = Astro.props;
+const record = slug ? photos[slug] : photoBySrc(srcProp);
+const src = srcProp ?? record?.src;
+if (!src) throw new Error('Photo: pass `src` or a known `slug`.');
+const alt = altProp ?? record?.alt ?? '';
+const position = posProp ?? record?.position;
 const usable = widths.filter((w) => w <= src.width);
 const list = usable.length ? usable : [src.width];
 const loadAttrs = priority
   ? { loading: 'eager' as const, fetchpriority: 'high' as const, decoding: 'sync' as const }
   : { loading: 'lazy' as const, decoding: 'async' as const };
+const boxed = !fill && ratio && ratio !== 'auto';
 ---
 <div
-  class:list={['photo', fill ? 'photo--fill' : ratio && 'photo--ratio', cls]}
-  style={ratio && !fill ? `--ratio:${ratio}` : undefined}
+  class:list={['photo', fill ? 'photo--fill' : boxed && 'photo--ratio', cls]}
+  style={boxed ? `--ratio:${ratio}` : undefined}
+  data-settle={settle ? '' : undefined}
   {...rest}
 >
   <Picture

@@ -1,10 +1,15 @@
 ---
 /**
- * Contact `/contact` (REDESIGN-V3 §4 Contact). No CtaBand: the page is the call to action.
- *  1 PageHero, grey, compact: crumbs, eyebrow "Start a conversation", H1 contact.headline (#contact-title), intro.
- *  2 White band: contact details left (email, WhatsApp, LinkedIn, base + CET, founder, booking card) · form right.
- * Mobile (< 900px): one column, details first (a short block) then the form at full width. ≥ 900px: details in the
- * left 5 columns (4 from 1200px), sticky under the header while the longer form scrolls; form on the right.
+ * Contact `/contact` (REDESIGN-V3 §4 Contact, §9 "elegant full screen"). No CtaBand: the page is the call to action.
+ *  1 PageHero, grey, md (an airy band, H1 bottom-aligned): crumbs, eyebrow "Start a conversation", H1 contact.headline
+ *    (#contact-title), intro. Aside: the founder who answers, his 4:5 studio portrait in its natural orientation
+ *    (never cropped) standing on the band's bottom edge, name and role beside it (ContactFounder).
+ *  2 White band, wide grid: contact details left (email, WhatsApp, LinkedIn as large serif lines, base + CET, booking
+ *    card) · the form right.
+ * Mobile (< 900px): one column. Hero text, then the founder as a small row (portrait 104px wide, standing on the band
+ * edge, name beside it); then details (a short block) and the form at full width. ≥ 900px: details in columns 1–5,
+ * sticky under the header while the longer form scrolls; form in columns 6–12 (two-up fields), from 1200px in 7–12
+ * (a gap column between, so the two blocks breathe in the wide grid).
  * Grounds: grey hero → white band → navy footer.
  * The form behaviour lives in scripts/pages/contact.ts, loaded here (§8.6), not through the site bundle.
  */
@@ -13,6 +18,7 @@ import PageHero from '@/components/ui/PageHero.astro';
 import Section from '@/components/ui/Section.astro';
 import ContactDetails from '@/components/contact/ContactDetails.astro';
 import ContactForm from '@/components/contact/ContactForm.astro';
+import ContactFounder from '@/components/contact/ContactFounder.astro';
 import { contact } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
@@ -22,14 +28,17 @@ const crumbs = [{ label: contact.overline, href: '/contact' }];
 <BaseLayout page="contact" seo={pageSeo('contact')} breadcrumbs={crumbs}>
   <PageHero
     ground="grey"
+    size="md"
     crumbs={crumbs}
     eyebrow={microcopy.primaryCta}
     title={contact.headline}
     lead={contact.intro}
     titleId="contact-title"
-  />
+  >
+    <ContactFounder slot="aside" />
+  </PageHero>
 
-  <Section ground="white" labelledby="contact-details-h" pad="tight" class="contact">
+  <Section ground="white" labelledby="contact-details-h" class="contact">
     <div class="contact__grid">
       <div class="contact__details"><ContactDetails /></div>
       <div class="contact__form"><ContactForm /></div>
@@ -40,15 +49,11 @@ const crumbs = [{ label: contact.overline, href: '/contact' }];
 </BaseLayout>
 
 <style>
-  .contact { padding-bottom: var(--section); }
-  .contact__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); align-items: start; }
+  .contact__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-9); align-items: start; }
   @media (min-width: 900px) {
     .contact__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .contact__details { grid-column: 1 / 6; position: sticky; top: calc(var(--header-h-compact) + var(--s-6)); }
-    .contact__form { grid-column: 7 / -1; }
-  }
-  @media (min-width: 1200px) {
-    .contact__details { grid-column: 1 / 5; }
+    .contact__details { grid-column: 1 / 6; position: sticky; top: calc(var(--header-h-compact) + var(--s-7)); }
     .contact__form { grid-column: 6 / -1; }
   }
+  @media (min-width: 1200px) { .contact__form { grid-column: 7 / -1; } }
 </style>

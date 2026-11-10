@@ -405,3 +405,44 @@ patterns; screenshots in `research/v3/refs/`), `research/v3/photos.md` (photo sl
    unless data supports it — instead: "We agree the scope and fee with you before any work starts.").
 9. **Industries photos.** Industries cards are text-first (name, description, relevant expertise); a small photo only where
    `photos.md` maps a good one — or all text-only for consistency (builder's call, but consistent).
+
+---------------------------------------------------------------------------------------------------------------------------
+## 9. v3.1 "Elegant full-screen" direction (owner feedback, 10 Nov 2026) — OVERRIDES earlier sections where they conflict
+
+Owner: "Don't follow the client doc too literally. Make it an elegant, beautiful website, properly full screen, no image
+cut, properly formatted." The palette, fonts, content, page map and modes stay. The restraint rules loosen: we now aim for
+a luxurious, cinematic, Apple-meets-top-consultancy feel.
+
+1. **Full screen, edge to edge.**
+   - Home hero: full viewport (`min-height: 100svh` minus header; ≥ 640px), full-bleed photo, large serif display
+     (clamp 44 → 96px), generous negative space, a small scroll cue at the bottom. Inner page heroes: tall, full-bleed
+     (≈ 72–80svh desktop), photo-led where a photo exists, text anchored bottom-left on a soft navy gradient.
+   - Layout width: content container 1440px max (`--container: 1440px`), gutters `clamp(20px, 5vw, 96px)`. Bands and
+     photos run edge to edge; text columns keep a comfortable measure inside the wide grid (never a narrow centred
+     column floating in emptiness).
+   - Add full-bleed **photo interludes** between sections on long pages (a single wide image, 50–70svh, with an optional
+     one-line serif caption) — Home (1), Approach (1), Impact (1), About (1). Use the strongest photos.
+2. **No image cut.** Every image is framed to its natural orientation: portraits in portrait frames (4:5 / 3:4), landscapes
+   in landscape frames. Choose `object-position` per photo so the subject is never cropped (heads, products, the
+   key industrial structure). For full-bleed backgrounds pick photos whose subject survives wide crops, set focal points
+   from `src/data/photos.ts`, and check 1920, 1440, 1024, 390 crops visually. Never put a portrait-orientation photo into
+   a wide background. Card images: consistent 4:3 or 3:2 with focal points tuned per photo.
+3. **Elegance.** Larger, airier type (display up to 96px, h2 up to 56px, lead 22–24px desktop), more whitespace between
+   sections (desktop 140–180px), refined thin hairlines, fewer boxes/borders, more asymmetric editorial compositions
+   (e.g. 5/7 splits, offset images, big numbers), consistent left alignment to the grid. Cards lighter: image + text,
+   minimal chrome. Keep accent discipline.
+4. **Motion (Apple-like, now allowed more).** Smooth blur-fade reveals with staggered lines for headings, images that
+   gently scale from 1.06 → 1 on scroll (scroll-driven), subtle parallax on full-bleed photo interludes (CSS
+   scroll-driven, ≤ 8% translate), sticky storytelling where it helps (e.g. Approach steps: sticky heading left, steps
+   scroll right; About timeline), count-up of the stat numbers once when they enter (respect reduced motion; final
+   values server-rendered). Still no toys, no scroll-jacking, no libraries beyond tiny vanilla TS/CSS; all motion off
+   under prefers-reduced-motion.
+5. **Formatting.** Consistent spacing scale and alignment on every page; headings balanced (no orphans); lists and tables
+   tidy; no awkward empty areas; footer/CTA proportions refined for the wider layout.
+
+## 9.6 Full bleed (owner, 10 Nov 2026, latest — overrides 9.1 widths)
+"Make the website full bleed, use the full px left and right — Palantir / Apple level." Container max 1800px with tight
+gutters `clamp(20px, 3.2vw, 64px)`, so on 1440–1920 screens content runs nearly edge to edge (≈ 46–64px margins).
+Photos and bands are always edge to edge. Grids use the full width (more columns, larger images, bigger type) —
+text paragraphs still keep a readable measure (≤ 70ch) by sitting in grid columns, NOT by centring a narrow column.
+Big confident type and large imagery fill the width (Apple/Palantir feel); no large empty side areas at any width.

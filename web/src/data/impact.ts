@@ -84,7 +84,9 @@ export const impactPage = {
   recordLabel: 'Track record',                                                        // stat strip heading (the page title is "Impact and Track Record")
   partOneLead: 'Four results from 25\u00A0years at Wilmar and Cargill, before KoKreaters.',  // from founder.ts shortBio + timeline; NBSP binds 25 years
   tagsLabel: 'Related expertise and industries',                                      // aria-label of each case's tag list
-  testimonialsLabel: 'Testimonials',                                                  // label-style h2, only if testimonials ever exist (CONFIRM 8)
+  testimonialsLabel: 'Testimonials',
+  /** v3.1 photo interlude caption: the Ukraine case's own words ("from process design to commissioning"), no new fact. */
+  interludeCaption: 'From process design to commissioning.',                                                  // label-style h2, only if testimonials ever exist (CONFIRM 8)
 };
 
 /**

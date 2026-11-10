@@ -1,14 +1,19 @@
 ---
 /**
- * Home 4 · Featured insights (REDESIGN-V3 §4 Home 4). White band: SectionHeader from home.insights + "All insights".
- * ≥ 900px: 12-column grid, the feature card (featuredInsight(): 3:2 photo, serif title, standfirst, meta) in columns
- * 1–7; columns 8–12 hold the next visible insights as default cards (photo, label, title, meta; no standfirst, so the
- * column balances the feature) and, in the slots no real insight fills (two in all), an "In preparation" list of
- * coming-soon titles with their format labels (unlinked: coming-soon pieces have no route; titles in --fg-2 with a "Soon" tag, no arrow, so
- * they never read as links).
+ * Home 4 · Featured insights (REDESIGN-V3 §4 Home 4, §9.3, §9.6 full bleed). White band: SectionHeader from home.insights
+ * + "All insights". The two side slots hold the next visible insights and, in the slots no real insight fills (two in
+ * all), an "In preparation" list of coming-soon titles with their format labels (unlinked: coming-soon pieces have no
+ * route; titles in --fg-2 with a "Soon" tag, no arrow, so they never read as links).
+ * ≥ 1200px (wide, magazine): the feature card runs the full width as a side-by-side row (its own ≥ 880px container
+ *  layout: 3:2 photo 7fr left, serif title + standfirst + meta 5fr right). Under it, on the same 7fr / 5fr columns and
+ *  gap, a quiet row of hairline-topped text items: the side insight(s) as text cards and the "In preparation" list,
+ *  so the second row lines up exactly under the photo and the text above it. No small images competing with the big one.
+ * 900–1199: feature card (stacked) in columns 1–7; columns 9–12 hold the side insights as default cards, then the list.
  * Photos: frontmatter image, else the slug's photo from research/v3/photos.md (./insight-photo.ts).
  * Mobile (< 900px): feature card full width, then the side insights as compact rows (112px thumb; format label only,
  *  so "POINT OF VIEW · PRODUCT" never wraps beside the thumb on a 360px phone), then the list.
+ * One render per layout: the side insight is rendered as three twins (text / default / compact); display:none keeps
+ *  the two hidden ones out of the accessibility tree.
  * Modes: preview/staging list drafts (includeDrafts); the Draft badge is staging-only. With no visible insight
  * (production today) the section is not rendered at all.
  */
@@ -62,11 +67,14 @@ const card = (e: Insight) => {
           {showDraftLabels && isDraft(feature) && <span slot="badge"> · {homeLabels.draft}</span>}
         </InsightCard>
       </div>
-      <div class="hi__side">
+      <div class:list={['hi__side', `hi__side--n${side.length}`, soon.length > 0 && 'hi__side--soon']}>
         {side.length > 0 && (
           <ul class="hi__cards" role="list">
             {side.map((e, i) => (
               <li data-reveal style={`--i:${i + 1}`}>
+                <InsightCard {...card(e)} image={undefined} size="text" class="hi__xl">
+                  {showDraftLabels && isDraft(e) && <span slot="badge"> · {homeLabels.draft}</span>}
+                </InsightCard>
                 <InsightCard {...card(e)} class="hi__wide">
                   {showDraftLabels && isDraft(e) && <span slot="badge"> · {homeLabels.draft}</span>}
                 </InsightCard>
@@ -101,8 +109,8 @@ const card = (e: Insight) => {
   .hi__side { display: flex; flex-direction: column; gap: var(--s-7); min-width: 0; }
   .hi__cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-6); }
 
-  /* one render per layout: default card from 900px, compact row below (display:none keeps the twin out of the a11y tree) */
-  .hi__cards :global(.hi__wide) { display: none; }
+  /* one render per layout: text card ≥ 1200, default card 900–1199, compact row below 900 */
+  .hi__cards :global(.hi__xl), .hi__cards :global(.hi__wide) { display: none; }
 
   .hi__soon { border-top: 1px solid var(--rule); padding-top: var(--s-5); }
   .hi__soon-title { margin: 0; color: var(--fg-2); }
@@ -123,14 +131,30 @@ const card = (e: Insight) => {
     .hi__cards { gap: var(--s-5); padding-top: var(--s-6); border-top: 1px solid var(--rule); }
     .hi__side { gap: var(--s-6); }
   }
-  @media (min-width: 900px) {
+  @media (min-width: 900px) and (max-width: 1199px) {
     .hi__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: 0; }
     .hi__feature { grid-column: 1 / span 7; }
     .hi__side { grid-column: 9 / -1; }
     .hi__cards :global(.hi__wide) { display: block; }
     .hi__cards :global(.hi__narrow) { display: none; }
   }
+
+  /* wide: full-width feature row, then a text row on the feature's own 7fr / 5fr columns */
   @media (min-width: 1200px) {
-    .hi__side { grid-column: 8 / -1; padding-left: var(--s-5); }
+    .hi__grid { gap: clamp(4rem, 2rem + 3vw, 6rem); }
+    .hi__side {
+      display: grid; grid-template-columns: 7fr 5fr; column-gap: clamp(3rem, 2rem + 3vw, 6rem); align-items: start;
+    }
+    .hi__cards :global(.hi__xl) { display: block; }
+    .hi__cards :global(.hi__narrow) { display: none; }
+    /* two real insights: both text cards share the row, one per column */
+    .hi__side--n2 .hi__cards { grid-column: 1 / -1; grid-template-columns: 7fr 5fr; }
+    .hi__side--n2 .hi__cards { column-gap: clamp(3rem, 2rem + 3vw, 6rem); }
+    /* only coming-soon titles: the list spans the row, its items side by side */
+    .hi__side--n0 .hi__soon { grid-column: 1 / -1; }
+    .hi__side--n0 .hi__soon-list { display: grid; grid-template-columns: 7fr 5fr; column-gap: clamp(3rem, 2rem + 3vw, 6rem); }
+    .hi__side--n0 .hi__soon-item + .hi__soon-item { border-top: 0; }
+    .hi__soon { padding-top: var(--s-5); }
+    .hi__soon-name { font-size: var(--fs-h3); line-height: 1.22; max-width: 40ch; }
   }
 </style>

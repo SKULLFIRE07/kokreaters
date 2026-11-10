@@ -3,7 +3,7 @@
 
 [id] { scroll-margin-top: var(--scroll-offset); }
 
-/* ── Containers: 1200 content (default) · 760 narrow (text pages) · 1440 wide (media frames). Gutter 20 → 48. ── */
+/* ── Containers (§9.1): 1440 content (default and wide) · 760 narrow (text pages). Gutter clamp(20px, 5vw, 96px). ── */
 .container {
   --_max: var(--container);
   width: 100%;
@@ -31,7 +31,7 @@
 .card-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--grid-gap);
+  gap: clamp(2.5rem, 1.9rem + 2.4vw, 4.5rem) var(--grid-gap);   /* rows 40 → 72: light cards need air, not boxes */
 }
 .card-grid > li { display: flex; flex-direction: column; min-width: 0; }
 .card-grid > li > * { flex: 1 1 auto; }

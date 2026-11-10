@@ -45,6 +45,8 @@ async function shoot(browser, width) {
     locale: 'en-GB', timezoneId: 'Europe/Amsterdam',
     reducedMotion: motion ? 'no-preference' : 'reduce',
   });
+  // Disable the dev server's live-reload socket: other saves would otherwise reload the page mid-shot.
+  await ctx.addInitScript(() => { const W = window.WebSocket; window.WebSocket = function (u, p) { if (/vite|hmr|ws/.test(String(u))) { return { addEventListener() {}, removeEventListener() {}, send() {}, close() {}, readyState: 0 }; } return new W(u, p); }; });
   const page = await ctx.newPage();
   const consoleErrors = [], failed = [];
   page.on('console', (m) => { if (m.type() === 'error') consoleErrors.push(m.text().slice(0, 240)); });
@@ -178,10 +180,10 @@ async function main() {
   try {
     for (const w of widths) {
       // one retry when the page reloaded under us (dev-server HMR after a file save destroys the context)
-      for (let attempt = 1; attempt <= 2; attempt++) {
+      for (let attempt = 1; attempt <= 4; attempt++) {
         try { await shoot(browser, w); break; } catch (e) {
           const msg = e.message.split('\n')[0];
-          if (attempt === 1 && /context was destroyed|navigation|Target closed/i.test(msg)) { log(`  … ${w}px: ${msg} (retrying)`); continue; }
+          if (attempt < 4 && /context was destroyed|navigation|Target closed/i.test(msg)) { log(`  … ${w}px: ${msg} (retrying)`); continue; }
           log(`  ! ${w}px: ${msg}`); break;
         }
       }

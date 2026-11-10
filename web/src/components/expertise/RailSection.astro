@@ -4,8 +4,8 @@
  * Roland Berger refs: the h2 sits in the left 4 of 12 columns, the content in columns 6–12 (a ~68ch measure at 1200),
  * both top-aligned. Built from Section + SectionHeader; only the header's bottom margin changes beside the content.
  * Used for "The challenge we solve", "What we help with", "Typical deliverables", "Related insights", "Related industries".
- * Rails run one after another on white, so they use the tight band padding (48 → 80): with the hairline between two
- * rails that gives an even 80 / 80 around the rule instead of 120 / 120.
+ * v3.1 (§9.3): full band padding by default (80 → 148 → 180) so every rail breathes; `pad="tight"` where a rail follows
+ * another rail of the same ground across a hairline.
  * Mobile (< 900px): one column, heading first, content 32px below; 20px gutters from the container.
  */
 import Section from '@/components/ui/Section.astro';
@@ -21,17 +21,17 @@ interface Props {
   pad?: 'default' | 'tight';
   class?: string;
 }
-const { id, title, eyebrow, ground = 'white', rule = false, pad = 'tight', class: cls } = Astro.props;
+const { id, title, eyebrow, ground = 'white', rule = false, pad = 'default', class: cls } = Astro.props;
 ---
 <Section ground={ground} rule={rule} pad={pad} labelledby={id} class={cls}>
   <div class="rail">
-    <SectionHeader id={id} title={title} eyebrow={eyebrow} class="rail__head" />
+    <SectionHeader id={id} title={title} eyebrow={eyebrow} layout="stack" class="rail__head" />
     <div class="rail__body"><slot /></div>
   </div>
 </Section>
 <style>
   .rail { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .rail > :global(.rail__head) { margin-bottom: var(--s-6); }
+  .rail > :global(.rail__head) { margin-bottom: var(--s-7); }
   .rail__body { min-width: 0; }
   @media (min-width: 900px) {
     .rail { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }

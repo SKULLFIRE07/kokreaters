@@ -4,9 +4,9 @@
  * title as the h2, then the foundation ProcessFlow (ringed nodes on a hairline). The chain is read from
  * `pillarExhibits` (from → steps → to); several `to` outcomes are one final node ("Go / No-Go").
  * The page decides which pillars get one: only chains that read truthfully as a sequence.
- * The flow sits on a white figure panel (--surface) under a 2px rule, so it reads as an exhibit, not as loose text.
- * Mobile (< 900px): ProcessFlow turns vertical (nodes on a left spine, labels right) inside the panel (24px padding);
- * header above it.
+ * v3.1 (§9.3 "fewer boxes"): no figure panel; the flow sits in open space under a 2px rule, with generous air above
+ * and below, so it reads as an exhibit plate.
+ * Mobile (< 900px): ProcessFlow turns vertical (nodes on a left spine, labels right); header above it.
  * 900–1300px: seven columns leave 79–125px per label, narrower than "Interesterification" (129px) and, below ~1100px,
  * "Deodorisation" / "Fractionation" / "Degumming". Headless and some desktop Chromium builds have no hyphenation
  * dictionary, so ProcessFlow's overflow-wrap broke them mid-word ("Interesterific|ation"). The long refining terms
@@ -39,14 +39,13 @@ const steps = [ex.from, ...ex.steps, ex.to?.length ? ex.to.join(' / ') : undefin
   .map(shy);
 ---
 <Section ground={ground} rule={rule} labelledby="exhibit-title">
-  <SectionHeader id="exhibit-title" eyebrow={microcopy.exhibit} title={ex.title} />
+  <SectionHeader id="exhibit-title" eyebrow={microcopy.exhibit} title={ex.title} layout="stack" />
   <div class="exhibit" data-reveal style="--i:1">
     <ProcessFlow steps={steps} />
   </div>
 </Section>
 <style>
-  /* the diagram sits on a white figure panel on the grey band, under a 2px rule (the house exhibit frame) */
-  .exhibit { padding: var(--s-6) var(--s-5); background: var(--surface); border-top: 2px solid var(--rule-strong); }
-  @media (min-width: 900px) { .exhibit { padding: var(--s-7) var(--s-6); } }
-  @media (min-width: 1200px) { .exhibit { padding: var(--s-7); } }
+  /* the diagram in open space under a 2px rule (the house exhibit frame), no panel */
+  .exhibit { padding-top: var(--s-7); border-top: 2px solid var(--rule-strong); }
+  @media (min-width: 900px) { .exhibit { padding-top: var(--s-8); } }
 </style>

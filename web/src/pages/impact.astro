@@ -7,6 +7,8 @@
  *  4 KoKreaters engagements: only consent 'cleared' (or staging); today all pending → absent outside staging.
  *  5 Testimonials: only approved quotes in data; today none → absent.
  *  6 CtaBand (BaseLayout): grey, or white when the last section above is grey.
+ *  v3.1 (§9): the hero is the tall full-bleed photo hero (md + background, ≈ 76svh); the cases are cinematic spreads;
+ *  one PhotoInterlude (refinery-02, BLEED_SAFE) closes the founder cases before the engagements / CtaBand.
  * Grounds alternate navy → grey → white → (grey → white) → CTA → navy footer; no two identical grounds touch.
  * Mobile: each section component states its own phone layout; the hero photo becomes a band above the text.
  */
@@ -16,6 +18,7 @@ import TrackRecord from '@/components/impact/TrackRecord.astro';
 import FounderCases from '@/components/impact/FounderCases.astro';
 import Engagements from '@/components/impact/Engagements.astro';
 import Testimonials from '@/components/impact/Testimonials.astro';
+import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
 import { engagements, impactPage, testimonials } from '@/data/impact';
 import { photos } from '@/data/photos';
 import { pageSeo } from '@/lib/seo';
@@ -45,6 +48,8 @@ const cta = last === 'grey' ? { ground: 'white' as const } : undefined;
   />
   <TrackRecord ground="grey" />
   <FounderCases ground="white" />
+  <!-- focal point raised for this very wide frame so the chimney tops stay in (the tanks below are a continuous band) -->
+  <PhotoInterlude slug="refinery-02" size="lg" position="50% 0%" caption={impactPage.interludeCaption} />
   <Engagements ground={engGround} />
   <Testimonials ground={quoteGround} />
 </BaseLayout>

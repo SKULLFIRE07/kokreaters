@@ -1,0 +1,12 @@
+---
+/**
+ * SplitText (REDESIGN-V3 §9.4): renders a plain string as word spans (<span class="wd" style="--w:n">) separated by
+ * real spaces, for the staggered heading reveals in motion.css ([data-reveal="split"] blocks, the PageHero H1).
+ * Splits on ordinary spaces only, so no-break spaces (25 years, −25 °C) keep their pieces together. The text stays
+ * one readable string for assistive tech (inline spans, nothing hidden). Use it inside the heading element:
+ *   <h2 class="t-h2"><SplitText text={title} /></h2>   in a container with data-reveal="split"
+ */
+interface Props { text: string }
+const words = Astro.props.text.split(/ +/).filter(Boolean);
+---
+{words.map((w, i) => (<><span class="wd" style={`--w:${i}`}>{w}</span>{i < words.length - 1 ? ' ' : ''}</>))}

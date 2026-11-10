@@ -1,12 +1,15 @@
 ---
 /**
- * Home 3 · What we do (REDESIGN-V3 §4 Home 3). Grey band: SectionHeader from home.whatWeDo (eyebrow, the brief's
- * "Six ways we create value, together.", intro) with "All expertise" on the right, then the six ExpertiseCards
- * (home variant: icon, 01, name, promise, Learn more) in a .card-grid--xl: 3 × 2 from 1200px, 2 × 3 from 600 to 1199.
- * Mobile (< 600px): one column of full-width cards; the header link drops under the intro.
+ * Home 3 · What we do (REDESIGN-V3 §4 Home 3, §9.3–9.4 "asymmetric editorial compositions", "sticky storytelling").
+ * Grey band. ≥ 1200px: a 5/7 split. Columns 1–5 hold the header (eyebrow "What we do", the brief's "Six ways we create
+ *  value, together.", the intro, "All expertise →"); it stays sticky under the header while the six light
+ *  ExpertiseCards scroll past in a 2 × 3 grid in columns 7–12 (one column of air between them).
+ * 600–1199: header stacked on top (title, intro, link), then the cards 2 × 3 across the full width.
+ * Mobile (< 600px): one column of full-width cards under the header; the link sits under the intro.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
 import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
 import { whatWeDo } from '@/data/home';
 import { pillars } from '@/data/pillars';
@@ -16,17 +19,40 @@ import { keepCompounds } from './typo';
 // Promise lines are short display strings: keep "Go/No-Go" whole on a 360px phone.
 const cards = pillars.map((p) => ({ ...p, promise: keepCompounds(p.promise) }));
 ---
-<Section ground="grey" labelledby="whatwedo-heading">
-  <SectionHeader
-    id="whatwedo-heading"
-    eyebrow={whatWeDo.overline}
-    title={whatWeDo.headline}
-    lead={whatWeDo.intro}
-    link={megaMenu.all}
-  />
-  <ul class="card-grid card-grid--xl" role="list">
-    {cards.map((p, i) => (
-      <li data-reveal style={`--i:${i % 3}`}><ExpertiseCard pillar={p} /></li>
-    ))}
-  </ul>
+<Section ground="grey" labelledby="whatwedo-heading" class="hx">
+  <div class="hx__grid">
+    <div class="hx__aside">
+      <div class="hx__sticky">
+        <SectionHeader
+          id="whatwedo-heading"
+          eyebrow={whatWeDo.overline}
+          title={whatWeDo.headline}
+          lead={whatWeDo.intro}
+          layout="stack"
+          class="hx__head"
+        />
+        <p class="hx__link" data-reveal style="--i:2"><ArrowLink href={megaMenu.all.href}>{megaMenu.all.label}</ArrowLink></p>
+      </div>
+    </div>
+    <ul class="card-grid hx__cards" style="--cols:2" role="list">
+      {cards.map((p, i) => (
+        <li data-reveal style={`--i:${i % 2}`}><ExpertiseCard pillar={p} /></li>
+      ))}
+    </ul>
+  </div>
 </Section>
+
+<style>
+  .hx__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hx__grid :global(.hx__head) { margin-bottom: var(--s-5); }
+  .hx__link { margin: 0 0 clamp(3rem, 2.2rem + 3.3vw, 5rem); }
+
+  @media (min-width: 1200px) {
+    .hx__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
+    .hx__aside { grid-column: 1 / span 5; align-self: stretch; }
+    .hx__sticky { position: sticky; top: calc(var(--header-h) + var(--s-8)); }
+    .hx__grid :global(.hx__head) { margin-bottom: var(--s-6); }
+    .hx__link { margin: 0; }
+    .hx__cards { grid-column: 7 / -1; }
+  }
+</style>

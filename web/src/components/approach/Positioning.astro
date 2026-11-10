@@ -1,42 +1,42 @@
 ---
 /**
- * /approach §2 — the positioning statement (REDESIGN-V3 §8.3: moved here from Home). White band.
- * Desktop (≥ 900): the site's heading-rail grid (same lines as RailSection and the FAQ) — eyebrow "Our promise" + h2
- * headline in columns 1–4; the promise as a serif statement and the range paragraph in columns 6–12, top-aligned with
- * the h2, so the reading column starts on the same line in every heading-left section of the page.
- * Mobile: one column — eyebrow, h2, 32px, statement (serif 22px), range paragraph (18px body).
+ * /approach §2 — the positioning statement (REDESIGN-V3 §8.3: moved here from Home; §9.3 editorial split). White band.
+ * Desktop (≥ 900): an asymmetric 6/6 split on the 12-column grid — eyebrow "Our promise" + h2 headline in columns 1–6;
+ *  the promise as a large serif statement (--fs-quote, 26 → 40px) and, under a hairline, the range paragraph at lead
+ *  size in columns 7–12, the statement's first line level with the h2's first line.
+ * Mobile: one column — eyebrow, h2, 40px, the statement (serif 26px), hairline, range paragraph (18px body).
  */
 import Section from '@/components/ui/Section.astro';
-import Eyebrow from '@/components/ui/Eyebrow.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
 import { positioning } from '@/data/home';
 ---
 <Section ground="white" labelledby="promise-h" class="promise">
-  <div class="grid-12 promise__grid">
-    <div class="promise__head" style="--col: 1 / 5" data-reveal>
-      <Eyebrow class="promise__eyebrow">{positioning.folio}</Eyebrow>
-      <h2 id="promise-h" class="t-h2 promise__title">{positioning.headline}</h2>
+  <div class="grid-12">
+    <div style="--col: 1 / 7">
+      <SectionHeader id="promise-h" eyebrow={positioning.folio} title={positioning.headline} layout="stack" class="promise__head" />
     </div>
-    <div class="promise__body" style="--col: 6 / -1; --i: 1" data-reveal>
+    <div class="promise__body" style="--col: 7 / -1" data-reveal>
       <p class="promise__statement">{positioning.promise}</p>
       <p class="promise__range">{positioning.range}</p>
     </div>
   </div>
 </Section>
 <style>
-  .promise__eyebrow { margin-bottom: var(--s-4); }
-  .promise__title { max-width: 14em; }
-  .promise__body { margin-top: var(--s-6); }
+  .promise :global(.promise__head) { margin-bottom: var(--s-7); }
+  .promise :global(.promise__head .sh__title) { max-width: 20ch; }
   .promise__statement {
     font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-    font-size: clamp(1.375rem, 1.15rem + .9vw, 1.875rem); line-height: 1.3; letter-spacing: -0.008em;
-    color: var(--head); text-wrap: pretty; max-width: 30ch;
+    font-size: var(--fs-quote); line-height: var(--lh-quote, 1.25); letter-spacing: -0.012em;
+    color: var(--head); text-wrap: pretty; max-width: 28ch;
   }
   .promise__range {
-    margin-top: var(--s-5); padding-top: var(--s-5); border-top: 1px solid var(--rule);
-    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; max-width: 60ch;
+    margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--rule);
+    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; max-width: 58ch;
   }
   @media (min-width: 900px) {
-    .promise__body { margin-top: calc(var(--s-4) + var(--lh-label) * var(--fs-label)); }
-    .promise__range { margin-top: var(--s-6); padding-top: var(--s-6); }
+    .promise :global(.promise__head) { margin-bottom: 0; }
+    /* the statement's first line sits on the h2's first line (the eyebrow and its gap sit above the h2) */
+    .promise__body { padding-top: calc(var(--fs-label) * var(--lh-label) + var(--s-5)); }
+    .promise__range { margin-top: var(--s-8); padding-top: var(--s-7); font-size: var(--fs-lead); line-height: var(--lh-lead); }
   }
 </style>

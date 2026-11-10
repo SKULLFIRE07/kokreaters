@@ -3,7 +3,8 @@
  * Note / footnote (REDESIGN-V3 §4 article). MDX: <Note n={1}>text</Note>, placed inline inside a paragraph.
  * Markup keeps the v2 a11y contract: a word-joiner, a superscript link (#note-n, id ref-n, aria-describedby) and a
  * <span role="note" id="note-n"> (a span, because MDX puts it inside a <p>). :target highlights the note.
- * ≥ 1200px: a sidenote floated into the empty right column beside the paragraph (15rem wide, 64px from the text).
+ * ≥ 1200px: a sidenote floated into the empty right column beside the paragraph (15rem wide, 64px from the text);
+ * ≥ 1360px it sits in the article grid's notes column (width and gap from ArticleLayout's --side / --gap).
  * Below 1200px (mobile): an indented block under the paragraph: 2px rule on the left, 16px sans in --fg-2, the number
  * in --label; the reference link gets a 44px hit area.
  */
@@ -12,11 +13,15 @@ const { n } = Astro.props;
 ---
 {"⁠"}<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote" role="note"><span class="sidenote__n tnum" aria-hidden="true">{n}</span><span class="sidenote__text"><slot /></span></span>
 <style>
-  .note-ref { font-size: .68em; line-height: 0; vertical-align: super; margin-left: 1px; font-variant-numeric: lining-nums tabular-nums; }
+  .note-ref { font-size: .68em; line-height: 0; vertical-align: super; margin-left: 1px; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
   /* The sup keeps line-height 0 so the text line never moves; the link gets its own 1em box so its focus ring
      (base :focus-visible, 2px / offset 3px) frames the digit instead of collapsing to a flat bar. */
+  /* inline (not inline-block): an atomic inline after "differently." gave the browser a break opportunity, so the
+     numeral could wrap onto a line of its own; an inline box keeps it glued to the word (the word joiner holds). */
+  /* no right padding: when the numeral lands exactly at the end of a full line, trailing inline padding wrapped onto an
+     empty second line (an extra blank line under the paragraph); the ::after hit area keeps the 44px target */
   .note-ref a {
-    position: relative; display: inline-block; line-height: 1; padding: 0 .15em; font-weight: 600; color: var(--link); text-decoration: none;
+    position: relative; display: inline; line-height: 1; padding: 0 0 0 .15em; font-weight: 600; color: var(--link); text-decoration: none;
   }
   .note-ref a::after { content: ""; position: absolute; left: -10px; right: -10px; top: 50%; height: 44px; transform: translateY(-50%); }   /* 44px hit area */
   .note-ref a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
@@ -42,5 +47,9 @@ const { n } = Astro.props;
       padding: 0 0 0 var(--s-4);
     }
     .sidenote:target { padding-block: var(--s-2); }
+  }
+  /* ≥ 1360px the article grid has a real notes column (ArticleLayout --side / --gap): the note fills it */
+  @media (min-width: 1360px) {
+    .sidenote { width: min(15rem, var(--side, 15rem)); margin-right: calc(-1 * (min(15rem, var(--side, 15rem)) + var(--gap, 4rem))); }
   }
 </style>

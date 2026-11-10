@@ -1,6 +1,6 @@
 /** The six pillars (DESIGN-SPEC 4.4; brief 5). Order and slugs are the brief's. */
 import type { Pillar } from './types';
-import type { PhotoSlug } from './photos';
+import type { BleedSafeSlug, PhotoSlug } from './photos';
 
 export const pillars: Pillar[] = [
   {
@@ -126,18 +126,26 @@ export const pillarHelpConfirm: Partial<Record<Pillar['key'], { id: number | str
 };
 
 /**
- * v3: the hero photo of each pillar page (research/v3/photos.md, "Expertise detail heroes"). Slugs from
- * src/data/photos.ts; alt text travels with the photo record. `position` overrides the record's crop only where the
- * split hero (a near-square box from a 3:2 photo) would cut the subject: lab-01's analyst sits at the left edge.
+ * v3.1 (REDESIGN-V3 §9.2 "no image cut"): the photos of each pillar page. Slugs from src/data/photos.ts; alt text and
+ * the tuned focal point travel with the photo record.
+ *  slug   — the pillar hero (PillarHero: the photo fills the right ≈ 2/3 of the band at full height, box ≈ 1.2–1.5:1,
+ *           fading into navy on the left) and the hub index image (3:2): a landscape BLEED_SAFE photo whose subject sits
+ *           centre or right. `position` overrides the record's crop for the hero's box.
+ *  detail — the framed photo beside "What we help with", in its natural orientation: portraits in a 4:5 frame,
+ *           landscapes in a 3:2 frame (so nothing is cut). Was the split-hero photo in v3.0 (lab-01, factory-01 are not
+ *           bleed-safe, so they moved here).
  */
-export const pillarPhoto: Record<Pillar['key'], { slug: PhotoSlug; position?: string }> = {
-  innovation: { slug: 'oils-01' },
-  process: { slug: 'plant-01' },
-  quality: { slug: 'lab-01', position: '12% 45%' },
-  strategy: { slug: 'oilseeds-01' },
-  deals: { slug: 'people-03' },
-  capability: { slug: 'factory-01' },
+export const pillarPhoto: Record<Pillar['key'], { slug: BleedSafeSlug; position?: string; detail: PhotoSlug; detailPosition?: string }> = {
+  innovation: { slug: 'chocolate-01', detail: 'bakery-01' },
+  process: { slug: 'plant-01', position: '50% 40%', detail: 'cold-01' },
+  quality: { slug: 'oils-01', position: '50% 20%', detail: 'lab-02' },
+  strategy: { slug: 'oilseeds-01', detail: 'people-03' },
+  deals: { slug: 'refinery-02', position: '50% 25%', detail: 'audit-01' },
+  capability: { slug: 'people-02', position: '88% 45%', detail: 'factory-01' },
 };
+
+/** v3.1: the hub hero (/expertise), a quiet dark full-bleed photo so the display headline carries the screen. */
+export const expertiseHubPhoto: { slug: BleedSafeSlug; position?: string } = { slug: 'texture-01' };
 
 /**
  * v3: labels for one quiet static exhibit per pillar page (were expertiseNotes.diagram.*, minus the

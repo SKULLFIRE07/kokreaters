@@ -49,15 +49,16 @@ const mail = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURICompo
   .share__label { margin: 0; color: var(--fg-2); }
   .share__items { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
   .share__row--share .share__items { justify-content: space-between; }
-  .share__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .share__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--s-6); }
+  /* v3.1: borderless icon + label links (44px+ tall), underline draws on hover; Download PDF stays the one button */
   .share__btn {
-    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 48px; padding: 0 var(--s-4);
-    border: 1px solid var(--rule); border-radius: var(--r-sm);
+    display: inline-flex; align-items: center; gap: var(--s-2); min-height: 48px; padding: 0 var(--s-2) 0 0;
     font: 500 var(--fs-small)/1.2 var(--font-sans); color: var(--fg); text-decoration: none;
-    transition: border-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
+    text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; text-decoration-color: transparent;
+    transition: color var(--d-1) var(--ease-out), text-decoration-color var(--d-1) var(--ease-out);
   }
   .share__btn :global(svg) { color: var(--label); }
-  .share__btn:hover { border-color: var(--accent); color: var(--link); }
+  .share__btn:hover { color: var(--link); text-decoration-color: var(--accent); }
   .share__url { display: none; }
   /* the expertise tag's 44px hit area now comes from ui/Tag itself (linked tags) */
   @media (min-width: 600px) {

@@ -1,0 +1,100 @@
+---
+/**
+ * Expertise hub index (v3.1, REDESIGN-V3 §9.3 "asymmetric editorial compositions, offset images"). Page-local layout for
+ * /expertise only; it replaces the hub's grid of six ExpertiseCards with six editorial rows.
+ * Each row: the pillar's hero photo (3:2, its tuned focal point, settles in on scroll) in 7 of 12 columns, and beside
+ * it a text block in 4–5 columns: icon + "01" label row, serif pillar name (h3, the link — stretched over the whole row),
+ * the promise as a lead, "Typical deliverables" as a quiet dash list, "Learn more →". Rows alternate photo left / right
+ * from 900px; the text is vertically centred against the photo. Hover: the photo zooms 1.04, an accent line draws
+ * across the text block's top hairline, the name turns --link.
+ * Mobile (< 900px): one column per row, photo first (full width, 3:2), text below; 72px between rows.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
+import { pad2 } from '@/lib/format';
+import { microcopy } from '@/data/microcopy';
+import { pillarPage, pillarPhoto } from '@/data/pillars';
+import { pillarHref } from '@/lib/pillars';
+import type { Pillar } from '@/data/types';
+
+interface Props { items: Pillar[] }
+const { items } = Astro.props;
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+<ol class="pidx" role="list">
+  {items.map((p, i) => (
+    <li class:list={['pidx__row', i % 2 === 1 && 'pidx__row--flip']}>
+      <article class="pidx__item u-hover">
+        <div class="pidx__media u-zoom" data-reveal>
+          <Photo
+            slug={pillarPhoto[p.key].slug} ratio="3/2" settle
+            sizes="(min-width: 1440px) 820px, (min-width: 900px) 56vw, calc(100vw - 40px)"
+          />
+        </div>
+        <div class="pidx__text" data-reveal style="--i:1">
+          <p class="pidx__top t-label">
+            <ExpertiseIcon pillar={p.key} size={28} />
+            <span class="pidx__n">{pad2(p.n)}</span>
+          </p>
+          <h3 class="pidx__title"><a class="pidx__link" href={pillarHref(p.key)}>{p.name}</a></h3>
+          <p class="pidx__promise">{p.promise}</p>
+          <div class="pidx__deliv">
+            <p class="pidx__dlabel t-label">{pillarPage.deliverables}</p>
+            <ul class="pidx__dlist" role="list">
+              {p.deliverables.map((d) => <li>{cap(d)}</li>)}
+            </ul>
+          </div>
+          <p class="pidx__more"><ArrowLink aria-hidden="true">{microcopy.pillarLink}</ArrowLink></p>
+        </div>
+      </article>
+    </li>
+  ))}
+</ol>
+<style>
+  .pidx { list-style: none; margin: 0; padding: 0; display: grid; row-gap: clamp(4.5rem, 2.5rem + 7vw, 10rem); }
+  .pidx__item { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); }
+  .pidx__media { position: relative; border-radius: var(--r-sm); overflow: hidden; }
+
+  .pidx__text { position: relative; padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  .pidx__text::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
+  }
+  .pidx__item:hover .pidx__text::before, .pidx__item:has(.pidx__link:focus-visible) .pidx__text::before { transform: scaleX(1); }
+
+  .pidx__top { display: flex; align-items: center; justify-content: space-between; color: var(--label); }
+  .pidx__n { font-family: var(--font-serif); font-size: 1.125rem; letter-spacing: 0; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  .pidx__title {
+    margin-top: var(--s-6);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.75rem, 1.05rem + 2vw, 3.5rem);
+    line-height: 1.12; font-weight: 420; letter-spacing: -0.015em; color: var(--head); text-wrap: balance; max-width: 18ch;
+  }
+  .pidx__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
+  .pidx__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .pidx__link:focus-visible { outline: none; }
+  .pidx__item:has(.pidx__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 8px; }
+  .pidx__item:hover .pidx__link { color: var(--link); }
+  .pidx__promise { margin-top: var(--s-5); font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); text-wrap: pretty; max-width: 30ch; }
+
+  .pidx__deliv { margin-top: var(--s-7); }
+  .pidx__dlabel { color: var(--fg-2); margin-bottom: var(--s-3); }
+  .pidx__dlist { list-style: none; margin: 0; padding: 0; font-size: var(--fs-body); line-height: 1.5; color: var(--fg); }
+  .pidx__dlist li { position: relative; padding-left: 18px; }
+  .pidx__dlist li + li { margin-top: 6px; }
+  .pidx__dlist li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--label); }
+  .pidx__more { margin-top: var(--s-7); }
+
+  @media (min-width: 900px) {
+    .pidx__item { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: center; }
+    .pidx__media { grid-column: 1 / 8; grid-row: 1; }
+    .pidx__text { grid-column: 9 / -1; grid-row: 1; }
+    .pidx__row--flip .pidx__media { grid-column: 6 / -1; }
+    .pidx__row--flip .pidx__text { grid-column: 1 / 5; }
+  }
+  /* 900–1199: the photo keeps 7 columns, the text takes the other 5 (a 4-column text block is too narrow here) */
+  @media (min-width: 900px) and (max-width: 1199px) {
+    .pidx__text { grid-column: 8 / -1; padding-left: var(--s-2); }
+    .pidx__row--flip .pidx__text { grid-column: 1 / 6; padding-left: 0; padding-right: var(--s-2); }
+  }
+</style>

@@ -7,7 +7,9 @@
  *    below 390px it reads "Download profile (PDF)" so it stays on one line. Portrait at 50% 4%: headroom above the hair
  *    in every crop (desktop half-bleed, 4:3 on tablet and phone).
  *  2 AboutStory (white)      — name and role, the short story, "Read the long version" (native details).
- *  3 CareerTimeline (grey)   — four ringed nodes on a hairline (vertical on mobile), worked-with line.
+ *  3 CareerTimeline (grey)   — v3.1: sticky header left (≥ 1200), the four stops on a vertical spine with large serif
+ *                              years scrolling past on the right; worked-with line as the lead.
+ *  · PhotoInterlude (v3.1 §9.1): oils-01 (BLEED_SAFE), full bleed, one serif line (aboutPage.interludeCaption).
  *  4 PlacesMap (white)       — #the-map: "Eight places in five countries", static Equal Earth map, eight ringed nodes,
  *                              the places <ol>.
  *  5 NamePanel (navy)        — "Ko + Kreaters" as one formula with its two definitions, the founder's words, the lockup.
@@ -26,6 +28,7 @@ import CareerTimeline from '@/components/about/CareerTimeline.astro';
 import PlacesMap from '@/components/about/PlacesMap.astro';
 import NamePanel from '@/components/about/NamePanel.astro';
 import Credentials from '@/components/about/Credentials.astro';
+import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 import { person } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
@@ -65,6 +68,7 @@ const hasPdf = existsSync(join(process.cwd(), 'public', aboutPage.profilePdfHref
   </PageHero>
   <AboutStory />
   <CareerTimeline />
+  <PhotoInterlude slug="oils-01" size="lg" caption={aboutPage.interludeCaption} />
   <PlacesMap />
   <NamePanel />
   <Credentials />

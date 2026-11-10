@@ -12,6 +12,7 @@
  * ("Tell us about your product, your plant or your decision.").
  */
 import Section from './Section.astro';
+import SplitText from './SplitText.astro';
 import Button from './Button.astro';
 import Confirm from './Confirm.astro';
 import NewsletterForm from './NewsletterForm.astro';
@@ -43,9 +44,9 @@ const {
 const isDefaultBody = !Astro.props.body;
 ---
 <Section ground={ground} labelledby="cta-heading" class="cta-band">
-  <div class:list={['cta-band__grid', newsletter && 'cta-band__grid--news']}>
-    <h2 id="cta-heading" class="cta-band__title" data-reveal>{title}</h2>
-    <div class="cta-band__side" data-reveal style="--i:1">
+  <div class:list={['cta-band__grid', newsletter && 'cta-band__grid--news']} data-reveal="split">
+    <h2 id="cta-heading" class="cta-band__title"><SplitText text={title} /></h2>
+    <div class="cta-band__side" data-part style="--i:1">
       {body && <p class="cta-band__body">{body}{isDefaultBody && showConfirm && <Confirm id={9} note="free first call" />}</p>}
       <div class="cta-band__actions">
         <Button href={primary.href} size="lg" icon="arrow" class="cta-band__primary">{primary.label}</Button>
@@ -53,7 +54,7 @@ const isDefaultBody = !Astro.props.body;
       </div>
     </div>
     {newsletter && (
-      <div class="cta-band__news" data-reveal style="--i:2">
+      <div class="cta-band__news" data-part style="--i:2">
         <NewsletterForm id="nl-cta" tone={ground === 'navy' ? 'dark' : 'light'} heading={footer.newsletter.heading} />
       </div>
     )}
@@ -61,12 +62,11 @@ const isDefaultBody = !Astro.props.body;
 </Section>
 
 <style>
-  /* a short closing band: 64 → 96px padding instead of the full 72 → 120 section rhythm, so it never reads hollow */
-  :global(.cta-band.band) { --_pad: clamp(64px, 3.4rem + 2.4vw, 96px); }
-  .cta-band__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); }
-  .cta-band__title { margin: 0; font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); }
-  .cta-band__body { margin: 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
-  .cta-band__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin-top: var(--s-6); }
+  /* §9.3: the closing band breathes like a section (80 → 148 → 180px); the title is set one step up, at --fs-h1 */
+  .cta-band__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); }
+  .cta-band__title { margin: 0; font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--tr-h1); font-weight: 400; max-width: 20ch; }
+  .cta-band__body { margin: 0; max-width: 40ch; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); }
+  .cta-band__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-6); margin-top: var(--s-7); }
   .cta-band__secondary { display: inline-flex; align-items: center; min-height: 44px; font: 500 var(--fs-small)/1.3 var(--font-sans); color: var(--link); }
   .cta-band__news { margin-top: var(--s-6); padding-top: var(--s-7); border-top: 1px solid var(--rule); }
 
@@ -76,10 +76,15 @@ const isDefaultBody = !Astro.props.body;
   }
   @media (min-width: 900px) {
     .cta-band__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .cta-band__title { grid-column: 1 / span 6; max-width: 24ch; }
+    .cta-band__title { grid-column: 1 / span 7; }
     .cta-band__side { grid-column: 8 / span 5; align-self: end; }
+    .cta-band__grid--news { row-gap: var(--s-7); }
     .cta-band__grid--news .cta-band__title, .cta-band__grid--news .cta-band__side { grid-column: 1 / span 6; align-self: start; }
-    .cta-band__news { grid-column: 8 / span 5; grid-row: 1 / span 2; margin: 0; padding: 0 0 0 var(--grid-gap); border-top: 0; border-left: 1px solid var(--rule); align-self: stretch; }
-    .cta-band__news :global(.nl__heading) { margin-top: .5rem; }   /* label cap line sits level with the title's cap line */
+    .cta-band__grid--news .cta-band__title { font-size: var(--fs-h2); line-height: var(--lh-h2); max-width: 22ch; }
+    .cta-band__news { grid-column: 8 / span 5; grid-row: 1 / span 2; margin: 0; padding: var(--s-2) 0 0 clamp(1.5rem, 3vw, 4rem); border-top: 0; border-left: 1px solid var(--rule); align-self: stretch; }
+  }
+  /* wide screens: the newsletter variant's title steps up to h1 size and runs two lines, not three */
+  @media (min-width: 1200px) {
+    .cta-band__grid--news .cta-band__title { font-size: var(--fs-h1); line-height: var(--lh-h1); max-width: 22ch; }
   }
 </style>

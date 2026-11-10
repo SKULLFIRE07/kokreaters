@@ -4,7 +4,8 @@
  *  tile — a text-only cell for the hairline 3×3 grid on home: "01", serif name, optional one-line copy, arrow.
  *         The whole cell is the link. Put tiles in <ul class="tile-grid"><li>…</li></ul> (style below): hairlines
  *         between rows and columns, none on the outer left/right edges. Outer columns sit flush with the container edge. Hover: name → --link, arrow nudges.
- *  card — Kearney-style industry card (Industries page): optional 3:2 photo, "01", serif name, one-line description,
+ *  card — light industry card (Industries page; §9.3: no box, a hairline on top or the photo, open space): optional 3:2
+ *         photo (focal point automatic from src/data/photos.ts), "01", serif name, one-line description,
  *         then "Relevant expertise" links. Pass id={slug} for the /industries#slug anchors. The name links to `href`
  *         only when that goes somewhere else: no href, or an href that points at this card's own #id on the current
  *         page, gives a plain heading (no self-links). Each expertise link keeps its last word and arrow together
@@ -52,7 +53,7 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   </a>
 ) : (
   <article class:list={['icard-ind', image && 'icard-ind--img', cls]} {...rest}>
-    {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" sizes="(min-width: 900px) 380px, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
+    {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" settle sizes="(min-width: 1200px) 440px, (min-width: 900px) 30vw, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
     <div class="icard-ind__body">
       <span class="icard-ind__n" aria-hidden="true">{n !== undefined ? pad2(n) : ''}</span>
       <H class="icard-ind__name">{nameHref ? <a href={nameHref}>{name}</a> : name}</H>
@@ -113,16 +114,16 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   .itile__arrow { grid-area: arrow; align-self: center; color: var(--accent); }
   .itile:hover .itile__name { color: var(--link); }
   @media (min-width: 600px) {
-    .itile { min-height: 112px; padding: var(--s-5); grid-template-rows: auto 1fr auto; grid-template-areas: "n arrow" "name name" "copy copy"; }
+    .itile { min-height: 144px; padding: var(--s-6) var(--s-5); grid-template-rows: auto 1fr auto; grid-template-areas: "n arrow" "name name" "copy copy"; }
     .itile__arrow { align-self: start; }
     .itile__name { align-self: end; margin-top: var(--s-3); }
     .itile--nocopy { grid-template-rows: auto 1fr; grid-template-areas: "n arrow" "name name"; }
   }
 
-  .icard-ind { display: flex; flex-direction: column; height: 100%; background: var(--surface); border-top: 2px solid var(--rule-strong); }
-  :global(.band--white) .icard-ind { box-shadow: inset 1px 0 0 var(--rule), inset -1px 0 0 var(--rule), inset 0 -1px 0 var(--rule); }
-  .icard-ind__media { border-radius: 0; }
-  .icard-ind__body { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5); flex: 1; }
+  .icard-ind { display: flex; flex-direction: column; height: 100%; border-top: 1px solid var(--rule); }
+  .icard-ind--img { border-top: 0; }
+  .icard-ind__media { border-radius: var(--r-sm); }
+  .icard-ind__body { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5) 0; flex: 1; }
   .icard-ind__n { font-size: var(--fs-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
   .icard-ind__name {
     font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
@@ -147,7 +148,7 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   .icard-ind__last { white-space: nowrap; }
   .icard-ind__xp a :global(.icon) { display: inline-block; color: var(--accent); vertical-align: -3px; margin-left: 6px; }
   .icard-ind__xp:first-child { margin-top: 0; }
-  @media (min-width: 900px) { .icard-ind__body { padding: var(--s-6) var(--s-5) var(--s-5); } }
+  @media (min-width: 900px) { .icard-ind__body { padding: var(--s-6) var(--s-4) var(--s-5) 0; } }
 
   /* row subgrid (see header): media · n · name · copy · expertise share their tracks with the row's other cards */
   @supports (grid-template-rows: subgrid) {
@@ -159,7 +160,7 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
     .icard-ind > :global(.icard-ind__media) { grid-row: 1; }
     /* the body dissolves into the card's subgrid; its padding moves onto the parts */
     .icard-ind__body { display: contents; }
-    .icard-ind__body > * { min-width: 0; margin-inline: var(--s-5); }
+    .icard-ind__body > * { min-width: 0; margin-inline: 0 var(--s-4); }
     .icard-ind__n { grid-row: 1; padding-top: var(--s-5); }
     .icard-ind__name { grid-row: 2; margin-top: var(--s-3); }
     .icard-ind__copy { grid-row: 3; margin-top: var(--s-3); }

@@ -1,14 +1,16 @@
 ---
 /**
- * About · career (REDESIGN-V3 §4 About, section 3). Grey band, aria-labelledby="journey-title".
- * SectionHeader (bare h2, no eyebrow: inner-page rule; "From CFTRI Mysore to KoKreaters", derived from the timeline; lead = the worked-with
- * sentence, sectors only), then an <ol> of the four
- * stops with the ringed-node signature: a 20px node (brand-blue disc, white ring, brand-blue dot; the ProcessFlow node)
- * on a 1px brand-blue hairline. Under each node: the years (label colour, tabular), the organisation (serif h3) and one
- * role line (timelineRoles, small, secondary). The KoKreaters node takes the accent: the one highlight in the band.
- * Static: no drawing, no counters.
- * ≥ 900px: four equal columns; the hairline runs from the first node to the last through every node centre.
- * Mobile (< 900px): vertical. Nodes on a left spine, the hairline joins them, text to the right, 32px between stops.
+ * About · career (REDESIGN-V3 §4 About, section 3; §9.4 "sticky storytelling … About timeline"). Grey band,
+ * aria-labelledby="journey-title".
+ * SectionHeader (bare h2 "From CFTRI Mysore to KoKreaters", derived from the timeline; lead = the worked-with sentence,
+ * sectors only), then an <ol> of the four stops on a vertical spine with the ringed-node signature (a 20px node: disc,
+ * white ring, dot; the ProcessFlow node) on a 1px hairline. Each stop: the years in a large light serif (tabular), the
+ * organisation (serif h3) and one role line (timelineRoles). The KoKreaters node takes the accent: the one highlight.
+ * No counters; the stops fade in as they arrive (data-reveal).
+ * ≥ 1200px: the header sits in columns 1–5 and stays pinned (position: sticky, under the header) while the stops scroll
+ *   past in columns 7–12; inside each stop the years take the left part and the organisation + role the right.
+ * 900–1199px: header above, the stops in columns 3–12 of the grid with the same inner split.
+ * Mobile (< 900px): header above; the stops stacked on the left spine, years over organisation over role.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
@@ -17,57 +19,78 @@ import { timeline, timelineRoles, workedWith, aboutPage } from '@/data/founder';
 import { showConfirm } from '@/lib/mode';
 ---
 <Section ground="grey" labelledby="journey-title" class="career">
-  <SectionHeader id="journey-title" title={aboutPage.careerHeading}>
-    <p slot="lead">{workedWith}<Confirm id={5} note="sectors only, no company names" /></p>
-  </SectionHeader>
-  <ol class="tl" role="list">
-    {timeline.map((t, i) => (
-      <li class:list={['tl__stop', i === timeline.length - 1 && 'tl__stop--now']} data-reveal style={`--i:${i}`}>
-        <span class="tl__node" aria-hidden="true"></span>
-        <div class="tl__text">
+  <div class="career__grid">
+    <div class="career__head">
+      <SectionHeader id="journey-title" title={aboutPage.careerHeading} layout="stack">
+        <p slot="lead">{workedWith}<Confirm id={5} note="sectors only, no company names" /></p>
+      </SectionHeader>
+    </div>
+    <ol class="tl" role="list">
+      {timeline.map((t, i) => (
+        <li class:list={['tl__stop', i === timeline.length - 1 && 'tl__stop--now']} data-reveal style={`--i:${Math.min(i, 1)}`}>
+          <span class="tl__node" aria-hidden="true"></span>
           <p class="tl__years tnum">{t.years}</p>
-          <h3 class="tl__org">{t.label}</h3>
-          {timelineRoles[t.label] && <p class="tl__role">{timelineRoles[t.label]}</p>}
-        </div>
-      </li>
-    ))}
-  </ol>
+          <div class="tl__text">
+            <h3 class="tl__org">{t.label}</h3>
+            {timelineRoles[t.label] && <p class="tl__role">{timelineRoles[t.label]}</p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
   {showConfirm && <p class="career__confirm"><Confirm id={13} note="career dates" /></p>}
 </Section>
 <style>
-  .tl { --node: 20px; --line: var(--label); list-style: none; margin: 0; padding: 0; display: grid; }
-  .tl__stop { position: relative; display: grid; grid-template-columns: var(--node) minmax(0, 1fr); column-gap: var(--s-5); padding-bottom: var(--s-6); }
+  .career__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
+  .career__head :global(.sh) { margin-bottom: 0; }
+
+  .tl { --node: 20px; --line: var(--label); list-style: none; margin: 0; padding: 0; position: relative; }
+  .tl__stop {
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3);
+    padding: 0 0 var(--s-8) calc(var(--node) + var(--s-5));
+  }
   .tl__stop:last-child { padding-bottom: 0; }
 
-  /* ringed node: disc · white ring · dot (14px box + 3px outer ring = 20px), as ProcessFlow */
+  /* the spine: from this node's centre to the next node's centre */
+  .tl__stop:not(:last-child)::before {
+    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: var(--_ny, 14px); bottom: calc(var(--_ny, 14px) * -1);
+    width: 1px; background: var(--line);
+  }
+  /* ringed node: disc · white ring · dot (14px box + 3px outer ring = 20px), as ProcessFlow; centred on the years */
   .tl__node {
-    position: relative; z-index: 1; width: 14px; height: 14px; margin: 3px; border-radius: 50%;
+    position: absolute; left: 0; top: calc(var(--_ny, 14px) - var(--node) / 2); z-index: 1;
+    width: 14px; height: 14px; margin: 3px; border-radius: 50%;
     background: var(--line); border: 2px solid var(--white); box-shadow: 0 0 0 3px var(--line);
   }
   .tl__stop--now .tl__node { background: var(--accent); box-shadow: 0 0 0 3px var(--accent); }
 
-  /* connector, mobile: node centre → next node centre, down the spine */
-  .tl__stop:not(:last-child)::before {
-    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2); bottom: calc(var(--node) / -2);
-    width: 1px; background: var(--line);
+  .tl__years {
+    --_size: clamp(2rem, 1.35rem + 2.2vw, 4rem);
+    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 320;
+    font-size: var(--_size); line-height: 1; letter-spacing: -0.025em; color: var(--head);
+    font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
-
+  .tl { --_ny: calc(clamp(2rem, 1.35rem + 2.2vw, 4rem) * .55); }   /* node centre ≈ the years' x-height middle */
   .tl__text { min-width: 0; }
-  .tl__years { margin: 0; font-size: var(--fs-meta); line-height: var(--node); font-weight: 600; letter-spacing: .01em; color: var(--label); }
-  .tl__org { margin: var(--s-2) 0 0; font-size: var(--fs-h3); line-height: var(--lh-h3); }
-  .tl__role { margin: var(--s-2) 0 0; max-width: 34ch; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
+  .tl__org { margin: 0; font-size: var(--fs-h3); line-height: var(--lh-h3); }
+  .tl__role { margin: var(--s-2) 0 0; max-width: 40ch; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
 
   .career__confirm { margin: var(--s-6) 0 0; }
 
   @media (min-width: 900px) {
-    .tl { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .tl__stop { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); padding-bottom: 0; align-content: start; }
-    /* connector, desktop: across this column and the gap to the next node's centre */
-    .tl__stop:not(:last-child)::before {
-      left: calc(var(--node) / 2); right: calc((var(--grid-gap) + var(--node) / 2) * -1);
-      top: calc(var(--node) / 2 - .5px); bottom: auto; width: auto; height: 1px;
+    .career__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
+    .career__head { grid-column: 1 / -1; }
+    .tl { grid-column: 3 / -1; }
+    .tl__stop {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--grid-gap); align-items: start;
+      padding-left: calc(var(--node) + var(--s-6)); padding-bottom: var(--s-9);
     }
-    .tl__years { line-height: 1.3; }
-    .tl__role { padding-right: var(--s-4); }
+    .tl__text { border-top: 1px solid var(--rule); padding-top: var(--s-4); margin-top: calc(var(--_ny) - 1px); }
+  }
+
+  /* ≥ 1200: the header pinned in columns 1–5 while the stops scroll past in 7–12 */
+  @media (min-width: 1200px) {
+    .career__head { grid-column: 1 / 6; position: sticky; top: calc(var(--header-h) + var(--s-8)); align-self: start; }
+    .tl { grid-column: 7 / -1; }
   }
 </style>

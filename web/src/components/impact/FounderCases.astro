@@ -3,7 +3,9 @@
  * "From our founder’s career" (REDESIGN-V3 §4 Impact): SectionHeader (bare h2 partOne, no eyebrow per the inner-page rule; lead naming
  * Wilmar and Cargill), then the four cases in data order (India, Indonesia, Ukraine, WHO), each a CaseStudy with its
  * photo from research/v3/photos.md. Shown once (v2 showed them twice: stack + chapters).
- * Desktop: cases 96px apart, each opened by a 2px navy rule. Mobile: 64px apart, same rule.
+ * v3.1 (§9): each case is a cinematic spread (CaseStudy), the photo alternating sides: left, right, left, right.
+ * Photos keep their natural orientation (portrait 3:4, landscape 3:2).
+ * Desktop: cases 160 → 200px apart, no rules (air and the numbered kicker separate them). Mobile: 96px apart.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
@@ -30,10 +32,12 @@ const casePhoto: Record<FounderResult['id'], PhotoSlug> = {
 <Section ground={ground} labelledby="part-founder">
   <SectionHeader id="part-founder" title={impactPage.partOne} lead={impactPage.partOneLead} />
   <div class="cases">
-    {founderResults.map((r) => <CaseStudy result={r} photo={photos[casePhoto[r.id]]} />)}
+    {founderResults.map((r, i) => (
+      <CaseStudy result={r} photo={photos[casePhoto[r.id]]} index={i + 1} total={founderResults.length} side={i % 2 === 0 ? 'left' : 'right'} />
+    ))}
   </div>
 </Section>
 <style>
-  .cases { display: grid; gap: var(--s-8); }
-  @media (min-width: 900px) { .cases { gap: var(--s-9); margin-top: var(--s-5); } }
+  .cases { display: grid; gap: var(--s-9); margin-top: var(--s-8); }
+  @media (min-width: 900px) { .cases { gap: clamp(10rem, 4rem + 6.6vw, 12.5rem); margin-top: var(--s-9); } }
 </style>

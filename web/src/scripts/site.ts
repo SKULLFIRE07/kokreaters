@@ -7,7 +7,11 @@
  *    items on the header's bottom edge, rests under the current section
  *  - mobile menu ([data-menu-toggle] → #mobile-menu): scroll lock without layout jump, `inert` on the rest of the page,
  *    focus trap, Esc, label swap, accordions ([data-menu-group]), replay of a tap made before this script ran
- *  - reveals ([data-reveal] → .is-in at 15% visible, once; everything at once under reduced motion)
+ *  - reveals ([data-reveal] → .is-in at 15% visible, once; everything at once under reduced motion). A
+ *    [data-reveal="split"] block first numbers its heading's word spans by line (--l), so the words rise line by line
+ *  - count-up ([data-count]): a figure that starts below the fold counts from 0 to its server-rendered value once, at
+ *    60% visible (1.4s ease-out); a visually-hidden twin keeps the real figure for assistive tech. Skipped under reduced
+ *    motion, for ordinals ("1st") and for figures without a number ("WHO")
  *  - footer groups ([data-ft-group] in [data-ft-col]): phone accordion rows; toggles .is-open + aria-expanded (CSS
  *    folds them only below 600px, so the state is inert on wider screens)
  *  - newsletter forms ([data-newsletter]): validation, honeypot, fetch JSON or mailto fallback, aria-live status
@@ -217,14 +221,66 @@ function initMobileMenu(header: HTMLElement) {
 }
 
 /* ── Reveals: blur-fade once at 15% visible ──────────────────────── */
+function markLines(root: Element) {
+  let top = Number.NEGATIVE_INFINITY, line = -1;
+  for (const w of $$('.wd', root)) {
+    const t = w.offsetTop;
+    if (Math.abs(t - top) > 4) { line++; top = t; }
+    w.style.setProperty('--l', String(line));
+  }
+}
 function initReveal() {
   const els = $$('[data-reveal]:not([data-reveal="lines"])');
   if (!els.length) return;
   if (reduced.matches || !('IntersectionObserver' in window)) { for (const el of els) el.classList.add('is-in'); return; }
   const io = new IntersectionObserver((entries) => {
-    for (const en of entries) if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      if (en.target.getAttribute('data-reveal') === 'split') markLines(en.target);
+      en.target.classList.add('is-in'); io.unobserve(en.target);
+    }
   }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
   for (const el of els) io.observe(el);
+}
+
+/* ── Count-up: stat figures, once ────────────────────────────────── */
+const COUNT = /^(\D*?)(\d+(?:\.\d+)?)(.*)$/s;
+function initCount() {
+  const els = $$('[data-count]');
+  if (!els.length || reduced.matches || !('IntersectionObserver' in window)) return;
+  const run = (el: HTMLElement) => {
+    const out = el.querySelector<HTMLElement>('[data-count-out]');
+    const d = el.dataset;
+    if (!out) return;
+    const n = Number(d.countN), dec = Number(d.countDec), pre = d.countPre ?? '', post = d.countPost ?? '';
+    const t0 = performance.now(), dur = 1400;
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      out.textContent = pre + (n * e).toFixed(dec) + post;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const io = new IntersectionObserver((entries) => {
+    for (const en of entries) if (en.isIntersecting) { io.unobserve(en.target); run(en.target as HTMLElement); }
+  }, { threshold: 0.6 });
+  for (const el of els) {
+    const full = (el.textContent ?? '').trim();
+    const m = COUNT.exec(full);
+    // already on screen, an ordinal ("1st") or no number at all ("WHO"): leave the figure as rendered
+    if (!m || /^(st|nd|rd|th)\b/i.test(m[3]) || el.getBoundingClientRect().top < window.innerHeight) continue;
+    const dec = (m[2].split('.')[1] ?? '').length;
+    Object.assign(el.dataset, { countPre: m[1], countN: m[2], countDec: String(dec), countPost: m[3] });
+    const out = document.createElement('span');
+    out.setAttribute('aria-hidden', 'true');
+    out.dataset.countOut = '';
+    out.textContent = m[1] + (0).toFixed(dec) + m[3];
+    const sr = document.createElement('span');
+    sr.className = 'visually-hidden';
+    sr.textContent = full;
+    el.replaceChildren(out, sr);
+    io.observe(el);
+  }
 }
 
 /* ── Footer groups: phone accordion rows (folded by CSS < 600px only) ── */
@@ -299,6 +355,7 @@ function boot() {
     initMobileMenu(header);
   }
   initReveal();
+  initCount();
   initFooterGroups();
   initNewsletter();
   initConsent();
