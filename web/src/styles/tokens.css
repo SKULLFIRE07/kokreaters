@@ -76,10 +76,10 @@
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
   --section: clamp(4.5rem, 3.386rem + 4.571vw, 7.5rem);          /* 72 → 120 */
   --section-tight: clamp(3rem, 2.257rem + 3.048vw, 5rem);        /* 48 → 80 */
-  --container: 1200px;
+  --container: 1360px;
   --container-narrow: 760px;
   --container-wide: 1440px;
-  --gutter-x: clamp(20px, -.088rem + 5.49vw, 48px);              /* 20 at 390 → 48 from ~900 */
+  --gutter-x: clamp(20px, 5vw, 80px);              /* 20 at 390 → 48 from ~900 */
   --grid-gap: clamp(1rem, .629rem + 1.524vw, 2rem);              /* 16 → 32 */
   --ann-h: 36px;
   --header-h: 64px;
