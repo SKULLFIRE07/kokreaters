@@ -11,10 +11,10 @@
     "assets": "node scripts/copy-fonts.mjs && node scripts/prepare-brand.mjs && node scripts/build-map.mjs",
     "predev": "node scripts/copy-fonts.mjs",
     "dev": "astro dev --host 127.0.0.1 --port 4321",
-    "prebuild": "node scripts/copy-fonts.mjs",
+    "prebuild": "node scripts/copy-fonts.mjs && node scripts/build-knowledge.mjs",
     "build": "astro build",
-    "build:preview": "node scripts/copy-fonts.mjs && PUBLIC_SITE_MODE=preview astro build",
-    "build:prod": "node scripts/copy-fonts.mjs && PUBLIC_SITE_MODE=production astro build",
+    "build:preview": "node scripts/copy-fonts.mjs && PUBLIC_SITE_MODE=preview node scripts/build-knowledge.mjs && PUBLIC_SITE_MODE=preview astro build",
+    "build:prod": "node scripts/copy-fonts.mjs && PUBLIC_SITE_MODE=production node scripts/build-knowledge.mjs && PUBLIC_SITE_MODE=production astro build",
     "preview": "astro preview --host 127.0.0.1 --port 4322",
     "check": "astro check",
     "og": "node scripts/og.mjs",
@@ -23,9 +23,12 @@
     "verify:check": "node scripts/csp-hash.mjs --check && node scripts/check-budget.mjs && node scripts/contrast-check.mjs && node scripts/og.mjs check",
     "test": "playwright test",
     "lhci": "lhci autorun",
-    "contrast": "node scripts/contrast-check.mjs --table"
+    "contrast": "node scripts/contrast-check.mjs --table",
+    "knowledge": "node scripts/build-knowledge.mjs",
+    "test:api": "node --test tests/api.test.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.7.0",
     "@astrojs/markdown-remark": "^7.3.5",
     "@astrojs/mdx": "^8.1.2",
     "@astrojs/sitemap": "^3.7.4",
@@ -43,6 +46,7 @@
     "d3-geo": "^3.1.2",
     "topojson-client": "^3.1.0",
     "typescript": "^6.0.3",
-    "world-atlas": "^2.0.2"
+    "world-atlas": "^2.0.2",
+    "yaml": "^2.9.1"
   }
 }

@@ -17,7 +17,11 @@ export const site = {
   linkedin: { display: 'linkedin.com/in/ganeayshkulkarni', href: 'https://www.linkedin.com/in/ganeayshkulkarni' },
   base: 'Based in the Netherlands, working worldwide',
   bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || '/contact#form',      // CONFIRM 9
-  formEndpoint: (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '',
+  /**
+   * Contact form endpoint. Default: the same-origin Vercel Function /api/contact (Resend, or FormSubmit until a Resend
+   * key is set; see ../CHATBOT-AND-EMAIL-SETUP.md). 'none' = no endpoint (mailto only). An absolute URL posts there.
+   */
+  formEndpoint: env.PUBLIC_FORM_ENDPOINT === 'none' ? '' : (env.PUBLIC_FORM_ENDPOINT as string | undefined) || '/api/contact',
   newsletterEndpoint: (env.PUBLIC_NEWSLETTER_ENDPOINT as string | undefined) || '',
   turnstileSiteKey: (env.PUBLIC_TURNSTILE_SITEKEY as string | undefined) || '',
   analytics: env.PUBLIC_ANALYTICS === '1',

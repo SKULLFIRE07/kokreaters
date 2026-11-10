@@ -19,15 +19,15 @@ export const notSureYet = 'Not sure yet';
  * purpose: `autocomplete="off"` also stops the browser restoring the typed value on Back, which loses the message.
  */
 export const fields: ContactField[] = [
-  { name: 'name', label: 'Name', type: 'text', required: true, autocomplete: 'name' },
-  { name: 'company', label: 'Company', type: 'text', required: true, autocomplete: 'organization' },
-  { name: 'role', label: 'Role', type: 'text', required: false, autocomplete: 'organization-title' },
-  { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email' },
-  { name: 'phone', label: 'Phone or WhatsApp', type: 'tel', required: false, autocomplete: 'tel' },
-  { name: 'country', label: 'Country', type: 'text', required: true, autocomplete: 'country-name' },
+  { name: 'name', label: 'Name', type: 'text', required: true, autocomplete: 'name', maxLength: 120 },
+  { name: 'company', label: 'Company', type: 'text', required: true, autocomplete: 'organization', maxLength: 160 },
+  { name: 'role', label: 'Role', type: 'text', required: false, autocomplete: 'organization-title', maxLength: 120 },
+  { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email', maxLength: 254 },
+  { name: 'phone', label: 'Phone or WhatsApp', type: 'tel', required: false, autocomplete: 'tel', maxLength: 40 },
+  { name: 'country', label: 'Country', type: 'text', required: true, autocomplete: 'country-name', maxLength: 80 },
   { name: 'interest', label: 'Area of interest', type: 'select', required: true, options: [...pillars.map((p) => p.name), notSureYet] },
-  { name: 'message', label: 'Message', type: 'textarea', required: true, rows: 6 },
-  { name: 'source', label: 'How did you hear about us?', type: 'text', required: false },
+  { name: 'message', label: 'Message', type: 'textarea', required: true, rows: 6, maxLength: 5000 },
+  { name: 'source', label: 'How did you hear about us?', type: 'text', required: false, maxLength: 200 },
   { name: 'consent', label: 'I agree to KoKreaters storing my details to respond to this enquiry, as described in the privacy policy.', type: 'checkbox', required: true },
 ];
 

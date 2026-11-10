@@ -20,6 +20,7 @@ import AnnouncementBar from '@/components/chrome/AnnouncementBar.astro';
 import Header from '@/components/chrome/Header.astro';
 import Footer from '@/components/chrome/Footer.astro';
 import CookieConsent from '@/components/chrome/CookieConsent.astro';
+import ChatWidget from '@/components/chrome/ChatWidget.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Container from '@/components/ui/Container.astro';
 import CtaBand from '@/components/ui/CtaBand.astro';
@@ -87,6 +88,7 @@ d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest
     </main>
     <Footer newsletter={footerNewsletter ?? !(showCta && ctaProps.newsletter)} />
     <CookieConsent />
+    {page !== 'contact' && <ChatWidget />}
     <script>import '@/scripts/site.ts';</script>
   </body>
 </html>

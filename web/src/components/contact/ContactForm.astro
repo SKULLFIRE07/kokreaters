@@ -1,7 +1,8 @@
 ---
 /**
  * Contact form, right column (REDESIGN-V3 §4 Contact; fields brief 6.8 in brief order).
- * Works with no JS: a native POST to PUBLIC_FORM_ENDPOINT, or a text/plain mailto to office@ when no endpoint is set;
+ * Works with no JS: a text/plain mailto to office@ (or a native POST when PUBLIC_FORM_ENDPOINT is an absolute URL);
+ * with JS, scripts/pages/contact.ts POSTs to site.formEndpoint (default: the same-origin function /api/contact);
  * the browser's own required/email checks guard that submit. scripts/pages/contact.ts (loaded by the page) sets
  * form.noValidate and layers on: inline errors (aria-invalid + aria-describedby, focus on the first invalid field), the
  * honeypot and 3 s time trap, Turnstile lazy-load on first focus, fetch or mailto, and the thank-you panel that replaces
@@ -23,8 +24,11 @@ import { fields, consentLink, contact, contactPage } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 
-const action = site.formEndpoint || `mailto:${site.email}`;
-const enctype = site.formEndpoint ? 'multipart/form-data' : 'text/plain';
+// No-JS submit: an absolute third-party endpoint takes a native POST; the same-origin /api/contact function answers
+// JSON for the script, so without JS the form falls back to a text/plain mailto to office@ (the script always uses fetch).
+const nativeEndpoint = /^https?:\/\//.test(site.formEndpoint) ? site.formEndpoint : '';
+const action = nativeEndpoint || `mailto:${site.email}`;
+const enctype = nativeEndpoint ? 'multipart/form-data' : 'text/plain';
 const consent = fields.find((f) => f.type === 'checkbox')!;
 const [consentBefore, consentAfter] = (() => {
   const i = consent.label.indexOf(consentLink.text);
@@ -67,7 +71,7 @@ const d = contactPage.done;
               {f.required && <><span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></>}
             </label>
             {f.type === 'textarea' ? (
-              <textarea id={id(f.name)} name={f.name} rows={f.rows ?? 6} required={f.required} autocomplete={f.autocomplete} class="cf__input cf__input--area"></textarea>
+              <textarea id={id(f.name)} name={f.name} rows={f.rows ?? 6} required={f.required} maxlength={f.maxLength} autocomplete={f.autocomplete} class="cf__input cf__input--area"></textarea>
             ) : f.type === 'select' ? (
               <span class="cf__select">
                 <select id={id(f.name)} name={f.name} required={f.required} autocomplete={f.autocomplete} class="cf__input">
@@ -78,7 +82,7 @@ const d = contactPage.done;
               </span>
             ) : (
               <input
-                id={id(f.name)} name={f.name} type={f.type} required={f.required} autocomplete={f.autocomplete} class="cf__input"
+                id={id(f.name)} name={f.name} type={f.type} required={f.required} maxlength={f.maxLength} autocomplete={f.autocomplete} class="cf__input"
                 {...(f.type === 'email' ? { inputmode: 'email', spellcheck: 'false', autocapitalize: 'off' } : {})}
                 {...(f.type === 'tel' ? { inputmode: 'tel' } : {})}
               />
@@ -103,14 +107,6 @@ const d = contactPage.done;
       </div>
 
       <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
-      {site.formEndpoint && (
-        <>
-          {/* Delivery settings read by the form service (FormSubmit / Formspree): email subject, table layout, no captcha page, reply-to = sender. */}
-          <input type="hidden" name="_subject" value="New enquiry from kokreaters.com" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
-        </>
-      )}
       <input type="hidden" name="started_at" value="" data-started-at />
       {site.turnstileSiteKey && <div class="cf-turnstile cf__turnstile" data-sitekey={site.turnstileSiteKey}></div>}
 

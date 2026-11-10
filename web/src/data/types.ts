@@ -43,6 +43,7 @@ export interface ContactField {
   required: boolean;
   autocomplete?: string;
   options?: string[];   // select only
+  maxLength?: number;   // also enforced by api/contact.js
   rows?: number;        // textarea only
 }
 

@@ -16,6 +16,7 @@
  *    folds them only below 600px, so the state is inert on wider screens)
  *  - newsletter forms ([data-newsletter]): validation, honeypot, fetch JSON or mailto fallback, aria-live status
  *  - cookie settings (initConsent from ./consent)
+ *  - "Ask KoKreaters" launcher ([data-chat-launcher]): imports ./chat (its own chunk) on first intent, then opens it
  * Animation lives in CSS; JS only toggles state and waits out close transitions.
  */
 import { initConsent } from './consent';
@@ -345,6 +346,18 @@ function initNewsletter() {
   });
 }
 
+/* ── Ask KoKreaters: chat.ts is a separate chunk, imported on the first hover / focus / click of the launcher ── */
+function initChatLauncher() {
+  const btn = document.querySelector<HTMLButtonElement>('[data-chat-launcher]');
+  if (!btn) return;
+  let mod: Promise<typeof import('./chat')> | null = null;
+  const get = () => (mod ??= import('./chat').then((m) => { m.boot(); return m; }));
+  btn.addEventListener('pointerenter', () => { void get(); }, { once: true });
+  btn.addEventListener('focus', () => { void get(); }, { once: true });
+  // until chat.ts has booted (it then owns the click), a click loads it and opens the panel
+  btn.addEventListener('click', () => { if (!btn.dataset.chatReady) void get().then((m) => m.open()); });
+}
+
 /* ── Boot ────────────────────────────────────────────────────────── */
 function boot() {
   const header = document.querySelector<HTMLElement>('[data-header]');
@@ -359,6 +372,7 @@ function boot() {
   initFooterGroups();
   initNewsletter();
   initConsent();
+  initChatLauncher();
   html.classList.add('chrome-ready', 'motion-booted');
 }
 

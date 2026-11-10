@@ -1,0 +1,365 @@
+---
+/**
+ * "Ask KoKreaters" (chat assistant). Mounted once by BaseLayout on every page except /contact (the full form is there).
+ * Static markup only: a floating launcher bottom-right and a hidden dialog panel. The behaviour (src/scripts/chat.ts)
+ * is NOT in the initial bundle: site.ts imports it on the first hover, focus or click of the launcher, so the page JS
+ * budget is unchanged until a visitor shows intent. No JS → nothing renders (.js-only); the footer/contact links remain.
+ * Panel: desktop/tablet a 400 × 600 floating card anchored where the launcher sits; phone (< 600px) a full-screen sheet
+ * with safe-area insets. Header (title, subtitle, close), conversation log, suggested questions, an inline compact
+ * version of the contact form (same fields + consent as src/data/contact.ts, POSTs JSON to /api/contact with the chat
+ * transcript), composer (Enter sends, Shift+Enter new line) and a footer with the AI note + "Share your details".
+ * Hooks for chat.ts: [data-chat] (data-endpoint, data-contact, data-msg-*), [data-chat-launcher], [data-chat-panel],
+ * [data-chat-close], [data-chat-scroll], [data-chat-log], [data-chat-suggest] buttons [data-q], [data-chat-compose],
+ * [data-chat-input], [data-chat-send], [data-chat-share], [data-chat-live], [data-chat-form-wrap] → form[data-chat-form]
+ * (+ [data-chat-form-body], [data-chat-done]), templates [data-tpl="typing"], [data-icon="error"].
+ * Motion: launcher fades up once after load; panel scales/fades from its corner (sheet slides up on phones); answer
+ * text streams in; typing dots pulse. All of it is off under prefers-reduced-motion (tokens go to 0ms, keyframes off).
+ */
+import NodeMark from '@/components/brand/NodeMark.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { chat } from '@/data/chat';
+import { fields, consentLink, contactPage, contact } from '@/data/contact';
+import { microcopy } from '@/data/microcopy';
+import { site } from '@/config/site';
+
+const endpoint = '/api/chat';
+const contactEndpoint = site.formEndpoint || '/api/contact';
+const inputs = fields.filter((f) => f.type !== 'checkbox');
+const consent = fields.find((f) => f.type === 'checkbox')!;
+const [consentBefore, consentAfter] = (() => {
+  const i = consent.label.indexOf(consentLink.text);
+  return i < 0 ? [consent.label, ''] : [consent.label.slice(0, i), consent.label.slice(i + consentLink.text.length)];
+})();
+const id = (n: string) => `kc-f-${n}`;
+---
+<div
+  class="kc js-only"
+  data-chat
+  data-endpoint={endpoint}
+  data-contact={contactEndpoint}
+  data-msg-handoff={chat.handoff}
+  data-msg-unavailable={chat.unavailable}
+  data-msg-busy={chat.busy}
+  data-msg-error={chat.error}
+  data-msg-limit={chat.limit}
+  data-msg-refusal={chat.refusal}
+  data-msg-too-long={chat.tooLong}
+  data-msg-you={chat.you}
+  data-msg-bot={chat.bot}
+  data-msg-writing={chat.writing}
+  data-msg-transcript={chat.transcriptLabel}
+  data-msg-required={microcopy.required}
+  data-msg-consent={contactPage.consentRequired}
+  data-msg-email={microcopy.invalidEmail}
+  data-msg-form-error={microcopy.formError}
+>
+  <button type="button" class="kc-launch" data-chat-launcher aria-haspopup="dialog" aria-expanded="false" aria-controls="kc-panel">
+    <NodeMark tone="white" size={20} class="kc-launch__mark" />
+    <span class="kc-launch__label">{chat.launcher}</span>
+  </button>
+
+  <div class="kc-panel" id="kc-panel" role="dialog" aria-modal="true" aria-labelledby="kc-title" aria-describedby="kc-sub" hidden data-chat-panel>
+    <header class="kc-head">
+      <NodeMark tone="white" size={30} class="kc-head__mark" />
+      <div class="kc-head__text">
+        <h2 class="kc-head__title" id="kc-title" tabindex="-1">{chat.title}</h2>
+        <p class="kc-head__sub" id="kc-sub">{chat.subtitle}</p>
+      </div>
+      <button type="button" class="kc-icon-btn kc-head__close" data-chat-close aria-label={chat.close}>
+        <Icon name="close" size={22} />
+      </button>
+    </header>
+
+    <div class="kc-body" data-chat-scroll>
+      <div class="kc-intro">
+        <p class="kc-intro__greet">{chat.greeting}</p>
+        <p class="kc-intro__text">{chat.welcome}</p>
+      </div>
+      <div class="kc-suggest" data-chat-suggest>
+        <p class="kc-suggest__label" id="kc-suggest-label">{chat.suggestedLabel}</p>
+        <ul class="kc-suggest__list" aria-labelledby="kc-suggest-label">
+          {chat.suggestions.map((q) => (
+            <li><button type="button" class="kc-suggest__btn" data-q={q}><span>{q}</span><Icon name="arrow-right" size={18} stroke={2} /></button></li>
+          ))}
+        </ul>
+      </div>
+      <ol class="kc-log" data-chat-log aria-label="Conversation"></ol>
+
+      <div class="kc-fwrap" data-chat-form-wrap hidden>
+        <div class="kc-fbody" data-chat-form-body>
+          <h3 class="kc-f__title" id="kc-f-title" tabindex="-1">{microcopy.primaryCta}</h3>
+          <p class="kc-f__intro">{chat.formIntro} <span aria-hidden="true">{contactPage.requiredNote}</span></p>
+          <form class="kc-f" data-chat-form novalidate aria-labelledby="kc-f-title">
+            {inputs.map((f) => (
+              <div class="kc-f__field" data-field={f.name}>
+                <label class="kc-f__label" for={id(f.name)}>
+                  {f.label}{f.required && <><span class="kc-f__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></>}
+                </label>
+                {f.type === 'textarea' ? (
+                  <textarea id={id(f.name)} name={f.name} rows={3} required={f.required} maxlength={f.maxLength} class="kc-f__input kc-f__input--area"></textarea>
+                ) : f.type === 'select' ? (
+                  <span class="kc-f__select">
+                    <select id={id(f.name)} name={f.name} required={f.required} class="kc-f__input">
+                      <option value="" selected disabled>{contactPage.selectPlaceholder}</option>
+                      {f.options?.map((o) => <option value={o}>{o}</option>)}
+                    </select>
+                    <Icon name="chevron-down" size={18} class="kc-f__chev" />
+                  </span>
+                ) : (
+                  <input
+                    id={id(f.name)} name={f.name} type={f.type} required={f.required} maxlength={f.maxLength} autocomplete={f.autocomplete} class="kc-f__input"
+                    {...(f.type === 'email' ? { inputmode: 'email', spellcheck: 'false', autocapitalize: 'off' } : {})}
+                    {...(f.type === 'tel' ? { inputmode: 'tel' } : {})}
+                  />
+                )}
+                <p id={`kc-${f.name}-error`} class="kc-f__error" hidden><Icon name="error" size={16} /><span data-error-text></span></p>
+              </div>
+            ))}
+            <div class="kc-f__field kc-f__consent" data-field="consent">
+              <label class="kc-f__check" for={id('consent')}>
+                <span class="kc-f__box"><input id={id('consent')} name="consent" type="checkbox" value="yes" required class="kc-f__checkbox" /></span>
+                <span class="kc-f__checklabel">
+                  {consentBefore}<a href={consentLink.href} target="_blank" rel="noopener">{consentLink.text}<span class="visually-hidden"> ({consentLink.newTab})</span></a>{consentAfter}
+                  <span class="kc-f__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span>
+                </span>
+              </label>
+              <p id="kc-consent-error" class="kc-f__error" hidden><Icon name="error" size={16} /><span data-error-text></span></p>
+            </div>
+            <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+            <button type="submit" class="btn btn--primary btn--md btn--full kc-f__submit" data-chat-form-submit>
+              <span class="btn__label">{contact.submit}</span>
+              <Icon name="arrow-right" size={18} stroke={2} class="btn__icon u-nudge" />
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+            <p class="kc-f__status" role="status" data-chat-form-status></p>
+          </form>
+        </div>
+        <div class="kc-done" data-chat-done hidden>
+          <Icon name="success" size={26} stroke={1.5} class="kc-done__icon" />
+          <div>
+            <h3 class="kc-done__title" tabindex="-1" data-chat-done-title>{contactPage.done.sentHeading}</h3>
+            <p class="kc-done__text">{microcopy.formSuccess}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="visually-hidden" aria-live="polite" aria-atomic="true" data-chat-live></div>
+
+    <footer class="kc-foot">
+      <form class="kc-compose" data-chat-compose>
+        <label class="visually-hidden" for="kc-input">{chat.inputLabel}</label>
+        <textarea id="kc-input" class="kc-compose__input" rows="1" maxlength="1000" placeholder={chat.placeholder} data-chat-input enterkeyhint="send" autocomplete="off"></textarea>
+        <button type="submit" class="kc-compose__send" data-chat-send aria-label={chat.send}>
+          <Icon name="arrow-up" size={20} stroke={2} />
+        </button>
+      </form>
+      <div class="kc-meta">
+        <p class="kc-meta__note">{chat.disclaimer}</p>
+        <button type="button" class="kc-meta__share" data-chat-share>{chat.share}</button>
+      </div>
+    </footer>
+  </div>
+
+  <template data-tpl="typing"><li class="kc-msg kc-msg--bot kc-msg--typing" aria-hidden="true"><span class="kc-dots"><i></i><i></i><i></i></span></li></template>
+  <template data-icon="error"><Icon name="error" size={18} /></template>
+</div>
+
+<style is:global>
+  /* ── Launcher ─────────────────────────────────────────────── */
+  .kc-launch {
+    position: fixed; z-index: 60;
+    right: max(var(--gutter-x), env(safe-area-inset-right));
+    bottom: max(var(--s-5), calc(env(safe-area-inset-bottom) + var(--s-3)));
+    display: inline-flex; align-items: center; gap: 10px;
+    height: 52px; padding: 0 22px 0 16px; margin: 0;
+    border: 1px solid rgba(255, 255, 255, .12); border-radius: var(--r-sm);
+    background: var(--navy-900); color: var(--white);
+    font: 600 var(--fs-button)/1 var(--font-sans); letter-spacing: var(--tr-button);
+    box-shadow: 0 18px 40px -16px rgba(11, 27, 51, .55), 0 2px 6px rgba(11, 27, 51, .12);
+    cursor: pointer;
+    transition: background-color var(--d-1) var(--ease-out), transform var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out), opacity var(--d-2) var(--ease-out), visibility 0s;
+    animation: kc-rise var(--d-4) var(--ease-out) .9s both;
+  }
+  .kc-launch:hover { background: var(--navy-800); transform: translateY(-2px); box-shadow: 0 22px 44px -16px rgba(11, 27, 51, .6), 0 2px 6px rgba(11, 27, 51, .14); }
+  .kc-launch:active { transform: translateY(0); }
+  .kc-launch:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }
+  .kc-launch__mark { transition: transform var(--d-3) var(--ease-out); }
+  .kc-launch:hover .kc-launch__mark { transform: rotate(-12deg) scale(1.06); }
+  html.chat-open .kc-launch, html.menu-open .kc-launch { opacity: 0; visibility: hidden; transform: translateY(8px); transition-delay: 0s, 0s, 0s, 0s, 0s, var(--d-2); }
+  @keyframes kc-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* ── Panel ────────────────────────────────────────────────── */
+  .kc-panel {
+    position: fixed; z-index: 80;
+    right: max(var(--gutter-x), env(safe-area-inset-right));
+    bottom: max(var(--s-5), calc(env(safe-area-inset-bottom) + var(--s-3)));
+    width: min(400px, calc(100vw - 2 * var(--gutter-x)));
+    height: min(600px, calc(100svh - 2 * var(--s-5)));
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--white); color: var(--ink);
+    border: 1px solid var(--grey-200); border-radius: var(--r-sm);
+    box-shadow: 0 40px 80px -32px rgba(11, 27, 51, .42), 0 4px 14px rgba(11, 27, 51, .08);
+    transform-origin: 100% 100%;
+    opacity: 0; transform: translateY(16px) scale(.97); filter: blur(4px);
+    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out), filter var(--d-3) var(--ease-out);
+    --bg: var(--white); --fg: var(--ink); --fg-2: var(--ink-2); --head: var(--navy-900); --label: var(--blue-700); --link: var(--blue-700); --rule: var(--grey-200);
+    --btn-bg: var(--navy-900); --btn-fg: var(--white); --btn-bg-hover: var(--navy-800);
+  }
+  .kc-panel.is-open { opacity: 1; transform: none; filter: none; }
+  @media (max-width: 599px) {
+    .kc-panel {
+      inset: 0; width: 100%; height: 100%; height: 100dvh; border: 0; border-radius: 0; box-shadow: none;
+      transform: translateY(100%); filter: none; opacity: 1;
+      transition: transform var(--d-3) var(--ease-out);
+    }
+    .kc-panel.is-open { transform: none; }
+    html.chat-open, html.chat-open body { overflow: hidden; }
+  }
+
+  .kc-head {
+    flex: none; display: flex; align-items: center; gap: 14px;
+    padding: 18px 12px 18px 22px;
+    background: var(--navy-900); color: var(--white);
+  }
+  @media (max-width: 599px) { .kc-head { padding-top: max(18px, calc(env(safe-area-inset-top) + 10px)); padding-left: max(20px, env(safe-area-inset-left)); } }
+  .kc-head__mark { flex: none; }
+  .kc-head__text { flex: 1; min-width: 0; }
+  .kc-head__title { margin: 0; font: 450 1.375rem/1.15 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.01em; color: var(--white); }
+  .kc-head__title:focus { outline: none; }
+  .kc-head__sub { margin: 4px 0 0; font: 400 .8125rem/1.35 var(--font-sans); color: var(--on-navy-2); }
+  .kc-icon-btn {
+    flex: none; display: grid; place-items: center; width: 44px; height: 44px; margin: 0; padding: 0;
+    border: 0; border-radius: var(--r-sm); background: transparent; color: inherit; cursor: pointer;
+    transition: background-color var(--d-1) var(--ease-out);
+  }
+  .kc-head .kc-icon-btn:hover { background: var(--navy-800); }
+  .kc-icon-btn:focus-visible { outline: 2px solid var(--blue-300); outline-offset: -2px; }
+
+  .kc-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 26px 22px 20px; scroll-behavior: smooth; scrollbar-width: thin; }
+  @media (prefers-reduced-motion: reduce) { .kc-body { scroll-behavior: auto; } }
+  .kc-intro__greet { margin: 0; font: 400 1.75rem/1.15 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.015em; color: var(--navy-900); }
+  .kc-intro__text { margin: 10px 0 0; font: 400 1rem/1.55 var(--font-sans); color: var(--ink-2); text-wrap: pretty; }
+
+  .kc-suggest { margin-top: 22px; }
+  .kc-suggest__label { margin: 0 0 6px; font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--blue-700); }
+  .kc-suggest__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--grey-200); }
+  .kc-suggest__list li { border-bottom: 1px solid var(--grey-200); }
+  .kc-suggest__btn {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 50px; margin: 0; padding: 12px 4px;
+    border: 0; background: transparent; color: var(--navy-900); text-align: left; cursor: pointer;
+    font: 500 .9375rem/1.4 var(--font-sans);
+    transition: color var(--d-1) var(--ease-out), padding var(--d-2) var(--ease-out), background-color var(--d-1) var(--ease-out);
+  }
+  .kc-suggest__btn .icon { color: var(--blue-500); transition: transform var(--d-2) var(--ease-out); }
+  .kc-suggest__btn:hover { padding-left: 10px; background: var(--grey-50); }
+  .kc-suggest__btn:hover .icon { transform: translateX(3px); }
+  .kc-suggest__btn:focus-visible { outline: 2px solid var(--blue-500); outline-offset: -2px; }
+
+  .kc-log { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .kc-log:not(:empty) { margin-top: 26px; }
+  .kc-msg { margin: 0; max-width: 100%; font: 400 1rem/1.6 var(--font-sans); color: var(--ink); overflow-wrap: anywhere; animation: kc-in var(--d-3) var(--ease-out) both; }
+  .kc-msg--user { align-self: flex-end; max-width: 86%; padding: 10px 14px; background: var(--grey-50); border-radius: var(--r-sm); color: var(--navy-900); white-space: pre-wrap; }
+  .kc-msg--bot { padding-left: 14px; border-left: 2px solid var(--grey-200); }
+  .kc-msg--bot.is-streaming { border-left-color: var(--blue-500); }
+  .kc-msg--note { padding-left: 14px; border-left: 2px solid var(--blue-500); color: var(--navy-900); }
+  .kc-msg--error { display: flex; gap: 10px; padding-left: 14px; border-left: 2px solid var(--danger); color: var(--ink); }
+  .kc-msg--error .icon { flex: none; margin-top: 3px; color: var(--danger); }
+  .kc-msg p { margin: 0; }
+  .kc-msg p + p, .kc-msg p + ul, .kc-msg ul + p { margin-top: 8px; }
+  .kc-msg ul { margin: 6px 0 0; padding: 0 0 0 18px; }
+  .kc-msg li { margin: 2px 0; padding-left: 2px; }
+  .kc-msg li::marker { color: var(--blue-500); }
+  .kc-msg a { color: var(--blue-700); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+  .kc-msg a:hover { color: var(--navy-900); }
+  @keyframes kc-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .kc-dots { display: inline-flex; gap: 6px; padding: 8px 0; }
+  .kc-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--navy-900); opacity: .25; animation: kc-dot 1.2s var(--ease-in-out) infinite; }
+  .kc-dots i:nth-child(2) { animation-delay: .15s; }
+  .kc-dots i:nth-child(3) { animation-delay: .3s; }
+  @keyframes kc-dot { 0%, 80%, 100% { opacity: .2; transform: translateY(0); } 40% { opacity: .85; transform: translateY(-3px); } }
+
+  /* ── Composer + footer ── */
+  .kc-foot { flex: none; border-top: 1px solid var(--grey-200); background: var(--white); padding: 12px 14px max(10px, env(safe-area-inset-bottom)) 18px; }
+  .kc-compose { display: flex; align-items: flex-end; gap: 10px; margin: 0; }
+  .kc-compose__input {
+    flex: 1; min-width: 0; min-height: 44px; max-height: 132px; margin: 0; padding: 11px 0;
+    border: 0; background: transparent; resize: none; color: var(--ink);
+    font: 400 1rem/1.4 var(--font-sans);
+  }
+  .kc-compose__input::placeholder { color: var(--ink-2); }
+  .kc-compose__input:focus { outline: none; }
+  .kc-compose:focus-within { box-shadow: 0 -2px 0 -1px var(--blue-500) inset; }
+  .kc-compose__send {
+    flex: none; display: grid; place-items: center; width: 44px; height: 44px; margin: 0 0 0 auto; padding: 0;
+    border: 0; border-radius: var(--r-sm); background: var(--navy-900); color: var(--white); cursor: pointer;
+    transition: background-color var(--d-1) var(--ease-out), opacity var(--d-1) var(--ease-out);
+  }
+  .kc-compose__send:hover { background: var(--navy-800); }
+  .kc-compose__send:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 2px; }
+  .kc-compose__send:disabled { background: var(--grey-200); color: var(--ink-2); cursor: default; }
+  .kc-compose__input:disabled { cursor: not-allowed; }
+  .kc-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px 12px; margin-top: 6px; }
+  .kc-meta__note { margin: 0; font: 400 .75rem/1.4 var(--font-sans); color: var(--ink-2); }
+  .kc-meta__share {
+    margin: 0; padding: 6px 0; min-height: 32px; border: 0; background: transparent; cursor: pointer;
+    font: 600 .8125rem/1.2 var(--font-sans); color: var(--blue-700); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em;
+  }
+  .kc-meta__share:hover { color: var(--navy-900); }
+  .kc-meta__share:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 0; border-radius: var(--r-sm); }
+
+  /* ── Inline form (compact contact form) ── */
+  .kc-fwrap { margin-top: 26px; padding-top: 22px; border-top: 2px solid var(--navy-900); animation: kc-in var(--d-3) var(--ease-out) both; }
+  .kc-f__title { margin: 0; font: 450 1.375rem/1.2 var(--font-serif); font-optical-sizing: auto; color: var(--navy-900); }
+  .kc-f__title:focus { outline: none; }
+  .kc-f__intro { margin: 8px 0 0; font: 400 .875rem/1.5 var(--font-sans); color: var(--ink-2); text-wrap: pretty; }
+  .kc-f { display: grid; gap: 16px; margin: 20px 0 0; }
+  .kc-f__field { display: grid; gap: 6px; min-width: 0; }
+  .kc-f__label { font: 500 .875rem/1.35 var(--font-sans); color: var(--navy-900); }
+  .kc-f__req { margin-left: 3px; color: var(--ink-2); }
+  .kc-f__input {
+    display: block; width: 100%; min-width: 0; height: 46px; margin: 0; padding: 0 12px;
+    border: 1px solid var(--field-border); border-radius: var(--r-sm); background: var(--white); color: var(--ink);
+    font: 400 1rem/1.4 var(--font-sans);
+    transition: border-color var(--d-1) var(--ease-out);
+  }
+  .kc-f__input:hover { border-color: var(--ink-2); }
+  .kc-f__input:focus { border-color: var(--navy-900); }
+  .kc-f__input:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 2px; }
+  .kc-f__input--area { height: auto; min-height: 96px; padding: 10px 12px; line-height: 1.5; resize: vertical; }
+  .kc-f__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 0 0 1px var(--danger); }
+  .kc-f__select { position: relative; display: block; }
+  .kc-f__select select { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer; text-overflow: ellipsis; }
+  .kc-f__select select:invalid { color: var(--ink-2); }
+  .kc-f__select option { color: var(--ink); }
+  .kc-f__chev { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--navy-900); }
+  .kc-f__error { display: flex; align-items: flex-start; gap: 6px; margin: 0; font: 500 .8125rem/1.4 var(--font-sans); color: var(--danger); }
+  .kc-f__error .icon { flex: none; margin-top: 1px; }
+  .kc-f__consent { padding-top: 14px; border-top: 1px solid var(--grey-200); }
+  .kc-f__check { display: grid; grid-template-columns: 26px minmax(0, 1fr); align-items: start; column-gap: 8px; }
+  .kc-f__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -12px 0 -12px -12px; cursor: pointer; }
+  .kc-f__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--navy-900); cursor: pointer; }
+  .kc-f__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
+  .kc-f__checkbox:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }
+  .kc-f__checklabel { font: 400 .8125rem/1.5 var(--font-sans); color: var(--ink); cursor: pointer; }
+  .kc-f__checklabel a { color: var(--blue-700); text-underline-offset: .18em; }
+  .kc-f__consent .kc-f__error { padding-left: 34px; }
+  .kc-f__submit { margin-top: 4px; }
+  .kc-f__status { margin: 0; font: 500 .875rem/1.45 var(--font-sans); color: var(--danger); }
+  .kc-f__status:empty { display: none; }
+  .kc .hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  .kc-done { display: flex; gap: 12px; align-items: flex-start; }
+  .kc-done__icon { flex: none; margin-top: 2px; color: var(--success); }
+  .kc-done__title { margin: 0; font: 450 1.375rem/1.2 var(--font-serif); color: var(--navy-900); }
+  .kc-done__title:focus { outline: none; }
+  .kc-done__text { margin: 8px 0 0; font: 400 1rem/1.55 var(--font-sans); color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kc-launch, .kc-msg, .kc-fwrap { animation: none; }
+    .kc-dots i { animation: none; opacity: .5; }
+    .kc-panel { filter: none; transform: none; }
+  }
+  @media print { .kc { display: none !important; } }
+</style>

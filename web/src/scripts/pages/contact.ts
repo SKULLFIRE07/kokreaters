@@ -8,7 +8,8 @@
  *      these run before the time trap, so an early or empty submit is never shown a false success;
  *   2b. time trap — a form that passes every check yet is sent < 3 s after navigation start "succeeds" silently like
  *      the honeypot (no person picks an area and writes a message that fast; autofill fills neither);
- *   3. PUBLIC_FORM_ENDPOINT set → fetch(POST FormData, Accept: application/json); ok → clear the form;
+ *   3. endpoint (site.formEndpoint, default the same-origin function /api/contact) → fetch(POST FormData, Accept:
+ *      application/json); ok → clear the form; a 400 with { fields } marks those fields inline;
  *   4. no endpoint → open the visitor's mail app with every field filled in (mailto to office@, test hook
  *      form.dataset.mailtoUrl); the form keeps what was typed.
  * Success replaces the heading + form with the thank-you panel ([data-form-done]) and moves focus to its heading;
@@ -201,7 +202,13 @@ function initContact(): void {
       try {
         const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         if (res.ok) { resetAll(); showDone('sent'); }
-        else say('error', d.msgError!);
+        else {
+          // /api/contact re-validates: show its field errors inline (rare: the same checks already ran here)
+          const out = res.status === 400 ? await res.json().catch(() => null) as { fields?: Record<string, string> } | null : null;
+          const bad = out?.fields ? Object.entries(out.fields).map(([n, why]) => [ctl(n), why] as const).filter(([f]) => f) : [];
+          for (const [f, why] of bad) setError(f!, why === 'email' ? d.msgEmail! : why === 'required' ? d.msgRequired! : d.msgError!);
+          if (bad.length) { clearStatus(); bad[0][0]!.focus(); } else say('error', d.msgError!);
+        }
       } catch {
         say('error', d.msgError!);
       } finally {
