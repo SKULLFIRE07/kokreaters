@@ -1,92 +1,131 @@
 ---
 /**
- * About · the name (REDESIGN-V3 §4 About, section 5). Navy band, aria-labelledby="name-title".
- * A quiet label-style h2 ("The name"), then the name set as one formula, "Ko + Kreaters", in the display serif (white,
- * the "+" in the accent: the band's one highlight). The two definitions (name.ko / name.kreaters) follow; each sentence
- * opens with its own term, so they read as the entry for the formula above. Under a hairline: the founder's words
- * (name.quote, serif italic) and the tagline beside the full white lockup, which spells Connect · Collaborate · Create.
- * ≥ 1200px: formula in columns 1–7; the two definitions stacked in columns 8–12, their last line on the formula's
- * baseline. Foot: quote and tagline in columns 1–7, the lockup right-aligned in columns 9–12.
- * 600–1199px: formula full width, the definitions stacked under it (one line each from ~768px); foot as desktop from 900.
- * Mobile (< 600px): one column. The formula is set at --fs-display (40px at 390 → 64px at 1440, never above the Home
- * H1; it may wrap after "+" on the narrowest phones), the definitions under it, then quote, tagline and the 260px lockup.
- * The tagline's method ("Connect · Collaborate · Create.") always sits on its own line, so "method:" never strands.
- * Hyphenated compounds ("co-creation") never break at the hyphen.
+ * About · the name. Navy band, aria-labelledby="name-title".
+ * Composition (an equation the reader can follow):
+ *   1. Header: eyebrow "The name" (the h2) + a serif statement.
+ *   2. Two dictionary-style entries side by side, joined by a large accent "+":
+ *      "Ko" (together) and "Kreaters" (the makers), each with its own definition from data.
+ *   3. "=" row: the full white KoKreaters lockup, then the tagline method drawn as three ringed nodes on a hairline
+ *      (the logo's own motif): Connect, Collaborate, Create, each with its one-line meaning from src/data/approach.ts.
+ *   4. The founder's words as a pull quote with an accent rule.
+ * Mobile (< 900px): entries stack with the "+" between them; method nodes run vertically on the hairline.
  */
 import Section from '@/components/ui/Section.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import Logo from '@/components/brand/Logo.astro';
 import { name } from '@/data/founder';
+import { steps } from '@/data/approach';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const keepCompounds = (s: string) => esc(s).replace(/(\S+-\S+)/g, '<span class="nowrap">$1</span>');
-/** Split the tagline after its colon: the lead balances on its own line(s), the method stays whole below it. */
-const cut = name.tagline.indexOf(': ');
-const taglineLead = cut < 0 ? '' : name.tagline.slice(0, cut + 1);
-const taglineMethod = cut < 0 ? name.tagline : name.tagline.slice(cut + 2);
+const method = steps.map((s) => ({ name: s.name, copy: s.copy }));
+const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
 ---
 <Section ground="navy" labelledby="name-title" class="np">
-  <Eyebrow as="div" class="np__label" data-reveal><h2 id="name-title" class="np__h2">{name.heading}</h2></Eyebrow>
-  <div class="np__entry">
-    <p class="np__formula" data-reveal style="--i:1"><span class="np__word">{name.koWord}</span>&nbsp;<span class="np__plus">+</span> <span class="np__word">{name.kreatersWord}</span></p>
-    <div class="np__defs" data-reveal style="--i:2">
+  <header class="np__head" data-reveal>
+    <Eyebrow as="div"><h2 id="name-title" class="np__h2">{name.heading}</h2></Eyebrow>
+    <p class="np__statement">One word, two ideas, and the way we work.</p>
+  </header>
+
+  <div class="np__eq">
+    <article class="np__entry" data-reveal style="--i:1" aria-label={`${name.koWord}: ${name.ko}`}>
+      <p class="np__word">{name.koWord}</p>
+      <p class="np__gloss">Together</p>
       <p class="np__def" set:html={keepCompounds(name.ko)} />
+    </article>
+    <span class="np__op" aria-hidden="true" data-reveal style="--i:2">+</span>
+    <article class="np__entry" data-reveal style="--i:3" aria-label={`${name.kreatersWord}: ${name.kreaters}`}>
+      <p class="np__word">{name.kreatersWord}</p>
+      <p class="np__gloss">The makers</p>
       <p class="np__def" set:html={keepCompounds(name.kreaters)} />
-    </div>
+    </article>
   </div>
-  <div class="np__foot" data-reveal>
-    <div class="np__copy">
-      <p class="np__quote" set:html={keepCompounds(name.quote)} />
-      <p class="np__tagline">
-        {taglineLead && <span class="np__tagline-lead">{taglineLead} </span>}
-        <span class="np__tagline-method nowrap">{taglineMethod}</span>
-      </p>
-    </div>
-    <Logo variant="full-white" alt={name.lockupAlt} width={260} class="np__lockup" />
+
+  <div class="np__result" data-reveal>
+    <span class="np__op np__op--eq" aria-hidden="true">=</span>
+    <Logo variant="full-white" alt={name.lockupAlt} width={300} class="np__lockup" />
   </div>
+
+  <ol class="np__method" aria-label="The method in the logo's tagline">
+    {method.map((m, i) => (
+      <li class="np__step" data-reveal style={`--i:${i + 1}`}>
+        <span class="np__node" aria-hidden="true"></span>
+        <h3 class="np__step-name">{m.name}</h3>
+        <p class="np__step-copy">{m.copy}</p>
+      </li>
+    ))}
+  </ol>
+
+  <figure class="np__quote" data-reveal>
+    <blockquote><p set:html={keepCompounds(quoteText.charAt(0).toUpperCase() + quoteText.slice(1))} /></blockquote>
+    <figcaption>Ganeaysh Kulkarni, Founder</figcaption>
+  </figure>
 </Section>
 <style>
   .np__h2 { margin: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; max-width: none; }
-  :global(.np__label) { margin-bottom: var(--s-7); }
-
-  .np__entry { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); }
-  .np__formula {
-    margin: 0; max-width: none;
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 380;
-    font-size: var(--fs-display); line-height: 1; letter-spacing: -.03em; color: var(--head);   /* capped at the display step: the Home H1 stays the largest type */
+  .np__head { display: grid; row-gap: var(--s-4); margin-bottom: clamp(48px, 5vw, 88px); }
+  .np__statement {
+    margin: 0; max-width: 22ch; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+    font-size: var(--fs-h2); line-height: 1.12; letter-spacing: -.015em; color: var(--head); text-wrap: balance;
   }
-  .np__word { white-space: nowrap; }
-  .np__plus { font-weight: 300; color: var(--accent); margin-inline: .06em; }
 
-  .np__defs { display: grid; row-gap: var(--s-3); }
-  .np__def { margin: 0; max-width: 34ch; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg); text-wrap: pretty; }
-
-  .np__foot {
-    margin-top: var(--s-8); padding-top: var(--s-7); border-top: 1px solid var(--rule);
-    display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-7); align-items: end;
+  /* the equation */
+  .np__eq { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); align-items: center; }
+  .np__entry {
+    position: relative; padding: clamp(28px, 3vw, 48px); border: 1px solid var(--rule);
+    background: linear-gradient(160deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .015));
   }
-  .np__quote {
-    margin: 0; max-width: 30ch;
-    font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 400;
+  .np__entry::before { content: ''; position: absolute; left: -1px; top: -1px; width: 56px; height: 2px; background: var(--accent); }
+  .np__word {
+    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 420;
+    font-size: clamp(3.5rem, 2rem + 6vw, 7.5rem); line-height: .95; letter-spacing: -.035em; color: var(--head);
+  }
+  .np__gloss {
+    margin: var(--s-4) 0 0; font: 600 var(--fs-label)/1.3 var(--font-sans); letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--label);
+  }
+  .np__def { margin: var(--s-3) 0 0; max-width: 34ch; font-size: var(--fs-lead); line-height: 1.5; color: var(--fg); text-wrap: pretty; }
+  .np__op {
+    justify-self: center; font-family: var(--font-serif); font-weight: 300; line-height: 1;
+    font-size: clamp(3rem, 2rem + 3vw, 5rem); color: var(--accent);
+  }
+
+  .np__result {
+    display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-6);
+    margin-top: clamp(40px, 4vw, 72px); padding-top: clamp(32px, 3vw, 56px); border-top: 1px solid var(--rule);
+  }
+  .np__op--eq { justify-self: auto; }
+  :global(.np__lockup) { max-width: min(300px, 70vw); height: auto; }
+
+  /* the method: ringed nodes on a hairline (the logo's motif) */
+  .np__method { list-style: none; margin: clamp(40px, 4vw, 72px) 0 0; padding: 0; position: relative; display: grid; row-gap: var(--s-6); }
+  .np__method::before { content: ''; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 1px; background: var(--rule); }
+  .np__step { position: relative; padding-left: 44px; }
+  .np__node {
+    position: absolute; left: 0; top: 2px; width: 19px; height: 19px; border-radius: 50%;
+    background: var(--navy-900); border: 2px solid var(--accent); box-shadow: inset 0 0 0 3px var(--navy-900), inset 0 0 0 10px var(--accent);
+  }
+  .np__step-name { margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-h3); line-height: 1.2; color: var(--head); }
+  .np__step-copy { margin: var(--s-2) 0 0; max-width: 38ch; font-size: var(--fs-small); line-height: 1.55; color: var(--fg-2); text-wrap: pretty; }
+
+  .np__quote { margin: clamp(56px, 5vw, 96px) 0 0; padding-left: clamp(20px, 2vw, 32px); border-left: 2px solid var(--accent); max-width: 52ch; }
+  .np__quote blockquote { margin: 0; }
+  .np__quote p {
+    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
     font-size: var(--fs-h3); line-height: 1.4; color: var(--head); text-wrap: pretty;
   }
-  .np__tagline { margin: var(--s-5) 0 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
-  .np__tagline-lead { display: block; text-wrap: balance; }
-  .np__tagline-method { display: block; }
+  .np__quote figcaption { margin-top: var(--s-4); font: 600 var(--fs-small)/1.4 var(--font-sans); color: var(--fg); }
 
-  @media (min-width: 600px) {
-    .np__def { max-width: 52ch; }
-  }
   @media (min-width: 900px) {
-    .np__foot { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .np__copy { grid-column: 1 / 8; }
-    :global(.np__lockup) { grid-column: 9 / -1; justify-self: end; }
+    .np__eq { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); column-gap: clamp(24px, 3vw, 56px); }
+    .np__method { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: 0; padding-top: 36px; }
+    .np__method::before { left: 0; right: 0; top: 9px; bottom: auto; width: auto; height: 1px; }
+    .np__step { padding-left: 0; padding-top: 0; }
+    .np__node { top: -36px; }
   }
-  /* desktop: big formula left, its two definitions right, sharing the formula's baseline */
   @media (min-width: 1200px) {
-    .np__entry { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: last baseline; }
-    .np__formula { grid-column: 1 / 8; }
-    .np__defs { grid-column: 8 / -1; row-gap: var(--s-4); }
-    .np__def { max-width: 34ch; }
+    .np__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; }
+    .np__head > :first-child { grid-column: 1 / 4; }
+    .np__statement { grid-column: 4 / -1; }
   }
 </style>
