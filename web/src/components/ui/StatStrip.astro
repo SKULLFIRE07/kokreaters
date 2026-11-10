@@ -1,7 +1,7 @@
 ---
 /**
- * Stat strip (REDESIGN-V3 §3; McKinsey India pattern 2): big serif figures (--figure: blue-500 on light, white on navy,
- * Source Serif 4 360, tabular lining, --fs-stat 52 → 96px), label under in Inter 15–16px. Desktop: one row, a 1px hairline
+ * Stat strip (REDESIGN-V3 §3; McKinsey India pattern 2): big serif figures (navy on light, white on navy;
+ * Source Serif 4 560 in the heading colour, tabular lining, --fs-stat 52 → 96px), label under in Inter 17 to 18px 500 with its key word bold. Desktop: one row, a 1px hairline
  * above each item (no boxes). Source line in --fs-meta under the strip. Figures are server-rendered text; site.ts counts
  * a numeric figure up once when it scrolls in ([data-count], §9.4), never under reduced motion.
  * Mobile: cols=4 → a 2×2 grid with horizontal hairlines between rows (and one vertical divider); cols=3 → a single
@@ -17,6 +17,9 @@ interface Props {
 }
 const { items, source, cols = 4, class: cls } = Astro.props;
 // "for trans-fat elimination" → ["for ", {"trans-fat"}, " elimination"]: hyphenated words become unbreakable pieces
+// The label's first word is its key word ("years", "countries", "Director-General"): set heavier, in the heading colour
+const head = (t: string) => t.split(' ')[0];
+const tail = (t: string) => t.split(' ').slice(1).join(' ');
 const pieces = (t: string) => t.split(/(\S*\p{L}-\p{L}\S*)/u).filter(Boolean).map((p) => ({ t: p, keep: /\p{L}-\p{L}/u.test(p) && !/\s/.test(p) }));
 ---
 <div class:list={['stats', `stats--${cols}`, cls]}>
@@ -24,7 +27,7 @@ const pieces = (t: string) => t.split(/(\S*\p{L}-\p{L}\S*)/u).filter(Boolean).ma
     {items.map((it, i) => (
       <li class="stats__item" data-reveal style={`--i:${i}`}>
         <span class="stats__value t-stat" data-count>{it.value}</span>
-        <span class="stats__label">{pieces(it.label).map((p) => (p.keep ? <span class="nowrap">{p.t}</span> : p.t))}</span>
+        <span class="stats__label"><strong class="stats__key nowrap">{head(it.label)}</strong> {pieces(tail(it.label)).map((p) => (p.keep ? <span class="nowrap">{p.t}</span> : p.t))}</span>
       </li>
     ))}
   </ul>
@@ -32,21 +35,29 @@ const pieces = (t: string) => t.split(/(\S*\p{L}-\p{L}\S*)/u).filter(Boolean).ma
 </div>
 <style>
   .stats__list { display: grid; grid-template-columns: minmax(0, 1fr); list-style: none; padding: 0; margin: 0; }
-  .stats__item { display: flex; flex-direction: column; gap: var(--s-3); padding-block: var(--s-5) var(--s-6); border-top: 1px solid var(--rule); }
-  .stats__value { color: var(--figure); font-weight: 360; white-space: nowrap; }
-  .stats__label { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); max-width: 24ch; text-wrap: pretty; }
-  .stats__source { margin-top: var(--s-6); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .stats__item {
+    position: relative; display: flex; flex-direction: column; gap: var(--s-3);
+    padding-block: var(--s-5) var(--s-5); border-top: 1px solid var(--rule);
+  }
+  .stats__item::before { content: ""; position: absolute; top: -1px; left: 0; width: 40px; height: 3px; background: var(--accent); }
+  .stats__value { color: var(--head); font-weight: 560; white-space: nowrap; }
+  .stats__label {
+    font-size: clamp(1.0625rem, 1.039rem + .095vw, 1.125rem); line-height: 1.45; font-weight: 500;
+    color: var(--fg); max-width: 22ch; text-wrap: pretty;
+  }
+  .stats__key { font-weight: 700; color: var(--head); }
+  .stats__source { margin-top: var(--s-6); font-size: 1rem; line-height: var(--lh-small); color: var(--fg-2); }
 
   /* 4 items on a phone / tablet: 2 × 2 */
   @media (max-width: 899px) {
     .stats--4 .stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-5); }
   }
 
-  /* Desktop: one row; each item opens with a hairline, generous air between them */
+  /* Desktop: one row; each item opens with a hairline and a short accent bar */
   @media (min-width: 900px) {
     .stats__list { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); column-gap: var(--grid-gap); }
     .stats--3 .stats__list { --n: 3; }
-    .stats__item { padding-block: var(--s-6) 0; gap: var(--s-5); }
-    .stats__source { margin-top: var(--s-8); }
+    .stats__item { padding-block: var(--s-6) 0; gap: var(--s-4); }
+    .stats__source { margin-top: var(--s-7); }
   }
 </style>

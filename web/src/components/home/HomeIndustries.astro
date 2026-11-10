@@ -3,7 +3,7 @@
  * Home 6 · Industries (REDESIGN-V3 §4 Home 6). White band: SectionHeader (eyebrow "Industries", title "Where we work"
  * from home.industries, "All industries" link) over the nine industries as text tiles in a hairline 3 × 3 grid
  * (.tile-grid), each linking to its /industries#<slug> anchor. Text-only by design: photos live on /industries.
- * Mobile (< 600px): one column of rows (number, name, arrow at the right) between hairlines. 600–899: 2 columns, and
+ * Each tile: the serif name with its arrow, then the one-line description. Mobile (< 600px): one column of rows (name and arrow, description under) between hairlines. 600–899: 2 columns, and
  * the odd ninth tile spans the last row so no empty grey cell is left in the hairline grid.
  */
 import Section from '@/components/ui/Section.astro';
@@ -17,7 +17,7 @@ import { industriesMenu } from '@/data/nav';
   <SectionHeader id="industries-heading" eyebrow={industriesPage.overline} title={fold.headline} link={industriesMenu.all} />
   <ul class="tile-grid hind__grid" role="list">
     {industries.map((ind, i) => (
-      <li data-reveal style={`--i:${i % 3}`}><IndustryTile href={`/industries#${ind.slug}`} name={ind.name} n={ind.n} /></li>
+      <li data-reveal style={`--i:${i % 3}`}><IndustryTile href={`/industries#${ind.slug}`} name={ind.name} copy={ind.copy} /></li>
     ))}
   </ul>
 </Section>

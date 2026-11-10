@@ -1,7 +1,7 @@
 ---
 /**
  * Industry tile / card (REDESIGN-V3 §3).
- *  tile — a text-only cell for the hairline 3×3 grid on home: "01", serif name, optional one-line copy, arrow.
+ *  tile — a text-only cell for the hairline 3×3 grid on home: serif name with its arrow, optional one-line copy.
  *         The whole cell is the link. Put tiles in <ul class="tile-grid"><li>…</li></ul> (style below): hairlines
  *         between rows and columns, none on the outer left/right edges. Outer columns sit flush with the container edge. Hover: name → --link, arrow nudges.
  *  card — light industry card (Industries page; §9.3: no box, a hairline on top or the photo, open space): optional 3:2
@@ -18,7 +18,6 @@
 import type { ImageMetadata } from 'astro';
 import Photo from '@/components/ui/Photo.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { pad2 } from '@/lib/format';
 import { industriesPage } from '@/data/industries';
 
 interface Props {
@@ -46,7 +45,6 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
 ---
 {variant === 'tile' ? (
   <a href={href ?? '/industries'} class:list={['itile', !copy && 'itile--nocopy', 'u-hover', cls]} {...rest}>
-    {n !== undefined && <span class="itile__n" aria-hidden="true">{pad2(n)}</span>}
     <span class="itile__name">{name}</span>
     {copy && <span class="itile__copy">{copy}</span>}
     <Icon name="arrow-right" size={20} stroke={1.75} class="itile__arrow u-nudge" />
@@ -55,7 +53,7 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   <article class:list={['icard-ind', image && 'icard-ind--img', cls]} {...rest}>
     {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" settle sizes="(min-width: 1200px) 440px, (min-width: 900px) 30vw, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
     <div class="icard-ind__body">
-      <span class="icard-ind__n" aria-hidden="true">{n !== undefined ? pad2(n) : ''}</span>
+      <span class="icard-ind__n" aria-hidden="true"></span>
       <H class="icard-ind__name">{nameHref ? <a href={nameHref}>{name}</a> : name}</H>
       {copy ? <p class="icard-ind__copy">{copy}</p> : <span class="icard-ind__copy" aria-hidden="true"></span>}
       {expertise.length > 0 && (
@@ -101,23 +99,28 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
 </style>
 <style>
   .itile {
-    position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n n" "name arrow" "copy copy";
-    align-content: start; row-gap: var(--s-2); column-gap: var(--s-4);
-    padding: var(--s-5) 0; color: var(--fg); text-decoration: none;
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name arrow" "copy copy";
+    align-content: start; row-gap: var(--s-3); column-gap: var(--s-4);
+    padding: var(--s-6) 0; color: var(--fg); text-decoration: none;
+    transition: background-color var(--d-2) var(--ease-out);
   }
-  .itile__n { grid-area: n; font-size: var(--fs-meta); line-height: 1; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  /* hover / focus: an accent line draws across the top hairline, the name turns link blue, the arrow nudges */
+  .itile::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
+  }
+  .itile:hover::before, .itile:focus-visible::before { transform: scaleX(1); }
   .itile__name {
-    grid-area: name; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    font-weight: 500; color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out);
+    grid-area: name; align-self: baseline; font-family: var(--font-serif); font-optical-sizing: auto;
+    font-size: clamp(1.375rem, 1.258rem + .476vw, 1.625rem); line-height: 1.2; letter-spacing: -0.01em;
+    font-weight: 560; color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out);
   }
-  .itile__copy { grid-area: copy; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
-  .itile__arrow { grid-area: arrow; align-self: center; color: var(--accent); }
+  .itile__copy { grid-area: copy; font-size: 1rem; line-height: 1.55; color: var(--fg-2); text-wrap: pretty; max-width: 40ch; }
+  .itile__arrow { grid-area: arrow; align-self: start; margin-top: .3em; color: var(--accent); }
   .itile:hover .itile__name { color: var(--link); }
+  .itile--nocopy { grid-template-areas: "name arrow"; }
   @media (min-width: 600px) {
-    .itile { min-height: 144px; padding: var(--s-6) var(--s-5); grid-template-rows: auto 1fr auto; grid-template-areas: "n arrow" "name name" "copy copy"; }
-    .itile__arrow { align-self: start; }
-    .itile__name { align-self: end; margin-top: var(--s-3); }
-    .itile--nocopy { grid-template-rows: auto 1fr; grid-template-areas: "n arrow" "name name"; }
+    .itile { min-height: 168px; padding: var(--s-7) var(--s-6) var(--s-6); }
   }
 
   .icard-ind { display: flex; flex-direction: column; height: 100%; border-top: 1px solid var(--rule); }

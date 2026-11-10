@@ -13,7 +13,6 @@
 import type { Pillar } from '@/data/types';
 import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
-import { pad2 } from '@/lib/format';
 import { microcopy } from '@/data/microcopy';
 import { pillarPage } from '@/data/pillars';
 
@@ -30,7 +29,6 @@ const href = `/expertise/${pillar.slug}`;
 <article class:list={['xcard', `xcard--${variant}`, 'u-hover', cls]}>
   <div class="xcard__top">
     <ExpertiseIcon pillar={pillar.key} />
-    <span class="xcard__n" aria-hidden="true">{pad2(pillar.n)}</span>
   </div>
   <H class="xcard__title"><a href={href} class="xcard__link">{pillar.name}</a></H>
   <p class="xcard__promise">{pillar.promise}</p>
@@ -56,7 +54,6 @@ const href = `/expertise/${pillar.slug}`;
   }
   .xcard:hover::before, .xcard:has(.xcard__link:focus-visible)::before { transform: scaleX(1); }
   .xcard__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--s-6); color: var(--label); }
-  .xcard__n { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
   .xcard__title {
     font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.2;
     font-weight: 450; letter-spacing: -0.01em; color: var(--head); text-wrap: balance; max-width: 18ch;

@@ -14,7 +14,7 @@ import Section from '@/components/ui/Section.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { pillarPage } from '@/data/pillars';
 import { microcopy } from '@/data/microcopy';
-import { adjacentPillars, pillarHref, pillarNumber } from '@/lib/pillars';
+import { adjacentPillars, pillarHref } from '@/lib/pillars';
 import type { PillarKey } from '@/data/types';
 
 interface Props {
@@ -38,7 +38,7 @@ const links = [
         <a class="pager__link u-hover" href={pillarHref(p.key)} rel={dir}>
           <span class="pager__label t-label">
             {dir === 'prev' && <Icon name="arrow-left" size={18} stroke={2} class="pager__arrow" />}
-            <span>{label}<span class="pager__n" aria-hidden="true"> · {pillarNumber(p)}</span></span>
+            <span>{label}</span>
             {dir === 'next' && <Icon name="arrow-right" size={18} stroke={2} class="pager__arrow" />}
           </span>
           <span class="pager__name">{p.name}</span>
@@ -52,7 +52,6 @@ const links = [
   .pager__item + .pager__item { border-top: 1px solid var(--rule); }
   .pager__link { display: grid; gap: var(--s-4); padding-block: var(--s-6); color: var(--head); text-decoration: none; }
   .pager__label { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--label); }
-  .pager__n { color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
   .pager__label :global(.pager__arrow) { flex: none; color: var(--accent); transition: transform var(--d-1) var(--ease-out); }
   .pager__item--prev .pager__link:hover :global(.pager__arrow) { transform: translateX(-4px); }
   .pager__item--next .pager__link:hover :global(.pager__arrow) { transform: translateX(4px); }

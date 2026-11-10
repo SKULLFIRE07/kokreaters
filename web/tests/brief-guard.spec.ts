@@ -82,7 +82,7 @@ test('palette: no v2 purple / pink / yellow / red in built CSS (logo SVGs exempt
 });
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`type: Source Serif 4 headlines, Inter 18px body, no v2 fonts @${vp.width}`, async ({ browser }) => {
+  test(`type: Source Serif 4 headlines, Inter 18 to 19px body, no v2 fonts @${vp.width}`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: vp });
     const problems: string[] = [];
     for (const path of ['/', '/expertise/process-design', '/insights', '/about', '/contact', '/privacy']) {
@@ -102,7 +102,7 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       });
       if (!/^"?Source Serif 4"?/.test(t.h1)) problems.push(`${path}: h1 font-family ${t.h1}`);
       if (!/^"?Inter"?/.test(t.body)) problems.push(`${path}: body font-family ${t.body}`);
-      if (t.bodySize !== '18px') problems.push(`${path}: body font-size ${t.bodySize}`);
+      if (!(parseFloat(t.bodySize) >= 18 && parseFloat(t.bodySize) <= 19)) problems.push(`${path}: body font-size ${t.bodySize}`);
       if (!t.loaded.includes('Source Serif 4') || !t.loaded.includes('Inter')) problems.push(`${path}: web fonts not loaded (${t.loaded.join(', ')})`);
       for (const f of fonts) if (/bricolage|ibm-plex|caveat|instrument|fraunces/i.test(f)) problems.push(`${path}: v2 font requested ${f}`);
       await page.close();

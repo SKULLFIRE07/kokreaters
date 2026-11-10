@@ -19,7 +19,7 @@ const latest = (await visibleInsights())[0];
     <Container class="ann__inner">
       <a class="ann__link" href={insightHref(latest)}>
         <span class="ann__label">{announcement.label}</span>
-        <span class="ann__sep" aria-hidden="true">—</span>
+        <span class="ann__sep" aria-hidden="true">·</span>
         <span class="ann__title">{latest.data.title}</span>
         <Icon name="arrow-right" size={16} stroke={2} class="ann__arrow u-nudge" />
       </a>

@@ -61,7 +61,7 @@ export const pillars: Pillar[] = [
       'Market analysis, product-market fit and competitive landscapes',
       'Feasibility studies and business plans for new plants and product lines',
       'Market entry and go-to-market strategy, including India and Asia',
-      'Business–technology alignment plans and technical roadmaps',
+      'Business and technology alignment plans and technical roadmaps',
       'Investor-grade reports and presentations',
     ],
     deliverables: ['Feasibility reports', 'business plans with scenarios', 'market entry strategies', 'investor decks'],

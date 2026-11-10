@@ -7,7 +7,7 @@
  */
 import Section from '@/components/ui/Section.astro';
 import StatStrip from '@/components/ui/StatStrip.astro';
-import { proof, proofSource } from '@/data/home';
+import { proof, proofStripSource } from '@/data/home';
 import { impactPage } from '@/data/impact';
 
 interface Props { ground?: 'white' | 'grey' }
@@ -16,7 +16,7 @@ const items = proof.map(({ value, label }) => ({ value, label }));
 ---
 <Section ground={ground} pad="tight" labelledby="record-h" class="record">
   <h2 id="record-h" class="record__h t-label">{impactPage.recordLabel}</h2>
-  <StatStrip items={items} source={`${proofSource}.`} />
+  <StatStrip items={items} source={`${proofStripSource}.`} />
 </Section>
 <style>
   .record__h { margin-bottom: var(--s-6); }

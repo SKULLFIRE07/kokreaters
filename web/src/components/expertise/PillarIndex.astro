@@ -12,7 +12,6 @@
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
-import { pad2 } from '@/lib/format';
 import { microcopy } from '@/data/microcopy';
 import { pillarPage, pillarPhoto } from '@/data/pillars';
 import { pillarHref } from '@/lib/pillars';
@@ -35,7 +34,6 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
         <div class="pidx__text" data-reveal style="--i:1">
           <p class="pidx__top t-label">
             <ExpertiseIcon pillar={p.key} size={28} />
-            <span class="pidx__n">{pad2(p.n)}</span>
           </p>
           <h3 class="pidx__title"><a class="pidx__link" href={pillarHref(p.key)}>{p.name}</a></h3>
           <p class="pidx__promise">{p.promise}</p>
@@ -64,7 +62,6 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   .pidx__item:hover .pidx__text::before, .pidx__item:has(.pidx__link:focus-visible) .pidx__text::before { transform: scaleX(1); }
 
   .pidx__top { display: flex; align-items: center; justify-content: space-between; color: var(--label); }
-  .pidx__n { font-family: var(--font-serif); font-size: 1.125rem; letter-spacing: 0; color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
   .pidx__title {
     margin-top: var(--s-6);
     font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.75rem, 1.05rem + 2vw, 3.5rem);

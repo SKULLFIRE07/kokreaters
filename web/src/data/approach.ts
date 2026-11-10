@@ -11,7 +11,7 @@ export const approach = {
  * v3 (10 Nov 2026): the What we do / What you get / Typical duration cells were null (CONFIRM 10) and are now DRAFTED
  * for Ganeaysh's approval (../CONTENT-DRAFTED-FOR-APPROVAL.md). Every cell restates the brief: the method steps (6.1),
  * the principles and the five engagement models (6.4), and the pillar deliverables (6.2). Durations repeat the models
- * table word for word (Diagnostic 2–5 days on site / report within two weeks; Project 4–16 weeks, fixed scope;
+ * table word for word (Diagnostic 2 to 5 days on site / report within two weeks; Project 4 to 16 weeks, fixed scope;
  * Workshops half a day to two days; Advisory retainer a set number of days each month). No new numbers.
  */
 export const steps: MethodStep[] = [
@@ -20,14 +20,14 @@ export const steps: MethodStep[] = [
     copy: 'We start where the problem lives: on your plant floor, in your lab, with your customers. We listen first, then diagnose.',
     whatWeDo: 'Plant observation, conversations with your teams and a review of your data, before any recommendation.',
     whatYouGet: 'A written diagnosis with the evidence behind it, such as an audit report or gap analysis, and a proposed scope for the next step.',
-    duration: 'Typically 2–5 days on site, with the report within two weeks.',
+    duration: 'Typically 2 to 5 days on site, with the report within two weeks.',
   },
   {
     n: 2, name: 'Collaborate',
     copy: 'We design the answer with your teams, not around them, so the people who will run it own it.',
     whatWeDo: 'Working sessions, trials and design reviews with your teams, from the plant floor to the boardroom.',
     whatYouGet: 'An answer your team helped design and owns, such as a process design basis, a formulation plan or a business plan.',
-    duration: 'Typically 4–16 weeks, as a project with a fixed scope.',
+    duration: 'Typically 4 to 16 weeks, as a project with a fixed scope.',
   },
   {
     n: 3, name: 'Create',
@@ -53,8 +53,8 @@ export const principles: Principle[] = [
 export const modelsHeading = 'Ways to work with us';
 export const modelColumns = { model: 'Model', shape: 'Typical shape', goodFor: 'Good for' };
 export const models: EngagementModel[] = [   // CONFIRM 10
-  { model: 'Diagnostic or audit', shape: '2–5 days on site, report within two weeks', goodFor: 'Plant audits, customer pre-approval readiness, contaminant risk reviews' },
-  { model: 'Project', shape: 'Fixed scope, 4–16 weeks', goodFor: 'New products or processes, feasibility studies, business plans, due diligence' },
+  { model: 'Diagnostic or audit', shape: '2 to 5 days on site, report within two weeks', goodFor: 'Plant audits, customer pre-approval readiness, contaminant risk reviews' },
+  { model: 'Project', shape: 'Fixed scope, 4 to 16 weeks', goodFor: 'New products or processes, feasibility studies, business plans, due diligence' },
   { model: 'Advisory retainer', shape: 'A set number of days each month', goodFor: 'Ongoing technical and strategic counsel, R&D steering, board advisory' },
   { model: 'Interim leadership', shape: 'Part-time or full-time for a defined period', goodFor: 'Covering a technical director or R&D lead role' },
   { model: 'Workshops and training', shape: 'Half a day to two days', goodFor: 'Oils and fats academies, innovation sprints, technology transfer' },
@@ -74,7 +74,7 @@ export const faq: { q: string; a: string; confirm?: string }[] = [
   { q: 'How are fees agreed?', a: 'We agree the scope and fee with you before any work starts.' },
   {
     q: 'Do you work on site or remotely?',
-    a: 'Both, depending on the work. We start where the problem lives: on your plant floor, in your lab, with your customers. A diagnostic or audit typically means 2–5 days on site, with the report within two weeks. For longer engagements, the balance of site visits and remote work is agreed with you in the scope.',
+    a: 'Both, depending on the work. We start where the problem lives: on your plant floor, in your lab, with your customers. A diagnostic or audit typically means 2 to 5 days on site, with the report within two weeks. For longer engagements, the balance of site visits and remote work is agreed with you in the scope.',
   },
   { q: 'Which languages do you work in?', a: `${firstName} works in English, Hindi and Marathi, with conversational Bahasa Indonesia and basic Russian.` },
   {

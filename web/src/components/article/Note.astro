@@ -13,7 +13,7 @@ const { n } = Astro.props;
 ---
 {"⁠"}<sup class="note-ref"><a href={`#note-${n}`} id={`ref-${n}`} aria-describedby={`note-${n}`}>{n}</a></sup><span id={`note-${n}`} class="sidenote" role="note"><span class="sidenote__n tnum" aria-hidden="true">{n}</span><span class="sidenote__text"><slot /></span></span>
 <style>
-  .note-ref { font-size: .68em; line-height: 0; vertical-align: super; margin-left: 1px; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+  .note-ref { font-size: max(14px, .72em); line-height: 0; vertical-align: super; margin-left: 1px; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
   /* The sup keeps line-height 0 so the text line never moves; the link gets its own 1em box so its focus ring
      (base :focus-visible, 2px / offset 3px) frames the digit instead of collapsing to a flat bar. */
   /* inline (not inline-block): an atomic inline after "differently." gave the browser a break opportunity, so the

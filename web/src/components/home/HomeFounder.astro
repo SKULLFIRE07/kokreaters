@@ -1,10 +1,11 @@
 ---
 /**
- * Home 7 · Founder (REDESIGN-V3 §4 Home 7, §8.4, §9.2 "no image cut", §9.3). Grey band, full section padding.
+ * Home 7 · Founder (REDESIGN-V3 §4 Home 7, §8.4, §9.2 "no image cut", §9.3). Navy band (v3.2 polish: the studio portrait
+ * and the quote in white read as a premium statement), full section padding.
  * The studio portrait (src/assets/photos/ganeaysh-portrait.jpg, 1600 × 2000) is shown WHOLE in a 4:5 frame, its own
  * proportions, so nothing is cropped (head, shoulders and jacket all inside the frame); it settles in on scroll.
  * ≥ 900px: a 5/7 composition (portrait 4 columns from 1600px, so it stays under a screen tall). Portrait in columns 1–5; one column of air; then, vertically centred on the portrait, the
- *  band label "Founder" (the section's h2), the founder quote in large serif italic with a hanging open quote, a short
+ *  band label "Founder" (the section's h2), the founder quote in large upright serif with a hanging open quote, a short
  *  hairline, the byline (founder.ts name + role) and "Meet Ganeaysh" → /about.
  * 600–899: the same idea in two columns (portrait 5 of 12, text 7), the quote one step smaller.
  * Mobile (< 600px): the portrait, framed at 4:5 and up to 320px wide (left-aligned on the grid) → label → quote →
@@ -20,7 +21,7 @@ import { founderName, founderRole, portraitAlt } from '@/data/founder';
 import { site } from '@/config/site';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 ---
-<Section ground="grey" labelledby="founder-heading" class="hf">
+<Section ground="navy" labelledby="founder-heading" class="hf">
   <div class="hf__grid">
     <div class="hf__media" data-reveal>
       <Photo
@@ -54,15 +55,16 @@ import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
   .hf__label { margin: 0 0 var(--s-5); color: var(--label); }
   .hf__quote {
     margin: 0; color: var(--head);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 380;
-    font-size: var(--fs-quote); line-height: var(--lh-quote); letter-spacing: var(--tr-quote, -0.01em);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-style: normal; font-weight: 400;
+    font-size: var(--fs-quote); line-height: var(--lh-quote); letter-spacing: -0.015em;
     max-width: 24ch; text-wrap: pretty;
   }
   .hf__quote p { text-indent: -.42em; }
   .hf__by { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--rule); max-width: 28rem; }
-  .hf__who { display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-small); line-height: var(--lh-small); }
-  .hf__name { font-weight: 600; color: var(--fg); }
-  .hf__role { color: var(--fg-2); }
+  .hf__who { display: flex; flex-direction: column; gap: 4px; line-height: 1.4; }
+  .hf__name { font-size: 1.1875rem; font-weight: 650; color: var(--head); }
+  .hf__role { font-size: var(--fs-small); font-weight: 500; color: var(--fg-2); }
+  .hf__media :global(img) { box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .55); }
   .hf__who :global(.confirm) { align-self: flex-start; margin: var(--s-1) 0 0; }
   .hf__by :global(.hf__link) { margin-top: var(--s-3); }
 

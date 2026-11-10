@@ -183,6 +183,11 @@ const id = (n: string) => `kc-f-${n}`;
   }
   .kc-launch:hover { background: var(--navy-800); transform: translateY(-2px); box-shadow: 0 22px 44px -16px rgba(11, 27, 51, .6), 0 2px 6px rgba(11, 27, 51, .14); }
   .kc-launch:active { transform: translateY(0); }
+  /* phones: a compact 56px round icon button so it never covers hero text; the label stays for screen readers */
+  @media (max-width: 599px) {
+    .kc-launch { width: 56px; height: 56px; padding: 0; justify-content: center; border-radius: 50%; gap: 0; }
+    .kc-launch__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  }
   .kc-launch:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }
   .kc-launch__mark { transition: transform var(--d-3) var(--ease-out); }
   .kc-launch:hover .kc-launch__mark { transform: rotate(-12deg) scale(1.06); }

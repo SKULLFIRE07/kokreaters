@@ -16,6 +16,8 @@ export const proof: { value: string; count?: number; label: string }[] = [
   { value: 'WHO', label: 'Director-General recognition for trans-fat elimination work' },
 ];
 export const proofSource = 'From our founder’s career';
+/** The readable source line under the track-record strip (home + Impact). The four figures all come from the Wilmar and Cargill years. */
+export const proofStripSource = 'All figures from our founder’s career at Wilmar and Cargill';
 export const positioning = {                                  // graft 9, brief 1
   folio: 'Our promise',                                       // COMPOSED (8.3)
   headline: 'Deep expertise, shared ownership, measurable results.',

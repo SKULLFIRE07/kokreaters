@@ -35,7 +35,7 @@ import { photos } from '@/data/photos';
 import { founderResults } from '@/data/impact';
 import { industries } from '@/data/industries';
 import { byPillar, comingSoonByPillar } from '@/lib/insights';
-import { pillarHref, pillarNumber } from '@/lib/pillars';
+import { pillarHref } from '@/lib/pillars';
 import { pageSeo } from '@/lib/seo';
 import { showConfirm } from '@/lib/mode';
 import type { Pillar, PillarKey } from '@/data/types';
@@ -95,7 +95,7 @@ const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights
 <BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}>
   <PillarHero
     image={photo.src} imageAlt={photo.alt} imagePosition={hero.position ?? photo.position}
-    crumbs={crumbs} crumbsCurrentShort={pillar.shortLabel} eyebrow={`${expertiseOverview.overline} · ${pillarNumber(pillar)}`}
+    crumbs={crumbs} crumbsCurrentShort={pillar.shortLabel} eyebrow={expertiseOverview.overline}
     title={pillar.headline} lead={pillar.name} titleId="pillar-title"
   />
 

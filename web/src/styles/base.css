@@ -38,7 +38,7 @@ body {
 .t-h1 { max-width: 22ch; }
 .t-h2 { max-width: 28ch; }
 .t-stat {
-  font-size: var(--fs-stat); line-height: var(--lh-stat); font-weight: 380; letter-spacing: var(--tr-stat);
+  font-size: var(--fs-stat); line-height: var(--lh-stat); font-weight: 500; letter-spacing: var(--tr-stat);
   font-variant-numeric: lining-nums tabular-nums;
 }
 .t-quote { font-size: var(--fs-quote); line-height: var(--lh-quote); font-weight: 400; font-style: italic; letter-spacing: var(--tr-quote); }

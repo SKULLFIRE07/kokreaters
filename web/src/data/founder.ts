@@ -29,15 +29,15 @@ export const longBio: string[] = [
 export const bioSidenotes: BioSidenote[] = [
   { at: 2, text: '2001 · Wilmar' },
   { at: 3, text: '2012 · Cargill' },
-  { at: 3, text: '2023–2026 · Global Product and Process Design Director' },
+  { at: 3, text: '2023 to 2026 · Global Product and Process Design Director' },
 ];
 
 export const shortBio = 'Ganeaysh Kulkarni is the founder of KoKreaters. A food technologist with 25 years at Wilmar and Cargill, he has built specialty fats facilities, commissioned refineries, led global R&D and FSQR teams and supported acquisitions across Asia, Europe and the Americas. He now helps food and ingredient companies co-create better products, plants and decisions.';
 
 export const timeline: TimelineItem[] = [   // CONFIRM 13
-  { label: 'CFTRI Mysore', years: '1999–2001' },
-  { label: 'Wilmar', years: '2001–2012' },
-  { label: 'Cargill', years: '2012–2026' },
+  { label: 'CFTRI Mysore', years: '1999 to 2001' },
+  { label: 'Wilmar', years: '2001 to 2012' },
+  { label: 'Cargill', years: '2012 to 2026' },
   { label: 'KoKreaters', years: '2026' },
 ];
 
@@ -48,7 +48,7 @@ export const timeline: TimelineItem[] = [   // CONFIRM 13
 export const timelineRoles: Record<string, string> = {
   'CFTRI Mysore': 'Postgraduate degree in Food Technology',
   Wilmar: 'Technical Head Specialties to Technical Director',
-  Cargill: 'Technical, R&D and FSQR leadership; Global Product and Process Design Director, 2023–2026',
+  Cargill: 'Technical, R&D and FSQR leadership; Global Product and Process Design Director, 2023 to 2026',
   KoKreaters: 'Founder, based in the Netherlands',
 };
 

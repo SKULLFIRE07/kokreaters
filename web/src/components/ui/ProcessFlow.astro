@@ -19,10 +19,10 @@ interface Props {
   class?: string;
 }
 const { steps, caption, title, class: cls } = Astro.props;
-// width needed for a horizontal row: each column ≥ the longest unbreakable piece of its label (Inter 500 at 16px
-// ≈ 8.8px per character, a little over the measured average) + the 8px right padding, never under 96px; gaps are 16px.
+// width needed for a horizontal row: each column ≥ the longest unbreakable piece of its label (Inter 500 at 17px
+// ≈ 9.6px per character, a little over the measured average) + the 8px right padding, never under 96px; gaps are 16px.
 const piece = (t: string) => Math.max(...t.split(/[\s\u00AD\u2010-]+/).map((w) => w.length), 1);
-const colMin = (t: string) => Math.max(96, Math.ceil(piece(t) * 8.8) + 8 + (/\u00AD/.test(t) ? 10 : 0));
+const colMin = (t: string) => Math.max(96, Math.ceil(piece(t) * 9.6) + 8 + (/\u00AD/.test(t) ? 10 : 0));
 // the first n−1 columns are equal (1fr), so the widest of them sets their width; the last column is auto
 const firstMax = Math.max(0, ...steps.slice(0, -1).map(colMin));
 const need = firstMax * (steps.length - 1) + colMin(steps[steps.length - 1] ?? '') + (steps.length - 1) * 16;

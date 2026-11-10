@@ -5,12 +5,12 @@
  *  Header: the visible h2 "All industries" (`industriesPage.listHeading`) in columns 1–5 and the rest of the page intro
  *  at lead size in columns 7–12, both top-aligned; stacked below 900px.
  *  Each industry (page-local variant of the foundation IndustryTile `card`, reported to the orchestrator): no box, a 1px
- *  hairline on top that an accent line draws across on hover / focus, a light serif numeral, the serif h3 name, the
+ *  hairline on top that an accent line draws across on hover / focus, the serif h3 name, the
  *  brief's one-line description, then "Relevant expertise" links to the pillar pages (each a 44px+ tap row; the last
  *  word and its arrow never part). Text-only for all nine on purpose (§8.9: there is no honest pet-food or bleaching-
  *  earth photo, and one odd card out would look broken). The <article> carries id={slug} for the /industries#<slug>
  *  links from home, the header dropdown and the mobile menu; card titles are h3.
- *  The <li>s are row subgrids (numeral · name · description · expertise), so names, descriptions and the expertise
+ *  The <li>s are row subgrids (name · description · expertise), so names, descriptions and the expertise
  *  hairline line up across each row whatever the length of the text.
  * Mobile (< 600px): one column, 64px between industries. 600–1199: two columns (the ninth closes the list on the left,
  *  no hairline across an empty cell; at 1024 three columns would wrap the expertise links and three-line names). ≥ 1200: 3 × 3, 72 → 96px between rows.
@@ -20,7 +20,6 @@ import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { industries, industriesPage } from '@/data/industries';
 import { getPillar, pillarHref } from '@/lib/pillars';
-import { pad2 } from '@/lib/format';
 
 interface Props { lead?: string }
 const { lead } = Astro.props;
@@ -38,7 +37,6 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
     {industries.map((ind, i) => (
       <li class="ig__item" data-reveal style={`--i:${i % 3}`}>
         <article id={ind.slug} class="ind" aria-labelledby={`${ind.slug}-h`}>
-          <span class="ind__n" aria-hidden="true">{pad2(ind.n)}</span>
           <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
           <p class="ind__copy">{ind.copy}</p>
           <div class="ind__xp">
@@ -70,20 +68,14 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   .ind { position: relative; display: flex; flex-direction: column; height: 100%; border-top: 1px solid var(--rule); }
   /* accent line draws across the hairline on hover / keyboard focus */
   .ind::before {
-    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--accent);
+    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--accent);
     transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
   }
   .ind:hover::before, .ind:focus-within::before { transform: scaleX(1); }
 
-  .ind__n {
-    padding-top: var(--s-5);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 300;
-    font-size: clamp(2.25rem, 1.8rem + 1.6vw, 3.5rem); line-height: 1; letter-spacing: -0.03em;
-    color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums;
-  }
   .ind__name {
-    margin-top: var(--s-5);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
+    padding-top: var(--s-6);
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 500;
     font-size: clamp(1.5rem, 1.3rem + .6vw, 2rem); line-height: 1.15; letter-spacing: -0.012em; color: var(--head);
     text-wrap: balance; max-width: 22ch;
   }
@@ -107,16 +99,15 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   }
   @media (min-width: 900px) {
     .ig__grid { row-gap: clamp(4.5rem, 2rem + 3.6vw, 6rem); }
-    .ind__n { padding-top: var(--s-6); }
   }
   /* three across only where a column holds "Process Design and Plant Performance →" on one line */
   @media (min-width: 1200px) {
     .ig__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
-  /* row subgrids: numeral · name · description · expertise share their tracks with the row's other industries */
+  /* row subgrids: name · description · expertise share their tracks with the row's other industries */
   @supports (grid-template-rows: subgrid) {
-    .ig__item { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+    .ig__item { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
     .ind { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
     .ind__xp { align-self: start; }
   }

@@ -31,10 +31,9 @@ import { industries } from '@/data/industries';
 import { getPillar, pillarHref } from '@/lib/pillars';
 import { abbreviations } from '@/lib/typography';
 import { showConfirm } from '@/lib/mode';
-import { pad2 } from '@/lib/format';
 
 interface Props { result: FounderResult; photo: PhotoRecord; index: number; total: number; side?: 'left' | 'right' }
-const { result, photo, index, total, side = 'left' } = Astro.props;
+const { result, photo, side = 'left' } = Astro.props;
 const { labels } = impactPage;
 const titleId = `case-${result.id}-title`;
 const orient = photo.orientation;
@@ -95,7 +94,6 @@ const sizes = orient === 'portrait'
 <article id={result.id} class:list={['case', `case--${orient}`, `case--media-${side}`]} aria-labelledby={titleId}>
   <header class="case__head" data-reveal>
     <p class="case__kicker">
-      <span class="case__no tnum" aria-hidden="true"><span>{pad2(index)}<span class="case__of"> / {pad2(total)}</span></span></span>
       <span class="case__eyebrow t-label">{eyebrow}</span>
     </p>
     <h3 id={titleId} class="case__title" set:html={outcomeHtml} />
@@ -147,20 +145,10 @@ const sizes = orient === 'portrait'
     --fig: clamp(4rem, 1.5rem + 6.2vw, 9rem);                      /* 64 (390) → ≈ 113 (1440) → 144 (1920) */
   }
 
-  /* index + eyebrow: a small serif numeral, a hairline, then the context label */
-  .case__kicker { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
-  .case__no {
-    display: inline-flex; align-items: center; gap: var(--s-4);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.0625rem; line-height: 1; color: var(--head);
-  }
-  .case__of { color: var(--fg-2); }
-  .case__no::after { content: ""; width: 40px; height: 1px; background: var(--rule-strong); }
+  /* context label, opened by a short accent rule */
+  .case__kicker { margin: 0; display: flex; align-items: center; gap: var(--s-4); }
+  .case__kicker::before { content: ""; flex: none; width: 32px; height: 2px; background: var(--accent); }
   .case__eyebrow { color: var(--label); }
-  /* phones: the index sits on its own line above the context label (a long label never strands the rule) */
-  @media (max-width: 599px) {
-    .case__kicker { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
-    .case__no::after { width: 24px; }
-  }
   .case__title {
     margin-top: var(--s-5); max-width: 22ch;
     font-size: calc(var(--fs-h2) * .84); line-height: 1.14; font-weight: 400; letter-spacing: var(--tr-h2);
@@ -177,7 +165,7 @@ const sizes = orient === 'portrait'
   .case__figs { list-style: none; margin: var(--s-7) 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s-6) var(--s-8); min-width: 0; }
   .case__figure { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
   .case__value {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 340;
+    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 460;
     font-size: var(--fig); line-height: .92; letter-spacing: -0.035em; color: var(--figure);
     font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
