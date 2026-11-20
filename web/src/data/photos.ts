@@ -34,11 +34,28 @@ import people01 from '@/assets/photos/stock/people-01.jpg';
 import people02 from '@/assets/photos/stock/people-02.jpg';
 import people03 from '@/assets/photos/stock/people-03.jpg';
 
+/* v4 Delft (developer guide 20 Nov 2026): the client's 14 Unsplash photos, originals, ungraded. */
+import heroRapeseedV4 from '@/assets/photos/stock/hero-rapeseed.jpg';
+import agriFieldsV4 from '@/assets/photos/stock/agri-fields.jpg';
+import developPipetteV4 from '@/assets/photos/stock/develop-pipette.jpg';
+import scaleTanksV4 from '@/assets/photos/stock/scale-tanks.jpg';
+import accessShipV4 from '@/assets/photos/stock/access-ship.jpg';
+import feedSilosV4 from '@/assets/photos/stock/feed-silos.jpg';
+import oilsPourV4 from '@/assets/photos/stock/oils-pour.jpg';
+import bakeryDoughV4 from '@/assets/photos/stock/bakery-dough.jpg';
+import cocoaPodsV4 from '@/assets/photos/stock/cocoa-pods.jpg';
+import nutritionSpicesV4 from '@/assets/photos/stock/nutrition-spices.jpg';
+import nlPolderV4 from '@/assets/photos/stock/nl-polder.jpg';
+import spareHallV4 from '@/assets/photos/stock/spare-hall.jpg';
+import spareWheatV4 from '@/assets/photos/stock/spare-wheat.jpg';
+import spareMaizeV4 from '@/assets/photos/stock/spare-maize.jpg';
+
 export const PHOTO_SLUGS = [
   'refinery-01', 'refinery-02', 'plant-01', 'cold-01', 'texture-01', 'texture-02',
   'oils-01', 'oils-02', 'oilseeds-01', 'lab-01', 'lab-02',
   'chocolate-01', 'chocolate-02', 'bakery-01', 'bakery-02', 'factory-01', 'audit-01',
   'people-01', 'people-02', 'people-03',
+  'hero-rapeseed', 'agri-fields', 'develop-pipette', 'scale-tanks', 'access-ship', 'feed-silos', 'oils-pour', 'bakery-dough', 'cocoa-pods', 'nutrition-spices', 'nl-polder', 'spare-hall', 'spare-wheat', 'spare-maize',
 ] as const;
 export type PhotoSlug = (typeof PHOTO_SLUGS)[number];
 
@@ -76,6 +93,90 @@ const P: PhotoLicense = 'Pexels License';
 const file = (slug: string) => `src/assets/photos/stock/${slug}.jpg`;
 
 export const photos: Record<PhotoSlug, Photo> = {
+  'hero-rapeseed': {
+    slug: 'hero-rapeseed', src: heroRapeseedV4, file: file('hero-rapeseed'),
+    alt: 'A field of yellow rapeseed in flower under a blue sky with light cloud.',
+    tags: ['oilseeds'], orientation: 'landscape', focal: 'bottom', position: '50% 60%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/yellow-flower-field-under-blue-sky-during-daytime-DVeUvOEUwNA', profile: 'https://unsplash.com', license: U },
+  },
+  'agri-fields': {
+    slug: 'agri-fields', src: agriFieldsV4, file: file('agri-fields'),
+    alt: 'Aerial view of a patchwork of green and yellow farm fields.',
+    tags: ['oilseeds'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/orange-and-green-abstract-painting-0U7xx2X60YE', profile: 'https://unsplash.com', license: U },
+  },
+  'develop-pipette': {
+    slug: 'develop-pipette', src: developPipetteV4, file: file('develop-pipette'),
+    alt: 'A gloved hand pipetting samples into a rack of vials in a laboratory.',
+    tags: ['lab', 'quality'], orientation: 'portrait', focal: 'center', position: '50% 40%', tone: 'light',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/person-using-pipette-in-laboratory-wDxFn_dBEC0', profile: 'https://unsplash.com', license: U },
+  },
+  'scale-tanks': {
+    slug: 'scale-tanks', src: scaleTanksV4, file: file('scale-tanks'),
+    alt: 'Stainless steel process tanks and sanitary pipework inside a plant.',
+    tags: ['plant', 'steel'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'light',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/gray-industrial-machine-xD5SWy7hMbw', profile: 'https://unsplash.com', license: U },
+  },
+  'access-ship': {
+    slug: 'access-ship', src: accessShipV4, file: file('access-ship'),
+    alt: 'A bulk carrier crossing a calm sea at dawn, seen from above.',
+    tags: ['plant'], orientation: 'landscape', focal: 'center', position: '55% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/red-and-white-cargo-ship-at-middle-of-ocean-sfjS-FglvU4', profile: 'https://unsplash.com', license: U },
+  },
+  'feed-silos': {
+    slug: 'feed-silos', src: feedSilosV4, file: file('feed-silos'),
+    alt: 'Grain silos behind a field of young maize.',
+    tags: ['plant'], orientation: 'landscape', focal: 'center', position: '50% 45%', tone: 'light',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/a-field-of-corn-and-silos-with-a-red-building-in-the-background-u0rXTqnUEgs', profile: 'https://unsplash.com', license: U },
+  },
+  'oils-pour': {
+    slug: 'oils-pour', src: oilsPourV4, file: file('oils-pour'),
+    alt: 'Golden oil pouring between three stacked spoons.',
+    tags: ['oils'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/a-glass-of-liquid-2srLXVFaOJs', profile: 'https://unsplash.com', license: U },
+  },
+  'bakery-dough': {
+    slug: 'bakery-dough', src: bakeryDoughV4, file: file('bakery-dough'),
+    alt: 'Floured hands holding a round ball of dough against a dark background.',
+    tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 45%', tone: 'dark',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/person-holding-dough-4yzEtTQLdL4', profile: 'https://unsplash.com', license: U },
+  },
+  'cocoa-pods': {
+    slug: 'cocoa-pods', src: cocoaPodsV4, file: file('cocoa-pods'),
+    alt: 'Ripe cocoa pods hanging from a branch among green leaves.',
+    tags: ['chocolate'], orientation: 'landscape', focal: 'right', position: '65% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/cocoa-pods-hanging-from-a-tree-branch-sFCOat9rphk', profile: 'https://unsplash.com', license: U },
+  },
+  'nutrition-spices': {
+    slug: 'nutrition-spices', src: nutritionSpicesV4, file: file('nutrition-spices'),
+    alt: 'Small heaps of coloured spice powders scattered on a black surface.',
+    tags: ['quality'], orientation: 'portrait', focal: 'center', position: '50% 40%', tone: 'dark',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/brown-and-white-beans-on-white-ceramic-plate-NL02eAwtkmM', profile: 'https://unsplash.com', license: U },
+  },
+  'nl-polder': {
+    slug: 'nl-polder', src: nlPolderV4, file: file('nl-polder'),
+    alt: 'A Dutch polder canal running between green meadows under a wide cloudy sky.',
+    tags: [], orientation: 'landscape', focal: 'center', position: '50% 55%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/a-river-with-grass-on-the-side-ZmO1wsr_3mY', profile: 'https://unsplash.com', license: U },
+  },
+  'spare-hall': {
+    slug: 'spare-hall', src: spareHallV4, file: file('spare-hall'),
+    alt: 'A bright, clean food-processing hall with stainless conveyors and equipment.',
+    tags: ['factory', 'plant'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'light',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/white-and-green-metal-stand-KR9j7uqFhnI', profile: 'https://unsplash.com', license: U },
+  },
+  'spare-wheat': {
+    slug: 'spare-wheat', src: spareWheatV4, file: file('spare-wheat'),
+    alt: 'Ripe wheat ears against a deep blue sky.',
+    tags: ['oilseeds', 'bakery'], orientation: 'landscape', focal: 'bottom', position: '50% 60%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/wheat-field-y4xZxzN754M', profile: 'https://unsplash.com', license: U },
+  },
+  'spare-maize': {
+    slug: 'spare-maize', src: spareMaizeV4, file: file('spare-maize'),
+    alt: 'Close-up of a heap of yellow maize kernels.',
+    tags: ['oilseeds'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/green-grass-field-during-daytime-5m37cx0D-wI', profile: 'https://unsplash.com', license: U },
+  },
   'refinery-01': {
     slug: 'refinery-01', src: refinery01, file: file('refinery-01'),
     alt: 'Process plant with distillation columns and a horizontal vessel, lit against a deep blue dusk sky.',
