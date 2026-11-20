@@ -45,6 +45,32 @@ Typed records with alt text and these credits: `src/data/photos.ts`. All twenty 
 | people-02 | Meeting-room review | Beatriz Cattel | https://unsplash.com/photos/business-meeting-with-people-around-a-conference-table-3tCLyPBSQ5k | Unsplash License |
 | people-03 | Reviewing documents | Olena Kholina | https://unsplash.com/photos/two-people-reviewing-documents-at-a-table-MhqUBTxQ3Hw | Unsplash License |
 
+### v4 "Delft" photographs (client-selected, 20 Nov 2026)
+
+Fourteen photographs chosen and checked by the client on their Unsplash pages on 20 Nov 2026, used under the
+[Unsplash License](https://unsplash.com/license) (commercial use allowed, attribution not required; credited anyway). No
+readable brands and no identifiable faces. Originals (ungraded): `../assets/photos/unsplash-v4/`; site copies:
+`src/assets/photos/stock/`; records: `src/data/photos.ts`. Photographer names were not recorded in the client's guide;
+the photo pages below carry them.
+
+| Slug | Subject | Photographer | Source | Licence |
+|---|---|---|---|---|
+| hero-rapeseed | Rapeseed field under a blue sky | Unsplash contributor | https://unsplash.com/photos/yellow-flower-field-under-blue-sky-during-daytime-DVeUvOEUwNA | Unsplash License |
+| agri-fields | Patchwork of farm fields | Unsplash contributor | https://unsplash.com/photos/orange-and-green-abstract-painting-0U7xx2X60YE | Unsplash License |
+| develop-pipette | Gloved hand with a pipette (US CDC, public domain) | Unsplash contributor | https://unsplash.com/photos/person-using-pipette-in-laboratory-wDxFn_dBEC0 | Unsplash License |
+| scale-tanks | Stainless steel tanks and pipework | Unsplash contributor | https://unsplash.com/photos/gray-industrial-machine-xD5SWy7hMbw | Unsplash License |
+| access-ship | Bulk carrier at sea at dawn | Unsplash contributor | https://unsplash.com/photos/red-and-white-cargo-ship-at-middle-of-ocean-sfjS-FglvU4 | Unsplash License |
+| feed-silos | Grain silos behind a maize field | Unsplash contributor | https://unsplash.com/photos/a-field-of-corn-and-silos-with-a-red-building-in-the-background-u0rXTqnUEgs | Unsplash License |
+| oils-pour | Golden oil pouring between spoons | Unsplash contributor | https://unsplash.com/photos/a-glass-of-liquid-2srLXVFaOJs | Unsplash License |
+| bakery-dough | Hands holding dough | Unsplash contributor | https://unsplash.com/photos/person-holding-dough-4yzEtTQLdL4 | Unsplash License |
+| cocoa-pods | Cocoa pods on a branch | Unsplash contributor | https://unsplash.com/photos/cocoa-pods-hanging-from-a-tree-branch-sFCOat9rphk | Unsplash License |
+| nutrition-spices | Spice powders on black | Unsplash contributor | https://unsplash.com/photos/brown-and-white-beans-on-white-ceramic-plate-NL02eAwtkmM | Unsplash License |
+| nl-polder | Dutch polder and canal | Unsplash contributor | https://unsplash.com/photos/a-river-with-grass-on-the-side-ZmO1wsr_3mY | Unsplash License |
+| spare-hall | Clean food-processing hall | Unsplash contributor | https://unsplash.com/photos/white-and-green-metal-stand-KR9j7uqFhnI | Unsplash License |
+| spare-wheat | Wheat field | Unsplash contributor | https://unsplash.com/photos/wheat-field-y4xZxzN754M | Unsplash License |
+| spare-maize | Maize kernels | Unsplash contributor | https://unsplash.com/photos/green-grass-field-during-daytime-5m37cx0D-wI | Unsplash License |
+
+
 ## Icons: Lucide (v3)
 
 UI and expertise icons are inlined at build time from `lucide-static` 1.70.0 (https://lucide.dev), by

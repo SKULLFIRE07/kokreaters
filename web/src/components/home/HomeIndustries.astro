@@ -1,30 +1,66 @@
 ---
 /**
- * Home 6 · Industries (REDESIGN-V3 §4 Home 6). White band: SectionHeader (eyebrow "Industries", title "Where we work"
- * from home.industries, "All industries" link) over the nine industries as text tiles in a hairline 3 × 3 grid
- * (.tile-grid), each linking to its /industries#<slug> anchor. Text-only by design: photos live on /industries.
- * Each tile: the serif name with its arrow, then the one-line description. Mobile (< 600px): one column of rows (name and arrow, description under) between hairlines. 600–899: 2 columns, and
- * the odd ninth tile spans the last row so no empty grey cell is left in the hairline grid.
+ * Home 7 · Industries (v4 developer guide). White band: label + H2 "Where we work", "All industries →" on the right;
+ * six photo tiles (agri-fields, oils-pour, feed-silos, bakery-dough, cocoa-pods, nutrition-spices) with a navy
+ * gradient and the name in white Bodoni; then the "Also: …" line for the rest. Each tile links to /industries, or to
+ * the matching industry anchor when that slug exists in src/data/industries.ts.
+ * Hover: the photo zooms 1.04 (.u-zoom) and the name underlines. The grid itself stays still (a lifted column read as
+ * misalignment in review).
+ * Mobile: one column of 240px tiles; two columns from 600px; three from 1000px.
  */
-import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import IndustryTile from '@/components/cards/IndustryTile.astro';
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
 import { industries as fold } from '@/data/home';
-import { industries, industriesPage } from '@/data/industries';
-import { industriesMenu } from '@/data/nav';
+import { industries } from '@/data/industries';
+
+const hrefFor = (anchor: string) => (anchor && industries.some((i) => i.slug === anchor) ? `/industries#${anchor}` : fold.link.href);
 ---
-<Section ground="white" labelledby="industries-heading">
-  <SectionHeader id="industries-heading" eyebrow={industriesPage.overline} title={fold.headline} link={industriesMenu.all} />
-  <ul class="tile-grid hind__grid" role="list">
-    {industries.map((ind, i) => (
-      <li data-reveal style={`--i:${i % 3}`}><IndustryTile href={`/industries#${ind.slug}`} name={ind.name} copy={ind.copy} /></li>
-    ))}
-  </ul>
-</Section>
+<section id="industries" class="hi band band--white" aria-labelledby="hi-heading">
+  <div class="container">
+    <header class="hi__head">
+      <div>
+        <p class="t-label hi__label">{fold.overline}</p>
+        <h2 id="hi-heading" class="hi__title">{fold.headline}</h2>
+      </div>
+      <ArrowLink href={fold.link.href} class="hi__link">{fold.link.label}</ArrowLink>
+    </header>
+    <ul class="hi__grid" role="list">
+      {fold.tiles.map((t) => (
+        <li>
+          <a class="hi__tile u-zoom" href={hrefFor(t.anchor)}>
+            <Photo slug={t.photo} fill class="hi__photo" sizes="(min-width: 1320px) 400px, (min-width: 1000px) 31vw, (min-width: 600px) 46vw, calc(100vw - 40px)" widths={[400, 640, 800, 1000, 1280]} />
+            <span class="hi__scrim" aria-hidden="true"></span>
+            <span class="hi__name">{t.name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="hi__also">{fold.alsoLabel}: {fold.also.join(' · ')}</p>
+  </div>
+</section>
 
 <style>
-  @media (min-width: 600px) and (max-width: 899px) {
-    .hind__grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-    .hind__grid > li:last-child:nth-child(odd) > :global(*) { padding-right: 0; }   /* arrow flush right, like column 2 */
+  .hi__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 40px; }
+  .hi__label { margin: 0 0 18px; }
+  .hi__title { margin: 0; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; }
+  .hi :global(.hi__link) { margin-bottom: -10px; }
+  .hi__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; margin: 0; padding: 0; list-style: none; }
+  .hi__tile { position: relative; display: block; height: 240px; overflow: hidden; background: var(--navy-900); isolation: isolate; text-decoration: none; }
+  .hi__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 40%, rgba(14, 31, 77, .9) 100%); transition: opacity var(--d-2) var(--ease-out); }
+  .hi__name {
+    position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 22px;
+    font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; line-height: 1.2; color: var(--white);
+    text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .2em;
+    transition: text-decoration-color var(--d-2) var(--ease-out);
+  }
+  .hi__tile:is(:hover, :focus-visible) .hi__name { text-decoration-color: rgba(255, 255, 255, .7); }
+  .hi__tile:focus-visible { outline-offset: 3px; }
+  .hi__also { margin: 32px 0 0; font-size: .9375rem; line-height: 1.7; color: var(--fg-2); }
+  @media (min-width: 600px) { .hi__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hi__tile { height: 280px; } }
+  @media (min-width: 1000px) {
+    .hi__head { margin-bottom: 52px; }
+    .hi__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hi__tile { height: 300px; }
+    .hi__name { left: 28px; right: 28px; bottom: 24px; font-size: 1.625rem; }
   }
 </style>

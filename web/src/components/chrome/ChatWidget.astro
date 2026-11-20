@@ -54,7 +54,7 @@ const id = (n: string) => `kc-f-${n}`;
   data-msg-form-error={microcopy.formError}
 >
   <button type="button" class="kc-launch" data-chat-launcher aria-haspopup="dialog" aria-expanded="false" aria-controls="kc-panel">
-    <NodeMark tone="white" size={20} class="kc-launch__mark" />
+    <NodeMark tone="white" size={18} class="kc-launch__mark" />
     <span class="kc-launch__label">{chat.launcher}</span>
   </button>
 
@@ -171,21 +171,19 @@ const id = (n: string) => `kc-f-${n}`;
     position: fixed; z-index: 60;
     right: max(var(--gutter-x), env(safe-area-inset-right));
     bottom: max(var(--s-5), calc(env(safe-area-inset-bottom) + var(--s-3)));
-    display: inline-flex; align-items: center; gap: 10px;
-    height: 52px; padding: 0 22px 0 16px; margin: 0;
-    border: 1px solid rgba(255, 255, 255, .12); border-radius: var(--r-sm);
-    background: var(--navy-900); color: var(--white);
-    font: 600 var(--fs-button)/1 var(--font-sans); letter-spacing: var(--tr-button);
-    box-shadow: 0 18px 40px -16px rgba(11, 27, 51, .55), 0 2px 6px rgba(11, 27, 51, .12);
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 42px; padding: 0 16px 0 12px; margin: 0;
+    border: 0; border-radius: 0;
+    background: var(--blue-700); color: var(--white);
+    font: 700 .875rem/1 var(--font-sans); letter-spacing: .005em;
     cursor: pointer;
-    transition: background-color var(--d-1) var(--ease-out), transform var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out), opacity var(--d-2) var(--ease-out), visibility 0s;
+    transition: background-color var(--d-1) var(--ease-out), opacity var(--d-2) var(--ease-out), visibility 0s;
     animation: kc-rise var(--d-4) var(--ease-out) .9s both;
   }
-  .kc-launch:hover { background: var(--navy-800); transform: translateY(-2px); box-shadow: 0 22px 44px -16px rgba(11, 27, 51, .6), 0 2px 6px rgba(11, 27, 51, .14); }
-  .kc-launch:active { transform: translateY(0); }
-  /* phones: a compact 56px round icon button so it never covers hero text; the label stays for screen readers */
+  .kc-launch:hover { background: var(--navy-900); }
+  /* phones: a compact 44px square icon button so it never covers hero text; the label stays for screen readers */
   @media (max-width: 599px) {
-    .kc-launch { width: 56px; height: 56px; padding: 0; justify-content: center; border-radius: 50%; gap: 0; }
+    .kc-launch { width: 44px; height: 44px; padding: 0; justify-content: center; gap: 0; }
     .kc-launch__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   }
   .kc-launch:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }

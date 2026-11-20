@@ -51,40 +51,40 @@ const one = insightsHub.countOne;
 </div>
 )}
 <style>
-  /* Refined text toggles (§9.3: fewer boxes): the options are quiet sans labels; the pressed one turns --head and a
-     2px navy underline glides beneath it. A hairline closes the bar; the live count sits on it. */
-  .filters { display: grid; gap: var(--s-4); margin-bottom: var(--s-6); }
-  .filters__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); }
+  /* v4: square toggles on thin #D9E0EC rules; the pressed one is Deep Delft with white text. One Deep Delft block per
+     row glides to the pressed button (the script sizes [data-filter-glide] to it); without it the pressed button
+     fills itself. The live count sits at the end of the bar. */
+  .filters { display: grid; gap: var(--s-3); }
+  .filters__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
   .filters__label { color: var(--fg-2); }
   .filters__track { position: relative; isolation: isolate; }
-  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--s-5); }
+  .filters__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
   .filters__btn {
     position: relative; z-index: 1;
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 2px;
-    border: 0; border-radius: 0; background: none; color: var(--fg-2);
-    font: 500 var(--fs-body)/1.2 var(--font-sans); letter-spacing: -0.005em; cursor: pointer;
-    transition: color var(--d-2) var(--ease-out);
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+    border: 1px solid var(--rule); border-radius: 0; background: transparent; color: var(--head);
+    font: 700 var(--fs-nav)/1.2 var(--font-sans); cursor: pointer;
+    transition: color var(--d-2) var(--ease-out), border-color var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out);
   }
-  .filters__btn:hover { color: var(--head); }
+  .filters__btn:hover { border-color: var(--link); color: var(--link); }
   .filters__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-  .filters__btn[aria-pressed="true"] { color: var(--head); box-shadow: inset 0 -2px 0 var(--head); }
-  /* glide on: the moving underline carries the mark, the pressed button only switches its text colour */
-  .filters__track.has-glide .filters__btn[aria-pressed="true"] { box-shadow: none; }
+  .filters__btn[aria-pressed="true"] { color: var(--white); background: var(--link); border-color: var(--link); }
+  /* glide on: the moving block carries the fill, the pressed button only switches its text colour */
+  .filters__track.has-glide .filters__btn[aria-pressed="true"] { background: transparent; }
   .filters__glide {
     position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0;
-    border-bottom: 2px solid var(--head); opacity: 0; pointer-events: none;
+    background: var(--link); opacity: 0; pointer-events: none;
     transition: transform var(--d-3) var(--ease-out), width var(--d-3) var(--ease-out), height var(--d-3) var(--ease-out);
   }
   .filters__glide.is-still { transition: none; }
   .filters__status {
-    margin: 0; min-height: calc(var(--lh-meta) * 1em); padding-top: var(--s-3);
+    margin: 0; min-height: calc(var(--lh-meta) * 1em);
     font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
   }
+  .filters__status:empty { min-height: 0; }
 
-  @media (max-width: 899px) { .filters__status:empty { min-height: 0; padding-top: 0; } }
   @media (min-width: 900px) {
-    .filters { gap: var(--s-2); grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-8); align-items: end; }
-    .filters__row { grid-column: 1; grid-template-columns: 8rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5); }
-    .filters__status { grid-column: 2; grid-row: 1 / span 2; align-self: end; padding: 0 0 12px; text-align: right; }
+    .filters { justify-items: end; }
+    .filters__row { grid-template-columns: auto auto; align-items: center; column-gap: var(--s-5); }
   }
 </style>

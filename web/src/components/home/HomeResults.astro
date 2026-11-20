@@ -1,40 +1,65 @@
 ---
 /**
- * Home 5 · Results (REDESIGN-V3 §4 Home 5). Navy band: SectionHeader from home.impact (label "Impact", the overline's
- * first clause; "Results that started on the plant floor."; "See the impact") and four ResultCards from
- * impact.founderResults in brief order (India, Indonesia, Ukraine, WHO). Figure = the result's own figure, else
- * figureFallback (1st, WHO); the title is the brief's home line (Ukraine's 15% lives in that line). Source line under
- * the cards names the employers, derived from the datelines (Wilmar / Cargill).
- * Layout: 4-up from 1200px, 2 × 2 from 600 to 1199 (.card-grid--xl). Mobile (< 600px): one column of cards, figure
- * 44px; the source line wraps under the last card.
+ * Home 8 · Impact (v4 developer guide). Delft Navy band: saffron label (with its rule) + H2 "Results that started on
+ * the plant floor.", "See the impact →" on the right; two results in large Bodoni numbers (84px): −25 °C (Ukraine ·
+ * Wilmar, the cold-climate refinery) and WHO (Cargill, the trans-fat recognition), each on a hairline; then the source
+ * line "From our founder’s career at Wilmar and Cargill." Facts and wording from src/data/impact.ts.
+ * Motion: the hairlines draw in; "−25 °C" counts its digits up once (the minus and unit stay); "WHO" is left alone.
+ * Mobile: one column, figures at 64px.
  */
-import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import ResultCard from '@/components/cards/ResultCard.astro';
-import { impact, proofSource } from '@/data/home';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import { impact } from '@/data/home';
 import { founderResults, figureFallback } from '@/data/impact';
 
-const results = founderResults.map((r) => ({
-  id: r.id,
-  eyebrow: r.dateline,
-  figure: r.figure?.value ?? figureFallback[r.id],
-  title: r.homeLine,
-}));
-// The band label is the overline's first clause ("Impact"); the attribution is the source line under the cards, as on
-// the track-record strip, so "From our founder’s career" is not said twice in one band.
-const [eyebrow] = impact.overline.split(' · ');
-const employers = [...new Set(founderResults.map((r) => r.dateline.split(' · ').pop() ?? ''))].filter(Boolean);
+const pick = ['ukraine', 'tfa'] as const;
+const items = pick.map((id) => {
+  const r = founderResults.find((x) => x.id === id)!;
+  return { id, dateline: r.dateline, figure: r.figure?.value ?? figureFallback[id] ?? '', line: r.homeLine };
+});
 ---
-<Section ground="navy" labelledby="impact-heading" class="hr">
-  <SectionHeader id="impact-heading" eyebrow={eyebrow} title={impact.headline} link={impact.link} />
-  <ul class="card-grid card-grid--xl" style="--cols:4" role="list">
-    {results.map((r, i) => (
-      <li data-reveal style={`--i:${i}`}><ResultCard eyebrow={r.eyebrow} figure={r.figure} title={r.title} /></li>
-    ))}
-  </ul>
-  <p class="hr__source">{proofSource} ({employers.join(' / ')}).</p>
-</Section>
+<section id="impact" class="hr band band--navy" aria-labelledby="hr-heading">
+  <div class="container">
+    <header class="hr__head">
+      <div>
+        <Eyebrow class="hr__label">{impact.overline}</Eyebrow>
+        <h2 id="hr-heading" class="hr__title">{impact.headline}</h2>
+      </div>
+      <ArrowLink href={impact.link.href} class="hr__link">{impact.link.label}</ArrowLink>
+    </header>
+    <ul class="hr__grid" role="list">
+      {items.map((it) => (
+        <li class="hr__item">
+          <span class="hr__rule" data-gsap="rule" aria-hidden="true"></span>
+          <p class="hr__date">{it.dateline}</p>
+          <p class="hr__fig" data-gsap="count">{it.figure}</p>
+          <p class="hr__line">{it.line}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="hr__source">{impact.source}</p>
+  </div>
+</section>
 
 <style>
-  .hr__source { margin-top: var(--s-6); font-size: 1rem; line-height: var(--lh-small); color: var(--fg-2); }
+  .hr__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 48px; }
+  .hr :global(.hr__label) { margin: 0 0 18px; }
+  .hr__title { margin: 0; max-width: 22ch; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; color: var(--white); }
+  .hr :global(.hr__link) { margin-bottom: -10px; color: var(--white); }
+  .hr :global(.hr__link .arrow-link__icon) { color: var(--white); }
+  .hr__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 64px; margin: 0; padding: 0; list-style: none; }
+  .hr__item { position: relative; display: flex; flex-direction: column; gap: 14px; padding-top: 28px; }
+  .hr__rule { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, .25); }
+  .hr__date { margin: 0; font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #AFC0E0; }
+  .hr__fig {
+    margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 4rem; line-height: 1; letter-spacing: -0.01em;
+    color: var(--white); white-space: nowrap; font-variant-numeric: lining-nums;
+  }
+  .hr__line { margin: 0; max-width: 460px; font-size: 1.0625rem; line-height: 1.6; color: #DCE4F2; }
+  .hr__source { margin: 40px 0 0; font-size: .875rem; color: #AFC0E0; }
+  @media (min-width: 900px) {
+    .hr__head { margin-bottom: 56px; }
+    .hr__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hr__fig { font-size: 5.25rem; }
+  }
 </style>

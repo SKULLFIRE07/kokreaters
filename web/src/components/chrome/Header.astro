@@ -1,14 +1,15 @@
 ---
 /**
- * Site header (REDESIGN-V3 §3 chrome, §1.5 motion 4–5). Sticky, frosted white (82% + saturate/blur), 80px → 64px
- * compact on scroll with a hairline (site.ts adds .is-scrolled). The outer <header> keeps --header-h in flow and lets
- * clicks through; only the inner bar resizes, so compacting never shifts the page.
- * Desktop ≥ 1120px: logo · Expertise ▾ (MegaMenu) · Industries ▾ (IndustriesMenu) · Approach · Impact · Insights ·
- * About · "Start a conversation" ([data-header-cta]; aria-current="page" on /contact, where it also stays visible
- * because the keyboard spec expects it on every route). One 2px accent bar on the header's bottom edge glides between
- * hovered items and rests under the current section (no-JS: a static bar under aria-current).
- * Mobile < 1120px: 64px bar, logo (32px; 40px on desktop) + a "Menu" button (two-line icon that turns into a cross; the word shows
- * from 400px) that opens MobileMenu below the bar. No-JS: the Menu link jumps to the footer sitemap.
+ * Site header (v4 developer guide: white, logo 52px tall, visible navigation, Deep Delft "Start a conversation").
+ * Sticky solid white bar with a 1px #E3E8F1 hairline; 88px on desktop, compacting to 72px on scroll (site.ts adds
+ * .is-scrolled; the logo scales 52 → 44px). The outer <header> keeps --header-h in flow and lets clicks through; only
+ * the inner bar resizes, so compacting never shifts the page.
+ * Desktop ≥ 1120px: the business-card logo (with "Connect · Collaborate · Create") · Expertise ▾ (MegaMenu) ·
+ * Industries ▾ (IndustriesMenu) · Approach · Insights · About · "Start a conversation" ([data-header-cta];
+ * aria-current="page" on /contact). One 2px Deep Delft bar on the header's bottom edge glides between hovered items and
+ * rests under the current section (no-JS: a static bar under aria-current).
+ * Mobile < 1120px: 64px bar, logo 40px + a "Menu" button (hamburger, mobile only; turns into a cross) that opens
+ * MobileMenu below the bar. No-JS: the Menu link jumps to the footer sitemap.
  */
 import Logo from '@/components/brand/Logo.astro';
 import Button from '@/components/ui/Button.astro';
@@ -31,7 +32,7 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
 <header class="site-header" data-header>
   <div class="site-header__bar">
     <Container class="site-header__inner">
-      <Logo variant="horizontal" href="/" label={labels.homeLabel} height={40} class="site-header__logo" />
+      <Logo variant="full" href="/" label={labels.homeLabel} height={52} loading="eager" class="site-header__logo" />
 
       <nav class="site-nav" aria-label={labels.navLabel}>
         <ul class="site-nav__list" role="list" data-glide-list>
@@ -89,17 +90,12 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
     height: var(--header-h);
     pointer-events: auto;
     color: var(--ink);
-    background: rgb(255 255 255 / .82);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    box-shadow: inset 0 -1px 0 transparent;
+    background: var(--white);
+    box-shadow: inset 0 -1px 0 #E3E8F1;
     view-transition-name: site-header;
     transition: height var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out);
   }
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .site-header__bar { background: var(--white); }
-  }
-  .site-header.is-scrolled .site-header__bar { height: var(--header-h-compact); box-shadow: inset 0 -1px 0 var(--grey-200); }
+  .site-header.is-scrolled .site-header__bar { height: var(--header-h-compact); box-shadow: inset 0 -1px 0 #E3E8F1, 0 1px 0 rgba(14, 31, 77, .03); }
   .site-header.has-panel .site-header__bar,
   :global(html.menu-open) .site-header__bar { background: var(--white); }
   :global(html.menu-open) .site-header__bar { box-shadow: inset 0 -1px 0 var(--grey-200); }
@@ -107,26 +103,27 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
   :global(html.menu-open) .site-header { position: fixed; top: var(--menu-hdr-top, 0px); left: 0; right: 0; }
 
   .site-header :global(.site-header__inner) { height: 100%; display: flex; align-items: center; gap: var(--s-6); }
-  .site-header :global(.site-header__logo) { --logo-h: 32px !important; flex: none; }
-  /* 44px+ home target without moving the mark: padding outside the logo height, taken back by negative margins */
-  .site-header :global(.site-header__logo) { box-sizing: content-box; padding-block: 6px; margin-block: -6px; }   /* 40 desktop · 32 mobile (contract 36 · 30: the wordmark read too small) */
-  @media (min-width: 1120px) { .site-header :global(.site-header__logo) { --logo-h: 40px !important; } }
+  .site-header :global(.site-header__logo) { --logo-h: 40px !important; flex: none; box-sizing: content-box; padding-block: 2px; margin-block: -2px; transition: height var(--d-2) var(--ease-out); }
+  @media (min-width: 1120px) {
+    .site-header :global(.site-header__logo) { --logo-h: 52px !important; }
+    .site-header.is-scrolled :global(.site-header__logo) { --logo-h: 44px !important; }
+  }
 
   /* ── Desktop nav ── */
   .site-nav { display: none; height: 100%; margin-left: auto; }
   @media (min-width: 1120px) { .site-nav { display: block; } }
-  .site-nav__list { display: flex; height: 100%; gap: clamp(20px, 2.2vw, 44px); margin: 0; padding: 0; list-style: none; }
+  .site-nav__list { display: flex; height: 100%; gap: 32px; margin: 0; padding: 0; list-style: none; }
   .site-nav__item { display: flex; align-items: center; height: 100%; }
   .site-nav__item--anchor { position: relative; }
   .site-nav__link {
     position: relative;
     display: inline-flex; align-items: center; gap: 6px; height: 44px;
     margin: 0; padding: 0; border: 0; border-radius: var(--r-sm); background: none; cursor: pointer;
-    font: 500 var(--fs-nav)/1 var(--font-sans); letter-spacing: 0;
-    color: var(--ink); text-decoration: none; white-space: nowrap;
+    font: 600 var(--fs-nav)/1 var(--font-sans); letter-spacing: 0;
+    color: var(--navy-900); text-decoration: none; white-space: nowrap;
     transition: color var(--d-1) var(--ease-out);
   }
-  .site-nav__link:hover, .site-nav__link[aria-expanded="true"], .site-nav__link.is-current { color: var(--navy-900); }
+  .site-nav__link:hover, .site-nav__link[aria-expanded="true"], .site-nav__link.is-current { color: var(--blue-700); }
   .site-nav__link:focus-visible { outline-offset: 4px; }
   .site-nav__chev { display: inline-flex; color: var(--ink-2); transition: transform var(--d-2) var(--ease-out); }
   .site-nav__link[aria-expanded="true"] .site-nav__chev { transform: rotate(180deg); }
@@ -151,17 +148,14 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
   @media (min-width: 1120px) { .site-header__actions { margin-left: clamp(8px, 1.6vw, 40px); } }
   .site-header :global(.site-header__cta) { display: none; }
   @media (min-width: 1120px) {
-    .site-header :global(.site-header__cta) { display: inline-flex; height: 44px; min-height: 44px; padding-inline: 20px; }
-  }
-  @media (min-width: 1600px) {
-    .site-header :global(.site-header__cta) { height: 48px; min-height: 48px; padding-inline: 24px; }
+    .site-header :global(.site-header__cta) { display: inline-flex; height: 46px; min-height: 46px; padding: 0 22px; }
   }
 
   .menu-btn {
     display: inline-flex; align-items: center; gap: 10px;
     height: 44px; min-width: 44px; margin-right: -10px; padding: 0 10px;
     border: 0; border-radius: var(--r-sm); background: none; cursor: pointer;
-    font: 500 var(--fs-nav)/1 var(--font-sans); color: var(--navy-900); text-decoration: none;
+    font: 600 var(--fs-nav)/1 var(--font-sans); color: var(--navy-900); text-decoration: none;
   }
   @media (min-width: 1120px) { .menu-btn { display: none !important; } }
   .menu-btn__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -180,8 +174,7 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
   /* ── Scrim behind the mega-menu ── */
   .site-scrim {
     position: fixed; inset: 0; z-index: 1;
-    background: rgb(11 27 51 / .18);
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    background: rgb(14 31 77 / .22);
     opacity: 0; visibility: hidden; pointer-events: none;
     transition: opacity var(--d-3) var(--ease-out), visibility 0s linear var(--d-3);
   }

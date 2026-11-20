@@ -1,22 +1,16 @@
 ---
 /**
- * /expertise/[slug] (REDESIGN-V3 §4 "Expertise detail"; re-composed for §9 "elegant full-screen", v3.1): one template,
- * six pages at the brief slugs. Sections and grounds (identical neighbours get a hairline; optional sections drop out):
- *  1 PillarHero (page-local PageHero variant, navy, ≈ 80svh) — the pillar's photo fills the right ≈ 2/3 at full height
- *    and dissolves into navy under the bottom-left text; crumbs Expertise / <name>, "Expertise · 0n", H1 = the pillar
- *    headline (promise), lead = the pillar name (muted).
- *  2 The challenge we solve (white rail) — the pillar intro as two paragraphs: a large serif opening, then the rest.
- *  3 What we help with (white, hairline) — PillarHelp: serif numbered list beside the framed detail photo.
- *  4 Exhibit (grey) — ProcessFlow, only where pillarExhibits holds a true sequence that adds to the page (process, strategy).
- *  5 Typical deliverables (rail; grey when the page has no exhibit, so one grey band always breaks the whites) — serif
- *    items on hairlines, two columns from 600px. Not Tags: bordered chips that link nowhere read as filters/buttons.
- *  6 From our founder’s career (navy) — the matching ResultCard (impactId). No result (C-8): staging shows the band
- *    with a Confirm, preview/production omit it. Innovation's help list carries Confirm 7 in staging (CBE wording).
- *  7 Related insights + related industries (white rails) — each omitted when empty.
- *  8 Previous / next pillar, then BaseLayout's CtaBand (grey).
- * Acronyms: first use per page gets <abbr title> (intro); FSQR / 3-MCPD expansions also print as a small note under
- * the paragraph or list that first uses them (touch users never see a title tooltip).
- * Mobile: the hero photo is a band above the text; every rail stacks heading → content; the detail photo follows the list.
+ * /expertise/[slug] (v4 Delft): one template, six pages; slugs kept from v3 (see research/v4/requests-pages-a.md).
+ * Grounds (no two identical neighbours without a hairline):
+ *  1 PillarHero (photo + navy gradient): crumbs, "Expertise · 0n", H1 = the service name, lead = its headline.
+ *  2 The challenge we solve (white rail): the intro, a Bodoni opening (≥ 24px) then Manrope.
+ *  3 What we help with (Porcelain): numbered list on thin rules beside the detail photo.
+ *  4 Exhibit (Delft Ice), process and strategy only.
+ *  5 Typical deliverables (white rail; hairline when it follows white).
+ *  6 From our founder’s career (navy): the matching result in an 84px Bodoni figure (C-8: staging only when none).
+ *  7 Related insights (white rail) and related industries (photo tiles), each omitted when empty.
+ *  8 Previous / next service, then BaseLayout's CtaBand.
+ * Acronyms: first use per page gets <abbr title>; FSQR / 3-MCPD expansions print as a small note.
  */
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -35,7 +29,7 @@ import { photos } from '@/data/photos';
 import { founderResults } from '@/data/impact';
 import { industries } from '@/data/industries';
 import { byPillar, comingSoonByPillar } from '@/lib/insights';
-import { pillarHref } from '@/lib/pillars';
+import { pillarHref, pillarNumber } from '@/lib/pillars';
 import { pageSeo } from '@/lib/seo';
 import { showConfirm } from '@/lib/mode';
 import type { Pillar, PillarKey } from '@/data/types';
@@ -52,9 +46,9 @@ const crumbs = [
 const hero = pillarPhoto[pillar.key];
 const photo = photos[hero.slug];
 
-/* 2 · the intro as two paragraphs: all sentences but the last, then the last (two-sentence intros split 1 + 1). */
+/* 2 · the intro as two paragraphs: the first sentence (Bodoni opening), then the rest. */
 const sentences = pillar.intro.split(/(?<=[.?!])\s+(?=[A-Z0-9“‘])/);
-const paras = sentences.length > 1 ? [sentences.slice(0, -1).join(' '), sentences[sentences.length - 1]] : sentences;
+const paras = sentences.length > 1 ? [sentences[0], sentences.slice(1).join(' ')] : sentences;
 const expand = createAbbreviator();
 const introParts = paras.map((t) => expand(t));
 const introNotes = introParts.flatMap((x) => x.notes);
@@ -82,12 +76,8 @@ const coming = await comingSoonByPillar(pillar.key);
 const hasInsights = related.length > 0 || coming.length > 0;
 const relatedIndustries = industries.filter((i) => i.pillars.includes(pillar.key));
 
-/*
- * grounds: rails are white (tight padding, hairline between neighbours); one grey band per page — the exhibit where
- * there is one, otherwise the deliverables — so every page alternates navy · white · grey · (navy) · white.
- */
-const delivGround = hasExhibit ? 'white' : 'grey';
-const beforeInsights = hasProof ? 'navy' : delivGround;
+/* grounds: white · Porcelain · (Ice) · white · (navy) · white …; a hairline where two whites touch. */
+const beforeInsights = hasProof ? 'navy' : 'white';
 const insightsRule = beforeInsights === 'white';
 const industriesRule = hasInsights || beforeInsights === 'white';
 const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights === 'white';
@@ -95,18 +85,18 @@ const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights
 <BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}>
   <PillarHero
     image={photo.src} imageAlt={photo.alt} imagePosition={hero.position ?? photo.position}
-    crumbs={crumbs} crumbsCurrentShort={pillar.shortLabel} eyebrow={expertiseOverview.overline}
-    title={pillar.headline} lead={pillar.name} titleId="pillar-title"
+    crumbs={crumbs} crumbsCurrentShort={pillar.shortLabel} eyebrow={`${expertiseOverview.overline} · ${pillarNumber(pillar)}`}
+    title={pillar.name} lead={pillar.headline} titleId="pillar-title"
   />
 
   <RailSection id="challenge-title" title={pillarPage.challenge}>
-    <div class="challenge" data-reveal style="--i:1">
+    <div class="challenge">
       {introParts.map((x, i) => <p class:list={['challenge__p', i === 0 && 'challenge__p--lede']} set:html={x.html} />)}
       {introNotes.length > 0 && <p class="note">{introNotes.join(' · ')}</p>}
     </div>
   </RailSection>
 
-  <PillarHelp id="help-title" title={pillarPage.helpWith} items={pillar.helpWith} photo={hero.detail} position={hero.detailPosition} rule>
+  <PillarHelp id="help-title" title={pillarPage.helpWith} items={pillar.helpWith} photo={hero.detail} position={hero.detailPosition}>
     {(helpNotes.length > 0 || helpConfirm) && (
       <p class="note">{helpNotes.join(' · ')}{helpConfirm && <Confirm id={helpConfirm.id} note={helpConfirm.note} />}</p>
     )}
@@ -114,8 +104,8 @@ const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights
 
   {hasExhibit && <PillarExhibit pillar={pillar.key} />}
 
-  <RailSection id="deliverables-title" title={pillarPage.deliverables} ground={delivGround}>
-    <ul class="deliv" role="list" data-reveal style="--i:1">
+  <RailSection id="deliverables-title" title={pillarPage.deliverables}>
+    <ul class="deliv" role="list">
       {pillar.deliverables.map((d) => <li>{cap(d)}</li>)}
     </ul>
   </RailSection>
@@ -129,31 +119,28 @@ const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights
   <PillarPager pillar={pillar.key} flush={pagerFlush} />
 </BaseLayout>
 <style>
-  /* 2 · first paragraph as a large serif opening, the rest in lead type; the measure stays comfortable */
+  /* 2 · first paragraph as a Bodoni opening (24 → 36px), the rest in Manrope lead type */
   .challenge { max-width: 60rem; }
-  .challenge__p { font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
-  .challenge__p + .challenge__p { margin-top: var(--s-6); }
+  .challenge__p { font-size: 1.0625rem; line-height: 1.65; color: var(--fg-2); text-wrap: pretty; max-width: 60ch; }
+  .challenge__p + .challenge__p { margin-top: var(--s-5); }
   .challenge__p--lede {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.5rem, 0.95rem + 1.75vw, 2.75rem);
-    line-height: 1.28; font-weight: 380; letter-spacing: -0.014em; color: var(--head); max-width: 32ch; text-wrap: pretty;
+    font-family: var(--font-serif); font-size: clamp(1.5rem, 1.25rem + .9vw, 2.25rem);
+    line-height: 1.3; font-weight: 400; color: var(--head); max-width: 34ch; text-wrap: pretty;
   }
   .challenge :global(abbr[title]) { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
 
-  /* acronym expansions printed once, under the text that first uses them */
   .note { margin-top: var(--s-5); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
 
-  /* 5 · deliverables: serif items on hairlines; two columns from 600px */
-  .deliv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); }
+  /* 5 · deliverables: Bodoni 24px items on thin rules, numbered; two columns from 600px */
+  .deliv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--s-7); counter-reset: d; }
   .deliv li {
-    padding-block: var(--s-5); border-top: 1px solid var(--rule);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: 1.35; font-weight: 420;
-    color: var(--head); text-wrap: pretty;
+    counter-increment: d; display: grid; gap: 6px; padding-block: 20px 24px; border-top: 1px solid var(--rule);
+    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.25; font-weight: 400; color: var(--head); text-wrap: pretty;
+  }
+  .deliv li::before {
+    content: counter(d, decimal-leading-zero); font-family: var(--font-sans); font-size: .875rem; line-height: 1; font-weight: 700;
+    color: var(--label); font-variant-numeric: tabular-nums;
   }
   @media (min-width: 600px) { .deliv { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-  /* the rail body starts level with the h2's cap height */
-  @media (min-width: 900px) {
-    .challenge { padding-top: 8px; }
-    .deliv li { padding-block: var(--s-6); }
-  }
+  @media (min-width: 900px) { .challenge { padding-top: 6px; } }
 </style>

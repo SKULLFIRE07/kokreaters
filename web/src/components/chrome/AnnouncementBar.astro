@@ -1,6 +1,7 @@
 ---
 /**
- * Announcement line (REDESIGN-V3 §3 chrome): a slim navy line above the header, "Latest insight — <title> →", linking
+ * Announcement line (v4 top bar): a slim Delft Navy line above the header, a small Signal Red dot, "Latest insight"
+ * in bold and the newest article's title →, linking
  * the newest insight visible in the current mode (staging/preview include drafts; production only approved ones).
  * Renders nothing when there is none. The whole line is one link; the arrow nudges 4px on hover.
  * Mobile: one line, the title truncates with an ellipsis. 44px tall below 600px and on any touch screen (the §7
@@ -18,28 +19,28 @@ const latest = (await visibleInsights())[0];
   <div class="ann band--navy" role="region" aria-label={announcement.region} data-announcement>
     <Container class="ann__inner">
       <a class="ann__link" href={insightHref(latest)}>
+        <span class="ann__dot" aria-hidden="true"></span>
         <span class="ann__label">{announcement.label}</span>
-        <span class="ann__sep" aria-hidden="true">·</span>
         <span class="ann__title">{latest.data.title}</span>
-        <Icon name="arrow-right" size={16} stroke={2} class="ann__arrow u-nudge" />
+        <Icon name="arrow-right" size={14} stroke={2} class="ann__arrow u-nudge" />
       </a>
     </Container>
   </div>
 )}
 
 <style>
-  .ann { background: var(--bg); color: var(--fg); }
+  .ann { background: var(--navy-900); color: var(--white); }
   .ann :global(.ann__inner) { display: flex; justify-content: center; }
   .ann__link {
-    display: inline-flex; align-items: center; gap: var(--s-2);
+    display: inline-flex; align-items: center; gap: 10px;
     min-width: 0; max-width: 100%; height: 44px;
-    font: 400 var(--fs-meta)/1 var(--font-sans); color: var(--fg-2); text-decoration: none;
+    font: 400 .8125rem/1 var(--font-sans); letter-spacing: .01em; color: #DCE4F2; text-decoration: none;
   }
   @media (min-width: 600px) and (pointer: fine) { .ann__link { height: var(--ann-h); } }   /* touch tablets keep 44 */
-  .ann__label { flex: none; font-weight: 600; color: var(--fg); }
-  .ann__sep { flex: none; color: var(--fg-2); }
-  .ann__title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-2); transition: color var(--d-1) var(--ease-out); }
-  .ann__link:hover .ann__title { color: var(--fg); }
-  .ann__link :global(.ann__arrow) { flex: none; color: var(--accent); }
+  .ann__dot { flex: none; width: 7px; height: 7px; background: var(--red); }
+  .ann__label { flex: none; font-weight: 700; color: var(--white); }
+  .ann__title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #DCE4F2; transition: color var(--d-1) var(--ease-out); }
+  .ann__link:hover .ann__title { color: var(--white); text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+  .ann__link :global(.ann__arrow) { flex: none; color: #DCE4F2; }
   .ann__link:focus-visible { outline-offset: -2px; }
 </style>

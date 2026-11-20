@@ -1,18 +1,14 @@
 ---
 /**
- * Proof from the founder's career (REDESIGN-V3 §4 detail 6), navy band; v3.1 (§9.3 "big numbers", asymmetric split).
- * Eyebrow "Impact", h2 "From our founder’s career" and "See the impact →" (to /impact#<id>) in columns 1–5; in columns
- * 6–12 an editorial figure plate: a hairline, the dateline label, the result figure at display scale (--accent, counts
- * up once via the foundation's data-count) and the result line in large serif type. Page-local (not ResultCard): the
- * card's 76px figure and 26ch title read as a small card adrift in a wide navy band at 1440–1920.
- * Without a result (strategy, deals: no founder result maps to them, C-8) the page renders this band in staging only,
- * holding the heading and a <Confirm>; preview and production omit it entirely.
- * Mobile (< 900px): heading → plate (figure 64px) → link, so the link follows what it points at.
+ * Proof from the founder's career (v4 Delft), on Delft Navy, after the homepage impact band: saffron-ruled label
+ * "Impact", h2 "From our founder’s career" and "See the impact →" on one row; under a thin rule, the dateline
+ * (caps, #DCE4F2), the result figure in Bodoni Moda 84px white (data-gsap="count") and the result line in Manrope 17px.
+ * Without a result (strategy, deals: C-8) staging shows the band with a <Confirm>; preview and production omit it.
+ * Mobile: head, figure 64px, line, link.
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+import Head from './Head.astro';
 import { pillarPage } from '@/data/pillars';
 import { impactPage, figureFallback } from '@/data/impact';
 import { microcopy } from '@/data/microcopy';
@@ -23,45 +19,36 @@ const { result: r } = Astro.props;
 const figure = r ? (r.figure?.value ?? figureFallback[r.id]) : undefined;
 ---
 <Section ground="navy" labelledby="record-title">
-  <div class="proof">
-    <SectionHeader id="record-title" eyebrow={impactPage.overline} title={pillarPage.fromTheRecord} class="proof__head" />
-    {r ? (
-      <>
-        <div class="proof__card plate" data-reveal style="--i:1">
-          <p class="plate__eyebrow t-label">{r.dateline}</p>
-          {figure && <p class="plate__figure" data-count>{figure}</p>}
-          <p class="plate__line">{r.homeLine}</p>
-        </div>
-        <div class="proof__link"><ArrowLink href={`/impact#${r.id}`}>{microcopy.impactLink}</ArrowLink></div>
-      </>
-    ) : (
-      <p class="proof__card"><Confirm id="C-8" note="no founder result is mapped to this area of expertise yet" /></p>
-    )}
-  </div>
+  <Head id="record-title" label={impactPage.overline} title={pillarPage.fromTheRecord} dark link={r ? { label: microcopy.impactLink, href: `/impact#${r.id}` } : undefined} />
+  {r ? (
+    <div class="plate">
+      <div class="plate__fig">
+        <p class="plate__eyebrow">{r.dateline}</p>
+        {figure && <p class="plate__figure" data-gsap="count">{figure}</p>}
+      </div>
+      <div class="plate__text">
+        <p class="plate__line">{r.homeLine}</p>
+        <p class="plate__src">{impactPage.partOne} at {r.dateline.split(' · ').pop()}.</p>
+      </div>
+    </div>
+  ) : (
+    <p><Confirm id="C-8" note="no founder result is mapped to this area of expertise yet" /></p>
+  )}
 </Section>
 <style>
-  .proof { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .proof > :global(.proof__head) { margin-bottom: var(--s-7); }
-  .proof__link { margin-top: var(--s-6); }
-
-  .plate { border-top: 1px solid var(--rule); padding-top: var(--s-6); }
-  .plate__eyebrow { color: var(--label); }
+  .plate { border-top: 1px solid var(--rule); padding-top: var(--s-5); display: grid; gap: var(--s-5); }
+  .plate__eyebrow { font-size: var(--fs-label); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #DCE4F2; }
   .plate__figure {
-    margin-top: var(--s-6);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(4rem, 2.4rem + 6.4vw, 9.5rem);
-    line-height: .95; font-weight: 440; letter-spacing: -0.035em; color: var(--accent);
-    font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+    margin-top: var(--s-5);
+    font-family: var(--font-serif); font-size: clamp(4rem, 3.4rem + 2vw, 5.25rem); line-height: 1; font-weight: 400;
+    letter-spacing: -0.01em; color: var(--white); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
-  .plate__line {
-    margin-top: var(--s-6);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.375rem, 1.1rem + .9vw, 2rem);
-    line-height: 1.3; font-weight: 380; color: var(--head); text-wrap: pretty; max-width: 32ch;
-  }
+  .plate__line { margin-top: var(--s-5); font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; max-width: 46ch; text-wrap: pretty; }
+  .plate__src { margin-top: var(--s-5); font-size: var(--fs-meta); color: var(--fg-2); }
   @media (min-width: 900px) {
-    .proof { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: var(--grid-gap); }
-    .proof > :global(.proof__head) { grid-column: 1 / 6; grid-row: 1; margin-bottom: 0; }
-    .proof__link { grid-column: 1 / 6; grid-row: 2; align-self: start; margin-top: var(--s-6); }
-    .proof__card { grid-column: 7 / -1; grid-row: 1 / 3; }
-    .plate { padding-top: var(--s-7); }
+    .plate { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; padding-top: var(--s-6); }
+    .plate__fig { grid-column: 1 / 6; }
+    .plate__text { grid-column: 7 / -1; padding-bottom: 6px; }
+    .plate__line { margin-top: 0; font-size: 1.1875rem; }
   }
 </style>

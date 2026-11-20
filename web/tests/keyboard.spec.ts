@@ -56,7 +56,7 @@ test.describe('desktop 1440', () => {
     await expect(page.locator('main#main')).toBeFocused();
   });
 
-  for (const [path, href] of [['/approach', '/approach'], ['/impact', '/impact'], ['/insights', '/insights'], ['/about', '/about']] as const) {
+  for (const [path, href] of [['/approach', '/approach'], ['/insights', '/insights'], ['/about', '/about']] as const) {
     test(`header nav marks ${href} current on ${path}`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'load' });
       const current = page.locator('header .site-nav [aria-current="page"]');

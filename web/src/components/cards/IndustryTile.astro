@@ -12,6 +12,10 @@
  *         (the arrow never wraps onto a line of its own) and is a 44px+ tap row.
  *         In a .card-grid the <li>, the card and its body are row subgrids (media · n · name · copy · expertise),
  *         so names, descriptions and the "Relevant expertise" hairline line up across a row.
+ *  photo — v4 Delft (client homepage design, "Industries"): a square-cornered photo tile (4:3, object-fit cover,
+ *         data-gsap="parallax" on the frame, zoom 1.04 on hover) with the navy gradient rising from the bottom and the
+ *         name in Bodoni Moda 24px white on it. The whole tile is the link (`href`). Put tiles in
+ *         <ul class="photo-tiles"> (3 across from 900px, 2 from 600px, 16px gaps).
  * Mobile: .tile-grid is 1 column < 600 (rows with the arrow at the right), 2 columns 600–899, 3 from 900.
  *  Cards stack full width; the description is body text (--fs-body, --fg) below 900px; expertise links are 45px tap rows.
  */
@@ -28,12 +32,14 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   expertise?: { label: string; href: string }[];
-  variant?: 'tile' | 'card';
+  variant?: 'tile' | 'card' | 'photo';
+  /** photo variant: CSS object-position for the tile crop */
+  imagePosition?: string;
   level?: 2 | 3 | 4;
   class?: string;
   [key: string]: unknown;
 }
-const { href, name, copy, n, image, imageAlt = '', expertise = [], variant = 'tile', level = 3, class: cls, ...rest } = Astro.props;
+const { href, name, copy, n, image, imageAlt = '', imagePosition, expertise = [], variant = 'tile', level = 3, class: cls, ...rest } = Astro.props;
 const H = `h${level}` as 'h2' | 'h3' | 'h4';
 // card: no link when href is missing or only points at this card's own anchor on the current page
 const here = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
@@ -43,7 +49,13 @@ const nameHref = variant === 'card' && selfLink ? undefined : href;
 // "Product and Category " + "Innovation→" (the last word and the arrow never part)
 const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)]; };
 ---
-{variant === 'tile' ? (
+{variant === 'photo' ? (
+  <a href={href ?? '/industries'} class:list={['ptile', 'u-zoom', cls]} data-gsap="lift" {...rest}>
+    {image && <div class="ptile__media" data-gsap="parallax"><Photo src={image} alt={imageAlt} fill position={imagePosition} sizes="(min-width: 1320px) 400px, (min-width: 900px) 31vw, (min-width: 600px) 48vw, calc(100vw - 40px)" /></div>}
+    <span class="ptile__scrim" aria-hidden="true"></span>
+    <span class="ptile__name">{name}</span>
+  </a>
+) : variant === 'tile' ? (
   <a href={href ?? '/industries'} class:list={['itile', !copy && 'itile--nocopy', 'u-hover', cls]} {...rest}>
     <span class="itile__name">{name}</span>
     {copy && <span class="itile__copy">{copy}</span>}
@@ -51,7 +63,7 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   </a>
 ) : (
   <article class:list={['icard-ind', image && 'icard-ind--img', cls]} {...rest}>
-    {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" settle sizes="(min-width: 1200px) 440px, (min-width: 900px) 30vw, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
+    {image && <Photo class="icard-ind__media" src={image} alt={imageAlt} ratio="3/2" data-gsap="parallax" sizes="(min-width: 1200px) 440px, (min-width: 900px) 30vw, (min-width: 600px) 46vw, calc(100vw - 40px)" />}
     <div class="icard-ind__body">
       <span class="icard-ind__n" aria-hidden="true"></span>
       <H class="icard-ind__name">{nameHref ? <a href={nameHref}>{name}</a> : name}</H>
@@ -70,6 +82,12 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   </article>
 )}
 <style is:global>
+  /* v4 photo tiles grid */
+  .photo-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .photo-tiles > li { display: flex; flex-direction: column; min-width: 0; }
+  @media (min-width: 600px) { .photo-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .photo-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
+
   /* hairline grid for tiles (global so page builders can use it as a plain <ul class="tile-grid">) */
   .tile-grid {
     list-style: none; margin: 0; padding: 0;
@@ -98,6 +116,16 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   }
 </style>
 <style>
+  .ptile { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy-900); color: var(--white); text-decoration: none; }
+  .ptile__media { position: absolute; inset: 0; overflow: hidden; }
+  .ptile__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 40%, rgba(14, 31, 77, .92) 100%); }
+  .ptile__name {
+    position: absolute; left: 24px; right: 24px; bottom: 22px;
+    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.2; font-weight: 400; text-wrap: balance;
+  }
+  .ptile:hover .ptile__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  .ptile:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
   .itile {
     position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name arrow" "copy copy";
     align-content: start; row-gap: var(--s-3); column-gap: var(--s-4);
@@ -112,8 +140,8 @@ const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); retur
   .itile:hover::before, .itile:focus-visible::before { transform: scaleX(1); }
   .itile__name {
     grid-area: name; align-self: baseline; font-family: var(--font-serif); font-optical-sizing: auto;
-    font-size: clamp(1.375rem, 1.258rem + .476vw, 1.625rem); line-height: 1.2; letter-spacing: -0.01em;
-    font-weight: 560; color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out);
+    font-size: clamp(1.5rem, 1.4rem + .3vw, 1.75rem); line-height: 1.2; letter-spacing: 0;
+    font-weight: 400; color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out);
   }
   .itile__copy { grid-area: copy; font-size: 1rem; line-height: 1.55; color: var(--fg-2); text-wrap: pretty; max-width: 40ch; }
   .itile__arrow { grid-area: arrow; align-self: start; margin-top: .3em; color: var(--accent); }

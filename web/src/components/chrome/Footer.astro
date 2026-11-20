@@ -1,27 +1,16 @@
 ---
 /**
- * Footer (REDESIGN-V3 §3 chrome). Navy-900 band (role tokens from .band--navy).
- *  Top: white horizontal logo + one-line statement (left, cols 1–5) · newsletter form, dark tone (cols 7–12).
- *  Middle: four columns on a hairline, on the 12-col grid ≥ 1120 (4·2·3·3) — Expertise (six) · Company · Insights (latest three visible in this mode +
- *  "All insights") · Contact (email, WhatsApp, base with time zone, LinkedIn icon link).
- *  Bottom: hairline, the node mark (quiet signature) + "© 2026 KoKreaters", KvK only when site.legal.registration exists (Confirm 11 in staging only),
- *  Privacy · Cookies · Terms (+ Cookie settings when analytics is on).
- * Mobile: logo, statement and the newsletter stack full width; the columns go 2 × 2 from 600px. Below 600px Expertise,
- * Company and Insights fold into closed hairline accordion rows (plus → minus, 56px rows; site.ts [data-ft-group]
- * toggles .is-open + aria-expanded), so the phone footer is about one screen, not two; Contact, the newsletter and
- * the legal row stay open. Without JS every group renders open (the footer is the no-JS menu). Company links pair
- * up in two short columns; the legal row wraps above the copyright line.
- * `id="site-footer" tabindex="-1"` is the no-JS target of the header's Menu link.
- * `newsletter={false}` (BaseLayout, when the page's CtaBand already carries the form, i.e. home) drops the footer
- * form so a page never shows two (BaseLayout's `footerNewsletter` can also turn it off for a page with its own
- * newsletter band). Without the form the top row rebalances: ≥ 900 the logo sits in columns 1–5 and the statement
- * moves up beside it on the column-7 line (the Insights column below), so the row is one line high, not a stacked
- * block next to an empty half.
- * "·" separators use the alt-text syntax (content: "·" / "") with a plain content: "·" declared first as the
- * fallback for browsers that drop the whole declaration. The "based in" line keeps "Netherlands (CET)," together.
+ * Footer (v4 developer guide, home section 13). Near-black Footer ink (#0A0F1C) band: the only place near-black appears.
+ *  Top (≥ 1120px, four columns): the full KoKreaters logo on a white plate + one-line statement · Expertise (the six
+ *  services) · Company · Contact (email, WhatsApp, "Based in the Netherlands", LinkedIn).
+ *  Optional newsletter form (`newsletter`, default off in v4: the design has none) under the columns.
+ *  Bottom: hairline, "© 2026 KoKreaters. All rights reserved." (+ KvK when site.legal.registration exists; Confirm 11
+ *  in staging only) · Privacy · Cookies · Terms (+ Cookie settings when analytics is on).
+ * Mobile: logo and statement first; below 600px Expertise and Company fold into hairline accordion rows (plus → minus;
+ * site.ts [data-ft-group]); Contact and the legal row stay open. Without JS every group renders open (the footer is the
+ * no-JS menu). `id="site-footer" tabindex="-1"` is the no-JS target of the header's Menu link.
  */
 import Logo from '@/components/brand/Logo.astro';
-import NodeMark from '@/components/brand/NodeMark.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Container from '@/components/ui/Container.astro';
 import Confirm from '@/components/ui/Confirm.astro';
@@ -29,36 +18,22 @@ import NewsletterForm from '@/components/ui/NewsletterForm.astro';
 import { footer, legal } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
-import { visibleInsights, insightHref } from '@/lib/insights';
 
 interface Props { newsletter?: boolean }
-const { newsletter = true } = Astro.props;
-const latest = (await visibleInsights()).slice(0, 3);
+const { newsletter = false } = Astro.props;
 const c = footer.contact;
-// "Based in the Netherlands (CET), working worldwide": never strand "(CET)," at the start of a line
-const base = c.base.replace(/ \(/g, '\u00A0(');
-// the three link groups that fold into accordion rows on phones (Contact, the form and the legal row stay open)
 const groups = [
-  { key: 'expertise', id: 'ft-expertise', heading: footer.expertise.heading },
-  { key: 'company', id: 'ft-company', heading: footer.company.heading },
-  { key: 'insights', id: 'ft-insights', heading: footer.insights.heading },
+  { key: 'expertise', id: 'ft-expertise', heading: footer.expertise.heading, links: footer.expertise.links },
+  { key: 'company', id: 'ft-company', heading: footer.company.heading, links: footer.company.links },
 ] as const;
 ---
 <footer id="site-footer" class="site-footer band--navy" tabindex="-1">
   <Container>
-    <div class:list={['ft-top', !newsletter && 'ft-top--solo']}>
+    <div class="ft-cols">
       <div class="ft-brand">
-        <Logo variant="horizontal-white" href="/" label={footer.homeLabel} height={40} class="ft-logo" />
+        <span class="ft-plate"><Logo variant="full" href="/" label={footer.homeLabel} height={40} class="ft-logo" /></span>
         <p class="ft-statement">{footer.statement}</p>
       </div>
-      {newsletter && (
-        <div class="ft-news">
-          <NewsletterForm id="nl-footer" tone="dark" heading={footer.newsletter.heading} />
-        </div>
-      )}
-    </div>
-
-    <div class="ft-cols">
       {groups.map((g) => (
         <nav class="ft-col ft-col--group" aria-labelledby={g.id} data-ft-col>
           <div class="ft-headrow">
@@ -70,22 +45,9 @@ const groups = [
             </button>
           </div>
           <div id={`${g.id}-panel`} class="ft-panel"><div class="ft-panel__in">
-            {g.key === 'expertise' && (
-              <ul class="ft-list" role="list">
-                {footer.expertise.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-              </ul>
-            )}
-            {g.key === 'company' && (
-              <ul class="ft-list ft-list--pairs" role="list">
-                {footer.company.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-              </ul>
-            )}
-            {g.key === 'insights' && (
-              <ul class="ft-list ft-list--titles" role="list">
-                {latest.map((e) => <li><a href={insightHref(e)}>{e.data.title}</a></li>)}
-                <li><a class="ft-all" href={footer.insights.all.href}>{footer.insights.all.label}<Icon name="arrow-right" size={16} class="u-nudge" /></a></li>
-              </ul>
-            )}
+            <ul class="ft-list" role="list">
+              {g.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            </ul>
           </div></div>
         </nav>
       ))}
@@ -94,29 +56,34 @@ const groups = [
         <ul class="ft-list" role="list">
           <li><a href={c.email.href}>{c.email.label}</a></li>
           <li><a href={c.whatsapp.href} rel="noopener">{c.whatsapp.label}</a></li>
-          <li class="ft-base">{base}</li>
+          <li class="ft-base">{c.base}</li>
           <li>
             <a class="ft-social" href={c.linkedin.href} rel="me noopener">
-              <Icon name="linkedin" size={22} /><span>{c.linkedin.label}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
+              <Icon name="linkedin" size={18} /><span>{c.linkedin.label}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
             </a>
           </li>
         </ul>
       </div>
     </div>
 
+    {newsletter && (
+      <div class="ft-news">
+        <NewsletterForm id="nl-footer" tone="dark" heading={footer.newsletter.heading} />
+      </div>
+    )}
+
     <div class="ft-bottom">
+      <p class="ft-copy">
+        <span>{footer.copyright}</span>
+        {site.legal.registration
+          ? <span class="ft-reg">{site.legal.registration}</span>
+          : <Confirm id={11} note={footer.registrationNote} />}
+      </p>
       <p class="ft-legal">
         {legal.map((l) => <a href={l.href}>{l.label}</a>)}
         {site.analytics && (
           <button type="button" class="ft-settings" data-cookie-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettings}</button>
         )}
-      </p>
-      <p class="ft-copy">
-        <NodeMark size={20} tone="blue" class="ft-mark" />
-        <span>{footer.copyright}</span>
-        {site.legal.registration
-          ? <span class="ft-reg">{site.legal.registration}</span>
-          : <Confirm id={11} note={footer.registrationNote} />}
       </p>
     </div>
   </Container>
@@ -124,84 +91,46 @@ const groups = [
 
 <style>
   .site-footer {
+    --bg: var(--footer-ink); --fg: #FFFFFF; --fg-2: #B9C3D8; --rule: #222B3F; --link: #FFFFFF;
     position: relative;
-    padding-block: clamp(4rem, 2.8rem + 4.9vw, 8.5rem) var(--s-6);   /* 64 → 120 (1440) → 136 */
-    background: var(--bg); color: var(--fg);
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem) var(--s-6);
+    background: var(--bg); color: var(--fg-2);
     view-transition-name: site-footer;
   }
   .site-footer:focus { outline: none; }
-  .site-footer :global(.ft-logo) { box-sizing: content-box; padding-block: 2px; margin-block: -2px; }   /* 44px home target */
 
-  /* ── top ── */
-  .ft-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
-  .ft-brand { display: grid; gap: var(--s-5); justify-items: start; }
-  .ft-statement {
-    margin: 0; max-width: 30ch;
-    font: 400 clamp(1.25rem, 1.08rem + .7vw, 1.875rem)/1.3 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.01em;
-    color: var(--fg); text-wrap: balance;
-  }
-  @media (min-width: 900px) {
-    .ft-top { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
-    .ft-brand { grid-column: 1 / span 5; }
-    .ft-news { grid-column: 7 / -1; }      /* starts on the same column line as the Insights column below */
-    .ft-news :global(.nl) { max-width: none; }   /* …and ends on the container edge */
-    /* no form: logo left, statement beside it on the column-7 line; one row */
-    .ft-top--solo .ft-brand { display: contents; }
-    .ft-top--solo :global(.ft-logo) { grid-column: 1 / span 5; align-self: start; }
-    .ft-top--solo .ft-statement { grid-column: 7 / -1; max-width: 46ch; margin-top: -4px; }
-    .ft-top--solo + .ft-cols { margin-top: var(--s-7); }
-  }
-
-  /* ── columns ── */
-  .ft-cols {
-    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap);
-    margin-top: clamp(3rem, 2rem + 4vw, 6rem); padding-top: var(--s-7);
-    border-top: 1px solid var(--rule);
-  }
-  @media (min-width: 600px) { .ft-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  /* ≥ 1120: the four columns sit on the 12-column grid (4 · 2 · 3 · 3), so Insights shares the newsletter's line */
+  .ft-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--s-7); padding-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
+  @media (min-width: 600px) { .ft-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ft-brand { grid-column: 1 / -1; } }
   @media (min-width: 1120px) {
-    .ft-cols { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-    .ft-col:nth-child(1) { grid-column: 1 / span 4; }
-    .ft-col:nth-child(2) { grid-column: 5 / span 2; }
-    .ft-col:nth-child(3) { grid-column: 7 / span 3; }
-    .ft-col:nth-child(4) { grid-column: 10 / span 3; }
+    .ft-cols { grid-template-columns: 1.15fr 1fr 1fr 1fr; column-gap: 40px; }
+    .ft-brand { grid-column: auto; }
   }
-  .ft-head {
-    margin: 0 0 var(--s-4);
-    font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
-    color: var(--label);
-  }
+
+  .ft-brand { display: grid; gap: 18px; justify-items: start; align-content: start; }
+  .ft-plate { display: inline-flex; padding: 10px 14px; background: var(--white); }
+  .ft-plate :global(.ft-logo) { box-sizing: content-box; padding-block: 2px; margin-block: -2px; }
+  .ft-statement { margin: 0; max-width: 32ch; font: 400 .875rem/1.6 var(--font-sans); color: var(--fg-2); }
+
+  .ft-head { margin: 0 0 14px; font: 700 .875rem/1.3 var(--font-sans); letter-spacing: 0; color: var(--white); }
   .ft-list { margin: 0; padding: 0; list-style: none; display: grid; }
   .ft-list a, .ft-base, .ft-settings {
     display: inline-flex; align-items: center; gap: var(--s-2);
     min-height: 44px; padding-block: var(--s-2);
-    font: 400 var(--fs-small)/1.4 var(--font-sans);
+    font: 400 .875rem/1.4 var(--font-sans);
     color: var(--fg-2); text-decoration: none;
   }
   .ft-list a { transition: color var(--d-1) var(--ease-out); }
-  .ft-list a:hover { color: var(--fg); }
-  .ft-list a:hover, .ft-legal a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .25em; }
-  .ft-list--titles a { align-items: flex-start; text-wrap: pretty; }
-  .ft-list--titles li + li { margin-top: var(--s-1); }
-  .ft-all { color: var(--fg) !important; font-weight: 500 !important; align-items: center !important; }
-  .ft-all :global(.icon) { color: var(--accent); }
-  .ft-base { color: var(--fg-2); text-wrap: pretty; }
-  .ft-social { color: var(--fg) !important; }
-  .ft-social :global(.icon) { color: var(--fg); }
-  @media (max-width: 599px) {
-    .ft-list--pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-  }
+  .ft-list a:hover, .ft-legal a:hover { color: var(--white); text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: .25em; }
+  @media (min-width: 1120px) { .ft-list a, .ft-base { min-height: 32px; padding-block: 5px; } }
 
-  /* ── phone accordion (< 600px, once site.ts has booted): Expertise · Company · Insights fold into hairline rows
-     with a plus that turns into a minus (the Accordion / mobile-menu pattern); Contact stays open below them.
-     The h2 stays a plain heading; a toggle button named by it covers the whole 56px row. No JS (or a failed boot)
-     keeps every group open and the button hidden. ── */
+  /* phone accordion (< 600px, once site.ts has booted) */
   .ft-headrow { position: relative; }
   .ft-head__btn { display: none; }
   @media (max-width: 599px) {
-    :global(html.chrome-ready) .ft-cols { row-gap: 0; padding-top: 0; margin-top: var(--s-7); }
-    :global(html.chrome-ready) .ft-col--group { border-bottom: 1px solid var(--rule); }
+    :global(html.chrome-ready) .ft-cols { row-gap: 0; }
+    :global(html.chrome-ready) .ft-brand { padding-bottom: var(--s-6); }
+    :global(html.chrome-ready) .ft-col--group { border-top: 1px solid var(--rule); }
+    :global(html.chrome-ready) .ft-col--group + .ft-col--contact { border-top: 1px solid var(--rule); padding-top: var(--s-6); }
     :global(html.chrome-ready) .ft-headrow { display: flex; align-items: center; min-height: 56px; padding-right: 40px; }
     :global(html.chrome-ready) .ft-col--group .ft-head { margin: 0; }
     :global(html.chrome-ready) .ft-head__btn {
@@ -209,10 +138,9 @@ const groups = [
       margin: 0; padding: 0; border: 0; background: none; cursor: pointer; color: inherit;
     }
     :global(html.chrome-ready) .ft-head__btn:focus-visible { outline-offset: -2px; }
-    .ft-head__icon { flex: none; fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-linecap: round; }
+    .ft-head__icon { flex: none; fill: none; stroke: var(--saffron); stroke-width: 1.5; stroke-linecap: round; }
     .ft-head__v { transform-origin: 8px 8px; transition: transform var(--d-2) var(--ease-out); }
     .ft-head__btn[aria-expanded="true"] .ft-head__v { transform: rotate(90deg); }
-    /* grid rows 0fr → 1fr; collapsed links are visibility:hidden (not focusable, not read) */
     :global(html.chrome-ready) .ft-panel {
       display: grid; grid-template-rows: 0fr; visibility: hidden;
       transition: grid-template-rows var(--d-3) var(--ease-out), visibility 0s linear var(--d-3);
@@ -223,30 +151,22 @@ const groups = [
     }
     :global(html.chrome-ready) .ft-panel__in { min-height: 0; overflow: hidden; }
     :global(html.chrome-ready) .ft-panel .ft-list { padding-bottom: var(--s-4); }
-    :global(html.chrome-ready) .ft-col--contact { padding-top: var(--s-6); }
-    :global(html.chrome-ready) .ft-bottom { margin-top: var(--s-6); }
-  }
-  @media (min-width: 1120px) {
-    .ft-list a, .ft-base { min-height: 36px; padding-block: 6px; }
   }
 
-  /* ── bottom ── */
+  .ft-news { padding-block: var(--s-6); border-top: 1px solid var(--rule); max-width: 640px; }
+
   .ft-bottom {
     display: flex; flex-direction: column; gap: var(--s-2);
-    margin-top: clamp(3rem, 2rem + 4vw, 6rem); padding-top: var(--s-5);
-    border-top: 1px solid var(--rule);
-    font: 400 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2);
+    padding-top: var(--s-5); border-top: 1px solid var(--rule);
+    font: 400 .8125rem/1.45 var(--font-sans); color: #8591AB;
   }
-  @media (min-width: 900px) { .ft-bottom { flex-direction: row-reverse; justify-content: space-between; align-items: center; } }
-  .ft-legal, .ft-copy { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); }
-  .ft-legal > * + *::before { content: "·"; content: "·" / ""; margin-right: var(--s-3); color: var(--fg-2); }
+  @media (min-width: 900px) { .ft-bottom { flex-direction: row; justify-content: space-between; align-items: center; } }
+  .ft-legal, .ft-copy { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-5); min-height: 44px; }
   .ft-legal a, .ft-settings {
     display: inline-flex; align-items: center; min-height: 44px;
-    color: var(--fg-2); text-decoration: none; font: inherit;
+    color: #8591AB; text-decoration: none; font: inherit;
     background: none; border: 0; padding: 0; cursor: pointer;
   }
-  .ft-legal a:hover, .ft-settings:hover { color: var(--fg); }
-  .ft-copy { min-height: 44px; }
-  .ft-copy :global(.ft-mark) { margin-right: var(--s-1); }
+  .ft-settings:hover { color: var(--white); }
   .ft-reg::before { content: "·"; content: "·" / ""; margin-right: var(--s-3); }
 </style>

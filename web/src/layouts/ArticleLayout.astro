@@ -81,7 +81,7 @@ const toc = headings.filter((h) => h.depth === 2);
           <Photo src={hero.src} alt={hero.alt} position={heroPosition} fill priority sizes="100vw" />
         </div>
         {credit && (
-          <figcaption class="container a-media__cap">{articleCopy.photo}: {credit.name}, {creditSource}</figcaption>
+          <figcaption class="container a-media__cap">{articleCopy.photo}: {credit.name === creditSource ? creditSource : credit.name + ', ' + creditSource}</figcaption>
         )}
       </figure>
     )}

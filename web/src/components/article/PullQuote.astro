@@ -1,24 +1,20 @@
 ---
 /**
- * Pull quote (REDESIGN-V3 §4 article). MDX: <PullQuote>text</PullQuote>. Serif italic at --fs-quote, head colour,
- * a 2px accent rule on the left (the screen's one accent), balanced lines. At ≥ 1200px it reaches 96px into the right
- * column so it reads as a break in the column rather than another paragraph.
- * Mobile: full column width, 24px type, 20px indent from the rule.
+ * Pull quote, v4 "Delft". MDX: <PullQuote>text</PullQuote>. Bodoni Moda italic 40/50 (28/38 on phones) in Delft Navy,
+ * opened by the 40 × 2 saffron rule (the guide's thin accent line; data-gsap="rule" draws it from the left), with
+ * generous space above and below so it reads as a break in the column. At ≥ 1200px it reaches 96px into the right
+ * column. No left bar, no box.
  */
 ---
-<blockquote class="pull" data-reveal><p class="pull__text"><slot /></p></blockquote>
+<blockquote class="pull"><span class="pull__rule" aria-hidden="true" data-gsap="rule"></span><p class="pull__text"><slot /></p></blockquote>
 <style>
-  .pull {
-    margin-block: var(--s-9);
-    padding: var(--s-1) 0 var(--s-1) var(--s-5);
-    border-left: 2px solid var(--accent);
-  }
+  .pull { margin-block: var(--s-9); padding: 0; }
+  .pull__rule { display: block; width: 40px; height: 2px; margin-bottom: var(--s-5); background: var(--saffron); transform-origin: left center; }
   .pull__text {
     margin: 0;
-    font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 400;
-    font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.5rem); line-height: 1.22; letter-spacing: var(--tr-quote);
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem); line-height: 1.25; letter-spacing: 0;
     color: var(--head); text-wrap: balance; font-variant-numeric: lining-nums;
   }
-  @media (min-width: 600px) { .pull { padding-left: var(--s-6); } }
-  @media (min-width: 1200px) { .pull { margin-right: -96px; padding-left: var(--s-7); } }
+  @media (min-width: 1200px) { .pull { margin-right: -96px; } }
 </style>

@@ -1,20 +1,18 @@
 ---
 /**
- * Related industries for one pillar (REDESIGN-V3 §4 detail 7), as a rail section: the industries whose `pillars`
- * include this one (data/industries, mapping C-10), each a link to its card on /industries#<slug>. A hairline list,
- * serif name with the arrow at the right; the whole row is the link. The page omits the section when the list is empty.
- * ≥ 600px: two columns (rows keep their hairlines; an odd last item simply ends the left column).
- * Mobile (< 600px): one column, 56px rows (≥ 44px tap targets), arrow at the right edge.
- * Below 900px the list spans the full width and the pager's top hairline follows one band-padding later, so the last
- * row drops its closing line there (two parallel full-width rules 48px apart read as a double rule); from 900px the list
- * sits in the right-hand column and closes normally.
- * Staging only: a Confirm (C-10) under the list, since the industry → pillar mapping is composed, not from the brief.
+ * Related industries for one service (v4 Delft): the industries whose `pillars` include it (mapping C-10). Featured
+ * industries show as photo tiles (IndustryTile `photo`: navy gradient, Bodoni name), the rest as a short "Also" line of
+ * links. Every link goes to /industries#<slug>. Full-width section: Head on top, tiles 3 across from 900px.
+ * The page omits the section when the list is empty. Staging only: a Confirm (C-10) under the list.
  */
-import RailSection from './RailSection.astro';
-import Icon from '@/components/ui/Icon.astro';
+import Section from '@/components/ui/Section.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+import IndustryTile from '@/components/cards/IndustryTile.astro';
+import Head from './Head.astro';
 import { showConfirm } from '@/lib/mode';
 import { pillarPage } from '@/data/pillars';
+import { industryPhoto, industriesPage } from '@/data/industries';
+import { photos } from '@/data/photos';
 import type { Industry } from '@/data/types';
 
 interface Props {
@@ -23,44 +21,39 @@ interface Props {
   rule?: boolean;
 }
 const { items, ground = 'white', rule = false } = Astro.props;
+const withPhoto = items.filter((i) => industryPhoto[i.slug]);
+const rest = items.filter((i) => !industryPhoto[i.slug]);
 ---
-<RailSection id="industries-title" title={pillarPage.relatedIndustries} ground={ground} rule={rule} pad={rule ? 'tight' : 'default'}>
-  <ul class:list={['inds', items.length > 1 && 'inds--2']} role="list" data-reveal style="--i:1">
-    {items.map((i) => (
-      <li>
-        <a class="inds__link u-hover" href={`/industries#${i.slug}`}>
-          <span class="inds__name u-draw">{i.name}</span>
-          <Icon name="arrow-right" size={20} stroke={1.75} class="inds__arrow u-nudge" />
-        </a>
-      </li>
-    ))}
-  </ul>
+<Section ground={ground} rule={rule} pad={rule ? 'tight' : 'default'} labelledby="industries-title">
+  <Head id="industries-title" title={pillarPage.relatedIndustries} link={{ label: 'All industries', href: '/industries' }} />
+  {withPhoto.length > 0 && (
+    <ul class:list={['photo-tiles', 'inds__tiles', `inds__tiles--${withPhoto.length}`]} role="list">
+      {withPhoto.map((i) => {
+        const ph = photos[industryPhoto[i.slug]];
+        return <li><IndustryTile variant="photo" href={`/industries#${i.slug}`} name={i.name} image={ph.src} imageAlt={ph.alt} imagePosition={ph.position} /></li>;
+      })}
+    </ul>
+  )}
+  {rest.length > 0 && (
+    <p class="inds__also">
+      <span class="inds__alsolabel">{industriesPage.otherLabel}:</span>
+      {rest.map((i, n) => <>{n > 0 && <span aria-hidden="true"> · </span>}<a href={`/industries#${i.slug}`}>{i.name}</a></>)}
+    </p>
+  )}
   {showConfirm && <p class="inds__confirm"><Confirm id="C-10" note="industry ↔ expertise mapping is composed" /></p>}
-</RailSection>
+</Section>
 <style>
-  .inds { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); }
-  .inds li { display: flex; border-bottom: 1px solid var(--rule); }   /* the link fills its grid row: a one-line name centres beside a two-line neighbour */
-  .inds li:first-child { border-top: 1px solid var(--rule); }
-  .inds__link {
-    flex: 1; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
-    min-height: 56px; padding-block: var(--s-3);
-    color: var(--head); text-decoration: none;
+  @media (min-width: 900px) {
+    .inds__tiles--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .inds__tiles--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .inds__name {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    font-weight: 450; text-wrap: pretty; transition: color var(--d-1) var(--ease-out);
+  @media (min-width: 1200px) {
+    .inds__tiles--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .inds__tiles--4 :global(.ptile__name) { left: 20px; right: 20px; bottom: 18px; }
   }
-  .inds__link:hover .inds__name { color: var(--link); }
+  .inds__also { margin-top: var(--s-5); font-size: var(--fs-small); line-height: 1.7; color: var(--fg-2); }
+  .inds__alsolabel { font-weight: 700; color: var(--head); margin-right: 6px; }
+  .inds__also a { color: var(--link); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+  .inds__also a:hover { text-decoration-color: currentColor; }
   .inds__confirm { margin-top: var(--s-4); }
-  .inds__link :global(.inds__arrow) { flex: none; color: var(--accent); }
-  @media (min-width: 600px) {
-    .inds--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .inds--2 li:nth-child(2) { border-top: 1px solid var(--rule); }
-  }
-  @media (max-width: 899px) {
-    .inds li:last-child { border-bottom-color: transparent; }
-  }
-  @media (min-width: 600px) and (max-width: 899px) {
-    .inds--2 li:nth-last-child(2):nth-child(odd) { border-bottom-color: transparent; }
-  }
 </style>

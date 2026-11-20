@@ -7,15 +7,15 @@
  * Mobile: one column — eyebrow, h2, 40px, the statement (serif 26px), hairline, range paragraph (18px body).
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Head from '@/components/expertise/Head.astro';
 import { positioning } from '@/data/home';
 ---
 <Section ground="white" labelledby="promise-h" class="promise">
   <div class="grid-12">
     <div style="--col: 1 / 7">
-      <SectionHeader id="promise-h" eyebrow={positioning.folio} title={positioning.headline} layout="stack" class="promise__head" />
+      <Head id="promise-h" label={positioning.folio} title={positioning.headline} class="promise__head" />
     </div>
-    <div class="promise__body" style="--col: 7 / -1" data-reveal>
+    <div class="promise__body" style="--col: 7 / -1">
       <p class="promise__statement">{positioning.promise}</p>
       <p class="promise__range">{positioning.range}</p>
     </div>
@@ -23,20 +23,20 @@ import { positioning } from '@/data/home';
 </Section>
 <style>
   .promise :global(.promise__head) { margin-bottom: var(--s-7); }
-  .promise :global(.promise__head .sh__title) { max-width: 20ch; }
+  .promise :global(.promise__head .hd__title) { max-width: 16ch; }
   .promise__statement {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-    font-size: var(--fs-quote); line-height: var(--lh-quote, 1.25); letter-spacing: -0.012em;
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: var(--fs-quote); line-height: 1.25; letter-spacing: 0;
     color: var(--head); text-wrap: pretty; max-width: 28ch;
   }
   .promise__range {
-    margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--rule);
+    margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--rule); position: relative;
     font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; max-width: 58ch;
   }
   @media (min-width: 900px) {
     .promise :global(.promise__head) { margin-bottom: 0; }
     /* the statement's first line sits on the h2's first line (the eyebrow and its gap sit above the h2) */
-    .promise__body { padding-top: calc(var(--fs-label) * var(--lh-label) + var(--s-5)); }
+    .promise__body { padding-top: calc(var(--fs-label) * var(--lh-label) + 18px); }
     .promise__range { margin-top: var(--s-8); padding-top: var(--s-7); font-size: var(--fs-lead); line-height: var(--lh-lead); }
   }
 </style>

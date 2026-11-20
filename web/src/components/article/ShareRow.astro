@@ -44,7 +44,7 @@ const mail = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURICompo
   <p class="share__url">{url}</p>
 </div>
 <style>
-  .share { display: grid; gap: var(--s-4); padding-block: var(--s-5); border-top: 2px solid var(--rule-strong); border-bottom: 1px solid var(--rule); }
+  .share { display: grid; gap: var(--s-4); padding-block: var(--s-5); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
   .share__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); align-items: center; }
   .share__label { margin: 0; color: var(--fg-2); }
   .share__items { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
@@ -53,7 +53,7 @@ const mail = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURICompo
   /* v3.1: borderless icon + label links (44px+ tall), underline draws on hover; Download PDF stays the one button */
   .share__btn {
     display: inline-flex; align-items: center; gap: var(--s-2); min-height: 48px; padding: 0 var(--s-2) 0 0;
-    font: 500 var(--fs-small)/1.2 var(--font-sans); color: var(--fg); text-decoration: none;
+    font: 700 var(--fs-nav)/1.2 var(--font-sans); color: var(--head); text-decoration: none;
     text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; text-decoration-color: transparent;
     transition: color var(--d-1) var(--ease-out), text-decoration-color var(--d-1) var(--ease-out);
   }

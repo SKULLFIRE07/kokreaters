@@ -7,7 +7,8 @@ import { places } from './places';
 const NBSP = '\u00A0';
 
 export const founderName = 'Ganeaysh Kulkarni';
-export const founderRole = 'Founder';
+/** Developer guide (20 Nov 2026): matches the business card. Rendered as `${founderRole}, KoKreaters`. */
+export const founderRole = 'Chief Catalyst and Founder';
 
 export const about = {
   overline: 'About',
@@ -49,7 +50,7 @@ export const timelineRoles: Record<string, string> = {
   'CFTRI Mysore': 'Postgraduate degree in Food Technology',
   Wilmar: 'Technical Head Specialties to Technical Director',
   Cargill: 'Technical, R&D and FSQR leadership; Global Product and Process Design Director, 2023 to 2026',
-  KoKreaters: 'Founder, based in the Netherlands',
+  KoKreaters: 'Chief Catalyst and Founder, based in the Netherlands',
 };
 
 /** The About globe fold (5.9.4). */
@@ -122,6 +123,6 @@ export const aboutPage = {
 };
 
 export const portraitAlt = {
-  founder: 'Ganeaysh Kulkarni, founder of KoKreaters',
+  founder: 'Ganeaysh Kulkarni, Chief Catalyst and Founder of KoKreaters',
   about: 'Ganeaysh Kulkarni',
 };

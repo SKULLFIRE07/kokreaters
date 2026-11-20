@@ -1,0 +1,56 @@
+---
+/**
+ * Home 6 · Our approach (v4 developer guide). Delft Ice band: label + H2 "From the lab, to the plant, to the market.",
+ * then three tall photo cards: Develop (lab, develop-pipette) · Scale (process plant, scale-tanks) · Access (bulk
+ * carrier, access-ship). Each card: square photo frame, a navy gradient from the bottom (rgba(14,31,77,.92)), a saffron
+ * "01 · Develop" label and a Bodoni line in white. Motion: each photo drifts inside its frame (data-gsap="parallax").
+ * The ship's name is tiny at this size (guide note). Mobile: one column of 380px cards; three across from 900px.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import { approach } from '@/data/home';
+---
+<section id="approach" class="ha band band--ice" aria-labelledby="ha-heading">
+  <div class="container">
+    <header class="ha__head">
+      <div>
+        <p class="t-label ha__label">{approach.overline}</p>
+        <h2 id="ha-heading" class="ha__title">{approach.headline}</h2>
+      </div>
+      <ArrowLink href={approach.link.href} class="ha__link">{approach.link.label}</ArrowLink>
+    </header>
+    <ol class="ha__grid" role="list">
+      {approach.steps.map((s) => (
+        <li class="ha__card on-dark">
+          <Photo slug={s.photo} fill parallax position={s.position} class="ha__photo"
+            sizes="(min-width: 1320px) 400px, (min-width: 900px) 31vw, calc(100vw - 40px)" widths={[400, 640, 800, 1000, 1280]} />
+          <span class="ha__scrim" aria-hidden="true"></span>
+          <div class="ha__text">
+            <p class="ha__step"><span>{s.n}</span> · <span>{s.label}</span></p>
+            <h3 class="ha__name">{s.title}</h3>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ha__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 40px; }
+  .ha__label { margin: 0 0 18px; }
+  .ha__title { margin: 0; max-width: 18ch; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; }
+  .ha :global(.ha__link) { margin-bottom: -10px; }
+  .ha__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; margin: 0; padding: 0; list-style: none; }
+  .ha__card { position: relative; height: 400px; overflow: hidden; background: var(--navy-900); isolation: isolate; }
+  .ha__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 35%, rgba(14, 31, 77, .92) 100%); }
+  .ha__text { position: absolute; z-index: 2; left: 28px; right: 28px; bottom: 28px; display: flex; flex-direction: column; gap: 10px; color: var(--white); }
+  .ha__step { margin: 0; font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--saffron); }
+  .ha__name { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 1.75rem; line-height: 1.15; color: var(--white); max-width: 16ch; }
+  @media (min-width: 900px) {
+    .ha__head { margin-bottom: 52px; }
+    .ha__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .ha__card { height: 480px; }
+    .ha__text { left: 32px; right: 32px; bottom: 32px; }
+    .ha__name { font-size: 1.875rem; }
+  }
+</style>

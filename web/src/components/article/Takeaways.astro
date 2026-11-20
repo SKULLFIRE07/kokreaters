@@ -1,8 +1,8 @@
 ---
 /**
  * Key takeaways (REDESIGN-V3 §4 article). MDX: <Takeaways items={[…]} /> placed at the top of the body, so it is the
- * first thing under the hero image. v3.1: no panel (§9.3): a 2px navy top rule, a serif h2 "Key takeaways" and the
- * points as the foundation NumberedList ("01" accent numerals on white, hairlines between points).
+ * first thing under the hero image. v4: a Porcelain panel (square, no shadow) with the saffron 40 × 2 rule, the
+ * Bodoni h2 "Key takeaways" (28px) and the points as the foundation NumberedList on thin rules.
  * Mobile: full column width; NumberedList density="tight" (16px rows, 40px numerals) keeps it short.
  */
 import NumberedList from '@/components/ui/NumberedList.astro';
@@ -11,17 +11,20 @@ interface Props { items: string[]; }
 const { items } = Astro.props;
 ---
 <aside class="takeaways" aria-labelledby="takeaways-t">
+  <span class="takeaways__rule" aria-hidden="true" data-gsap="rule"></span>
   <h2 id="takeaways-t" class="takeaways__title">{microcopy.keyTakeaways}</h2>
   <NumberedList items={items} density="tight" class="takeaways__list" />
 </aside>
 <style>
   /* v3.1 (§9.3 fewer boxes): no panel; a 2px navy rule, the serif title, then the numbered points on hairlines */
-  .takeaways { border-top: 2px solid var(--rule-strong); padding-top: var(--s-5); }
+  .takeaways { background: var(--grey-50); padding: var(--s-6) var(--s-5); border-top: 1px solid var(--rule); }
+  .takeaways__rule { display: block; width: 40px; height: 2px; margin-bottom: var(--s-4); background: var(--saffron); transform-origin: left center; }
   .takeaways__title {
-    margin: 0 0 var(--s-5);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
-    font-weight: 500; letter-spacing: var(--tr-h3); color: var(--head);
+    margin: 0 0 var(--s-4);
+    font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2;
+    font-weight: 400; letter-spacing: 0; color: var(--head);
   }
+  @media (min-width: 600px) { .takeaways { padding: var(--s-7) var(--s-7) var(--s-6); } }
   .takeaways :global(.nlist__item:first-child) { border-top: 0; }
   .takeaways :global(.nlist__item:last-child) { border-bottom: 0; padding-bottom: 0; }
 </style>

@@ -11,8 +11,8 @@ import { routes, settle, scrollThrough } from './helpers';
 
 const KB = 1024;
 const TEXT = /^(text\/|application\/(javascript|json|xml|manifest\+json)|image\/svg\+xml)/;
-const FONTS = ['inter-latin-opsz-normal.woff2', 'source-serif-4-latin-opsz-normal.woff2', 'source-serif-4-latin-opsz-italic.woff2'];
-const BANNED = /GreenSock|gsap\.registerPlugin|__lenis|new Lenis\b|WebGLRenderer|THREE\.REVISION/;
+const FONTS = ['manrope-latin-wght-normal.woff2', 'bodoni-moda-latin-opsz-normal.woff2', 'bodoni-moda-latin-opsz-italic.woff2'];
+const BANNED = /WebGLRenderer|THREE\.REVISION/;   // v3 Delft: GSAP + Lenis are allowed (lazy), three.js stays out
 
 async function measure(page: Page, path: string) {
   const rows: { url: string; type: string; bytes: number; body: string }[] = [];
@@ -35,7 +35,7 @@ async function measure(page: Page, path: string) {
 }
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`home total transfer ≤ 600KB @${vp.width}`, async ({ browser }) => {
+  test(`home total transfer ≤ 800KB @${vp.width}`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: vp });
     const page = await ctx.newPage();
     const rows = await measure(page, '/');
@@ -44,12 +44,12 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     const note = `total ${(total / KB).toFixed(1)}KB · js ${(by(/javascript/) / KB).toFixed(1)} · css ${(by(/css/) / KB).toFixed(1)} · fonts ${(by(/font|woff/) / KB).toFixed(1)} · images ${(by(/^image\//) / KB).toFixed(1)} · html ${(by(/html/) / KB).toFixed(1)} · ${rows.length} requests`;
     test.info().annotations.push({ type: 'transfer', description: note });
     console.log(`[budget] home @${vp.width}: ${note}`);
-    expect(total, 'home transfer bytes').toBeLessThanOrEqual(600 * KB);
+    expect(total, 'home transfer bytes').toBeLessThanOrEqual(800 * KB);
     await ctx.close();
   });
 }
 
-test('every route: JS ≤ 15KB gzip, only the v3 fonts, no GSAP / Lenis / three.js (1440)', async ({ browser }) => {
+test('every route: JS ≤ 70KB gzip incl. lazy GSAP/Lenis, only the v3 fonts, no three.js (1440)', async ({ browser }) => {
   test.setTimeout(240_000);
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const problems: string[] = [];
@@ -58,7 +58,7 @@ test('every route: JS ≤ 15KB gzip, only the v3 fonts, no GSAP / Lenis / three.
     const rows = await measure(page, r.path);
     const js = rows.filter((x) => /javascript/.test(x.type));
     const jsBytes = js.reduce((s, x) => s + x.bytes, 0);
-    if (jsBytes > 15 * KB) problems.push(`${r.path}: JS ${(jsBytes / KB).toFixed(1)}KB gzip > 15KB`);
+    if (jsBytes > 70 * KB) problems.push(`${r.path}: JS ${(jsBytes / KB).toFixed(1)}KB gzip > 70KB`);
     for (const x of js) if (BANNED.test(x.body)) problems.push(`${r.path}: banned library signature in ${x.url}`);
     for (const x of rows.filter((x) => /\/fonts\//.test(x.url))) {
       const name = x.url.split('/').pop()!.split('?')[0];

@@ -1,60 +1,61 @@
 ---
 /**
- * Insights hub (REDESIGN-V3 §4, §9 v3.1 "elegant full-screen"). Bands: white airy hero (H1 left in columns 1–7, the
- * lead right in 8–12, bottom-aligned) → featured insight (white, hairline; the cover story, photo bleeding off the
- * left edge) → library with filters (grey; index rows) → coming soon (white) → CtaBand with the newsletter (grey,
- * BaseLayout) → footer (navy).
- * The newsletter is the CtaBand's second column (as on Home): one sign-up on the page, and the footer drops its own.
- * The featured insight is not repeated in the library until a filter is chosen; with a single visible insight the
- * featured band stands alone (no library, no filters).
- * Production with no approved insight: hero, coming soon and the CtaBand with the newsletter. Coming soon opens on a
- * hairline whenever there is no grey library above it (it then touches the white hero or featured band).
- * Mobile: every band is one column; the hero lead follows the H1; filters wrap; rows stack photo → text.
+ * Insights hub, v4 "Delft" (developer guide: carry the homepage style through the insight pages). Bands:
+ *  1 PageHero (white): crumbs, "Insights", H1 "Ideas from the plant floor and the boardroom.", the line from seo.ts in
+ *    the right column.
+ *  2 The library (white, opens on a thin rule): the expertise / format filters as square toggles, then one grid in
+ *    the homepage's card language: every published insight as a photo card (red "New" tag on the newest only), then
+ *    the pieces in preparation as Delft Ice cards. Two published plus four in preparation fill a 3 × 2 grid.
+ *  3 CtaBand with the newsletter (BaseLayout), then the footer.
+ * The newest card's photo is the page's LCP image (priority). Without JS the filters stay hidden and the full grid shows.
+ * Production with no published insight: the grid holds the in-preparation cards only, with no filters.
+ * Mobile: one column; filters wrap; the in-preparation panels lose their tall frame.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import FeaturedInsight from '@/components/insights/FeaturedInsight.astro';
 import Filters from '@/components/insights/Filters.astro';
 import InsightList from '@/components/insights/InsightList.astro';
-import ComingSoon from '@/components/insights/ComingSoon.astro';
-import { visibleInsights, comingSoonSorted, featuredInsight } from '@/lib/insights';
+import { visibleInsights, comingSoonSorted } from '@/lib/insights';
 import { pageSeo } from '@/lib/seo';
 import { insights as insightsCopy } from '@/data/home';
 import { insightsHub } from '@/data/insights';
 
 const seo = pageSeo('insights');
 const list = await visibleInsights();
-const featured = await featuredInsight();
 const soon = await comingSoonSorted();
 const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
-const showLibrary = list.length > (featured ? 1 : 0);
 ---
 <BaseLayout page="insights" seo={seo} breadcrumbs={crumbs} cta={{ newsletter: true }}>
   <PageHero ground="white" titleId="hub-title" class="hub-hero" crumbs={crumbs} eyebrow={insightsCopy.overline} title={insightsCopy.headline}>
     <p slot="aside" class="hub-lead">{seo.description}</p>
   </PageHero>
 
-  {featured && <FeaturedInsight entry={featured} />}
-
-  {showLibrary && (
-    <Section ground="grey" labelledby="library-h" id="all-insights" class="library">
-      <SectionHeader id="library-h" title={insightsHub.libraryTitle} />
-      <Filters entries={list} />
-      <InsightList entries={list} featuredId={featured?.id} />
-    </Section>
-  )}
-
-  <ComingSoon entries={soon} rule={!showLibrary} />
+  <Section ground="white" labelledby="library-h" id="all-insights" rule class="library">
+    <div class="library__head">
+      <h2 id="library-h" class="library__title">{insightsHub.libraryTitle}</h2>
+      {list.length > 1 && <Filters entries={list} />}
+    </div>
+    <InsightList entries={list} soon={soon} priorityFirst filterable={list.length > 1} />
+  </Section>
 </BaseLayout>
 
 <script>import '@/scripts/pages/insights.ts';</script>
 
 <style>
   .hub-lead {
-    margin: 0; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--fg-2); max-width: 34ch; text-wrap: pretty;
+    margin: 0; font-size: var(--fs-lead); line-height: 30px; color: var(--head); max-width: 34ch; text-wrap: pretty;
   }
   @media (min-width: 900px) { .hub-lead { padding-bottom: .4em; } }
   @media (max-width: 899px) { :global(.hero.hub-hero) { --_bottom: var(--s-7); } :global(.hub-hero .hero__aside) { margin-top: var(--s-6); } }
+
+  :global(.band.library .band__rule) { margin-bottom: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); }
+  .library__head { display: grid; gap: var(--s-5); margin-bottom: clamp(2.5rem, 1.8rem + 2.5vw, 4rem); }
+  .library__title {
+    margin: 0; font-family: var(--font-serif); font-weight: 500;
+    font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem); line-height: 1.15; color: var(--head);
+  }
+  @media (min-width: 900px) {
+    .library__head { grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: var(--s-8); }
+  }
 </style>

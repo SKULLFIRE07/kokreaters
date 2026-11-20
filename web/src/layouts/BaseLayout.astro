@@ -3,13 +3,13 @@
  * Page shell (REDESIGN-V3 §3 Layout). Order: SkipLink, AnnouncementBar, Header, <main>, CtaBand (every page except
  * contact, legal and 404, or when `cta={false}`), Footer, CookieConsent, then the one module script (src/scripts/site.ts).
  * The inline head script only swaps html.no-js → html.js, records a Menu tap made before site.ts runs
- * (window.__kkMenuPending) and, as a safety net, adds html.motion-failed if site.ts never boots (reveals then show
- * immediately). Any change to it needs `node scripts/csp-hash.mjs`.
+ * (window.__kkMenuPending) and, as a safety net, adds html.motion-failed if site.ts never boots (v4: nothing is hidden
+ * waiting for JS any more, so this class has no visible effect). Any change to it needs `node scripts/csp-hash.mjs`.
  * Props keep the v2 signature so every page compiles. `pillar` no longer styles anything. Visible breadcrumbs belong to
  * PageHero (`crumbs`); here `breadcrumbs` feeds the JSON-LD BreadcrumbList, and only `showCrumbs={true}` also prints
  * the trail at the top of <main>. `cta` = boolean, or the CtaBand props for this page (e.g. { ground: 'white' }).
- * `footerNewsletter`: the footer's newsletter form. Default: shown unless this page's CtaBand carries the form (home,
- * /insights); pass false when the page has its own newsletter band, true to force it.
+ * `footerNewsletter`: the footer's newsletter form. v4 default: off (the client's footer has none); true forces it.
+ * Motion: site.ts boots src/scripts/motion.ts (GSAP + ScrollTrigger + Lenis, lazy chunk; data-gsap hooks).
  * Mobile: nothing layout-specific here; every chrome component carries its own mobile behaviour.
  */
 import '@/styles/global.css';
@@ -30,7 +30,7 @@ type Page = 'home' | 'expertise' | 'pillar' | 'industries' | 'approach' | 'impac
 type CtaProps = {
   title?: string; body?: string;
   primary?: { label: string; href: string }; secondary?: { label: string; href: string };
-  newsletter?: boolean; ground?: 'grey' | 'navy' | 'white';
+  newsletter?: boolean; ground?: 'grey' | 'navy' | 'white' | 'delft';
 };
 interface Props {
   page: Page;
@@ -49,8 +49,8 @@ interface Props {
 const { page, seo, pillar, breadcrumbs = [], ground = 'white', showCrumbs = false, cta, footerNewsletter } = Astro.props;
 
 const showCta = cta === undefined ? !['contact', 'legal', 'notfound'].includes(page) : cta !== false;
-// Home closes with the CTA + newsletter on white (founder band above is grey, footer below is navy).
-const ctaProps: CtaProps = { ...(page === 'home' ? { newsletter: true, ground: 'white' as const } : {}), ...(typeof cta === 'object' ? cta : {}) };
+// v4: every page closes on the Deep Delft CtaBand (CtaBand's default ground), then the near-black footer.
+const ctaProps: CtaProps = { ...(typeof cta === 'object' ? cta : {}) };
 const noindex = page === 'notfound' ? true : seo.noindex;
 
 // JSON-LD: home carries org + service + website by default; breadcrumb trail added when given.
@@ -86,7 +86,7 @@ d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest
       <slot />
       {showCta && <CtaBand {...ctaProps} />}
     </main>
-    <Footer newsletter={footerNewsletter ?? !(showCta && ctaProps.newsletter)} />
+    <Footer newsletter={footerNewsletter ?? false} />
     <CookieConsent />
     {page !== 'contact' && <ChatWidget />}
     <script>import '@/scripts/site.ts';</script>

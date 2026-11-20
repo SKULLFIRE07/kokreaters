@@ -1,65 +1,59 @@
-/* src/styles/motion.css — REDESIGN-V3 §1.5 + §9.4 (v3.1 "elegant full-screen": Apple-like, still no toys).
-   Nothing moves on its own; no libraries. Every rule that moves something lives inside
-   `prefers-reduced-motion: no-preference`, and every hidden start state also requires html.js (set by the head script)
-   and no html.motion-failed (the head script's safety timer), so content is always visible without JS.
-   Hooks:
-     [data-reveal]            blur-fade once at 15 % visible (+ style="--i:n" stagger; .is-in from src/scripts/site.ts)
-     [data-reveal="split"]    a block whose heading is split into words (ui/SplitText → .wd, --w); the words rise line by
-                              line (site.ts sets --l per word), the block's [data-part] children blur-fade after them
-     [data-reveal="lines"]    the PageHero H1 only: its words rise in a stagger on load (CSS only, no JS, no flash)
-     [data-settle] / <Photo settle>   image scales 1.06 → 1 while it scrolls in (CSS scroll-driven, `scale` property, so
-                              it composes with the .u-zoom hover `transform`)
-     [data-parallax]          (PhotoInterlude) the image drifts ≤ 8 % against the scroll (CSS scroll-driven)
-     [data-count]             (site.ts) a stat figure counts up once from 0 to its server-rendered value
+/* src/styles/motion.css — v4 "Delft" motion (BUILD-BRIEF motion policy).
+   Rule one: nothing is ever hidden waiting for scroll. The v3 blur-fade hooks ([data-reveal], [data-reveal="split"],
+   [data-reveal="lines"], [data-hero-after]) are now no-ops: content is readable the moment the page paints.
+   Depth comes from src/scripts/motion.ts (GSAP + ScrollTrigger + Lenis, lazy) through data-gsap hooks; this file holds
+   their CSS half. Every rule that moves something sits inside `prefers-reduced-motion: no-preference`.
+     [data-gsap="parallax"]   frame; its image sits at scale 1.12 and drifts with --kk-py (motion.ts, scrubbed)
+     [data-gsap="kenburns"]   hero frame; image settles 1.08 → 1 on load (CSS, first paint), then --kk-py drift
+     [data-gsap="hero-title"] H1 whose lines are .ln > span: each line rises inside its mask once on load (≤ 900 ms)
+     [data-gsap="lift"]       card; translateY via --kk-lift (motion.ts, scrubbed)
+     [data-gsap="rule"] / [data-gsap="count"]   handled entirely by motion.ts (no CSS start state)
+     [data-settle] / <Photo settle>   image scales 1.06 → 1 while it scrolls in (CSS scroll-driven; scale only)
      details[data-smooth] · .u-draw / .u-nudge / .u-zoom hover primitives. */
 
+/* Lenis (fine pointers only; motion.ts adds the classes) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* hero-title line masks (structure is harmless without motion) */
+[data-gsap="hero-title"] .ln { display: block; overflow: clip; overflow-clip-margin: .12em; padding-bottom: .04em; margin-bottom: -.04em; }
+[data-gsap="hero-title"] .ln > span { display: inline-block; }
+
 @media (prefers-reduced-motion: no-preference) {
-  /* 1 · Blur-fade reveal (Magic UI BlurFade, ported): once, at 15 % visible. Never on an h1. */
-  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not([data-reveal="split"]):not(h1) {
-    transition:
-      opacity var(--d-4) var(--ease-out),
-      transform var(--d-4) var(--ease-out),
-      filter var(--d-4) var(--ease-out);
-    transition-delay: calc(min(var(--i, 0), 5) * 70ms);
+  /* Parallax frames: image overscans 6 % each side, then drifts within it */
+  [data-gsap="parallax"] :is(img, video) {
+    scale: 1.12;
+    translate: 0 var(--kk-py, 0%);
+    will-change: translate;
   }
-  html.js:not(.motion-failed) [data-reveal]:not([data-reveal="lines"]):not([data-reveal="split"]):not(h1):not(.is-in) {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(6px);
+  /* Ken Burns hero: settle from first paint (no wait on the GSAP chunk), then a gentle scroll drift */
+  [data-gsap="kenburns"] :is(img, video) {
+    translate: 0 var(--kk-py, 0%);
+    animation: kk-kenburns 1600ms cubic-bezier(.25, .8, .25, 1) both;
+    will-change: translate, scale;
   }
+  /* Hero title: each line rises inside its mask, starting at 0 ms; ends by 900 ms */
+  [data-gsap="hero-title"] .ln > span {
+    animation: kk-line 760ms cubic-bezier(.2, .75, .2, 1) backwards;
+    animation-delay: calc(var(--ln, 0) * 70ms);
+  }
+  [data-gsap="hero-title"]:not(:has(.ln)) { animation: kk-line-block 760ms cubic-bezier(.2, .75, .2, 1) backwards; }
 
-  /* 1b · Split heading block: words rise line by line (--l from site.ts; --w word index before it measures), then the
-     block's other parts ([data-part]: eyebrow, lead, link) blur-fade in after the heading. */
-  html.js:not(.motion-failed) [data-reveal="split"] .wd {
-    transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out), filter 900ms var(--ease-out);
-    transition-delay: calc(min(var(--l, 0), 4) * 110ms + var(--d0, 0ms));
-  }
-  html.js:not(.motion-failed) [data-reveal="split"]:not(.is-in) .wd { opacity: 0; transform: translateY(.42em); filter: blur(6px); }
-  html.js:not(.motion-failed) [data-reveal="split"] [data-part] {
-    transition: opacity var(--d-4) var(--ease-out), transform var(--d-4) var(--ease-out), filter var(--d-4) var(--ease-out);
-    transition-delay: calc(var(--d0, 0ms) + 180ms + min(var(--i, 0), 5) * 90ms);
-  }
-  html.js:not(.motion-failed) [data-reveal="split"]:not(.is-in) [data-part] { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+  /* Lift: transform-free so CSS hovers on the same card keep working */
+  [data-gsap="lift"] { translate: 0 var(--kk-lift, 0px); }
 
-  /* 2 · Hero headline: its words rise in a stagger on load, not on scroll. The H1 is painted at full opacity without JS
-     or with reduced motion; `backwards` holds each word's start state only during its own delay. */
-  html.js:not(.motion-failed) [data-reveal="lines"] .wd {
-    animation: kk-rise 1000ms var(--ease-out) calc(120ms + min(var(--w, 0), 14) * 45ms) backwards;
-  }
-  html.js:not(.motion-failed) [data-reveal="lines"]:not(:has(.wd)) { animation: kk-rise 900ms var(--ease-out) 120ms backwards; }
-  /* …and what follows it in the hero (lead, actions) settles in just after the headline */
-  html.js:not(.motion-failed) [data-hero-after] { animation: kk-rise 900ms var(--ease-out) calc(420ms + var(--i, 0) * 90ms) backwards; }
-
-  /* 3 · Image settle (Apple product-shot feel): scroll-driven, CSS only; unsupported browsers just show the image. */
+  /* Image settle (CSS scroll-driven, scale only); unsupported browsers just show the image */
   @supports (animation-timeline: view()) {
-    [data-settle] :is(img, video) {
+    [data-settle]:not([data-gsap]) :is(img, video) {
       animation: kk-settle linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 45%;
     }
   }
 
-  /* 6 · Smooth accordion: height eases with ::details-content + interpolate-size (progressive; instant elsewhere). */
+  /* Smooth accordion: height eases with ::details-content + interpolate-size (progressive; instant elsewhere) */
   :root { interpolate-size: allow-keywords; }
   @supports selector(::details-content) {
     details[data-smooth]::details-content {
@@ -70,34 +64,30 @@
     details[data-smooth][open]::details-content { block-size: auto; }
   }
 
-  /* 7 · Hover primitives (transform parts; colour parts are outside this block) */
+  /* Hover primitives (transform parts; colour parts are outside this block) */
   .u-nudge { transition: transform var(--d-2) var(--ease-out); }
   :is(a, button, .u-hover):is(:hover, :focus-visible) .u-nudge { transform: translateX(4px); }
-  .u-zoom :is(img, video) { transition: transform 700ms var(--ease-out); }
+  .u-zoom :is(img, video) { transition: transform 900ms var(--ease-out); }
   .u-zoom:hover :is(img, video), .u-zoom:has(a:focus-visible) :is(img, video) { transform: scale(1.04); }
 
-  /* 8 · Page transitions: cross-document View Transitions, a 220 ms crossfade. The header carries its own
-     view-transition-name (chrome) so it stays put. */
+  /* Page transitions: cross-document View Transitions, a 220 ms crossfade */
   @view-transition { navigation: auto; }
   ::view-transition-group(root) { animation-duration: 220ms; animation-timing-function: var(--ease-out); }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
 }
 
-@keyframes kk-rise {
-  from { opacity: 0; transform: translateY(.4em); filter: blur(6px); }
-}
-@keyframes kk-settle {
-  from { scale: 1.06; }
-  to { scale: 1; }
-}
+@keyframes kk-kenburns { from { scale: 1.08; } to { scale: 1; } }
+@keyframes kk-line { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes kk-line-block { from { transform: translateY(.3em); clip-path: inset(0 0 100% 0); } to { transform: none; clip-path: inset(-10% -5% -20% -5%); } }
+@keyframes kk-settle { from { scale: 1.06; } to { scale: 1; } }
 
-/* Split words (ui/SplitText): inline-blocks so they can move; the real spaces between them still wrap and balance. */
+/* Split words (ui/SplitText, v3): plain inline-blocks now; they no longer animate. */
 .wd { display: inline-block; }
 
-/* 7 · Underline that draws from the left (colour only, so it also runs under reduced motion with 0 ms tokens). */
+/* Underline that draws from the left (colour only, so it also runs under reduced motion with 0 ms tokens). */
 .u-draw {
   text-decoration: none;
-  background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 1px no-repeat;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
   padding-bottom: 2px;
   transition: background-size var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out);
 }

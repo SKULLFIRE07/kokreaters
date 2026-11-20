@@ -4,8 +4,8 @@
  *   appear).
  * - Reads ?pillar= and ?format= (unknown values fall back to "All"), keeps them in the URL with history.replaceState
  *   (the hash is kept), AND-filters the .insight-row items in [data-insight-list] by data-pillar / data-format.
- * - The featured row ([data-featured], shown in its own band above) stays hidden while both rows are on "All" and
- *   joins the results only when a filter is chosen.
+ * - v4: in-preparation cards ([data-soon]) follow the filters but are left out of the count. A row marked
+ *   [data-featured] (v3) stays hidden while both rows are on "All"; v4 renders none.
  * - While a filter is chosen, writes "{n} insight(s)" into [data-filter-status] (aria-live; empty on "All", where the
  *   featured band and the grid together show everything) and shows [data-filter-empty] when nothing matches;
  *   its [data-filter-reset] button returns both rows to "All" and moves focus to the first filter.
@@ -53,12 +53,12 @@ function initFilters(): void {
     rows.forEach((r) => {
       const ok = (!state.pillar || r.dataset.pillar === state.pillar) && (!state.format || r.dataset.format === state.format);
       r.hidden = !ok || (!filtered && r.dataset.featured !== undefined);
-      if (ok) n += 1;
+      if (ok && r.dataset.soon === undefined) n += 1;   // in-preparation cards follow the filter but are not counted
     });
     // The count answers a filter: with both rows on "All" the featured insight sits in its own band above, so a total
     // under the filters would not match the cards below it. The line (and its hairline) stays; the text appears on use.
     if (status) status.textContent = filtered ? (n === 1 ? one : many).replace('{n}', String(n)) : '';
-    if (empty) empty.hidden = n > 0;
+    if (empty) empty.hidden = rows.some((r) => !r.hidden);
   }
 
   /* sliding highlight: one per row, placed on that row's pressed button */

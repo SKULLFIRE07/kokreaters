@@ -17,8 +17,8 @@
  *    split      — text in the left 6 columns, the photo half-bleeds to the right edge at full height.
  *  crumbs: a visible breadcrumb row at the top. actions: buttons (first primary, the rest secondary unless `variant`).
  *  Slots: default (under the actions, e.g. the home places line) · aside (right column when there is no split photo).
- *  The H1 gets data-reveal="lines" and is split into words (SplitText): the words rise in a stagger on load (CSS only,
- *  never hidden without JS); the lead / actions / extra follow ([data-hero-after]). `titleId` (default "page-title"):
+ *  v4 motion: the H1 carries data-gsap="hero-title" (rises once inside a mask on load, CSS, ≤ 900ms); a background
+ *  photo carries data-gsap="kenburns" (settles 1.08 → 1, then drifts on scroll). Nothing else waits to appear. `titleId` (default "page-title"):
  *  the section is aria-labelledby it. The photo is the LCP image: priority (eager, fetchpriority high).
  * Mobile (< 900px): one column. background → the photo becomes a band at the top (lg 200–340px ≈ 34svh, md 200–320px)
  *  that fades into navy, and the text sits below it on solid navy (no type over a busy photo on a phone). portrait →
@@ -34,7 +34,6 @@ import Breadcrumbs from './Breadcrumbs.astro';
 import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
 import Photo from './Photo.astro';
-import SplitText from './SplitText.astro';
 import { photoBySrc, isBleedSafe } from '@/data/photos';
 
 interface Props {
@@ -86,14 +85,14 @@ if (import.meta.env.DEV && bgRecord && !isBleedSafe(bgRecord.slug)) {
   )}
   {mode === 'background' && image && (
     <div class="hero__bg">
-      <Photo src={image} alt={imageAlt} fill priority sizes="100vw" position={imagePosition} />
+      <Photo src={image} alt={imageAlt} fill priority kenburns sizes="100vw" position={imagePosition} />
       <div class="hero__scrim" aria-hidden="true"></div>
     </div>
   )}
   <div class="container hero__inner">
     <div class="hero__text">
-      {eyebrow && <Eyebrow class="hero__eyebrow">{eyebrow}</Eyebrow>}
-      <h1 id={titleId} class:list={['hero__title', size === 'lg' ? 't-display' : 't-h1']} data-reveal="lines"><SplitText text={title} /></h1>
+      {eyebrow && <Eyebrow class="hero__eyebrow" tone={mode === 'background' ? 'white' : 'default'}>{eyebrow}</Eyebrow>}
+      <h1 id={titleId} class:list={['hero__title', size === 'lg' ? 't-display' : 't-h1']} data-gsap="hero-title">{title}</h1>
       {lead && <p class:list={['hero__lead', 't-lead', leadTone === 'muted' && 'hero__lead--muted']} data-hero-after>{lead}</p>}
       {actions.length > 0 && (
         <div class="hero__actions" data-hero-after style="--i:1">
@@ -135,6 +134,7 @@ if (import.meta.env.DEV && bgRecord && !isBleedSafe(bgRecord.slug)) {
   .hero:is(.hero--md, .hero--sm) .hero__title { max-width: 20ch; }
   .hero--lg .hero__title { max-width: 16ch; }
   .hero__lead { margin-top: var(--s-6); color: var(--fg); max-width: var(--measure-lead); }
+  .hero--background .hero__lead { color: #E4EAF5; }
   .hero__lead--muted { color: var(--fg-2); }
   .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-top: var(--s-7); }
   .hero__extra { margin-top: var(--s-7); }
@@ -151,7 +151,7 @@ if (import.meta.env.DEV && bgRecord && !isBleedSafe(bgRecord.slug)) {
   .hero--lg .hero__bg { height: clamp(200px, 34svh, 340px); }
   .hero__scrim {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(11, 27, 51, .3) 0%, rgba(11, 27, 51, 0) 30%, rgba(11, 27, 51, .5) 72%, var(--navy-900) 100%);
+    background: linear-gradient(180deg, rgba(14, 31, 77, .3) 0%, rgba(14, 31, 77, 0) 30%, rgba(14, 31, 77, .5) 72%, var(--navy-900) 100%);
   }
   .hero--background .hero__inner { --_top: var(--s-4); }
 
@@ -199,10 +199,10 @@ if (import.meta.env.DEV && bgRecord && !isBleedSafe(bgRecord.slug)) {
     .hero--lg .hero__bg { height: auto; }
     .hero__scrim {
       background:
-        linear-gradient(0deg, rgba(11, 27, 51, .9) 0%, rgba(11, 27, 51, .62) 30%, rgba(11, 27, 51, .18) 62%, rgba(11, 27, 51, .1) 100%),
-        linear-gradient(90deg, rgba(11, 27, 51, .72) 0%, rgba(11, 27, 51, .4) 42%, rgba(11, 27, 51, 0) 78%);
+        linear-gradient(0deg, rgba(14, 31, 77, .55) 0%, rgba(14, 31, 77, .12) 40%, rgba(14, 31, 77, 0) 70%),
+        linear-gradient(90deg, rgba(14, 31, 77, .92) 0%, rgba(14, 31, 77, .78) 40%, rgba(14, 31, 77, .22) 75%, rgba(14, 31, 77, .04) 100%);
     }
-    .hero--center .hero__scrim { background: rgba(11, 27, 51, .78); }
+    .hero--center .hero__scrim { background: rgba(14, 31, 77, .78); }
     .hero--background .hero__inner { --_top: clamp(4rem, 2.6rem + 5.7vw, 9rem); --_bottom: clamp(4rem, 2.6rem + 4vw, 7.5rem); }
     .hero--background .hero__text { max-width: 1040px; }
 

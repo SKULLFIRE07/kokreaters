@@ -9,6 +9,8 @@
  * `priority` (the LCP image only): loading eager + fetchpriority high + decoding sync. Everything else lazy + async.
  * `fill`: the box fills its positioned parent instead of keeping a ratio (hero backgrounds, interludes, half-bleed media).
  * `settle`: the image scales 1.06 → 1 as it scrolls into view (CSS scroll-driven, motion.css; same as data-settle).
+ * `parallax` (v4): data-gsap="parallax" — the image overscans 1.12 and drifts with the scroll (motion.ts).
+ * `kenburns` (v4, hero only): data-gsap="kenburns" — settles 1.08 → 1 on load, then drifts gently as the hero leaves.
  * Widths larger than the source are dropped (never upscale). The default ladder has an 800 step so a full-width phone
  * image at DPR 1.75–2 gets 800w, not 960w. Radius 2px unless `fill`.
  * Mobile: the ratio box spans its container; pass `sizes` that match the mobile column (usually 100vw minus gutters).
@@ -28,12 +30,14 @@ interface Props {
   position?: string;
   fill?: boolean;
   settle?: boolean;
+  parallax?: boolean;
+  kenburns?: boolean;
   class?: string;
   [key: string]: unknown;
 }
 const {
   src: srcProp, alt: altProp, slug, ratio, sizes, priority = false, widths = [400, 640, 800, 960, 1280, 1600, 2000, 2560],
-  position: posProp, fill = false, settle = false, class: cls, ...rest
+  position: posProp, fill = false, settle = false, parallax = false, kenburns = false, class: cls, ...rest
 } = Astro.props;
 const record = slug ? photos[slug] : photoBySrc(srcProp);
 const src = srcProp ?? record?.src;
@@ -50,7 +54,8 @@ const boxed = !fill && ratio && ratio !== 'auto';
 <div
   class:list={['photo', fill ? 'photo--fill' : boxed && 'photo--ratio', cls]}
   style={boxed ? `--ratio:${ratio}` : undefined}
-  data-settle={settle ? '' : undefined}
+  data-settle={settle && !parallax && !kenburns ? '' : undefined}
+  data-gsap={kenburns ? 'kenburns' : parallax ? 'parallax' : undefined}
   {...rest}
 >
   <Picture
@@ -65,7 +70,7 @@ const boxed = !fill && ratio && ratio !== 'auto';
   />
 </div>
 <style>
-  .photo { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); }
+  .photo { position: relative; overflow: hidden; border-radius: 0; background: var(--grey-100); }
   .photo--ratio { aspect-ratio: var(--ratio); }
   .photo--fill { position: absolute; inset: 0; border-radius: 0; background: var(--navy-900); }
   .photo :global(picture) { display: contents; }

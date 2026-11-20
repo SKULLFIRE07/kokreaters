@@ -11,6 +11,10 @@ body {
   color: var(--fg);
   background: var(--bg);
   font-optical-sizing: auto;
+  /* v4: Bodoni Moda at its text optical size (opsz 11, the cut the client's design uses). Optical sizing "auto" picked
+     the 96 display cut at headline sizes, whose hairlines all but vanish (hyphens and the "4" disappeared). Inherited,
+     and font-variation-settings outranks font-optical-sizing, so it holds everywhere; Manrope has no opsz axis. */
+  font-variation-settings: "opsz" 11;
   font-kerning: normal;
   font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
@@ -74,3 +78,6 @@ a:hover { text-decoration-color: var(--accent); }
 /* ── Focus: 2px, offset 3px, correct on every ground (§7) ── */
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 main:focus { outline: none; }
+
+/* v4 header metrics (developer guide: logo 52px tall, 18px padding): 88px desktop bar, 72px compact. */
+@media (min-width: 1120px) { :root { --header-h: 88px; --header-h-compact: 72px; } }

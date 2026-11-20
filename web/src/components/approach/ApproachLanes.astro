@@ -1,0 +1,54 @@
+---
+/**
+ * v4 Delft "From the lab, to the plant, to the market." (client homepage design, section 6), on Delft Ice: label, h2,
+ * three tall photo cards (480px, square, object-fit cover) with the navy gradient rising from the bottom
+ * (transparent 35% → rgba(14,31,77,.92)), "01 · DEVELOP" in saffron caps and the title in Bodoni Moda 30px, white.
+ * Each card links to the service it describes. Motion: data-gsap="lift" on the card, "parallax" on its photo frame;
+ * hover zooms the photo 1.04. Used on /approach and /expertise.
+ * Mobile: one column, cards 400px tall; 600–899 two columns would orphan the third, so one column until 900.
+ */
+import Section from '@/components/ui/Section.astro';
+import Photo from '@/components/ui/Photo.astro';
+import Head from '@/components/expertise/Head.astro';
+import { lanes } from '@/data/approach';
+import { pillarHref } from '@/lib/pillars';
+import { pad2 } from '@/lib/format';
+
+interface Props { id?: string }
+const { id = 'lanes-title' } = Astro.props;
+---
+<Section ground="white" class="band--ice" labelledby={id}>
+  <Head id={id} label={lanes.overline} title={lanes.headline} />
+  <ul class="lanes" role="list">
+    {lanes.items.map((l) => (
+      <li>
+        <a class="lane u-zoom" href={pillarHref(l.pillar)} data-gsap="lift">
+          <div class="lane__media" data-gsap="parallax">
+            <Photo slug={l.photo} fill sizes="(min-width: 900px) 400px, calc(100vw - 40px)" />
+          </div>
+          <span class="lane__scrim" aria-hidden="true"></span>
+          <span class="lane__text">
+            <span class="lane__label">{pad2(l.n)} · {l.label}</span>
+            <span class="lane__title">{l.title}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  .lanes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .lane { position: relative; display: block; height: 400px; overflow: hidden; background: var(--navy-900); color: var(--white); text-decoration: none; }
+  .lane__media { position: absolute; inset: 0; overflow: hidden; }
+  .lane__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 35%, rgba(14, 31, 77, .92) 100%); }
+  .lane__text { position: absolute; left: 32px; right: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+  .lane__label { font-size: var(--fs-label); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--saffron); }
+  .lane__title { font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.15; font-weight: 400; text-wrap: balance; }
+  .lane:hover .lane__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .lane:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  @media (min-width: 900px) {
+    .lanes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .lane { height: 480px; }
+    .lane__title { font-size: 1.875rem; }
+  }
+</style>

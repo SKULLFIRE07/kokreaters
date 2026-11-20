@@ -1,114 +1,108 @@
 ---
 /**
- * /industries — the nine industries as a 3 × 3 editorial grid (REDESIGN-V3 §4 Industries, §8.9, §9.3). White band
- * under the navy photo hero.
- *  Header: the visible h2 "All industries" (`industriesPage.listHeading`) in columns 1–5 and the rest of the page intro
- *  at lead size in columns 7–12, both top-aligned; stacked below 900px.
- *  Each industry (page-local variant of the foundation IndustryTile `card`, reported to the orchestrator): no box, a 1px
- *  hairline on top that an accent line draws across on hover / focus, the serif h3 name, the
- *  brief's one-line description, then "Relevant expertise" links to the pillar pages (each a 44px+ tap row; the last
- *  word and its arrow never part). Text-only for all nine on purpose (§8.9: there is no honest pet-food or bleaching-
- *  earth photo, and one odd card out would look broken). The <article> carries id={slug} for the /industries#<slug>
- *  links from home, the header dropdown and the mobile menu; card titles are h3.
- *  The <li>s are row subgrids (name · description · expertise), so names, descriptions and the expertise
- *  hairline line up across each row whatever the length of the text.
- * Mobile (< 600px): one column, 64px between industries. 600–1199: two columns (the ninth closes the list on the left,
- *  no hairline across an empty cell; at 1024 three columns would wrap the expertise links and three-line names). ≥ 1200: 3 × 3, 72 → 96px between rows.
+ * /industries (v4 Delft): the six featured industries, then the rest.
+ *  Featured (white): Head (label "Industries", h2, the rest of the page intro as the lead), then six cards in a 3 × 2
+ *   grid: a photo tile (4:3, square, navy gradient, Bodoni name on the photo, data-gsap="parallax" + "lift") over the
+ *   industry's line and its "Relevant expertise" links on a thin rule. Each <article> carries id={slug}.
+ *  Also (Porcelain): the other industries as a two-column list on thin rules (Manrope 700 name, line, expertise links).
+ * Mobile: one column (two from 600px); 48px between cards.
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Photo from '@/components/ui/Photo.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { industries, industriesPage } from '@/data/industries';
+import Head from '@/components/expertise/Head.astro';
+import { featuredIndustries, otherIndustries, industryPhoto, industriesPage } from '@/data/industries';
+import { photos } from '@/data/photos';
 import { getPillar, pillarHref } from '@/lib/pillars';
+import type { Industry } from '@/data/types';
 
 interface Props { lead?: string }
 const { lead } = Astro.props;
-// "Product and Category " + "Innovation→" (the last word and the arrow never part)
 const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)]; };
+const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(getPillar(k).name) }));
 ---
-<Section ground="white" labelledby="industries-list-h" class="ig">
-  <div class="grid-12 ig__head">
-    <div style="--col: 1 / 6">
-      <SectionHeader id="industries-list-h" title={industriesPage.listHeading} layout="stack" class="ig__sh" />
-    </div>
-    {lead && <p class="ig__lead" style="--col: 7 / -1" data-reveal>{lead}</p>}
-  </div>
-  <ul class="ig__grid" role="list">
-    {industries.map((ind, i) => (
-      <li class="ig__item" data-reveal style={`--i:${i % 3}`}>
-        <article id={ind.slug} class="ind" aria-labelledby={`${ind.slug}-h`}>
-          <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
-          <p class="ind__copy">{ind.copy}</p>
-          <div class="ind__xp">
-            <p class="t-label ind__xplabel">{industriesPage.relevantExpertise}</p>
-            <ul role="list">
-              {ind.pillars.map((k) => {
-                const [head, last] = splitLast(getPillar(k).name);
-                return (
+<Section ground="white" labelledby="industries-list-h">
+  <Head id="industries-list-h" title={industriesPage.listHeading} lead={lead} />
+  <ul class="ig" role="list">
+    {featuredIndustries.map((ind) => {
+      const ph = photos[industryPhoto[ind.slug]];
+      return (
+        <li>
+          <article id={ind.slug} class="ind" aria-labelledby={`${ind.slug}-h`}>
+            <div class="ind__tile u-zoom" data-gsap="lift">
+              <div class="ind__media" data-gsap="parallax">
+                <Photo src={ph.src} alt={ph.alt} position={ph.position} fill sizes="(min-width: 1320px) 400px, (min-width: 900px) 31vw, (min-width: 600px) 48vw, calc(100vw - 40px)" />
+              </div>
+              <span class="ind__scrim" aria-hidden="true"></span>
+              <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
+            </div>
+            <p class="ind__copy">{ind.copy}</p>
+            <div class="ind__xp">
+              <p class="t-label ind__xplabel">{industriesPage.relevantExpertise}</p>
+              <ul role="list">
+                {links(ind).map(({ k, parts: [head, last] }) => (
                   <li><a href={pillarHref(k)} class="u-hover">{head && <span class="u-draw">{head}</span>}<span class="ind__last"><span class="u-draw">{last}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></span></a></li>
-                );
-              })}
-            </ul>
-          </div>
+                ))}
+              </ul>
+            </div>
+          </article>
+        </li>
+      );
+    })}
+  </ul>
+</Section>
+
+<Section ground="grey" labelledby="industries-other-h">
+  <Head id="industries-other-h" label={industriesPage.otherLabel} title={industriesPage.otherHeading} />
+  <ul class="oi" role="list">
+    {otherIndustries.map((ind) => (
+      <li>
+        <article id={ind.slug} class="oi__item" aria-labelledby={`${ind.slug}-h`}>
+          <h3 id={`${ind.slug}-h`} class="oi__name">{ind.name}</h3>
+          <p class="oi__copy">{ind.copy}</p>
+          <p class="oi__xp">
+            {links(ind).map(({ k, parts: [head, last] }, n) => (
+              <>{n > 0 && <span class="oi__sep" aria-hidden="true"> · </span>}<a href={pillarHref(k)} class="u-hover">{head && <span class="u-draw">{head}</span>}<span class="ind__last"><span class="u-draw">{last}</span></span></a></>
+            ))}
+          </p>
         </article>
       </li>
     ))}
   </ul>
 </Section>
 <style>
-  .ig__head { margin-bottom: clamp(3rem, 2.2rem + 3.3vw, 6rem); row-gap: var(--s-5); }
-  .ig :global(.ig__sh) { margin-bottom: 0; }
-  .ig__lead { font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: var(--tr-lead); color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
-  @media (min-width: 900px) { .ig__lead { padding-top: .4em; } }
-  .ig__grid {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: minmax(0, 1fr);
-    column-gap: clamp(24px, 1rem + 2.4vw, 64px); row-gap: var(--s-8);
-  }
-  .ind { position: relative; display: flex; flex-direction: column; height: 100%; border-top: 1px solid var(--rule); }
-  /* accent line draws across the hairline on hover / keyboard focus */
-  .ind::before {
-    content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--accent);
-    transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
-  }
-  .ind:hover::before, .ind:focus-within::before { transform: scaleX(1); }
-
+  .ig { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px 20px; }
+  .ind { display: flex; flex-direction: column; height: 100%; }
+  .ind__tile { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy-900); }
+  .ind__media { position: absolute; inset: 0; overflow: hidden; }
+  .ind__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 40%, rgba(14, 31, 77, .92) 100%); }
   .ind__name {
-    padding-top: var(--s-6);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 500;
-    font-size: clamp(1.5rem, 1.3rem + .6vw, 2rem); line-height: 1.15; letter-spacing: -0.012em; color: var(--head);
-    text-wrap: balance; max-width: 22ch;
+    position: absolute; left: 24px; right: 24px; bottom: 22px;
+    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.2; font-weight: 400; color: var(--white); text-wrap: balance;
   }
-  .ind__copy {
-    margin-top: var(--s-3); max-width: 38ch;
-    font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty;
-  }
-  .ind__xp { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--rule); }
-  .ind__xplabel { color: var(--fg-2); margin-bottom: var(--s-1); }
-  .ind__xp ul { list-style: none; padding: 0; margin-block: -6px -11px; }
-  /* the <a> itself is the 45px tap row */
-  .ind__xp a {
-    display: inline-block; padding-block: 11px;
-    font-size: var(--fs-small); line-height: 1.45; font-weight: 500; color: var(--link); text-decoration: none;
+  .ind__copy { margin-top: var(--s-5); font-size: 1rem; line-height: 1.625; color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
+  .ind__xp { margin-top: auto; padding-top: var(--s-5); }
+  .ind__xp > .ind__xplabel { padding-top: var(--s-4); border-top: 1px solid var(--rule); color: var(--fg-2); }
+  .ind__xp ul { list-style: none; padding: 0; margin: 2px 0 -10px; }
+  .ind__xp a, .oi__xp a {
+    display: inline-block; padding-block: 10px;
+    font-size: var(--fs-small); line-height: 1.45; font-weight: 700; color: var(--link); text-decoration: none;
   }
   .ind__last { white-space: nowrap; }
-  .ind__xp a :global(.icon) { display: inline-block; color: var(--accent); vertical-align: -3px; margin-left: 6px; }
+  .ind__xp a :global(.icon) { display: inline-block; color: var(--link); vertical-align: -3px; margin-left: 6px; }
+
+  .oi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--s-8); }
+  .oi__item { padding-block: var(--s-5) var(--s-5); border-top: 1px solid var(--rule); height: 100%; }
+  .oi__name { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.35; font-weight: 700; color: var(--head); }
+  .oi__copy { margin-top: var(--s-2); font-size: 1rem; line-height: 1.6; color: var(--fg-2); max-width: 52ch; text-wrap: pretty; }
+  .oi__xp { margin-top: var(--s-1); }
+  .oi__sep { color: var(--fg-2); }
 
   @media (min-width: 600px) {
-    .ig__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ig { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .oi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (min-width: 900px) {
-    .ig__grid { row-gap: clamp(4.5rem, 2rem + 3.6vw, 6rem); }
-  }
-  /* three across only where a column holds "Process Design and Plant Performance →" on one line */
-  @media (min-width: 1200px) {
-    .ig__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
-
-  /* row subgrids: name · description · expertise share their tracks with the row's other industries */
-  @supports (grid-template-rows: subgrid) {
-    .ig__item { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
-    .ind { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; row-gap: 0; height: auto; }
-    .ind__xp { align-self: start; }
+    .ig { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 64px; }
   }
 </style>

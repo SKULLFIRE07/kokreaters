@@ -13,7 +13,8 @@
 import Section from '@/components/ui/Section.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import Logo from '@/components/brand/Logo.astro';
-import { name } from '@/data/founder';
+import { name, founderName, founderRole } from '@/data/founder';
+import { site } from '@/config/site';
 import { steps } from '@/data/approach';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -22,33 +23,35 @@ const method = steps.map((s) => ({ name: s.name, copy: s.copy }));
 const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
 ---
 <Section ground="navy" labelledby="name-title" class="np">
-  <header class="np__head" data-reveal>
+  <header class="np__head">
     <Eyebrow as="div"><h2 id="name-title" class="np__h2">{name.heading}</h2></Eyebrow>
     <p class="np__statement">One word, two ideas, and the way we work.</p>
   </header>
 
   <div class="np__eq">
-    <article class="np__entry" data-reveal style="--i:1" aria-label={`${name.koWord}: ${name.ko}`}>
+    <article class="np__entry" data-gsap="lift" aria-label={`${name.koWord}: ${name.ko}`}>
+      <span class="np__bar" aria-hidden="true" data-gsap="rule"></span>
       <p class="np__word">{name.koWord}</p>
       <p class="np__gloss">Together</p>
       <p class="np__def" set:html={keepCompounds(name.ko)} />
     </article>
-    <span class="np__op" aria-hidden="true" data-reveal style="--i:2">+</span>
-    <article class="np__entry" data-reveal style="--i:3" aria-label={`${name.kreatersWord}: ${name.kreaters}`}>
+    <span class="np__op" aria-hidden="true">+</span>
+    <article class="np__entry" data-gsap="lift" aria-label={`${name.kreatersWord}: ${name.kreaters}`}>
+      <span class="np__bar" aria-hidden="true" data-gsap="rule"></span>
       <p class="np__word">{name.kreatersWord}</p>
       <p class="np__gloss">The makers</p>
       <p class="np__def" set:html={keepCompounds(name.kreaters)} />
     </article>
   </div>
 
-  <div class="np__result" data-reveal>
+  <div class="np__result">
     <span class="np__op np__op--eq" aria-hidden="true">=</span>
     <Logo variant="full-white" alt={name.lockupAlt} width={300} class="np__lockup" />
   </div>
 
   <ol class="np__method" aria-label="The method in the logo's tagline">
     {method.map((m, i) => (
-      <li class="np__step" data-reveal style={`--i:${i + 1}`}>
+      <li class="np__step">
         <span class="np__node" aria-hidden="true"></span>
         <h3 class="np__step-name">{m.name}</h3>
         <p class="np__step-copy">{m.copy}</p>
@@ -56,38 +59,37 @@ const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
     ))}
   </ol>
 
-  <figure class="np__quote" data-reveal>
+  <figure class="np__quote">
+    <span class="np__qrule" aria-hidden="true" data-gsap="rule"></span>
     <blockquote><p set:html={keepCompounds(quoteText.charAt(0).toUpperCase() + quoteText.slice(1))} /></blockquote>
-    <figcaption>Ganeaysh Kulkarni, Founder</figcaption>
+    <figcaption><span class="np__qname">{founderName}</span><span class="np__qrole">{founderRole}, {site.name}</span></figcaption>
   </figure>
 </Section>
 <style>
   .np__h2 { margin: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; max-width: none; }
-  .np__head { display: grid; row-gap: var(--s-4); margin-bottom: clamp(48px, 5vw, 88px); }
+  .np__head { position: relative; display: grid; row-gap: var(--s-4); margin-bottom: clamp(48px, 5vw, 88px); }
   .np__statement {
-    margin: 0; max-width: 22ch; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-    font-size: var(--fs-h2); line-height: 1.12; letter-spacing: -.015em; color: var(--head); text-wrap: balance;
+    margin: 0; max-width: 22ch; font-family: var(--font-serif); font-weight: 500;
+    font-size: var(--fs-h2); line-height: 1.08; letter-spacing: 0; color: var(--head); text-wrap: balance;
   }
 
-  /* the equation */
+  /* the equation: two square entries on thin rules, a saffron bar on top of each */
   .np__eq { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); align-items: center; }
-  .np__entry {
-    position: relative; padding: clamp(28px, 3vw, 48px); border: 1px solid var(--rule);
-    background: linear-gradient(160deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .015));
-  }
-  .np__entry::before { content: ''; position: absolute; left: -1px; top: -1px; width: 56px; height: 2px; background: var(--accent); }
+  .np__entry { position: relative; padding: clamp(28px, 3vw, 48px); border: 1px solid var(--rule); background: rgba(255, 255, 255, .03); }
+  .np__bar { position: absolute; left: -1px; top: -1px; width: 40px; height: 2px; background: var(--saffron); transform-origin: left center; }
   .np__word {
-    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 420;
-    font-size: clamp(3.5rem, 2rem + 6vw, 7.5rem); line-height: .95; letter-spacing: -.035em; color: var(--head);
+    margin: 0; font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(3.5rem, 2rem + 6vw, 6.5rem); line-height: .95; letter-spacing: -.01em; color: var(--head);
   }
   .np__gloss {
-    margin: var(--s-4) 0 0; font: 600 var(--fs-label)/1.3 var(--font-sans); letter-spacing: var(--tr-label);
+    margin: var(--s-4) 0 0; font: 700 var(--fs-label)/1.3 var(--font-sans); letter-spacing: var(--tr-label);
     text-transform: uppercase; color: var(--label);
   }
-  .np__def { margin: var(--s-3) 0 0; max-width: 34ch; font-size: var(--fs-lead); line-height: 1.5; color: var(--fg); text-wrap: pretty; }
+  .np__def { margin: var(--s-3) 0 0; max-width: 34ch; font-size: var(--fs-lead); line-height: 30px; color: #E4EAF5; text-wrap: pretty; }
+  /* operators in Manrope: Bodoni's display cut draws + and = as hairlines */
   .np__op {
-    justify-self: center; font-family: var(--font-serif); font-weight: 300; line-height: 1;
-    font-size: clamp(3rem, 2rem + 3vw, 5rem); color: var(--accent);
+    justify-self: center; font-family: var(--font-sans); font-weight: 300; line-height: 1;
+    font-size: clamp(2.5rem, 2rem + 2vw, 4rem); color: var(--saffron);
   }
 
   .np__result {
@@ -103,18 +105,22 @@ const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
   .np__step { position: relative; padding-left: 44px; }
   .np__node {
     position: absolute; left: 0; top: 2px; width: 19px; height: 19px; border-radius: 50%;
-    background: var(--navy-900); border: 2px solid var(--accent); box-shadow: inset 0 0 0 3px var(--navy-900), inset 0 0 0 10px var(--accent);
+    background: var(--navy-900); border: 2px solid var(--saffron); box-shadow: inset 0 0 0 3px var(--navy-900), inset 0 0 0 10px var(--saffron);
   }
-  .np__step-name { margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-h3); line-height: 1.2; color: var(--head); }
-  .np__step-copy { margin: var(--s-2) 0 0; max-width: 38ch; font-size: var(--fs-small); line-height: 1.55; color: var(--fg-2); text-wrap: pretty; }
+  .np__step-name { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 1.75rem; line-height: 1.2; color: var(--head); }
+  .np__step-copy { margin: var(--s-2) 0 0; max-width: 38ch; font-size: var(--fs-body); line-height: var(--lh-body); color: #E4EAF5; text-wrap: pretty; }
 
-  .np__quote { margin: clamp(56px, 5vw, 96px) 0 0; padding-left: clamp(20px, 2vw, 32px); border-left: 2px solid var(--accent); max-width: 52ch; }
+  /* the founder's words: italic Bodoni 40/50 under a saffron rule */
+  .np__quote { margin: clamp(56px, 6vw, 104px) 0 0; }
+  .np__qrule { display: block; width: 40px; height: 2px; margin-bottom: var(--s-5); background: var(--saffron); transform-origin: left center; }
   .np__quote blockquote { margin: 0; }
   .np__quote p {
-    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-    font-size: var(--fs-h3); line-height: 1.4; color: var(--head); text-wrap: pretty;
+    margin: 0; font-family: var(--font-serif); font-weight: 400; font-style: italic;
+    font-size: var(--fs-quote); line-height: 1.25; color: var(--head); text-wrap: pretty; max-width: 28ch;
   }
-  .np__quote figcaption { margin-top: var(--s-4); font: 600 var(--fs-small)/1.4 var(--font-sans); color: var(--fg); }
+  .np__quote figcaption { display: grid; gap: 2px; margin-top: var(--s-5); }
+  .np__qname { font: 700 var(--fs-body)/1.4 var(--font-sans); color: var(--white); }
+  .np__qrole { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
 
   @media (min-width: 900px) {
     .np__eq { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); column-gap: clamp(24px, 3vw, 56px); }
@@ -125,7 +131,7 @@ const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
   }
   @media (min-width: 1200px) {
     .np__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; }
-    .np__head > :first-child { grid-column: 1 / 4; }
+    .np__head > div { grid-column: 1 / 4; }
     .np__statement { grid-column: 4 / -1; }
   }
 </style>

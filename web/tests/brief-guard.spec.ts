@@ -36,7 +36,7 @@ const BANNED_COPY = [
 const TOY_HOOKS = ['data-flap-board', 'data-flap-tile', 'data-scramble', 'data-crumple', 'data-gravity-tags', 'data-falling-text',
   'data-ticket', 'data-magnetic', 'data-magnetic-letters', 'data-magnetic-dots', 'data-note', 'data-scribble', 'data-sticker',
   'data-stamp-spin', 'data-marquee', 'data-rail', 'data-cursor', 'data-pipeline', 'data-venn', 'data-emulsion',
-  'data-fan-item', 'data-globe', 'data-motion-toggle', 'data-lenis-prevent'];
+  'data-fan-item', 'data-globe', 'data-motion-toggle'];   // v3 Delft: data-lenis-prevent is allowed (Lenis is back)
 const V2_HEXES = ['#F4C841', '#E5494D', '#3A1C5C', '#5B2A86', '#7B4BC4', '#8C5B88', '#C8457E', '#EADCFF', '#FFEEB0', '#F6DCE8',
   '#A2335F', '#6F4470', '#F8F6FC'];
 
@@ -82,7 +82,7 @@ test('palette: no v2 purple / pink / yellow / red in built CSS (logo SVGs exempt
 });
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`type: Source Serif 4 headlines, Inter 18 to 19px body, no v2 fonts @${vp.width}`, async ({ browser }) => {
+  test(`type: Bodoni Moda headlines, Manrope 16px body, no older fonts @${vp.width}`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: vp });
     const problems: string[] = [];
     for (const path of ['/', '/expertise/process-design', '/insights', '/about', '/contact', '/privacy']) {
@@ -100,11 +100,11 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
         return { h1: h1.fontFamily, body: body.fontFamily, bodySize: body.fontSize, p: p ? getComputedStyle(p).fontSize : null,
           loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '')) };
       });
-      if (!/^"?Source Serif 4"?/.test(t.h1)) problems.push(`${path}: h1 font-family ${t.h1}`);
-      if (!/^"?Inter"?/.test(t.body)) problems.push(`${path}: body font-family ${t.body}`);
-      if (!(parseFloat(t.bodySize) >= 18 && parseFloat(t.bodySize) <= 19)) problems.push(`${path}: body font-size ${t.bodySize}`);
-      if (!t.loaded.includes('Source Serif 4') || !t.loaded.includes('Inter')) problems.push(`${path}: web fonts not loaded (${t.loaded.join(', ')})`);
-      for (const f of fonts) if (/bricolage|ibm-plex|caveat|instrument|fraunces/i.test(f)) problems.push(`${path}: v2 font requested ${f}`);
+      if (!/^"?Bodoni Moda"?/.test(t.h1)) problems.push(`${path}: h1 font-family ${t.h1}`);
+      if (!/^"?Manrope"?/.test(t.body)) problems.push(`${path}: body font-family ${t.body}`);
+      if (!(parseFloat(t.bodySize) >= 16 && parseFloat(t.bodySize) <= 17)) problems.push(`${path}: body font-size ${t.bodySize}`);
+      if (!t.loaded.includes('Bodoni Moda') || !t.loaded.includes('Manrope')) problems.push(`${path}: web fonts not loaded (${t.loaded.join(', ')})`);
+      for (const f of fonts) if (/bricolage|ibm-plex|caveat|instrument|fraunces|source-serif|inter-latin/i.test(f)) problems.push(`${path}: v2 font requested ${f}`);
       await page.close();
     }
     await ctx.close();

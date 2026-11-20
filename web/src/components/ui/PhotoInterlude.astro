@@ -5,8 +5,8 @@
  * photos whose subject survives a wide crop (§9.2); the record's focal point applies automatically.
  *  Height: md = 40vw (≈ 2.5:1) · lg = 46vw (≈ 2.2:1), capped at 86 / 92svh and 900 / 1000px, 320 / 360px floor, so a
  *  3:2 photo keeps at least ~60 % of its height on every wide screen (1440 → 1920).
- *  Motion: the image drifts up to 6 % against the scroll (CSS scroll-driven [data-parallax], 3 % overscan each side);
- *  static under reduced motion or where scroll timelines are unsupported.
+ *  Motion (v4): data-gsap="parallax" on the photo frame (motion.ts): 1.12 overscan, ±5 % scrubbed drift; static under
+ *  reduced motion.
  *  Caption: white serif on a soft bottom gradient, bottom-left on the container grid (AA on the gradient).
  *  It is a <figure>; the caption is its <figcaption>. Without a caption the photo keeps its alt text.
  * Mobile: height = min(64svh, 100vw) so a landscape photo is never cut to a sliver (about 1:1 on a 390px phone);
@@ -40,8 +40,8 @@ const position = posProp ?? record?.position;
 const hasCap = !!(caption || eyebrow);
 ---
 <figure class:list={['interlude', `interlude--${size}`, hasCap && 'interlude--cap', cls]}>
-  <div class="interlude__frame" data-parallax>
-    <Photo src={src} alt={alt} position={position} fill sizes="100vw" class="interlude__photo" />
+  <div class="interlude__frame">
+    <Photo src={src} alt={alt} position={position} fill parallax sizes="100vw" class="interlude__photo" />
   </div>
   {hasCap && (
     <figcaption class="interlude__cap">
@@ -65,14 +65,14 @@ const hasCap = !!(caption || eyebrow);
 
   .interlude--cap .interlude__frame::after {
     content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(0deg, rgba(11, 27, 51, .82) 0%, rgba(11, 27, 51, .42) 30%, rgba(11, 27, 51, 0) 58%);
+    background: linear-gradient(0deg, rgba(14, 31, 77, .88) 0%, rgba(14, 31, 77, .45) 32%, rgba(14, 31, 77, 0) 60%);
   }
   .interlude__cap {
     position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
     padding-bottom: clamp(1.5rem, .9rem + 2.4vw, 3.5rem);
     color: var(--white);
   }
-  .interlude__eyebrow { color: var(--blue-300); margin-bottom: var(--s-3); }
+  .interlude__eyebrow { color: var(--saffron); margin-bottom: var(--s-3); }
   .interlude__caption {
     max-width: 34ch; margin: 0;
     font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; font-style: italic;
@@ -80,16 +80,4 @@ const hasCap = !!(caption || eyebrow);
     color: var(--white); text-wrap: balance;
   }
 
-  /* subtle parallax: 3 % overscan top and bottom, the image drifts from -3 % to +3 % while the frame crosses the view */
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .interlude .interlude__frame[data-parallax] :global(.photo .photo__img) {
-        top: -3%; height: 106%;
-        animation: kk-drift linear both;
-        animation-timeline: view();
-        animation-range: cover 0% cover 100%;
-      }
-      @keyframes kk-drift { from { translate: 0 -3%; } to { translate: 0 3%; } }
-    }
-  }
 </style>

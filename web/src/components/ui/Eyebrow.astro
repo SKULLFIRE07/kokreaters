@@ -1,13 +1,27 @@
 ---
 /**
- * Eyebrow / section label (REDESIGN-V3 §1.2 --fs-label): Inter 600, 12–13px, uppercase, tracking .12em, colour --label
- * (blue-700 on light grounds, blue-300 on navy). Mobile: same; wraps if long.
+ * Eyebrow / section label (v4 developer guide): Manrope 700, 13px, capitals, .16em tracking, colour --label (Deep Delft
+ * on light grounds; saffron on navy / Deep Delft). On dark grounds (.band--navy, .band--delft, or any `.on-dark`
+ * wrapper, e.g. text over a photo) a 40 × 2px saffron rule comes before the label; it draws in from the left once
+ * (data-gsap="rule", src/scripts/motion.ts). `rule` forces it on (true) or off (false); default 'auto' = dark grounds only.
+ * `tone="white"` sets the label itself in white (hero labels over photos). Mobile: same; wraps if long.
  */
 interface Props {
   as?: 'p' | 'span' | 'div';
+  rule?: boolean | 'auto';
+  tone?: 'default' | 'white';
   class?: string;
   [key: string]: unknown;
 }
-const { as: Tag = 'p', class: cls, ...rest } = Astro.props;
+const { as: Tag = 'p', rule = 'auto', tone = 'default', class: cls, ...rest } = Astro.props;
 ---
-<Tag class:list={['eyebrow', 't-label', cls]} {...rest}><slot /></Tag>
+<Tag class:list={['eyebrow', 't-label', rule === true && 'eyebrow--rule', rule === false && 'eyebrow--norule', tone === 'white' && 'eyebrow--white', cls]} {...rest}>
+  <span class="eyebrow__rule" data-gsap="rule" aria-hidden="true"></span><span class="eyebrow__text"><slot /></span>
+</Tag>
+<style is:global>
+  .eyebrow { display: flex; align-items: center; gap: 14px; }
+  .eyebrow__rule { display: none; flex: none; width: 40px; height: 2px; background: var(--saffron); }
+  :where(.band--navy, .band--delft, .on-dark) .eyebrow:not(.eyebrow--norule) .eyebrow__rule,
+  .eyebrow--rule .eyebrow__rule { display: block; }
+  .eyebrow--white { color: var(--white); }
+</style>

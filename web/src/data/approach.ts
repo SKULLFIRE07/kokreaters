@@ -82,3 +82,17 @@ export const faq: { q: string; a: string; confirm?: string }[] = [
     a: `We are based in the Netherlands and work with clients worldwide. ${firstName}’s career has taken him across India, Indonesia, Ukraine, Türkiye and the Netherlands. Travel for on-site work is agreed with you as part of the scope.`,
   },
 ];
+
+/**
+ * v4 Delft: "From the lab, to the plant, to the market." Three photo cards, wording verbatim from the client's homepage
+ * design (KoKreaters_Homepage_Design.html, 20 Nov 2026). Each card links to the expertise it describes (COMPOSED link).
+ */
+export const lanes = {
+  overline: 'Our approach',
+  headline: 'From the lab, to the plant, to the market.',
+  items: [
+    { n: 1, label: 'Develop', title: 'Concept, formulation and pilot trials', photo: 'develop-pipette', pillar: 'innovation' },
+    { n: 2, label: 'Scale', title: 'Process design, scale-up and plant performance', photo: 'scale-tanks', pillar: 'process' },
+    { n: 3, label: 'Access', title: 'Regulatory, supply chain and market entry', photo: 'access-ship', pillar: 'strategy' },
+  ],
+} as const;

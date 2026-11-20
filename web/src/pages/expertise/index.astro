@@ -1,22 +1,19 @@
 ---
 /**
- * /expertise (REDESIGN-V3 §4 "Expertise hub", re-composed for §9 "elegant full-screen", v3.1).
- *  1 PillarHero (the expertise section's hero, shared with the six pillar pages): expertiseHubPhoto fills the right
- *    ≈ 2/3 at full height and dissolves into navy; crumbs, eyebrow "Expertise", H1 "Expertise that connects science,
- *    plants and strategy." bottom-left. The intro moves to the section header below, so the first screen is the
- *    headline alone.
- *  2 The six areas (white) — SectionHeader split (title cols 1–7, the overview intro shown whole in cols 8–12), then the
- *    PillarIndex: six editorial rows, photo 7 cols / text 4 cols, alternating sides.
- *  3 "Not sure where you fit?" — this page's CtaBand (BaseLayout `cta` props): the prompt as the headline and
- *    "Start a conversation" → /contact as the button.
- * Mobile: the hero photo is a band above the H1; the intro stacks under the section title; each row is photo then text.
+ * /expertise (v4 Delft). Grounds: navy photo hero → white (the six services) → ice (the approach lanes) → CtaBand.
+ *  1 PillarHero: wheat against a blue sky under the navy gradient; label "Expertise", H1, the overview intro.
+ *  2 The six services (white): Head (label "What we do", h2, lead) and PillarIndex (six editorial photo rows).
+ *  3 ApproachLanes (ice): Develop / Scale / Access photo cards, each linking to its service.
+ *  4 "Not sure where you fit?": BaseLayout's CtaBand.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PillarHero from '@/components/expertise/PillarHero.astro';
+import Head from '@/components/expertise/Head.astro';
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
 import PillarIndex from '@/components/expertise/PillarIndex.astro';
+import ApproachLanes from '@/components/approach/ApproachLanes.astro';
 import { expertiseHubPhoto, expertiseOverview, pillars } from '@/data/pillars';
+import { whatWeDo } from '@/data/home';
 import { photos } from '@/data/photos';
 import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
@@ -31,11 +28,14 @@ const hero = photos[expertiseHubPhoto.slug];
 >
   <PillarHero
     crumbs={crumbs} eyebrow={expertiseOverview.overline} title={expertiseOverview.headline} titleId="expertise-title"
+    lead={expertiseOverview.intro}
     image={hero.src} imageAlt={hero.alt} imagePosition={expertiseHubPhoto.position ?? hero.position}
   />
 
   <Section ground="white" labelledby="areas-title">
-    <SectionHeader id="areas-title" title={microcopy.expertiseAreas} lead={expertiseOverview.intro} />
+    <Head id="areas-title" label={whatWeDo.overline} title={microcopy.expertiseAreas} lead={whatWeDo.intro} />
     <PillarIndex items={pillars} />
   </Section>
+
+  <ApproachLanes />
 </BaseLayout>

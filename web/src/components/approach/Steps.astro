@@ -15,9 +15,10 @@
  *  on hairlines; the index is not shown (the steps follow straight after the heading).
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Head from '@/components/expertise/Head.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { steps, stepLabels, stepsHeading } from '@/data/approach';
+import { method } from '@/data/home';
 import { showConfirm } from '@/lib/mode';
 import { pad2 } from '@/lib/format';
 
@@ -28,11 +29,11 @@ const rowsFor = (s: (typeof steps)[number]) =>
   FIELDS.filter((f) => s[f] !== null || showConfirm).map((f) => ({ label: stepLabels[f], value: bind(s[f]) }));
 const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
 ---
-<Section ground="grey" labelledby="steps-h" class="how">
+<Section ground="white" labelledby="steps-h" class="how">
   <div class="how__grid">
     <div class="how__aside">
       <div class="how__sticky">
-        <SectionHeader id="steps-h" title={stepsHeading} layout="stack" class="how__head" />
+        <Head id="steps-h" label={method.headline} title={stepsHeading} class="how__head" />
         <nav class="how__index" aria-label={stepsHeading}>
           <ol role="list">
             {steps.map((s) => (
@@ -49,11 +50,11 @@ const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
     </div>
 
     <ol class="how__steps" role="list">
-      {steps.map((s, i) => {
+      {steps.map((s) => {
         const slug = slugOf(s);
         const rows = rowsFor(s);
         return (
-          <li id={slug} class="step" data-reveal style={`--i:${i}`}>
+          <li id={slug} class="step">
             <p class="step__num"><span class="visually-hidden">{stepLabels.step} {s.n}</span><span aria-hidden="true">{pad2(s.n)}</span></p>
             <h3 id={`${slug}-h`} class="step__name">{s.name}</h3>
             <p class="step__copy">{s.copy}</p>
@@ -82,14 +83,14 @@ const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
   .step { border-top: 1px solid var(--rule); padding-block: var(--s-7) var(--s-8); }
   .step:last-child { padding-bottom: 0; }
   .step__num {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 300;
-    font-size: clamp(2.75rem, 2.2rem + 2.2vw, 4.5rem); line-height: 1; letter-spacing: -0.03em;
-    color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums;
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(3rem, 2.6rem + 1.6vw, 4rem); line-height: 1; letter-spacing: -0.01em;
+    color: var(--head); font-variant-numeric: lining-nums tabular-nums;
   }
   .step__name {
     margin-top: var(--s-5);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-    font-size: clamp(2rem, 1.7rem + 1.2vw, 3rem); line-height: 1.08; letter-spacing: -0.018em; color: var(--head);
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(1.75rem, 1.6rem + .6vw, 2.25rem); line-height: 1.15; color: var(--head);
   }
   .step__copy {
     margin-top: var(--s-4); max-width: 34ch;
@@ -99,8 +100,8 @@ const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
   .step__row { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
   .step__row:last-child { border-bottom: 1px solid var(--rule); }
   .step__row dt {
-    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
-    text-transform: uppercase; color: var(--fg-2);
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 700; letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--label);
   }
   .step__row dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
 
@@ -115,17 +116,17 @@ const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
     .how__index { display: block; }
     .how__index ol { --node: 20px; list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: var(--s-2); }
     .how__index ol::before {
-      content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: 28px; bottom: 28px; width: 1px; background: var(--label);
+      content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: 28px; bottom: 28px; width: 1px; background: var(--rule);
     }
     .idx__link {
       display: grid; grid-template-columns: var(--node) minmax(0, 1fr); align-items: center; column-gap: var(--s-5);
       min-height: 56px; color: var(--head); text-decoration: none;
     }
     .idx__node {
-      position: relative; z-index: 1; width: 14px; height: 14px; margin: 3px; border-radius: 50%;
-      background: var(--accent); border: 2px solid var(--white); box-shadow: 0 0 0 3px var(--accent);
+      position: relative; z-index: 1; width: 10px; height: 10px; margin: 5px;
+      background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
     }
-    .idx__name { font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.2; font-weight: 400; }
+    .idx__name { font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.2; font-weight: 400; }
     .idx__link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 
     .step { padding-block: var(--s-8) var(--s-9); }

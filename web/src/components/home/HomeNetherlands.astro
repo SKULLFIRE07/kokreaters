@@ -1,0 +1,37 @@
+---
+/**
+ * Home 10 · Netherlands band (v4 developer guide: "Based in the Netherlands" gets its own band). Full-bleed Dutch
+ * polder (nl-polder) under a navy gradient from the left (rgba(14,31,77,.92) fading out), the saffron-ruled label,
+ * H2 "A Dutch base. A global reach.", one line, and a white "Plan a visit or a call" button (→ /contact).
+ * Motion: the photo drifts inside the band (data-gsap="parallax"). Mobile: the gradient covers the whole band.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import Button from '@/components/ui/Button.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import { netherlands as nl } from '@/data/home';
+---
+<section class="hnl band--navy on-dark" aria-labelledby="hnl-heading">
+  <Photo slug="nl-polder" fill parallax sizes="100vw" position="60% 55%" class="hnl__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400]} />
+  <div class="hnl__scrim" aria-hidden="true"></div>
+  <div class="container hnl__inner">
+    <Eyebrow tone="white">{nl.overline}</Eyebrow>
+    <h2 id="hnl-heading" class="hnl__title">{nl.headline}</h2>
+    <p class="hnl__body">{nl.body}</p>
+    <div class="hnl__actions"><Button href={nl.button.href} variant="on-dark">{nl.button.label}</Button></div>
+  </div>
+</section>
+
+<style>
+  .hnl { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white); }
+  .hnl :global(.hnl__photo) { z-index: -2; }
+  .hnl__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(14, 31, 77, .92) 0%, rgba(14, 31, 77, .8) 60%, rgba(14, 31, 77, .55) 100%); }
+  .hnl__inner { display: flex; flex-direction: column; gap: 22px; padding-block: 88px; }
+  .hnl__title { margin: 0; max-width: 13ch; font-size: clamp(2.25rem, 1.8rem + 1.9vw, 3.5rem); line-height: 1.06; font-weight: 500; color: var(--white); }
+  .hnl__body { margin: 0; max-width: 540px; font-size: 1.0625rem; line-height: 1.65; color: #E4EAF5; }
+  .hnl__actions { padding-top: 8px; }
+  @media (min-width: 900px) {
+    .hnl__scrim { background: linear-gradient(90deg, rgba(14, 31, 77, .92) 0%, rgba(14, 31, 77, .75) 40%, rgba(14, 31, 77, .1) 80%); }
+    .hnl__inner { padding-block: 120px; }
+    .hnl__body { font-size: 1.125rem; }
+  }
+</style>

@@ -10,7 +10,7 @@
  *   (display: none on the other), so assistive tech never meets both; nothing scrolls sideways.
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Head from '@/components/expertise/Head.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { models, modelColumns, modelsHeading } from '@/data/approach';
 import { showConfirm } from '@/lib/mode';
@@ -18,10 +18,10 @@ import { showConfirm } from '@/lib/mode';
 /** Keep number ranges whole ("4–16 weeks" never breaks after the dash): a word joiner after the en dash. */
 const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
 ---
-<Section ground="grey" labelledby="models-h" class="models">
-  <SectionHeader id="models-h" title={modelsHeading} />
+<Section ground="white" labelledby="models-h" class="models">
+  <Head id="models-h" title={modelsHeading} />
 
-  <div class="models__wide" data-reveal>
+  <div class="models__wide">
     <table class="mtable">
       <caption class="visually-hidden">{modelsHeading}</caption>
       <colgroup><col class="mtable__c1" /><col class="mtable__c2" /><col class="mtable__c3" /></colgroup>
@@ -45,8 +45,8 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
   </div>
 
   <ul class="models__cards" role="list">
-    {models.map((m, i) => (
-      <li class="mcard" data-reveal style={`--i:${i}`}>
+    {models.map((m) => (
+      <li class="mcard">
         <h3 class="mcard__name">{m.model}</h3>
         <dl class="mcard__dl">
           <div><dt>{modelColumns.shape}</dt><dd>{bind(m.shape)}</dd></div>
@@ -65,9 +65,9 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
   .mtable__c1 { width: 30%; }
   .mtable__c2 { width: 30%; }
   .mtable thead th {
-    padding: 0 var(--s-6) var(--s-4) 0; border-bottom: 1px solid var(--rule-strong); vertical-align: bottom;
-    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; letter-spacing: var(--tr-label);
-    text-transform: uppercase; color: var(--fg-2);
+    padding: 0 var(--s-6) var(--s-4) 0; border-bottom: 1px solid var(--rule); vertical-align: bottom;
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 700; letter-spacing: var(--tr-label);
+    text-transform: uppercase; color: var(--label);
   }
   .mtable tbody :is(th, td) { padding: var(--s-6) var(--s-6) var(--s-6) 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
   .mtable :is(th, td):last-child { padding-right: 0; }
@@ -80,7 +80,7 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
 
   /* ── stacked hairline cards (< 700px; §9.3: no boxes) ── */
   .models__cards { list-style: none; margin: 0; padding: 0; display: grid; border-bottom: 1px solid var(--rule); }
-  .mcard { border-top: 1px solid var(--rule-strong); padding-block: var(--s-5) var(--s-6); }
+  .mcard { border-top: 1px solid var(--rule); padding-block: var(--s-5) var(--s-6); }
   .mcard + .mcard { border-top-color: var(--rule); }
   .mcard__name {
     font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: var(--lh-h3);
@@ -100,7 +100,7 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
     .models__cards { display: none; }
   }
   @media (min-width: 1200px) {
-    .mtable tbody :is(th, td) { padding-block: var(--s-7); }
-    .mtable td { font-size: var(--fs-lead); line-height: var(--lh-lead); }
+    .mtable tbody :is(th, td) { padding-block: var(--s-6); }
+    .mtable td { font-size: 1.0625rem; line-height: 1.6; }
   }
 </style>

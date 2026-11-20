@@ -11,7 +11,9 @@
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Section from '@/components/ui/Section.astro';
 import Confirm from '@/components/ui/Confirm.astro';
-import { founderName, longBio, bioSidenotes, aboutPage } from '@/data/founder';
+import { founderName, founderRole, longBio, bioSidenotes, aboutPage } from '@/data/founder';
+import { footer } from '@/data/nav';
+import { site } from '@/config/site';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 /** Keep "21%" / "15%" in one piece on any line (tabular, no-wrap). */
@@ -24,8 +26,12 @@ const [lede, ...rest] = paras;
 ---
 <Section ground="white" labelledby="bio-title" class="story">
   <div class="story__grid">
-    <SectionHeader id="bio-title" title={founderName} class="story__head" />
-    <div class="story__main" data-reveal>
+    <div class="story__head">
+      <SectionHeader id="bio-title" title={founderName} />
+      <p class="story__role">{founderRole}, {site.name}</p>
+      <p class="story__base"><span class="story__dot" aria-hidden="true"></span>{footer.contact.base}</p>
+    </div>
+    <div class="story__main">
       <p class="story__lede"><Fragment set:html={lede.html} /> <Confirm id={13} note="founded in 2026 and career dates" /></p>
     </div>
     <details class="story__more" data-smooth>
@@ -52,12 +58,16 @@ const [lede, ...rest] = paras;
 </Section>
 <style>
   .story__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .story__grid > :global(.story__head) { margin-bottom: var(--s-6); }
-  /* v3.1: the lede is the band's statement: a large light serif (21 → ≈ 37 at 1440 → 46px at 1920), measure ≤ 30ch */
+  .story__head { margin-bottom: var(--s-6); }
+  .story__head :global(.sh) { margin-bottom: 0; }
+  .story__role { margin: var(--s-4) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 700; color: var(--head); }
+  .story__base { display: flex; align-items: center; gap: var(--s-2); margin: var(--s-1) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
+  .story__dot { width: 6px; height: 6px; background: var(--saffron); flex: none; }
+  /* v4: the lede is the band's statement in Bodoni 24 → 40, measure ≤ 30ch */
   .story__lede {
     margin: 0; max-width: 30ch;
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 360;
-    font-size: clamp(1.3125rem, .82rem + 1.95vw, 2.875rem); line-height: 1.24; letter-spacing: -.016em; color: var(--head); text-wrap: pretty;
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); line-height: 1.25; letter-spacing: 0; color: var(--head); text-wrap: pretty;
   }
 
   /* the disclosure: the foundation's secondary button look on a native <summary> */
@@ -71,8 +81,8 @@ const [lede, ...rest] = paras;
   .story__rest { display: grid; gap: var(--s-6); padding-top: var(--s-7); }
   .story__row { display: grid; gap: var(--s-2); }
   .story__side { display: grid; gap: var(--s-1); }
-  .story__date { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 600; color: var(--label); }
-  .story__p { margin: 0; max-width: var(--measure); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  .story__date { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 700; color: var(--label); }
+  .story__p { margin: 0; max-width: var(--measure); font-size: 1.0625rem; line-height: 1.75; color: var(--fg-2); text-wrap: pretty; }
 
   @media (min-width: 600px) {
     .story__toggle { width: auto; gap: var(--s-4); }
@@ -80,7 +90,7 @@ const [lede, ...rest] = paras;
 
   @media (min-width: 900px) {
     .story__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
-    .story__grid > :global(.story__head) { grid-column: 1 / 5; margin-bottom: 0; }
+    .story__head { grid-column: 1 / 5; margin-bottom: 0; }
     .story__main { grid-column: 5 / -1; }
     .story__more { grid-column: 1 / -1; margin-top: var(--s-7); }
     /* the button lines up with the lede in column 5 */

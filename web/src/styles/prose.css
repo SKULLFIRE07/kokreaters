@@ -1,16 +1,19 @@
-/* src/styles/prose.css — long-form typography (owner: Insights builder, REDESIGN-V3 §4).
-   .prose            shared baseline (articles + legal): Inter body, serif h2/h3, hairline tables, accent-rule quotes.
-   .prose--article   insight articles: 18 → 20px Inter at ~70 characters, 1.7 leading, serif h2/h3 with generous lead-in
-                     space, bold run-in heads, phone-stacking exhibit tables, notes. Print rules at the end.
-   .prose--legal     legal pages (LegalLayout): same voice, plainer headings, 18px.
+/* src/styles/prose.css — long-form typography, v4 "Delft" (developer guide 20 Nov 2026).
+   .prose            shared baseline (articles + legal): Manrope body 16/26 in secondary text (#4A5878), Bodoni Moda
+                     h2/h3 in Delft Navy (Bodoni only at 24px and up; h4 and table heads are Manrope), thin #D9E0EC
+                     rules, italic Bodoni quotes.
+   .prose--article   insight articles: Manrope 18/30 at ~70 characters (a comfortable reading measure), Bodoni h2 32 → 40
+                     and h3 24 → 28 with generous lead-in space, bold run-in heads in navy, phone-stacking exhibit
+                     tables, notes, a Bodoni drop cap. Print rules at the end.
+   .prose--legal     legal pages (LegalLayout): same voice, 16/26 body, Bodoni h2 at 28.
    Element rules skip anything with a class, so components placed in MDX (Takeaways, Exhibit, ProcessChain,
    PullQuote, Note) keep their own styling. Mobile: body never below 18px; tables stack into one card per row < 600px. */
 
 .prose {
   max-width: var(--measure);
   font-size: var(--fs-body);
-  line-height: 1.65;
-  color: var(--fg);
+  line-height: 1.625;
+  color: var(--fg-2);
   font-variant-numeric: lining-nums proportional-nums;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
@@ -22,18 +25,18 @@
 /* ── Headings ── */
 .prose :where(h2, h3, h4):not([class]) { color: var(--head); text-wrap: balance; font-variant-numeric: lining-nums; }
 .prose h2:not([class]) {
-  font-family: var(--font-serif); font-optical-sizing: auto;
-  font-size: clamp(1.625rem, 1.439rem + .762vw, 2.125rem);   /* 26 → 34 */
-  line-height: 1.2; font-weight: 460; letter-spacing: -0.012em;
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);   /* 28 → 36 */
+  line-height: 1.18; font-weight: 500; letter-spacing: 0;
   margin-top: clamp(2.75rem, 2.2rem + 2.2vw, 4.25rem);
 }
 .prose h3:not([class]) {
-  font-family: var(--font-serif); font-optical-sizing: auto;
-  font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 560; letter-spacing: -0.003em;
+  font-family: var(--font-serif);
+  font-size: 1.5rem; line-height: 1.25; font-weight: 400; letter-spacing: 0;   /* 24: the Bodoni floor */
   margin-top: 2em;
 }
 .prose h4:not([class]) {
-  font-family: var(--font-sans); font-size: 1em; line-height: var(--lh-body); font-weight: 600; margin-top: 1.75em;
+  font-family: var(--font-sans); font-size: 1em; line-height: var(--lh-body); font-weight: 700; margin-top: 1.75em;
 }
 .prose :is(h2, h3, h4):not([class]) + * { margin-top: .65em; }
 
@@ -44,7 +47,7 @@
   text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
 }
 .prose a:not([class]):hover { text-decoration-color: var(--accent); }
-.prose strong { font-weight: 600; color: var(--head); }
+.prose strong { font-weight: 700; color: var(--head); }
 .prose em { font-style: italic; }
 .prose abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cursor: help; }
 .prose sup:not([class]) { font-size: .75em; line-height: 0; }
@@ -55,17 +58,17 @@
 .prose :is(ul, ol):not([class]) { padding-left: 1.35em; }
 .prose :is(ul, ol):not([class]) > li + li { margin-top: .5em; }
 .prose li > :is(ul, ol):not([class]) { margin-top: .5em; }
-.prose ul:not([class]) > li::marker { color: var(--accent); }
-.prose ol:not([class]) > li::marker { color: var(--fg-2); font-weight: 600; font-size: .9em; font-variant-numeric: lining-nums tabular-nums; }
+.prose ul:not([class]) > li::marker { color: var(--link); }
+.prose ol:not([class]) > li::marker { color: var(--link); font-weight: 700; font-size: .9em; font-variant-numeric: lining-nums tabular-nums; }
 .prose :is(ul, ol):not([class]) > li { padding-left: .3em; }
 
 /* ── Quotes (plain markdown; the PullQuote component styles itself) ── */
 .prose blockquote:not([class]) {
   margin-block: 2em;
   padding-left: var(--s-5);
-  border-left: 2px solid var(--accent);
-  font-family: var(--font-serif); font-optical-sizing: auto; font-style: italic; font-weight: 400;
-  font-size: var(--fs-h3); line-height: 1.4; letter-spacing: -0.005em;
+  border-left: 2px solid var(--saffron);
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: var(--fs-h3); line-height: 1.35; letter-spacing: 0;
   color: var(--head);
 }
 .prose blockquote:not([class]) > * + * { margin-top: .6em; }
@@ -83,17 +86,17 @@
   border-collapse: collapse;
   font-size: var(--fs-small); line-height: 1.5;
   font-variant-numeric: lining-nums tabular-nums;
-  border-top: 2px solid var(--rule-strong);
+  border-top: 1px solid var(--rule-strong);
 }
 .prose :is(th, td) { text-align: left; vertical-align: top; padding: var(--s-4) var(--s-5) var(--s-4) 0; border-bottom: 1px solid var(--rule); }
 .prose :is(th, td):last-child { padding-right: 0; }
 .prose thead th {
   padding-block: var(--s-3);
-  font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600; text-transform: uppercase;
-  letter-spacing: var(--tr-label); color: var(--fg-2); white-space: nowrap;
+  font-size: 12px; line-height: var(--lh-label); font-weight: 700; text-transform: uppercase;
+  letter-spacing: .14em; color: var(--label); white-space: nowrap;
 }
 .prose tbody td:first-child {
-  font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.0625rem; line-height: 1.4; font-weight: 500; color: var(--head);
+  font-family: var(--font-sans); font-size: 1rem; line-height: 1.45; font-weight: 700; color: var(--head);
 }
 .prose :is(td, th).num { text-align: right; }
 .prose .table-wrap { overflow-x: auto; max-width: 100%; }
@@ -113,38 +116,38 @@
   .prose .exhibit table[data-stack] tr:last-child { border-bottom: 0; padding-bottom: 0; }
   .prose table[data-stack] td { padding: 0; border: 0; font-size: 1.0625rem; line-height: 1.5; }
   .prose table[data-stack] td + td { margin-top: var(--s-4); }
-  .prose table[data-stack] tbody td:first-child { font-size: var(--fs-h4); line-height: var(--lh-h4); }
+  .prose table[data-stack] tbody td:first-child { font-size: 1.0625rem; line-height: 1.4; }
   .prose table[data-stack] td:not(:first-child)::before {
     content: attr(data-label); display: block; margin-bottom: 2px;
-    font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
-    color: var(--fg-2);
+    font: 700 12px/var(--lh-label) var(--font-sans); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--label);
   }
 }
 
-/* ── Article mode (v3.1: larger, airier headings; a serif drop cap opens the text) ── */
+/* ── Article mode (v4: Manrope 18/30 reading text, Bodoni headings, a Bodoni drop cap opens the text) ── */
 .prose--article {
   max-width: none;
-  font-size: clamp(1.125rem, 1.079rem + .19vw, 1.25rem);   /* 18 → 20 */
-  line-height: 1.72;
-  letter-spacing: -0.003em;
+  font-size: 1.125rem;   /* 18 */
+  line-height: 1.6667;   /* 30 */
+  letter-spacing: 0;
 }
 .prose--article > * + * { margin-top: 1.2em; }
 .prose--article h2:not([class]) {
-  font-size: clamp(1.75rem, 1.45rem + 1.25vw, 2.5rem);    /* 28 → 40 */
-  line-height: 1.15; font-weight: 420; letter-spacing: -0.018em;
-  margin-top: clamp(3.5rem, 2.6rem + 3.2vw, 6rem);
+  font-size: clamp(2rem, 1.7rem + 1.2vw, 2.5rem);    /* 32 → 40 */
+  line-height: 1.15; font-weight: 500; letter-spacing: 0;
+  margin-top: clamp(3.5rem, 2.6rem + 3.2vw, 5.5rem);
 }
-.prose--article h3:not([class]) { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 500; margin-top: 2.2em; }
+.prose--article h3:not([class]) { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 400; margin-top: 2.2em; }
 .prose--article > :is(h2, h3):not([class]) + * { margin-top: .8em; }
 /* Takeaways open the body; the first paragraph after it starts the text with a drop cap */
 .prose--article > .takeaways + * { margin-top: var(--s-8); }
 .prose--article > .takeaways + p:not([class])::first-letter {
   float: left; margin: .08em .1em 0 -.02em;
-  font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400;
-  font-size: 4.1em; line-height: .8; color: var(--head);
+  font-family: var(--font-serif); font-weight: 500;
+  font-size: 4.2em; line-height: .8; color: var(--head);
 }
 /* run-in heads: "**1. Raw material and crude oil.**" */
-.prose--article p:not([class]) > strong:first-child { color: var(--head); font-weight: 650; }
+.prose--article p:not([class]) > strong:first-child { color: var(--head); font-weight: 700; }
 .prose--article p:not([class]):has(> strong:first-child) + p:has(> strong:first-child) { margin-top: 1em; }
 .prose--article > :is(.exhibit, .pull) + * { margin-top: 0; }
 /* a component right under a heading keeps its own breathing room (the 2px exhibit rule must not read as an underline) */
@@ -152,9 +155,9 @@
 .prose--article > h2:not([class]):first-child { margin-top: 0; }
 
 /* ── Legal mode ── */
-.prose--legal { font-size: var(--fs-body); line-height: 1.65; }
-.prose--legal h2:not([class]) { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 500; margin-top: 2.5em; }
-.prose--legal h3:not([class]) { font-size: var(--fs-body); font-family: var(--font-sans); font-weight: 600; line-height: var(--lh-body); margin-top: 1.75em; }
+.prose--legal { font-size: var(--fs-body); line-height: 1.625; }
+.prose--legal h2:not([class]) { font-size: 1.75rem; line-height: 1.2; font-weight: 500; margin-top: 2.5em; }
+.prose--legal h3:not([class]) { font-size: var(--fs-body); font-family: var(--font-sans); font-weight: 700; line-height: var(--lh-body); margin-top: 1.75em; }
 
 /* ── Print (article "Download PDF" and legal pages) ── */
 @media print {

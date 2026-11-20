@@ -1,7 +1,7 @@
 ---
 /**
  * Article byline (REDESIGN-V3 §4 article), rendered in the article hero's aside under the standfirst (v3.1).
- * A 48px round crop of the square founder portrait, the author's name (links to /about), then
+ * A 48px square crop of the founder portrait (v4: square corners everywhere), the author's name (links to /about), then
  * "4 Nov 2026 · 5 min read". No date: Confirm C-14 in staging, nothing elsewhere. Draft label: staging only.
  * The photo is decorative (alt="") because the name sits beside it.
  * Mobile: same row; the meta line wraps under the name. The name link has a 44px-tall hit area (::after).
@@ -39,10 +39,10 @@ const draft = showDraftLabels && isDraft(entry);
 </div>
 <style>
   .byline { display: flex; align-items: center; gap: var(--s-3); }
-  .byline__photo { flex: none; width: 48px; height: 48px; border-radius: 50%; overflow: hidden; }
+  .byline__photo { flex: none; width: 48px; height: 48px; overflow: hidden; }
   .byline__text { margin: 0; display: grid; gap: 2px; font-size: var(--fs-small); line-height: var(--lh-small); }
   /* 23px line: an invisible ::after makes the hit area 44px tall (§7) while the focus ring stays tight to the name */
-  .byline__name { position: relative; justify-self: start; font-weight: 600; color: var(--head); text-decoration: none; }
+  .byline__name { position: relative; justify-self: start; font-weight: 700; color: var(--head); text-decoration: none; }
   .byline__name::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: max(100%, 44px); transform: translateY(-50%); }
   .byline__name:hover { text-decoration: underline; text-decoration-color: var(--accent); }
   .byline__meta { display: flex; flex-wrap: wrap; column-gap: var(--s-2); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }

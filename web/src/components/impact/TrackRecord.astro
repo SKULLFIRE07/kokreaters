@@ -1,24 +1,45 @@
 ---
 /**
- * Track record (REDESIGN-V3 §4 Impact): the home credibility figures (home.proof: 25 · 5 · 3 · WHO) as a StatStrip
- * directly under the navy hero, with its source line. Never other numbers. The heading is a small label-style h2
- * (McKinsey stat-strip feel: the figures carry the band, not a serif title).
- * Mobile: label, then the StatStrip's own 2 × 2 grid with hairlines; source under it.
+ * Track record (v4 Delft), exactly as the client's homepage design: label "Our track record" with the source line at
+ * the right, then four figures in Bodoni Moda 64px navy (data-gsap="count"; WHO is left alone by the motion module),
+ * each on a top rule: 3px saffron for the lead figure, 1px #D9E0EC for the others (data-gsap="rule"). The first word
+ * of each label is bold. Data: impact.ts `impactRecord` (25 · 14 · 5 · WHO; no regions count, per the guide).
+ * Mobile: two columns from 480px, one below.
  */
 import Section from '@/components/ui/Section.astro';
-import StatStrip from '@/components/ui/StatStrip.astro';
-import { proof, proofStripSource } from '@/data/home';
-import { impactPage } from '@/data/impact';
+import { impactRecord } from '@/data/impact';
 
 interface Props { ground?: 'white' | 'grey' }
 const { ground = 'grey' } = Astro.props;
-const items = proof.map(({ value, label }) => ({ value, label }));
+const head = (t: string) => t.split(' ')[0];
+const tail = (t: string) => t.split(' ').slice(1).join(' ');
 ---
-<Section ground={ground} pad="tight" labelledby="record-h" class="record">
-  <h2 id="record-h" class="record__h t-label">{impactPage.recordLabel}</h2>
-  <StatStrip items={items} source={`${proofStripSource}.`} />
+<Section ground={ground} labelledby="record-h" class="record">
+  <div class="record__top">
+    <h2 id="record-h" class="t-label record__h">{impactRecord.label}</h2>
+    <p class="record__src">{impactRecord.source}</p>
+  </div>
+  <ul class="record__list" role="list">
+    {impactRecord.items.map((it, i) => (
+      <li class:list={['stat', i === 0 && 'stat--lead']}>
+        <span class="stat__rule" aria-hidden="true" data-gsap="rule"></span>
+        <p class="stat__value" data-gsap="count">{it.value}</p>
+        <p class="stat__label"><strong>{head(it.label)}</strong> {tail(it.label)}</p>
+      </li>
+    ))}
+  </ul>
 </Section>
 <style>
-  .record__h { margin-bottom: var(--s-6); }
-  @media (min-width: 900px) { .record__h { margin-bottom: var(--s-7); } }
+  .record { --_pad: clamp(4rem, 3rem + 2.5vw, 5.5rem); }
+  .record__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 40px; }
+  .record__src { font-size: var(--fs-meta); color: var(--fg-2); }
+  .record__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .stat { position: relative; padding-top: 26px; }
+  .stat__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transform-origin: left center; }
+  .stat--lead .stat__rule { height: 3px; background: var(--saffron); }
+  .stat__value { font-family: var(--font-serif); font-size: 4rem; line-height: 1; font-weight: 400; color: var(--head); font-variant-numeric: lining-nums tabular-nums; }
+  .stat__label { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--fg-2); max-width: 26ch; }
+  .stat__label strong { color: var(--head); font-weight: 700; }
+  @media (min-width: 480px) { .record__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .record__list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>

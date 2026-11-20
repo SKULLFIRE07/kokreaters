@@ -1,18 +1,12 @@
 ---
 /**
- * Home 7 · Founder (REDESIGN-V3 §4 Home 7, §8.4, §9.2 "no image cut", §9.3). Navy band (v3.2 polish: the studio portrait
- * and the quote in white read as a premium statement), full section padding.
- * The studio portrait (src/assets/photos/ganeaysh-portrait.jpg, 1600 × 2000) is shown WHOLE in a 4:5 frame, its own
- * proportions, so nothing is cropped (head, shoulders and jacket all inside the frame); it settles in on scroll.
- * ≥ 900px: a 5/7 composition (portrait 4 columns from 1600px, so it stays under a screen tall). Portrait in columns 1–5; one column of air; then, vertically centred on the portrait, the
- *  band label "Founder" (the section's h2), the founder quote in large upright serif with a hanging open quote, a short
- *  hairline, the byline (founder.ts name + role) and "Meet Ganeaysh" → /about.
- * 600–899: the same idea in two columns (portrait 5 of 12, text 7), the quote one step smaller.
- * Mobile (< 600px): the portrait, framed at 4:5 and up to 320px wide (left-aligned on the grid) → label → quote →
- *  byline → link. The quote wording is CONFIRM 4 (staging-only tag).
- * The attribution sits outside the blockquote (WHATWG), in the byline that follows it.
+ * Home 11 · Founder (v4 developer guide). Porcelain band: the studio portrait (src/assets/photos/ganeaysh-portrait.jpg)
+ * left; right, vertically centred: "Founder" label, the quote in italic Bodoni (40/50), a 56 × 3px saffron rule (draws
+ * in once), "Ganeaysh Kulkarni" + "Chief Catalyst and Founder, KoKreaters", and "Meet Ganeaysh →" (/about).
+ * The attribution sits outside the blockquote (WHATWG). The quote wording is CONFIRM 4 (staging-only tag).
+ * Motion: the portrait lifts a touch while it crosses the viewport (data-gsap="lift"); the rule draws in.
+ * Mobile: portrait (4:5, up to 400px wide) above the text.
  */
-import Section from '@/components/ui/Section.astro';
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Confirm from '@/components/ui/Confirm.astro';
@@ -21,68 +15,45 @@ import { founderName, founderRole, portraitAlt } from '@/data/founder';
 import { site } from '@/config/site';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 ---
-<Section ground="navy" labelledby="founder-heading" class="hf">
-  <div class="hf__grid">
-    <div class="hf__media" data-reveal>
-      <Photo
-        src={portrait} alt={portraitAlt.founder} ratio="4/5" position="50% 50%"
-        sizes="(min-width: 1440px) 520px, (min-width: 1200px) 36vw, (min-width: 600px) 38vw, 320px"
-        widths={[320, 480, 640, 800, 1040, 1280, 1600]}
-        settle
-      />
+<section id="about" class="hf band band--grey" aria-labelledby="founder-heading">
+  <div class="container hf__grid">
+    <div class="hf__media" data-gsap="lift">
+      <Photo src={portrait} alt={portraitAlt.founder} fill position="50% 20%"
+        sizes="(min-width: 1000px) 460px, min(100vw - 40px, 400px)" widths={[400, 640, 800, 960, 1280]} />
     </div>
     <div class="hf__body">
-      <h2 id="founder-heading" class="hf__label t-label" data-reveal>{founderQuote.folio}</h2>
-      <blockquote class="hf__quote" data-reveal style="--i:1">
-        <p>“{founderQuote.quote}”</p>
-      </blockquote>
-      <div class="hf__by" data-reveal style="--i:2">
-        <p class="hf__who">
-          <span class="hf__name">{founderName}</span>
-          <span class="hf__role">{founderRole}, {site.name}</span>
-          <Confirm id={4} note="founder quote wording" />
-        </p>
-        <ArrowLink href={founderQuote.link.href} class="hf__link">{founderQuote.link.label}</ArrowLink>
-      </div>
+      <h2 id="founder-heading" class="t-label hf__label">{founderQuote.folio}</h2>
+      <blockquote class="hf__quote"><p>“{founderQuote.quote}”</p></blockquote>
+      <span class="hf__rule" data-gsap="rule" aria-hidden="true"></span>
+      <p class="hf__who">
+        <span class="hf__name">{founderName}</span>
+        <span class="hf__role">{founderRole}, {site.name}</span>
+        <Confirm id={4} note="founder quote wording" />
+      </p>
+      <ArrowLink href={founderQuote.link.href} class="hf__link">{founderQuote.link.label}</ArrowLink>
     </div>
   </div>
-</Section>
+</section>
 
 <style>
-  .hf__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-7); }
-  .hf__media { width: min(100%, 320px); }
-  .hf__body { display: flex; flex-direction: column; }
-  .hf__label { margin: 0 0 var(--s-5); color: var(--label); }
-  .hf__quote {
-    margin: 0; color: var(--head);
-    font-family: var(--font-serif); font-optical-sizing: auto; font-style: normal; font-weight: 400;
-    font-size: var(--fs-quote); line-height: var(--lh-quote); letter-spacing: -0.015em;
-    max-width: 24ch; text-wrap: pretty;
+  .hf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: center; }
+  .hf__media { position: relative; width: min(100%, 400px); aspect-ratio: 4 / 5; overflow: hidden; background: var(--ice); }
+  .hf__body { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
+  .hf__label { margin: 0; }
+  .hf__quote { margin: 0; }
+  .hf__quote p {
+    margin: 0; max-width: 22ch;
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem); line-height: 1.25; color: var(--navy-900); text-wrap: pretty;
+    text-indent: -.4em;
   }
-  .hf__quote p { text-indent: -.42em; }
-  .hf__by { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--rule); max-width: 28rem; }
-  .hf__who { display: flex; flex-direction: column; gap: 4px; line-height: 1.4; }
-  .hf__name { font-size: 1.1875rem; font-weight: 650; color: var(--head); }
-  .hf__role { font-size: var(--fs-small); font-weight: 500; color: var(--fg-2); }
-  .hf__media :global(img) { box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .55); }
-  .hf__who :global(.confirm) { align-self: flex-start; margin: var(--s-1) 0 0; }
-  .hf__by :global(.hf__link) { margin-top: var(--s-3); }
-
-  @media (min-width: 600px) {
-    .hf__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: center; }
-    .hf__media { grid-column: 1 / span 5; width: auto; }
-    .hf__body { grid-column: 7 / -1; }
-    .hf__quote { font-size: clamp(1.5rem, 1.1rem + 1.2vw, 1.75rem); }
-  }
+  .hf__rule { display: block; width: 56px; height: 3px; background: var(--saffron); }
+  .hf__who { margin: 0; display: flex; flex-direction: column; gap: 4px; }
+  .hf__name { font-size: 1.125rem; font-weight: 700; color: var(--navy-900); }
+  .hf__role { font-size: .9375rem; color: var(--fg-2); }
+  .hf :global(.hf__link) { margin-top: -12px; }
   @media (min-width: 900px) {
-    .hf__quote { font-size: clamp(1.75rem, .9rem + 2.1vw, 3.25rem); line-height: 1.22; max-width: 22ch; }
-    .hf__label { margin-bottom: var(--s-6); }
-    .hf__by { margin-top: var(--s-8); }
-  }
-  /* very wide: the portrait stays below the fold height (4 columns ≈ 570 × 714 at 1920), the quote gains the room */
-  @media (min-width: 1600px) {
-    .hf__media { grid-column: 1 / span 4; }
-    .hf__body { grid-column: 6 / -1; }
-    .hf__quote { font-size: clamp(3rem, 1.2rem + 1.9vw, 3.5rem); max-width: 24ch; }
+    .hf__grid { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); column-gap: clamp(56px, 7vw, 96px); }
+    .hf__media { width: 100%; aspect-ratio: auto; height: 560px; }
   }
 </style>

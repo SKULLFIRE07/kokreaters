@@ -26,7 +26,7 @@ export const founderResults: FounderResult[] = [
   { id: 'indonesia', dateline: 'Indonesia · Wilmar',
     homeLine: '21% growth in Indonesia by reshaping manufacturing operations.',
     emphasis: ['21%'],
-    context: 'Capability · Indonesia · From our founder’s career (Wilmar)',
+    context: 'Fractional CTO · Indonesia · From our founder’s career (Wilmar)',
     outcome: '21% growth in Indonesia',
     challenge: 'Turn manufacturing operations in Indonesia into a source of growth for the business.',
     done: 'Reshaped manufacturing operations.', result: '21% growth.',
@@ -69,6 +69,22 @@ export const engagements: Engagement[] = [
 ];
 
 export const testimonials: { quote: string; name: string; role: string; permission: true }[] = [];   // CONFIRM 8: render nothing while empty
+
+/**
+ * v4 Delft: the track record exactly as the client's homepage design states it (developer guide content fixes: show both
+ * "25 years in industry" and "14 years in oils, fats and food ingredients"; no count of regions). `lead` gets the 3px
+ * saffron top rule. The first word of each label is set bold.
+ */
+export const impactRecord = {
+  label: 'Our track record',
+  source: 'Figures from our founder’s career at Wilmar and Cargill.',
+  items: [
+    { value: '25', label: 'years in industry, from plant floor to boardroom' },
+    { value: '14', label: 'years in oils, fats and food ingredients' },
+    { value: '5', label: 'countries of hands-on plant and business leadership' },
+    { value: 'WHO', label: 'Director-General recognition for trans-fat elimination work' },
+  ],
+};
 
 /** /impact page copy (5.6). */
 export const impactPage = {

@@ -30,8 +30,8 @@ const cards = visible.slice(0, 3);
 <RailSection id="related-title" title={microcopy.relatedInsights} ground={ground} rule={rule}>
   {cards.length > 0 && (
     <ul class="ri__cards" role="list">
-      {cards.map((e, i) => (
-        <li data-reveal style={`--i:${i}`}>
+      {cards.map((e) => (
+        <li>
           <InsightCard
             size="text" href={insightHref(e)} title={e.data.title} label={formatLabel(e)} summary={e.data.standfirst}
             date={e.data.date} readTime={insightReadingTime(e)}
@@ -43,7 +43,7 @@ const cards = visible.slice(0, 3);
     </ul>
   )}
   {coming.length > 0 && (
-    <div class:list={['ri__soon', cards.length > 0 && 'ri__soon--after']} data-reveal style="--i:1">
+    <div class:list={['ri__soon', cards.length > 0 && 'ri__soon--after']}>
       <h3 class="ri__soon-title t-label">{microcopy.inPreparation}</h3>
       <ul class="ri__soon-list" role="list">
         {coming.map((e) => (
@@ -65,8 +65,8 @@ const cards = visible.slice(0, 3);
   .ri__soon-list :global(.ri__soon-tag) { grid-area: 1 / 2; justify-self: end; }
   .ri__soon-format { grid-area: 1 / 1; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
   .ri__soon-name {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    grid-column: 1 / -1; font-weight: 450; color: var(--fg-2); text-wrap: pretty;
+    font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.45;
+    grid-column: 1 / -1; font-weight: 600; color: var(--fg-2); text-wrap: pretty;
   }
   @media (min-width: 600px) {
     .ri__soon-list li { grid-template-columns: 9.5rem minmax(0, 1fr) auto; column-gap: var(--s-5); align-items: baseline; }

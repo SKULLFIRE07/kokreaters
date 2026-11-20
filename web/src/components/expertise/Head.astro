@@ -1,0 +1,49 @@
+---
+/**
+ * v4 Delft section head for the PAGES-A routes, after the client's homepage design: label (13px caps, Deep Delft; with
+ * the saffron rule on dark), H2 in Bodoni Moda 500 (--fs-h2: 36 → 52, line 1.08), then either a lead (18px, #4A5878)
+ * beside it from 1024px (title 7 cols, lead 5, bottom-aligned) or a "link →" at the right end.
+ * Mobile: one column; the lead and link follow the title. 40 → 64px below the head.
+ */
+import Kicker from './Kicker.astro';
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  label?: string;
+  lead?: string;
+  link?: { label: string; href: string };
+  dark?: boolean;
+  level?: 2 | 3;
+  class?: string;
+}
+const { id, title, label, lead, link, dark = false, level = 2, class: cls } = Astro.props;
+const H = level === 3 ? 'h3' : 'h2';
+---
+<header class:list={['hd', (lead || link) && 'hd--side', cls]}>
+  <div class="hd__main">
+    {label && <Kicker rule={dark}>{label}</Kicker>}
+    <H id={id} class="hd__title">{title}</H>
+  </div>
+  {lead && <p class="hd__lead">{lead}</p>}
+  {link && <a class="hd__link u-hover" href={link.href}><span class="u-draw">{link.label}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></a>}
+</header>
+<style>
+  .hd { display: grid; gap: var(--s-5); margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  .hd__main { display: grid; gap: 18px; }
+  .hd__title {
+    font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-h2); line-height: 1.08; letter-spacing: -0.005em;
+    color: var(--head); max-width: 20ch; text-wrap: balance;
+  }
+  .hd__lead { font-size: 1.0625rem; line-height: 1.65; color: var(--fg-2); max-width: 52ch; text-wrap: pretty; }
+  .hd__link {
+    justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
+    font-size: var(--fs-nav); font-weight: 700; color: var(--link); text-decoration: none;
+  }
+  @media (min-width: 1024px) {
+    .hd--side { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 80px; align-items: end; }
+    .hd__lead { font-size: 1.125rem; }
+    .hd__link { justify-self: end; margin-bottom: -6px; }
+  }
+</style>

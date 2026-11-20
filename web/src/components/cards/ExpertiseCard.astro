@@ -1,5 +1,7 @@
 ---
 /**
+ * v4 Delft (client homepage "What we do"): "01" in Deep Delft 14px 700, name in Bodoni Moda 28px 400, the line in
+ * Manrope 16px #4A5878, "Learn more →" 15px 700; thin #D9E0EC top rule; data-gsap="lift".
  * Expertise card (REDESIGN-V3 §3, §9.3 "cards lighter"). No box: a 1px hairline on top, open space, the text on the
  * band's own ground. Icon + "01" → serif title (pillar name) → promise → (hub: "Typical deliverables" small list) →
  * "Learn more →" pinned to the bottom. The title link is stretched over the whole card.
@@ -11,7 +13,7 @@
  * Mobile: full-width card, 24px padding; in a .card-grid it is 1 col < 600, 2 cols 600–899, 3 cols ≥ 900.
  */
 import type { Pillar } from '@/data/types';
-import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
+import { pillarNumber } from '@/lib/pillars';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import { microcopy } from '@/data/microcopy';
 import { pillarPage } from '@/data/pillars';
@@ -26,9 +28,9 @@ const { pillar, variant = 'home', level = 3, class: cls } = Astro.props;
 const H = `h${level}` as 'h2' | 'h3' | 'h4';
 const href = `/expertise/${pillar.slug}`;
 ---
-<article class:list={['xcard', `xcard--${variant}`, 'u-hover', cls]}>
+<article class:list={['xcard', `xcard--${variant}`, 'u-hover', cls]} data-gsap="lift">
   <div class="xcard__top">
-    <ExpertiseIcon pillar={pillar.key} />
+    <span class="xcard__n">{pillarNumber(pillar)}</span>
   </div>
   <H class="xcard__title"><a href={href} class="xcard__link">{pillar.name}</a></H>
   <p class="xcard__promise">{pillar.promise}</p>
@@ -45,7 +47,7 @@ const href = `/expertise/${pillar.slug}`;
 <style>
   .xcard {
     position: relative; display: flex; flex-direction: column; height: 100%;
-    padding: var(--s-6) 0 var(--s-2);
+    padding: 32px 0 36px;
     border-top: 1px solid var(--rule);
   }
   .xcard::before {
@@ -53,17 +55,18 @@ const href = `/expertise/${pillar.slug}`;
     transform: scaleX(0); transform-origin: left; transition: transform var(--d-3) var(--ease-out);
   }
   .xcard:hover::before, .xcard:has(.xcard__link:focus-visible)::before { transform: scaleX(1); }
-  .xcard__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--s-6); color: var(--label); }
+  .xcard__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; color: var(--label); }
+  .xcard__n { font-size: .875rem; font-weight: 700; font-variant-numeric: lining-nums tabular-nums; }
   .xcard__title {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.2;
-    font-weight: 450; letter-spacing: -0.01em; color: var(--head); text-wrap: balance; max-width: 18ch;
+    font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2;
+    font-weight: 400; letter-spacing: 0; color: var(--head); text-wrap: balance; max-width: 20ch;
   }
   .xcard__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
   .xcard__link::after { content: ""; position: absolute; inset: -2px 0 0; z-index: 1; }
   .xcard__link:focus-visible { outline: none; }
   .xcard:has(.xcard__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 6px; }
   .xcard:hover .xcard__link { color: var(--link); }
-  .xcard__promise { margin-top: var(--s-4); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; max-width: 36ch; }
+  .xcard__promise { margin-top: 12px; font-size: 1rem; line-height: 1.6; color: var(--fg-2); text-wrap: pretty; max-width: 36ch; }
   .xcard__deliv--empty { display: none; }
   .xcard__deliv { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--rule); }
   .xcard__dlabel { color: var(--fg-2); margin-bottom: var(--s-3); }
@@ -73,9 +76,9 @@ const href = `/expertise/${pillar.slug}`;
   .xcard__dlist li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 1px; background: var(--accent); }
   .xcard__dlist li::first-letter { text-transform: uppercase; }
   /* the ArrowLink here is a padding-free <span> (the whole card is the link), so the foot carries the space */
-  .xcard__foot { margin-top: auto; padding-top: var(--s-6); }
+  .xcard__foot { margin-top: auto; padding-top: 18px; font-weight: 700; }
   @media (min-width: 900px) {
-    .xcard { padding: var(--s-7) var(--s-5) var(--s-2) 0; }
+    .xcard { padding: 32px var(--s-5) 36px 0; }
   }
 
   /* row subgrid: the card's 4/5 parts line up with its neighbours' (see header) */

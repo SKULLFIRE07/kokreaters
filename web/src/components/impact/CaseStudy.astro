@@ -92,24 +92,24 @@ const sizes = orient === 'portrait'
   : '(min-width: 1600px) 1200px, (min-width: 900px) 80vw, calc(100vw - 40px)';
 ---
 <article id={result.id} class:list={['case', `case--${orient}`, `case--media-${side}`]} aria-labelledby={titleId}>
-  <header class="case__head" data-reveal>
+  <header class="case__head">
     <p class="case__kicker">
-      <span class="case__eyebrow t-label">{eyebrow}</span>
+      <span class="case__rule" aria-hidden="true" data-gsap="rule"></span><span class="case__eyebrow t-label">{eyebrow}</span>
     </p>
     <h3 id={titleId} class="case__title" set:html={outcomeHtml} />
   </header>
 
-  <div class="case__media" data-reveal style="--i:1">
-    <div class="case__frame">
-      <Photo src={photo.src} alt={photo.alt} position={photo.position} fill settle sizes={sizes} />
+  <div class="case__media">
+    <div class="case__frame" data-gsap="parallax">
+      <Photo src={photo.src} alt={photo.alt} position={photo.position} fill sizes={sizes} />
     </div>
   </div>
 
   {figures.length > 0 && (
-    <ul class:list={['case__figs', figures.length > 1 && 'case__figs--pair']} role="list" data-reveal style="--i:1">
+    <ul class:list={['case__figs', figures.length > 1 && 'case__figs--pair']} role="list">
       {figures.map((f) => (
         <li class="case__figure">
-          <span class="case__value" data-count>{f.value}</span>
+          <span class="case__value" data-gsap="count">{f.value}</span>
           {f.caption && <span class="case__caption">{f.caption}</span>}
         </li>
       ))}
@@ -119,7 +119,7 @@ const sizes = orient === 'portrait'
   <div class="case__body">
 
     {rows.length > 0 && (
-      <dl class="case__rows" data-reveal style="--i:2">
+      <dl class="case__rows">
         {rows.map((r) => (
           <div class="case__row" data-row={r.key}>
             <dt class="case__dt t-label">{r.label}</dt>
@@ -142,22 +142,22 @@ const sizes = orient === 'portrait'
   .case {
     display: grid; grid-template-columns: minmax(0, 1fr);
     scroll-margin-top: calc(var(--scroll-offset) + var(--s-6));   /* /impact#<id> lands clear of the header */
-    --fig: clamp(4rem, 1.5rem + 6.2vw, 9rem);                      /* 64 (390) → ≈ 113 (1440) → 144 (1920) */
+    --fig: clamp(4rem, 3.4rem + 2vw, 5.25rem);                      /* 64 → 84 (guide: big numbers 64, 84 in the impact band) */
   }
 
   /* context label, opened by a short accent rule */
   .case__kicker { margin: 0; display: flex; align-items: center; gap: var(--s-4); }
-  .case__kicker::before { content: ""; flex: none; width: 32px; height: 2px; background: var(--accent); }
+  .case__rule { flex: none; width: 40px; height: 2px; background: var(--saffron); transform-origin: left center; }
   .case__eyebrow { color: var(--label); }
   .case__title {
     margin-top: var(--s-5); max-width: 22ch;
-    font-size: calc(var(--fs-h2) * .84); line-height: 1.14; font-weight: 400; letter-spacing: var(--tr-h2);
+    font-family: var(--font-serif); font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem); line-height: 1.14; font-weight: 400; color: var(--head); letter-spacing: var(--tr-h2);
     text-wrap: balance;
   }
 
   /* the photo, in its natural orientation */
   .case__media { margin-top: var(--s-7); }
-  .case__frame { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--grey-100); aspect-ratio: 3 / 2; }
+  .case__frame { position: relative; overflow: hidden; background: var(--ice); aspect-ratio: 3 / 2; }
   .case--portrait .case__frame { aspect-ratio: 3 / 4; }
 
   /* large figures */
@@ -165,20 +165,20 @@ const sizes = orient === 'portrait'
   .case__figs { list-style: none; margin: var(--s-7) 0 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--s-6) var(--s-8); min-width: 0; }
   .case__figure { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
   .case__value {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 460;
-    font-size: var(--fig); line-height: .92; letter-spacing: -0.035em; color: var(--figure);
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: var(--fig); line-height: 1; letter-spacing: -0.01em; color: var(--head);
     font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
   .case__figs--pair { column-gap: var(--s-6); }
-  .case__figs--pair .case__value { font-size: calc(var(--fig) * .72); }
+  .case__figs--pair .case__value { font-size: calc(var(--fig) * .82); }
   .case__caption { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); max-width: 24ch; text-wrap: pretty; }
 
   /* The challenge / What was done / The result */
   .case__rows { margin: var(--s-7) 0 0; display: grid; }
   .case__row { padding-block: var(--s-4) var(--s-5); border-top: 1px solid var(--rule); }
-  .case__dt { color: var(--fg-2); }
+  .case__dt { color: var(--label); }
   .case__dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); max-width: 46ch; text-wrap: pretty; }
-  .case__row[data-row='result'] .case__dd { color: var(--head); font-weight: 500; }
+  .case__row[data-row='result'] .case__dd { color: var(--head); font-weight: 600; }
   .case__dd :global(abbr) { text-decoration-thickness: 1px; text-underline-offset: .18em; cursor: help; }
   .case__note { margin: var(--s-3) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 46ch; }
 

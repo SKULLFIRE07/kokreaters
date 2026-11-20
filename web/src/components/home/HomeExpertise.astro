@@ -1,58 +1,79 @@
 ---
 /**
- * Home 3 · What we do (REDESIGN-V3 §4 Home 3, §9.3–9.4 "asymmetric editorial compositions", "sticky storytelling").
- * Grey band. ≥ 1200px: a 5/7 split. Columns 1–5 hold the header (eyebrow "What we do", the brief's "Six ways we create
- *  value, together.", the intro, "All expertise →"); it stays sticky under the header while the six light
- *  ExpertiseCards scroll past in a 2 × 3 grid in columns 7–12 (one column of air between them).
- * 600–1199: header stacked on top (title, intro, link), then the cards 2 × 3 across the full width.
- * Mobile (< 600px): one column of full-width cards under the header; the link sits under the intro.
+ * Home 5 · What we do (v4 developer guide + homepage design). White band. Header: label + Bodoni H2 on the left, the
+ * intro on the right, bottom-aligned. Then the six services from src/data/pillars.ts (order, names and lines are
+ * Ganeaysh's) in a 3 × 2 grid with thin rules: number · Bodoni title · line · "Learn more →" to its expertise page.
+ * Each card is one link. Hover: a Deep Delft line draws over the hairline, the title turns Deep Delft, the arrow nudges.
+ * Motion: the hairlines draw in once (data-gsap="rule"). Mobile: one column (two from 600px).
  */
-import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
-import ArrowLink from '@/components/ui/ArrowLink.astro';
-import ExpertiseCard from '@/components/cards/ExpertiseCard.astro';
-import { whatWeDo } from '@/data/home';
+import Icon from '@/components/ui/Icon.astro';
 import { pillars } from '@/data/pillars';
-import { megaMenu } from '@/data/nav';
+import { whatWeDo } from '@/data/home';
+import { microcopy } from '@/data/microcopy';
+import { pad2 } from '@/lib/format';
 import { keepCompounds } from './typo';
-
-// Promise lines are short display strings: keep "Go/No-Go" whole on a 360px phone.
-const cards = pillars.map((p) => ({ ...p, promise: keepCompounds(p.promise) }));
 ---
-<Section ground="grey" labelledby="whatwedo-heading" class="hx">
-  <div class="hx__grid">
-    <div class="hx__aside">
-      <div class="hx__sticky">
-        <SectionHeader
-          id="whatwedo-heading"
-          eyebrow={whatWeDo.overline}
-          title={whatWeDo.headline}
-          lead={whatWeDo.intro}
-          layout="stack"
-          class="hx__head"
-        />
-        <p class="hx__link" data-reveal style="--i:2"><ArrowLink href={megaMenu.all.href}>{megaMenu.all.label}</ArrowLink></p>
+<section id="expertise" class="hx band band--white" aria-labelledby="hx-heading">
+  <div class="container">
+    <header class="hx__head">
+      <div class="hx__title-wrap">
+        <p class="t-label hx__label">{whatWeDo.overline}</p>
+        <h2 id="hx-heading" class="hx__title">{whatWeDo.headline}</h2>
       </div>
-    </div>
-    <ul class="card-grid hx__cards" style="--cols:2" role="list">
-      {cards.map((p, i) => (
-        <li data-reveal style={`--i:${i % 2}`}><ExpertiseCard pillar={p} /></li>
+      <p class="hx__intro">{whatWeDo.intro}</p>
+    </header>
+    <ul class="hx__grid" role="list">
+      {pillars.map((p) => (
+        <li>
+          <a class="hx__card u-hover" href={`/expertise/${p.slug}`}>
+            <span class="hx__rule" data-gsap="rule" aria-hidden="true"></span>
+            <span class="hx__hover" aria-hidden="true"></span>
+            <span class="hx__n">{pad2(p.n)}</span>
+            <h3 class="hx__name">{p.name}</h3>
+            <span class="hx__line">{keepCompounds(p.promise)}</span>
+            <span class="hx__more">{microcopy.pillarLink}<Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /><span class="visually-hidden">: {p.name}</span></span>
+          </a>
+        </li>
       ))}
     </ul>
   </div>
-</Section>
+</section>
 
 <style>
-  .hx__grid { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .hx__grid :global(.hx__head) { margin-bottom: var(--s-5); }
-  .hx__link { margin: 0 0 clamp(3rem, 2.2rem + 3.3vw, 5rem); }
+  .hx__head { display: grid; gap: 24px; margin-bottom: 48px; }
+  .hx__label { margin: 0 0 18px; }
+  .hx__title { margin: 0; max-width: 16ch; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; }
+  .hx__intro { margin: 0; max-width: 46ch; font-size: 1.125rem; line-height: 1.65; color: var(--fg-2); }
 
-  @media (min-width: 1200px) {
-    .hx__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
-    .hx__aside { grid-column: 1 / span 5; align-self: stretch; }
-    .hx__sticky { position: sticky; top: calc(var(--header-h) + var(--s-8)); }
-    .hx__grid :global(.hx__head) { margin-bottom: var(--s-6); }
-    .hx__link { margin: 0; }
-    .hx__cards { grid-column: 7 / -1; }
+  .hx__grid { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 48px; margin: 0; padding: 0; list-style: none; }
+  .hx__grid > li { display: flex; }
+  .hx__card {
+    position: relative; flex: 1; display: flex; flex-direction: column; gap: 12px;
+    padding: 32px 0 36px; color: var(--navy-900); text-decoration: none;
+  }
+  .hx__rule, .hx__hover { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--rule); }
+  .hx__hover { background: var(--blue-700); transform: scaleX(0); transform-origin: 0 50%; transition: transform 600ms var(--ease-out); }
+  .hx__card:is(:hover, :focus-visible) .hx__hover { transform: scaleX(1); }
+  .hx__n { font-size: .875rem; font-weight: 700; color: var(--blue-700); font-variant-numeric: tabular-nums; }
+  .hx__name {
+    margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 1.625rem; line-height: 1.2; letter-spacing: 0;
+    color: var(--navy-900); transition: color var(--d-1) var(--ease-out); text-wrap: balance;
+  }
+  .hx__card:hover .hx__name { color: var(--blue-700); }
+  .hx__line { font-size: 1rem; line-height: 1.6; color: var(--fg-2); max-width: 36ch; }
+  .hx__more {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 6px;
+    font-size: .9375rem; font-weight: 700; color: var(--blue-700);
+  }
+  .hx__card:focus-visible { outline-offset: 4px; }
+
+  @media (min-width: 600px) { .hx__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) {
+    .hx__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hx__name { font-size: 1.75rem; }
+  }
+  @media (min-width: 900px) {
+    .hx__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 80px; align-items: end; margin-bottom: 64px; }
+    .hx__intro { padding-bottom: 6px; }
   }
 </style>

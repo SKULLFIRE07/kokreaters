@@ -11,11 +11,12 @@
 import Photo from '@/components/ui/Photo.astro';
 import { founderName, founderRole, portraitAlt } from '@/data/founder';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
+import { site } from '@/config/site';
 ---
 <figure class="cfo">
   <figcaption class="cfo__cap">
     <span class="cfo__name">{founderName}</span>
-    <span class="cfo__role">{founderRole}</span>
+    <span class="cfo__role">{founderRole}, {site.name}</span>
   </figcaption>
   <Photo
     src={portrait}
@@ -34,8 +35,12 @@ import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
     margin: 0 0 calc(-1 * var(--_bottom, 64px));
   }
   .cfo__cap { display: grid; gap: 2px; padding-bottom: var(--s-5); text-align: right; }
-  .cfo__name { white-space: nowrap; font: 450 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; color: var(--head); }
-  .cfo__role { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .cfo__name { white-space: nowrap; font: 700 var(--fs-body)/1.4 var(--font-sans); color: var(--head); }
+  .cfo__role { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 16ch; }
+  @media (min-width: 900px) {
+    .cfo__name { font: 400 1.5rem/1.25 var(--font-serif); }
+    .cfo__role { max-width: none; white-space: nowrap; }
+  }
   .cfo :global(.cfo__photo) { flex: none; width: 104px; }
 
   @media (min-width: 900px) {

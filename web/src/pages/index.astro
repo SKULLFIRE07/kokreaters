@@ -1,32 +1,32 @@
 ---
 /**
- * Home `/` (REDESIGN-V3 §4 Home, 8 sections). Grounds: navy hero → white credibility strip → grey what we do →
- * white featured insights → full-bleed photo interlude (oils-01, §9.1) → navy results → white industries → grey founder → white closing CTA + newsletter
- * (BaseLayout CtaBand: home gets { newsletter: true, ground: 'white' }) → navy footer.
+ * Home `/` (v4 "Delft": Ganeaysh's developer guide + homepage design, 20 Nov 2026), 13 sections:
+ *  1 top bar (BaseLayout AnnouncementBar) · 2 header · 3 hero (rapeseed) · 4 track record (porcelain) · 5 what we do
+ *  (white) · 6 our approach (ice) · 7 industries (white) · 8 impact (navy) · 9 insights (white) · 10 Netherlands band ·
+ *  11 founder (porcelain) · 12 CTA (Deep Delft; BaseLayout CtaBand) · 13 footer (ink).
  * Every string comes from src/data/* or the insights collection; JSON-LD (Organization + ProfessionalService +
- * WebSite) is added by BaseLayout for page="home". No page script: motion is the foundation's data-reveal/data-settle.
+ * WebSite) is added by BaseLayout for page="home". Motion: data-gsap hooks only (src/scripts/motion.ts).
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HomeHero from '@/components/home/HomeHero.astro';
 import HomeProof from '@/components/home/HomeProof.astro';
 import HomeExpertise from '@/components/home/HomeExpertise.astro';
-import HomeInsights from '@/components/home/HomeInsights.astro';
-import HomeResults from '@/components/home/HomeResults.astro';
+import HomeApproach from '@/components/home/HomeApproach.astro';
 import HomeIndustries from '@/components/home/HomeIndustries.astro';
+import HomeResults from '@/components/home/HomeResults.astro';
+import HomeInsights from '@/components/home/HomeInsights.astro';
+import HomeNetherlands from '@/components/home/HomeNetherlands.astro';
 import HomeFounder from '@/components/home/HomeFounder.astro';
-import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
-import { method } from '@/data/home';
 import { pageSeo } from '@/lib/seo';
 ---
 <BaseLayout page="home" seo={pageSeo('home')}>
   <HomeHero />
   <HomeProof />
   <HomeExpertise />
-  <HomeInsights />
-  {/* §9.1 photo interlude: golden oil from a steel spout (the core trade), captioned with the brief's own line
-      "Connect. Collaborate. Create."; its navy foot runs straight into the navy results band. */}
-  <PhotoInterlude slug="oils-01" size="lg" eyebrow={method.overline} caption={method.headline} />
-  <HomeResults />
+  <HomeApproach />
   <HomeIndustries />
+  <HomeResults />
+  <HomeInsights />
+  <HomeNetherlands />
   <HomeFounder />
 </BaseLayout>

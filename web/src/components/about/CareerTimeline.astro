@@ -5,8 +5,8 @@
  * SectionHeader (bare h2 "From CFTRI Mysore to KoKreaters", derived from the timeline; lead = the worked-with sentence,
  * sectors only), then an <ol> of the four stops on a vertical spine with the ringed-node signature (a 20px node: disc,
  * white ring, dot; the ProcessFlow node) on a 1px hairline. Each stop: the years in a large light serif (tabular), the
- * organisation (serif h3) and one role line (timelineRoles). The KoKreaters node takes the accent: the one highlight.
- * No counters; the stops fade in as they arrive (data-reveal).
+ * organisation (serif h3) and one role line (timelineRoles). The KoKreaters node takes the saffron accent.
+ * v4: the years are a Deep Delft label over the Bodoni organisation; nothing fades in.
  * ≥ 1200px: the header sits in columns 1–5 and stays pinned (position: sticky, under the header) while the stops scroll
  *   past in columns 7–12; inside each stop the years take the left part and the organisation + role the right.
  * 900–1199px: header above, the stops in columns 3–12 of the grid with the same inner split.
@@ -27,7 +27,7 @@ import { showConfirm } from '@/lib/mode';
     </div>
     <ol class="tl" role="list">
       {timeline.map((t, i) => (
-        <li class:list={['tl__stop', i === timeline.length - 1 && 'tl__stop--now']} data-reveal style={`--i:${Math.min(i, 1)}`}>
+        <li class:list={['tl__stop', i === timeline.length - 1 && 'tl__stop--now']}>
           <span class="tl__node" aria-hidden="true"></span>
           <p class="tl__years tnum">{t.years}</p>
           <div class="tl__text">
@@ -41,39 +41,36 @@ import { showConfirm } from '@/lib/mode';
   {showConfirm && <p class="career__confirm"><Confirm id={13} note="career dates" /></p>}
 </Section>
 <style>
+  /* v4: the years are a Deep Delft label (they were 64px figures that crowded the organisation at 1440); the organisation
+     is the Bodoni card title (28), the role a body line. Stops hang on a 1px Lines spine with the logo's ringed node;
+     the KoKreaters stop takes the saffron node. */
   .career__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
   .career__head :global(.sh) { margin-bottom: 0; }
 
-  .tl { --node: 20px; --line: var(--label); list-style: none; margin: 0; padding: 0; position: relative; }
+  .tl { --node: 18px; list-style: none; margin: 0; padding: 0; position: relative; }
   .tl__stop {
-    position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-3);
-    padding: 0 0 var(--s-8) calc(var(--node) + var(--s-5));
+    position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2);
+    padding: 0 0 var(--s-7) calc(var(--node) + var(--s-5));
   }
   .tl__stop:last-child { padding-bottom: 0; }
-
-  /* the spine: from this node's centre to the next node's centre */
   .tl__stop:not(:last-child)::before {
-    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: var(--_ny, 14px); bottom: calc(var(--_ny, 14px) * -1);
-    width: 1px; background: var(--line);
+    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2 + 2px); bottom: calc(var(--node) / -2 - 2px);
+    width: 1px; background: var(--rule);
   }
-  /* ringed node: disc · white ring · dot (14px box + 3px outer ring = 20px), as ProcessFlow; centred on the years */
   .tl__node {
-    position: absolute; left: 0; top: calc(var(--_ny, 14px) - var(--node) / 2); z-index: 1;
-    width: 14px; height: 14px; margin: 3px; border-radius: 50%;
-    background: var(--line); border: 2px solid var(--white); box-shadow: 0 0 0 3px var(--line);
+    position: absolute; left: 0; top: 2px; z-index: 1;
+    width: var(--node); height: var(--node); border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--link); box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 10px var(--link);
   }
-  .tl__stop--now .tl__node { background: var(--accent); box-shadow: 0 0 0 3px var(--accent); }
+  .tl__stop--now .tl__node { border-color: var(--saffron); box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 10px var(--saffron); }
 
   .tl__years {
-    --_size: clamp(2rem, 1.35rem + 2.2vw, 4rem);
-    margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 320;
-    font-size: var(--_size); line-height: 1; letter-spacing: -0.025em; color: var(--head);
-    font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+    margin: 0; font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
+    color: var(--label); font-variant-numeric: lining-nums tabular-nums;
   }
-  .tl { --_ny: calc(clamp(2rem, 1.35rem + 2.2vw, 4rem) * .55); }   /* node centre ≈ the years' x-height middle */
   .tl__text { min-width: 0; }
-  .tl__org { margin: 0; font-size: var(--fs-h3); line-height: var(--lh-h3); }
-  .tl__role { margin: var(--s-2) 0 0; max-width: 40ch; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
+  .tl__org { margin: 0; font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2; font-weight: 400; }
+  .tl__role { margin: var(--s-2) 0 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
 
   .career__confirm { margin: var(--s-6) 0 0; }
 
@@ -81,11 +78,7 @@ import { showConfirm } from '@/lib/mode';
     .career__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
     .career__head { grid-column: 1 / -1; }
     .tl { grid-column: 3 / -1; }
-    .tl__stop {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--grid-gap); align-items: start;
-      padding-left: calc(var(--node) + var(--s-6)); padding-bottom: var(--s-9);
-    }
-    .tl__text { border-top: 1px solid var(--rule); padding-top: var(--s-4); margin-top: calc(var(--_ny) - 1px); }
+    .tl__stop { padding-bottom: var(--s-8); }
   }
 
   /* ≥ 1200: the header pinned in columns 1–5 while the stops scroll past in 7–12 */

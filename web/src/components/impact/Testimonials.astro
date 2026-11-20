@@ -18,8 +18,8 @@ const items = testimonials.filter((t) => t.permission === true);
       <div style="--col: 2 / 12">
         <h2 id="testimonials-h" class="quotes__h t-label">{impactPage.testimonialsLabel}</h2>
         <ul class="quotes" role="list">
-          {items.map((t, i) => (
-            <li data-reveal style={`--i:${i}`}>
+          {items.map((t) => (
+            <li>
               <figure class="quote">
                 <blockquote class="t-quote quote__text"><p>“{t.quote}”</p></blockquote>
                 <figcaption class="quote__by">{t.name}, {t.role}</figcaption>

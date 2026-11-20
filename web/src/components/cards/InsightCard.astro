@@ -57,7 +57,7 @@ const showSummary = !!summary && size !== 'compact';
       <Photo
         class="icard__media" src={image} alt={imageAlt} ratio={size === 'compact' ? '1/1' : '3/2'}
         sizes={sizes} priority={priority} position={imagePosition} widths={size === 'compact' ? [112, 224, 336] : undefined}
-        settle={size !== 'compact' && !priority}
+        data-gsap={size !== 'compact' && !priority ? 'parallax' : undefined}
       />
     )}
     <div class="icard__body">
@@ -84,8 +84,8 @@ const showSummary = !!summary && size !== 'compact';
   .icard__label { color: var(--label); }
   .icard__pillar { color: var(--fg-2); }
   .icard__title {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h3); line-height: 1.22;
-    font-weight: 450; letter-spacing: -0.01em; color: var(--head); text-wrap: balance;
+    font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.22;
+    font-weight: 400; letter-spacing: 0; color: var(--head); text-wrap: balance;
   }
   .icard__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
   .icard__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
@@ -107,7 +107,7 @@ const showSummary = !!summary && size !== 'compact';
   .icard--compact .icard__inner { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
   .icard--compact:not(.icard--has-image) .icard__inner { grid-template-columns: minmax(0, 1fr); }
   .icard--compact .icard__body { gap: var(--s-2); }
-  .icard--compact .icard__title { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 500; }
+  .icard--compact .icard__title { font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.4; font-weight: 700; letter-spacing: 0; }
 
   /* text */
   .icard--text .icard__inner { border-top: 1px solid var(--rule); padding-top: var(--s-5); }

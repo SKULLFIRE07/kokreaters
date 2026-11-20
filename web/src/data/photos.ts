@@ -103,7 +103,7 @@ export const photos: Record<PhotoSlug, Photo> = {
     slug: 'agri-fields', src: agriFieldsV4, file: file('agri-fields'),
     alt: 'Aerial view of a patchwork of green and yellow farm fields.',
     tags: ['oilseeds'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'mid',
-    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/orange-and-green-abstract-painting-0U7xx2X60YE', profile: 'https://unsplash.com', license: U },
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/green-grass-field-during-daytime-5m37cx0D-wI', profile: 'https://unsplash.com', license: U },
   },
   'develop-pipette': {
     slug: 'develop-pipette', src: developPipetteV4, file: file('develop-pipette'),
@@ -150,8 +150,8 @@ export const photos: Record<PhotoSlug, Photo> = {
   'nutrition-spices': {
     slug: 'nutrition-spices', src: nutritionSpicesV4, file: file('nutrition-spices'),
     alt: 'Small heaps of coloured spice powders scattered on a black surface.',
-    tags: ['quality'], orientation: 'portrait', focal: 'center', position: '50% 40%', tone: 'dark',
-    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/brown-and-white-beans-on-white-ceramic-plate-NL02eAwtkmM', profile: 'https://unsplash.com', license: U },
+    tags: ['quality'], orientation: 'landscape', focal: 'center', position: '50% 40%', tone: 'dark',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/orange-and-green-abstract-painting-0U7xx2X60YE', profile: 'https://unsplash.com', license: U },
   },
   'nl-polder': {
     slug: 'nl-polder', src: nlPolderV4, file: file('nl-polder'),
@@ -174,8 +174,8 @@ export const photos: Record<PhotoSlug, Photo> = {
   'spare-maize': {
     slug: 'spare-maize', src: spareMaizeV4, file: file('spare-maize'),
     alt: 'Close-up of a heap of yellow maize kernels.',
-    tags: ['oilseeds'], orientation: 'landscape', focal: 'center', position: '50% 50%', tone: 'mid',
-    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/green-grass-field-during-daytime-5m37cx0D-wI', profile: 'https://unsplash.com', license: U },
+    tags: ['oilseeds'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid',
+    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/brown-and-white-beans-on-white-ceramic-plate-NL02eAwtkmM', profile: 'https://unsplash.com', license: U },
   },
   'refinery-01': {
     slug: 'refinery-01', src: refinery01, file: file('refinery-01'),

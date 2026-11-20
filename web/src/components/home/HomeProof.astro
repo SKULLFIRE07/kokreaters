@@ -1,37 +1,34 @@
 ---
 /**
- * Home 2 · Credibility strip (REDESIGN-V3 §4 Home 2, §9.3; McKinsey India "Our impact" pattern). White band at full
- * section padding so the big figures (StatStrip, 52 → 96px, count-up) get the air of a statement, not a footnote.
- * ≥ 900px: a quiet label row (the section's h2 "Our track record" on the left, the source "From our founder’s career."
- *  on the right, both small and grey), then the full-width StatStrip: four figures, each opening on a hairline.
- * Mobile (< 900px): label → StatStrip in its own 2 × 2 phone grid → source line under it.
+ * Home 4 · Track record (v4 developer guide). Porcelain band: "Our track record" label left, the source line right
+ * ("Figures from our founder’s career at Wilmar and Cargill."), then four figures in Bodoni 64px: 25 years in industry ·
+ * 14 years in oils, fats and food ingredients · 5 countries · WHO. The lead figure carries a 3px saffron top rule, the
+ * others a 1px line (StatStrip). Motion: rules draw in, numbers count up once (motion.ts); "WHO" stays as it is.
+ * Mobile: 2 × 2 grid; the source line moves under the label.
  */
-import Section from '@/components/ui/Section.astro';
 import StatStrip from '@/components/ui/StatStrip.astro';
 import { proof, proofStripSource, homeLabels } from '@/data/home';
-
-const items = proof.map((p) => ({ value: p.value, label: p.label }));
 ---
-<Section ground="white" pad="tight" labelledby="proof-heading" class="hp">
-  <div class="hp__grid">
-    <h2 id="proof-heading" class="hp__label t-label" data-reveal>{homeLabels.proof}</h2>
-    <p class="hp__source" data-reveal style="--i:1">{proofStripSource}.</p>
-    <StatStrip items={items} class="hp__stats" />
+<section class="hp band band--grey" aria-labelledby="proof-heading">
+  <div class="container">
+    <div class="hp__head">
+      <h2 id="proof-heading" class="t-label hp__label">{homeLabels.proof}</h2>
+      <p class="hp__source">{proofStripSource}</p>
+    </div>
+    <StatStrip items={proof} cols={4} class="hp__stats" />
   </div>
-</Section>
+</section>
 
 <style>
-  .hp__grid { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "label" "stats" "source"; }
-  .hp__label { grid-area: label; margin: 0 0 var(--s-6); color: var(--label); }
-  .hp__grid :global(.hp__stats) { grid-area: stats; }
-  .hp__source { grid-area: source; margin-top: var(--s-5); font-size: 1rem; line-height: var(--lh-small); color: var(--fg-2); }
-
+  .hp { --_pad: clamp(4rem, 3.4rem + 2.2vw, 5rem); }
+  .hp__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 40px; }
+  .hp__label { margin: 0; }
+  .hp__source { margin: 0; font-size: .875rem; line-height: 1.5; color: var(--fg-2); }
+  .hp :global(.stats__value) { font-size: clamp(3rem, 2.5rem + 2vw, 4rem); }
+  .hp :global(.stats__label) { color: #2C3A5E; }
+  .hp :global(.stats__key) { font-weight: 700; color: var(--navy-900); }
   @media (min-width: 900px) {
-    .hp__grid {
-      grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label source" "stats stats";
-      align-items: baseline; column-gap: var(--s-7);
-    }
-    .hp__label { margin-bottom: var(--s-7); }
-    .hp__source { margin: 0; }
+    .hp :global(.stats__list) { column-gap: 32px; }
+    .hp :global(.stats__item) { padding-top: 26px; gap: 14px; }
   }
 </style>

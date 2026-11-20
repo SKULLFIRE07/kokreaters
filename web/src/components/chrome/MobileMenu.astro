@@ -7,12 +7,12 @@
  * button, the email address and LinkedIn.
  * Behaviour (site.ts): body scroll lock without layout jump, `inert` on the rest of the page, focus trapped between the
  * Menu button and the sheet, Esc closes and returns focus, any link closes. Motion: the sheet fades in (240ms) and the
- * rows blur-fade up with a 30ms stagger; accordions ease their height (grid rows 0fr → 1fr). Reduced motion: instant.
+ * rows settle up with a 30ms stagger (no blur); accordions ease their height (grid rows 0fr → 1fr). Reduced motion: instant.
  */
 import Container from '@/components/ui/Container.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { main, mobile, expertiseLinks, industryLinks, megaMenu, industriesMenu, header as labels } from '@/data/nav';
+import { main, mobile, expertiseLinks, industryLinks, megaMenu, industriesMenu, header as labels, emailDisplay } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 
@@ -29,7 +29,7 @@ const groups = main.filter((l) => l.panel).map((l) => {
   };
 });
 ---
-<div id="mobile-menu" class="m-menu" hidden>
+<div id="mobile-menu" class="m-menu" data-lenis-prevent hidden>
   <Container class="m-menu__inner">
     <nav aria-label={labels.menuLabel}>
       <ul class="m-menu__list" role="list">
@@ -60,7 +60,7 @@ const groups = main.filter((l) => l.panel).map((l) => {
     <div class="m-menu__foot m-menu__fx" style={`--i:${groups.length + mobile.length}`}>
       <Button href="/contact" full size="lg">{microcopy.primaryCta}</Button>
       <ul class="m-menu__contact" role="list">
-        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={20} />{site.email}</a></li>
+        <li><a href={`mailto:${site.email}`}><Icon name="mail" size={20} />{emailDisplay}</a></li>
         <li><a href={site.linkedin.href} rel="me noopener"><Icon name="linkedin" size={20} />LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
       </ul>
     </div>
@@ -130,15 +130,15 @@ const groups = main.filter((l) => l.panel).map((l) => {
   .m-menu__contact a :global(svg) { color: var(--blue-700); }
   .m-menu__contact a:hover { color: var(--link); }
 
-  /* rows blur-fade up, 30ms stagger */
-  .m-menu__fx { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  /* rows settle up with the sheet, 30ms stagger (no blur: v4) */
+  .m-menu__fx { opacity: 0; transform: translateY(8px); }
   .m-menu.is-open .m-menu__fx {
-    opacity: 1; transform: none; filter: none;
-    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out), filter var(--d-3) var(--ease-out);
+    opacity: 1; transform: none;
+    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out);
     transition-delay: calc(40ms + var(--i, 0) * 30ms);
   }
   @media (prefers-reduced-motion: reduce) {
     .m-menu, .m-menu.is-open, .m-menu__panel, .m-menu__fx, .m-menu.is-open .m-menu__fx { transition: none !important; }
-    .m-menu__fx { opacity: 1; transform: none; filter: none; }
+    .m-menu__fx { opacity: 1; transform: none; }
   }
 </style>

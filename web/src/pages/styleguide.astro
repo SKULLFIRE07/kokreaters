@@ -1,6 +1,6 @@
 ---
 /**
- * /styleguide — v3 foundation QA page (REDESIGN-V3 §3 "Dev/QA helpers"). Renders every primitive and card on white,
+ * /styleguide — v4 Delft foundation QA page (was v3) (REDESIGN-V3 §3 "Dev/QA helpers"). Renders every primitive and card on white,
  * grey and navy with real data from src/data, the type scale, the palette with measured contrast, and buttons in every
  * state. Staging only: any other PUBLIC_SITE_MODE gets a redirect to /404; noindex; excluded from the sitemap
  * (astro.config sitemap filter). Standalone shell on purpose (does not depend on BaseLayout).
@@ -85,29 +85,28 @@ const lum = ([r, g, b]: number[]) => {
 const ratio = (a: string, b: string) => { const [x, y] = [lum(hex(a)), lum(hex(b))].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
 const grade = (r: number) => (r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : r >= 3 ? 'large' : 'no');
 const swatches = [
-  ['navy-900', '#0B1B33', 'Hero bands, footer, primary button'], ['navy-800', '#13284A', 'Cards on navy, button hover'],
-  ['navy-700', '#1D3660', 'Borders on navy'], ['blue-700', '#2C509E', 'Brand blue: links, labels, icons'],
-  ['blue-500', '#306FE0', 'Accent: figures ≥ 24px, arrows, focus'], ['blue-300', '#8DB2F7', 'Accent on navy'],
-  ['grey-50', '#F2F2F0', 'Alternate bands'], ['grey-100', '#E7E7E3', 'Hover on grey, skeleton'],
-  ['grey-200', '#D9D9D4', 'Hairlines'], ['grey-500', '#8A8A85', 'Input borders, disabled'],
-  ['ink', '#1A1A1A', 'Body text'], ['ink-2', '#5A5A5A', 'Secondary text'], ['white', '#FFFFFF', 'Ground, text on navy'],
-  ['danger', '#B42318', 'Form errors'], ['success', '#1F6F43', 'Form success'],
+  ['navy-900', '#0E1F4D', 'Delft Navy: all text, headings, dark bands, image gradients'], ['navy-800', '#162A61', 'Raised surface on navy'],
+  ['blue-700', '#1C3F94', 'Deep Delft: buttons, links, section labels, CTA band'], ['grey-50', '#FAFAF7', 'Porcelain: warm alternate sections'],
+  ['ice', '#EEF2F8', 'Delft Ice: cool alternate sections, coming-soon cards'], ['saffron', '#E8A93A', 'Thin rules, lead-stat rule, labels on dark, one CTA'],
+  ['red', '#C8333A', 'Top-bar dot and New tags only'], ['ink-2', '#4A5878', 'Secondary text: body, captions'],
+  ['grey-200', '#D9E0EC', 'Lines: dividers, card rules'], ['footer-ink', '#0A0F1C', 'Footer background only'],
+  ['white', '#FFFFFF', 'Main background'], ['danger', '#B42318', 'Form errors'], ['success', '#1F6F43', 'Form success'],
 ] as const;
-const grounds = [['white', '#FFFFFF'], ['grey-50', '#F2F2F0'], ['navy-900', '#0B1B33']] as const;
+const grounds = [['white', '#FFFFFF'], ['porcelain', '#FAFAF7'], ['ice', '#EEF2F8'], ['navy-900', '#0E1F4D']] as const;
 
 const typeScale = [
-  ['--fs-display', 't-display', '40 → 64 · 1.06 · serif 420 · −0.02em', hero.headline],
-  ['--fs-h1', 't-h1', '36 → 56 · 1.08 · serif 420 · −0.018em', approach.headline],
-  ['--fs-h2', 't-h2', '30 → 42 · 1.14 · serif 430 · −0.012em', whatWeDo.headline],
-  ['--fs-h3', 't-h3', '21 → 26 · 1.25 · serif 500', pillars[1].name],
-  ['--fs-h4', 't-h4', '19 → 21 · 1.3 · serif 560', principles[0].name],
-  ['--fs-stat', 't-stat', '48 → 76 · 1.0 · serif 380 · tabular', '25 · 21% · −25 °C'],
-  ['--fs-quote', 't-quote', '24 → 34 · 1.3 · serif 400 italic', founderQuote.quote],
-  ['--fs-lead', 't-lead', '18 → 21 · 1.5 · sans 400', hero.sub],
-  ['--fs-body', 't-body', '18 · 1.6 · sans 400', approach.intro],
-  ['--fs-small', 't-small', '15 → 16 · 1.55 · sans 400', pillars[0].intro],
-  ['--fs-meta', 't-meta', '14 · 1.45 · sans 400', '4 Nov 2026 · 6 min read'],
-  ['--fs-label', 't-label', '12 → 13 · sans 600 caps · 0.12em', whatWeDo.overline],
+  ['--fs-display', 't-display', '44 → 76 · Bodoni Moda 500 (hero H1)', hero.headline],
+  ['--fs-h1', 't-h1', '44 → 76 · Bodoni Moda 500', approach.headline],
+  ['--fs-h2', 't-h2', '36 → 52 · 1.08 · Bodoni Moda 500 (section title)', whatWeDo.headline],
+  ['--fs-h3', 't-h3', '24 → 28 · 1.2 · Bodoni Moda 400 (card title)', pillars[1].name],
+  ['--fs-h4', 't-h4', '19 → 22 · Manrope 700 (Bodoni only at 24px and up)', principles[0].name],
+  ['--fs-stat', 't-stat', '48 → 64 · 1.0 · Bodoni Moda 400 · tabular', '25 · 14 · 5 · WHO'],
+  ['--fs-quote', 't-quote', '28 → 40 · Bodoni Moda 400 italic', founderQuote.quote],
+  ['--fs-lead', 't-lead', '17 → 19 / 30 · Manrope 400 (intro)', hero.sub],
+  ['--fs-body', 't-body', '16 / 26 · Manrope 400 · #4A5878', approach.intro],
+  ['--fs-small', 't-small', '15 · Manrope 400', pillars[0].intro],
+  ['--fs-meta', 't-meta', '14 · Manrope 400', '4 Nov 2026 · 5 min read'],
+  ['--fs-label', 't-label', '13 · Manrope 700 caps · 0.16em', whatWeDo.overline],
 ] as const;
 
 const icons: IconName[] = ['arrow-right', 'arrow-up-right', 'arrow-left', 'chevron-down', 'chevron-right', 'menu', 'close', 'plus', 'minus', 'linkedin', 'mail', 'whatsapp', 'phone', 'download', 'calendar', 'check', 'external', 'clock', 'pin', 'search', 'error', 'success'];
@@ -119,7 +118,7 @@ const mode = import.meta.env.PUBLIC_SITE_MODE ?? 'staging (unset)';
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Styleguide · KoKreaters v3</title>
+  <title>Styleguide · KoKreaters v4 Delft</title>
   <link rel="preload" href="/fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -148,7 +147,7 @@ const mode = import.meta.env.PUBLIC_SITE_MODE ?? 'staging (unset)';
 
     <!-- Colour -->
     <Section ground="white" id="colour" labelledby="colour-h">
-      <SectionHeader eyebrow="Tokens" title="Colour and contrast" id="colour-h" lead="WCAG 2 contrast of every token as text on the three grounds. Blue-500 is for figures of 24px and up on light grounds; small text uses blue-700 (light) or blue-300 (navy)." />
+      <SectionHeader eyebrow="Tokens" title="Colour and contrast" id="colour-h" lead="WCAG 2 contrast of every token as text on the four grounds. Saffron is never text on white (it fails); on navy it passes." />
       <ul class="sg-swatches" role="list">
         {swatches.map(([name, value, use]) => (
           <li class="sg-swatch">
@@ -170,7 +169,7 @@ const mode = import.meta.env.PUBLIC_SITE_MODE ?? 'staging (unset)';
 
     <!-- Type -->
     <Section ground="grey" id="type" labelledby="type-h">
-      <SectionHeader eyebrow="Tokens" title="Type scale" id="type-h" lead="Source Serif 4 (optical sizes) for headlines, figures and quotes; Inter for everything else. Fluid from 390 to 1440px." />
+      <SectionHeader eyebrow="Tokens" title="Type scale" id="type-h" lead="Bodoni Moda for headlines, figures and quotes (24px and up only); Manrope for everything else. Fluid from 390 to 1440px." />
       <div class="sg-type">
         {typeScale.map(([token, cls, spec, sample]) => (
           <div class="sg-type__row">

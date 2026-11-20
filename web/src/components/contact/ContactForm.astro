@@ -12,9 +12,9 @@
  * [data-form-wrap] / [data-form-body] / [data-form-done] and the [data-done-*] parts inside it.
  * `id="form"` (the /contact#form anchor used by every "Book a 30-minute call" fallback) sits on the wrapper so the
  * heading is in view when the anchor lands.
- * Inputs: 52px (56px from 900px), 1px --field-border (grey-500, 3:1 on white), radius 2, labels above, 18px text
- * (no iOS zoom); the focused field's border turns navy. Heading in the serif h3 over a 1px navy hairline (as the
- * details column), generous 32px row gaps, a large Send button.
+ * v4 "Delft": the form sits on a Delft Ice panel (square, no shadow). Inputs are white, square, 52px (56px from 900px),
+ * 1px #7F8DAB border (3:1 on white), clear Manrope 700 labels above, 16px text; the focused field's border turns Deep
+ * Delft. Heading in Bodoni 28 over a thin rule, generous row gaps, a large Deep Delft "Send" button.
  * Layout: one column; two columns of short fields once the form itself is ≥ 480px wide (container query), so it
  * adapts to the page column rather than the viewport. Mobile: one column, full-width Send button, 44px consent hit box.
  */
@@ -134,9 +134,17 @@ const d = contactPage.done;
 </div>
 
 <style>
-  .cf-wrap { container-type: inline-size; }
-  .cf-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-7); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule-strong); }
-  .cf-head__title { margin: 0; font: 450 var(--fs-h3)/var(--lh-h3) var(--font-serif); font-optical-sizing: auto; letter-spacing: var(--tr-h3); color: var(--head); }
+  .cf-wrap {
+    container-type: inline-size;
+    --field-border: #7F8DAB; --field-bg: var(--white); --rule: #CBD5E6; --surface-hover: var(--white);
+    background: var(--ice); padding: var(--s-6) var(--s-5);
+  }
+  /* phones: the panel runs edge to edge so the fields keep their width */
+  @media (max-width: 599px) { .cf-wrap { margin-inline: calc(-1 * var(--gutter-x)); padding: var(--s-6) var(--gutter-x); } }
+  @media (min-width: 600px) { .cf-wrap { padding: var(--s-7); } }
+  @media (min-width: 1200px) { .cf-wrap { padding: var(--s-8) var(--s-8) var(--s-7); } }
+  .cf-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-7); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule); }
+  .cf-head__title { margin: 0; font: 500 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
   .cf-head__note { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
 
   .cf { margin: 0; }
@@ -147,7 +155,7 @@ const d = contactPage.done;
     .cf__field--wide { grid-column: 1 / -1; }
   }
   .cf__field { position: relative; display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
-  .cf__label { font: 500 var(--fs-small)/1.35 var(--font-sans); color: var(--head); }
+  .cf__label { font: 700 var(--fs-small)/1.35 var(--font-sans); color: var(--head); }
   .cf__req { margin-left: 3px; color: var(--fg-2); font-weight: 500; }
 
   .cf__input {
@@ -158,9 +166,9 @@ const d = contactPage.done;
     transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out);
   }
   @media (min-width: 900px) { .cf__input { height: 56px; } }
-  .cf__input:hover { border-color: var(--fg-2); }
-  .cf__input:focus { border-color: var(--head); }
-  .cf__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--head); }
+  .cf__input:hover { border-color: var(--head); }
+  .cf__input:focus { border-color: var(--link); box-shadow: inset 0 0 0 1px var(--link); outline: none; }
+  .cf__input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-color: var(--link); }
   .cf__input--area { height: auto; min-height: 200px; padding: var(--s-3) var(--s-4); line-height: 1.55; resize: vertical; }
   .cf__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 0 0 1px var(--danger); }
 
@@ -177,7 +185,7 @@ const d = contactPage.done;
   /* the 20px box sits in a 28px column; its 44px hit area overhangs by 12px on the left and into the gap */
   .cf__check { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: var(--s-2); }
   .cf__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -10px 0 -10px -12px; cursor: pointer; }
-  .cf__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--head); cursor: pointer; }
+  .cf__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--link); cursor: pointer; }
   .cf__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
   .cf__checkbox:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
   .cf__checklabel { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); cursor: pointer; text-wrap: pretty; }
@@ -206,9 +214,9 @@ const d = contactPage.done;
     /* scrollIntoView lands it below the sticky header (it has no id, so the global [id] rule does not cover it) */
     scroll-margin-top: var(--scroll-offset);
   }
-  .cf-done__head { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule-strong); }
+  .cf-done__head { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule); }
   .cf-done__head :global(.cf-done__icon) { flex: none; color: var(--success); }
-  .cf-done__title { margin: 0; font: 450 var(--fs-h3)/var(--lh-h3) var(--font-serif); font-optical-sizing: auto; letter-spacing: var(--tr-h3); color: var(--head); }
+  .cf-done__title { margin: 0; font: 500 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
   .cf-done__title:focus { outline: none; }
   .cf-done__title:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
   .cf-done__text { margin: var(--s-5) 0 0; max-width: 46ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }

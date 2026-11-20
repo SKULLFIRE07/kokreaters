@@ -9,7 +9,9 @@
  * Variants
  *  - horizontal / horizontal-white: cluster + wordmark on one line (`height`, default 44; chrome sets 36 desktop /
  *    30 mobile). White header → horizontal; navy footer / menu bar → horizontal-white.
- *  - full / full-white: cluster + wordmark + tagline (`width`, default 320 / 260).
+ *  - full / full-white: cluster + wordmark + tagline (`width`, default 320 / 260; or `height`, which sizes it by height
+ *    through --logo-h like the horizontal lockup). v4: the header uses `full` at 52px (the business-card logo with
+ *    "Connect · Collaborate · Create"); the footer uses `full` on a white plate.
  *  - wordmark / wordmark-white: the wordmark alone (`width` any CSS length, default 100%).
  *  - cluster: the node cluster alone (`size`, default 64). For a monochrome cluster use brand/NodeMark.
  * Accessible name: inside a link (`href`) the image is alt="" and the link carries `label`; standalone `full` /
@@ -58,6 +60,7 @@ const ratioOf = (raw: string) => { const [, , w, h] = viewBoxOf(raw).split(/\s+/
 
 const isHorizontal = variant === 'horizontal' || variant === 'horizontal-white';
 const height = Astro.props.height ?? 44;
+const byHeight = !isHorizontal && Astro.props.height !== undefined && Astro.props.width === undefined;
 const HORIZONTAL_RATIO = 2180 / 615; // viewBox of kokreaters-logo-horizontal(-white).svg
 
 const files = {
@@ -82,11 +85,11 @@ const svgA11y: Record<string, string> = name ? { role: 'img', 'aria-label': name
     />
   </Tag>
 ) : single && (
-  <Tag href={href ?? undefined} id={id} class:list={['logo', `logo--${variant}`, cls]} aria-label={href ? label : undefined} style={`--logo-w:${cssW}`}>
+  <Tag href={href ?? undefined} id={id} class:list={['logo', `logo--${variant}`, byHeight && 'logo--h', cls]} aria-label={href ? label : undefined} style={byHeight ? `--logo-h:${height}px` : `--logo-w:${cssW}`}>
     {inline ? (
       <svg class="logo__svg" viewBox={viewBoxOf(single[0])} focusable="false" {...svgA11y} set:html={inner(single[0])} />
     ) : (
-      <img class="logo__img" src={single[1]} alt={name} width={pxW} height={Math.round(pxW / ratio)} loading={loading} decoding="async" />
+      <img class="logo__img" src={single[1]} alt={name} width={byHeight ? Math.round(height * ratio) : pxW} height={byHeight ? height : Math.round(pxW / ratio)} loading={loading} decoding="async" />
     )}
   </Tag>
 )}
@@ -95,6 +98,8 @@ const svgA11y: Record<string, string> = name ? { role: 'img', 'aria-label': name
   .logo__svg, .logo__img { display: block; overflow: visible; isolation: isolate; max-width: none; }
   .logo--horizontal { height: var(--logo-h); }
   .logo--horizontal .logo__img { height: 100%; width: auto; aspect-ratio: 2180 / 615; }
-  .logo:not(.logo--horizontal) { width: var(--logo-w); max-width: 100%; }
-  .logo:not(.logo--horizontal) .logo__svg, .logo:not(.logo--horizontal) .logo__img { width: 100%; height: auto; }
+  .logo:not(.logo--horizontal):not(.logo--h) { width: var(--logo-w); max-width: 100%; }
+  .logo:not(.logo--horizontal):not(.logo--h) .logo__svg, .logo:not(.logo--horizontal):not(.logo--h) .logo__img { width: 100%; height: auto; }
+  .logo--h { height: var(--logo-h); }
+  .logo--h .logo__svg, .logo--h .logo__img { height: 100%; width: auto; }
 </style>

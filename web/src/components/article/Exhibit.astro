@@ -1,8 +1,8 @@
 ---
 /**
  * Exhibit (REDESIGN-V3 §4 article). MDX: <Exhibit n title subtitle? source>ProcessChain or a markdown table</Exhibit>.
- * McKinsey-style figure: 2px navy top rule, "Exhibit 1" label, serif title (states the finding), subtitle, the body,
- * then "Source: …" over a hairline. The figure is labelled by its title.
+ * v4: a Delft Ice panel (square, no shadow): "Exhibit 1" label in Deep Delft, Bodoni title (states the finding, 24 → 28),
+ * subtitle, the body, then "Source: …" over a thin rule. The figure is labelled by its title.
  * Markdown tables are prepared on the server: every cell gets data-label (its column heading) and explicit table roles,
  * so prose.css can stack the table into one card per row on phones without losing table semantics.
  * ≥ 900px: the exhibit spans the full content width (it reaches into the empty right column, flush with the hero image).
@@ -35,7 +35,7 @@ function prepareTables(html: string): string {
 }
 const body = prepareTables(await Astro.slots.render('default'));
 ---
-<figure class="exhibit" aria-labelledby={tid} data-reveal>
+<figure class="exhibit" aria-labelledby={tid}>
   <div class="exhibit__head">
     <p class="exhibit__n t-label">{microcopy.exhibit} <span class="tnum">{n}</span></p>
     <p class="exhibit__title" id={tid}>{title}</p>
@@ -48,8 +48,9 @@ const body = prepareTables(await Astro.slots.render('default'));
   .exhibit {
     clear: right;
     margin-block: var(--s-9);
-    padding-top: var(--s-5);
-    border-top: 2px solid var(--rule-strong);
+    padding: var(--s-6) var(--s-5);
+    background: var(--ice);
+    --bg: var(--ice); --surface-hover: var(--white); --rule: #CBD5E6;
     font-family: var(--font-sans);
     font-variant-numeric: lining-nums;   /* tabular figures only where columns need them (tables, the "Exhibit 1" numeral) */
   }
@@ -57,8 +58,8 @@ const body = prepareTables(await Astro.slots.render('default'));
   .exhibit__head { display: grid; gap: var(--s-2); margin-bottom: var(--s-6); max-width: 46rem; }
   .exhibit__n { margin-bottom: var(--s-1); }
   .exhibit__title {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 500;
-    font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3);
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: 0;
     color: var(--head); text-wrap: balance;
   }
   .exhibit__subtitle { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
@@ -67,6 +68,7 @@ const body = prepareTables(await Astro.slots.render('default'));
     margin-top: var(--s-6); padding-top: var(--s-3); border-top: 1px solid var(--rule);
     font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2);
   }
+  @media (min-width: 600px) { .exhibit { padding: var(--s-7) var(--s-7) var(--s-6); } }
   /* reach across the empty right column: the article body grid is the size container */
   @media (min-width: 900px) { .exhibit { width: 100cqw; } }
   /* ≥ 1360px: reading column + notes column (the rail on the left stays clear for the sticky contents) */

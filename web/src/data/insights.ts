@@ -6,12 +6,19 @@
  */
 export const insightsHub = {
   libraryTitle: 'All insights',
+  /** v4 hub: the label over the published cards. COMPOSED. */
+  libraryEyebrow: 'Published',
+  /** v4 card tag on the newest insight only (Signal Red). */
+  newTag: 'New',
+  inPreparation: 'In preparation',
+  /** v4 "In preparation" card foot line. */
+  comingSoonShort: 'Coming soon',
   /** Singular of microcopy.insightsCount ("{n} insights"). */
   countOne: '{n} insight',
   empty: 'No insights match this combination yet.',
   emptyReset: 'Show all insights',
   comingSoon: 'Coming soon',
-  comingSoonLead: 'In preparation now. Subscribe below to hear when they are published.',
+  comingSoonLead: 'In preparation now. Subscribe to the newsletter to hear when they are published.',
   /** Tag at the end of every unlinked coming-soon / in-preparation row (hub, Home 4, expertise related insights). */
   soonTag: 'Soon',
 } as const;

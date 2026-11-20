@@ -37,7 +37,7 @@ const { steps } = Astro.props;
   .pc__step:last-child { padding-bottom: 0; }
   .pc__node {
     grid-row: 1 / span 3; position: relative; z-index: 1;
-    width: 14px; height: 14px; margin: 3px; border-radius: 50%;
+    width: 14px; height: 14px; margin: 3px; border-radius: 50%;   /* the logo's ringed node: the one round shape */
     background: var(--accent); border: 2px solid var(--ring); box-shadow: 0 0 0 3px var(--accent);
   }
   .pc__step:not(:last-child)::before {
@@ -46,9 +46,10 @@ const { steps } = Astro.props;
     width: 1px; background: var(--label);
   }
   .pc__n { font-size: var(--fs-meta); line-height: var(--node); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
+  /* v4: Bodoni only at 24px and up, so the step names are Manrope 700 */
   .pc__name {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4);
-    font-weight: 500; color: var(--head); text-wrap: balance;
+    font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.35;
+    font-weight: 700; color: var(--head); text-wrap: balance;
   }
   .pc__note { margin-top: 2px; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); text-wrap: pretty; }
 
@@ -73,7 +74,7 @@ const { steps } = Astro.props;
       width: auto; height: 1px;
     }
     .pc__n { line-height: 1.2; margin-top: var(--s-2); }
-    .pc__name { padding-right: var(--s-2); font-size: 1.125rem; line-height: 1.3; }
+    .pc__name { padding-right: var(--s-2); font-size: 1rem; line-height: 1.35; }
     .pc__step--hl::after, .pc__step--hl:last-child::after { inset: calc(var(--s-4) * -1) calc(var(--s-2) * -1) calc(var(--s-4) * -1) calc(var(--s-3) * -1); }
   }
 </style>

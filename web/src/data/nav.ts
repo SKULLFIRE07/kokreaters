@@ -13,16 +13,21 @@ export const main: (Link & { panel?: true | 'mega' | 'list' })[] = [
   { label: 'Expertise', href: '/expertise', panel: 'mega' },
   { label: 'Industries', href: '/industries', panel: 'list' },
   { label: 'Approach', href: '/approach' },
-  { label: 'Impact', href: '/impact' },
   { label: 'Insights', href: '/insights' },
   { label: 'About', href: '/about' },
 ];
+/** v4 (developer guide): the desktop nav is Expertise · Industries · Approach · Insights · About. Impact stays a page,
+ * reached from the home Impact band, the footer and the mobile menu. */
+export const impactLink: Link = { label: 'Impact', href: '/impact' };
+
+/** The address as the brand spells it (the mailbox itself is case-insensitive). */
+export const emailDisplay = 'office@KoKreaters.com';
 
 export const expertiseLinks: Link[] = pillars.map((p) => ({ label: p.name, href: `/expertise/${p.slug}` }));
 export const industryLinks: Link[] = industries.map((i) => ({ label: i.name, href: `/industries#${i.slug}` }));
 
 /** Mobile menu links after the Expertise and Industries groups. */
-export const mobile: Link[] = [...main.filter((l) => !l.panel), { label: 'Contact', href: '/contact' }];
+export const mobile: Link[] = [...main.filter((l) => !l.panel), impactLink, { label: 'Contact', href: '/contact' }];
 
 /** Header labels. */
 export const header = {
@@ -51,28 +56,29 @@ export const announcement = {
 };
 
 export const footer = {
-  statement: 'Independent technical and strategy consulting for food, feed and specialty ingredients.',   // COMPOSED from hero.overline
+  statement: 'Techno-commercial consulting for agri, food, feed, nutrition and specialty ingredients.',   // developer guide homepage design
   expertise: { heading: 'Expertise', links: expertiseLinks },
   company: {
     heading: 'Company',
     links: [
-      { label: 'About', href: '/about' },
       { label: 'Approach', href: '/approach' },
+      { label: 'Industries', href: '/industries' },
       { label: 'Impact', href: '/impact' },
-      { label: 'Industries', href: '/industries' },   // the brief footer omits it (C-5)
+      { label: 'Insights', href: '/insights' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ] as Link[],
   },
   insights: { heading: 'Insights', all: { label: 'All insights', href: '/insights' } },   // "All insights" COMPOSED
   contact: {
     heading: 'Contact',
-    email: { label: site.email, href: `mailto:${site.email}` },
+    email: { label: 'office@KoKreaters.com', href: `mailto:${site.email}` },
     whatsapp: { label: `WhatsApp ${site.whatsapp.display}`, href: site.whatsapp.href },
     linkedin: { label: 'LinkedIn', href: site.linkedin.href },
-    base: 'Based in the Netherlands (CET), working worldwide',   // site.base + time zone (REDESIGN-V3 §3)
+    base: 'Based in the Netherlands',
   },
   newsletter: { heading: 'Newsletter' },
-  copyright: `© 2026 ${site.name}`,
+  copyright: `© 2026 ${site.name}. All rights reserved.`,
   registrationNote: 'KvK / VAT / registered address',
   homeLabel: 'KoKreaters home',
 };

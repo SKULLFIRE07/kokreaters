@@ -1,77 +1,73 @@
 ---
 /**
- * Home 1 · Hero (REDESIGN-V3 §4 Home 1). PageHero lg on navy with the refinery-01 dusk photo behind the scrim (LCP,
- * priority via PageHero). Eyebrow = the first clause of hero.overline only (the full overline wrapped to 2–3 lines);
- * its second clause ("Food, feed and specialty ingredients") leads the quiet base row at the foot of the hero,
- * followed by the base line and the five places, all from src/data/home.ts. H1 = hero.headline (never hard-coded).
- * ≥ 1240px (where it fits on one line): the base row is pinned to the bottom of the hero across the full container
- *  width (hairline on top), so the hero stays near its 620px floor: focus, then "Based in … · India · … ".
- * < 1240px it sits in flow under the buttons as three short lines: focus / base line / places. The places are a
- *  balanced inline row (no lone "the Netherlands" on a second line); a wrapped line never starts with a "·" (each
- *  line's leading separator is clipped).
- * Mobile (< 900px): PageHero puts the photo in a 220–380px band above the text on solid navy; buttons go full width
- *  below 600px.
+ * Home 3 · Hero (v4 developer guide + homepage design). Full-bleed rapeseed field (hero-rapeseed, cropped to keep the
+ * sky on the left) under a Delft Navy gradient that is solid behind the text on the left (rgba(14,31,77,.92)) and
+ * fades out to the right. White label with the saffron rule, Bodoni H1 (76/80 desktop, 44/48 mobile), intro, two
+ * buttons (white fill + white outline), and a foot line on a hairline: "Based in the Netherlands" + the five countries.
+ * Motion: the photo settles 1.08 → 1 on load and drifts as the hero leaves (data-gsap="kenburns"); the H1's lines rise
+ * once inside their masks on load (data-gsap="hero-title", CSS from 0 ms). Everything else is there at first paint.
+ * Mobile (< 900px): the gradient runs top-to-bottom so the whole column of text sits on deep navy; buttons stack.
+ * The photo is the LCP image (priority).
  */
-import PageHero from '@/components/ui/PageHero.astro';
+import Photo from '@/components/ui/Photo.astro';
+import Button from '@/components/ui/Button.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { hero } from '@/data/home';
-import { photos } from '@/data/photos';
-
-const [eyebrow, ...rest] = hero.overline.split(' · ');
-const focus = rest.join(' · ');
-const photo = photos['refinery-01'];
 ---
-<PageHero
-  ground="navy"
-  size="lg"
-  titleId="hero-heading"
-  eyebrow={eyebrow}
-  title={hero.headline}
-  lead={hero.sub}
-  image={photo.src}
-  imageAlt={photo.alt}
-  imagePosition={photo.position}
-  actions={[
-    { label: hero.primary.label, href: hero.primary.href },
-    { label: hero.secondary.label, href: hero.secondary.href, variant: 'secondary' },
-  ]}
->
-  <div class="hh-base">
-    {focus && <p class="hh-base__focus">{focus}</p>}
-    <p class="hh-base__where">
-      <span class="hh-base__line">{hero.footLeft}</span><span class="hh-base__clip"><span class="hh-base__places">{
-        hero.footRight.map((place) => <span class="hh-base__item">{place}</span>)
-      }</span></span>
+<section class="hh band--navy on-dark" aria-labelledby="hero-title">
+  <Photo slug="hero-rapeseed" fill priority kenburns sizes="100vw" position="62% 50%" class="hh__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400]} />
+  <div class="hh__scrim" aria-hidden="true"></div>
+  <div class="container hh__inner">
+    <Eyebrow tone="white" class="hh__eyebrow">{hero.overline}</Eyebrow>
+    <h1 id="hero-title" class="hh__title" data-gsap="hero-title">
+      {hero.headlineLines.map((l, i) => <span class="ln"><span style={`--ln:${i}`}>{l}</span></span>)}
+    </h1>
+    <p class="hh__lead">{hero.sub}</p>
+    <div class="hh__actions">
+      <Button href={hero.primary.href} variant="on-dark">{hero.primary.label}</Button>
+      <Button href={hero.secondary.href} variant="ghost-on-dark">{hero.secondary.label}</Button>
+    </div>
+    <p class="hh__foot">
+      <strong>{hero.footLeft}</strong>
+      <span>{hero.footLead} {hero.footRight.join(' · ')}</span>
     </p>
   </div>
-</PageHero>
+</section>
 
 <style>
-  .hh-base {
-    --sep: 1.4em;
-    padding-top: var(--s-5);
-    border-top: 1px solid var(--rule);
-    font-size: var(--fs-small); line-height: var(--lh-small);
+  .hh { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white); }
+  .hh :global(.hh__photo) { z-index: -2; }
+  .hh__scrim {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(14, 31, 77, .62) 0%, rgba(14, 31, 77, .86) 45%, rgba(14, 31, 77, .94) 100%);
   }
-  .hh-base__focus { color: var(--fg); font-weight: 500; }
-  .hh-base__where { margin-top: var(--s-1); color: var(--fg-2); }
-  .hh-base__line { display: block; }
-  /* the places: inline-blocks with a leading "·" in their padding; the clip hides the dot that starts a line */
-  .hh-base__clip { display: block; overflow: hidden; }
-  .hh-base__places { display: block; margin-left: calc(-1 * var(--sep)); text-wrap: balance; }
-  .hh-base__item { display: inline-block; position: relative; padding-left: var(--sep); white-space: nowrap; }
-  .hh-base__item::before {
-    content: "·"; content: "·" / "";   /* decorative; the plain value is the fallback where alt text is unsupported */
-    position: absolute; left: 0; width: var(--sep); text-align: center;
+  .hh__inner { position: relative; display: flex; flex-direction: column; padding-block: 72px 40px; }
+  .hh__title {
+    margin: 26px 0 0; max-width: 13ch;
+    font-family: var(--font-serif); font-weight: 500; font-size: 2.75rem; line-height: 1.09; letter-spacing: -0.01em;
+    color: var(--white); text-wrap: initial;
   }
+  .hh__lead { margin: 24px 0 0; max-width: 620px; font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; }
+  .hh__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+  .hh__foot {
+    display: flex; flex-wrap: wrap; gap: 8px 40px;
+    margin: 64px 0 0; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .22);
+    font-size: .875rem; line-height: 1.5; color: #DCE4F2;
+  }
+  .hh__foot strong { color: var(--white); font-weight: 700; }
 
-  @media (min-width: 1240px) {
-    .hh-base {
-      position: absolute; left: var(--gutter-x); right: var(--gutter-x); bottom: var(--s-6);
-      display: flex; align-items: baseline; column-gap: var(--s-7);
-      padding-right: 200px;   /* clear of the fixed "Ask KoKreaters" launcher bottom-right */
+  @media (max-width: 599px) {
+    .hh__actions :global(.btn) { flex: 1 1 100%; }
+    .hh :global(.hh__eyebrow) { letter-spacing: .1em; font-size: .75rem; gap: 12px; }
+    .hh :global(.hh__eyebrow .eyebrow__rule) { width: 28px; }
+  }
+  @media (min-width: 900px) {
+    .hh__scrim {
+      background: linear-gradient(90deg, rgba(14, 31, 77, .94) 0%, rgba(14, 31, 77, .82) 42%, rgba(14, 31, 77, .25) 75%, rgba(14, 31, 77, .05) 100%);
     }
-    .hh-base__where { margin-top: 0; flex: 1 1 0; min-width: 0; }
-    .hh-base__line, .hh-base__clip, .hh-base__places { display: inline; }
-    .hh-base__places { margin-left: 0; }
+    .hh__inner { padding-block: 120px 56px; }
+    .hh__title { max-width: 780px; font-size: clamp(3.5rem, 1.2rem + 4.1vw, 4.75rem); line-height: 1.05; }
+    .hh__lead { font-size: 1.1875rem; }
+    .hh__foot { margin-top: 96px; }
   }
 </style>

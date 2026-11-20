@@ -1,7 +1,7 @@
 /** The six services. v4 (developer guide 20 Nov 2026): names, home lines (`promise`) and order follow Ganeaysh's list;
  * keys stay stable. */
 import type { Pillar } from './types';
-import type { BleedSafeSlug, PhotoSlug } from './photos';
+import type { PhotoSlug } from './photos';
 
 export const pillars: Pillar[] = [
   {
@@ -40,17 +40,17 @@ export const pillars: Pillar[] = [
     key: 'strategy', slug: 'strategy-feasibility', n: 3,
     name: 'Market access and strategy',
     promise: 'Feasibility, market entry and clear Go/No-Go decisions, grounded in plant reality.',
-    headline: 'Clear answers for Go/No-Go decisions.',
-    intro: 'Before you commit capital, you need to know whether the market is real, whether the technology works and whether the numbers hold. We combine market analysis with technical judgement to give boards and investors a decision they can defend.',
+    headline: 'Clear Go/No-Go decisions, and a clear route to market.',
+    intro: 'Before you commit capital, you need to know whether the market is real, whether the technology works and whether the numbers hold. We combine market analysis with technical judgement to give boards and investors a decision they can defend, and a route to market they can follow.',
     helpWith: [
+      'Market entry and go-to-market strategy, including India and Asia',
       'Market analysis, product-market fit and competitive landscapes',
       'Feasibility studies and business plans for new plants and product lines',
-      'Market entry and go-to-market strategy, including India and Asia',
       'Business and technology alignment plans and technical roadmaps',
       'Investor-grade reports and presentations',
     ],
-    deliverables: ['Feasibility reports', 'business plans with scenarios', 'market entry strategies', 'investor decks'],
-    colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, shortLabel: 'Strategy',   // impact: none (C-8)
+    deliverables: ['Market entry strategies', 'feasibility reports', 'business plans with scenarios', 'investor decks'],
+    colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, shortLabel: 'Market access',   // impact: none (C-8)
   },
   {
     key: 'quality', slug: 'food-safety-quality', n: 4,
@@ -87,17 +87,21 @@ export const pillars: Pillar[] = [
     key: 'capability', slug: 'capability', n: 6,
     name: 'Fractional CTO and Head of R&D',
     promise: 'Senior technical leadership, part-time, for as long as you need it.',
-    headline: 'Leave stronger teams behind.',
-    intro: 'Lasting change comes from people. We train technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
+    /* v4: the offer is the guide's line (promise = headline). The body reframes the v3 capability-building content
+       (training, transfer, coaching, organisation design, interim leadership) as part of that offer; the role wording
+       ("technical director or R&D lead", "R&D steering, board advisory") is the approach.ts engagement models'. */
+    headline: 'Senior technical leadership, part-time, for as long as you need it.',
+    intro: 'Not every business needs a full-time CTO or Head of R&D, but every growing one needs that judgement. We step into the role part-time: covering a technical director or R&D lead role, steering R&D and advising the board. And because lasting change comes from people, we train your technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
     helpWith: [
+      'Part-time technical leadership: a technical director or R&D lead role, covered for a defined period',
+      'R&D steering, board advisory and ongoing technical counsel',
+      'Organisation design for R&D, technical services and quality',
       'Technical training: oils and fats, specialty fats, applications, FSQR',
       'Technology transfer and site start-up coaching',
       'Leadership development for technical leaders',
-      'Organisation design for R&D, technical services and quality',
-      'Interim technical leadership',
     ],
-    deliverables: ['Training programmes', 'academies', 'transfer playbooks', 'organisation designs', 'interim roles'],
-    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'indonesia', shortLabel: 'Capability',   // C-8
+    deliverables: ['Fractional and interim leadership roles', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
+    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'indonesia', shortLabel: 'Fractional CTO',   // C-8
   },
 ];
 
@@ -127,6 +131,7 @@ export const pillarHelpConfirm: Partial<Record<Pillar['key'], { id: number | str
 };
 
 /**
+ * v4 Delft: the photos of each pillar page (client photo set of 20 Nov 2026 plus the v3 food shots; no refinery).
  * v3.1 (REDESIGN-V3 §9.2 "no image cut"): the photos of each pillar page. Slugs from src/data/photos.ts; alt text and
  * the tuned focal point travel with the photo record.
  *  slug   — the pillar hero (PillarHero: the photo fills the right ≈ 2/3 of the band at full height, box ≈ 1.2–1.5:1,
@@ -136,17 +141,17 @@ export const pillarHelpConfirm: Partial<Record<Pillar['key'], { id: number | str
  *           landscapes in a 3:2 frame (so nothing is cut). Was the split-hero photo in v3.0 (lab-01, factory-01 are not
  *           bleed-safe, so they moved here).
  */
-export const pillarPhoto: Record<Pillar['key'], { slug: BleedSafeSlug; position?: string; detail: PhotoSlug; detailPosition?: string }> = {
-  innovation: { slug: 'chocolate-01', detail: 'bakery-01' },
-  process: { slug: 'plant-01', position: '50% 40%', detail: 'cold-01' },
-  quality: { slug: 'oils-01', position: '50% 20%', detail: 'lab-02' },
-  strategy: { slug: 'oilseeds-01', detail: 'people-03' },
-  deals: { slug: 'refinery-02', position: '50% 25%', detail: 'audit-01' },
-  capability: { slug: 'people-02', position: '88% 45%', detail: 'factory-01' },
+export const pillarPhoto: Record<Pillar['key'], { slug: PhotoSlug; position?: string; detail: PhotoSlug; detailPosition?: string }> = {
+  innovation: { slug: 'chocolate-01', position: '60% 50%', detail: 'develop-pipette' },
+  process: { slug: 'spare-hall', position: '50% 55%', detail: 'scale-tanks' },
+  strategy: { slug: 'access-ship', position: '50% 50%', detail: 'people-03' },
+  quality: { slug: 'oils-01', position: '50% 30%', detail: 'lab-02' },
+  deals: { slug: 'feed-silos', position: '50% 40%', detail: 'audit-01' },
+  capability: { slug: 'people-01', position: '50% 70%', detail: 'factory-01' },
 };
 
-/** v3.1: the hub hero (/expertise), a quiet dark full-bleed photo so the display headline carries the screen. */
-export const expertiseHubPhoto: { slug: BleedSafeSlug; position?: string } = { slug: 'texture-01' };
+/** v4: the hub hero (/expertise): ripe wheat against a deep blue sky (client photo set, 20 Nov 2026). */
+export const expertiseHubPhoto: { slug: PhotoSlug; position?: string } = { slug: 'spare-wheat', position: '50% 40%' };
 
 /**
  * v3: labels for one quiet static exhibit per pillar page (were expertiseNotes.diagram.*, minus the
@@ -160,6 +165,6 @@ export const pillarExhibits: Record<Pillar['key'], { title: string; steps: strin
   quality: { title: 'Process contaminants, stopped layer by layer', from: 'Risk', steps: ['3-MCPD and GE', 'Trans fats', 'Mineral oil hydrocarbons'], to: ['Your brand'] },
   strategy: { title: 'Three questions before you commit capital', from: 'Your idea', steps: ['Is the market real?', 'Does the technology work?', 'Do the numbers hold?'], to: ['Go', 'No-Go'] },
   deals: { title: 'What the spreadsheet shows, and what it does not', from: 'What the spreadsheet shows', steps: ['A tired refinery', 'A fragile quality system', 'A technology that will not transfer'] },
-  capability: { title: 'Train, transfer, coach: stronger teams', steps: ['Train', 'Transfer', 'Coach'], to: ['Stronger teams'] },
+  capability: { title: 'Lead, then leave stronger teams behind', steps: ['Lead', 'Train', 'Transfer', 'Coach'], to: ['Stronger teams'] },
 };
 

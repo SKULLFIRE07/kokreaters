@@ -1,45 +1,60 @@
 ---
 /**
- * Insight library (REDESIGN-V3 §4 Insights hub, §9.3): every visible insight as an index row (InsightRow), newest
- * first, on the 12-column grid; hairline between rows and one under the last.
+ * Insight grid, v4 "Delft" (the homepage design's Insights band, carried onto /insights and the article's related
+ * insights): every visible insight as a photo card (InsightTile), newest first, then, when `soon` is passed, the
+ * coming-soon pieces as Delft Ice "In preparation" cards in the same grid. The red "New" tag marks the site's newest
+ * visible insight only, wherever its card appears (`newest={false}` turns it off).
+ * 3 columns from 900px, 2 from 600px, 1 below. A single card (one related insight under an article) is laid out as a
+ * row from 900px instead: the photo in 7 columns, the text beside it, so it neither fills a half-page photo nor gets
+ * lost in a third of the width.
  * Filter hooks (scripts/pages/insights.ts): the <ul> carries [data-insight-list]; each <li> is .insight-row with
- * data-pillar / data-format. The empty-state line under the list is shown by the script when a filter matches nothing.
- * The featured insight (`featuredId`) is in the list, so filters and counts cover everything, but its row carries
- * [data-featured] and is server-rendered `hidden`: the band above already shows it, so the unfiltered library never
- * repeats it (also without JS). The script reveals it only while a filter is chosen and it matches.
- * Rows, not a three-up card grid: one or two remaining insights read as a finished index, not a grid with holes.
- * Mobile: each row stacks photo → label → title → summary → meta (see InsightRow).
+ * data-pillar / data-format (coming-soon cards add data-soon, so they follow the filters but are not counted). The
+ * empty-state line under the list is shown by the script when a filter matches nothing.
+ * `featuredId` is kept for API compatibility (v3 hid the featured row); v4 shows every insight in the grid.
  */
 import type { CollectionEntry } from 'astro:content';
-import InsightRow from './InsightRow.astro';
+import InsightTile from './InsightTile.astro';
 import Button from '@/components/ui/Button.astro';
-import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft } from '@/lib/insights';
+import { formatLabel, insightHref, insightImage, insightReadingTime, isDraft, visibleInsights } from '@/lib/insights';
 import { getPillar } from '@/lib/pillars';
 import { showDraftLabels } from '@/lib/mode';
 import { insightsHub, articleCopy } from '@/data/insights';
-interface Props { entries: CollectionEntry<'insights'>[]; featuredId?: string; level?: 2 | 3 | 4; filterable?: boolean; }
-const { entries, featuredId, level = 3, filterable = true } = Astro.props;
+interface Props {
+  entries: CollectionEntry<'insights'>[];
+  soon?: CollectionEntry<'insights'>[];
+  featuredId?: string;
+  level?: 2 | 3 | 4;
+  filterable?: boolean;
+  newest?: boolean;
+  /** The first card's photo is the page's LCP image (the hub). */
+  priorityFirst?: boolean;
+}
+const { entries, soon = [], level = 3, filterable = true, newest = true, priorityFirst = false } = Astro.props;
+const newestId = newest ? (await visibleInsights())[0]?.id : undefined;
+const total = entries.length + soon.length;
+const cols = Math.max(2, Math.min(3, total));
 ---
-<ul class="ilist" role="list" data-insight-list={filterable ? '' : undefined}>
+<ul class:list={['ilist', total === 1 && 'ilist--single']} role="list" style={`--cols:${cols}`} data-insight-list={filterable ? '' : undefined}>
   {entries.map((e, i) => {
     const img = insightImage(e);
-    const isFeatured = e.id === featuredId;
     return (
-      <li
-        class="insight-row" data-pillar={e.data.pillar} data-format={e.data.format}
-        data-featured={isFeatured ? '' : undefined} hidden={isFeatured}
-        data-reveal style={`--i:${Math.min(i, 3)}`}
-      >
-        <InsightRow
+      <li class="insight-row" data-pillar={e.data.pillar} data-format={e.data.format}>
+        <InsightTile
           href={insightHref(e)} title={e.data.title} label={formatLabel(e)} pillarName={getPillar(e.data.pillar).shortLabel}
-          summary={e.data.description || e.data.standfirst} level={level}
-          date={e.data.date} readTime={insightReadingTime(e)} image={img?.src} imageAlt={img?.alt}
+          summary={e.data.description || e.data.standfirst} level={level} isNew={e.id === newestId}
+          date={e.data.date} readTime={insightReadingTime(e)} image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
+          priority={priorityFirst && i === 0}
         >
           {showDraftLabels && isDraft(e) && <span slot="badge" class="ilist__draft"> · {articleCopy.draft}</span>}
-        </InsightRow>
+        </InsightTile>
       </li>
     );
   })}
+  {soon.map((e) => (
+    <li class="insight-row insight-row--soon" data-pillar={e.data.pillar} data-format={e.data.format} data-soon>
+      <InsightTile soon title={e.data.title} label={formatLabel(e)} level={level} />
+    </li>
+  ))}
 </ul>
 {filterable && (
   <div class="ilist__empty" hidden data-filter-empty>
@@ -48,8 +63,27 @@ const { entries, featuredId, level = 3, filterable = true } = Astro.props;
   </div>
 )}
 <style>
-  .ilist { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .ilist {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8) var(--grid-gap);
+  }
+  .ilist > li { min-width: 0; }
+  .ilist > li[hidden] { display: none; }
+  @media (min-width: 600px) { .ilist { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-8); } }
+  @media (min-width: 900px) { .ilist { grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); row-gap: clamp(4rem, 3rem + 2vw, 5rem); } }
+  /* phones: the in-preparation panels need no tall frame */
+  @media (max-width: 599px) {
+    .ilist { row-gap: var(--s-7); }
+    .ilist :global(.itile--soon) { min-height: 0; }
+  }
+  /* on an ice ground the panels turn white so they still read as cards */
+  :global(.band--ice) .ilist :global(.itile--soon) { background: var(--white); }
+  @media (min-width: 900px) {
+    .ilist--single { grid-template-columns: minmax(0, 1fr); }
+    .ilist--single :global(.itile--image) { display: grid; grid-template-columns: 7fr 5fr; column-gap: var(--grid-gap); align-items: center; }
+    .ilist--single :global(.itile__media) { margin-bottom: 0; }
+  }
   .ilist__draft { color: var(--fg-2); }
   .ilist__empty { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); padding-top: var(--s-7); }
-  .ilist__empty-text { margin: 0; font-family: var(--font-serif); font-optical-sizing: auto; font-size: var(--fs-h4); line-height: var(--lh-h4); color: var(--head); }
+  .ilist__empty-text { margin: 0; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--head); }
 </style>

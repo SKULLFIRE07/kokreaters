@@ -27,12 +27,12 @@ const JSON_OUT = args.includes('--json');
 if (!existsSync(DIST)) { console.error(`check-budget: ${DIST} does not exist. Run the build first.`); process.exit(1); }
 
 const KB = 1024;
-const BUDGET = { js: 15 * KB, css: 60 * KB, fonts: 330 * KB };
+// v3 Delft (client guide 20 Nov 2026 + owner: 'good GSAP'): the entry scripts stay tiny (~7KB); GSAP, ScrollTrigger and
+// Lenis load lazily after idle and are counted here too, so the page total is capped at 70KB gzip.
+const BUDGET = { js: 70 * KB, css: 60 * KB, fonts: 330 * KB };
 const FONT_FILES = ['bodoni-moda-latin-opsz-italic.woff2', 'bodoni-moda-latin-opsz-normal.woff2', 'manrope-latin-wght-normal.woff2'];
 /** Signatures of the three libraries v3 removed. */
 const BANNED_JS = [
-  ['GSAP', /GreenSock|gsap\.registerPlugin|_gsScope|ScrollTrigger\.create|\bgsap\.(?:to|from|timeline)\(/],
-  ['Lenis', /__lenis|new Lenis\b|lenis-smooth|data-lenis-prevent/],
   ['three.js', /WebGLRenderer|THREE\.REVISION|three\.module|WebGLRenderingContext[\s\S]{0,200}REVISION/],
 ];
 /** v2 palette (DESIGN-SPEC v2 3.1): purple, pink, yellow, red and their tints. Only the logo artwork may use them. */

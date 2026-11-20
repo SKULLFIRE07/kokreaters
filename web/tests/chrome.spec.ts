@@ -21,7 +21,7 @@ test('body order, footer and no motion toggle', async ({ page }) => {
 test('newsletter forms are real forms', async ({ page }) => {
   await page.goto('/', { waitUntil: 'load' });
   const forms = page.locator('form[data-newsletter]');
-  expect(await forms.count(), 'at least one newsletter form on home').toBeGreaterThan(0);
+  // v3 Delft: the client's design has no newsletter on home; any newsletter form that does render must be real
   for (const f of await forms.all()) {
     const action = await f.getAttribute('action');
     expect(action, 'action = endpoint or mailto:').toMatch(/^(https:\/\/|mailto:)/);

@@ -13,7 +13,7 @@ export const microcopy = {
   newsletter: 'Field notes from the plant floor and the boardroom, once a month.', // v3 tone: "No noise." aside dropped
   newsletterButton: 'Subscribe',
   formSuccess: 'Thank you. Your message is with us and Ganeaysh will reply within one working day.',
-  formError: 'Something went wrong. Please try again, or email office@kokreaters.com.',
+  formError: 'Something went wrong. Please try again, or email office@KoKreaters.com.',
   required: 'Please fill this in so we can reply.',
   cookieBanner: 'We use essential cookies to run this site and, with your consent, analytics cookies to improve it.',
   cookieAccept: 'Accept all',
@@ -30,7 +30,7 @@ export const microcopy = {
   menu: 'Menu', // COMPOSED
   close: 'Close', // COMPOSED
   invalidEmail: 'Please enter an email address we can reply to.', // COMPOSED
-  mailtoSent: 'Your email app should now open with your message ready to send. If it does not, write to office@kokreaters.com.', // COMPOSED
+  mailtoSent: 'Your email app should now open with your message ready to send. If it does not, write to office@KoKreaters.com.', // COMPOSED
   featuredInsight: 'Featured insight', // COMPOSED
   allExpertise: 'All expertise', // COMPOSED
   inPreparation: 'In preparation', // COMPOSED

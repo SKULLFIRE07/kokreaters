@@ -156,7 +156,7 @@ function shoot(key, out) {
 }
 
 async function render() {
-  for (const f of ['source-serif-4-latin-opsz-normal.woff2', 'inter-latin-opsz-normal.woff2']) {
+  for (const f of ['bodoni-moda-latin-opsz-normal.woff2', 'manrope-latin-wght-normal.woff2']) {
     if (!existsSync(join(WEB, 'public', 'fonts', f))) {
       await new Promise((ok) => spawn(process.execPath, [join(WEB, 'scripts', 'copy-fonts.mjs')], { stdio: 'inherit' }).on('close', ok));
       break;

@@ -1,0 +1,17 @@
+---
+/**
+ * v4 Delft section label (developer guide "Labels"): Manrope 13px caps, .16em, 700, in the band's --label colour
+ * (Deep Delft on light, saffron on navy). `rule` adds the 40 × 2 saffron line before it, which the guide asks for on
+ * dark grounds and photo heroes; it draws in from the left (motion hook data-gsap="rule"; decorative, aria-hidden).
+ */
+interface Props { rule?: boolean; as?: 'p' | 'span' | 'div'; tone?: 'label' | 'white'; class?: string }
+const { rule = false, as: Tag = 'p', tone = 'label', class: cls } = Astro.props;
+---
+<Tag class:list={['kicker', 't-label', tone === 'white' && 'kicker--white', cls]}>
+  {rule && <span class="kicker__rule" aria-hidden="true" data-gsap="rule"></span>}<span><slot /></span>
+</Tag>
+<style>
+  .kicker { display: flex; align-items: center; gap: 14px; margin: 0; color: var(--label); }
+  .kicker--white { color: var(--white); }
+  .kicker__rule { flex: none; width: 40px; height: 2px; background: var(--saffron); transform-origin: left center; }
+</style>

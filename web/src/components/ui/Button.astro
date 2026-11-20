@@ -1,24 +1,26 @@
 ---
 /**
- * Button / button-link (REDESIGN-V3 §3). Renders <a> when `href`, else <button>.
- *  primary   — fill --btn-bg / text --btn-fg (navy on light grounds, white on navy); hover --btn-bg-hover.
- *  secondary — 1px outline in --fg, transparent; hover: faint fill, outline → --head.
- *  tertiary  — text link in --link + arrow (arrow by default); arrow nudges 4px on hover; 44px tap height.
- * Height 48 (lg 56), padding 0 24px, radius 2px, Inter 600 15–16px, sentence case. `full` = width 100%.
- * The .btn classes are global so forms and scripts can reuse them.
- * Mobile: same metrics (48px ≥ 44px tap target); long labels wrap inside the button instead of overflowing.
- * v2 props still compile: variant on-dark/ground → primary, hand/ghost-on-dark → secondary, size sm → md,
- * `arrow` → icon="arrow"; `magnetic` is ignored.
+ * Button / button-link (v4 developer guide). Renders <a> when `href`, else <button>. Square corners, no shadows,
+ * Manrope 700 15px, 15–16px vertical padding, sentence case; hover darkens (colour only).
+ *  primary        — fill --btn-bg / text --btn-fg: Deep Delft on light grounds, white on navy, saffron on Deep Delft.
+ *  secondary      — 1.5px outline in --fg (Deep Delft-on-light reads as --link), transparent; hover: faint fill.
+ *  tertiary       — text link in --link + arrow; underline draws on hover, arrow nudges 4px; 44px tap height.
+ *  on-dark        — white fill, navy text (over photos / navy). ghost-on-dark — white outline, white text.
+ *  saffron        — saffron fill, navy text: the one main CTA per page (CtaBand uses it).
+ * `full` = width 100%. The .btn classes are global so forms and scripts can reuse them.
+ * Mobile: same metrics (≥ 48px tap target); long labels wrap inside the button instead of overflowing.
+ * v2 props still compile: variant ground → primary, hand → secondary, size sm → md, `arrow` → icon="arrow";
+ * `magnetic` is ignored.
  */
 import type { HTMLAttributes } from 'astro/types';
 import Icon from './Icon.astro';
 
-type Variant = 'primary' | 'secondary' | 'tertiary';
+type Variant = 'primary' | 'secondary' | 'tertiary' | 'on-dark' | 'ghost-on-dark' | 'saffron';
 type IconKey = 'arrow' | 'external' | 'download' | 'calendar';
 interface Props {
   href?: string;
   type?: 'button' | 'submit' | 'reset';
-  variant?: Variant | 'on-dark' | 'ground' | 'hand' | 'ghost-on-dark';
+  variant?: Variant | 'ground' | 'hand';
   size?: 'md' | 'lg' | 'sm';
   icon?: IconKey | null;
   full?: boolean;
@@ -34,7 +36,7 @@ const {
   disabled = false, loading = false, arrow, magnetic: _magnetic, class: cls, ...rest
 } = Astro.props;
 
-const variant: Variant = v === 'secondary' || v === 'tertiary' ? v : v === 'hand' || v === 'ghost-on-dark' ? 'secondary' : 'primary';
+const variant: Variant = v === 'secondary' || v === 'tertiary' || v === 'on-dark' || v === 'ghost-on-dark' || v === 'saffron' ? v : v === 'hand' ? 'secondary' : 'primary';
 const size = s === 'lg' ? 'lg' : 'md';
 const icon: IconKey | null = iconProp !== undefined ? iconProp : arrow || variant === 'tertiary' ? 'arrow' : null;
 const iconName = icon === 'arrow' ? 'arrow-right' : icon === 'external' ? 'arrow-up-right' : icon;
@@ -62,26 +64,34 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, full && 'btn--full', 
 <style is:global>
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-    min-height: 48px; padding: 10px 24px;
-    border: 1px solid transparent; border-radius: var(--r-sm);
-    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 600; line-height: 1.25;
+    min-height: 52px; padding: 14px 28px;
+    border: 1.5px solid transparent; border-radius: 0;
+    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: 700; line-height: 1.25;
     letter-spacing: var(--tr-button); text-align: center; text-decoration: none;
     cursor: pointer; -webkit-tap-highlight-color: transparent;
     transition: background-color var(--d-1) var(--ease-out), border-color var(--d-1) var(--ease-out), color var(--d-1) var(--ease-out);
   }
-  .btn--lg { min-height: 56px; padding-inline: 28px; }
+  .btn--lg { min-height: 56px; padding-inline: 32px; font-size: 1rem; }
   .btn--full { display: flex; width: 100%; }
   .btn__label { min-width: 0; }
   .btn__icon { margin-right: -2px; }
+  .btn:hover { text-decoration: none; }
 
   .btn--primary { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
   .btn--primary:is(:hover, .is-hover) { background: var(--btn-bg-hover); border-color: var(--btn-bg-hover); color: var(--btn-fg); }
 
-  .btn--secondary { background: transparent; color: var(--fg); border-color: var(--fg); }
-  .btn--secondary:is(:hover, .is-hover) { background: color-mix(in srgb, var(--fg) 6%, transparent); color: var(--head); border-color: var(--head); }
+  .btn--secondary { background: transparent; color: var(--link); border-color: var(--link); }
+  .btn--secondary:is(:hover, .is-hover) { background: color-mix(in srgb, var(--link) 7%, transparent); color: var(--head); border-color: var(--head); }
+
+  .btn--on-dark { background: var(--white); color: var(--navy-900); border-color: var(--white); }
+  .btn--on-dark:is(:hover, .is-hover) { background: var(--ice); border-color: var(--ice); color: var(--navy-900); }
+  .btn--ghost-on-dark { background: transparent; color: var(--white); border-color: rgba(255, 255, 255, .7); }
+  .btn--ghost-on-dark:is(:hover, .is-hover) { background: rgba(255, 255, 255, .1); border-color: var(--white); color: var(--white); }
+  .btn--saffron { background: var(--saffron); color: var(--navy-900); border-color: var(--saffron); font-weight: 800; }
+  .btn--saffron:is(:hover, .is-hover) { background: #D9962A; border-color: #D9962A; color: var(--navy-900); }
 
   .btn--tertiary {
-    min-height: 44px; padding: 0; gap: 8px; border: 0; border-radius: 0;
+    min-height: 44px; padding: 0; gap: 8px; border: 0; border-radius: 0; font-size: var(--fs-button);
     background: none; color: var(--link); justify-content: flex-start;
   }
   .btn--tertiary .btn__icon { color: var(--accent); }

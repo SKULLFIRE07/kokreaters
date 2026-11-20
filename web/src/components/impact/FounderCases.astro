@@ -8,7 +8,7 @@
  * Desktop: cases 160 → 200px apart, no rules (air and the numbered kicker separate them). Mobile: 96px apart.
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Head from '@/components/expertise/Head.astro';
 import CaseStudy from './CaseStudy.astro';
 import { founderResults, impactPage } from '@/data/impact';
 import { photos, type PhotoSlug } from '@/data/photos';
@@ -25,12 +25,12 @@ const { ground = 'white' } = Astro.props;
 const casePhoto: Record<FounderResult['id'], PhotoSlug> = {
   india: 'chocolate-02',
   indonesia: 'people-02',
-  ukraine: 'cold-01',
+  ukraine: 'oils-02',
   tfa: 'bakery-01',
 };
 ---
 <Section ground={ground} labelledby="part-founder">
-  <SectionHeader id="part-founder" title={impactPage.partOne} lead={impactPage.partOneLead} />
+  <Head id="part-founder" label={impactPage.overline} title={impactPage.partOne} lead={impactPage.partOneLead} />
   <div class="cases">
     {founderResults.map((r, i) => (
       <CaseStudy result={r} photo={photos[casePhoto[r.id]]} index={i + 1} total={founderResults.length} side={i % 2 === 0 ? 'left' : 'right'} />
@@ -38,6 +38,6 @@ const casePhoto: Record<FounderResult['id'], PhotoSlug> = {
   </div>
 </Section>
 <style>
-  .cases { display: grid; gap: var(--s-9); margin-top: var(--s-8); }
-  @media (min-width: 900px) { .cases { gap: clamp(10rem, 4rem + 6.6vw, 12.5rem); margin-top: var(--s-9); } }
+  .cases { display: grid; gap: var(--s-9); margin-top: var(--s-6); }
+  @media (min-width: 900px) { .cases { gap: clamp(7rem, 4rem + 4vw, 9rem); margin-top: var(--s-8); } }
 </style>

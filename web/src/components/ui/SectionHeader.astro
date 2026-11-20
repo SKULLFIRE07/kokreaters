@@ -6,12 +6,11 @@
  *  stack at every width. Optional "View all →" link: right-aligned on the title's last line at ≥ 900px (no lead), under
  *  the lead in the split, below the lead on mobile. `level` 2 (h2, --fs-h2 32 → 56) or 3 (h3, --fs-h3).
  *  Slot "lead" replaces the `lead` string when richer markup is needed.
- * Motion: data-reveal="split" — the title's words rise line by line, then eyebrow, lead and link ([data-part]) fade in.
+ * Motion (v4): none. The header is readable at first paint; on dark grounds the eyebrow's saffron rule draws in.
  * Mobile: one column, left (or centred) aligned; link sits under the lead with a 16px gap.
  */
 import Eyebrow from './Eyebrow.astro';
 import ArrowLink from './ArrowLink.astro';
-import SplitText from './SplitText.astro';
 interface Props {
   eyebrow?: string;
   title: string;
@@ -28,10 +27,10 @@ const H = level === 3 ? 'h3' : 'h2';
 const hasLead = !!lead || Astro.slots.has('lead');
 const split = layout === 'auto' && align === 'left' && hasLead && level === 2;
 ---
-<header class:list={['sh', `sh--${align}`, link && 'sh--linked', split && 'sh--split', cls]} data-reveal="split">
+<header class:list={['sh', `sh--${align}`, link && 'sh--linked', split && 'sh--split', cls]}>
   <div class="sh__head">
     {eyebrow && <Eyebrow class="sh__eyebrow" data-part>{eyebrow}</Eyebrow>}
-    <H id={id} class:list={['sh__title', level === 3 ? 't-h3' : 't-h2']}><SplitText text={title} /></H>
+    <H id={id} class:list={['sh__title', level === 3 ? 't-h3' : 't-h2']}>{title}</H>
   </div>
   {(hasLead || link) && (
     <div class="sh__side">
@@ -43,12 +42,12 @@ const split = layout === 'auto' && align === 'left' && hasLead && level === 2;
   )}
 </header>
 <style>
-  .sh { display: grid; margin-bottom: clamp(3rem, 2.2rem + 3.3vw, 6rem); }
-  .sh__eyebrow { margin-bottom: var(--s-5); }
+  .sh { display: grid; margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  .sh__eyebrow { margin-bottom: 18px; }
   .sh__title { max-width: 22ch; }
   .sh__title.t-h3 { max-width: 40ch; }
   .sh__side { display: grid; gap: var(--s-4); }
-  .sh__lead { margin-top: var(--s-5); color: var(--fg-2); }
+  .sh__lead { margin-top: var(--s-5); color: var(--fg-2); font-size: 1.125rem; line-height: 1.65; }
   .sh__lead :global(p + p) { margin-top: .75em; }
   .sh__linkwrap { justify-self: start; margin-top: var(--s-2); }
   .sh--center { justify-items: center; text-align: center; }

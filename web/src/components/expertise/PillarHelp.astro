@@ -1,39 +1,38 @@
 ---
 /**
- * "What we help with" (REDESIGN-V3 §4 detail 3, v3.1 §9.2–9.3). Page-local composition: an asymmetric split with the
- * pillar's detail photo framed in its natural orientation (portrait → 4:5, landscape → 3:2: never cut), beside the
- * section heading and the five help items as a large serif numbered list (an <ol>, numerals in --accent ≥ 24px).
- * ≥ 900px: heading + list in columns 1–6; the photo in columns 8–12 (portrait, top-aligned with the heading) or 7–12
- * (landscape, bottom-aligned with the list); a portrait never grows taller than the viewport minus the header.
- * Slot: notes under the list (acronym expansions, staging Confirm).
- * Mobile (< 900px): heading, list, then the photo (portrait max 440px wide, landscape full width).
+ * "What we help with" (v4 Delft), on Porcelain. Label + Bodoni h2, then the help items as a numbered list on thin
+ * #D9E0EC rules (number 14px 700 Deep Delft, text Manrope 17–18px navy: Bodoni only from 24px), beside the service's
+ * detail photo, square, in its natural orientation (portrait 4:5, landscape 3:2), with data-gsap="parallax".
+ * ≥ 900px: list in columns 1–6, photo in 8–12 (portrait) or 7–12 (landscape). Slot: notes under the list.
+ * Mobile: heading, list, then the photo.
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Photo from '@/components/ui/Photo.astro';
+import Head from './Head.astro';
 import { photos, type PhotoSlug } from '@/data/photos';
 import { pad2 } from '@/lib/format';
 
 interface Props {
   id: string;
   title: string;
+  label?: string;
   items: string[];
   photo: PhotoSlug;
   position?: string;
   ground?: 'white' | 'grey';
   rule?: boolean;
 }
-const { id, title, items, photo, position, ground = 'white', rule = false } = Astro.props;
+const { id, title, label, items, photo, position, ground = 'grey', rule = false } = Astro.props;
 const rec = photos[photo];
 const portrait = rec.orientation === 'portrait';
 ---
 <Section ground={ground} rule={rule} labelledby={id}>
   <div class:list={['help', portrait ? 'help--portrait' : 'help--landscape']}>
     <div class="help__main">
-      <SectionHeader id={id} title={title} layout="stack" class="help__head" />
+      <Head id={id} title={title} label={label} class="help__head" />
       <ol class="help__list" role="list">
         {items.map((t, i) => (
-          <li class="help__item" data-reveal style={`--i:${i}`}>
+          <li class="help__item">
             <span class="help__n" aria-hidden="true">{pad2(i + 1)}</span>
             <span class="help__text">{t}</span>
           </li>
@@ -41,30 +40,24 @@ const portrait = rec.orientation === 'portrait';
       </ol>
       <slot />
     </div>
-    <figure class="help__media" data-reveal style="--i:1">
+    <figure class="help__media">
       <Photo
-        slug={photo} position={position} ratio={portrait ? '4/5' : '3/2'} settle
-        sizes={portrait ? '(min-width: 1440px) 440px, (min-width: 900px) 32vw, min(440px, calc(100vw - 40px))' : '(min-width: 1440px) 540px, (min-width: 900px) 40vw, calc(100vw - 40px)'}
+        slug={photo} position={position} ratio={portrait ? '4/5' : '3/2'} data-gsap="parallax"
+        sizes={portrait ? '(min-width: 1320px) 440px, (min-width: 900px) 34vw, min(440px, calc(100vw - 40px))' : '(min-width: 1320px) 560px, (min-width: 900px) 42vw, calc(100vw - 40px)'}
       />
     </figure>
   </div>
 </Section>
 <style>
   .help { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
-  .help__main > :global(.help__head) { margin-bottom: clamp(2rem, 1.4rem + 2.4vw, 4rem); }
-  .help__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .help__list { list-style: none; margin: 0; padding: 0; }
   .help__item {
-    display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--s-4); align-items: baseline;
-    padding-block: var(--s-5); border-bottom: 1px solid var(--rule);
+    display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: var(--s-4); align-items: baseline;
+    padding-block: 20px; border-top: 1px solid var(--rule);
   }
-  .help__n {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.5rem; line-height: 1; font-weight: 400;
-    color: var(--accent); font-variant-numeric: lining-nums tabular-nums;
-  }
-  .help__text {
-    font-family: var(--font-serif); font-optical-sizing: auto; font-size: clamp(1.1875rem, 1.05rem + .45vw, 1.5rem);
-    line-height: 1.4; font-weight: 400; color: var(--head); text-wrap: pretty; max-width: 46ch;
-  }
+  .help__item:last-child { border-bottom: 1px solid var(--rule); }
+  .help__n { font-size: .875rem; font-weight: 700; color: var(--label); font-variant-numeric: lining-nums tabular-nums; }
+  .help__text { font-size: 1.0625rem; line-height: 1.55; font-weight: 500; color: var(--head); text-wrap: pretty; max-width: 52ch; }
   .help__media { margin: 0; }
   .help--portrait .help__media { max-width: 440px; }
 
@@ -72,8 +65,8 @@ const portrait = rec.orientation === 'portrait';
     .help { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: start; }
     .help__main { grid-column: 1 / 7; grid-row: 1; }
     .help__media { grid-row: 1; }
-    .help__item { grid-template-columns: 64px minmax(0, 1fr); padding-block: 28px; }
-    .help__n { font-size: 1.75rem; }
+    .help__item { grid-template-columns: 56px minmax(0, 1fr); padding-block: 24px; }
+    .help__text { font-size: 1.125rem; }
     .help--portrait .help__media {
       grid-column: 8 / -1; justify-self: end; max-width: none;
       width: min(100%, calc((100svh - var(--header-h) - 6rem) * .8));

@@ -1,31 +1,22 @@
 ---
 /**
- * /impact (REDESIGN-V3 §4 Impact, v3 "Editorial").
- *  1 PageHero navy, background photo texture-02 (photos.md): eyebrow, H1 impactPage.headline, lead; visible crumbs.
- *  2 Track record (grey): StatStrip of home.proof + source. Never other numbers.
- *  3 From our founder’s career (white): four cases, ids #india #indonesia #ukraine #tfa (deep-linked from expertise).
- *  4 KoKreaters engagements: only consent 'cleared' (or staging); today all pending → absent outside staging.
- *  5 Testimonials: only approved quotes in data; today none → absent.
- *  6 CtaBand (BaseLayout): grey, or white when the last section above is grey.
- *  v3.1 (§9): the hero is the tall full-bleed photo hero (md + background, ≈ 76svh); the cases are cinematic spreads;
- *  one PhotoInterlude (refinery-02, BLEED_SAFE) closes the founder cases before the engagements / CtaBand.
- * Grounds alternate navy → grey → white → (grey → white) → CTA → navy footer; no two identical grounds touch.
- * Mobile: each section component states its own phone layout; the hero photo becomes a band above the text.
+ * /impact (v4 Delft). Grounds: navy photo hero (stainless process tanks) → Porcelain (track record, as on the home
+ * design) → white (the four founder-career cases, 84px Bodoni figures) → (engagements / testimonials, only when cleared)
+ * → CtaBand → footer. The v3 refinery interlude is gone (guide: no petrochemical refinery photos).
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHero from '@/components/ui/PageHero.astro';
+import PillarHero from '@/components/expertise/PillarHero.astro';
 import TrackRecord from '@/components/impact/TrackRecord.astro';
 import FounderCases from '@/components/impact/FounderCases.astro';
 import Engagements from '@/components/impact/Engagements.astro';
 import Testimonials from '@/components/impact/Testimonials.astro';
-import PhotoInterlude from '@/components/ui/PhotoInterlude.astro';
 import { engagements, impactPage, testimonials } from '@/data/impact';
 import { photos } from '@/data/photos';
 import { pageSeo } from '@/lib/seo';
 import { showPendingConsent } from '@/lib/mode';
 
 const crumbs = [{ label: impactPage.overline, href: '/impact' }];
-const hero = photos['texture-02'];
+const hero = photos['scale-tanks'];
 
 // Ground rhythm after the (white) cases: engagements grey, testimonials the other ground, CTA the opposite of the last.
 const hasEngagements = engagements.some((e) => e.consent === 'cleared' || showPendingConsent);
@@ -36,20 +27,12 @@ const last = hasTestimonials ? quoteGround : hasEngagements ? engGround : 'white
 const cta = last === 'grey' ? { ground: 'white' as const } : undefined;
 ---
 <BaseLayout page="impact" seo={pageSeo('impact')} breadcrumbs={crumbs} cta={cta}>
-  <PageHero
-    ground="navy"
-    eyebrow={impactPage.overline}
-    title={impactPage.headline}
-    lead={impactPage.lead}
-    crumbs={crumbs}
-    image={hero.src}
-    imageAlt={hero.alt}
-    imagePosition={hero.position}
+  <PillarHero
+    eyebrow={impactPage.overline} title={impactPage.headline} lead={impactPage.lead} crumbs={crumbs}
+    image={hero.src} imageAlt={hero.alt} imagePosition={hero.position} titleId="impact-title"
   />
   <TrackRecord ground="grey" />
   <FounderCases ground="white" />
-  <!-- focal point raised for this very wide frame so the chimney tops stay in (the tanks below are a continuous band) -->
-  <PhotoInterlude slug="refinery-02" size="lg" position="50% 0%" caption={impactPage.interludeCaption} />
   <Engagements ground={engGround} />
   <Testimonials ground={quoteGround} />
 </BaseLayout>

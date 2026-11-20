@@ -1,5 +1,6 @@
 ---
 /**
+ * v4 Delft: on Delft Ice, PAGES-A Head, thin #D9E0EC rule over the flow.
  * Pillar exhibit: one quiet static diagram on a grey band (REDESIGN-V3 §4 detail 4). Eyebrow "Exhibit", the exhibit
  * title as the h2, then the foundation ProcessFlow (ringed nodes on a hairline). The chain is read from
  * `pillarExhibits` (from → steps → to); several `to` outcomes are one final node ("Go / No-Go").
@@ -13,7 +14,7 @@
  * therefore carry soft hyphens at their syllable breaks (invisible unless the line breaks; ignored by screen readers).
  */
 import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Head from './Head.astro';
 import ProcessFlow from '@/components/ui/ProcessFlow.astro';
 import { pillarExhibits } from '@/data/pillars';
 import { microcopy } from '@/data/microcopy';
@@ -21,10 +22,10 @@ import type { PillarKey } from '@/data/types';
 
 interface Props {
   pillar: PillarKey;
-  ground?: 'white' | 'grey';
+  ground?: 'white' | 'grey' | 'ice';
   rule?: boolean;
 }
-const { pillar, ground = 'grey', rule = false } = Astro.props;
+const { pillar, ground = 'ice', rule = false } = Astro.props;
 const ex = pillarExhibits[pillar];
 /* soft hyphens (U+00AD) at the preferred break of each long technical term */
 const SHY: Record<string, string> = {
@@ -38,14 +39,14 @@ const steps = [ex.from, ...ex.steps, ex.to?.length ? ex.to.join(' / ') : undefin
   .filter((s): s is string => !!s)
   .map(shy);
 ---
-<Section ground={ground} rule={rule} labelledby="exhibit-title">
-  <SectionHeader id="exhibit-title" eyebrow={microcopy.exhibit} title={ex.title} layout="stack" />
-  <div class="exhibit" data-reveal style="--i:1">
+<Section ground={ground === 'ice' ? 'white' : ground} class:list={[ground === 'ice' && 'band--ice']} rule={rule} labelledby="exhibit-title">
+  <Head id="exhibit-title" label={microcopy.exhibit} title={ex.title} />
+  <div class="exhibit">
     <ProcessFlow steps={steps} />
   </div>
 </Section>
 <style>
   /* the diagram in open space under a 2px rule (the house exhibit frame), no panel */
-  .exhibit { padding-top: var(--s-7); border-top: 2px solid var(--rule-strong); }
+  .exhibit { padding-top: var(--s-7); border-top: 1px solid var(--rule); }
   @media (min-width: 900px) { .exhibit { padding-top: var(--s-8); } }
 </style>
