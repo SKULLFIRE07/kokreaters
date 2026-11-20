@@ -3,7 +3,8 @@
  * Home 3 · Hero (v4 developer guide + homepage design). Full-bleed rapeseed field (hero-rapeseed, cropped to keep the
  * sky on the left) under a Delft Navy gradient that is solid behind the text on the left (rgba(14,31,77,.92)) and
  * fades out to the right. White label with the saffron rule, Bodoni H1 (76/80 desktop, 44/48 mobile), intro, two
- * buttons (white fill + white outline), and a foot line on a hairline: "Based in the Netherlands" + the five countries.
+ * buttons (white fill + white outline), and (pack 2 item 14) the proof line on a hairline: three parts in small caps
+ * divided by thin rules (one row ≥ 900px; stacked as three short lines, with short horizontal rules, on phones).
  * Motion: the photo settles 1.08 → 1 on load and drifts as the hero leaves (data-gsap="kenburns"); the H1's lines rise
  * once inside their masks on load (data-gsap="hero-title", CSS from 0 ms). Everything else is there at first paint.
  * Mobile (< 900px): the gradient runs top-to-bottom so the whole column of text sits on deep navy; buttons stack.
@@ -27,9 +28,8 @@ import { hero } from '@/data/home';
       <Button href={hero.primary.href} variant="on-dark">{hero.primary.label}</Button>
       <Button href={hero.secondary.href} variant="ghost-on-dark">{hero.secondary.label}</Button>
     </div>
-    <p class="hh__foot">
-      <strong>{hero.footLeft}</strong>
-      <span>{hero.footLead} {hero.footRight.join(' · ')}</span>
+    <p class="hh__proof">
+      {hero.proofLine.map((part, i) => <>{i > 0 && <span class="hh__sep" aria-hidden="true"></span>}<span class="hh__part">{part}</span>{i < hero.proofLine.length - 1 && <span class="visually-hidden"> · </span>}</>)}
     </p>
   </div>
 </section>
@@ -50,12 +50,15 @@ import { hero } from '@/data/home';
   }
   .hh__lead { margin: 24px 0 0; max-width: 620px; font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; }
   .hh__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
-  .hh__foot {
-    display: flex; flex-wrap: wrap; gap: 8px 40px;
-    margin: 64px 0 0; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .22);
-    font-size: .875rem; line-height: 1.5; color: #DCE4F2;
+  /* Pack 2 item 14: proof line in small caps, parts divided by thin rules; phones: three short stacked lines */
+  .hh__proof {
+    display: flex; flex-direction: column; gap: 10px;
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .22);
+    font-size: 1rem; font-weight: 600; line-height: 1.4; color: #DCE4F2;
+    font-variant-caps: all-small-caps; letter-spacing: .06em;
   }
-  .hh__foot strong { color: var(--white); font-weight: 700; }
+  .hh__part { max-width: 34ch; text-wrap: balance; }
+  .hh__sep { display: block; width: 24px; height: 1px; background: rgba(255, 255, 255, .35); }
 
   @media (max-width: 599px) {
     .hh__actions :global(.btn) { flex: 1 1 100%; }
@@ -70,6 +73,13 @@ import { hero } from '@/data/home';
     .hh__title { max-width: 16ch; font-size: clamp(3.5rem, 1.6rem + 3.6vw, 6rem); line-height: 1.04; }
     .hh__lead { font-size: 1.1875rem; }
     .hh__inner { padding-block: 96px 40px; }
-    .hh__foot { position: absolute; left: var(--gutter-x); right: var(--gutter-x); bottom: 40px; margin: 0; }
+    /* room on the right for the "Ask KoKreaters" launcher, which sits over the hero's bottom-right corner */
+    .hh__proof {
+      position: absolute; left: var(--gutter-x); right: calc(var(--gutter-x) + 168px); bottom: 40px; margin: 0;
+      flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+      font-size: .9375rem; letter-spacing: .05em;
+    }
+    .hh__part { max-width: none; }
+    .hh__sep { width: 1px; height: 14px; }
   }
 </style>

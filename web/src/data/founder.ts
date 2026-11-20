@@ -3,43 +3,49 @@ import type { BioSidenote, TimelineItem } from './types';
 import { minus25 } from '@/lib/typography';
 import { places } from './places';
 
-/** U+00A0: binds a figure to its unit where a headline could break between them ("25 years"). */
-const NBSP = '\u00A0';
 
 export const founderName = 'Ganeaysh Kulkarni';
-/** Developer guide (20 Nov 2026): matches the business card. Rendered as `${founderRole}, KoKreaters`. */
-export const founderRole = 'Chief Catalyst and Founder';
+/** Pack 2 item 19: "Founder and Principal, KoKreaters" (rendered as `${founderRole}, KoKreaters`); JSON-LD jobTitle (item 40). */
+export const founderRole = 'Founder and Principal';
+/** Pack 2 item 19, line 2: the only founder line that names a former employer (item 8). */
+export const founderFormerRole = 'Former Global Product & Process Design Director, Cargill';
+/** Alias read by the article AuthorBox (PEOPLE-CONTENT). */
+export const founderFormer = founderFormerRole;
+/** Pack 2 item 19, line 3: small italic flourish. */
+export const founderFlourish = 'Chief Catalyst';
 
+/** Pack 2 item 21 (verbatim). The About page reads its copy from src/data/about.ts (PEOPLE-CONTENT); these stay for
+ * scripts/og.mjs, scripts/build-knowledge.mjs, scripts/make-profile-pdf.mjs and the JSON-LD. */
 export const about = {
   overline: 'About',
-  headline: `Built on 25${NBSP}years of making ingredients work.`,
-  intro: 'KoKreaters is the consultancy Ganeaysh Kulkarni wished he could call when he was running plants and R&D teams: someone who has done the work, understands the business and builds the answer with you.',
+  headline: 'Twenty-five years of making ingredients work.',
+  intro: 'After 25 years building and leading technical organisations in edible oils, specialty fats and food ingredients, Ganeaysh Kulkarni created KoKreaters: the senior, hands-on partner he wished he could call when he was running plants and R&D teams.',
 };
 
-/** Six paragraphs, verbatim from brief 6.7 (the brief's last paragraph is split in two; no words changed). */
+/** Pack 2 item 21: the intro, then the long bio's five paragraphs (lead-ins kept as plain text). Item 9: no "founded in 2026". */
 export const longBio: string[] = [
-  'Ganeaysh Kulkarni founded KoKreaters in 2026 after 25 years building and leading technical organisations in edible oils, specialty fats and food ingredients.',
-  `He began his career at Wilmar in 2001, rising from Technical Head Specialties to Technical Director. There he built and activated India’s first world-class integrated specialty fats facility, reshaped manufacturing operations in Indonesia to deliver 21% growth, and commissioned Ukraine’s first cold-climate crude palm oil refinery, operating at ${minus25} and improving the cost structure by 15%.`,
-  'In 2012 he joined Cargill. Over the next fourteen years he led Technical Services, Applications, R&D and Food Safety, Quality and Regulatory (FSQR) teams; served as Regional Technical Lead and Bakery Technology Transfer Leader, supporting technical due diligence for acquisitions; led Category R&D for Confectionery and Plant-Based; and was Global Product and Process Design Director from 2023 to 2026. His trans-fat elimination work at Cargill was publicly recognised by the Director-General of the World Health Organization.',
-  'His career has taken him across India, Indonesia, Ukraine, Türkiye and the Netherlands, leading teams in the Americas, EMEA and Asia-Pacific and working with global leaders in nutrition, food, personal care and pet food.',
-  'Ganeaysh holds a postgraduate degree in Food Technology from CFTRI Mysore and a degree in Chemistry from the University of Pune, and has completed programmes in Creativity and Innovation at IIM Ahmedabad and the EDGE Founder’s Bootcamp at UC Berkeley. He works in English, Hindi and Marathi, with conversational Bahasa Indonesia and basic Russian.',
-  'He is based in the Netherlands and works with clients worldwide.',
+  about.intro,
+  'Where it started. Ganeaysh trained in food technology at CSIR-CFTRI Mysore, India’s leading food research institute, after a degree in chemistry from the University of Pune. He began on the plant floor, and that is where his instinct for what really works was formed.',
+  `Building firsts. Over the next decade he led technical operations across Asia and Eastern Europe. He built India’s first world-class integrated specialty fats facility, which opened new product lines and multi-million-dollar businesses. In Ukraine he led the design and commissioning of the country’s first cold-climate crude palm oil refinery, a tropical oil processed through winters of ${minus25}, and improved the regional cost structure by 15%. In Indonesia he reshaped manufacturing, lifting throughput and yields, stabilising quality and delivering 21% growth.`,
+  'Going global. He then spent fourteen years in technical, R&D and food-safety leadership at Cargill. He led technical services, applications, R&D and FSQR for India, integrating food-safety systems through a major transformation and aligning them with WHO standards for industrial trans fat. He designed a bakery innovation architecture and led technology transfers across the Americas, Asia and EMEA, supported acquisitions with technical due diligence, and led category R&D for confectionery and plant-based foods. Finally, as Global Product & Process Design Director, he steered new product platforms across confectionery, plant-based, bakery and specialised nutrition, including an AI-enabled formulation system, with Fortune 500 customers and start-ups alike.',
+  'What he is known for. Contaminant-reduction technologies taken from the lab to commercial scale, in line with Indian and European regulation. Trans-fat elimination work praised publicly by the WHO Director-General. Asset-light growth models that build business without heavy capital. And a habit of connecting people across functions, cultures and languages so that good ideas actually ship.',
+  'Why KoKreaters. “Ko” stands for together. Ganeaysh works side by side with owners, plant heads and R&D teams, and leaves capability behind, not just a report.',
 ];
 
 /** Dates the bio already contains; `at` is the 1-based paragraph index. */
 export const bioSidenotes: BioSidenote[] = [
-  { at: 2, text: '2001 · Wilmar' },
-  { at: 3, text: '2012 · Cargill' },
-  { at: 3, text: '2023 to 2026 · Global Product and Process Design Director' },
+  { at: 3, text: '2001 · Wilmar' },
+  { at: 4, text: '2012 · Cargill' },
+  { at: 4, text: '2023 to 2026 · Global Product & Process Design Director' },
 ];
 
-export const shortBio = 'Ganeaysh Kulkarni is the founder of KoKreaters. A food technologist with 25 years at Wilmar and Cargill, he has built specialty fats facilities, commissioned refineries, led global R&D and FSQR teams and supported acquisitions across Asia, Europe and the Americas. He now helps food and ingredient companies co-create better products, plants and decisions.';
+export const shortBio = 'Ganeaysh is a food technologist who learned the trade where it is hardest: on the refinery floor. He has built facilities that had never existed in their countries, turned around plants in three very different climates, and led global product design for one of the world’s largest food and agriculture companies. Today he brings that whole journey, from the bench to the boardroom, to the businesses he works with.';
 
 export const timeline: TimelineItem[] = [   // CONFIRM 13
   { label: 'CFTRI Mysore', years: '1999 to 2001' },
   { label: 'Wilmar', years: '2001 to 2012' },
   { label: 'Cargill', years: '2012 to 2026' },
-  { label: 'KoKreaters', years: '2026' },
+  { label: 'KoKreaters', years: 'Today' },   // pack 2 item 9
 ];
 
 /**
@@ -50,7 +56,7 @@ export const timelineRoles: Record<string, string> = {
   'CFTRI Mysore': 'Postgraduate degree in Food Technology',
   Wilmar: 'Technical Head Specialties to Technical Director',
   Cargill: 'Technical, R&D and FSQR leadership; Global Product and Process Design Director, 2023 to 2026',
-  KoKreaters: 'Chief Catalyst and Founder, based in the Netherlands',
+  KoKreaters: 'Founder and Principal, the Netherlands',
 };
 
 /** The About globe fold (5.9.4). */
@@ -123,6 +129,6 @@ export const aboutPage = {
 };
 
 export const portraitAlt = {
-  founder: 'Ganeaysh Kulkarni, Chief Catalyst and Founder of KoKreaters',
+  founder: 'Ganeaysh Kulkarni, Founder and Principal of KoKreaters',
   about: 'Ganeaysh Kulkarni',
 };

@@ -11,9 +11,9 @@
  *    own lazy chunk). The v3 reveals are gone: nothing waits for scroll to appear.
  *  - footer groups ([data-ft-group] in [data-ft-col]): phone accordion rows; toggles .is-open + aria-expanded (CSS
  *    folds them only below 600px, so the state is inert on wider screens)
- *  - newsletter forms ([data-newsletter]): validation, honeypot, fetch JSON or mailto fallback, aria-live status
  *  - cookie settings (initConsent from ./consent)
- *  - "Ask KoKreaters" launcher ([data-chat-launcher]): imports ./chat (its own chunk) on first intent, then opens it
+ *  - "Ask KoKreaters" launcher ([data-chat-launcher]): imports ./chat (its own chunk) on first intent, then opens it;
+ *    hidden (html.chat-zone) while the CTA band / footer / any [data-chat-hide] is in view (IntersectionObserver)
  * Animation lives in CSS; JS only toggles state and waits out close transitions.
  */
 import { initConsent } from './consent';
@@ -232,55 +232,6 @@ function initFooterGroups() {
   }
 }
 
-/* ── Newsletter ──────────────────────────────────────────────────── */
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-function initNewsletter() {
-  document.addEventListener('submit', async (e) => {
-    const form = (e.target as Element).closest<HTMLFormElement>('form[data-newsletter]');
-    if (!form) return;
-    e.preventDefault();
-    const d = form.dataset;
-    const input = form.querySelector<HTMLInputElement>('input[type="email"]');
-    const msg = form.querySelector<HTMLElement>('[data-newsletter-msg]');
-    const btn = form.querySelector<HTMLButtonElement>('[type="submit"]');
-    if (!input || !msg || form.getAttribute('aria-busy') === 'true') return;
-    const say = (text: string, state: 'error' | 'success' | '') => {
-      msg.textContent = text; msg.dataset.state = state;
-      form.dataset.state = state;
-      input.setAttribute('aria-invalid', String(state === 'error'));
-    };
-    const email = input.value.trim();
-    if (!EMAIL.test(email)) { say(d.msgInvalid ?? '', 'error'); input.focus(); return; }
-    const trap = form.querySelector<HTMLInputElement>('[data-hp]');
-    if (trap && trap.value) { say(d.msgSuccess ?? '', 'success'); form.reset(); return; }   // bot: pretend success
-    if (!d.endpoint) {
-      window.location.href = `mailto:${d.mailto}?subject=${encodeURIComponent(d.subject ?? 'Subscribe')}&body=${encodeURIComponent(email)}`;
-      say(d.msgMailto ?? '', 'success');
-      return;
-    }
-    form.setAttribute('aria-busy', 'true'); if (btn) btn.disabled = true;
-    try {
-      const res = await fetch(d.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ email }) });
-      if (!res.ok) throw new Error(String(res.status));
-      say(d.msgSuccess ?? '', 'success'); form.reset();
-    } catch {
-      say(d.msgError ?? '', 'error');
-    } finally {
-      form.removeAttribute('aria-busy'); if (btn) btn.disabled = false;
-    }
-  });
-  // Clear an error as soon as the address is edited.
-  document.addEventListener('input', (e) => {
-    const input = e.target as HTMLInputElement;
-    const form = (input.closest?.('form[data-newsletter]') ?? null) as HTMLFormElement | null;
-    if (form?.dataset.state === 'error') {
-      const msg = form.querySelector<HTMLElement>('[data-newsletter-msg]');
-      if (msg) { msg.textContent = ''; msg.dataset.state = ''; }
-      form.dataset.state = ''; input.removeAttribute('aria-invalid');
-    }
-  });
-}
-
 /* ── Ask KoKreaters: chat.ts is a separate chunk, imported on the first hover / focus / click of the launcher ── */
 function initChatLauncher() {
   const btn = document.querySelector<HTMLButtonElement>('[data-chat-launcher]');
@@ -291,6 +242,39 @@ function initChatLauncher() {
   btn.addEventListener('focus', () => { void get(); }, { once: true });
   // until chat.ts has booted (it then owns the click), a click loads it and opens the panel
   btn.addEventListener('click', () => { if (!btn.dataset.chatReady) void get().then((m) => m.open()); });
+  // Brief item 1: hide the launcher while the closing CTA band or the footer is in view (html.chat-zone), so it never
+  // covers the saffron "Start a conversation" button or the last cards. Without IntersectionObserver it simply stays.
+  // Phones (< 600px) also: while a hero's buttons pass through the bottom strip of the screen where the launcher sits
+  // (bottom 64px), so it never covers "Explore our expertise" or a page hero's second button on first view.
+  if (!('IntersectionObserver' in window)) return;
+  const inView = new Set<Element>();
+  const sync = () => html.classList.toggle('chat-zone', inView.size > 0);
+  const track = (entries: IntersectionObserverEntry[]) => {
+    for (const e of entries) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); }
+    sync();
+  };
+  const zones = $$<HTMLElement>('.cta-band, #site-footer, [data-chat-hide]');
+  // 96px early at the bottom, so it is gone before the band reaches the strip where it sits
+  const io = new IntersectionObserver(track, { threshold: 0, rootMargin: '0px 0px 96px 0px' });
+  zones.forEach((z) => io.observe(z));
+
+  const phone = mq('(max-width: 599px)');
+  const phoneZones = $$<HTMLElement>('.hh__actions, .hero__actions, [data-chat-hide-phone]');
+  let strip: IntersectionObserver | null = null;
+  const watchStrip = () => {
+    strip?.disconnect();
+    phoneZones.forEach((z) => inView.delete(z));
+    strip = null;
+    if (phone.matches && phoneZones.length) {
+      strip = new IntersectionObserver(track, { threshold: 0, rootMargin: `-${Math.max(0, window.innerHeight - 64)}px 0px 0px 0px` });
+      phoneZones.forEach((z) => strip!.observe(z));
+    }
+    sync();
+  };
+  watchStrip();
+  phone.addEventListener('change', watchStrip);
+  let t = 0;
+  window.addEventListener('resize', () => { window.clearTimeout(t); t = window.setTimeout(watchStrip, 200); }, { passive: true });
 }
 
 /* ── Boot ────────────────────────────────────────────────────────── */
@@ -304,7 +288,6 @@ function boot() {
   }
   initMotion();
   initFooterGroups();
-  initNewsletter();
   initConsent();
   initChatLauncher();
   html.classList.add('chrome-ready', 'motion-booted');

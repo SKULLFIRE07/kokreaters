@@ -50,14 +50,35 @@ export const principles: Principle[] = [
   { name: 'Confidential by default', copy: 'Your formulations, processes and plans stay yours. We sign NDAs as standard.' },
 ];
 
-export const modelsHeading = 'Ways to work with us';
+/**
+ * Pack 2 (brief item 31): "How we engage", /approach#engage, summarised on the home page (item 16: the four titles,
+ * linking to /approach#engage). Copy verbatim. No prices anywhere on the site. Replaces the v3 five-model table.
+ */
+export const engage = {
+  id: 'engage',
+  title: 'How we engage',
+  intro: 'Four ways to work together. Every engagement starts with a 30-minute conversation, at no cost.',
+  items: [
+    { n: 1, title: 'Diagnostic sprint', copy: 'Two to three weeks. A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step.' },
+    { n: 2, title: 'Defined project', copy: 'A fixed scope with clear stages and deliverables, from first trial to commercial scale. You decide at each stage gate whether to continue.' },
+    { n: 3, title: 'Leadership on demand', copy: 'A set number of days each month as your CTO or Head of R&D. We own the technical agenda with your team and build its capability as we go.' },
+    { n: 4, title: 'Expert review', copy: 'Fast, independent opinions for owners, investors and lenders on an asset, a technology, a partner or a plan.' },
+  ],
+  confidential: 'Confidential by default. We work under NDA, client names are shared only with their consent, and nothing learned with one client or a former employer is ever used for another.',
+  href: '/approach#engage',
+} as const;
+
+/**
+ * LEGACY shape (scripts/build-knowledge.mjs still lists `models`): the four ways above, split into the old
+ * model / shape / good-for columns with the brief's own words. New code should read `engage`.
+ */
+export const modelsHeading = engage.title;
 export const modelColumns = { model: 'Model', shape: 'Typical shape', goodFor: 'Good for' };
-export const models: EngagementModel[] = [   // CONFIRM 10
-  { model: 'Diagnostic or audit', shape: '2 to 5 days on site, report within two weeks', goodFor: 'Plant audits, customer pre-approval readiness, contaminant risk reviews' },
-  { model: 'Project', shape: 'Fixed scope, 4 to 16 weeks', goodFor: 'New products or processes, feasibility studies, business plans, due diligence' },
-  { model: 'Advisory retainer', shape: 'A set number of days each month', goodFor: 'Ongoing technical and strategic counsel, R&D steering, board advisory' },
-  { model: 'Interim leadership', shape: 'Part-time or full-time for a defined period', goodFor: 'Covering a technical director or R&D lead role' },
-  { model: 'Workshops and training', shape: 'Half a day to two days', goodFor: 'Oils and fats academies, innovation sprints, technology transfer' },
+export const models: EngagementModel[] = [
+  { model: 'Diagnostic sprint', shape: 'Two to three weeks', goodFor: 'A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step' },
+  { model: 'Defined project', shape: 'A fixed scope with clear stages and deliverables, from first trial to commercial scale', goodFor: 'Deciding at each stage gate whether to continue' },
+  { model: 'Leadership on demand', shape: 'A set number of days each month as your CTO or Head of R&D', goodFor: 'Owning the technical agenda with your team and building its capability as we go' },
+  { model: 'Expert review', shape: 'Fast, independent opinions', goodFor: 'Owners, investors and lenders, on an asset, a technology, a partner or a plan' },
 ];
 
 /**

@@ -6,6 +6,7 @@ import { site } from '@/config/site';
 import { pillars } from '@/data/pillars';
 import { shortBio, founderName, founderRole } from '@/data/founder';
 import { microcopy } from '@/data/microcopy';
+import { footer } from '@/data/nav';
 
 export interface SeoProps {
   title: string;               // full title, exactly as in src/data/seo.ts
@@ -54,17 +55,24 @@ const TARGET_TERMS = [
   'oleochemicals consulting',
 ];
 
+/** Brief item 40: where KoKreaters works. */
+const AREA_SERVED = ['Europe', 'India', 'Asia'];
+/** Brief item 40: the founder's fields, verbatim. */
+const FOUNDER_KNOWS_ABOUT = ['edible oils', 'specialty fats', '3-MCPD and glycidyl esters', 'trans-fat elimination', 'food product development', 'process design'];
+
 export function organization(): GraphNode {
+  // Brief items 9 and 40: no foundingDate; sameAs = the LinkedIn company page, omitted while its URL is a placeholder (P-14).
+  const companyPage = footer.contact.linkedinCompany.href;
   return {
     '@type': 'Organization',
     '@id': ID.org,
     name: site.name,
     url: `${BASE}/`,
-    logo: `${BASE}/brand/kokreaters-logo-512.png`,
+    logo: `${BASE}/brand/kokreaters-mark-512.png`,
     email: site.email,
-    foundingDate: '2026', // CONFIRM 13
     founder: { '@id': ID.person },
-    sameAs: [], // C-7: empty until a LinkedIn company page exists
+    areaServed: AREA_SERVED,
+    ...(companyPage ? { sameAs: [companyPage] } : {}),
   };
 }
 
@@ -75,7 +83,7 @@ export function professionalService(): GraphNode {
     name: site.name,
     url: `${BASE}/`,
     description: POSITIONING_STATEMENT,
-    areaServed: 'Worldwide',
+    areaServed: AREA_SERVED,
     address: { '@type': 'PostalAddress', addressCountry: 'NL' },
     email: site.email,
     telephone: '+31622157910',
@@ -114,10 +122,8 @@ export function person(image?: string): GraphNode {
     description: shortBio,
     ...(image ? { image: abs(image) } : {}),
     knowsLanguage: ['en', 'hi', 'mr', 'id', 'ru'],
-    alumniOf: [
-      { '@type': 'CollegeOrUniversity', name: 'CFTRI Mysore' },
-      { '@type': 'CollegeOrUniversity', name: 'University of Pune' },
-    ],
+    alumniOf: 'CSIR-Central Food Technological Research Institute',
+    knowsAbout: FOUNDER_KNOWS_ABOUT,
     address: { '@type': 'PostalAddress', addressCountry: 'NL' },
     sameAs: [site.linkedin.href],
   };

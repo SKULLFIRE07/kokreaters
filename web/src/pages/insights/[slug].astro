@@ -1,5 +1,8 @@
 ---
-/** Article route (REDESIGN-V3 §4). Built from visibleInsights() only: coming-soon stubs have no page. */
+/**
+ * Article route (REDESIGN-V3 §4). Built from visibleInsights() only: coming-soon stubs have no page.
+ * Pack 2 item 35: at most two related articles (ArticleEnd tops the pair up with Impact stories).
+ */
 import { render } from 'astro:content';
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import { visibleInsights, insightReadingTime, type Insight } from '@/lib/insights';
@@ -7,12 +10,12 @@ import { visibleInsights, insightReadingTime, type Insight } from '@/lib/insight
 export async function getStaticPaths() {
   const list = await visibleInsights();
   return list.map((entry) => {
-    // Related: three other visible insights, the same pillar first (then newest first).
+    // Related: up to two other visible insights, the same pillar first (then newest first).
     const others = list.filter((e) => e.id !== entry.id);
     const related = [
       ...others.filter((e) => e.data.pillar === entry.data.pillar),
       ...others.filter((e) => e.data.pillar !== entry.data.pillar),
-    ].slice(0, 3);
+    ].slice(0, 2);
     return { params: { slug: entry.id }, props: { entry, related } };
   });
 }

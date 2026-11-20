@@ -1,38 +1,49 @@
 ---
 /**
- * About · the story (REDESIGN-V3 §4 About, section 2). White band, aria-labelledby="bio-title".
- * ≥ 900px: 12 columns. Columns 1–4: the h2 (the founder's name; bare, no eyebrow: inner-page content sections carry none). Columns 5–12: the short story
- * (longBio[0]) as a serif lede, then "Read the long version", a native <details data-smooth> (height eases open via
- * motion.css; instant where unsupported; paragraphs stay in the DOM for search). Inside, each paragraph of longBio[1..5]
- * keeps columns 5–12 and its dated sidenotes (bioSidenotes) hang in columns 1–4 of the same row.
- * Mobile (< 900px): one column. Name, lede (21px → 32px serif), the disclosure as a full-width 48px button, then the
- * paragraphs at 18px with their date labels set above them.
+ * About · the story (brief item 21). White band, aria-labelledby="bio-title".
+ * ≥ 900px: 12 columns. Columns 1–4: the h2 (the founder's name), "Founder and Principal, KoKreaters", "Former Global
+ * Product & Process Design Director, Cargill", the base line and, when the About strip is down to one confirmed figure
+ * (outside staging only "5 working languages" is confirmed), that figure as a quiet fact under them (`fact`), instead
+ * of a lonely one-figure band. Columns 5–12: the short bio (shown by default) in Bodoni, then "Read the long version",
+ * a native <details data-smooth> (height eases open via motion.css; instant where unsupported; the paragraphs stay in
+ * the DOM for search). Inside, each paragraph of the long bio keeps columns 5–12 and its bold lead-in ("Where it
+ * started.") hangs in columns 1–4 of the same row as a small heading.
+ * Mobile (< 900px): one column. Name and lines, the short bio (22px serif), the disclosure as a full-width 48px button,
+ * then the paragraphs at 17px with their lead-ins set above them.
  */
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Section from '@/components/ui/Section.astro';
 import Confirm from '@/components/ui/Confirm.astro';
-import { founderName, founderRole, longBio, bioSidenotes, aboutPage } from '@/data/founder';
-import { footer } from '@/data/nav';
-import { site } from '@/config/site';
+import { shortBio, longBio, aboutPage } from '@/data/about';
+import { founderName, roleLine, formerLine } from './founder-lines';
+import { location } from '@/data/contact';
+import { showConfirm } from '@/lib/mode';
 
+interface Props {
+  /** One confirmed strip figure, shown in the head column (see AboutStrip / about.astro). */
+  fact?: { value: string; label: string; detail?: string[] };
+}
+const { fact } = Astro.props;
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-/** Keep "21%" / "15%" in one piece on any line (tabular, no-wrap). */
-const withFigures = (s: string) => esc(s).replace(/(\d+%)/g, '<span class="nowrap tnum">$1</span>');
-const paras = longBio.map((text, i) => ({
-  html: withFigures(text),
-  notes: bioSidenotes.filter((n) => n.at === i + 1).map((n) => n.text),
-}));
-const [lede, ...rest] = paras;
+/** Keep "21%", "15%" and "−25 °C" whole on any line. */
+const withFigures = (s: string) => esc(s).replace(/(\d+%|−25\u202F°C)/g, '<span class="nowrap tnum">$1</span>');
 ---
 <Section ground="white" labelledby="bio-title" class="story">
   <div class="story__grid">
     <div class="story__head">
       <SectionHeader id="bio-title" title={founderName} />
-      <p class="story__role">{founderRole}, {site.name}</p>
-      <p class="story__base"><span class="story__dot" aria-hidden="true"></span>{footer.contact.base}</p>
+      <p class="story__role">{roleLine}</p>
+      <p class="story__former">{formerLine}</p>
+      <p class="story__base"><span class="story__dot" aria-hidden="true"></span>{location.line}{showConfirm && <Confirm id="P-1" note="city" />}</p>
+      {fact && (
+        <p class="story__fact">
+          <span class="story__fact-figure">{fact.value}</span>
+          <span class="story__fact-text"><strong>{fact.label}</strong>{fact.detail && <span>{fact.detail.map((d, i) => <><span class="nowrap">{d}{i < fact.detail!.length - 1 && <span aria-hidden="true"> ·</span>}</span>{i < fact.detail!.length - 1 && ' '}</>)}</span>}</span>
+        </p>
+      )}
     </div>
     <div class="story__main">
-      <p class="story__lede"><Fragment set:html={lede.html} /> <Confirm id={13} note="founded in 2026 and career dates" /></p>
+      <p class="story__lede">{shortBio}</p>
     </div>
     <details class="story__more" data-smooth>
       <summary class="story__toggle btn btn--secondary">
@@ -42,14 +53,10 @@ const [lede, ...rest] = paras;
         </svg>
       </summary>
       <div class="story__rest">
-        {rest.map((p) => (
+        {longBio.map((p) => (
           <div class="story__row">
-            {p.notes.length > 0 && (
-              <div class="story__side">
-                {p.notes.map((t) => <p class="story__date tnum">{t}</p>)}
-              </div>
-            )}
-            <p class="story__p" set:html={p.html} />
+            <h3 class="story__lead">{p.lead.replace(/\.$/, '')}</h3>
+            <p class="story__p" set:html={withFigures(p.text)} />
           </div>
         ))}
       </div>
@@ -61,13 +68,23 @@ const [lede, ...rest] = paras;
   .story__head { margin-bottom: var(--s-6); }
   .story__head :global(.sh) { margin-bottom: 0; }
   .story__role { margin: var(--s-4) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 700; color: var(--head); }
-  .story__base { display: flex; align-items: center; gap: var(--s-2); margin: var(--s-1) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
+  .story__former { margin: 2px 0 0; max-width: 34ch; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
+  .story__base { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); margin: var(--s-3) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg-2); }
   .story__dot { width: 6px; height: 6px; background: var(--saffron); flex: none; }
-  /* v4: the lede is the band's statement in Bodoni 24 → 40, measure ≤ 30ch */
+
+  .story__fact { display: flex; align-items: center; gap: var(--s-4); margin: var(--s-6) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--rule); max-width: 22rem; }
+  .story__fact-figure { flex: none; font-family: var(--font-serif); font-size: 3.5rem; line-height: 1; color: var(--head); font-variant-numeric: lining-nums; }
+  .story__fact-text { display: grid; gap: 2px; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .story__fact-text strong { font-size: var(--fs-small); color: var(--head); font-weight: 700; }
+
+  /* the short bio: a Manrope lead on phones and tablets (a 75-word paragraph in Bodoni below 24px reads heavy);
+     from 900px the band's statement in Bodoni 24 → 30, measure ≤ 40ch */
   .story__lede {
-    margin: 0; max-width: 30ch;
-    font-family: var(--font-serif); font-weight: 400;
-    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem); line-height: 1.25; letter-spacing: 0; color: var(--head); text-wrap: pretty;
+    margin: 0; max-width: 52ch;
+    font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: 0; color: var(--head); text-wrap: pretty;
+  }
+  @media (min-width: 900px) {
+    .story__lede { max-width: 40ch; font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.5rem, 1.1rem + .7vw, 1.875rem); line-height: 1.4; }
   }
 
   /* the disclosure: the foundation's secondary button look on a native <summary> */
@@ -80,8 +97,7 @@ const [lede, ...rest] = paras;
 
   .story__rest { display: grid; gap: var(--s-6); padding-top: var(--s-7); }
   .story__row { display: grid; gap: var(--s-2); }
-  .story__side { display: grid; gap: var(--s-1); }
-  .story__date { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); font-weight: 700; color: var(--label); }
+  .story__lead { margin: 0; font: 700 var(--fs-small)/1.4 var(--font-sans); letter-spacing: 0; color: var(--head); }
   .story__p { margin: 0; max-width: var(--measure); font-size: 1.0625rem; line-height: 1.75; color: var(--fg-2); text-wrap: pretty; }
 
   @media (min-width: 600px) {
@@ -93,12 +109,12 @@ const [lede, ...rest] = paras;
     .story__head { grid-column: 1 / 5; margin-bottom: 0; }
     .story__main { grid-column: 5 / -1; }
     .story__more { grid-column: 1 / -1; margin-top: var(--s-7); }
-    /* the button lines up with the lede in column 5 */
+    /* the button lines up with the short bio in column 5 */
     .story__toggle { margin-left: calc((100% - 11 * var(--grid-gap)) / 12 * 4 + 4 * var(--grid-gap)); }
-    .story__rest { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--s-6); }
-    /* subgrid: `column-gap: normal` keeps the parent's gap, so the paragraphs line up with the lede in column 5 */
+    .story__rest { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); row-gap: var(--s-7); }
     .story__row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; column-gap: normal; }
-    .story__side { grid-column: 1 / 4; align-content: start; padding-top: 4px; }
+    .story__lead { grid-column: 1 / 4; padding-top: 4px; }
     .story__p { grid-column: 5 / -1; }
   }
+  @media (prefers-reduced-motion: reduce) { .story__icon-v { transition: none; } }
 </style>

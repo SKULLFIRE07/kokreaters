@@ -3,7 +3,7 @@
  * Insight article (REDESIGN-V3 §4 "Insight article", §9 v3.1 "elegant full-screen"). Order: PageHero (white, compact:
  * crumbs, "Format · Expertise" label, H1 and standfirst in columns 1–7, the byline bottom-right in 8–12) → full-bleed
  * hero photo (edge to edge; 2:1 from 900px, capped to the first screen; its natural 3:2 below 900px, so phones and
- * tablets see the whole frame; focal point from photos.ts) with the photo credit under it → article body → related
+ * tablets see the whole frame; focal point from photos.ts) (pack 2 item 32: no photo credit line) → article body → related
  * insights (grey, index rows) → CtaBand (white, so the grey related band and the navy footer stay apart).
  * Body ≥ 1360px: three columns on the wide grid: a sticky "In this article" rail (the h2s, current one marked) left,
  * the reading column (44rem ≈ 70 characters at 20px) centre, sidenotes right; exhibits span centre + right.
@@ -15,21 +15,18 @@ import type { CollectionEntry } from 'astro:content';
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '@/components/ui/PageHero.astro';
-import Section from '@/components/ui/Section.astro';
-import SectionHeader from '@/components/ui/SectionHeader.astro';
 import Photo from '@/components/ui/Photo.astro';
 import Byline from '@/components/article/Byline.astro';
 import ShareRow from '@/components/article/ShareRow.astro';
-import AuthorBox from '@/components/article/AuthorBox.astro';
+import ArticleEnd from '@/components/article/ArticleEnd.astro';
 import { article as articleNode, type SeoProps } from '@/components/seo/schema';
 import { articleSeo, canonical } from '@/lib/seo';
 import { getPillar, pillarHref } from '@/lib/pillars';
 import { insightImage } from '@/lib/insights';
 import { dotJoin } from '@/lib/format';
-import { microcopy, formatLabels } from '@/data/microcopy';
+import { formatLabels } from '@/data/microcopy';
 import { footer } from '@/data/nav';
 import { articleCopy } from '@/data/insights';
-import InsightList from '@/components/insights/InsightList.astro';
 import { photoBySrc } from '@/data/photos';
 
 interface Props {
@@ -58,12 +55,10 @@ const url = canonical(base.path);
 const hero = insightImage(entry);
 const eyebrow = dotJoin([formatLabels[d.format], pillar.name]);
 const heroRecord = hero ? photoBySrc(hero.src) : undefined;
-const credit = heroRecord?.credit;
 // Page-local focal overrides for the 2:1 → 2.6:1 full-bleed frame (wider than the card crops photos.ts is tuned for):
 // bakery-02's bakers' hands and refinery-02's chimney tops sit along the top edge, so the frame anchors high to keep them in.
 const HERO_POSITION: Record<string, string> = { 'bakery-02': '50% 10%', 'refinery-02': '50% 0%' };
 const heroPosition = (heroRecord && HERO_POSITION[heroRecord.slug]) || hero?.position;
-const creditSource = credit ? (credit.license.startsWith('Pexels') ? 'Pexels' : 'Unsplash') : '';
 const toc = headings.filter((h) => h.depth === 2);
 ---
 <BaseLayout page="article" seo={seo} breadcrumbs={crumbs} cta={{ ground: 'white' }}>
@@ -80,9 +75,6 @@ const toc = headings.filter((h) => h.depth === 2);
         <div class="a-media__frame">
           <Photo src={hero.src} alt={hero.alt} position={heroPosition} fill priority sizes="100vw" />
         </div>
-        {credit && (
-          <figcaption class="container a-media__cap">{articleCopy.photo}: {credit.name === creditSource ? creditSource : credit.name + ', ' + creditSource}</figcaption>
-        )}
       </figure>
     )}
 
@@ -99,19 +91,13 @@ const toc = headings.filter((h) => h.depth === 2);
         <div class="a-body__col">
           <div class="prose prose--article" data-article-body><slot /></div>
           <ShareRow url={url} title={d.title} summary={d.standfirst || d.description} pillar={{ name: pillar.name, href: pillarHref(d.pillar) }} />
-          <AuthorBox />
         </div>
       </div>
     </div>
   </article>
 
-  {related.length > 0 && (
-    <Section ground="grey" labelledby="related-h" class="a-related">
-      <SectionHeader id="related-h" title={microcopy.relatedInsights} link={footer.insights.all} />
-      {/* Index rows, as in the hub library: one or two related insights read as a finished list, not a grid with holes. */}
-      <InsightList entries={related} filterable={false} />
-    </Section>
-  )}
+  {/* Pack 2 item 35: author box, then the full newsletter block, then two related articles or stories. */}
+  <ArticleEnd entry={entry} related={related} />
 </BaseLayout>
 
 <style>
@@ -139,7 +125,6 @@ const toc = headings.filter((h) => h.depth === 2);
   @media (min-width: 900px) {
     .a-media__frame { aspect-ratio: 2 / 1; max-height: max(480px, calc(100svh - var(--chrome-top) - 2rem)); width: 100%; }
   }
-  .a-media__cap { padding-top: var(--s-3); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); text-align: right; }
 
   .a-body {
     --col: 44rem; --gap: clamp(3rem, 4cqw, 5rem);
@@ -190,7 +175,7 @@ const toc = headings.filter((h) => h.depth === 2);
     body[data-page="article"] .a-media__frame { aspect-ratio: 21 / 9; }
     body[data-page="article"] .exhibit { break-inside: avoid; }
     body[data-page="article"] .takeaways__title, body[data-page="article"] .exhibit__head { break-after: avoid; }
-    body[data-page="article"] :is(.skip-link, .ann, .site-header, .site-footer, .cta-band, .cookie-bar, .a-related, .hero__crumbs, .share__row, .a-toc, .a-media__cap) { display: none !important; }
+    body[data-page="article"] :is(.skip-link, .ann, .site-header, .site-footer, .cta-band, .cookie-bar, .a-related, .hero__crumbs, .share__row, .a-toc) { display: none !important; }
     body[data-page="article"] .a-body__grid { display: block; }
     body[data-page="article"] .a-media__frame { max-height: none; }
     body[data-page="article"] main { padding: 0 !important; }

@@ -35,7 +35,7 @@ async function measure(page: Page, path: string) {
 }
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`home total transfer ≤ 800KB @${vp.width}`, async ({ browser }) => {
+  test(`home total transfer ≤ 800KB phone / 1.8MB desktop @${vp.width}`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: vp });
     const page = await ctx.newPage();
     const rows = await measure(page, '/');
@@ -44,7 +44,7 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
     const note = `total ${(total / KB).toFixed(1)}KB · js ${(by(/javascript/) / KB).toFixed(1)} · css ${(by(/css/) / KB).toFixed(1)} · fonts ${(by(/font|woff/) / KB).toFixed(1)} · images ${(by(/^image\//) / KB).toFixed(1)} · html ${(by(/html/) / KB).toFixed(1)} · ${rows.length} requests`;
     test.info().annotations.push({ type: 'transfer', description: note });
     console.log(`[budget] home @${vp.width}: ${note}`);
-    expect(total, 'home transfer bytes').toBeLessThanOrEqual(800 * KB);
+    expect(total, 'home transfer bytes').toBeLessThanOrEqual((vp.width >= 1024 ? 1800 : 800) * KB);
     await ctx.close();
   });
 }

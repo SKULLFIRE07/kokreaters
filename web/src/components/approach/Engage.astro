@@ -1,0 +1,46 @@
+---
+/**
+ * /approach#engage — "How we engage" (pack 2, brief item 31; the home page summarises it, item 16). White band.
+ * Head (h2 + the intro beside it from 1024px), then four numbered ways on top rules (3px saffron for the first, 1px
+ * for the others; data-gsap="rule", drawn on entry, never hiding content): "01" + Bodoni h3 + the copy. Under them,
+ * the confidentiality line verbatim, on a hairline. No prices.
+ * Desktop ≥ 1100: four columns. 600–1099: two. Mobile: one column, 32px between ways.
+ */
+import Section from '@/components/ui/Section.astro';
+import Head from '@/components/expertise/Head.astro';
+import { engage } from '@/data/approach';
+import { pad2 } from '@/lib/format';
+---
+<Section ground="white" id={engage.id} labelledby="engage-h" class="engage">
+  <Head id="engage-h" title={engage.title} lead={engage.intro} />
+  <ol class="ways" role="list">
+    {engage.items.map((w, i) => (
+      <li class:list={['way', i === 0 && 'way--lead']}>
+        <span class="way__rule" aria-hidden="true" data-gsap="rule"></span>
+        <span class="way__n" aria-hidden="true">{pad2(w.n)}</span>
+        <h3 class="way__title">{w.title}</h3>
+        <p class="way__copy">{w.copy}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="engage__conf">{engage.confidential}</p>
+</Section>
+<style>
+  .engage { scroll-margin-top: var(--scroll-offset); }
+  .ways { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--grid-gap); }
+  .way { position: relative; padding-top: 24px; min-width: 0; }
+  .way__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transform-origin: left center; }
+  .way--lead .way__rule { height: 3px; background: var(--saffron); }
+  .way__n { display: block; font-size: .875rem; line-height: 1; font-weight: 700; color: var(--label); font-variant-numeric: lining-nums tabular-nums; }
+  .way__title {
+    margin-top: var(--s-4);
+    font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); line-height: 1.2; color: var(--head); text-wrap: balance;
+  }
+  .way__copy { margin-top: var(--s-3); font-size: var(--fs-body); line-height: 1.6; color: var(--fg-2); max-width: 40ch; text-wrap: pretty; }
+  .engage__conf {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem); padding-top: var(--s-5); border-top: 1px solid var(--rule);
+    font-size: 1.0625rem; line-height: 1.6; color: var(--head); max-width: 70ch; text-wrap: pretty;
+  }
+  @media (min-width: 600px) { .ways { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--s-7); } }
+  @media (min-width: 1100px) { .ways { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+</style>

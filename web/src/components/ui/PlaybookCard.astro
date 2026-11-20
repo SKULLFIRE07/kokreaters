@@ -1,0 +1,234 @@
+---
+/**
+ * Gated playbook download (pack 2, brief item 34). Contract (research/pack2/LEAD-BRIEF.md):
+ *   <PlaybookCard variant="tile" | "band" />   (optional: id, headingLevel, class)
+ *  tile — a Delft Ice card that fills its grid cell (the home Insights row's third tile, the /insights grid): label
+ *         "Free download · PDF" with a document mark, the Bodoni title, the brief's line, and "Download the playbook"
+ *         set low, like the "In preparation" cards. Min height 320px (280px on phones).
+ *  band — a navy panel for the end of the 3-MCPD article and the Food safety service page: label, title and line left,
+ *         the button right once the panel's content box is 720px wide (container query); stacked below that.
+ * The button opens the modal form (this file's <dialog>): Name, Company, Email, Country (all required), the required
+ * consent box and a separate, optional box for The KoKreaters Note. After a send the form gives way to the brief's
+ * thank-you line. Without JS the button is a mailto link to office@ with the request as its subject.
+ * Behaviour: src/scripts/forms.ts (native showModal, focus kept in the panel, Esc / Close / backdrop close, focus back
+ * to the button, Lenis paused). Endpoint /api/playbook (lead to office@; visitor email with the PDF link when
+ * PLAYBOOK_URL is set, otherwise a "we will send it as soon as it is published" email).
+ * Placeholder: Part K 15 (the PDF itself) shows as a <Confirm> in staging only.
+ * Mobile (< 600px): the dialog is a full-screen sheet (100dvh, scrolls inside), fields in one column, full-width
+ * buttons; ≥ 600px a 600px panel centred over a navy scrim, fields two-up from a 480px-wide form.
+ */
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import Confirm from './Confirm.astro';
+import { playbook as copy, newsletter } from '@/data/forms';
+import { site } from '@/config/site';
+
+interface Props {
+  variant?: 'tile' | 'band';
+  id?: string;
+  headingLevel?: 'h2' | 'h3';
+  class?: string;
+}
+const { variant = 'tile', id = 'playbook', class: cls } = Astro.props;
+const headingLevel = Astro.props.headingLevel ?? (variant === 'band' ? 'h2' : 'h3');
+const H = headingLevel;
+const dialogId = `${id}-dialog`;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(copy.mailtoSubject)}`;
+const f = (n: string) => `${id}-${n}`;
+const text = [
+  { name: 'name', label: copy.fields.name, type: 'text', autocomplete: 'name', maxlength: 120 },
+  { name: 'company', label: copy.fields.company, type: 'text', autocomplete: 'organization', maxlength: 160 },
+  { name: 'email', label: copy.fields.email, type: 'email', autocomplete: 'email', maxlength: 254 },
+  { name: 'country', label: copy.fields.country, type: 'text', autocomplete: 'country-name', maxlength: 80 },
+] as const;
+/** "See the privacy policy." — the last sentence of item 33's consent line, reused under the two boxes. */
+const linkAt = newsletter.consent.indexOf(newsletter.consentLink.text);
+const seeThe = linkAt < 0 ? '' : newsletter.consent.slice(newsletter.consent.lastIndexOf('See ', linkAt), linkAt);
+---
+<div class:list={['pbc', `pbc--${variant}`, variant === 'band' ? 'band--navy' : 'band--ice', cls]}>
+  <div class="pbc__in">
+  <div class="pbc__text">
+    <p class="pbc__label t-label">
+      <svg class="pbc__mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M12 12v6"/><path d="m9 15 3 3 3-3"/></svg>
+      <span>{copy.label}</span>
+    </p>
+    <H class="pbc__title">{copy.title}</H>
+    <p class="pbc__line">{copy.line}</p>
+    <Confirm id={copy.pdf.confirm} note={copy.pdf.note} />
+  </div>
+  <div class="pbc__action">
+    <Button href={mailto} variant={variant === 'band' ? 'on-dark' : 'primary'} icon="download" class="pbc__btn" data-playbook-open={dialogId}>{copy.button}</Button>
+  </div>
+  </div>
+</div>
+
+<dialog id={dialogId} class="pbm" aria-labelledby={f('title')} data-playbook-dialog data-lenis-prevent>
+  <div class="pbm__panel">
+    <button type="button" class="pbm__close" data-pb-close aria-label={copy.close}><Icon name="close" size={24} /></button>
+
+    <div class="pbm__body" data-pb-body>
+      <p class="pbm__label t-label">{copy.label}</p>
+      <h2 id={f('title')} class="pbm__title" tabindex="-1" data-pb-title>{copy.title}</h2>
+      <p class="pbm__line">{copy.line}</p>
+
+      <form
+        class="pbf"
+        method="post"
+        action={mailto}
+        enctype="text/plain"
+        data-pb-form
+        data-endpoint={copy.endpoint}
+        data-msg-required={copy.required}
+        data-msg-email={copy.invalidEmail}
+        data-msg-consent={copy.consentRequired}
+        data-msg-error={copy.error}
+        aria-labelledby={f('title')}
+      >
+        <p class="pbf__note" aria-hidden="true">{copy.requiredNote}</p>
+        <div class="pbf__grid">
+          {text.map((t) => (
+            <div class="pbf__field">
+              <label class="pbf__label" for={f(t.name)}>{t.label}<span class="pbf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+              <input
+                class="pbf__input" id={f(t.name)} name={t.name} type={t.type} autocomplete={t.autocomplete} maxlength={t.maxlength}
+                required data-pb-field aria-describedby={f(`${t.name}-error`)}
+                {...(t.type === 'email' ? { inputmode: 'email', spellcheck: 'false', autocapitalize: 'off' } : {})}
+              />
+              <p class="pbf__error" id={f(`${t.name}-error`)} hidden data-pb-error={t.name}></p>
+            </div>
+          ))}
+        </div>
+
+        <div class="pbf__checks">
+          <label class="pbf__check" for={f('consent')}>
+            <span class="pbf__box"><input class="pbf__checkbox" id={f('consent')} name="consent" type="checkbox" value="yes" required data-pb-field aria-describedby={f('consent-error')} /></span>
+            <span class="pbf__checktext">{copy.consent}<span class="pbf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></span>
+          </label>
+          <p class="pbf__error pbf__error--check" id={f('consent-error')} hidden data-pb-error="consent"></p>
+          <label class="pbf__check" for={f('newsletter')}>
+            <span class="pbf__box"><input class="pbf__checkbox" id={f('newsletter')} name="newsletter" type="checkbox" value="yes" /></span>
+            <span class="pbf__checktext">{copy.newsletterOptIn}</span>
+          </label>
+          <p class="pbf__privacy">{seeThe}<a href={newsletter.consentLink.href} target="_blank" rel="noopener">{newsletter.consentLink.text}<span class="visually-hidden"> ({newsletter.consentLink.newTab})</span></a>.</p>
+        </div>
+
+        <div class="pbf__hp" aria-hidden="true"><label>Company website <input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+        <input type="hidden" name="started_at" value="" data-started-at />
+
+        <div class="pbf__actions">
+          <Button type="submit" size="lg" icon="arrow" class="pbf__submit" data-pb-submit>{copy.submit}</Button>
+        </div>
+        <p class="pbf__status" role="status" aria-live="polite" data-pb-status></p>
+      </form>
+    </div>
+
+    <div class="pbm__done" hidden data-pb-done>
+      <Icon name="success" size={32} stroke={1.5} class="pbm__done-icon" />
+      <p class="pbm__thanks" tabindex="-1" data-pb-done-focus>{copy.thanks}</p>
+      <Button type="button" variant="secondary" data-pb-close>{copy.close}</Button>
+    </div>
+  </div>
+</dialog>
+
+<script>import '@/scripts/forms';</script>
+
+<style>
+  /* ── the card ── */
+  .pbc { position: relative; background: var(--bg); color: var(--fg); min-width: 0; }
+  .pbc__in { display: flex; flex-direction: column; gap: var(--s-6); height: 100%; }
+  .pbc--tile { height: 100%; min-height: 280px; padding: var(--s-6); }
+  .pbc--tile .pbc__in { justify-content: space-between; }
+  @media (min-width: 900px) { .pbc--tile { min-height: 320px; padding: var(--s-7) var(--s-6) var(--s-6); } }
+  .pbc--band { container-type: inline-size; padding: var(--s-6) var(--s-5); }
+  @media (min-width: 600px) { .pbc--band { padding: var(--s-7); } }
+
+  .pbc__label { display: flex; align-items: center; gap: var(--s-2); margin: 0 0 var(--s-4); color: var(--label); font-size: 12px; letter-spacing: .14em; }
+  .pbc__mark { flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .pbc__title {
+    margin: 0; max-width: 22ch; font-family: var(--font-serif); font-weight: 400; letter-spacing: 0; color: var(--head);
+    font-size: clamp(1.5rem, 1.38rem + .5vw, 1.75rem); line-height: 1.2; text-wrap: balance;
+  }
+  .pbc--band .pbc__title { font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem); line-height: 1.15; }
+  .pbc__line { margin: var(--s-3) 0 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
+  .pbc--tile .pbc__action :global(.pbc__btn) { width: 100%; }
+  @media (min-width: 600px) { .pbc--tile .pbc__action :global(.pbc__btn) { width: auto; } }
+  @media (max-width: 599px) { .pbc--band .pbc__action :global(.pbc__btn) { width: 100%; } }
+  .pbc__action :global(.pbc__btn) { white-space: nowrap; }
+  @container (min-width: 720px) {
+    .pbc--band .pbc__in { flex-direction: row; align-items: center; justify-content: space-between; column-gap: var(--s-7); }
+    .pbc--band .pbc__text { flex: 1 1 auto; min-width: 0; }
+    .pbc--band .pbc__action { flex: none; }
+  }
+
+  /* ── the dialog ── */
+  .pbm {
+    --bg: var(--white); --fg: var(--ink); --fg-2: var(--ink-2); --head: var(--navy-900); --label: var(--blue-700); --link: var(--blue-700);
+    --rule: var(--grey-200); --focus: var(--blue-500); --btn-bg: var(--blue-700); --btn-fg: var(--white); --btn-bg-hover: var(--navy-900);
+    width: min(600px, calc(100vw - 48px)); max-width: none; max-height: calc(100dvh - 48px);
+    margin: auto; padding: 0; border: 0; border-radius: 0; overflow: auto; overscroll-behavior: contain;
+    background: var(--bg); color: var(--fg);
+  }
+  .pbm::backdrop { background: rgb(14 31 77 / .72); }
+  @media (max-width: 599px) {
+    .pbm { width: 100%; height: 100%; max-height: 100%; max-height: 100dvh; inset: 0; margin: 0; }
+  }
+  .pbm__panel { position: relative; padding: var(--s-7) var(--s-5) var(--s-6); container-type: inline-size; }
+  @media (min-width: 600px) { .pbm__panel { padding: var(--s-7) var(--s-7) var(--s-6); } }
+  .pbm__close {
+    position: absolute; top: var(--s-2); right: var(--s-2); width: 48px; height: 48px; display: grid; place-items: center;
+    margin: 0; padding: 0; border: 0; background: none; color: var(--head); cursor: pointer;
+  }
+  .pbm__close:hover { color: var(--link); }
+  .pbm__close:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
+  .pbm__label { margin: 0 0 var(--s-3); padding-right: 48px; color: var(--label); font-size: 12px; letter-spacing: .14em; }
+  .pbm__title { margin: 0; padding-right: var(--s-6); font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.625rem, 1.45rem + .7vw, 2rem); line-height: 1.15; color: var(--head); text-wrap: balance; }
+  .pbm__title:focus { outline: none; }
+  .pbm__title:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .pbm__line { margin: var(--s-3) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
+
+  .pbf { margin: var(--s-6) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  .pbf__note { margin: 0 0 var(--s-4); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .pbf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+  @container (min-width: 480px) { .pbf__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .pbf__field { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
+  .pbf__label { font: 700 var(--fs-small)/1.35 var(--font-sans); color: var(--head); }
+  .pbf__req { margin-left: 3px; color: var(--fg-2); font-weight: 500; }
+  .pbf__input {
+    display: block; width: 100%; min-width: 0; height: 52px; margin: 0; padding: 0 var(--s-4);
+    border: 1px solid #7F8DAB; border-radius: 0; background: var(--white); color: var(--fg);
+    font: 400 var(--fs-body)/1.4 var(--font-sans);
+  }
+  .pbf__input:hover { border-color: var(--head); }
+  .pbf__input:focus { border-color: var(--link); box-shadow: inset 0 0 0 1px var(--link); outline: none; }
+  .pbf__input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  .pbf__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 0 0 1px var(--danger); }
+  .pbf__error { margin: 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--danger); }
+  .pbf__error--check { margin-top: calc(-1 * var(--s-2)); padding-left: calc(28px + var(--s-2)); }
+
+  .pbf__checks { display: grid; gap: var(--s-4); margin-top: var(--s-6); }
+  .pbf__check { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: var(--s-2); cursor: pointer; }
+  .pbf__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -12px 0 -12px -12px; }
+  .pbf__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--link); cursor: pointer; }
+  .pbf__checkbox:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .pbf__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
+  .pbf__checktext { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); text-wrap: pretty; }
+  .pbf__privacy { margin: 0; padding-left: calc(28px + var(--s-2)); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .pbf__privacy a { color: var(--link); text-underline-offset: .2em; }
+
+  .pbf__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .pbf__actions { margin-top: var(--s-6); }
+  .pbf__actions :global(.pbf__submit) { width: 100%; }
+  @container (min-width: 480px) { .pbf__actions :global(.pbf__submit) { width: auto; } }
+  .pbf__status { margin: var(--s-4) 0 0; font: 500 var(--fs-small)/var(--lh-small) var(--font-sans); }
+  .pbf__status:empty { display: none; }
+  .pbf__status[data-state="error"] { color: var(--danger); }
+
+  .pbm__done { display: grid; justify-items: start; gap: var(--s-5); padding-top: var(--s-6); }
+  .pbm__done[hidden] { display: none; }
+  .pbm__done :global(.pbm__done-icon) { color: var(--success); }
+  .pbm__thanks { margin: 0; max-width: 24ch; font-family: var(--font-serif); font-size: clamp(1.625rem, 1.45rem + .7vw, 2rem); line-height: 1.2; color: var(--head); }
+  .pbm__thanks:focus { outline: none; }
+  .pbm__thanks:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+  :global(html.pb-lock) { overflow: hidden; padding-right: var(--pb-gap, 0px); }
+</style>

@@ -1,12 +1,12 @@
 ---
 /**
  * /approach (v4 Delft). Grounds: navy photo hero → white (promise) → Delft Ice (lab → plant → market photo cards)
- * → white (how we work) → Porcelain (principles) → white (ways to work with us) → Porcelain (FAQ) → CtaBand → footer.
+ * → white (how we work) → Porcelain (principles) → white (#engage: how we engage) → Porcelain (FAQ) → CtaBand → footer.
  *  1 PillarHero: a working session under the navy gradient; label "Approach", H1, the intro.
  *  2 Positioning: label, h2, the promise as a Bodoni statement, the range paragraph.
  *  3 ApproachLanes: Develop / Scale / Access (client design wording), each linking to its service.
  *  4 Steps: Connect / Collaborate / Create as sticky storytelling.
- *  5 Principles · 6 EngagementTable · 7 Faq.
+ *  5 Principles · 6 Engage (pack 2, item 31: the four ways, replacing the v3 models table) · 7 Faq.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PillarHero from '@/components/expertise/PillarHero.astro';
@@ -14,7 +14,7 @@ import Positioning from '@/components/approach/Positioning.astro';
 import ApproachLanes from '@/components/approach/ApproachLanes.astro';
 import Steps from '@/components/approach/Steps.astro';
 import Principles from '@/components/approach/Principles.astro';
-import EngagementTable from '@/components/approach/EngagementTable.astro';
+import Engage from '@/components/approach/Engage.astro';
 import Faq from '@/components/approach/Faq.astro';
 import { approach } from '@/data/approach';
 import { photos } from '@/data/photos';
@@ -35,6 +35,6 @@ const lead = approach.intro.replace(/(\d+) (years?)\b/g, '$1 $2');
   <ApproachLanes />
   <Steps />
   <Principles />
-  <EngagementTable />
+  <Engage />
   <Faq />
 </BaseLayout>

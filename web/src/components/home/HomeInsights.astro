@@ -2,24 +2,26 @@
 /**
  * Home 9 · Insights (v4 developer guide). White band: label + H2 "Ideas from the plant floor and the boardroom.",
  * "All insights →" on the right; three cards in a row: the two newest visible insights (read from the insights
- * collection; staging and preview include drafts, production only approved ones) and one "coming soon" card (the
- * bleaching-earth explainer when it is still a stub, else the first stub) on Delft Ice, unlinked.
+ * collection; staging and preview include drafts, production only approved ones) and, third (pack 2 items 32 and 34),
+ * the playbook download tile (<PlaybookCard variant="tile" />, owned by PEOPLE-CONTENT; it opens the modal form).
+ * The v4 "coming soon" bleaching-earth tile is gone.
  * Card: 3:2 photo (zooms 1.04 on hover) · a red "New" tag on the newest · "FORMAT · PILLAR" label · Bodoni title ·
  * standfirst · date and reading time. Photos follow the client's design (3-MCPD → scale-tanks, trans fats →
  * bakery-dough) and fall back to the entry's own photo.
- * With no visible insight (and no stub) the section is not rendered. Mobile: one column; two from 600px; three ≥ 1000.
+ * The section always renders (the playbook tile is always there). Mobile: one column; two from 600px; three ≥ 1000.
  */
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Tag from '@/components/ui/Tag.astro';
+import PlaybookCard from '@/components/ui/PlaybookCard.astro';
 import { insights as fold, homeLabels } from '@/data/home';
 import { footer } from '@/data/nav';
-import { microcopy, formatLabels } from '@/data/microcopy';
+import { microcopy } from '@/data/microcopy';
 import { pillars } from '@/data/pillars';
 import { photos, type PhotoSlug } from '@/data/photos';
 import { showDraftLabels } from '@/lib/mode';
 import { formatDate, isoDate, fill, dotJoin } from '@/lib/format';
-import { visibleInsights, comingSoon, isDraft, formatLabel, insightReadingTime, insightHref, type Insight } from '@/lib/insights';
+import { visibleInsights, isDraft, formatLabel, insightReadingTime, insightHref, type Insight } from '@/lib/insights';
 import { insightPhoto } from './insight-photo';
 
 /** The client's homepage design pairs these two articles with v4 photos. */
@@ -34,11 +36,9 @@ const photoFor = (e: Insight) => {
 };
 
 const latest = (await visibleInsights()).slice(0, 2);
-const stubs = await comingSoon();
-const soon = stubs.find((e) => e.id === 'bleaching-earth') ?? stubs[0];
 const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)?.shortLabel;
 ---
-{(latest.length > 0 || soon) && (
+{(
   <section id="insights" class="hn band band--white" aria-labelledby="hn-heading">
     <div class="container">
       <header class="hn__head">
@@ -71,15 +71,9 @@ const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)
             </li>
           );
         })}
-        {soon && (
-          <li>
-            <div class="hn__soon">
-              <span class="hn__meta"><span>{dotJoin([microcopy.inPreparation, formatLabels[soon.data.format]])}</span></span>
-              <h3 class="hn__name">{soon.data.title}</h3>
-              <span class="hn__date">{homeLabels.soon}</span>
-            </div>
-          </li>
-        )}
+        <li class="hn__playbook">
+          <PlaybookCard variant="tile" id="playbook-home" />
+        </li>
       </ul>
     </div>
   </section>
@@ -104,7 +98,7 @@ const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)
   .hn__card:is(:hover, :focus-visible) .hn__name { color: var(--blue-700); text-decoration-color: currentColor; }
   .hn__stand { font-size: .9375rem; line-height: 1.6; color: var(--fg-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .hn__date { font-size: .875rem; color: #5E6B88; }
-  .hn__soon { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-height: 280px; padding: 32px; background: var(--ice); }
+  .hn__playbook > :global(*) { flex: 1; }
   @media (min-width: 600px) { .hn__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) {
     .hn__head { margin-bottom: 52px; }

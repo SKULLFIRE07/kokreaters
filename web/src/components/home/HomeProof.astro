@@ -1,34 +1,60 @@
 ---
 /**
- * Home 4 · Track record (v4 developer guide). Porcelain band: "Our track record" label left, the source line right
- * ("Figures from our founder’s career at Wilmar and Cargill."), then four figures in Bodoni 64px: 25 years in industry ·
- * 14 years in oils, fats and food ingredients · 5 countries · WHO. The lead figure carries a 3px saffron top rule, the
- * others a 1px line (StatStrip). Motion: rules draw in, numbers count up once (motion.ts); "WHO" stays as it is.
- * Mobile: 2 × 2 grid; the source line moves under the label.
+ * Home 4 · Track record (pack 2 item 15: the home strip; About and Impact have their own). Porcelain band: the
+ * "Our track record" label, then four figures: 25 years · 8 sites · 5 countries · 3 regions · 2 national firsts. Numerals
+ * in Bodoni 64px, their words in Bodoni at about half that size so "8 sites · 5 countries" holds one column; the label
+ * under each. The lead figure carries a 3px saffron top rule, the others a 1px line. Footnote (small, grey,
+ * right-aligned): "From our founder’s 25-year career, before KoKreaters." (replaces the company-name source line, item 8).
+ * Motion: rules draw in, numerals count up once (motion.ts data-gsap="count"). Mobile: 2 × 2 grid down to 600px, then
+ * one column; the footnote stays right-aligned under the strip.
  */
-import StatStrip from '@/components/ui/StatStrip.astro';
-import { proof, proofStripSource, homeLabels } from '@/data/home';
+import { homeProof, homeProofNote, homeLabels } from '@/data/home';
 ---
 <section class="hp band band--grey" aria-labelledby="proof-heading">
   <div class="container">
-    <div class="hp__head">
-      <h2 id="proof-heading" class="t-label hp__label">{homeLabels.proof}</h2>
-      <p class="hp__source">{proofStripSource}</p>
-    </div>
-    <StatStrip items={proof} cols={4} class="hp__stats" />
+    <h2 id="proof-heading" class="t-label hp__label">{homeLabels.proof}</h2>
+    <ul class="hp__list" role="list">
+      {homeProof.map((it, i) => (
+        <li class:list={['hp__item', i === 0 && 'hp__item--lead']}>
+          <span class="hp__rule" data-gsap="rule" aria-hidden="true"></span>
+          <span class="hp__fig">
+            {it.figure.map((f, j) => (
+              <>{j > 0 && <span class="hp__dot" aria-hidden="true"> · </span>}<span class="hp__pair"><span class="hp__n" data-gsap="count">{f.n}</span>{f.u && <span class="hp__u"> {f.u}</span>}</span></>
+            ))}
+          </span>
+          <span class="hp__text">{it.label}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="hp__note">{homeProofNote}</p>
   </div>
 </section>
 
 <style>
   .hp { --_pad: clamp(4rem, 3.4rem + 2.2vw, 5rem); }
-  .hp__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 40px; }
-  .hp__label { margin: 0; }
-  .hp__source { margin: 0; font-size: .875rem; line-height: 1.5; color: var(--fg-2); }
-  .hp :global(.stats__value) { font-size: clamp(3rem, 2.5rem + 2vw, 4rem); }
-  .hp :global(.stats__label) { color: #2C3A5E; }
-  .hp :global(.stats__key) { font-weight: 700; color: var(--navy-900); }
+  .hp__label { margin: 0 0 40px; }
+  .hp__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 var(--s-5); margin: 0; padding: 0; list-style: none; }
+  .hp__item { position: relative; display: flex; flex-direction: column; gap: 12px; padding-block: 24px; }
+  .hp__rule { position: absolute; top: -1px; left: 0; right: 0; height: 1px; background: var(--rule); }
+  .hp__item--lead .hp__rule { top: -2px; height: 3px; background: var(--saffron); }
+  .hp__fig {
+    display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .25em;
+    font-family: var(--font-serif); font-weight: 400; line-height: 1; color: var(--head);
+    font-variant-numeric: lining-nums;
+  }
+  .hp__pair { white-space: nowrap; }
+  .hp__n { font-size: clamp(3rem, 2.5rem + 2vw, 4rem); letter-spacing: -0.01em; }
+  .hp__u { font-size: clamp(1.375rem, 1.2rem + .7vw, 1.75rem); letter-spacing: 0; }
+  .hp__dot { padding-inline: .12em; font-size: clamp(1.375rem, 1.2rem + .7vw, 1.75rem); color: var(--fg-2); }
+  .hp__text { max-width: 30ch; font-size: 1rem; line-height: 1.5; color: #2C3A5E; text-wrap: pretty; }
+  .hp__note { margin: 32px 0 0; text-align: right; font-size: .875rem; line-height: 1.5; color: var(--fg-2); }
+
+  @media (min-width: 600px) and (max-width: 899px) {
+    .hp__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (min-width: 900px) {
-    .hp :global(.stats__list) { column-gap: 32px; }
-    .hp :global(.stats__item) { padding-top: 26px; gap: 14px; }
+    .hp__list { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 32px; }
+    .hp__item { padding-block: 26px 0; gap: 14px; }
+    .hp__note { margin-top: 40px; }
   }
 </style>

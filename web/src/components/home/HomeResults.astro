@@ -1,22 +1,16 @@
 ---
 /**
- * Home 8 · Impact (v4 developer guide). Delft Navy band: saffron label (with its rule) + H2 "Results that started on
- * the plant floor.", "See the impact →" on the right; two results in large Bodoni numbers (84px): −25 °C (Ukraine ·
- * Wilmar, the cold-climate refinery) and WHO (Cargill, the trans-fat recognition), each on a hairline; then the source
- * line "From our founder’s career at Wilmar and Cargill." Facts and wording from src/data/impact.ts.
- * Motion: the hairlines draw in; "−25 °C" counts its digits up once (the minus and unit stay); "WHO" is left alone.
- * Mobile: one column, figures at 64px.
+ * Home 8 · Impact (pack 2 item 17). Delft Navy band: saffron label (with its rule) + H2 "Results that started on the
+ * plant floor.", "See the impact →" on the right; three results in large Bodoni figures, each on a hairline:
+ * OPERATIONS · INDONESIA 21% · PROCESS · UKRAINE −25 °C · FOOD SAFETY · GLOBAL WHO. The WHO card links to the WHO story
+ * on the Impact page (/impact#story-who, the anchor STORY gives story 4). Then the neutral footnote (item 8).
+ * Copy lives in src/data/home.ts (impact.cards), verbatim from the brief.
+ * Motion: hairlines draw in; "21%" and "−25 °C" count their digits up once (sign and unit stay); "WHO" is left alone.
+ * Mobile: one column, figures at 64px; three columns from 900px.
  */
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { impact } from '@/data/home';
-import { founderResults, figureFallback } from '@/data/impact';
-
-const pick = ['ukraine', 'tfa'] as const;
-const items = pick.map((id) => {
-  const r = founderResults.find((x) => x.id === id)!;
-  return { id, dateline: r.dateline, figure: r.figure?.value ?? figureFallback[id] ?? '', line: r.homeLine };
-});
 ---
 <section id="impact" class="hr band band--navy" aria-labelledby="hr-heading">
   <div class="container">
@@ -28,12 +22,13 @@ const items = pick.map((id) => {
       <ArrowLink href={impact.link.href} class="hr__link">{impact.link.label}</ArrowLink>
     </header>
     <ul class="hr__grid" role="list">
-      {items.map((it) => (
+      {impact.cards.map((it) => (
         <li class="hr__item">
           <span class="hr__rule" data-gsap="rule" aria-hidden="true"></span>
-          <p class="hr__date">{it.dateline}</p>
+          <p class="hr__date">{it.tag}</p>
           <p class="hr__fig" data-gsap="count">{it.figure}</p>
           <p class="hr__line">{it.line}</p>
+          {it.href && <ArrowLink href={it.href} class="hr__more">{it.linkLabel}</ArrowLink>}
         </li>
       ))}
     </ul>
@@ -56,10 +51,12 @@ const items = pick.map((id) => {
     color: var(--white); white-space: nowrap; font-variant-numeric: lining-nums;
   }
   .hr__line { margin: 0; max-width: 460px; font-size: 1.0625rem; line-height: 1.6; color: #DCE4F2; }
-  .hr__source { margin: 40px 0 0; font-size: .875rem; color: #AFC0E0; }
+  .hr :global(.hr__more) { margin-top: 4px; color: var(--white); }
+  .hr :global(.hr__more .arrow-link__icon) { color: var(--white); }
+  .hr__source { margin: 40px 0 0; font-size: .875rem; color: #AFC0E0; text-align: right; }
   @media (min-width: 900px) {
     .hr__head { margin-bottom: 56px; }
-    .hr__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hr__fig { font-size: 5.25rem; }
+    .hr__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hr__fig { font-size: clamp(4rem, 2rem + 3.4vw, 5.25rem); }
   }
 </style>

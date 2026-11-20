@@ -1,0 +1,61 @@
+---
+/**
+ * The end of every article (brief item 35), in the article column after the share row, in this order:
+ *  1 AuthorBox — photo, "Ganeaysh Kulkarni · Founder and Principal, KoKreaters · Former Global Product & Process Design
+ *    Director, Cargill" (item 8 allows the company here), the short bio, "Meet Ganeaysh".
+ *  2 The full newsletter block (NewsletterForm variant="full", Delft Ice panel).
+ *  3 "Related reading": exactly two cards. Other visible articles first (`related`, same pillar first, from
+ *    [slug].astro), then the Impact stories listed for this article in src/data/insights.ts `relatedStories`.
+ *    Articles use InsightTile (photo card); stories use RelatedStory (Ice panel).
+ * Placed by ArticleLayout (CHROME-HOME) — see research/pack2/requests-PEOPLE-CONTENT.md.
+ * ≥ 600px the two cards sit side by side; phones stack them, 48px apart.
+ */
+import type { CollectionEntry } from 'astro:content';
+import AuthorBox from './AuthorBox.astro';
+import RelatedStory from './RelatedStory.astro';
+import NewsletterForm from '@/components/ui/NewsletterForm.astro';
+import InsightTile from '@/components/insights/InsightTile.astro';
+import { formatLabel, insightHref, insightImage, insightReadingTime } from '@/lib/insights';
+import { getPillar } from '@/lib/pillars';
+import { getStory } from '@/data/impact';
+import { articleCopy, relatedStories, relatedFallbackStories } from '@/data/insights';
+import type { ImpactStory } from '@/data/types';
+
+interface Props { entry: CollectionEntry<'insights'>; related: CollectionEntry<'insights'>[]; }
+const { entry, related } = Astro.props;
+const articles = related.filter((e) => e.id !== entry.id).slice(0, 2);
+const storyIds = [...(relatedStories[entry.id] ?? []), ...relatedFallbackStories];
+const stories = [...new Set(storyIds)].map((id) => getStory(id)).filter((s): s is ImpactStory => Boolean(s)).slice(0, 2 - articles.length);
+type Item = { kind: 'article'; e: CollectionEntry<'insights'> } | { kind: 'story'; s: ImpactStory };
+const items: Item[] = [...articles.map((e) => ({ kind: 'article' as const, e })), ...stories.map((s) => ({ kind: 'story' as const, s }))];
+---
+<AuthorBox />
+<NewsletterForm id="nl-article" variant="full" />
+{items.length > 0 && (
+  <section class="a-end-rel" aria-labelledby="related-h">
+    <h2 id="related-h" class="a-end-rel__title">{articleCopy.related}</h2>
+    <ul class="a-end-rel__list" role="list">
+      {items.map((it) => (
+        <li>
+          {it.kind === 'article' ? (() => {
+            const img = insightImage(it.e);
+            return (
+              <InsightTile
+                href={insightHref(it.e)} title={it.e.data.title} label={formatLabel(it.e)} pillarName={getPillar(it.e.data.pillar).shortLabel}
+                date={it.e.data.date} readTime={insightReadingTime(it.e)} image={img?.src} imageAlt={img?.alt} imagePosition={img?.position}
+                sizes="(min-width: 760px) 340px, (min-width: 600px) 45vw, calc(100vw - 40px)"
+              />
+            );
+          })() : <RelatedStory story={it.s} />}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+<style>
+  .a-end-rel { padding-top: var(--s-6); border-top: 1px solid var(--rule); }
+  .a-end-rel__title { margin: 0 0 var(--s-6); font: 400 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
+  .a-end-rel__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap); }
+  .a-end-rel__list > li { min-width: 0; }
+  @media (min-width: 600px) { .a-end-rel__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

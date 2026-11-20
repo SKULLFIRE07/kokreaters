@@ -11,6 +11,8 @@
  * data-pillar / data-format (coming-soon cards add data-soon, so they follow the filters but are not counted). The
  * empty-state line under the list is shown by the script when a filter matches nothing.
  * `featuredId` is kept for API compatibility (v3 hid the featured row); v4 shows every insight in the grid.
+ * Slot "extra" (pack 2): one more card between the published insights and the in-preparation cards, as an <li>
+ * (the /insights playbook tile). It is not an .insight-row, so the filters never hide it and it is not counted.
  */
 import type { CollectionEntry } from 'astro:content';
 import InsightTile from './InsightTile.astro';
@@ -31,7 +33,7 @@ interface Props {
 }
 const { entries, soon = [], level = 3, filterable = true, newest = true, priorityFirst = false } = Astro.props;
 const newestId = newest ? (await visibleInsights())[0]?.id : undefined;
-const total = entries.length + soon.length;
+const total = entries.length + soon.length + (Astro.slots.has('extra') ? 1 : 0);
 const cols = Math.max(2, Math.min(3, total));
 ---
 <ul class:list={['ilist', total === 1 && 'ilist--single']} role="list" style={`--cols:${cols}`} data-insight-list={filterable ? '' : undefined}>
@@ -50,6 +52,7 @@ const cols = Math.max(2, Math.min(3, total));
       </li>
     );
   })}
+  <slot name="extra" />
   {soon.map((e) => (
     <li class="insight-row insight-row--soon" data-pillar={e.data.pillar} data-format={e.data.format} data-soon>
       <InsightTile soon title={e.data.title} label={formatLabel(e)} level={level} />

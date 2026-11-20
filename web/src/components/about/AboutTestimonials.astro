@@ -1,0 +1,53 @@
+---
+/**
+ * About · testimonials (brief item 26): three slots, quote with name, role and company type. Publish only quotes given
+ * in writing with permission to use name and title (src/data/about.ts `testimonials.items`, empty today).
+ * Rendered only once at least two are confirmed. In staging, with fewer than two, the section shows its heading, the
+ * Part K 12 <Confirm> and three empty slots (no placeholder text), so the layout can be reviewed.
+ * Porcelain band. ≥ 900px three columns; phones one, 48px apart. Each quote: a 3px saffron rule, the quote in Bodoni
+ * 22 → 26, then name (bold) and role, company type (meta). No carousel, no motion.
+ */
+import Section from '@/components/ui/Section.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { testimonials } from '@/data/about';
+import { showConfirm } from '@/lib/mode';
+
+const confirmed = testimonials.items.filter((t) => t.permission === true);
+const live = confirmed.length >= testimonials.minimum;
+const preview = !live && showConfirm;
+---
+{(live || preview) && (
+  <Section ground="grey" labelledby="quotes-h" class="quotes">
+    <SectionHeader id="quotes-h" title={testimonials.heading} />
+    {preview && <p class="quotes__confirm"><Confirm id={testimonials.pending.confirm} note={testimonials.pending.note} /></p>}
+    <ul class="quotes__list" role="list">
+      {live
+        ? confirmed.slice(0, 3).map((t) => (
+            <li>
+              <figure class="quote">
+                <blockquote class="quote__text"><p>{t.quote}</p></blockquote>
+                <figcaption class="quote__by"><strong>{t.name}</strong><span>{t.role}, {t.company}</span></figcaption>
+              </figure>
+            </li>
+          ))
+        : [0, 1, 2].map(() => (
+            <li><div class="quote quote--empty" aria-hidden="true"><span></span><span></span><span></span></div></li>
+          ))}
+    </ul>
+  </Section>
+)}
+<style>
+  .quotes__confirm { margin: 0 0 var(--s-6); }
+  .quotes__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap); }
+  @media (min-width: 900px) { .quotes__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .quote { margin: 0; padding-top: var(--s-5); border-top: 3px solid var(--saffron); }
+  .quote__text { margin: 0; }
+  .quote__text p { margin: 0; font-family: var(--font-serif); font-size: clamp(1.375rem, 1.3rem + .3vw, 1.625rem); line-height: 1.35; color: var(--head); text-wrap: pretty; }
+  .quote__by { display: grid; gap: 2px; margin-top: var(--s-5); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .quote__by strong { font-size: var(--fs-small); color: var(--head); }
+  .quote--empty { display: grid; gap: var(--s-3); min-height: 180px; border-top-style: dashed; }
+  .quote--empty span { display: block; height: 14px; background: var(--grey-200); }
+  .quote--empty span:nth-child(2) { width: 80%; }
+  .quote--empty span:nth-child(3) { width: 45%; margin-top: auto; }
+</style>

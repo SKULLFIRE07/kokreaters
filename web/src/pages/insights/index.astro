@@ -1,14 +1,17 @@
 ---
 /**
- * Insights hub, v4 "Delft" (developer guide: carry the homepage style through the insight pages). Bands:
+ * Insights hub, v4 "Delft" + pack 2 (items 32–34). Bands:
  *  1 PageHero (white): crumbs, "Insights", H1 "Ideas from the plant floor and the boardroom.", the line from seo.ts in
  *    the right column.
- *  2 The library (white, opens on a thin rule): the expertise / format filters as square toggles, then one grid in
- *    the homepage's card language: every published insight as a photo card (red "New" tag on the newest only), then
- *    the pieces in preparation as Delft Ice cards. Two published plus four in preparation fill a 3 × 2 grid.
- *  3 CtaBand with the newsletter (BaseLayout), then the footer.
+ *  2 The KoKreaters Note (white band, tight): the full newsletter block (Delft Ice panel), item 33 "top of the Insights
+ *    page".
+ *  3 The library (white, opens on a thin rule): the expertise / format filters as square toggles, then one grid in
+ *    the homepage's card language: every published insight as a photo card (red "New" tag on the newest only), the
+ *    playbook download tile (item 34; it replaces the bleaching-earth "Coming soon" tile, item 32), then the other
+ *    pieces in preparation as Delft Ice cards. Two published + the playbook + three in preparation fill a 3 × 2 grid.
+ *  4 CtaBand (BaseLayout; no second newsletter: it is at the top), then the footer.
  * The newest card's photo is the page's LCP image (priority). Without JS the filters stay hidden and the full grid shows.
- * Production with no published insight: the grid holds the in-preparation cards only, with no filters.
+ * Production with no published insight: the grid holds the playbook and in-preparation cards only, with no filters.
  * Mobile: one column; filters wrap; the in-preparation panels lose their tall frame.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -16,6 +19,8 @@ import PageHero from '@/components/ui/PageHero.astro';
 import Section from '@/components/ui/Section.astro';
 import Filters from '@/components/insights/Filters.astro';
 import InsightList from '@/components/insights/InsightList.astro';
+import NewsletterForm from '@/components/ui/NewsletterForm.astro';
+import PlaybookCard from '@/components/ui/PlaybookCard.astro';
 import { visibleInsights, comingSoonSorted } from '@/lib/insights';
 import { pageSeo } from '@/lib/seo';
 import { insights as insightsCopy } from '@/data/home';
@@ -23,20 +28,27 @@ import { insightsHub } from '@/data/insights';
 
 const seo = pageSeo('insights');
 const list = await visibleInsights();
-const soon = await comingSoonSorted();
+/** Item 32: the bleaching-earth "Coming soon" tile gives its place to the playbook download. */
+const soon = (await comingSoonSorted()).filter((e) => e.id !== 'bleaching-earth');
 const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
 ---
-<BaseLayout page="insights" seo={seo} breadcrumbs={crumbs} cta={{ newsletter: true }}>
+<BaseLayout page="insights" seo={seo} breadcrumbs={crumbs}>
   <PageHero ground="white" titleId="hub-title" class="hub-hero" crumbs={crumbs} eyebrow={insightsCopy.overline} title={insightsCopy.headline}>
     <p slot="aside" class="hub-lead">{seo.description}</p>
   </PageHero>
+
+  <Section ground="white" pad="flush-top" class="hub-note" labelledby="nl-insights-heading">
+    <NewsletterForm id="nl-insights" variant="full" />
+  </Section>
 
   <Section ground="white" labelledby="library-h" id="all-insights" rule class="library">
     <div class="library__head">
       <h2 id="library-h" class="library__title">{insightsHub.libraryTitle}</h2>
       {list.length > 1 && <Filters entries={list} />}
     </div>
-    <InsightList entries={list} soon={soon} priorityFirst filterable={list.length > 1} />
+    <InsightList entries={list} soon={soon} priorityFirst filterable={list.length > 1}>
+      <li slot="extra" class="library__playbook"><PlaybookCard variant="tile" id="playbook-insights" /></li>
+    </InsightList>
   </Section>
 </BaseLayout>
 
@@ -49,6 +61,8 @@ const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
   @media (min-width: 900px) { .hub-lead { padding-bottom: .4em; } }
   @media (max-width: 899px) { :global(.hero.hub-hero) { --_bottom: var(--s-7); } :global(.hub-hero .hero__aside) { margin-top: var(--s-6); } }
 
+  :global(.band.hub-note) { padding-bottom: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); }
+  .library__playbook { min-width: 0; }
   :global(.band.library .band__rule) { margin-bottom: clamp(3.5rem, 2.5rem + 3vw, 5.5rem); }
   .library__head { display: grid; gap: var(--s-5); margin-bottom: clamp(2.5rem, 1.8rem + 2.5vw, 4rem); }
   .library__title {

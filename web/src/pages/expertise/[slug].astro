@@ -1,14 +1,16 @@
 ---
 /**
- * /expertise/[slug] (v4 Delft): one template, six pages; slugs kept from v3 (see research/v4/requests-pages-a.md).
+ * /expertise/[slug] (v4 Delft): one template, six pages. Pack 2: service 06's slug is technology-leadership (301 from
+ * /expertise/capability in vercel.json); every link uses pillars.ts `slug`.
  * Grounds (no two identical neighbours without a hairline):
  *  1 PillarHero (photo + navy gradient): crumbs, "Expertise · 0n", H1 = the service name, lead = its headline.
  *  2 The challenge we solve (white rail): the intro, a Bodoni opening (≥ 24px) then Manrope.
  *  3 What we help with (Porcelain): numbered list on thin rules beside the detail photo.
  *  4 Exhibit (Delft Ice), process and strategy only.
  *  5 Typical deliverables (white rail; hairline when it follows white).
- *  6 From our founder’s career (navy): the matching result in an 84px Bodoni figure (C-8: staging only when none).
+ *  6 From our founder’s career (navy): the matching Impact story (pillars.ts impactId) in an 84px Bodoni figure.
  *  7 Related insights (white rail) and related industries (photo tiles), each omitted when empty.
+ *  7b Food safety only: the playbook download band (<PlaybookCard variant="band" />, brief item 34).
  *  8 Previous / next service, then BaseLayout's CtaBand.
  * Acronyms: first use per page gets <abbr title>; FSQR / 3-MCPD expansions print as a small note.
  */
@@ -23,10 +25,12 @@ import PillarProof from '@/components/expertise/PillarProof.astro';
 import PillarInsights from '@/components/expertise/PillarInsights.astro';
 import PillarIndustries from '@/components/expertise/PillarIndustries.astro';
 import PillarPager from '@/components/expertise/PillarPager.astro';
+import Section from '@/components/ui/Section.astro';
+import PlaybookCard from '@/components/ui/PlaybookCard.astro';
 import { createAbbreviator } from '@/components/expertise/abbr';
 import { expertiseOverview, pillarHelpConfirm, pillarPage, pillarPhoto, pillars } from '@/data/pillars';
 import { photos } from '@/data/photos';
-import { founderResults } from '@/data/impact';
+import { getStory } from '@/data/impact';
 import { industries } from '@/data/industries';
 import { byPillar, comingSoonByPillar } from '@/lib/insights';
 import { pillarHref, pillarNumber } from '@/lib/pillars';
@@ -69,8 +73,8 @@ const hasExhibit = EXHIBIT.includes(pillar.key);
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* 6–7 */
-const result = pillar.impactId ? founderResults.find((r) => r.id === pillar.impactId) : undefined;
-const hasProof = !!result || showConfirm;   // no result: staging shows the band with a Confirm (C-8); elsewhere omitted
+const story = pillar.impactId ? getStory(pillar.impactId) : undefined;
+const hasProof = !!story || showConfirm;   // no story: staging shows the band with a Confirm (C-8); elsewhere omitted
 const related = await byPillar(pillar.key);
 const coming = await comingSoonByPillar(pillar.key);
 const hasInsights = related.length > 0 || coming.length > 0;
@@ -80,7 +84,9 @@ const relatedIndustries = industries.filter((i) => i.pillars.includes(pillar.key
 const beforeInsights = hasProof ? 'navy' : 'white';
 const insightsRule = beforeInsights === 'white';
 const industriesRule = hasInsights || beforeInsights === 'white';
-const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights === 'white';
+/* 7b · pack 2 (brief item 34): the gated 3-MCPD and GE playbook on the Food safety page, at the end of the content. */
+const hasPlaybook = pillar.key === 'quality';
+const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 || beforeInsights === 'white';
 ---
 <BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}>
   <PillarHero
@@ -110,11 +116,17 @@ const pagerFlush = hasInsights || relatedIndustries.length > 0 || beforeInsights
     </ul>
   </RailSection>
 
-  {hasProof && <PillarProof result={result} />}
+  {hasProof && <PillarProof story={story} />}
 
   {hasInsights && <PillarInsights visible={related} coming={coming} rule={insightsRule} />}
 
   {relatedIndustries.length > 0 && <PillarIndustries items={relatedIndustries} rule={industriesRule} />}
+
+  {hasPlaybook && (
+    <Section ground="white" pad="tight" class="playbook-band">
+      <PlaybookCard variant="band" id="playbook-band" />
+    </Section>
+  )}
 
   <PillarPager pillar={pillar.key} flush={pagerFlush} />
 </BaseLayout>

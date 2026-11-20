@@ -2,12 +2,14 @@
 /**
  * Home 10 · Netherlands band (v4 developer guide: "Based in the Netherlands" gets its own band). Full-bleed Dutch
  * polder (nl-polder) under a navy gradient from the left (rgba(14,31,77,.92) fading out), the saffron-ruled label,
- * H2 "A Dutch base. A global reach.", one line, and a white "Plan a visit or a call" button (→ /contact).
+ * H2 "A Dutch base. A global reach.", one line (pack 2 item 20: "We work from the Netherlands, …" until the city is
+ * confirmed; then "from ⟨City⟩, the Netherlands"), and a white "Plan a visit or a call" button (→ /contact).
  * Motion: the photo drifts inside the band (data-gsap="parallax"). Mobile: the gradient covers the whole band.
  */
 import Photo from '@/components/ui/Photo.astro';
 import Button from '@/components/ui/Button.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Confirm from '@/components/ui/Confirm.astro';
 import { netherlands as nl } from '@/data/home';
 ---
 <section class="hnl band--navy on-dark" aria-labelledby="hnl-heading">
@@ -16,7 +18,7 @@ import { netherlands as nl } from '@/data/home';
   <div class="container hnl__inner">
     <Eyebrow tone="white">{nl.overline}</Eyebrow>
     <h2 id="hnl-heading" class="hnl__title">{nl.headline}</h2>
-    <p class="hnl__body">{nl.body}</p>
+    <p class="hnl__body">{nl.body(nl.city)}{!nl.city && <Confirm id="P-1" note="city" />}</p>
     <div class="hnl__actions"><Button href={nl.button.href} variant="on-dark">{nl.button.label}</Button></div>
   </div>
 </section>

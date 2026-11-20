@@ -1,108 +1,180 @@
 ---
 /**
- * Newsletter sign-up (REDESIGN-V3 §3). A real <form>: optional heading + one line, a labelled email field and a
- * Subscribe button on one 48px row, a honeypot, an aria-live status line and a privacy micro-line.
- * Submit (site.ts, delegated on [data-newsletter]): validates, then POSTs JSON {email} to PUBLIC_NEWSLETTER_ENDPOINT
- * with inline success / error; without an endpoint it opens mailto:office@kokreaters.com?subject=Subscribe&body=<email>
- * (documented gap: provider to be chosen). Without JS the form posts natively (endpoint) or hands off to the mail app.
- * Ground-aware through role tokens; `tone="dark"` = on navy (light outline field, white button).
- * Mobile: the field and button stay on one row down to 360px; `compact` drops the description line.
+ * "The KoKreaters Note" sign-up (pack 2, brief item 33). Contract (research/pack2/LEAD-BRIEF.md):
+ *   <NewsletterForm id="…" variant="compact" | "full" tone="light" | "dark" />
+ *  full    — a panel (Delft Ice on light, navy on dark): Bodoni heading "The KoKreaters Note" + the brief's line on the
+ *            left, the labelled email field + Subscribe on one 48px row, the required consent tick box and the status
+ *            line on the right. Stacks below a 760px-wide container (container query, so it fits the article column).
+ *            Placed at the top of /insights and at the end of every article.
+ *  compact — no panel and no line: the heading as a small caps label, email + Subscribe on one row, and the consent
+ *            tick box as one small line under it (it is required, so it is always there). The footer uses it.
+ * Copy: src/data/forms.ts `newsletter` (verbatim brief). Legacy props still compile: no `variant` → compact (the v3
+ * Footer and CtaBand calls), `heading` replaces the heading text unless it is the v3 "Newsletter".
+ * Behaviour: src/scripts/forms.ts (imported below; delegated on form[data-nl], so site.ts' old [data-newsletter]
+ * handler never sees this form): email + consent checks with inline errors, honeypot (company_website), 3 s time trap
+ * (started_at), POST JSON to /api/subscribe (Brevo double opt-in, or a forward to office@), the brief's confirmation
+ * line in the polite status region. Without JS the form hands the address to the mail app (mailto to office@), like the
+ * contact form.
+ * Mobile: the email field and button stay on one row down to 320px; the consent line wraps under the box with a 44px
+ * hit area around the 20px checkbox.
  */
 import Button from './Button.astro';
-import { newsletterForm as copy } from '@/data/nav';
-import { microcopy } from '@/data/microcopy';
+import { newsletter as copy } from '@/data/forms';
 import { site } from '@/config/site';
 
 interface Props {
   id: string;
+  variant?: 'compact' | 'full';
   tone?: 'light' | 'dark';
-  compact?: boolean;
+  /** Heading element in the full variant (compact always uses a <p> label). */
+  headingLevel?: 'h2' | 'h3';
+  /** Legacy: replaces the heading text. */
   heading?: string;
+  /** Legacy (v3): the compact form is now the default anyway. */
+  compact?: boolean;
   class?: string;
 }
-const { id, tone = 'light', compact = false, heading, class: cls } = Astro.props;
-const endpoint = site.newsletterEndpoint;
+const { id, tone = 'light', headingLevel = 'h2', heading, class: cls } = Astro.props;
+// Without `variant` (the v3 calls in Footer and CtaBand) the form stays the inline compact one it used to be.
+const variant = Astro.props.variant ?? 'compact';
+const full = variant === 'full';
+const title = heading && heading !== 'Newsletter' ? heading : copy.heading;
+const endpoint = site.newsletterEndpoint || copy.endpoint;
 const mailto = `mailto:${site.email}?subject=${encodeURIComponent(copy.mailtoSubject)}`;
+const H = full ? headingLevel : 'p';
+const i = copy.consent.indexOf(copy.consentLink.text);
+const [before, after] = i < 0 ? [copy.consent, ''] : [copy.consent.slice(0, i), copy.consent.slice(i + copy.consentLink.text.length)];
 ---
-<form
-  id={id}
-  class:list={['nl', `nl--${tone}`, compact && 'nl--compact', cls]}
-  action={endpoint || mailto}
-  method="post"
-  enctype={endpoint ? undefined : 'text/plain'}
-  novalidate
-  data-newsletter
-  data-endpoint={endpoint || undefined}
-  data-mailto={site.email}
-  data-subject={copy.mailtoSubject}
-  data-msg-success={copy.success}
-  data-msg-error={microcopy.formError}
-  data-msg-invalid={copy.invalid}
-  data-msg-mailto={microcopy.mailtoSent}
-  aria-labelledby={heading ? `${id}-heading` : undefined}
-  aria-label={heading ? undefined : microcopy.newsletterButton}
->
-  {heading && <p class="nl__heading" id={`${id}-heading`}>{heading}</p>}
-  {!compact && <p class="nl__lede">{microcopy.newsletter}</p>}
-  <div class="nl__row">
-    <label class="visually-hidden" for={`${id}-email`}>{microcopy.emailLabel}</label>
-    <input
-      class="nl__input"
-      id={`${id}-email`}
-      type="email"
-      name="email"
-      inputmode="email"
-      autocomplete="email"
-      autocapitalize="off"
-      spellcheck="false"
-      required
-      placeholder={copy.placeholder}
-      aria-describedby={`${id}-msg ${id}-note`}
-    />
-    <Button type="submit" class="nl__btn">{microcopy.newsletterButton}</Button>
-  </div>
-  <div class="nl__hp" aria-hidden="true">
-    <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" data-hp /></label>
-  </div>
-  <p class="nl__msg" id={`${id}-msg`} role="status" aria-live="polite" data-newsletter-msg></p>
-  <p class="nl__note" id={`${id}-note`}>{copy.note} <a href={copy.privacy.href}>{copy.privacy.label}</a>.</p>
-</form>
+<div class:list={['nlw', `nlw--${variant}`, `nlw--${tone}`, full && (tone === 'dark' ? 'band--navy' : 'band--ice'), cls]}>
+  <form
+    id={id}
+    class:list={['nl', `nl--${variant}`, `nl--${tone}`]}
+    action={mailto}
+    method="post"
+    enctype="text/plain"
+    data-nl
+    data-endpoint={endpoint}
+    data-msg-success={copy.success}
+    data-msg-error={copy.error}
+    data-msg-invalid={copy.invalid}
+    data-msg-consent={copy.consentRequired}
+    aria-labelledby={`${id}-heading`}
+  >
+    <div class="nl__intro">
+      <H class="nl__title" id={`${id}-heading`}>{title}</H>
+      {full && <p class="nl__line">{copy.line}</p>}
+    </div>
+
+    <div class="nl__fields" data-nl-fields>
+      <label class:list={['nl__label', !full && 'visually-hidden']} for={`${id}-email`}>{copy.emailLabel}</label>
+      <div class="nl__row">
+        <input
+          class="nl__input"
+          id={`${id}-email`}
+          type="email"
+          name="email"
+          inputmode="email"
+          autocomplete="email"
+          autocapitalize="off"
+          spellcheck="false"
+          required
+          maxlength="254"
+          placeholder={copy.placeholder}
+          aria-describedby={`${id}-email-error`}
+        />
+        <Button type="submit" class="nl__btn" data-nl-submit>{copy.button}</Button>
+      </div>
+      <p class="nl__err" id={`${id}-email-error`} hidden data-nl-error="email"></p>
+
+      <label class="nl__check" for={`${id}-consent`}>
+        <span class="nl__box"><input class="nl__checkbox" id={`${id}-consent`} type="checkbox" name="consent" value="yes" required aria-describedby={`${id}-consent-error`} /></span>
+        <span class="nl__checktext">{before}<a href={copy.consentLink.href} target="_blank" rel="noopener">{copy.consentLink.text}<span class="visually-hidden"> ({copy.consentLink.newTab})</span></a>{after}</span>
+      </label>
+      <p class="nl__err nl__err--check" id={`${id}-consent-error`} hidden data-nl-error="consent"></p>
+
+      <div class="nl__hp" aria-hidden="true"><label>Company website <input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label></div>
+      <input type="hidden" name="started_at" value="" data-started-at />
+    </div>
+    <p class="nl__msg" role="status" aria-live="polite" data-nl-msg></p>
+  </form>
+</div>
+
+<script>import '@/scripts/forms';</script>
 
 <style>
-  .nl { --nl-field-bg: var(--field-bg, var(--white)); --nl-field-fg: var(--ink); --nl-field-border: var(--field-border, var(--grey-500)); width: 100%; max-width: 34rem; }
-  .nl--dark { --nl-field-bg: transparent; --nl-field-fg: var(--on-navy); --nl-field-border: rgb(255 255 255 / .55); }
+  .nlw { width: 100%; }
+  .nlw--compact { max-width: 34rem; }
+  /* full: the panel. The ground classes (band--ice / band--navy) re-declare the role tokens; the panel paints them. */
+  .nlw--full { container-type: inline-size; background: var(--bg); color: var(--fg); padding: var(--s-6) var(--s-5); }
+  @media (min-width: 600px) { .nlw--full { padding: var(--s-7); } }
 
-  .nl__heading {
-    margin: 0 0 var(--s-2);
+  .nl { --nl-field-bg: var(--white); --nl-field-fg: var(--ink); --nl-field-border: #7F8DAB; margin: 0; }
+  .nl--dark { --nl-field-bg: transparent; --nl-field-fg: var(--on-navy); --nl-field-border: rgb(255 255 255 / .55); }
+  .nlw--full.nlw--dark .nl { --nl-field-bg: rgb(255 255 255 / .06); }
+
+  /* heading */
+  .nl__title { margin: 0; color: var(--head); }
+  .nl--compact .nl__title {
+    margin-bottom: var(--s-3);
     font: 600 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
     color: var(--label);
   }
-  .nl__lede { margin: 0 0 var(--s-4); font: 400 var(--fs-small)/var(--lh-small) var(--font-sans); color: var(--fg-2); max-width: 44ch; text-wrap: balance; }
-  .nl__row { display: flex; align-items: stretch; gap: 0; }
+  .nl--full .nl__title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem); line-height: 1.15; letter-spacing: 0; }
+  .nl__line { margin: var(--s-3) 0 0; max-width: 40ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
+
+  .nl--full { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .nl--full .nl__msg { grid-column: 1 / -1; }
+  @container (min-width: 760px) {
+    .nl--full { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: var(--s-8); align-items: start; }
+    .nl--full .nl__msg { grid-column: 2; }
+  }
+
+  .nl__label { display: block; margin-bottom: var(--s-2); font: 700 var(--fs-small)/1.35 var(--font-sans); color: var(--head); }
+
+  /* the email + Subscribe row */
+  .nl__row { display: flex; align-items: stretch; }
   .nl__input {
     flex: 1 1 auto; width: 0; min-width: 0; height: 48px; margin: 0; padding: 0 var(--s-4);
-    border: 1px solid var(--nl-field-border); border-right: 0; border-radius: var(--r-sm) 0 0 var(--r-sm);
+    border: 1px solid var(--nl-field-border); border-right: 0; border-radius: 0;
     background: var(--nl-field-bg); color: var(--nl-field-fg);
     font: 400 1rem/1 var(--font-sans);
     transition: border-color var(--d-1) var(--ease-out), box-shadow var(--d-1) var(--ease-out);
   }
   .nl__input::placeholder { color: var(--fg-2); opacity: 1; }
-  .nl__input:hover { border-color: var(--fg); }
+  .nl__input:hover { border-color: var(--head); }
   .nl__input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
   .nl__input[aria-invalid="true"] { border-color: var(--danger); box-shadow: inset 0 -2px 0 var(--danger); }
   .nl--dark .nl__input[aria-invalid="true"] { border-color: #FFB4AB; box-shadow: inset 0 -2px 0 #FFB4AB; }
-  .nl :global(.nl__btn) { flex: none; height: 48px; border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+  .nl :global(.nl__btn) { flex: none; height: 48px; min-height: 48px; padding-block: 0; padding-inline: var(--s-5); }
+  @media (max-width: 359px) { .nl :global(.nl__btn) { padding-inline: var(--s-4); } }
+
+  /* consent: one <label> around box and text; the 20px box sits in a 44px hit area that overhangs into the gutter */
+  .nl__check { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: var(--s-2); margin-top: var(--s-4); cursor: pointer; }
+  .nl__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -12px 0 -12px -12px; }
+  .nl__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--link); cursor: pointer; }
+  .nl--dark .nl__checkbox { accent-color: var(--saffron); }
+  .nl__checkbox:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .nl__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
+  .nl--dark .nl__checkbox[aria-invalid="true"] { outline-color: #FFB4AB; }
+  .nl__checktext { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); text-wrap: pretty; }
+  .nl--full .nl__checktext { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); }
+  .nl__checktext a { color: var(--link); text-underline-offset: .2em; }
+  .nl--dark .nl__checktext a { color: inherit; }
+
+  .nl__err { margin: var(--s-2) 0 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--danger); }
+  .nl__err--check { padding-left: calc(28px + var(--s-2)); }
+  .nl--dark .nl__err { color: #FFB4AB; }
 
   .nl__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-  .nl__msg { margin: 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); }
-  .nl__msg:not(:empty) { margin-top: var(--s-3); }
+  .nl__msg { margin: 0; font: 600 var(--fs-small)/var(--lh-small) var(--font-sans); }
+  .nl__msg:empty { display: none; }
+  .nl--compact .nl__msg { margin-top: var(--s-3); font-size: var(--fs-meta); line-height: var(--lh-meta); }
   .nl__msg[data-state="error"] { color: var(--danger); }
   .nl__msg[data-state="success"] { color: var(--success); }
   .nl--dark .nl__msg[data-state="error"] { color: #FFB4AB; }
   .nl--dark .nl__msg[data-state="success"] { color: var(--on-navy); }
-  .nl__note { margin: var(--s-3) 0 0; font: 400 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2); }
-  /* inline link in a sentence: vertical padding on an inline box widens the tap area to ~45px without moving a line */
-  .nl__note a { color: inherit; padding-block: 12px; }
-  .nl__note a:hover { color: var(--fg); }
+  /* after a successful sign-up the fields step aside; the confirmation line takes their place */
+  .nl[data-state="done"] [data-nl-fields] { display: none; }
   .nl[aria-busy="true"] .nl__input { opacity: .6; }
+  @media (prefers-reduced-motion: reduce) { .nl__input { transition: none; } }
 </style>

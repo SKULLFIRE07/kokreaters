@@ -1,49 +1,45 @@
 ---
 /**
- * About · career (REDESIGN-V3 §4 About, section 3; §9.4 "sticky storytelling … About timeline"). Grey band,
- * aria-labelledby="journey-title".
- * SectionHeader (bare h2 "From CFTRI Mysore to KoKreaters", derived from the timeline; lead = the worked-with sentence,
- * sectors only), then an <ol> of the four stops on a vertical spine with the ringed-node signature (a 20px node: disc,
- * white ring, dot; the ProcessFlow node) on a 1px hairline. Each stop: the years in a large light serif (tabular), the
- * organisation (serif h3) and one role line (timelineRoles). The KoKreaters node takes the saffron accent.
- * v4: the years are a Deep Delft label over the Bodoni organisation; nothing fades in.
- * ≥ 1200px: the header sits in columns 1–5 and stays pinned (position: sticky, under the header) while the stops scroll
- *   past in columns 7–12; inside each stop the years take the left part and the organisation + role the right.
- * 900–1199px: header above, the stops in columns 3–12 of the grid with the same inner split.
- * Mobile (< 900px): header above; the stops stacked on the left spine, years over organisation over role.
+ * About · career (brief item 22). Grey band, aria-labelledby="journey-title".
+ * SectionHeader (h2 "From CFTRI Mysore to KoKreaters", lead "Eight places, five countries, three continents of teams."),
+ * then an <ol> of the seven rows exactly as the brief's table, on a vertical spine with the ringed-node signature (the
+ * logo's node on a 1px hairline). Each stop: the years as a Deep Delft label ("1996–1999" … "Today"), the organisation
+ * as a Bodoni h3 and its one line. The last row, "Today · KoKreaters", takes the saffron node.
+ * Under the timeline, the places line: "Mundra · Medan · Odessa · Kakinada · Gurugram · Balikesir · Pune · Amsterdam"
+ * (a list, separators decorative), small caps on a hairline.
+ * ≥ 1200px: the header sits in columns 1–5 and stays pinned (sticky, under the header) while the stops scroll past in
+ *   columns 7–12. 900–1199px: header above, the stops in columns 3–12. Mobile: header above; stops stacked on the left
+ *   spine, years over organisation over line; the places wrap.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
-import Confirm from '@/components/ui/Confirm.astro';
-import { timeline, timelineRoles, workedWith, aboutPage } from '@/data/founder';
-import { showConfirm } from '@/lib/mode';
+import { timeline, timelineSection } from '@/data/about';
 ---
 <Section ground="grey" labelledby="journey-title" class="career">
   <div class="career__grid">
     <div class="career__head">
-      <SectionHeader id="journey-title" title={aboutPage.careerHeading} layout="stack">
-        <p slot="lead">{workedWith}<Confirm id={5} note="sectors only, no company names" /></p>
-      </SectionHeader>
+      <SectionHeader id="journey-title" title={timelineSection.heading} lead={timelineSection.subtitle} layout="stack" />
     </div>
     <ol class="tl" role="list">
-      {timeline.map((t, i) => (
-        <li class:list={['tl__stop', i === timeline.length - 1 && 'tl__stop--now']}>
+      {timeline.map((t) => (
+        <li class:list={['tl__stop', t.now && 'tl__stop--now']}>
           <span class="tl__node" aria-hidden="true"></span>
           <p class="tl__years tnum">{t.years}</p>
           <div class="tl__text">
-            <h3 class="tl__org">{t.label}</h3>
-            {timelineRoles[t.label] && <p class="tl__role">{timelineRoles[t.label]}</p>}
+            <h3 class="tl__org">{t.org}</h3>
+            <p class="tl__role">{t.line}</p>
           </div>
         </li>
       ))}
     </ol>
+    <ul class="career__places" role="list" aria-label={timelineSection.placesLabel}>
+      {timelineSection.places.map((p, i) => (
+        <li>{p}{i < timelineSection.places.length - 1 && <span class="career__sep" aria-hidden="true">·</span>}</li>
+      ))}
+    </ul>
   </div>
-  {showConfirm && <p class="career__confirm"><Confirm id={13} note="career dates" /></p>}
 </Section>
 <style>
-  /* v4: the years are a Deep Delft label (they were 64px figures that crowded the organisation at 1440); the organisation
-     is the Bodoni card title (28), the role a body line. Stops hang on a 1px Lines spine with the logo's ringed node;
-     the KoKreaters stop takes the saffron node. */
   .career__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
   .career__head :global(.sh) { margin-bottom: 0; }
 
@@ -70,20 +66,28 @@ import { showConfirm } from '@/lib/mode';
   }
   .tl__text { min-width: 0; }
   .tl__org { margin: 0; font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2; font-weight: 400; }
-  .tl__role { margin: var(--s-2) 0 0; max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
+  .tl__role { margin: var(--s-2) 0 0; max-width: 48ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
 
-  .career__confirm { margin: var(--s-6) 0 0; }
+  .career__places {
+    list-style: none; margin: 0; padding: var(--s-5) 0 0; border-top: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap; gap: var(--s-2) 0;
+    font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--head);
+  }
+  .career__places li { white-space: nowrap; }
+  .career__sep { display: inline-block; padding-inline: .7em; color: var(--saffron); }
 
   @media (min-width: 900px) {
     .career__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
     .career__head { grid-column: 1 / -1; }
     .tl { grid-column: 3 / -1; }
     .tl__stop { padding-bottom: var(--s-8); }
+    .career__places { grid-column: 1 / -1; }
   }
 
   /* ≥ 1200: the header pinned in columns 1–5 while the stops scroll past in 7–12 */
   @media (min-width: 1200px) {
-    .career__head { grid-column: 1 / 6; position: sticky; top: calc(var(--header-h) + var(--s-8)); align-self: start; }
+    .career__head { grid-column: 1 / 6; grid-row: 1 / span 2; position: sticky; top: calc(var(--header-h) + var(--s-8)); align-self: start; }
     .tl { grid-column: 7 / -1; }
+    .career__places { grid-column: 7 / -1; }
   }
 </style>

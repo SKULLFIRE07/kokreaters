@@ -12,7 +12,9 @@
  *                                  that no unapproved insight is built, listed or linked. Mode comes from
  *                                  dist/build-info.json (src/pages/build-info.json.ts).
  *
- * v3 look: navy #0B1B33 field, white horizontal lockup, Inter label, Source Serif 4 title (the page's own H1).
+ * Pack 2 look (brief item 13): Delft Navy #0E1F4D field, Ganeaysh's white logo (kokreaters-logo-white.svg, mark +
+ * wordmark + tagline, vector, inline), Manrope label, Bodoni Moda title (the page's own H1; home: "Deep expertise,
+ * turned into products, plants and markets."), and a hairline foot with the domain and the hero overline.
  * Copy comes from src/data/* and the insight frontmatter only (no new claims). Node strips the
  * TypeScript types itself; a resolve hook maps the `@/` alias and extensionless imports.
  * Rendering uses headless Chrome (/usr/bin/google-chrome or $CHROME) against a throwaway local
@@ -112,14 +114,15 @@ async function cards() {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** The white horizontal lockup (cluster + white wordmark), vector, inline. */
+/** The white logo (pack 2 brand file: mark + wordmark + tagline, outlined), vector, inline. */
 function logoSvg() {
-  return readFileSync(join(SRC, 'assets', 'brand', 'svg', 'kokreaters-logo-horizontal-white.svg'), 'utf8')
-    .replace(/<!--[\s\S]*?-->/g, '').replace(/\s+id="[^"]*"/g, '').replace(/\s(role|aria-label)="[^"]*"/g, '')
+  return readFileSync(join(SRC, 'assets', 'brand', 'svg', 'kokreaters-logo-white.svg'), 'utf8')
+    .replace(/<!--[\s\S]*?-->/g, '').replace(/<title>[\s\S]*?<\/title>/g, '').replace(/\s+id="[^"]*"/g, '')
+    .replace(/\s(role|aria-label|width|height)="[^"]*"/g, '')
     .replace('<svg ', '<svg aria-hidden="true" ');
 }
 
-function serve(pages) {
+function serve(pages, foot) {
   const template = readFileSync(join(WEB, 'scripts', 'og', 'template.html'), 'utf8');
   const logo = logoSvg();
   const types = { '.woff2': 'font/woff2', '.png': 'image/png' };
@@ -129,7 +132,7 @@ function serve(pages) {
     if (url.startsWith('/card/')) {
       const card = pages.get(url.slice(6));
       if (!card) { res.writeHead(404).end(); return; }
-      const html = template.replace('{{LABEL}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{LOGO}}', logo);
+      const html = template.replace('{{LABEL}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{LOGO}}', logo).replace('{{FOOT}}', esc(foot));
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end(html);
       return;
     }
@@ -167,7 +170,8 @@ async function render() {
   const pages = new Map(list.map((c) => [c.key, c]));
   mkdirSync(OUT, { recursive: true });
   const tmp = mkdtempSync(join(tmpdir(), 'kk-og-shots-'));
-  const server = await serve(pages);
+  const { hero } = await import('@/data/home');
+  const server = await serve(pages, hero.overline);
   try {
     const queue = [...list];
     const worker = async () => {
@@ -242,10 +246,13 @@ async function check(distArg) {
     if (titleTags.length !== 1 || !titleTags[0]) e(`expected one non-empty <title>, found ${titleTags.length}`);
     const title = titleTags[0] ?? '';
     // Articles use `{title} | KoKreaters Insights` when ≤ 60, else the bare title (3.8), which may run longer.
-    if ([...title].length > 60) (route.startsWith('/insights/') ? warnings.push(`${route}: article title is ${[...title].length} chars (3.8 allows the bare title)`) : e(`title over 60 chars (${[...title].length})`));
+    // Home: the client's verbatim title and description (pack 2 item 39) run past the guide limits on purpose.
+    const exempt = route === '/';
+    if ([...title].length > 60) (route.startsWith('/insights/') ? warnings.push(`${route}: article title is ${[...title].length} chars (3.8 allows the bare title)`)
+      : exempt ? warnings.push(`${route}: title is ${[...title].length} chars (client copy, exempt)`) : e(`title over 60 chars (${[...title].length})`));
     const desc = metas(html, 'name', 'description');
     if (desc.length !== 1 || !desc[0]) e('expected one meta description');
-    if ([...(desc[0] ?? '')].length > 155) e(`description over 155 chars`);
+    if ([...(desc[0] ?? '')].length > 155) (exempt ? warnings.push(`${route}: description is ${[...desc[0]].length} chars (client copy, exempt)`) : e('description over 155 chars'));
     (titles.get(title) ?? titles.set(title, []).get(title)).push(route);
     (descs.get(desc[0]) ?? descs.set(desc[0], []).get(desc[0])).push(route);
 

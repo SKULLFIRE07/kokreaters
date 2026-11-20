@@ -18,7 +18,7 @@ export const pillars: Pillar[] = [
       'Technical road-mapping and innovation pipelines',
     ],
     deliverables: ['Innovation roadmaps', 'technical briefs', 'formulation and prototype plans', 'lab-to-plant scale-up plans', 'launch support'],
-    colourVar: '--pillar-innovation', hex: '#2C509E', inkText: false, impactId: 'india', shortLabel: 'Product',
+    colourVar: '--pillar-innovation', hex: '#2C509E', inkText: false, impactId: 'story-india', shortLabel: 'Product',
   },
   {
     key: 'process', slug: 'process-design', n: 2,
@@ -34,7 +34,7 @@ export const pillars: Pillar[] = [
       'Asset-light and tolling models for faster, lower-capital growth',
     ],
     deliverables: ['Process design basis', 'plant assessments', 'debottlenecking plans', 'commissioning support', 'technology transfer packages'],
-    colourVar: '--pillar-process', hex: '#5B2A86', inkText: false, impactId: 'ukraine', shortLabel: 'Process',
+    colourVar: '--pillar-process', hex: '#5B2A86', inkText: false, impactId: 'story-ukraine', shortLabel: 'Process',
   },
   {
     key: 'strategy', slug: 'strategy-feasibility', n: 3,
@@ -50,14 +50,14 @@ export const pillars: Pillar[] = [
       'Investor-grade reports and presentations',
     ],
     deliverables: ['Market entry strategies', 'feasibility reports', 'business plans with scenarios', 'investor decks'],
-    colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, shortLabel: 'Market access',   // impact: none (C-8)
+    colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, impactId: 'story-asset-light', shortLabel: 'Market access',
   },
   {
     key: 'quality', slug: 'food-safety-quality', n: 4,
     name: 'Food safety, quality and regulatory',
     promise: 'Process contaminants, audits and compliance, solved at the source.',
     headline: 'Pass the audit. Protect the brand. Stay ahead of the regulation.',
-    intro: 'Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at Cargill, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.',
+    intro: 'Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at one of the world’s largest agri-food companies, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.',
     helpWith: [
       'Process contaminant mitigation: 3-MCPD and glycidyl esters, trans fats, mineral oil hydrocarbons',
       'Plant and supplier audits; readiness for multinational customer pre-approval audits',
@@ -66,7 +66,7 @@ export const pillars: Pillar[] = [
       'Regulatory horizon scanning for India and Europe',
     ],
     deliverables: ['Audit reports with photographic evidence', 'gap analyses', 'corrective action plans', 'mitigation programmes', 'training'],
-    colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'tfa', shortLabel: 'Food safety',
+    colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'story-who', shortLabel: 'Food safety',
   },
   {
     key: 'deals', slug: 'due-diligence', n: 5,
@@ -81,27 +81,28 @@ export const pillars: Pillar[] = [
       'Technology licensing and transfer assessments',
     ],
     deliverables: ['Due diligence reports', 'red-flag summaries', 'integration plans', 'partner assessments'],
-    colourVar: '--pillar-deals', hex: '#8C5B88', inkText: false, shortLabel: 'Deals',   // impact: none (C-8)
+    colourVar: '--pillar-deals', hex: '#8C5B88', inkText: false, impactId: 'story-deals', shortLabel: 'Deals',
   },
   {
-    key: 'capability', slug: 'capability', n: 6,
-    name: 'Fractional CTO and Head of R&D',
-    promise: 'Senior technical leadership, part-time, for as long as you need it.',
-    /* v4: the offer is the guide's line (promise = headline). The body reframes the v3 capability-building content
-       (training, transfer, coaching, organisation design, interim leadership) as part of that offer; the role wording
-       ("technical director or R&D lead", "R&D steering, board advisory") is the approach.ts engagement models'. */
-    headline: 'Senior technical leadership, part-time, for as long as you need it.',
-    intro: 'Not every business needs a full-time CTO or Head of R&D, but every growing one needs that judgement. We step into the role part-time: covering a technical director or R&D lead role, steering R&D and advising the board. And because lasting change comes from people, we train your technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
+    key: 'capability', slug: 'technology-leadership', n: 6,
+    name: 'Technology and R&D leadership, on demand',
+    promise: 'A seasoned CTO or Head of R&D in your leadership team, for the days and months you need.',
+    /* v4 pack 2 (brief item 6): renamed (the old part-time CTO wording is retired everywhere on the site). The key stays
+       'capability' (stable data key); the slug and every link follow `slug`. The body restates the brief's own
+       "Leadership on demand" engagement (item 31) and the v3 capability-building content (training, transfer,
+       coaching, organisation design). */
+    headline: 'A seasoned CTO or Head of R&D in your leadership team, for the days and months you need.',
+    intro: 'Not every business needs a full-time CTO or Head of R&D, but every growing one needs that judgement. We join your leadership team for a set number of days each month: we own the technical agenda with your team, steer R&D and advise the board. And because lasting change comes from people, we train your technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
     helpWith: [
-      'Part-time technical leadership: a technical director or R&D lead role, covered for a defined period',
+      'Technology and R&D leadership on demand: your CTO, technical director or Head of R&D for a set number of days each month',
       'R&D steering, board advisory and ongoing technical counsel',
       'Organisation design for R&D, technical services and quality',
       'Technical training: oils and fats, specialty fats, applications, FSQR',
       'Technology transfer and site start-up coaching',
       'Leadership development for technical leaders',
     ],
-    deliverables: ['Fractional and interim leadership roles', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
-    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'indonesia', shortLabel: 'Fractional CTO',   // C-8
+    deliverables: ['CTO and Head of R&D roles, on demand', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
+    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'story-ai-design', shortLabel: 'R&D leadership',
   },
 ];
 
@@ -118,6 +119,7 @@ export const pillarPage = {
   helpWith: 'What we help with',
   deliverables: 'Typical deliverables',
   fromTheRecord: 'From our founder’s career',
+  proofSource: 'From our founder’s 25-year career, before KoKreaters.',   // brief item 15 footnote (item 8: no employer names)
   /* v3 (REDESIGN-V3 §4 expertise detail) */
   challenge: 'The challenge we solve',
   relatedIndustries: 'Related industries',   // COMPOSED

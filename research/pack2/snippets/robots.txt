@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kokreaters.com/sitemap-index.xml

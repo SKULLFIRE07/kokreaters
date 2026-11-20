@@ -160,7 +160,12 @@
 .prose--legal h3:not([class]) { font-size: var(--fs-body); font-family: var(--font-sans); font-weight: 700; line-height: var(--lh-body); margin-top: 1.75em; }
 
 /* ── Print (article "Download PDF" and legal pages) ── */
+/* Pack 2 item 34: the playbook band closing the 3-MCPD article sits clear of the last paragraph */
+.prose > .pbc { margin-top: var(--s-8); }
+
 @media print {
+  /* the playbook card, its dialog and the article-end newsletter are screen-only */
+  .prose > :is(.pbc, .pbm), body[data-page="article"] :is(.nlw, .a-end-rel) { display: none !important; }
   .prose { max-width: none; font-size: 10.5pt; line-height: 1.55; color: var(--ink); }
   .prose--article { font-size: 10.5pt; }
   .prose h2:not([class]) { font-size: 16pt; margin-top: 1.6em; break-after: avoid; }

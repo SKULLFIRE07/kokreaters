@@ -36,6 +36,23 @@ export const articleCopy = {
   note: 'Note',
   /** Heading of the sticky contents rail beside the article body (≥ 1360px). */
   contents: 'In this article',
-  /** Prefix of the hero photo credit line: "Photo: {name}, {source}". */
+  /** Prefix of the hero photo credit line: "Photo: {name}, {source}". Pack 2 item 32: the line is removed. */
   photo: 'Photo',
+  /** Pack 2 item 35: the end of every article (ArticleEnd). COMPOSED labels. */
+  related: 'Related reading',
+  storyLabel: 'Impact story',
+  readStory: 'Read the story',
+  meetAuthor: { label: 'Meet Ganeaysh', href: '/about' },
 } as const;
+
+/**
+ * Item 35: "two related articles or stories" under each article. Other articles come first (same pillar first); the
+ * rest of the two places go to these Impact stories (src/data/impact.ts ids), in order.
+ */
+export const relatedStories: Record<string, `story-${string}`[]> = {
+  'trans-fat-elimination-inside-a-plant': ['story-who', 'story-india'],
+  '3-mcpd-glycidyl-esters-playbook': ['story-contaminants', 'story-who'],
+};
+export const relatedFallbackStories: `story-${string}`[] = ['story-who', 'story-contaminants'];
+/** Item 34: the article that ends with the playbook card. */
+export const playbookArticle = '3-mcpd-glycidyl-esters-playbook';

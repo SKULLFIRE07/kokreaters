@@ -9,18 +9,17 @@
  * hero's 7/5 grid.
  */
 import Photo from '@/components/ui/Photo.astro';
-import { founderName, founderRole, portraitAlt } from '@/data/founder';
+import { founderName, roleLine } from '@/components/about/founder-lines';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
-import { site } from '@/config/site';
 ---
 <figure class="cfo">
   <figcaption class="cfo__cap">
     <span class="cfo__name">{founderName}</span>
-    <span class="cfo__role">{founderRole}, {site.name}</span>
+    <span class="cfo__role">{roleLine}</span>
   </figcaption>
   <Photo
     src={portrait}
-    alt={portraitAlt.founder}
+    alt={`${founderName}, ${roleLine}`}
     ratio="4/5"
     position="50% 50%"
     sizes="(min-width: 1600px) 320px, (min-width: 1200px) 280px, (min-width: 900px) 180px, 104px"

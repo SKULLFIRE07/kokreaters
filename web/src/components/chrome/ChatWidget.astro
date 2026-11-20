@@ -1,7 +1,8 @@
 ---
 /**
  * "Ask KoKreaters" (chat assistant). Mounted once by BaseLayout on every page except /contact (the full form is there).
- * Static markup only: a floating launcher bottom-right and a hidden dialog panel. The behaviour (src/scripts/chat.ts)
+ * Static markup only: a floating launcher bottom-right ("Ask KoKreaters", 36px; phones: mark + "Ask", 40px; hidden
+ * while the closing CTA band or the footer is in view) and a hidden dialog panel. The behaviour (src/scripts/chat.ts)
  * is NOT in the initial bundle: site.ts imports it on the first hover, focus or click of the launcher, so the page JS
  * budget is unchanged until a visitor shows intent. No JS → nothing renders (.js-only); the footer/contact links remain.
  * Panel: desktop/tablet a 400 × 600 floating card anchored where the launcher sits; phone (< 600px) a full-screen sheet
@@ -53,9 +54,10 @@ const id = (n: string) => `kc-f-${n}`;
   data-msg-email={microcopy.invalidEmail}
   data-msg-form-error={microcopy.formError}
 >
-  <button type="button" class="kc-launch" data-chat-launcher aria-haspopup="dialog" aria-expanded="false" aria-controls="kc-panel">
+  <button type="button" class="kc-launch" data-chat-launcher aria-haspopup="dialog" aria-expanded="false" aria-controls="kc-panel" aria-label={chat.launcher}>
     <NodeMark tone="white" size={18} class="kc-launch__mark" />
-    <span class="kc-launch__label">{chat.launcher}</span>
+    <span class="kc-launch__label" aria-hidden="true">{chat.launcher}</span>
+    <span class="kc-launch__short" aria-hidden="true">{chat.launcherShort}</span>
   </button>
 
   <div class="kc-panel" id="kc-panel" role="dialog" aria-modal="true" aria-labelledby="kc-title" aria-describedby="kc-sub" hidden data-chat-panel>
@@ -167,24 +169,34 @@ const id = (n: string) => `kc-f-${n}`;
 
 <style is:global>
   /* ── Launcher ─────────────────────────────────────────────── */
+  /* Pack 2 (brief item 1): smaller (36px, "Ask KoKreaters"); phones: icon + "Ask" (40px). Hidden while the closing
+     CTA band or the footer is in view (site.ts adds html.chat-zone through an IntersectionObserver), so it never sits
+     on the saffron "Start a conversation" button or the bottom of the last cards. The accessible name is always
+     "Ask KoKreaters" (aria-label). The rise-in animation owns opacity/transform, so hiding uses filter + translate. */
   .kc-launch {
     position: fixed; z-index: 60;
     right: max(var(--gutter-x), env(safe-area-inset-right));
     bottom: max(var(--s-5), calc(env(safe-area-inset-bottom) + var(--s-3)));
-    display: inline-flex; align-items: center; gap: 8px;
-    height: 42px; padding: 0 16px 0 12px; margin: 0;
+    display: inline-flex; align-items: center; gap: 7px;
+    height: 36px; padding: 0 13px 0 10px; margin: 0;
     border: 0; border-radius: 0;
     background: var(--blue-700); color: var(--white);
-    font: 700 .875rem/1 var(--font-sans); letter-spacing: .005em;
+    box-shadow: 0 6px 18px -8px rgba(11, 27, 51, .45);
+    font: 700 .8125rem/1 var(--font-sans); letter-spacing: .005em;
     cursor: pointer;
-    transition: background-color var(--d-1) var(--ease-out), opacity var(--d-2) var(--ease-out), visibility 0s;
+    transition: background-color var(--d-1) var(--ease-out), filter var(--d-2) var(--ease-out), translate var(--d-2) var(--ease-out), visibility 0s;
     animation: kc-rise var(--d-4) var(--ease-out) .9s both;
   }
   .kc-launch:hover { background: var(--navy-900); }
-  /* phones: a compact 44px square icon button so it never covers hero text; the label stays for screen readers */
+  .kc-launch__short { display: none; }
   @media (max-width: 599px) {
-    .kc-launch { width: 44px; height: 44px; padding: 0; justify-content: center; gap: 0; }
-    .kc-launch__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .kc-launch { height: 40px; padding: 0 12px 0 10px; gap: 6px; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)); }
+    .kc-launch__label { display: none; }
+    .kc-launch__short { display: inline; }
+  }
+  html.chat-zone .kc-launch {
+    visibility: hidden; pointer-events: none; filter: opacity(0); translate: 0 10px;
+    transition: background-color var(--d-1) var(--ease-out), filter var(--d-2) var(--ease-out), translate var(--d-2) var(--ease-out), visibility 0s linear var(--d-2);
   }
   .kc-launch:focus-visible { outline: 2px solid var(--blue-500); outline-offset: 3px; }
   .kc-launch__mark { transition: transform var(--d-3) var(--ease-out); }
@@ -361,6 +373,7 @@ const id = (n: string) => `kc-f-${n}`;
 
   @media (prefers-reduced-motion: reduce) {
     .kc-launch, .kc-msg, .kc-fwrap { animation: none; }
+    html.chat-zone .kc-launch { translate: none; }
     .kc-dots i { animation: none; opacity: .5; }
     .kc-panel { filter: none; transform: none; }
   }

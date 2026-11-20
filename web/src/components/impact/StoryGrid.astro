@@ -1,0 +1,253 @@
+---
+/**
+ * The nine Impact stories (pack 2, brief items 28–29): a filterable grid. Head (label "Impact", h2), then two filter
+ * rows built from the stories' chips (Service: the services used by at least one story, short labels; Industry: the
+ * industries used), a live count, the grid, and "Show all stories".
+ * Behaviour (the script below; no JS = every story listed and open, no filters, no button):
+ *  - the first six stories show; "Show all stories" reveals the rest (and stays out of the way once pressed);
+ *  - a filter shows every matching story (Service AND Industry; "All" resets a row); no match → a short line and a
+ *    "Show all stories" button that clears both filters;
+ *  - each story opens in place (StoryCard: button aria-expanded + panel);
+ *  - /impact#story-… (the home WHO card links to #story-who) clears any filter that would hide the story, reveals it,
+ *    opens it and scrolls it into view; hash changes do the same.
+ * After every change the script fires a `resize` so ScrollTrigger re-measures (counts below stay in step).
+ * Grid: 1 column < 700px, 2 from 700px, 3 from 1100px; rows of 6 subgrid tracks (StoryCard).
+ * Mobile: filter label above its options; options wrap (never a horizontal scroll); 44px tap height.
+ */
+import Section from '@/components/ui/Section.astro';
+import Head from '@/components/expertise/Head.astro';
+import StoryCard from './StoryCard.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { impactStories, impactPage } from '@/data/impact';
+import { industries } from '@/data/industries';
+import { pillars } from '@/data/pillars';
+
+interface Props { ground?: 'white' | 'grey' }
+const { ground = 'white' } = Astro.props;
+const { filters: f } = impactPage;
+const stories = impactStories;
+const initial = impactPage.initial;
+
+const usedPillars = new Set(stories.flatMap((s) => s.pillars));
+const usedIndustries = new Set(stories.flatMap((s) => s.industries));
+const rows = [
+  { key: 'pillar', id: 'sf-pillar', label: f.service, opts: pillars.filter((p) => usedPillars.has(p.key)).map((p) => ({ value: p.key as string, label: p.shortLabel, title: p.name })) },
+  { key: 'industry', id: 'sf-industry', label: f.industry, opts: industries.filter((i) => usedIndustries.has(i.name)).map((i) => ({ value: i.slug, label: i.name, title: i.name })) },
+].filter((r) => r.opts.length > 1);
+const total = stories.length;
+const fill = (t: string, n: number) => t.replace('{n}', String(n));
+---
+<Section ground={ground} labelledby="stories-h" class="stories-band">
+  <Head id="stories-h" label={impactPage.overline} title={impactPage.partOne} />
+
+  {rows.length > 0 && (
+    <div class="sf" role="group" aria-label={f.group} hidden data-story-filters>
+      {rows.map((r) => (
+        <div class="sf__pick">
+          <label class="sf__label t-label" for={`${r.id}-select`}>{r.label}</label>
+          <span class="sf__selwrap">
+            <select class="sf__select" id={`${r.id}-select`} data-filter-select={r.key}>
+              <option value="">{f.all}</option>
+              {r.opts.map((o) => <option value={o.value}>{o.title}</option>)}
+            </select>
+            <Icon name="chevron-down" size={18} class="sf__chev" />
+          </span>
+        </div>
+      ))}
+      {rows.map((r) => (
+        <div class="sf__row">
+          <span class="sf__label t-label" id={r.id}>{r.label}</span>
+          <ul class="sf__opts" role="list" aria-labelledby={r.id}>
+            <li><button type="button" class="sf__btn" aria-pressed="true" data-filter={r.key} data-value="">{f.all}</button></li>
+            {r.opts.map((o) => (
+              <li><button type="button" class="sf__btn" aria-pressed="false" data-filter={r.key} data-value={o.value} title={o.title !== o.label ? o.title : undefined}>{o.label}</button></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p class="sf__status tnum" aria-live="polite" data-story-status data-template={impactPage.count} data-template-one={impactPage.countOne}>{fill(impactPage.count, total)}</p>
+    </div>
+  )}
+
+  <ul class="stories" id="stories-list" role="list" data-stories data-initial={initial}>
+    {stories.map((s, i) => <StoryCard story={s} index={i} extra={i >= initial} />)}
+  </ul>
+
+  <div class="stories__empty" hidden data-story-empty>
+    <p>{impactPage.empty}</p>
+    <Button variant="secondary" data-story-clear>{impactPage.clear}</Button>
+  </div>
+
+  {total > initial && (
+    <div class="stories__more" hidden data-story-more-wrap>
+      <Button variant="secondary" aria-controls="stories-list" data-story-more>{impactPage.showAll}</Button>
+    </div>
+  )}
+</Section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-stories]');
+  if (root) {
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-story]'));
+    const initial = Number(root.dataset.initial ?? 6);
+    const bar = document.querySelector<HTMLElement>('[data-story-filters]');
+    const status = document.querySelector<HTMLElement>('[data-story-status]');
+    const empty = document.querySelector<HTMLElement>('[data-story-empty]');
+    const moreWrap = document.querySelector<HTMLElement>('[data-story-more-wrap]');
+    const state = { pillar: '', industry: '', all: false };
+
+    const matches = (c: HTMLElement) =>
+      (!state.pillar || (c.dataset.pillars ?? '').split(' ').includes(state.pillar)) &&
+      (!state.industry || (c.dataset.industries ?? '').split(' ').includes(state.industry));
+
+    const remeasure = () => window.dispatchEvent(new Event('resize'));
+
+    const render = () => {
+      const filtered = !!(state.pillar || state.industry);
+      let shown = 0;
+      let matched = 0;
+      cards.forEach((c, i) => {
+        const m = matches(c);
+        if (m) matched++;
+        const visible = m && (filtered || state.all || i < initial);
+        c.hidden = !visible;
+        if (visible) shown++;
+      });
+      if (moreWrap) moreWrap.hidden = filtered || state.all || cards.length <= initial;
+      if (empty) empty.hidden = matched > 0;
+      if (status) {
+        const t = matched === 1 ? status.dataset.templateOne : status.dataset.template;
+        status.textContent = (t ?? '{n}').replace('{n}', String(matched));
+      }
+      bar?.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => {
+        const key = b.dataset.filter as 'pillar' | 'industry';
+        b.setAttribute('aria-pressed', String(state[key] === (b.dataset.value ?? '')));
+      });
+      bar?.querySelectorAll<HTMLSelectElement>('[data-filter-select]').forEach((sel) => {
+        sel.value = state[sel.dataset.filterSelect as 'pillar' | 'industry'];
+      });
+      root.dataset.shown = String(shown);
+      remeasure();
+    };
+
+    const setOpen = (c: HTMLElement, open: boolean) => {
+      c.classList.toggle('is-open', open);
+      c.querySelector('[data-story-toggle]')?.setAttribute('aria-expanded', String(open));
+    };
+
+    root.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>('[data-story-toggle]');
+      if (!btn) return;
+      const c = btn.closest<HTMLElement>('[data-story]');
+      if (!c) return;
+      setOpen(c, !c.classList.contains('is-open'));
+      remeasure();
+    });
+
+    bar?.addEventListener('click', (e) => {
+      const b = (e.target as Element).closest<HTMLButtonElement>('[data-filter]');
+      if (!b) return;
+      const key = b.dataset.filter as 'pillar' | 'industry';
+      state[key] = b.dataset.value ?? '';
+      render();
+    });
+
+    bar?.addEventListener('change', (e) => {
+      const sel = (e.target as Element).closest<HTMLSelectElement>('[data-filter-select]');
+      if (!sel) return;
+      state[sel.dataset.filterSelect as 'pillar' | 'industry'] = sel.value;
+      render();
+    });
+
+    document.querySelector('[data-story-clear]')?.addEventListener('click', () => {
+      state.pillar = ''; state.industry = '';
+      render();
+      const first = bar ? Array.from(bar.querySelectorAll<HTMLElement>('[data-filter-select], [data-filter]')).find((x) => x.offsetParent !== null) : undefined;
+      first?.focus();
+    });
+
+    document.querySelector('[data-story-more]')?.addEventListener('click', () => {
+      state.all = true;
+      render();
+      // focus the first story that was just revealed, so keyboard users land on new content
+      cards[initial]?.querySelector<HTMLButtonElement>('[data-story-toggle]')?.focus({ preventScroll: false });
+    });
+
+    const openFromHash = (scroll: boolean) => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id.startsWith('story-')) return;
+      const c = cards.find((x) => x.id === id);
+      if (!c) return;
+      if (!matches(c)) { state.pillar = ''; state.industry = ''; }
+      if (cards.indexOf(c) >= initial) state.all = true;
+      render();
+      setOpen(c, true);
+      remeasure();
+      if (scroll) requestAnimationFrame(() => c.scrollIntoView({ block: 'start' }));
+    };
+
+    if (bar) bar.hidden = false;
+    render();
+    root.dataset.ready = '';
+    // an extra story was hidden by CSS before this ran, so the browser could not scroll to it: do it now
+    const target = location.hash ? cards.find((x) => x.id === decodeURIComponent(location.hash.slice(1))) : undefined;
+    openFromHash(!!target && cards.indexOf(target) >= initial);
+    window.addEventListener('hashchange', () => openFromHash(true));
+  }
+</script>
+
+<style>
+  .sf { display: grid; gap: var(--s-4); margin-bottom: var(--s-7); }
+  .sf[hidden] { display: none; }
+  .sf__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+  .sf__label { color: var(--fg-2); }
+  .sf__opts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .sf__btn {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px;
+    border: 1px solid var(--rule); border-radius: 0; background: transparent; color: var(--head);
+    font: 700 var(--fs-nav)/1.25 var(--font-sans); text-align: left; cursor: pointer;
+    transition: color var(--d-2) var(--ease-out), border-color var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out);
+  }
+  .sf__btn:hover { border-color: var(--link); color: var(--link); }
+  .sf__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .sf__btn[aria-pressed='true'] { color: var(--white); background: var(--link); border-color: var(--link); }
+  /* phones (< 600px): two native selects instead of the wrapping button rows (the rows ran 8+ lines on a 360px screen) */
+  .sf__row { display: none; }
+  .sf__pick { display: grid; gap: var(--s-2); }
+  .sf__selwrap { position: relative; display: block; }
+  .sf__select {
+    appearance: none; -webkit-appearance: none; width: 100%; min-height: 48px; padding: 10px 44px 10px 14px;
+    border: 1px solid var(--field-border); border-radius: 0; background: var(--field-bg); color: var(--head);
+    font: 600 1rem/1.3 var(--font-sans); cursor: pointer;
+  }
+  .sf__select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .sf__selwrap :global(.sf__chev) { position: absolute; right: 14px; top: 50%; translate: 0 -50%; pointer-events: none; color: var(--head); }
+  @media (min-width: 600px) {
+    .sf__pick { display: none; }
+    .sf__row { display: grid; }
+  }
+  .sf__status { margin: 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+
+  .stories {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--grid-gap); row-gap: 0;
+    grid-auto-rows: auto;
+  }
+  /* before the script runs (html.js), stories 7–9 wait behind "Show all stories"; without JS all nine show */
+  :global(html.js) .stories:not([data-ready]) > :global([data-extra]) { display: none; }
+
+  .stories__empty { display: grid; justify-items: start; gap: var(--s-4); padding-block: var(--s-5) var(--s-7); border-top: 1px solid var(--rule); color: var(--fg-2); }
+  .stories__empty[hidden], .stories__more[hidden] { display: none; }
+  .stories__more { display: flex; justify-content: center; margin-top: var(--s-2); }
+
+  @media (min-width: 700px) { .stories { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) { .stories { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 900px) {
+    .sf__row { grid-template-columns: 7rem minmax(0, 1fr); align-items: center; column-gap: var(--s-5); }
+    .sf__status { padding-left: calc(7rem + var(--s-5)); }
+  }
+  @media (max-width: 599px) {
+    .stories__more :global(.btn) { width: 100%; }
+  }
+</style>

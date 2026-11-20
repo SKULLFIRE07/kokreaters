@@ -65,8 +65,8 @@ const [home, pillarsM, industriesM, approachM, impactM, founderM, contactM, site
 const { site } = siteM;
 const { pillars, expertiseOverview } = pillarsM;
 const { industries, industriesPage } = industriesM;
-const { approach, steps, principles, models, faq } = approachM;
-const { founderResults, engagements, testimonials, impactPage } = impactM;
+const { approach, steps, principles, engage, faq } = approachM;
+const { impactStories, engagements, testimonials, impactPage } = impactM;
 const { founderName, about, longBio, shortBio, timeline, timelineRoles, name, education, languages, workedWith } = founderM;
 
 /* ── text helpers ── */
@@ -161,15 +161,15 @@ add('Approach (/approach): how we work', [
   'The method: Connect. Collaborate. Create.',
   ...steps.map((s) => `### ${s.n}. ${s.name}\n${clean(s.copy)}\nWhat we do: ${clean(s.whatWeDo)}\nWhat you get: ${clean(s.whatYouGet)}\nTypical duration: ${clean(s.duration)}`),
   '### Principles', list(principles.map((p) => `${p.name}: ${p.copy}`)),
-  '### Ways to work with us (engagement models)', list(models.map((m) => `${m.model}: ${m.shape}. Good for: ${m.goodFor}.`)),
+  `### ${engage.title}`, clean(engage.intro), list(engage.items.map((m) => `${m.title}: ${m.copy}`)), clean(engage.confidential), 'No prices are published.',
   '### Frequently asked questions', ...faq.map((f) => `Q: ${clean(f.q)}\nA: ${clean(f.a)}`),
 ].join('\n'));
 
 const cleared = engagements.filter((e) => e.consent === 'cleared');
 add('Impact (/impact)', [
   clean(impactPage.lead),
-  'Results from the founder’s career (at Wilmar and Cargill, before KoKreaters; never present them as KoKreaters client projects):',
-  ...founderResults.map((r) => `- ${r.dateline}: ${clean(r.outcome)}. Challenge: ${clean(r.challenge)} What was done: ${clean(r.done)} Result: ${clean(r.result)} Expertise: ${r.pillars.map(pillarName).join(', ')}.`),
+  'Stories from the founder’s 25-year career, before KoKreaters (never present them as KoKreaters client projects; confirmed figures only):',
+  ...impactStories.map((r) => { const figs = r.figures.filter((f) => !f.pending).map((f) => `${f.value} ${f.label}`).join('; '); return `- ${r.tag}: ${clean(r.title)}.${figs ? ` Figures: ${figs}.` : ''} Challenge: ${clean(r.challenge)} What was done: ${clean(r.done)} Result: ${clean(r.result)} Expertise: ${r.pillars.map(pillarName).join(', ')}.`; }),
   ...(cleared.length ? ['KoKreaters engagements (anonymised):', ...cleared.map((e) => `- ${clean(e.text)}`)] : []),
   ...(testimonials.length ? ['Testimonials:', ...testimonials.map((t) => `- “${clean(t.quote)}” ${t.name}, ${t.role}`)] : []),
 ].join('\n'));

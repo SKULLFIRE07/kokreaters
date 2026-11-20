@@ -1,25 +1,23 @@
 ---
 /**
- * About /about, v4 "Delft". Grounds: navy hero → Porcelain track record → white story → Porcelain career → Dutch polder
- * interlude → white map → navy name panel → white credentials → (CtaBand) → footer.
- *  1 PageHero, navy split: the 4:5 portrait right (photo under the text at 4:3 on mobile), crumbs, eyebrow, the H1
- *    "Built on 25 years…" (no-break space in the data), the intro, then the one-page profile PDF (primary button) and
- *    LinkedIn (tertiary link-button, rel="noopener me"). Below 600px the PDF button goes full width, LinkedIn under it;
- *    below 390px it reads "Download profile (PDF)" so it stays on one line. Portrait at 50% 4%: headroom above the hair
- *    in every crop (desktop half-bleed, 4:3 on tablet and phone).
- *  1b AboutRecord (Porcelain) — the homepage's four figures: 25 years in industry, 14 years in oils, fats and food
- *                              ingredients, 5 countries, WHO (no "regions of teams led" count: open question).
- *  2 AboutStory (white)      — name, "Chief Catalyst and Founder, KoKreaters", based in the Netherlands, the short
- *                              story, "Read the long version" (native details).
- *  3 CareerTimeline (grey)   — v3.1: sticky header left (≥ 1200), the four stops on a vertical spine with large serif
- *                              years scrolling past on the right; worked-with line as the lead.
- *  · PhotoInterlude: the Dutch polder (nl-polder, v4 photo set), eyebrow "Based in the Netherlands", caption = the
- *    bio's own last sentence (longBio[5]); parallax via PhotoInterlude.
- *  4 PlacesMap (white)       — #the-map: "Eight places in five countries", static Equal Earth map, eight ringed nodes,
- *                              the places <ol>.
- *  5 NamePanel (navy)        — "Ko + Kreaters" as one formula with its two definitions, the founder's words, the lockup.
- *  6 Credentials (white)     — education · languages · recognition (WHO).
- *  CtaBand (grey) and the footer come from BaseLayout. JSON-LD: Person (with the portrait) + BreadcrumbList.
+ * About /about, pack 2 (brief items 21–26; v4 "Delft" design kept). Grounds: navy hero → Porcelain strip (when it has
+ * two or more figures) → white story → Porcelain career → white "worked alongside" → Dutch polder interlude → white
+ * map → navy name panel → white credentials → (Porcelain testimonials, once two are confirmed) → CtaBand → footer.
+ *  1 PageHero, navy split: the 4:5 portrait right, crumbs, eyebrow, H1 "Twenty-five years of making ingredients work.",
+ *    the intro, then LinkedIn (and the one-page profile PDF, only when `aboutPage.profilePdfCurrent`, or in staging with
+ *    a <Confirm>: the PDF still carries the v3 bio).
+ *  1b AboutStrip (item 23): staging shows all four figures with the Part K 2 markers. Outside staging only the
+ *     confirmed figures count: two or more → the band; just one ("5 working languages") → no band, the figure sits in
+ *     the story's head column as a quiet fact with the five languages.
+ *  2 AboutStory (item 21)    — name, "Founder and Principal, KoKreaters", the former-role line, base, the short bio,
+ *                              "Read the long version" (native details) with the five long-bio paragraphs.
+ *  3 CareerTimeline (item 22) — seven rows, "Today · KoKreaters" last, the places line under it.
+ *  4 WorkedAlongside (item 24) — the sentence and six sector icons; no names, no logos.
+ *  · PhotoInterlude (nl-polder): eyebrow "Based in the Netherlands", caption "A Dutch base. A global reach."
+ *  5 PlacesMap, 6 NamePanel (v4, unchanged), 7 Credentials (item 25: four columns, placeholder columns hidden),
+ *  8 AboutTestimonials (item 26: hidden until two are confirmed).
+ * Item 8: Cargill and Wilmar appear on this page (long bio, timeline, former-role line) and nowhere else but the
+ * founder line. JSON-LD: Person (with the portrait) + BreadcrumbList.
  * Mobile: every section states its own layout; hero buttons go full width below 600px.
  */
 import { existsSync } from 'node:fs';
@@ -38,25 +36,39 @@ import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 import { person } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
 import { site } from '@/config/site';
-import AboutRecord from '@/components/about/AboutRecord.astro';
-import { about, aboutPage, portraitAlt, longBio } from '@/data/founder';
-import { footer } from '@/data/nav';
+import AboutStrip from '@/components/about/AboutStrip.astro';
+import WorkedAlongside from '@/components/about/WorkedAlongside.astro';
+import AboutTestimonials from '@/components/about/AboutTestimonials.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { about, aboutPage, aboutStrip, languages } from '@/data/about';
+import { location } from '@/data/contact';
+import { founderName } from '@/components/about/founder-lines';
 import { photos } from '@/data/photos';
 import { microcopy } from '@/data/microcopy';
+import { showConfirm } from '@/lib/mode';
 
 const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
 const crumbs = [{ label: about.overline, href: '/about' }];
 const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
 // The PDF is a static file written by scripts/make-profile-pdf.mjs; never link to it if it is missing.
-const hasPdf = existsSync(join(process.cwd(), 'public', aboutPage.profilePdfHref));
+const pdfExists = existsSync(join(process.cwd(), 'public', aboutPage.profilePdfHref));
+const hasPdf = pdfExists && (aboutPage.profilePdfCurrent || showConfirm);
 const polder = photos['nl-polder'];
+// Item 23: staging shows every figure (placeholders marked); elsewhere only confirmed ones.
+const stripItems = aboutStrip.items.filter((i) => showConfirm || !i.pending);
+const single = stripItems.length === 1 ? stripItems[0] : undefined;
+const fact = single ? {
+  value: single.value,
+  label: `${single.value === '5' ? aboutPage.languagesLabel : single.label}`.replace(/^./, (c) => c.toUpperCase()),
+  detail: single.value === '5' ? languages : undefined,
+} : undefined;
 ---
 <BaseLayout page="about" seo={seo} breadcrumbs={crumbs}>
   <PageHero
     ground="navy"
     imageMode="portrait"
     image={portrait}
-    imageAlt={portraitAlt.about}
+    imageAlt={founderName}
     imagePosition="50% 0%"
     crumbs={crumbs}
     eyebrow={about.overline}
@@ -70,18 +82,21 @@ const polder = photos['nl-polder'];
           <span class="about-pdf--full">{aboutPage.profilePdf}</span><span class="about-pdf--short">{aboutPage.profilePdfShort}</span>
         </Button>
       )}
+      {hasPdf && !aboutPage.profilePdfCurrent && <Confirm id="PDF" note="profile PDF still has the v3 bio; regenerate (scripts/make-profile-pdf.mjs), then set aboutPage.profilePdfCurrent" />}
       <Button href={site.linkedin.href} variant="tertiary" icon="external" rel="noopener me" class="about-actions__link">
         {aboutPage.linkedin}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
       </Button>
     </div>
   </PageHero>
-  <AboutRecord />
-  <AboutStory />
+  {stripItems.length > 1 && <AboutStrip items={stripItems} />}
+  <AboutStory fact={fact} />
   <CareerTimeline />
-  <PhotoInterlude src={polder.src} alt={polder.alt} position={polder.position} size="lg" eyebrow={footer.contact.base} caption={longBio[longBio.length - 1]} />
+  <WorkedAlongside />
+  <PhotoInterlude src={polder.src} alt={polder.alt} position={polder.position} size="lg" eyebrow={location.line} caption={aboutPage.interludeCaption} />
   <PlacesMap />
   <NamePanel />
   <Credentials />
+  <AboutTestimonials />
 </BaseLayout>
 <style>
   /* PageHero puts its default slot 48px under the lead; buttons belong 32px under it, like hero actions. */

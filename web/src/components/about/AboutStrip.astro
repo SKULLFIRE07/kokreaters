@@ -1,0 +1,46 @@
+---
+/**
+ * About · the strip (brief item 23; different from the home and Impact strips). Porcelain band.
+ * Renders the figures it is given (about.astro passes every item in staging, where the Part K 2 placeholders carry
+ * their <Confirm>, and only the confirmed ones elsewhere). about.astro renders this band only with two or more
+ * figures; a single confirmed figure ("5 working languages") goes into the story's head column instead.
+ * Each figure is Bodoni 64 over its rule (the first takes the 3px saffron rule; data-gsap="rule" draws them in), its
+ * label under it. ≥ 900px one column per figure (up to four); phones two columns with smaller figures.
+ */
+import Confirm from '@/components/ui/Confirm.astro';
+import type { StripItem } from '@/data/types';
+import { aboutStrip } from '@/data/about';
+import { showConfirm } from '@/lib/mode';
+
+interface Props { items: StripItem[]; }
+const { items } = Astro.props;
+---
+<section class="band band--grey astrip" aria-labelledby="astrip-h" style={`--n:${items.length}`}>
+  <div class="container">
+    <h2 id="astrip-h" class="astrip__label t-label">{aboutStrip.label}</h2>
+    <ul class="astrip__list" role="list">
+      {items.map((p, i) => (
+        <li class:list={['astrip__item', i === 0 && 'astrip__item--lead']}>
+          <span class="astrip__rule" aria-hidden="true" data-gsap="rule"></span>
+          <p class="astrip__figure">{p.value}</p>
+          <p class="astrip__text">{p.label}{showConfirm && p.pending && <> <Confirm id={p.pending.confirm} note={p.pending.note} /></>}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+<style>
+  .astrip { --_pad: clamp(4rem, 3rem + 3vw, 6.5rem); }
+  .astrip__label { margin: 0 0 var(--s-7); }
+  .astrip__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-7) var(--grid-gap); }
+  .astrip__item { position: relative; padding-top: var(--s-5); min-width: 0; }
+  .astrip__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transform-origin: left center; }
+  .astrip__item--lead .astrip__rule { height: 3px; background: var(--saffron); }
+  .astrip__figure {
+    margin: 0; font-family: var(--font-serif); font-weight: 400;
+    font-size: clamp(2.5rem, 2rem + 2.4vw, 4rem); line-height: 1; letter-spacing: -0.01em; color: var(--head);
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .astrip__text { margin: var(--s-4) 0 0; max-width: 30ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
+  @media (min-width: 900px) { .astrip__list { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); } }
+</style>

@@ -37,11 +37,11 @@ test('newsletter forms are real forms', async ({ page }) => {
 test('newsletter rejects an invalid address inline (aria-live)', async ({ page }) => {
   await page.goto('/insights', { waitUntil: 'load' });
   await settle(page, 200);
-  const f = page.locator('form[data-newsletter]').first();
+  const f = page.locator('form[data-nl]').first();
   await f.scrollIntoViewIfNeeded();
   await f.locator('input[type="email"]').fill('not-an-email');
   await f.evaluate((form: HTMLFormElement) => form.requestSubmit());
-  await expect(f.locator('[data-newsletter-msg]')).not.toBeEmpty();
+  await expect(f.locator('[data-nl-error="email"]')).not.toBeEmpty();
   await expect(f.locator('input[type="email"]')).toHaveAttribute('aria-invalid', 'true');
 });
 

@@ -1,71 +1,38 @@
-// prepare-brand.mjs (REDESIGN-V3 §2): vector logo set, the founder cut-out (input of make-portrait.mjs), favicons.
-// Idempotent. Reads from ASSETS_DIR (default ../assets), never modifies the sources. Outputs are committed.
-// Every logo is the vector set from assets/logo/vector/. v3 dropped the v2 grain tile, the home-dock logo split
-// (svg/derived/*) and the cut-out square crop; this script deletes them if they reappear (OLD list).
-// Founder photos: run `node scripts/make-portrait.mjs` after this (cut-out → graded 4:5 portrait + square crop).
-import sharp from 'sharp';
-import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+// prepare-brand.mjs (pack 2, brief items 4, 11, 12): Ganeaysh's 20 Nov 2026 brand files → the site.
+// Idempotent. Reads from BRAND_DIR (default ../research/pack2/brand), never modifies the sources. Outputs are committed.
+//  1. Logo SVGs (text already outlined) → src/assets/brand/svg/ (read by components/brand/Logo.astro and NodeMark.astro,
+//     scripts/og.mjs and scripts/make-profile-pdf.mjs).
+//  2. Favicon option B (navy tile, white mark, saffron node) from brand/favicon → public/ (favicon.ico, favicon.svg,
+//     apple-touch-icon.png, icon-192.png, icon-512.png); public/site.webmanifest lists the two PNG icons.
+//  3. The square mark (512 px) → public/brand/kokreaters-mark-512.png (JSON-LD Organization.logo).
+//  4. The v3 logo set and favicons are deleted if they reappear (OLD).
+// Founder photos: `node scripts/make-portrait.mjs` (unchanged; the cut-out comes from ../assets).
+import { copyFile, mkdir, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const WEB = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const ASSETS_DIR = resolve(WEB, process.env.ASSETS_DIR ?? '../assets');
-const src = (p) => resolve(ASSETS_DIR, p);
+const BRAND_DIR = resolve(WEB, process.env.BRAND_DIR ?? '../research/pack2/brand');
+const src = (p) => resolve(BRAND_DIR, p);
 const out = (p) => resolve(WEB, p);
 async function ensure(p) { await mkdir(dirname(p), { recursive: true }); return p; }
 
-const LOGOS = [
-  'kokreaters-logo-full.svg', 'kokreaters-logo-full-white.svg',
-  'kokreaters-logo-horizontal.svg', 'kokreaters-logo-horizontal-white.svg',
-  'kokreaters-wordmark.svg', 'kokreaters-wordmark-white.svg',
-  'kokreaters-node-cluster.svg',
-];
+const LOGOS = ['kokreaters-logo-navy-no-tagline.svg', 'kokreaters-logo-navy.svg', 'kokreaters-logo-white.svg', 'kokreaters-mark.svg'];
+const FAVICONS = ['favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'];
 const OLD = [
-  'src/assets/brand/wordmark.png', 'src/assets/brand/wordmark-white.png', 'src/assets/brand/lockup-tagline.png',
-  'src/assets/brand/lockup-tagline-white.png', 'src/assets/brand/logo-full.png',
-  'src/assets/photos/ganeaysh-portrait.png', 'src/assets/photos/ganeaysh-square.png',
-  // v2 → v3
-  'src/assets/fx/grain.png', 'src/assets/photos/ganeaysh-cutout-square.png',
-  'src/assets/brand/svg/derived/horizontal-cluster.svg', 'src/assets/brand/svg/derived/horizontal-white-cluster.svg',
-  'src/assets/brand/svg/derived/horizontal-word.svg', 'src/assets/brand/svg/derived/horizontal-white-word.svg',
+  'src/assets/brand/svg/kokreaters-logo-full.svg', 'src/assets/brand/svg/kokreaters-logo-full-white.svg',
+  'src/assets/brand/svg/kokreaters-logo-horizontal.svg', 'src/assets/brand/svg/kokreaters-logo-horizontal-white.svg',
+  'src/assets/brand/svg/kokreaters-wordmark.svg', 'src/assets/brand/svg/kokreaters-wordmark-white.svg',
+  'src/assets/brand/svg/kokreaters-node-cluster.svg',
+  'public/favicon-32.png', 'public/brand/kokreaters-logo-512.png',
 ];
 
 async function main() {
-  // 1. Vector logo set → src/assets/brand/svg/.
-  for (const f of LOGOS) await copyFile(src(`logo/vector/${f}`), await ensure(out(`src/assets/brand/svg/${f}`)));
-
-  // 2. Old rasters and v2 leftovers out.
+  for (const f of LOGOS) await copyFile(src(f), await ensure(out(`src/assets/brand/svg/${f}`)));
+  for (const f of FAVICONS) await copyFile(src(`favicon/${f}`), await ensure(out(`public/${f}`)));
+  await copyFile(src('kokreaters-mark-512.png'), await ensure(out('public/brand/kokreaters-mark-512.png')));
   for (const f of OLD) if (existsSync(out(f))) await rm(out(f));
-  for (const d of ['src/assets/fx', 'src/assets/brand/svg/derived']) if (existsSync(out(d))) await rm(out(d), { recursive: true, force: true });
-
-  // 3. Founder cut-out (1665×2048 RGBA, lapel pin removed): the input of scripts/make-portrait.mjs, never shown as is.
-  await copyFile(src('photos/ganeaysh-cutout-clean.png'), await ensure(out('src/assets/photos/ganeaysh-cutout.png')));
-
-  // 4. Favicon SVG: the node cluster minus comment / role / aria / id.
-  const svg = (await readFile(src('logo/vector/kokreaters-node-cluster.svg'), 'utf8'))
-    .replace(/<!--[\s\S]*?-->\s*/g, '')
-    .replace(/\s(role|aria-label)="[^"]*"/g, '')
-    .replace(/\s+id="nodes"/, '')
-    .replace(/\n\s*\n/g, '\n');
-  await writeFile(await ensure(out('public/favicon.svg')), svg.trim() + '\n');
-
-  // 5. Raster icons from the SVG (density 384 so the 512 is sharp).
-  const svgBuf = Buffer.from(svg);
-  const clear = { r: 255, g: 255, b: 255, alpha: 0 };
-  const icon = (n) => sharp(svgBuf, { density: 384 }).resize(n, n, { fit: 'contain', background: clear }).png({ compressionLevel: 9 }).toBuffer();
-  await writeFile(out('public/favicon-32.png'), await icon(32));
-  await writeFile(out('public/icon-512.png'), await icon(512));
-  await writeFile(await ensure(out('public/brand/kokreaters-logo-512.png')), await icon(512));
-  const inner = Math.round(180 * 0.76);
-  const pad = Math.round((180 - inner) / 2);
-  await writeFile(out('public/apple-touch-icon.png'),
-    await sharp(await icon(inner))
-      .extend({ top: pad, bottom: 180 - inner - pad, left: pad, right: 180 - inner - pad, background: '#ffffff' })
-      .flatten({ background: '#ffffff' })
-      .png({ compressionLevel: 9 })
-      .toBuffer());
-
   console.log('prepare-brand: done');
 }
 

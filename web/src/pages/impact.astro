@@ -1,16 +1,19 @@
 ---
 /**
- * /impact (v4 Delft). Grounds: navy photo hero (stainless process tanks) → Porcelain (track record, as on the home
- * design) → white (the four founder-career cases, 84px Bodoni figures) → (engagements / testimonials, only when cleared)
- * → CtaBand → footer. The v3 refinery interlude is gone (guide: no petrochemical refinery photos).
+ * /impact (pack 2, brief items 7, 8, 27–30). Grounds: navy photo hero (stainless process tanks) → Porcelain (the
+ * Impact strip and its footnote) → white (the nine stories: filters, grid, accordions, "Show all stories")
+ * → (engagements / testimonials, only when cleared) → ImpactCta (Deep Delft, two buttons) → footer.
+ * The brief's intro opens with the page title ("Results that started on the plant floor."): the H1 carries that
+ * sentence and the lead carries the rest, so it is said once.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PillarHero from '@/components/expertise/PillarHero.astro';
 import TrackRecord from '@/components/impact/TrackRecord.astro';
-import FounderCases from '@/components/impact/FounderCases.astro';
+import StoryGrid from '@/components/impact/StoryGrid.astro';
 import Engagements from '@/components/impact/Engagements.astro';
 import Testimonials from '@/components/impact/Testimonials.astro';
-import { engagements, impactPage, testimonials } from '@/data/impact';
+import ImpactCta from '@/components/impact/ImpactCta.astro';
+import { engagements, impactPage } from '@/data/impact';
 import { photos } from '@/data/photos';
 import { pageSeo } from '@/lib/seo';
 import { showPendingConsent } from '@/lib/mode';
@@ -18,21 +21,19 @@ import { showPendingConsent } from '@/lib/mode';
 const crumbs = [{ label: impactPage.overline, href: '/impact' }];
 const hero = photos['scale-tanks'];
 
-// Ground rhythm after the (white) cases: engagements grey, testimonials the other ground, CTA the opposite of the last.
+// Ground rhythm after the (white) stories: engagements grey, testimonials the other ground.
 const hasEngagements = engagements.some((e) => e.consent === 'cleared' || showPendingConsent);
-const hasTestimonials = testimonials.some((t) => t.permission === true);
 const engGround = 'grey' as const;
 const quoteGround = hasEngagements ? ('white' as const) : ('grey' as const);
-const last = hasTestimonials ? quoteGround : hasEngagements ? engGround : 'white';
-const cta = last === 'grey' ? { ground: 'white' as const } : undefined;
 ---
-<BaseLayout page="impact" seo={pageSeo('impact')} breadcrumbs={crumbs} cta={cta}>
+<BaseLayout page="impact" seo={pageSeo('impact')} breadcrumbs={crumbs} cta={false}>
   <PillarHero
     eyebrow={impactPage.overline} title={impactPage.headline} lead={impactPage.lead} crumbs={crumbs}
     image={hero.src} imageAlt={hero.alt} imagePosition={hero.position} titleId="impact-title"
   />
   <TrackRecord ground="grey" />
-  <FounderCases ground="white" />
+  <StoryGrid ground="white" />
   <Engagements ground={engGround} />
   <Testimonials ground={quoteGround} />
+  <ImpactCta />
 </BaseLayout>

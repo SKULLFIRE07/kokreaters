@@ -15,6 +15,8 @@ interface ImportMetaEnv {
   readonly PUBLIC_TURNSTILE_SITEKEY?: string;
   /** Empty/0 = no analytics and no consent banner. 1 = banner shown. */
   readonly PUBLIC_ANALYTICS?: string;
+  /** "off" = no "Ask KoKreaters" chat widget on any page; unset = on. */
+  readonly PUBLIC_CHAT?: string;
 }
 
 interface ImportMeta {

@@ -1,8 +1,8 @@
 ---
 /**
  * About · the map (REDESIGN-V3 §4 About, section 4). White band, id="the-map", aria-labelledby="globe-title".
- * SectionHeader (bare h2 aboutPage.mapHeading "Eight places in five countries", counted from places.ts /
- * globe.lead, which names the countries), then a static Equal Earth map cropped from Western Europe to Sumatra
+ * SectionHeader (bare h2 placesMap.heading "Eight places in five countries" from src/data/about.ts, lead
+ * placesMap.lead, which names the countries), then a static Equal Earth map cropped from Western Europe to Sumatra
  * (scripts/build-map.mjs → assets/map/places-map.svg: land grey-100, the five career countries grey-200; a decorative
  * <img alt="">, lazy). The eight places are ringed nodes in brand blue placed from data/map/places-map.json (percent of
  * the map box) in an aria-hidden layer; the accessible carrier of the names is the places <ol>
@@ -18,7 +18,7 @@ import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import mapUrl from '@/assets/map/places-map.svg?url';
 import mapData from '@/data/map/places-map.json';
-import { globe, aboutPage } from '@/data/founder';
+import { placesMap } from '@/data/about';
 import { places } from '@/data/places';
 import { microcopy } from '@/data/microcopy';
 
@@ -32,7 +32,7 @@ const items = places.map((p) => {
 });
 ---
 <Section ground="white" id="the-map" labelledby="globe-title" class="places">
-  <SectionHeader id="globe-title" title={aboutPage.mapHeading} lead={globe.lead} />
+  <SectionHeader id="globe-title" title={placesMap.heading} lead={placesMap.lead} />
   <div class="pmap" style={`--ratio:${mapData.width} / ${mapData.height}`}>
     <div class="pmap__stage">
       <img class="pmap__img" src={mapUrl} width={mapData.width} height={mapData.height} alt="" loading="lazy" decoding="async" />

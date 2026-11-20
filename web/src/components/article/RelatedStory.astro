@@ -1,0 +1,38 @@
+---
+/**
+ * Related Impact story card (item 35), the companion of InsightTile under an article: a Delft Ice panel with the
+ * story's tag ("FOOD SAFETY · GLOBAL", Deep Delft caps), its big figure when it is confirmed (Bodoni 48; a Part K
+ * placeholder figure is left out outside staging, as on /impact), the Bodoni title as the one link (stretched over the
+ * card, to /impact#story-…) and "Impact story · Read the story →". No photo. Same hover and focus rules as InsightTile.
+ * Mobile: fills the column; min height 240px.
+ */
+import Confirm from '@/components/ui/Confirm.astro';
+import type { ImpactStory } from '@/data/types';
+import { storyHref } from '@/data/impact';
+import { articleCopy } from '@/data/insights';
+import { showConfirm } from '@/lib/mode';
+interface Props { story: ImpactStory; level?: 2 | 3; }
+const { story, level = 3 } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3';
+const fig = story.figures.find((f) => showConfirm || !f.pending);
+---
+<article class="rstory" data-gsap="lift">
+  <p class="rstory__tag t-label">{story.tag}</p>
+  {fig && <p class="rstory__fig">{fig.value}{fig.pending && <Confirm id={fig.pending.confirm} note={fig.pending.note} />}<span class="rstory__figlabel">{fig.label}</span></p>}
+  <H class="rstory__title"><a class="rstory__link" href={storyHref(story.id)}>{story.title}</a></H>
+  <p class="rstory__meta">{articleCopy.storyLabel}<span aria-hidden="true"> · </span><span class="rstory__more">{articleCopy.readStory}<span aria-hidden="true"> →</span></span></p>
+</article>
+<style>
+  .rstory { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s-3); height: 100%; min-height: 240px; padding: var(--s-6); background: var(--ice); }
+  .rstory__tag { margin: 0 0 auto; color: var(--label); font-size: 12px; letter-spacing: .14em; }
+  .rstory__fig { display: grid; margin: var(--s-6) 0 0; font-family: var(--font-serif); font-size: 3rem; line-height: 1; color: var(--head); font-variant-numeric: lining-nums; }
+  .rstory__figlabel { margin-top: var(--s-2); font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2); }
+  .rstory__title { margin: var(--s-3) 0 0; max-width: 24ch; font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.5rem, 1.42rem + .3vw, 1.625rem); line-height: 1.2; color: var(--head); text-wrap: balance; }
+  .rstory__link { color: inherit; text-decoration: none; transition: color var(--d-1) var(--ease-out); }
+  .rstory__link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .rstory__link:focus-visible { outline: none; }
+  .rstory:has(.rstory__link:focus-visible) { outline: 2px solid var(--focus); outline-offset: 6px; }
+  .rstory:hover .rstory__link { color: var(--link); }
+  .rstory__meta { margin: var(--s-2) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .rstory__more { color: var(--link); font-weight: 700; }
+</style>

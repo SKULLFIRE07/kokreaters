@@ -1,0 +1,52 @@
+---
+/**
+ * End of /impact (pack 2, brief item 30): "Your plant, product or market could be the next story." with two buttons,
+ * Start a conversation (saffron, → /contact) and Book a 30-minute call. The booking link is a placeholder (Part K 13):
+ * in staging the second button shows with its <Confirm>; in preview and production it is not rendered, and the band
+ * keeps the site's usual email line under the one button instead.
+ * Same look and class as the site CtaBand (Deep Delft band, `.cta-band`), so chrome that watches the final CTA band
+ * (the chat button hides while it is in view) treats it the same. BaseLayout's own CtaBand is switched off on /impact.
+ * Mobile: one column, buttons full width and stacked.
+ */
+import Section from '@/components/ui/Section.astro';
+import Button from '@/components/ui/Button.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { impactPage } from '@/data/impact';
+import { footer } from '@/data/nav';
+import { site } from '@/config/site';
+import { showConfirm } from '@/lib/mode';
+
+const { cta } = impactPage;
+const booking = cta.booking.href || showConfirm ? cta.booking : undefined;
+---
+<Section ground="delft" labelledby="cta-heading" class="cta-band impact-cta">
+  <div class="ic__grid">
+    <h2 id="cta-heading" class="ic__title">{cta.title}</h2>
+    <div class="ic__actions">
+      <div class="ic__buttons">
+        <Button href={cta.primary.href} size="lg" variant="saffron" class="ic__btn">{cta.primary.label}</Button>
+        {booking && (
+          <Button href={booking.href ?? '/contact'} size="lg" variant="ghost-on-dark" icon="calendar" class="ic__btn">{booking.label}</Button>
+        )}
+      </div>
+      {booking && !booking.href && <Confirm id={cta.booking.pending.confirm} note={cta.booking.pending.note} />}
+      <a class="ic__secondary u-hover" href={`mailto:${site.email}`}><span class="u-draw">{footer.contact.email.label}</span></a>
+    </div>
+  </div>
+</Section>
+<style>
+  .impact-cta { --_pad: clamp(4rem, 3rem + 3vw, 6rem); }
+  .ic__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--grid-gap); align-items: center; }
+  .ic__title { margin: 0; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; max-width: 18ch; text-wrap: balance; }
+  .ic__actions { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .ic__buttons { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+  .ic__secondary { display: inline-flex; align-items: center; min-height: 44px; font: 500 var(--fs-small)/1.3 var(--font-sans); color: var(--link); text-decoration: none; }
+  @media (max-width: 599px) {
+    .ic__actions, .ic__buttons { align-items: stretch; width: 100%; }
+    .ic__buttons { flex-direction: column; }
+    .ic__buttons :global(.ic__btn) { width: 100%; }
+  }
+  @media (min-width: 900px) {
+    .ic__grid { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-8); }
+  }
+</style>

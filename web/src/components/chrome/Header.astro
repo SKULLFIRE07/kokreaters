@@ -1,14 +1,15 @@
 ---
 /**
- * Site header (v4 developer guide: white, logo 52px tall, visible navigation, Deep Delft "Start a conversation").
- * Sticky solid white bar with a 1px #E3E8F1 hairline; 88px on desktop, compacting to 72px on scroll (site.ts adds
- * .is-scrolled; the logo scales 52 → 44px). The outer <header> keeps --header-h in flow and lets clicks through; only
+ * Site header (v4 developer guide: white, visible navigation, Deep Delft "Start a conversation"). Pack 2: the navy logo
+ * without tagline (brief item 11), 44px tall on desktop, 34px on mobile; img alt="KoKreaters", link aria-label
+ * "KoKreaters home" (item 5). Sticky solid white bar with a 1px #E3E8F1 hairline; 88px on desktop, compacting to 72px
+ * on scroll (site.ts adds .is-scrolled; the logo scales 44 → 40px). The outer <header> keeps --header-h in flow and lets clicks through; only
  * the inner bar resizes, so compacting never shifts the page.
- * Desktop ≥ 1120px: the business-card logo (with "Connect · Collaborate · Create") · Expertise ▾ (MegaMenu) ·
+ * Desktop ≥ 1120px: the logo · Expertise ▾ (MegaMenu) ·
  * Industries ▾ (IndustriesMenu) · Approach · Insights · About · "Start a conversation" ([data-header-cta];
  * aria-current="page" on /contact). One 2px Deep Delft bar on the header's bottom edge glides between hovered items and
  * rests under the current section (no-JS: a static bar under aria-current).
- * Mobile < 1120px: 64px bar, logo 40px + a "Menu" button (hamburger, mobile only; turns into a cross) that opens
+ * Mobile < 1120px: 64px bar, logo 34px + a "Menu" button (hamburger, mobile only; turns into a cross) that opens
  * MobileMenu below the bar. No-JS: the Menu link jumps to the footer sitemap.
  */
 import Logo from '@/components/brand/Logo.astro';
@@ -32,7 +33,7 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
 <header class="site-header" data-header>
   <div class="site-header__bar">
     <Container class="site-header__inner">
-      <Logo variant="full" href="/" label={labels.homeLabel} height={52} loading="eager" class="site-header__logo" />
+      <Logo variant="navy" href="/" label={labels.homeLabel} height={44} loading="eager" class="site-header__logo" />
 
       <nav class="site-nav" aria-label={labels.navLabel}>
         <ul class="site-nav__list" role="list" data-glide-list>
@@ -103,10 +104,11 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
   :global(html.menu-open) .site-header { position: fixed; top: var(--menu-hdr-top, 0px); left: 0; right: 0; }
 
   .site-header :global(.site-header__inner) { height: 100%; display: flex; align-items: center; gap: var(--s-6); }
-  .site-header :global(.site-header__logo) { --logo-h: 40px !important; flex: none; box-sizing: content-box; padding-block: 2px; margin-block: -2px; transition: height var(--d-2) var(--ease-out); }
+  /* brief item 11: 40–44px tall on desktop, 32–36px on mobile */
+  .site-header :global(.site-header__logo) { --logo-h: 34px !important; flex: none; box-sizing: content-box; padding-block: 2px; margin-block: -2px; transition: height var(--d-2) var(--ease-out); }
   @media (min-width: 1120px) {
-    .site-header :global(.site-header__logo) { --logo-h: 52px !important; }
-    .site-header.is-scrolled :global(.site-header__logo) { --logo-h: 44px !important; }
+    .site-header :global(.site-header__logo) { --logo-h: 44px !important; }
+    .site-header.is-scrolled :global(.site-header__logo) { --logo-h: 40px !important; }
   }
 
   /* ── Desktop nav ── */

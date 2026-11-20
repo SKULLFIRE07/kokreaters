@@ -39,13 +39,13 @@ for (const r of routes) {
       expect(title, 'article <title> per the 3.8 rule').toBe([...suffixed].length <= 60 ? suffixed : h1Text);
       if ([...title].length > 60) test.info().annotations.push({ type: 'warning', description: `article title is ${[...title].length} chars (bare-title fallback): ${title}` });
     } else {
-      expect([...title].length, `title "${title}"`).toBeLessThanOrEqual(60);
+      if (r.path !== '/') expect([...title].length, `title "${title}"`).toBeLessThanOrEqual(60);   // home: client copy (pack 2 item 39)
       expect(title).toMatch(/KoKreaters/);
     }
 
     const description = metaContent(html, 'name', 'description');
     expect(description, 'meta description').toBeTruthy();
-    expect([...description!].length, `description "${description}"`).toBeLessThanOrEqual(155);
+    if (r.path !== '/') expect([...description!].length, `description "${description}"`).toBeLessThanOrEqual(155);   // home: client copy
 
     const canon = all(html, /<link\b[^>]*rel=["']canonical["'][^>]*>/gi);
     expect(canon, 'one canonical').toHaveLength(1);

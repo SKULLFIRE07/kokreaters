@@ -1,9 +1,10 @@
 ---
 /**
  * Home `/` (v4 "Delft": Ganeaysh's developer guide + homepage design, 20 Nov 2026), 13 sections:
- *  1 top bar (BaseLayout AnnouncementBar) · 2 header · 3 hero (rapeseed) · 4 track record (porcelain) · 5 what we do
- *  (white) · 6 our approach (ice) · 7 industries (white) · 8 impact (navy) · 9 insights (white) · 10 Netherlands band ·
- *  11 founder (porcelain) · 12 CTA (Deep Delft; BaseLayout CtaBand) · 13 footer (ink).
+ *  1 top bar (BaseLayout AnnouncementBar) · 2 header · 3 hero (rapeseed; pack 2 proof line) · 4 track record (porcelain)
+ *  · 5 what we do (white) + 5b how we engage (white, pack 2 item 16) · 6 our approach (ice) · 7 industries (white) ·
+ *  8 impact (navy, three cards) · 8b trust line (porcelain, item 18) · 9 insights (white; third tile = playbook) ·
+ *  10 Netherlands band · 11 founder (porcelain) · 12 CTA (Deep Delft; BaseLayout CtaBand) · 13 footer (ink).
  * Every string comes from src/data/* or the insights collection; JSON-LD (Organization + ProfessionalService +
  * WebSite) is added by BaseLayout for page="home". Motion: data-gsap hooks only (src/scripts/motion.ts).
  */
@@ -11,9 +12,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import HomeHero from '@/components/home/HomeHero.astro';
 import HomeProof from '@/components/home/HomeProof.astro';
 import HomeExpertise from '@/components/home/HomeExpertise.astro';
+import HomeEngage from '@/components/home/HomeEngage.astro';
 import HomeApproach from '@/components/home/HomeApproach.astro';
 import HomeIndustries from '@/components/home/HomeIndustries.astro';
 import HomeResults from '@/components/home/HomeResults.astro';
+import HomeTrust from '@/components/home/HomeTrust.astro';
 import HomeInsights from '@/components/home/HomeInsights.astro';
 import HomeNetherlands from '@/components/home/HomeNetherlands.astro';
 import HomeFounder from '@/components/home/HomeFounder.astro';
@@ -23,9 +26,11 @@ import { pageSeo } from '@/lib/seo';
   <HomeHero />
   <HomeProof />
   <HomeExpertise />
+  <HomeEngage />
   <HomeApproach />
   <HomeIndustries />
   <HomeResults />
+  <HomeTrust />
   <HomeInsights />
   <HomeNetherlands />
   <HomeFounder />

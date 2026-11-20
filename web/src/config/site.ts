@@ -15,6 +15,9 @@ export const site = {
   email: 'office@kokreaters.com',                              // CONFIRM 9
   whatsapp: { display: '+31 6 2215 7910', href: 'https://wa.me/31622157910' },
   linkedin: { display: 'linkedin.com/in/ganeayshkulkarni', href: 'https://www.linkedin.com/in/ganeayshkulkarni' },
+  /** The KoKreaters LinkedIn company page (brief items 37, 38, 40; Part K 14). null until Ganeaysh sends the URL:
+   *  footer link and JSON-LD Organization.sameAs are omitted while it is null. */
+  linkedinCompany: null as string | null,
   base: 'Based in the Netherlands, working worldwide',
   bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || '/contact#form',      // CONFIRM 9
   /**
@@ -25,6 +28,9 @@ export const site = {
   newsletterEndpoint: (env.PUBLIC_NEWSLETTER_ENDPOINT as string | undefined) || '',
   turnstileSiteKey: (env.PUBLIC_TURNSTILE_SITEKEY as string | undefined) || '',
   analytics: env.PUBLIC_ANALYTICS === '1',
+  /** "Ask KoKreaters" chat widget (brief item 1 feature flag). PUBLIC_CHAT=off → not rendered on any page (no launcher,
+   *  no panel, and its lazy chat.ts chunk is never requested); unset or any other value = on. */
+  chat: env.PUBLIC_CHAT !== 'off',
   legal: { registration: null as string | null },             // CONFIRM 11 e.g. "KvK 00000000 · VAT NL000000000B00"
   trademark: '™',                                             // CONFIRM 12
 } as const;

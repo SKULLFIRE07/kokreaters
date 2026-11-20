@@ -1,13 +1,14 @@
 ---
 /**
- * NodeMark — the logo's node cluster alone, the quiet signature (footer, 404, article end mark). REDESIGN-V3 §3.
- *  color — the logo artwork itself (kokreaters-node-cluster.svg, never recoloured), as a cached <img>.
- *  white / blue — a monochrome redraw from the same geometry in currentColor (white; --label = blue-700 on light,
- *                 blue-300 on navy). Lines and node discs are cut by a mask, so each node keeps its ring knockout on
- *                 any ground; the pastel discs of the colour mark are left out.
+ * NodeMark: the KoKreaters "K" mark alone (pack 2 brand, kokreaters-mark.svg geometry): three strokes, four nodes, the
+ * centre node a ring, and the one saffron node at the top right (the spark). Used in the chat launcher and panel, the
+ * 404 page and the article end mark.
+ *  color — navy strokes (the brand file itself, as a cached <img>).
+ *  white / blue — the same geometry drawn in currentColor (white; --label on light grounds); the centre ring is cut by a
+ *                 mask so it reads on any ground; the saffron node stays saffron.
  * Decorative unless `label` is given. Mobile: fixed `size` px (default 48).
  */
-import nodeUrl from '@/assets/brand/svg/kokreaters-node-cluster.svg?url';
+import markUrl from '@/assets/brand/svg/kokreaters-mark.svg?url';
 interface Props {
   size?: number;
   tone?: 'color' | 'white' | 'blue';
@@ -15,37 +16,29 @@ interface Props {
   class?: string;
 }
 const { size = 48, tone = 'color', label, class: cls } = Astro.props;
-// geometry from kokreaters-node-cluster.svg (viewBox 20 15 570 570)
-const nodes = [
-  { x: 144, y: 184, r: 50 }, { x: 416, y: 135, r: 50 }, { x: 291, y: 316, r: 56 }, { x: 480, y: 431, r: 50 }, { x: 211, y: 500, r: 50 },
-];
-const lines = [
-  { d: 'M144 184 L205 498', w: 26 }, { d: 'M144 184 L291 316', w: 26 }, { d: 'M291 316 L196 418', w: 24 },
-  { d: 'M291 316 L416 135', w: 22 }, { d: 'M291 316 L480 431', w: 22 },
-];
-const ring = (r: number) => (r === 56 ? 41 : 37);
-const dot = (r: number) => (r === 56 ? 30 : 27);
-// unique, build-deterministic mask id per instance
+// geometry from kokreaters-mark.svg (viewBox 0 0 64 64)
+const lines = ['M18 10 L18 54', 'M18 32 L47 10', 'M18 32 L47 54'];
+const dots = [{ x: 18, y: 10 }, { x: 18, y: 54 }, { x: 47, y: 54 }];
 const g = globalThis as { __kkNodeMark?: number };
 g.__kkNodeMark = (g.__kkNodeMark ?? 0) + 1;
 const mid = `nodemark-${g.__kkNodeMark}`;
 const a11y = label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': 'true' as const };
 ---
 {tone === 'color' ? (
-  <img class:list={['nodemark', cls]} src={nodeUrl} width={size} height={size} alt={label ?? ''} loading="lazy" decoding="async" />
+  <img class:list={['nodemark', cls]} src={markUrl} width={size} height={size} alt={label ?? ''} loading="lazy" decoding="async" />
 ) : (
-  <svg class:list={['nodemark', `nodemark--${tone}`, cls]} width={size} height={size} viewBox="20 15 570 570" focusable="false" {...a11y}>
+  <svg class:list={['nodemark', `nodemark--${tone}`, cls]} width={size} height={size} viewBox="0 0 64 64" focusable="false" {...a11y}>
     <defs>
-      <mask id={mid} maskUnits="userSpaceOnUse" x="20" y="15" width="570" height="570">
-        <rect x="20" y="15" width="570" height="570" fill="#fff" />
-        {nodes.map((n) => <circle cx={n.x} cy={n.y} r={ring(n.r)} fill="#000" />)}
+      <mask id={mid} maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+        <rect width="64" height="64" fill="#fff" />
+        <circle cx="18" cy="32" r="3.5" fill="#000" />
       </mask>
     </defs>
-    <g mask={`url(#${mid})`} fill="currentColor" stroke="currentColor" stroke-linecap="round">
-      {lines.map((l) => <path d={l.d} stroke-width={l.w} fill="none" />)}
-      {nodes.map((n) => <circle cx={n.x} cy={n.y} r={n.r} stroke="none" />)}
+    <g mask={`url(#${mid})`}>
+      <g stroke="currentColor" stroke-width="4.2" stroke-linecap="round" fill="none">{lines.map((d) => <path d={d} />)}</g>
+      <g fill="currentColor">{dots.map((n) => <circle cx={n.x} cy={n.y} r="5.2" />)}<circle cx="18" cy="32" r="6.9" /></g>
     </g>
-    <g fill="currentColor">{nodes.map((n) => <circle cx={n.x} cy={n.y} r={dot(n.r)} />)}</g>
+    <circle cx="47" cy="10" r="6.4" fill="#D9A43A" />
   </svg>
 )}
 <style>

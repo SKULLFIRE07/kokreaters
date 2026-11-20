@@ -1,0 +1,177 @@
+---
+/**
+ * One Impact story (pack 2, brief items 28–29). A top-ruled block (no box, so cards of different heights still read as
+ * one grid): tag line → h3 title → big figure(s) + label → service and industry chips → "Read the full story" →
+ * the panel (The challenge / What was done / The result, and Verify on story 4).
+ * Accordion: a disclosure button (aria-expanded, aria-controls, described by the title) and its panel. The panel is
+ * collapsed by CSS only once JS runs (html.js); without JS every story is open and the button is not shown.
+ * Inside the grid each card is a 6-row subgrid, so tags, titles, figures, chips and buttons line up across a row and an
+ * open panel only grows the last track.
+ * Placeholders (Part K): a pending figure, result sentence or link renders in staging only, beside its <Confirm>; in
+ * preview and production it is not rendered (a story whose only figure is pending has no big figure).
+ * `id` = the story id (/impact#story-who from the home WHO card). Motion: figures count up (data-gsap="count").
+ * Mobile: one column; figures 52px; chips wrap; the button is a full 44px tap target.
+ */
+import Tag from '@/components/ui/Tag.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import type { ImpactStory } from '@/data/types';
+import { impactPage } from '@/data/impact';
+import { industries } from '@/data/industries';
+import { getPillar, pillarHref } from '@/lib/pillars';
+import { showConfirm } from '@/lib/mode';
+
+interface Props { story: ImpactStory; index: number; extra?: boolean }
+const { story: s, index, extra = false } = Astro.props;
+const { labels } = impactPage;
+const titleId = `${s.id}-title`;
+const panelId = `${s.id}-panel`;
+const btnId = `${s.id}-btn`;
+
+const figures = s.figures.filter((f) => !f.pending || showConfirm);
+const more = s.resultMore && showConfirm ? s.resultMore : undefined;
+const verify = (s.verify ?? []).filter((l) => !l.pending || showConfirm);
+
+// Keep short hyphenated compounds whole ("world-class", "Director-General") so a line never ends on a hyphen.
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const keep = (t: string) => esc(t).replace(/(?<![\w-])([\w’]+(?:-[\w’]+)+)(?![\w-])/g, (m) => (m.length <= 18 ? `<span class="nowrap">${m}</span>` : m));
+
+const industryFor = (name: string) => industries.find((i) => i.name === name);
+const chips = [
+  ...s.pillars.map((k) => ({ label: getPillar(k).name, href: pillarHref(k) })),
+  ...s.industries.map((n) => { const i = industryFor(n); return { label: n, href: i ? `/industries#${i.slug}` : undefined }; }),
+];
+const rows = [
+  { key: 'challenge', label: labels.challenge, text: s.challenge },
+  { key: 'done', label: labels.done, text: s.done },
+  { key: 'result', label: labels.result, text: s.result },
+];
+---
+<li
+  id={s.id} class="story" data-story data-index={index}
+  data-pillars={s.pillars.join(' ')} data-industries={s.industries.map((n) => industryFor(n)?.slug ?? '').join(' ')}
+  data-extra={extra ? '' : undefined}
+>
+  <article class="story__in" aria-labelledby={titleId}>
+    <span class="story__rule" aria-hidden="true"></span>
+    <p class="story__tag t-label">{s.tag}</p>
+    <h3 id={titleId} class="story__title" set:html={keep(s.title)} />
+
+    <div class="story__figs">
+      {figures.length > 0 && (
+        <ul class:list={['figs', figures.length > 1 && 'figs--pair']} role="list">
+          {figures.map((f) => (
+            <li class="fig">
+              <span class="fig__value" data-gsap={f.pending ? undefined : 'count'}>{f.value}</span>
+              <span class="fig__label">{f.label}</span>
+              {f.pending && <Confirm id={f.pending.confirm} note={f.pending.note} />}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <div class="story__chips">
+      {chips.length > 0 && (
+        <ul class="chips" role="list" aria-label={impactPage.tagsLabel}>
+          {chips.map((c) => <li><Tag href={c.href} size="sm">{c.label}</Tag></li>)}
+        </ul>
+      )}
+    </div>
+
+    <div class="story__ctl">
+      <button type="button" class="story__toggle" id={btnId} aria-expanded="false" aria-controls={panelId} aria-describedby={titleId} data-story-toggle>
+        <span class="story__toggle-text">{impactPage.open}</span>
+        <svg class="story__icon" width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M3 10h14" /><path class="story__v" d="M10 3v14" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="story__panel" id={panelId} data-story-panel>
+      <dl class="rows">
+        {rows.map((r) => (
+          <div class="row" data-row={r.key}>
+            <dt class="row__dt t-label">{r.label}</dt>
+            <dd class="row__dd">
+              <Fragment set:html={keep(r.text)} />
+              {r.key === 'result' && more && <> {more.text} <Confirm id={more.pending.confirm} note={more.pending.note} /></>}
+            </dd>
+          </div>
+        ))}
+        {verify.length > 0 && (
+          <div class="row" data-row="verify">
+            <dt class="row__dt t-label">{labels.verify}</dt>
+            <dd class="row__dd">
+              <ul class="verify" role="list">
+                {verify.map((l) => (
+                  <li>
+                    {l.href ? <a class="verify__a" href={l.href} rel="noopener">{l.label}</a> : <span>{l.label}</span>}
+                    {l.pending && <Confirm id={l.pending.confirm} note={l.pending.note} />}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
+      </dl>
+    </div>
+  </article>
+</li>
+
+<style>
+  .story { min-width: 0; scroll-margin-top: calc(var(--scroll-offset) + var(--s-5)); display: grid; grid-row: span 6; grid-template-rows: subgrid; }
+  .story[hidden] { display: none; }
+  .story__in { position: relative; min-width: 0; display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; align-content: start; padding-top: 24px; padding-bottom: var(--s-8); }
+  @supports not (grid-template-rows: subgrid) { .story, .story__in { display: block; } }
+  .story__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transition: background-color var(--d-2) var(--ease-out), height var(--d-2) var(--ease-out); }
+  .story.is-open .story__rule { height: 3px; background: var(--saffron); }
+
+  .story__tag { color: var(--label); margin: 0; }
+  .story__title {
+    margin-top: var(--s-4);
+    font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.005em;
+    color: var(--head); text-wrap: balance; max-width: 24ch;
+  }
+  :global(.nowrap) { white-space: nowrap; }
+
+  .story__figs { min-width: 0; }
+  .figs { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-6); }
+  .fig { display: grid; gap: var(--s-2); align-content: start; min-width: 0; }
+  .fig__value {
+    font-family: var(--font-serif); font-weight: 400; font-size: clamp(3.25rem, 2.9rem + 1.2vw, 4rem); line-height: 1;
+    letter-spacing: -0.01em; color: var(--head); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
+  }
+  .figs--pair .fig__value { font-size: clamp(2.75rem, 2.5rem + 1vw, 3.25rem); }
+  .fig__label { font-size: var(--fs-small); line-height: 1.4; color: var(--fg-2); max-width: 22ch; text-wrap: pretty; }
+
+  .story__chips { min-width: 0; }
+  .chips { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-2); }
+  .chips :global(.tag) { max-width: 100%; }
+
+  .story__ctl { margin-top: var(--s-4); }
+  .story__toggle {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; margin: 0;
+    border: 0; background: none; cursor: pointer; text-align: left;
+    font: 700 var(--fs-nav)/1.3 var(--font-sans); color: var(--link);
+  }
+  .story__toggle:hover .story__toggle-text { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+  .story__toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .story__icon { flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; }
+  .story__v { transform-origin: 10px 10px; transition: transform var(--d-2) var(--ease-out); }
+  .story.is-open .story__v { transform: rotate(90deg); }
+  :global(html.no-js) .story__ctl { display: none; }
+  :global(html.js) .story:not(.is-open) .story__panel { display: none; }
+
+  .rows { margin: var(--s-4) 0 0; display: grid; }
+  .row { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
+  .row__dt { color: var(--label); }
+  .row__dd { margin: var(--s-2) 0 0; font-size: var(--fs-body); line-height: 1.6; color: var(--fg); max-width: 60ch; text-wrap: pretty; }
+  .row[data-row='result'] .row__dd { color: var(--head); font-weight: 600; }
+  .verify { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+  .verify__a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
+  .verify__a:hover { text-decoration-thickness: 2px; }
+
+  @media (max-width: 599px) {
+    .story__in { padding-bottom: var(--s-7); }
+  }
+</style>

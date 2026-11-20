@@ -1,0 +1,39 @@
+---
+/**
+ * Contact · "What happens next" (brief item 36), under the form in the right column. An <ol> of the four steps, each
+ * a ringed number (the ProcessFlow node idea) on a 1px spine, the step text beside it. No motion.
+ * The container decides the layout: ≥ 640px wide, four columns on one hairline (number over text); below, a vertical
+ * list on the left spine (phones and the form column under 1200px).
+ */
+import { nextSteps } from '@/data/contact';
+import { pad2 } from '@/lib/format';
+---
+<section class="next" aria-labelledby="next-h">
+  <h2 id="next-h" class="next__title">{nextSteps.heading}</h2>
+  <ol class="next__list" role="list">
+    {nextSteps.steps.map((s, i) => (
+      <li class="next__step">
+        <span class="next__n" aria-hidden="true">{pad2(i + 1)}</span>
+        <p class="next__text"><span class="visually-hidden">Step {i + 1}: </span>{s}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+<style>
+  .next { container-type: inline-size; margin-top: var(--s-8); }
+  .next__title { margin: 0 0 var(--s-6); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule); font: 400 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
+  .next__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+  .next__step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; align-content: start; }
+  .next__step:not(:last-child)::before { content: ""; position: absolute; left: 21.5px; top: 44px; bottom: calc(-1 * var(--s-5)); width: 1px; background: var(--rule); }
+  .next__n {
+    width: 44px; height: 44px; display: grid; place-items: center; border: 1.5px solid var(--link); border-radius: 50%;
+    font: 700 var(--fs-meta)/1 var(--font-sans); color: var(--link); font-variant-numeric: lining-nums tabular-nums; background: var(--bg);
+  }
+  .next__text { margin: 0; padding-top: 10px; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
+  @container (min-width: 640px) {
+    .next__list { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--s-5); }
+    .next__step { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-4); }
+    .next__step:not(:last-child)::before { left: 44px; right: calc(-1 * var(--s-5)); top: 21.5px; bottom: auto; width: auto; height: 1px; }
+    .next__text { padding-top: 0; }
+  }
+</style>

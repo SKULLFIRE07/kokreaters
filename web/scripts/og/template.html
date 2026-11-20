@@ -2,10 +2,10 @@
 <!--
   KoKreaters Open Graph card (REDESIGN-V3 §1, §2). 1200×630.
   Rendered by scripts/og.mjs through headless Chrome; never shipped as a page.
-  Navy-900 field, the white horizontal lockup (vector, inline, never recoloured), an uppercase Inter label in blue-300
-  (8.1:1 on navy) behind a short accent rule, the page H1 in Source Serif 4 (white, optical sizing on), and a hairline
-  footer with the domain. No grid, no colour bars, no stickers: the same restraint as the site.
-  og.mjs fills the LABEL, TITLE and LOGO placeholders and serves the self-hosted woff2 files from public/fonts.
+  Pack 2 (brief item 13): Delft Navy field, Ganeaysh's white logo (mark + wordmark + tagline; vector, inline, never
+  recoloured), an uppercase Manrope label in saffron behind a short saffron rule, the page H1 in Bodoni Moda (white),
+  and a hairline footer with the domain and the hero overline. No grid, no colour bars, no stickers.
+  og.mjs fills the LABEL, TITLE, LOGO and FOOT placeholders and serves the self-hosted woff2 files from public/fonts.
 -->
 <html lang="en-GB">
 <head>
@@ -22,7 +22,7 @@
     src: url("/fonts/manrope-latin-wght-normal.woff2") format("woff2");
     font-weight: 100 900; font-style: normal; font-display: block;
   }
-  :root { --navy-900: #0E1F4D; --blue-300: #E8A93A; --blue-500: #1C3F94; --on-navy-2: rgba(255, 255, 255, .74); --rule: rgba(255, 255, 255, .18); }
+  :root { --navy-900: #0E1F4D; --saffron: #D9A43A; --on-navy-2: rgba(255, 255, 255, .74); --rule: rgba(255, 255, 255, .18); }
   * { box-sizing: border-box; margin: 0; }
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
@@ -30,14 +30,14 @@
     -webkit-font-smoothing: antialiased; font-kerning: normal; font-optical-sizing: auto;
   }
   .card { width: 1200px; height: 630px; padding: 64px 80px 0; display: grid; grid-template-rows: auto 1fr auto; }
-  .logo { display: block; height: 56px; }
-  .logo svg { height: 56px; width: auto; display: block; overflow: visible; }
+  .logo { display: block; height: 76px; margin-left: -12px; }
+  .logo svg { height: 76px; width: auto; display: block; overflow: visible; }
   .body { align-self: center; max-width: 960px; padding-bottom: 8px; }
   .label {
     display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
-    font: 700 20px/1.3 "Manrope", Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--blue-300);
+    font: 700 20px/1.3 "Manrope", Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--saffron);
   }
-  .label::before { content: ""; flex: none; width: 40px; height: 2px; background: var(--blue-500); }
+  .label::before { content: ""; flex: none; width: 40px; height: 2px; background: var(--saffron); }
   .title {
     font-family: "Bodoni Moda", Georgia, "Times New Roman", serif;
     font-weight: 500; font-size: 72px; line-height: 1.08; letter-spacing: -0.005em; font-variation-settings: "opsz" 11;
@@ -58,7 +58,7 @@
       <p class="label">{{LABEL}}</p>
       <h1 class="title" id="title">{{TITLE}}</h1>
     </div>
-    <div class="foot"><b>kokreaters.com</b><span>Independent technical and strategy consulting</span></div>
+    <div class="foot"><b>kokreaters.com</b><span>{{FOOT}}</span></div>
   </div>
   <script>
     // Keep the title to three lines: step down from 72px only when it would wrap to a fourth (long article titles).

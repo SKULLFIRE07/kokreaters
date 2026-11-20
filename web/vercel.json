@@ -49,6 +49,11 @@
   ],
   "redirects": [
     {
+      "source": "/expertise/capability",
+      "destination": "/expertise/technology-leadership",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [
         {

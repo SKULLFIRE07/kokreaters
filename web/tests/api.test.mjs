@@ -55,7 +55,7 @@ const req = (path, body, { headers = {}, ip = '203.0.113.1' } = {}) => new Reque
 });
 const valid = (over = {}) => ({
   name: 'Ada Lovelace', company: 'Analytical Oils', role: 'COO', email: 'ada@example.com', phone: '', country: 'United Kingdom',
-  interest: 'Process Design and Plant Performance', message: 'We need help with a refinery.\nSecond line.', source: '',
+  interest: 'Process development and plant performance', message: 'We need help with a refinery.\nSecond line.', source: '',
   consent: 'yes', company_website: '', started_at: String(Date.now() - 60_000), ...over,
 });
 async function readNdjson(res) {
@@ -216,7 +216,7 @@ test('chat: Claude request shape (Sonnet 5.5 default, cached system prompt, effo
   assert.equal(b.fallbacks, 'default');
   assert.equal(b.system.length, 1);
   assert.deepEqual(b.system[0].cache_control, { type: 'ephemeral' });
-  assert.match(b.system[0].text, /<knowledge_base>[\s\S]*Process Design and Plant Performance[\s\S]*<\/knowledge_base>/);
+  assert.match(b.system[0].text, /<knowledge_base>[\s\S]*Process development and plant performance[\s\S]*<\/knowledge_base>/);
   assert.ok(b.system[0].text.length > 20_000, 'knowledge base is large enough to cache');
   assert.ok(!('temperature' in b) && !('top_p' in b) && !('betas' in b));
 });

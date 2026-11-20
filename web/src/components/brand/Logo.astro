@@ -1,39 +1,35 @@
 ---
 /**
- * KoKreaters logo, vector (REDESIGN-V3 §2–3). The SVGs live in src/assets/brand/svg/. The mark is never recoloured,
- * stretched or re-set: only the whole mark is scaled uniformly. Every variant loads as a cached <img> (crisp at any DPR,
- * not repeated inline in each page); `inline` renders a single-file variant as inline SVG instead.
- * v3: the v2 home "dock" (header cluster hidden on home, flown in by dock.ts) is gone; the header shows the whole
- * horizontal lockup from the first paint.
+ * KoKreaters logo, vector (pack 2, brief items 5 and 11). The SVGs are Ganeaysh's 20 Nov 2026 brand files
+ * (research/pack2/brand → src/assets/brand/svg/ via scripts/prepare-brand.mjs): the "K" mark with one saffron node and
+ * the Bodoni Moda wordmark, text converted to outlines. The artwork is never recoloured, stretched or re-set: only the
+ * whole logo is scaled uniformly. Every variant loads as a cached <img> (crisp at any DPR); `inline` renders inline SVG.
  *
  * Variants
- *  - horizontal / horizontal-white: cluster + wordmark on one line (`height`, default 44; chrome sets 36 desktop /
- *    30 mobile). White header → horizontal; navy footer / menu bar → horizontal-white.
- *  - full / full-white: cluster + wordmark + tagline (`width`, default 320 / 260; or `height`, which sizes it by height
- *    through --logo-h like the horizontal lockup). v4: the header uses `full` at 52px (the business-card logo with
- *    "Connect · Collaborate · Create"); the footer uses `full` on a white plate.
- *  - wordmark / wordmark-white: the wordmark alone (`width` any CSS length, default 100%).
- *  - cluster: the node cluster alone (`size`, default 64). For a monochrome cluster use brand/NodeMark.
- * Accessible name: inside a link (`href`) the image is alt="" and the link carries `label`; standalone `full` /
- * `full-white` get `alt` (default "KoKreaters: Connect · Collaborate · Create"); other standalone variants are
- * decorative unless `alt` is passed.
+ *  - navy: mark + wordmark, no tagline (kokreaters-logo-navy-no-tagline.svg). Website header on a light ground.
+ *  - navy-tagline: with "Connect · Collaborate · Create" (kokreaters-logo-navy.svg). Documents, about page.
+ *  - white: white mark + wordmark + tagline (kokreaters-logo-white.svg). Footer and any navy ground.
+ *  - mark: the K mark alone (kokreaters-mark.svg; `size`, default 64).
+ *  Old v3 names are kept as aliases so every caller compiles and shows the new logo:
+ *  horizontal / wordmark → navy, full → navy-tagline, full-white / full-reversed / horizontal-white / wordmark-white →
+ *  white, cluster → mark.
+ * Size: `height` (px, sets --logo-h; the CSS can override --logo-h per breakpoint) or `width` (any CSS length).
+ * Accessible name (brief item 5): the image always has alt="KoKreaters" (or `alt`); inside a link (`href`) the link
+ * also carries aria-label=`label` (default "KoKreaters home").
  * Mobile: scales with `height` / `width`; never wider than its container.
  */
-import horizontalUrl from '@/assets/brand/svg/kokreaters-logo-horizontal.svg?url';
-import horizontalWhiteUrl from '@/assets/brand/svg/kokreaters-logo-horizontal-white.svg?url';
-import fullRaw from '@/assets/brand/svg/kokreaters-logo-full.svg?raw';
-import fullUrl from '@/assets/brand/svg/kokreaters-logo-full.svg?url';
-import fullWhiteRaw from '@/assets/brand/svg/kokreaters-logo-full-white.svg?raw';
-import fullWhiteUrl from '@/assets/brand/svg/kokreaters-logo-full-white.svg?url';
-import wordmarkRaw from '@/assets/brand/svg/kokreaters-wordmark.svg?raw';
-import wordmarkUrl from '@/assets/brand/svg/kokreaters-wordmark.svg?url';
-import wordmarkWhiteRaw from '@/assets/brand/svg/kokreaters-wordmark-white.svg?raw';
-import wordmarkWhiteUrl from '@/assets/brand/svg/kokreaters-wordmark-white.svg?url';
-import nodeRaw from '@/assets/brand/svg/kokreaters-node-cluster.svg?raw';
-import nodeUrl from '@/assets/brand/svg/kokreaters-node-cluster.svg?url';
+import navyRaw from '@/assets/brand/svg/kokreaters-logo-navy-no-tagline.svg?raw';
+import navyUrl from '@/assets/brand/svg/kokreaters-logo-navy-no-tagline.svg?url';
+import navyTagRaw from '@/assets/brand/svg/kokreaters-logo-navy.svg?raw';
+import navyTagUrl from '@/assets/brand/svg/kokreaters-logo-navy.svg?url';
+import whiteRaw from '@/assets/brand/svg/kokreaters-logo-white.svg?raw';
+import whiteUrl from '@/assets/brand/svg/kokreaters-logo-white.svg?url';
+import markRaw from '@/assets/brand/svg/kokreaters-mark.svg?raw';
+import markUrl from '@/assets/brand/svg/kokreaters-mark.svg?url';
 
-export type LogoVariant = 'horizontal' | 'horizontal-white' | 'full' | 'full-white' | 'wordmark' | 'wordmark-white' | 'cluster'
-  | 'full-reversed'; // v1 name, kept as an alias of full-white
+type Base = 'navy' | 'navy-tagline' | 'white' | 'mark';
+export type LogoVariant = Base
+  | 'horizontal' | 'horizontal-white' | 'full' | 'full-white' | 'full-reversed' | 'wordmark' | 'wordmark-white' | 'cluster';
 interface Props {
   variant?: LogoVariant;
   href?: string | null;
@@ -47,59 +43,56 @@ interface Props {
   class?: string;
   id?: string;
 }
+const ALIAS: Record<LogoVariant, Base> = {
+  navy: 'navy', 'navy-tagline': 'navy-tagline', white: 'white', mark: 'mark',
+  horizontal: 'navy', wordmark: 'navy', full: 'navy-tagline',
+  'full-white': 'white', 'full-reversed': 'white', 'horizontal-white': 'white', 'wordmark-white': 'white', cluster: 'mark',
+};
 const { label = 'KoKreaters home', class: cls, id, inline = false } = Astro.props;
-const variant: Exclude<LogoVariant, 'full-reversed'> = Astro.props.variant === 'full-reversed' ? 'full-white' : (Astro.props.variant ?? 'horizontal');
+const variant = ALIAS[Astro.props.variant ?? 'navy'];
 const href = Astro.props.href ?? null;
 const Tag = href ? 'a' : 'span';
-const loading = Astro.props.loading ?? (variant.startsWith('horizontal') ? 'eager' : 'lazy');
+const loading = Astro.props.loading ?? 'lazy';
 
-/** Inner markup of an SVG file (no XML comment, no ids, no outer <svg>). */
-const inner = (raw: string) => raw.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+id="[^"]*"/g, '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
-const viewBoxOf = (raw: string) => (raw.match(/viewBox="([^"]+)"/) ?? [])[1] ?? '0 0 100 100';
-const ratioOf = (raw: string) => { const [, , w, h] = viewBoxOf(raw).split(/\s+/).map(Number); return w / h; };
+const files: Record<Base, readonly [string, string]> = {
+  navy: [navyRaw, navyUrl], 'navy-tagline': [navyTagRaw, navyTagUrl], white: [whiteRaw, whiteUrl], mark: [markRaw, markUrl],
+};
+const [raw, url] = files[variant];
 
-const isHorizontal = variant === 'horizontal' || variant === 'horizontal-white';
-const height = Astro.props.height ?? 44;
-const byHeight = !isHorizontal && Astro.props.height !== undefined && Astro.props.width === undefined;
-const HORIZONTAL_RATIO = 2180 / 615; // viewBox of kokreaters-logo-horizontal(-white).svg
+/** Inner markup of an SVG file (no comment, title, ids or outer <svg>). */
+const inner = (s: string) => s.replace(/<!--[\s\S]*?-->/g, '').replace(/<title>[\s\S]*?<\/title>/g, '').replace(/\s+id="[^"]*"/g, '')
+  .replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
+const viewBox = (raw.match(/viewBox="([^"]+)"/) ?? [])[1] ?? '0 0 100 100';
+const [, , vbW, vbH] = viewBox.split(/\s+/).map(Number);
+const ratio = vbW / vbH;
 
-const files = {
-  full: [fullRaw, fullUrl], 'full-white': [fullWhiteRaw, fullWhiteUrl], wordmark: [wordmarkRaw, wordmarkUrl],
-  'wordmark-white': [wordmarkWhiteRaw, wordmarkWhiteUrl], cluster: [nodeRaw, nodeUrl],
-} as const;
-const single = isHorizontal ? null : files[variant as keyof typeof files];
-const defaultWidth = variant === 'full' ? 320 : variant === 'full-white' ? 260 : variant === 'cluster' ? (Astro.props.size ?? 64) : '100%';
-const w = Astro.props.width ?? defaultWidth;
+const byHeight = Astro.props.width === undefined && (Astro.props.height !== undefined || variant !== 'mark');
+const height = Astro.props.height ?? (variant === 'mark' ? (Astro.props.size ?? 64) : 44);
+const w = Astro.props.width ?? (variant === 'mark' ? (Astro.props.size ?? 64) : '100%');
 const cssW = typeof w === 'number' ? `${w}px` : w;
 const pxW = typeof w === 'number' ? w : 600;
-const ratio = single ? ratioOf(single[0]) : HORIZONTAL_RATIO;
+const imgW = byHeight ? Math.round(height * ratio) : pxW;
+const imgH = byHeight ? height : Math.round(pxW / ratio);
 
-const name = !href ? (Astro.props.alt ?? (variant === 'full' || variant === 'full-white' ? 'KoKreaters: Connect · Collaborate · Create' : '')) : '';
-const svgA11y: Record<string, string> = name ? { role: 'img', 'aria-label': name } : { 'aria-hidden': 'true' };
+const name = Astro.props.alt ?? 'KoKreaters';
 ---
-{isHorizontal ? (
-  <Tag href={href ?? undefined} id={id} class:list={['logo', 'logo--horizontal', `logo--${variant}`, cls]} aria-label={href ? label : undefined} style={`--logo-h:${height}px`}>
-    <img
-      class="logo__img" src={variant === 'horizontal' ? horizontalUrl : horizontalWhiteUrl} alt={name}
-      width={Math.round(height * HORIZONTAL_RATIO)} height={height} loading={loading} decoding="async"
-    />
-  </Tag>
-) : single && (
-  <Tag href={href ?? undefined} id={id} class:list={['logo', `logo--${variant}`, byHeight && 'logo--h', cls]} aria-label={href ? label : undefined} style={byHeight ? `--logo-h:${height}px` : `--logo-w:${cssW}`}>
-    {inline ? (
-      <svg class="logo__svg" viewBox={viewBoxOf(single[0])} focusable="false" {...svgA11y} set:html={inner(single[0])} />
-    ) : (
-      <img class="logo__img" src={single[1]} alt={name} width={byHeight ? Math.round(height * ratio) : pxW} height={byHeight ? height : Math.round(pxW / ratio)} loading={loading} decoding="async" />
-    )}
-  </Tag>
-)}
+<Tag
+  href={href ?? undefined} id={id}
+  class:list={['logo', `logo--${variant}`, byHeight ? 'logo--h' : 'logo--w', cls]}
+  aria-label={href ? label : undefined}
+  style={byHeight ? `--logo-h:${height}px;--logo-ratio:${ratio}` : `--logo-w:${cssW};--logo-ratio:${ratio}`}
+>
+  {inline ? (
+    <svg class="logo__img" viewBox={viewBox} focusable="false" role="img" aria-label={name} set:html={inner(raw)} />
+  ) : (
+    <img class="logo__img" src={url} alt={name} width={imgW} height={imgH} loading={loading} decoding="async" />
+  )}
+</Tag>
 <style>
   .logo { display: inline-flex; align-items: center; text-decoration: none; color: inherit; line-height: 0; flex: none; }
-  .logo__svg, .logo__img { display: block; overflow: visible; isolation: isolate; max-width: none; }
-  .logo--horizontal { height: var(--logo-h); }
-  .logo--horizontal .logo__img { height: 100%; width: auto; aspect-ratio: 2180 / 615; }
-  .logo:not(.logo--horizontal):not(.logo--h) { width: var(--logo-w); max-width: 100%; }
-  .logo:not(.logo--horizontal):not(.logo--h) .logo__svg, .logo:not(.logo--horizontal):not(.logo--h) .logo__img { width: 100%; height: auto; }
+  .logo__img { display: block; overflow: visible; max-width: none; }
   .logo--h { height: var(--logo-h); }
-  .logo--h .logo__svg, .logo--h .logo__img { height: 100%; width: auto; }
+  .logo--h .logo__img { height: 100%; width: auto; aspect-ratio: var(--logo-ratio); }
+  .logo--w { width: var(--logo-w); max-width: 100%; }
+  .logo--w .logo__img { width: 100%; height: auto; aspect-ratio: var(--logo-ratio); }
 </style>

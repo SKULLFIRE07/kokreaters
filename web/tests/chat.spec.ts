@@ -144,6 +144,8 @@ test.describe('Ask KoKreaters on a phone', () => {
   test('full-screen sheet', async ({ page }) => {
     await mockChat(page);
     await page.goto('/');
+    await page.evaluate(() => window.scrollTo(0, 1200));
+    await page.waitForTimeout(400);
     await page.locator('[data-chat-launcher]').click();
     const panel = page.locator('[data-chat-panel]');
     await expect(panel).toHaveClass(/is-open/);

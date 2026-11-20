@@ -2,16 +2,16 @@
 /**
  * Home 11 · Founder (v4 developer guide). Porcelain band: the studio portrait (src/assets/photos/ganeaysh-portrait.jpg)
  * left; right, vertically centred: "Founder" label, the quote in italic Bodoni (40/50), a 56 × 3px saffron rule (draws
- * in once), "Ganeaysh Kulkarni" + "Chief Catalyst and Founder, KoKreaters", and "Meet Ganeaysh →" (/about).
- * The attribution sits outside the blockquote (WHATWG). The quote wording is CONFIRM 4 (staging-only tag).
+ * in once), then (pack 2 item 19) "Ganeaysh Kulkarni" / "Founder and Principal, KoKreaters" / "Former Global Product &
+ * Process Design Director, Cargill" / italic "Chief Catalyst", and "Meet Ganeaysh →" (/about).
+ * The attribution sits outside the blockquote (WHATWG). The quote is confirmed (item 19: "Keep the quote").
  * Motion: the portrait lifts a touch while it crosses the viewport (data-gsap="lift"); the rule draws in.
  * Mobile: portrait (4:5, up to 400px wide) above the text.
  */
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
-import Confirm from '@/components/ui/Confirm.astro';
 import { founderQuote } from '@/data/home';
-import { founderName, founderRole, portraitAlt } from '@/data/founder';
+import { founderName, founderRole, founderFormerRole, founderFlourish, portraitAlt } from '@/data/founder';
 import { site } from '@/config/site';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 ---
@@ -28,7 +28,8 @@ import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
       <p class="hf__who">
         <span class="hf__name">{founderName}</span>
         <span class="hf__role">{founderRole}, {site.name}</span>
-        <Confirm id={4} note="founder quote wording" />
+        <span class="hf__role">{founderFormerRole}</span>
+        <span class="hf__flourish">{founderFlourish}</span>
       </p>
       <ArrowLink href={founderQuote.link.href} class="hf__link">{founderQuote.link.label}</ArrowLink>
     </div>
@@ -50,7 +51,8 @@ import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
   .hf__rule { display: block; width: 56px; height: 3px; background: var(--saffron); }
   .hf__who { margin: 0; display: flex; flex-direction: column; gap: 4px; }
   .hf__name { font-size: 1.125rem; font-weight: 700; color: var(--navy-900); }
-  .hf__role { font-size: .9375rem; color: var(--fg-2); }
+  .hf__role { font-size: .9375rem; line-height: 1.45; color: var(--fg-2); }
+  .hf__flourish { margin-top: 4px; font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--fg-2); }
   .hf :global(.hf__link) { margin-top: -12px; }
   @media (min-width: 900px) {
     .hf__grid { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); column-gap: clamp(56px, 7vw, 96px); }

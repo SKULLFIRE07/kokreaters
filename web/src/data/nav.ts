@@ -75,12 +75,34 @@ export const footer = {
     email: { label: 'office@KoKreaters.com', href: `mailto:${site.email}` },
     whatsapp: { label: `WhatsApp ${site.whatsapp.display}`, href: site.whatsapp.href },
     linkedin: { label: 'LinkedIn', href: site.linkedin.href },
+    /** Brief item 38: the founder's profile is live; the company page (Part K 14) is a placeholder → hidden until set. */
+    linkedinFounder: { label: 'LinkedIn: Ganeaysh Kulkarni', href: site.linkedin.href },
+    linkedinCompany: { label: 'LinkedIn: KoKreaters', href: site.linkedinCompany },   // P-14 (src/config/site.ts)
     base: 'Based in the Netherlands',
   },
   newsletter: { heading: 'Newsletter' },
   copyright: `© 2026 ${site.name}. All rights reserved.`,
   registrationNote: 'KvK / VAT / registered address',
   homeLabel: 'KoKreaters home',
+  /**
+   * Brief item 10 legal line: "KoKreaters ⟦legal name and legal form⟧ · KvK ⟦00000000⟧ · BTW ⟦NL000000000B01⟧ ·
+   * ⟦City⟧, the Netherlands". Every part is unconfirmed (Part K 1) → null; the line renders only when name, KvK and
+   * BTW are all set (city optional: "the Netherlands" alone). Staging shows a CONFIRM P-1 marker in its place.
+   */
+  legalEntity: {
+    name: null as string | null,      // P-1 legal name and legal form, e.g. "B.V."
+    kvk: null as string | null,       // P-1 e.g. "00000000"
+    btw: null as string | null,       // P-1 e.g. "NL000000000B01"
+    city: null as string | null,      // P-1
+  },
+  legalNote: 'legal name and form, KvK, BTW and city',
+};
+
+/** The footer legal line from footer.legalEntity, or null while any required part is unconfirmed. */
+export const legalLine = (): string | null => {
+  const e = footer.legalEntity;
+  if (!e.name || !e.kvk || !e.btw) return null;
+  return [`${site.name} ${e.name}`, `KvK ${e.kvk}`, `BTW ${e.btw}`, e.city ? `${e.city}, the Netherlands` : 'the Netherlands'].join(' · ');
 };
 
 /** Newsletter form strings (ui/NewsletterForm). */

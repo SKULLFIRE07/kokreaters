@@ -60,7 +60,7 @@ const [serif, serifItalic, sans, logoSvg, portrait] = await Promise.all([
   b64('public/fonts/bodoni-moda-latin-opsz-normal.woff2'),
   b64('public/fonts/bodoni-moda-latin-opsz-italic.woff2'),
   b64('public/fonts/manrope-latin-wght-normal.woff2'),
-  readFile(resolve(WEB, 'src/assets/brand/svg/kokreaters-logo-horizontal-white.svg'), 'utf8'),
+  readFile(resolve(WEB, 'src/assets/brand/svg/kokreaters-logo-white.svg'), 'utf8'),
   sharp(resolve(WEB, 'src/assets/photos/ganeaysh-portrait.jpg')).resize({ width: 720 }).jpeg({ quality: 84, mozjpeg: true }).toBuffer(),
 ]);
 

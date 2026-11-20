@@ -2,7 +2,7 @@
 layout: ../layouts/LegalLayout.astro
 title: Privacy policy
 description: How KoKreaters collects, uses and protects personal data.
-updated: 2026-11-04
+updated: 2026-11-20
 ---
 import Confirm from '@/components/ui/Confirm.astro';
 import { showConfirm } from '@/lib/mode';
@@ -11,22 +11,35 @@ import { showConfirm } from '@/lib/mode';
 
 ## Who we are
 
-KoKreaters <Confirm id={11} note="legal entity, KvK, registered address" /> is based in the Netherlands. You can contact us about this policy at [office@KoKreaters.com](mailto:office@kokreaters.com).
+KoKreaters is based in the Netherlands. You can contact us about this policy at [office@KoKreaters.com](mailto:office@kokreaters.com).
+
+{/* Pack 2 items 10 and 41: legal name and form, KvK, BTW and city (Part K 1). Staging only until confirmed; then write it as a plain sentence: "KoKreaters <legal name and form> · KvK <number> · BTW <number> · <City>, the Netherlands". */}
+{showConfirm && <p><Confirm id="P-1" note="legal name and legal form, KvK number, BTW number and city; this line is hidden outside staging until confirmed" /></p>}
 
 ## What we collect
 
 We collect only what you enter yourself:
 
 - in the contact form: your name, company, role, email address, phone or WhatsApp number, country, area of interest, message, and how you heard about us;
-- in the newsletter field: your email address.
+- in the newsletter form (The KoKreaters Note): your email address, and the record that you ticked the consent box and confirmed your subscription;
+- in the playbook download form: your name, company, email address and country, and whether you also asked for The KoKreaters Note.
 
 ## Why we use it, and the legal basis
 
-We use these details to reply to your enquiry or to send you the newsletter. We do this on the basis of your consent (GDPR Article 6(1)(a)). You can withdraw your consent at any time by writing to [office@KoKreaters.com](mailto:office@kokreaters.com).
+We use these details to reply to your enquiry, to send you the newsletter, or to send you the playbook you asked for. We do this on the basis of your consent (GDPR Article 6(1)(a)). You can withdraw your consent at any time by writing to [office@KoKreaters.com](mailto:office@kokreaters.com).
+
+The newsletter uses double opt-in: you are subscribed only after you confirm your address from the email we send you. Every issue has a link to unsubscribe in one click.
 
 ## Who processes it
 
-Your details are handled by the form service <Confirm id={9} note="form provider" /> and by our email provider (Google Workspace). We share them with no other third parties, and we never sell personal data.
+Your details are handled by the form service <Confirm id={9} note="form provider" /> and by our email provider (Google Workspace). The newsletter is sent with Brevo, an email service based in the European Union (France), which stores your address and your subscription for us. We share your details with no other third parties, and we never sell personal data.
+
+## The playbook download
+
+When you download a KoKreaters playbook, we use your name, company, email address and country to send you the playbook and, as the form says, to contact you about it. The legal basis is your consent (GDPR Article 6(1)(a)), given with the tick box on the form. The newsletter is a separate choice: we add you to it only if you tick its own box and confirm your subscription.
+
+{/* Part K 17: retention period for downloads (e.g. 24 months). Staging only until confirmed; then write it into the paragraph above. */}
+{showConfirm && <p>We keep these details for <Confirm id="P-17" note="retention period for playbook downloads (e.g. 24 months); this sentence is hidden outside staging until set" />, then delete them.</p>}
 
 {/* Gap: no retention period yet. The whole section renders in staging only (REDESIGN-V3 §8.8), so the public link never shows an empty heading. Restore it as a normal "## How long we keep it" section once the period is confirmed. */}
 {showConfirm && <h2 id="how-long-we-keep-it">How long we keep it</h2>}

@@ -1,27 +1,29 @@
 ---
 /**
- * Author box, v4: a Porcelain panel with the square founder portrait, "About the author", the name as the h2 (Bodoni
- * 28), "Chief Catalyst and Founder, KoKreaters" (founderRole + site name), the short bio and "Meet Ganeaysh" (→ /about).
- * Sits in the article column under the share row.
- * ≥ 600px: photo (112px) left, text right. Mobile: 72px photo above the text, left-aligned.
+ * Author box (brief item 35): a Porcelain panel with the square founder portrait, "About the author", the name as the
+ * h2 (Bodoni 28), then "Founder and Principal, KoKreaters" and "Former Global Product & Process Design Director,
+ * Cargill" (item 19 lines from founder.ts via about/founder-lines.ts; item 8 allows the company name here), the short
+ * bio from src/data/about.ts (no company names) and "Meet Ganeaysh" (→ /about). Its accessible text reads as the
+ * brief's line: "Ganeaysh Kulkarni · Founder and Principal, KoKreaters · Former Global Product & Process Design
+ * Director, Cargill".
+ * ≥ 600px: photo (128px) left, text right. Mobile: 88px photo above the text, left-aligned.
  */
 import Photo from '@/components/ui/Photo.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import portrait from '@/assets/photos/ganeaysh-portrait-square.jpg';
-import { shortBio, founderName, founderRole } from '@/data/founder';
-import { founderQuote } from '@/data/home';
+import { founderName, roleLine, formerLine } from '@/components/about/founder-lines';
+import { shortBio } from '@/data/about';
 import { articleCopy } from '@/data/insights';
-import { site } from '@/config/site';
 ---
 <section class="author" aria-labelledby="author-h">
   <div class="author__photo"><Photo src={portrait} alt="" ratio="1/1" sizes="(min-width: 600px) 128px, 88px" widths={[88, 128, 176, 256, 384]} /></div>
   <div class="author__text">
     <Eyebrow class="author__eyebrow">{articleCopy.aboutAuthor}</Eyebrow>
     <h2 id="author-h" class="author__name">{founderName}</h2>
-    <p class="author__role">{founderRole}, {site.name}</p>
+    <p class="author__role">{roleLine}<span class="visually-hidden"> · </span><span class="author__former">{formerLine}</span></p>
     <p class="author__bio">{shortBio}</p>
-    <ArrowLink href={founderQuote.link.href} class="author__link">{founderQuote.link.label}</ArrowLink>
+    <ArrowLink href={articleCopy.meetAuthor.href} class="author__link">{articleCopy.meetAuthor.label}</ArrowLink>
   </div>
 </section>
 <style>
@@ -31,7 +33,9 @@ import { site } from '@/config/site';
     margin: var(--s-3) 0 0; font-family: var(--font-serif); font-size: 1.75rem;
     line-height: 1.2; font-weight: 400; letter-spacing: 0; color: var(--head);
   }
-  .author__role { margin: var(--s-1) 0 0; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
+  .author__role { margin: var(--s-2) 0 0; font-size: var(--fs-small); line-height: var(--lh-small); font-weight: 700; color: var(--head); }
+  /* the two lines stack; screen readers hear the brief's " · " between them */
+  .author__former { display: block; font-weight: 400; color: var(--fg-2); }
   .author__bio { margin: var(--s-4) 0 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); max-width: 60ch; text-wrap: pretty; }
   .author :global(.author__link) { margin-top: var(--s-2); }
   @media (min-width: 600px) {

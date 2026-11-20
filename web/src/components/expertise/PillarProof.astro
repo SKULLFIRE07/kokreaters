@@ -1,54 +1,73 @@
 ---
 /**
- * Proof from the founder's career (v4 Delft), on Delft Navy, after the homepage impact band: saffron-ruled label
- * "Impact", h2 "From our founder’s career" and "See the impact →" on one row; under a thin rule, the dateline
- * (caps, #DCE4F2), the result figure in Bodoni Moda 84px white (data-gsap="count") and the result line in Manrope 17px.
- * Without a result (strategy, deals: C-8) staging shows the band with a <Confirm>; preview and production omit it.
- * Mobile: head, figure 64px, line, link.
+ * Proof from the founder's career (pack 2), on Delft Navy: saffron-ruled label "Impact", h2 "From our founder’s career"
+ * and "See the impact →" (→ /impact#<story id>, which opens that story) on one row; under a thin rule, the story's tag
+ * line (caps, #DCE4F2), its big figure in Bodoni Moda 84px white (data-gsap="count"), and the story title + result.
+ * A story whose figure is still a placeholder (Part K) shows no figure outside staging (staging: figure + <Confirm>).
+ * Source line: the brief's neutral footnote (item 15), no employer names (item 8).
+ * Without a mapped story, staging shows the band with a <Confirm>; preview and production omit it (the page decides).
+ * Mobile: head, figure 64px, lines, link.
  */
 import Section from '@/components/ui/Section.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import Head from './Head.astro';
 import { pillarPage } from '@/data/pillars';
-import { impactPage, figureFallback } from '@/data/impact';
+import { impactPage, storyHref } from '@/data/impact';
 import { microcopy } from '@/data/microcopy';
-import type { FounderResult } from '@/data/types';
+import { showConfirm } from '@/lib/mode';
+import type { ImpactStory } from '@/data/types';
 
-interface Props { result?: FounderResult }
-const { result: r } = Astro.props;
-const figure = r ? (r.figure?.value ?? figureFallback[r.id]) : undefined;
+interface Props { story?: ImpactStory }
+const { story: s } = Astro.props;
+const figures = s ? s.figures.filter((f) => !f.pending || showConfirm) : [];
 ---
 <Section ground="navy" labelledby="record-title">
-  <Head id="record-title" label={impactPage.overline} title={pillarPage.fromTheRecord} dark link={r ? { label: microcopy.impactLink, href: `/impact#${r.id}` } : undefined} />
-  {r ? (
-    <div class="plate">
+  <Head id="record-title" label={impactPage.overline} title={pillarPage.fromTheRecord} dark link={s ? { label: microcopy.impactLink, href: storyHref(s.id) } : undefined} />
+  {s ? (
+    <div class:list={['plate', figures.length === 0 && 'plate--nofig']}>
       <div class="plate__fig">
-        <p class="plate__eyebrow">{r.dateline}</p>
-        {figure && <p class="plate__figure" data-gsap="count">{figure}</p>}
+        <p class="plate__eyebrow">{s.tag}</p>
+        {figures.length > 0 && (
+          <ul class:list={['plate__figs', figures.length > 1 && 'plate__figs--pair']} role="list">
+            {figures.map((f) => (
+              <li>
+                <p class="plate__figure" data-gsap={f.pending ? undefined : 'count'}>{f.value}</p>
+                <p class="plate__label">{f.label}{f.pending && <Confirm id={f.pending.confirm} note={f.pending.note} />}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div class="plate__text">
-        <p class="plate__line">{r.homeLine}</p>
-        <p class="plate__src">{impactPage.partOne} at {r.dateline.split(' · ').pop()}.</p>
+        <p class="plate__title">{s.title}</p>
+        <p class="plate__line">{s.result}</p>
+        <p class="plate__src">{pillarPage.proofSource}</p>
       </div>
     </div>
   ) : (
-    <p><Confirm id="C-8" note="no founder result is mapped to this area of expertise yet" /></p>
+    <p><Confirm id="C-8" note="no founder story is mapped to this area of expertise yet" /></p>
   )}
 </Section>
 <style>
   .plate { border-top: 1px solid var(--rule); padding-top: var(--s-5); display: grid; gap: var(--s-5); }
   .plate__eyebrow { font-size: var(--fs-label); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #DCE4F2; }
+  .plate__figs { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
   .plate__figure {
-    margin-top: var(--s-5);
     font-family: var(--font-serif); font-size: clamp(4rem, 3.4rem + 2vw, 5.25rem); line-height: 1; font-weight: 400;
     letter-spacing: -0.01em; color: var(--white); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
-  .plate__line { margin-top: var(--s-5); font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; max-width: 46ch; text-wrap: pretty; }
+  .plate__figs--pair .plate__figure { font-size: clamp(3.25rem, 2.9rem + 1.6vw, 4.25rem); }
+  .plate__label { margin-top: var(--s-2); font-size: var(--fs-small); line-height: 1.4; color: #DCE4F2; }
+  .plate__title { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.25; color: var(--white); max-width: 30ch; text-wrap: balance; }
+  .plate__line { margin-top: var(--s-4); font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; max-width: 52ch; text-wrap: pretty; }
   .plate__src { margin-top: var(--s-5); font-size: var(--fs-meta); color: var(--fg-2); }
   @media (min-width: 900px) {
     .plate { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; padding-top: var(--s-6); }
     .plate__fig { grid-column: 1 / 6; }
     .plate__text { grid-column: 7 / -1; padding-bottom: 6px; }
-    .plate__line { margin-top: 0; font-size: 1.1875rem; }
+    .plate__line { font-size: 1.1875rem; }
+    /* no confirmed figure: the tag line sits level with the title instead of at the foot of an empty column */
+    .plate--nofig { align-items: start; }
+    .plate--nofig .plate__eyebrow { padding-top: .6em; }
   }
 </style>

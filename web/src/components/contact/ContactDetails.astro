@@ -1,20 +1,20 @@
 ---
 /**
- * Contact, left column (REDESIGN-V3 §4 Contact, §9.3): "Contact details" h2 over a hairline, then an <address> with
- * email, WhatsApp and LinkedIn as large serif lines (small uppercase label above each, hairline below), the base line
- * with the time zone, then the booking card. (The founder who answers sits in the hero: ContactFounder.)
- * Facts from @/config/site and @/data/nav (base + CET); labels from @/data/contact.
- * Booking card: an external link when PUBLIC_BOOKING_URL is set. Unset (bookingUrl falls back to /contact#form) it is a
- * gap (CONFIRM 9, booking tool): staging shows it pointing at the form (a[data-booking="form"] → contact.ts focuses the
- * first field), preview and production leave it out.
+ * Contact, left column (brief items 36–37): "Contact details" h2 over a hairline, then an <address> with email,
+ * WhatsApp and LinkedIn as large lines (small uppercase label above each, hairline below): the founder's profile and,
+ * once Part K 14 is confirmed, the KoKreaters company page next to it (`linkedinCompany` in src/data/contact.ts; staging
+ * shows the empty slot with its <Confirm>, preview and production leave it out). Then the location line ("Based in the
+ * Netherlands" until Part K 1 names the city) and the booking button "Book a 30-minute introduction", which sits next
+ * to the form: an external link when PUBLIC_BOOKING_URL is set; unset it is Part K 13: staging shows it pointing at
+ * the form (a[data-booking="form"] → contact.ts focuses the first field), preview and production leave it out.
  * Mobile (< 900px): one column; each row stacks its label over the value; values wrap anywhere (the LinkedIn URL is
- * long); every link keeps a 44px tap height; values set at --fs-h4 (19 → 22). ≥ 900px the column sits left of the form
- * and stays in view while the form scrolls (sticky, set by the page); values at --fs-h3 from 1200px.
+ * long); every link keeps a 44px tap height. ≥ 900px the column sits left of the form and stays in view while the
+ * form scrolls (sticky, set by the page).
  */
 import Icon from '@/components/ui/Icon.astro';
 import Confirm from '@/components/ui/Confirm.astro';
-import { contact, contactPage } from '@/data/contact';
-import { footer, emailDisplay } from '@/data/nav';
+import { contact, contactPage, location, linkedinCompany } from '@/data/contact';
+import { emailDisplay } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 import { showConfirm } from '@/lib/mode';
@@ -22,6 +22,7 @@ import { showConfirm } from '@/lib/mode';
 const bookingSet = !site.bookingUrl.startsWith('/contact');
 const showBooking = bookingSet || showConfirm;
 const bookingHref = bookingSet ? site.bookingUrl : '#form';
+const showCompany = Boolean(linkedinCompany) || showConfirm;
 ---
 <div class="cd">
   <h2 id="contact-details-h" class="cd__title">{contactPage.detailsHeading}</h2>
@@ -32,7 +33,6 @@ const bookingHref = bookingSet ? site.bookingUrl : '#form';
         <dt class="cd__label">{contact.details.email}</dt>
         <dd class="cd__value">
           <a class="cd__link" href={`mailto:${site.email}`}>{emailDisplay}</a>
-          <Confirm id={9} note="public email and reply-time promise" />
         </dd>
       </div>
       <div class="cd__row">
@@ -40,13 +40,23 @@ const bookingHref = bookingSet ? site.bookingUrl : '#form';
         <dd class="cd__value"><a class="cd__link" href={site.whatsapp.href} rel="noopener"><span class="nowrap">{site.whatsapp.display}</span></a></dd>
       </div>
       <div class="cd__row">
-        <dt class="cd__label">{contact.details.linkedin}</dt>
+        <dt class="cd__label">{showCompany ? contact.details.linkedinFounder : contact.details.linkedin}</dt>
         <dd class="cd__value">
           <a class="cd__link cd__link--ext" href={site.linkedin.href} rel="noopener me"><span class="cd__url">{site.linkedin.display}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="arrow-up-right" size={20} stroke={1.75} class="cd__ext" /></a>
         </dd>
       </div>
+      {showCompany && (
+        <div class="cd__row">
+          <dt class="cd__label">{contact.details.linkedinCompany}</dt>
+          <dd class="cd__value">
+            {linkedinCompany
+              ? <a class="cd__link cd__link--ext" href={linkedinCompany.href} rel="noopener"><span class="cd__url">{linkedinCompany.display}</span><span class="visually-hidden"> ({microcopy.opensLinkedIn})</span><Icon name="arrow-up-right" size={20} stroke={1.75} class="cd__ext" /></a>
+              : <Confirm id="P-14" note="LinkedIn company page URL; hidden until it exists" />}
+          </dd>
+        </div>
+      )}
     </dl>
-    <p class="cd__base"><Icon name="pin" size={20} class="cd__pin" />{footer.contact.base}</p>
+    <p class="cd__base"><Icon name="pin" size={20} class="cd__pin" /><span>{location.line}{!location.city && <Confirm id="P-1" note="city" />}</span></p>
   </address>
 
   {showBooking && (
@@ -56,7 +66,7 @@ const bookingHref = bookingSet ? site.bookingUrl : '#form';
         <span class="cd-book__title u-draw">{contact.booking}</span>
         <Icon name={bookingSet ? 'arrow-up-right' : 'arrow-right'} size={20} stroke={2} class="cd-book__arrow u-nudge" />
       </a>
-      {!bookingSet && <Confirm id={9} note="booking tool: set PUBLIC_BOOKING_URL; hidden outside staging until then" />}
+      {!bookingSet && <Confirm id="P-13" note="booking link (Cal.com or Calendly): set PUBLIC_BOOKING_URL; hidden outside staging until then" />}
     </div>
   )}
 </div>

@@ -5,14 +5,40 @@ import { pillars } from './pillars';
 export const contact = {
   overline: 'Contact',
   headline: 'Let’s create something together.',
-  intro: 'Tell us a little about your challenge. Ganeaysh reads every message personally and replies within one working day.',   // CONFIRM 9
-  details: { email: 'Email', whatsapp: 'WhatsApp', linkedin: 'LinkedIn' },
-  booking: 'Book a 30-minute call',
+  /** Item 36; the reply-time sentence is item 2's, verbatim everywhere. */
+  intro: 'Tell us a little about your challenge. Ganeaysh reads every message personally and replies within two working days.',
+  details: { email: 'Email', whatsapp: 'WhatsApp', linkedin: 'LinkedIn', linkedinFounder: 'LinkedIn, Ganeaysh', linkedinCompany: 'LinkedIn, KoKreaters' },
+  /** Item 36: the booking button next to the form (Part K 13: hidden until the Cal.com / Calendly link exists). */
+  booking: 'Book a 30-minute introduction',
   submit: 'Send',            // COMPOSED (C-16)
   visitorFallback: 'You',    // COMPOSED (connection moment)
 };
 
 export const notSureYet = 'Not sure yet';
+
+/** Part K 1: the city. Until it is confirmed the line reads "Based in the Netherlands" (items 20, 36). */
+const city: string | null = null;
+export const location = {
+  city,
+  line: city ? `Based in ${city}, the Netherlands` : 'Based in the Netherlands',
+};
+
+/**
+ * Part K 14: the KoKreaters LinkedIn company page (item 37), shown next to the founder's profile once it exists.
+ * `null` = hidden outside staging. (If src/config/site.ts gains a single `linkedinCompany`, read it from there.)
+ */
+export const linkedinCompany: { href: string; display: string } | null = null;
+
+/** Item 36: "What happens next", under the form. */
+export const nextSteps = {
+  heading: 'What happens next',
+  steps: [
+    'You share your context, by form, email or a booked call.',
+    'We speak for 30 minutes, at no cost, within two working days.',
+    'You receive a short proposal with scope and stages.',
+    'We start, under NDA.',
+  ],
+};
 
 /**
  * Fields in brief order. Labels exactly as written. Interest, message and source carry no `autocomplete` token on

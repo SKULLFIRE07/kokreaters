@@ -1,0 +1,20 @@
+---
+/**
+ * Sector icon for "Who he has worked alongside" (brief item 24): a Lucide glyph (lucide-static, ISC) inlined at build
+ * time in the site's stroke style (24-unit box, stroke currentColor 1.5, round caps). Decorative: the sector's name is
+ * always written beside it. Only the six sector glyphs are imported, so nothing else ships.
+ */
+import baby from 'lucide-static/icons/baby.svg?raw';
+import milk from 'lucide-static/icons/milk.svg?raw';
+import shoppingBasket from 'lucide-static/icons/shopping-basket.svg?raw';
+import sparkles from 'lucide-static/icons/sparkles.svg?raw';
+import flaskConical from 'lucide-static/icons/flask-conical.svg?raw';
+import pawPrint from 'lucide-static/icons/paw-print.svg?raw';
+
+interface Props { name: string; size?: number; class?: string; }
+const { name, size = 32, class: cls } = Astro.props;
+const raw: Record<string, string> = { baby, milk, 'shopping-basket': shoppingBasket, sparkles, 'flask-conical': flaskConical, 'paw-print': pawPrint };
+const inner = (s: string) => s.replace(/<!--[\s\S]*?-->/g, '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace(/\s+/g, ' ').trim();
+const body = inner(raw[name] ?? raw.sparkles);
+---
+<svg class:list={['sector-icon', cls]} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" set:html={body} />
