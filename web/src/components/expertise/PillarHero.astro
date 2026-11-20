@@ -75,7 +75,7 @@ const { title, eyebrow, lead, crumbs, crumbsCurrentShort, image, imageAlt, image
   .ph__btn:focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
 
   @media (min-width: 900px) {
-    .ph { min-height: clamp(540px, 70svh, 760px); }
+    .ph { min-height: max(600px, calc(100svh - var(--chrome-top))); }
     .ph__scrim {
       background:
         linear-gradient(90deg, rgba(14, 31, 77, .94) 0%, rgba(14, 31, 77, .82) 42%, rgba(14, 31, 77, .25) 75%, rgba(14, 31, 77, .05) 100%),

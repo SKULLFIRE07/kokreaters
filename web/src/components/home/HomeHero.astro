@@ -15,7 +15,7 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { hero } from '@/data/home';
 ---
 <section class="hh band--navy on-dark" aria-labelledby="hero-title">
-  <Photo slug="hero-rapeseed" fill priority kenburns sizes="100vw" position="62% 50%" class="hh__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400]} />
+  <Photo slug="hero-rapeseed" fill priority kenburns sizes="100vw" position="62% 50%" class="hh__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400, 2880, 3600]} />
   <div class="hh__scrim" aria-hidden="true"></div>
   <div class="container hh__inner">
     <Eyebrow tone="white" class="hh__eyebrow">{hero.overline}</Eyebrow>
@@ -35,13 +35,14 @@ import { hero } from '@/data/home';
 </section>
 
 <style>
-  .hh { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white); }
+  .hh { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white);
+    min-height: max(600px, calc(100svh - var(--chrome-top))); display: flex; flex-direction: column; }
   .hh :global(.hh__photo) { z-index: -2; }
   .hh__scrim {
     position: absolute; inset: 0; z-index: -1; pointer-events: none;
     background: linear-gradient(180deg, rgba(14, 31, 77, .62) 0%, rgba(14, 31, 77, .86) 45%, rgba(14, 31, 77, .94) 100%);
   }
-  .hh__inner { position: relative; display: flex; flex-direction: column; padding-block: 72px 40px; }
+  .hh__inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 72px 40px; }
   .hh__title {
     margin: 26px 0 0; max-width: 13ch;
     font-family: var(--font-serif); font-weight: 500; font-size: 2.75rem; line-height: 1.09; letter-spacing: -0.01em;
@@ -66,8 +67,9 @@ import { hero } from '@/data/home';
       background: linear-gradient(90deg, rgba(14, 31, 77, .94) 0%, rgba(14, 31, 77, .82) 42%, rgba(14, 31, 77, .25) 75%, rgba(14, 31, 77, .05) 100%);
     }
     .hh__inner { padding-block: 120px 56px; }
-    .hh__title { max-width: 780px; font-size: clamp(3.5rem, 1.2rem + 4.1vw, 4.75rem); line-height: 1.05; }
+    .hh__title { max-width: 16ch; font-size: clamp(3.5rem, 1.6rem + 3.6vw, 6rem); line-height: 1.04; }
     .hh__lead { font-size: 1.1875rem; }
-    .hh__foot { margin-top: 96px; }
+    .hh__inner { padding-block: 96px 40px; }
+    .hh__foot { position: absolute; left: var(--gutter-x); right: var(--gutter-x); bottom: 40px; margin: 0; }
   }
 </style>

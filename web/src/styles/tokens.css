@@ -80,10 +80,10 @@
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
   --section: clamp(4rem, 2.9rem + 4.5vw, 7.5rem);          /* 80 (390) → 148 (1440) → 180 (1920) — §9.3 */
   --section-tight: clamp(3.5rem, 2.703rem + 3.268vw, 7rem);      /* 56 → 112 */
-  --container: 1320px;   /* 1240 content + 2 × 40 padding */            /* §9.6: near full bleed — content runs to the gutters up to 1928px screens */
+  --container: 1680px;   /* owner: full-screen layout; content runs near edge to edge up to 1760px screens */            /* §9.6: near full bleed — content runs to the gutters up to 1928px screens */
   --container-narrow: 760px;
-  --container-wide: 1320px;
-  --gutter-x: clamp(20px, 2.8vw, 40px);            /* §9.6: 20 at 390 → 46 at 1440 → 61 at 1920 (Apple/Palantir-tight edges) */
+  --container-wide: 1680px;
+  --gutter-x: clamp(20px, 4.2vw, 80px);            /* §9.6: 20 at 390 → 46 at 1440 → 61 at 1920 (Apple/Palantir-tight edges) */
   --grid-gap: clamp(1rem, .618rem + 1.569vw, 2.5rem);            /* 16 → 40 */
   --ann-real: 44px;               /* AnnouncementBar height as rendered (44 touch / phones, 36 fine pointer ≥ 600) */
   --chrome-top: var(--header-h);  /* header (+ the announcement bar when it shows): what a full-screen hero subtracts */

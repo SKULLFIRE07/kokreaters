@@ -11,7 +11,7 @@ import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { netherlands as nl } from '@/data/home';
 ---
 <section class="hnl band--navy on-dark" aria-labelledby="hnl-heading">
-  <Photo slug="nl-polder" fill parallax sizes="100vw" position="60% 55%" class="hnl__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400]} />
+  <Photo slug="nl-polder" fill parallax sizes="100vw" position="60% 55%" class="hnl__photo" widths={[640, 800, 1024, 1280, 1600, 2000, 2400, 2880, 3600]} />
   <div class="hnl__scrim" aria-hidden="true"></div>
   <div class="container hnl__inner">
     <Eyebrow tone="white">{nl.overline}</Eyebrow>
@@ -22,7 +22,8 @@ import { netherlands as nl } from '@/data/home';
 </section>
 
 <style>
-  .hnl { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white); }
+  .hnl { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white);
+    min-height: clamp(520px, 82svh, 980px); display: flex; flex-direction: column; justify-content: center; }
   .hnl :global(.hnl__photo) { z-index: -2; }
   .hnl__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(14, 31, 77, .92) 0%, rgba(14, 31, 77, .8) 60%, rgba(14, 31, 77, .55) 100%); }
   .hnl__inner { display: flex; flex-direction: column; gap: 22px; padding-block: 88px; }
