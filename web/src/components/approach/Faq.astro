@@ -18,7 +18,7 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–\u2060$2');
 const items = faq.map(({ q, a }) => ({ q, a: bind(a) }));
 const pending = faq.map((f, i) => ({ n: i + 1, note: f.confirm })).filter((f) => f.note);
 ---
-<Section ground="grey" labelledby="faq-h" class="faq">
+<Section ground="grey" rule labelledby="faq-h" class="faq">
   <div class="grid-12">
     <div class="faq__aside" style="--col: 1 / 6">
       <Head id="faq-h" title={faqHeading} class="faq__head" />

@@ -4,9 +4,10 @@
  *  1 PageHero, grey, md (an airy band, H1 bottom-aligned): crumbs, eyebrow "Start a conversation", H1 contact.headline
  *    (#contact-title), intro. Aside: the founder who answers, his 4:5 studio portrait in its natural orientation
  *    (never cropped) standing on the band's bottom edge, name and role beside it (ContactFounder).
- *  2 White band, wide grid: contact details left (email, WhatsApp, LinkedIn, "Based in the Netherlands", the
- *    "Book a 30-minute introduction" button once Part K 13 exists) · the form right, "What happens next" under it.
- *    The intro carries item 2's reply-time sentence verbatim (src/data/contact.ts).
+ *  2 White band. Pack 3: the booking block first once PUBLIC_BOOKING_URL exists (ContactBooking, `id="start"`), then
+ *    the wide grid: contact details left (email, WhatsApp, LinkedIn, time zone "CET, the Netherlands", "Confidential
+ *    by default") · the form right ("Or send a message" under a booking block; `id="start"` when there is no booking
+ *    block), "What happens next" under it. The intro carries item 2's reply-time sentence verbatim (the reply promise).
  * Mobile (< 900px): one column. Hero text, then the founder as a small row (portrait 104px wide, standing on the band
  * edge, name beside it); then details (a short block) and the form at full width. ≥ 900px: details in columns 1–5,
  * sticky under the header while the longer form scrolls; form in columns 6–12 (two-up fields), from 1200px in 7–12
@@ -21,11 +22,16 @@ import ContactDetails from '@/components/contact/ContactDetails.astro';
 import ContactForm from '@/components/contact/ContactForm.astro';
 import ContactFounder from '@/components/contact/ContactFounder.astro';
 import ContactNextSteps from '@/components/contact/ContactNextSteps.astro';
-import { contact } from '@/data/contact';
+import ContactBooking from '@/components/contact/ContactBooking.astro';
+import { hasBooking } from '@/lib/booking';
+import { showConfirm } from '@/lib/mode';
+import { contact, contactPage } from '@/data/contact';
 import { microcopy } from '@/data/microcopy';
 import { pageSeo } from '@/lib/seo';
 
 const crumbs = [{ label: contact.overline, href: '/contact' }];
+/** The booking block renders (with id="start") when the URL exists, or in staging as the marked slot. */
+const bookingFirst = hasBooking || showConfirm;
 ---
 <BaseLayout page="contact" seo={pageSeo('contact')} breadcrumbs={crumbs}>
   <PageHero
@@ -41,9 +47,10 @@ const crumbs = [{ label: contact.overline, href: '/contact' }];
   </PageHero>
 
   <Section ground="white" labelledby="contact-details-h" class="contact">
+    <ContactBooking />
     <div class="contact__grid">
       <div class="contact__details"><ContactDetails /></div>
-      <div class="contact__form"><ContactForm /><ContactNextSteps /></div>
+      <div class="contact__form" id={bookingFirst ? undefined : 'start'}><ContactForm heading={bookingFirst ? contactPage.formHeadingAfterBooking : undefined} /><ContactNextSteps /></div>
     </div>
   </Section>
 

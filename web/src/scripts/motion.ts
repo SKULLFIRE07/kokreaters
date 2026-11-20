@@ -9,8 +9,8 @@
  *   data-gsap="kenburns"    hero photo frame: the image settles 1.08 → 1 over 1.6 s on load (CSS, from first paint),
  *                           then drifts down gently while the hero scrolls away (always covered, no edge shows)
  *   data-gsap="rule"        decorative line: scaleX 0 → 1 from the left when it enters (GSAP sets the start; no CSS hold)
- *   data-gsap="count"       big figure (final value in the HTML): counts up once when it enters; only the digits move
- *                           ("−25 °C" → "−0 °C" … "−25 °C"), "WHO" is left alone. Also handles v3 [data-count].
+ *   data-gsap="count"       no-op since pack 3 (lead decision 1: no counting animation on any figure; the brief's bug 2
+ *                           was counters running through wrong grammar). Figures render in their final form.
  *   data-gsap="lift"        card / tile: a small scrubbed translateY (0 → −14 px) while it crosses the viewport (--kk-lift)
  *   data-gsap="hero-title"  home H1: lines (.ln > span) rise inside their mask once on load. Pure CSS (motion.css),
  *                           so it starts at 0 ms, not when this chunk arrives.
@@ -28,36 +28,6 @@ type ST = typeof import('gsap/ScrollTrigger').ScrollTrigger;
 
 const $$ = <T extends Element = HTMLElement>(s: string, root: ParentNode = document) =>
   Array.from(root.querySelectorAll<T>(s) as NodeListOf<T>);
-
-const COUNT = /^(\D*?)(\d+(?:[.,]\d+)?)(.*)$/s;
-
-function prepCount(el: HTMLElement) {
-  if (el.dataset.countReady) return null;
-  const full = (el.textContent ?? '').trim();
-  const m = COUNT.exec(full);
-  // no digits ("WHO") or an ordinal ("1st"): leave the figure exactly as rendered
-  if (!m || /^(st|nd|rd|th)\b/i.test(m[3])) return null;
-  const sep = m[2].includes(',') ? ',' : '.';
-  const n = Number(m[2].replace(',', '.'));
-  if (!Number.isFinite(n) || n === 0) return null;
-  const dec = (m[2].split(/[.,]/)[1] ?? '').length;
-  const fmt = (v: number) => m[1] + v.toFixed(dec).replace('.', sep) + m[3];
-  el.dataset.countReady = '1';
-  const out = document.createElement('span');
-  out.setAttribute('aria-hidden', 'true');
-  out.className = 'kk-count';
-  out.textContent = fmt(0);
-  // reserve the final width so nothing reflows while the digits change
-  const range = document.createRange();
-  range.selectNodeContents(el);
-  out.style.display = 'inline-block';
-  out.style.minWidth = `${Math.ceil(range.getBoundingClientRect().width)}px`;
-  const sr = document.createElement('span');
-  sr.className = 'visually-hidden';
-  sr.textContent = full;
-  el.replaceChildren(out, sr);
-  return { out, n, fmt };
-}
 
 async function load() {
   const [{ gsap }, { ScrollTrigger }] = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')]);
@@ -124,35 +94,12 @@ function initRules(gsap: Gsap) {
   }
 }
 
-function initCount(gsap: Gsap, ScrollTrigger: ST) {
-  for (const el of $$('[data-gsap="count"], [data-count]')) {
-    // already on screen when this chunk arrives: leave it as rendered (no 25 -> 0 -> 25 flash)
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) continue;
-    // signed figures (minus 25 °C) read wrong mid-count: leave them as rendered
-    if (/^\s*[\u2212-]/.test(el.textContent ?? '')) continue;
-    // the real value stays in the DOM until the figure reaches the viewport; only then does it count
-    ScrollTrigger.create({
-      trigger: el, start: 'top 88%', once: true,
-      onEnter: () => {
-        const c = prepCount(el);
-        if (!c) return;
-        const o = { v: 0 };
-        gsap.to(o, {
-          v: c.n, duration: 1.1, ease: 'power2.out',
-          onUpdate: () => { c.out.textContent = c.fmt(o.v); },
-          onComplete: () => { c.out.textContent = c.fmt(c.n); },
-        });
-      },
-    });
-  }
-}
-
 let started = false;
 export function initMotion() {
   if (started) return;
   started = true;
   if (mq('(prefers-reduced-motion: reduce)').matches) return;
-  const hasHooks = !!document.querySelector('[data-gsap], [data-count]');
+  const hasHooks = !!document.querySelector('[data-gsap]:not([data-gsap="count"])');
   const fine = mq('(hover: hover) and (pointer: fine)').matches;
   if (!hasHooks && !fine) return;
 
@@ -163,7 +110,6 @@ export function initMotion() {
       initParallax(gsap);
       initLift(gsap);
       initRules(gsap);
-      initCount(gsap, ScrollTrigger);
       html.classList.add('kk-gsap');
       // images and fonts change heights after load: re-measure once things settle
       window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });

@@ -25,6 +25,12 @@ async function mockChat(page: Page, status = 200) {
   return bodies;
 }
 
+test.beforeEach(async ({ page }, info) => {
+  const res = await page.request.get('/');
+  const html = await res.text();
+  if (!html.includes('data-chat-launcher')) info.skip(true, 'chat assistant is off in this build (PUBLIC_CHAT)');
+});
+
 test.describe('Ask KoKreaters', () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 

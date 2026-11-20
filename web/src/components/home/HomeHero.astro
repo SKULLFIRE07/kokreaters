@@ -1,17 +1,18 @@
 ---
 /**
- * Home 3 · Hero (v4 developer guide + homepage design). Full-bleed rapeseed field (hero-rapeseed, cropped to keep the
- * sky on the left) under a Delft Navy gradient that is solid behind the text on the left (rgba(14,31,77,.92)) and
- * fades out to the right. White label with the saffron rule, Bodoni H1 (76/80 desktop, 44/48 mobile), intro, two
- * buttons (white fill + white outline), and (pack 2 item 14) the proof line on a hairline: three parts in small caps
- * divided by thin rules (one row ≥ 900px; stacked as three short lines, with short horizontal rules, on phones).
- * Motion: the photo settles 1.08 → 1 on load and drifts as the hero leaves (data-gsap="kenburns"); the H1's lines rise
- * once inside their masks on load (data-gsap="hero-title", CSS from 0 ms). Everything else is there at first paint.
- * Mobile (< 900px): the gradient runs top-to-bottom so the whole column of text sits on deep navy; buttons stack.
- * The photo is the LCP image (priority).
+ * Home 1 · Hero (pack 3). Full-screen rapeseed field under a Delft Navy gradient (solid behind the text on the left,
+ * clear on the right). Eyebrow "25 years · Agri, food and feed · Plant floor to boardroom", the Bodoni H1 in three
+ * lines, two buttons — "Book a 30-minute call" (saffron, the page's one saffron button; bookingHref()) and "Explore our
+ * expertise" (white outline) — and, bug 1, the proof line on its OWN ROW in normal flow below the buttons, 48px (≥ 32px)
+ * under them, so it can never print over them at any width (tested 1024 · 1030 · 1280 · 1440).
+ * No intro paragraph: the owner asked for sharp and short; the founder strip below carries the one career line.
+ * Motion: the photo settles 1.08 → 1 on load and drifts as the hero leaves (kenburns); the H1's lines rise once in
+ * their masks (CSS, from 0 ms). Everything is there at first paint. The photo is the LCP image (priority).
+ * Mobile (< 900px): the gradient runs top-to-bottom; buttons stack full width below 600px; the proof parts stack.
  */
 import Photo from '@/components/ui/Photo.astro';
 import Button from '@/components/ui/Button.astro';
+import BookCall from '@/components/ui/BookCall.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { hero } from '@/data/home';
 ---
@@ -23,42 +24,41 @@ import { hero } from '@/data/home';
     <h1 id="hero-title" class="hh__title" data-gsap="hero-title">
       {hero.headlineLines.map((l, i) => <span class="ln"><span style={`--ln:${i}`}>{l}</span></span>)}
     </h1>
-    <p class="hh__lead">{hero.sub}</p>
     <div class="hh__actions">
-      <Button href={hero.primary.href} variant="on-dark">{hero.primary.label}</Button>
-      <Button href={hero.secondary.href} variant="ghost-on-dark">{hero.secondary.label}</Button>
+      <BookCall variant="saffron" size="lg" label={hero.primary.label} />
+      <Button href={hero.secondary.href} variant="ghost-on-dark" size="lg">{hero.secondary.label}</Button>
     </div>
-    <p class="hh__proof">
-      {hero.proofLine.map((part, i) => <>{i > 0 && <span class="hh__sep" aria-hidden="true"></span>}<span class="hh__part">{part}</span>{i < hero.proofLine.length - 1 && <span class="visually-hidden"> · </span>}</>)}
-    </p>
+    <ul class="hh__proof" role="list">
+      {hero.proofLine.map((part) => <li class="hh__part">{part}</li>)}
+    </ul>
   </div>
 </section>
 
 <style>
   .hh { position: relative; isolation: isolate; overflow: clip; background: var(--navy-900); color: var(--white);
-    min-height: max(600px, calc(100svh - var(--chrome-top))); display: flex; flex-direction: column; }
+    min-height: max(560px, calc(100svh - var(--chrome-top))); display: flex; flex-direction: column; }
   .hh :global(.hh__photo) { z-index: -2; }
   .hh__scrim {
     position: absolute; inset: 0; z-index: -1; pointer-events: none;
     background: linear-gradient(180deg, rgba(14, 31, 77, .62) 0%, rgba(14, 31, 77, .86) 45%, rgba(14, 31, 77, .94) 100%);
   }
-  .hh__inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 72px 40px; }
+  .hh__inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 56px 40px; }
   .hh__title {
-    margin: 26px 0 0; max-width: 13ch;
-    font-family: var(--font-serif); font-weight: 500; font-size: 2.75rem; line-height: 1.09; letter-spacing: -0.01em;
+    margin: 24px 0 0; max-width: 13ch;
+    font-family: var(--font-serif); font-weight: 500; font-size: 2.75rem; line-height: 1.08; letter-spacing: -0.01em;
     color: var(--white); text-wrap: initial;
   }
-  .hh__lead { margin: 24px 0 0; max-width: 620px; font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; }
-  .hh__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
-  /* Pack 2 item 14: proof line in small caps, parts divided by thin rules; phones: three short stacked lines */
+  .hh__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+  /* bug 1: own row, in flow, ≥ 32px below the buttons */
   .hh__proof {
     display: flex; flex-direction: column; gap: 10px;
-    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .22);
-    font-size: 1rem; font-weight: 600; line-height: 1.4; color: #DCE4F2;
+    margin: 48px 0 0; padding: 20px 0 0; list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, .22);
+    font-size: .9375rem; font-weight: 600; line-height: 1.4; color: #DCE4F2;
     font-variant-caps: all-small-caps; letter-spacing: .06em;
+    max-width: 1080px;
   }
-  .hh__part { max-width: 34ch; text-wrap: balance; }
-  .hh__sep { display: block; width: 24px; height: 1px; background: rgba(255, 255, 255, .35); }
+  .hh__part { position: relative; max-width: 40ch; text-wrap: balance; }
 
   @media (max-width: 599px) {
     .hh__actions :global(.btn) { flex: 1 1 100%; }
@@ -69,17 +69,12 @@ import { hero } from '@/data/home';
     .hh__scrim {
       background: linear-gradient(90deg, rgba(14, 31, 77, .94) 0%, rgba(14, 31, 77, .82) 42%, rgba(14, 31, 77, .25) 75%, rgba(14, 31, 77, .05) 100%);
     }
-    .hh__inner { padding-block: 120px 56px; }
-    .hh__title { max-width: 16ch; font-size: clamp(3.5rem, 1.6rem + 3.6vw, 6rem); line-height: 1.04; }
-    .hh__lead { font-size: 1.1875rem; }
-    .hh__inner { padding-block: 96px 40px; }
-    /* room on the right for the "Ask KoKreaters" launcher, which sits over the hero's bottom-right corner */
-    .hh__proof {
-      position: absolute; left: var(--gutter-x); right: calc(var(--gutter-x) + 168px); bottom: 40px; margin: 0;
-      flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px 16px;
-      font-size: .9375rem; letter-spacing: .05em;
-    }
-    .hh__part { max-width: none; }
-    .hh__sep { width: 1px; height: 14px; }
+    .hh__inner { padding-block: 72px 48px; }
+    .hh__title { max-width: 16ch; font-size: clamp(3.5rem, 1.6rem + 3.6vw, 5.75rem); line-height: 1.04; }
+    .hh__actions { margin-top: 44px; }
+    /* three equal parts on one row, divided by thin rules; each wraps inside its own column */
+    .hh__proof { display: grid; grid-template-columns: 1.35fr 1fr 1.15fr; gap: 0; margin-top: 56px; max-width: 1000px; }
+    .hh__part { max-width: 34ch; padding-inline: 20px; border-left: 1px solid rgba(255, 255, 255, .3); }
+    .hh__part:first-child { padding-left: 0; border-left: 0; }
   }
 </style>

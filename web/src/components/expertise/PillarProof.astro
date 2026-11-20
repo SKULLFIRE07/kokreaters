@@ -2,9 +2,9 @@
 /**
  * Proof from the founder's career (pack 2), on Delft Navy: saffron-ruled label "Impact", h2 "From our founder’s career"
  * and "See the impact →" (→ /impact#<story id>, which opens that story) on one row; under a thin rule, the story's tag
- * line (caps, #DCE4F2), its big figure in Bodoni Moda 84px white (data-gsap="count"), and the story title + result.
+ * line (caps, #DCE4F2), its big figure in Bodoni Moda 72–80px white (pack 3: no counting), and the story title + result.
  * A story whose figure is still a placeholder (Part K) shows no figure outside staging (staging: figure + <Confirm>).
- * Source line: the brief's neutral footnote (item 15), no employer names (item 8).
+ * Source line: pack 3's one footnote per page (career.ts `careerFootnote`), no employer names.
  * Without a mapped story, staging shows the band with a <Confirm>; preview and production omit it (the page decides).
  * Mobile: head, figure 64px, lines, link.
  */
@@ -16,6 +16,7 @@ import { impactPage, storyHref } from '@/data/impact';
 import { microcopy } from '@/data/microcopy';
 import { showConfirm } from '@/lib/mode';
 import type { ImpactStory } from '@/data/types';
+import { splitFigure } from '@/components/impact/figure';
 
 interface Props { story?: ImpactStory }
 const { story: s } = Astro.props;
@@ -31,7 +32,7 @@ const figures = s ? s.figures.filter((f) => !f.pending || showConfirm) : [];
           <ul class:list={['plate__figs', figures.length > 1 && 'plate__figs--pair']} role="list">
             {figures.map((f) => (
               <li>
-                <p class="plate__figure" data-gsap={f.pending ? undefined : 'count'}>{f.value}</p>
+                <p class="plate__figure">{splitFigure(f.value).num}{splitFigure(f.value).unit && <span class="plate__unit">{splitFigure(f.value).unit}</span>}</p>
                 <p class="plate__label">{f.label}{f.pending && <Confirm id={f.pending.confirm} note={f.pending.note} />}</p>
               </li>
             ))}
@@ -53,14 +54,14 @@ const figures = s ? s.figures.filter((f) => !f.pending || showConfirm) : [];
   .plate__eyebrow { font-size: var(--fs-label); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #DCE4F2; }
   .plate__figs { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-4) var(--s-7); }
   .plate__figure {
-    font-family: var(--font-serif); font-size: clamp(4rem, 3.4rem + 2vw, 5.25rem); line-height: 1; font-weight: 400;
+    font-family: var(--font-serif); font-size: clamp(3.5rem, 2.8rem + 2vw, 5rem); line-height: 1; font-weight: 400;
     letter-spacing: -0.01em; color: var(--white); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
-  .plate__figs--pair .plate__figure { font-size: clamp(3.25rem, 2.9rem + 1.6vw, 4.25rem); }
+  .plate__unit { margin-left: .14em; font: 700 .3em/1 var(--font-sans); letter-spacing: 0; color: #DCE4F2; }
   .plate__label { margin-top: var(--s-2); font-size: var(--fs-small); line-height: 1.4; color: #DCE4F2; }
   .plate__title { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.25; color: var(--white); max-width: 30ch; text-wrap: balance; }
   .plate__line { margin-top: var(--s-4); font-size: 1.0625rem; line-height: 1.6; color: #E4EAF5; max-width: 52ch; text-wrap: pretty; }
-  .plate__src { margin-top: var(--s-5); font-size: var(--fs-meta); color: var(--fg-2); }
+  .plate__src { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--rule); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 60ch; }
   @media (min-width: 900px) {
     .plate { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); align-items: end; padding-top: var(--s-6); }
     .plate__fig { grid-column: 1 / 6; }

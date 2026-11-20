@@ -1,40 +1,50 @@
 ---
 /**
- * Expertise mega-menu (REDESIGN-V3 §3 chrome, §1.5 motion 4). A full-width white panel under the header bar, aligned
- * to the container's 12 columns: left 3 — label, one-line intro, "All expertise →"; right 9 — the six areas in a 3 × 2
- * grid (icon, serif title, one-line promise), each linking to /expertise/<slug>.
- * Opening (site.ts toggles .is-open): the panel's lower edge eases down (clip-path, 420ms expo-out), items blur-fade in
- * with a 40ms stagger and the page behind gets the header's scrim. Closing is a quicker 240ms ease. Reduced motion:
- * instant. Desktop only (≥ 1120px); below that the same links live in MobileMenu.
+ * Expertise mega-menu (pack 3, brief "Navigation": "a mega-menu under Expertise listing the six services and six
+ * industries"). A full-width white panel under the header bar on the 1200px grid: the six services as icon rows in a
+ * 2 × 3 grid (cols 1–8), the six industries as a quiet list (cols 9–12), each block with its hub link.
+ * Opening (site.ts toggles .is-open): the lower edge eases down (clip-path), rows fade in with a 30ms stagger, the page
+ * behind gets the header's scrim. Reduced motion: instant. Desktop only (≥ 1024px); the mobile menu has the same links.
  */
 import Container from '@/components/ui/Container.astro';
-import Eyebrow from '@/components/ui/Eyebrow.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
 import { pillars } from '@/data/pillars';
-import { megaMenu } from '@/data/nav';
+import { megaMenu, industriesMenu, sixIndustries, approachLink } from '@/data/nav';
 
 interface Props { id: string }
 const { id } = Astro.props;
 ---
 <div id={id} class="mega" hidden data-scrim>
   <Container class="mega__inner">
-    <div class="mega__intro mega__fx" style="--i:0">
-      <Eyebrow class="mega__label">{megaMenu.label}</Eyebrow>
-      <p class="mega__lede">{megaMenu.intro}</p>
-      <ArrowLink href={megaMenu.all.href} class="mega__all">{megaMenu.all.label}</ArrowLink>
+    <div class="mega__col mega__col--services">
+      <p class="mega__label mega__fx" style="--i:0">{megaMenu.label}</p>
+      <ul class="mega__grid" role="list">
+        {pillars.map((p, i) => (
+          <li class="mega__fx" style={`--i:${i + 1}`}>
+            <a class="mega__link" href={`/expertise/${p.slug}`}>
+              <span class="mega__icon"><ExpertiseIcon pillar={p.key} size={28} /></span>
+              <span class="mega__title">{p.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="mega__foot mega__fx" style="--i:7">
+        <ArrowLink href={megaMenu.all.href}>{megaMenu.all.label}</ArrowLink>
+        <ArrowLink href={approachLink.href}>{approachLink.label}</ArrowLink>
+      </div>
     </div>
-    <ul class="mega__grid" role="list">
-      {pillars.map((p, i) => (
-        <li class="mega__item mega__fx" style={`--i:${i + 1}`}>
-          <a class="mega__link" href={`/expertise/${p.slug}`}>
-            <span class="mega__icon"><ExpertiseIcon pillar={p.key} size={32} /></span>
-            <span class="mega__title">{p.name}</span>
-            <span class="mega__promise">{p.promise}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="mega__col mega__col--industries">
+      <p class="mega__label mega__fx" style="--i:1">{megaMenu.industriesLabel}</p>
+      <ul class="mega__list" role="list">
+        {sixIndustries.map((l, i) => (
+          <li class="mega__fx" style={`--i:${i + 2}`}><a class="mega__ind" href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+      <div class="mega__foot mega__fx" style="--i:8">
+        <ArrowLink href={industriesMenu.all.href}>{industriesMenu.all.label}</ArrowLink>
+      </div>
+    </div>
   </Container>
 </div>
 
@@ -51,50 +61,40 @@ const { id } = Astro.props;
 
   .mega :global(.mega__inner) {
     display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap);
-    padding-block: var(--s-7) var(--s-8);
+    padding-block: var(--s-6) var(--s-6);
   }
-  .mega__intro {
-    grid-column: 1 / span 3; display: flex; flex-direction: column; align-items: flex-start;
-    padding-top: var(--s-5); border-top: 1px solid var(--grey-200);     /* same rule + inset as the items: one grid line */
+  .mega__col--services { grid-column: 1 / span 8; }
+  .mega__col--industries { grid-column: 9 / -1; padding-left: var(--grid-gap); border-left: 1px solid var(--grey-200); }
+  .mega__label {
+    margin: 0 0 var(--s-3);
+    font: 700 var(--fs-label)/var(--lh-label) var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--label);
   }
-  .mega__intro :global(.mega__label) { margin: 0 0 var(--s-4); }
-  .mega__lede { margin: 0 0 var(--s-5); max-width: 28ch; font: 400 var(--fs-small)/var(--lh-small) var(--font-sans); color: var(--fg-2); }
-
-  .mega__grid {
-    grid-column: 4 / -1;
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6) var(--grid-gap);
-    margin: 0; padding: 0; list-style: none;
-  }
+  .mega__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--grid-gap); margin: 0; padding: 0; list-style: none; }
   .mega__link {
-    position: relative; display: grid; gap: var(--s-2); height: 100%;
-    padding-top: var(--s-5);
+    display: flex; align-items: center; gap: var(--s-4); min-height: 64px; padding: var(--s-3) 0;
+    border-bottom: 1px solid var(--grey-200);
     color: var(--fg); text-decoration: none;
   }
-  .mega__link::before {      /* hairline that turns accent on hover */
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: var(--grey-200);
-    transition: background-color var(--d-1) var(--ease-out), height var(--d-1) var(--ease-out);
-  }
-  .mega__icon { display: inline-flex; color: var(--blue-700); margin-bottom: var(--s-2); }
-  .mega__title {
-    font: 500 var(--fs-h4)/var(--lh-h4) var(--font-serif); font-optical-sizing: auto; color: var(--head);
-    text-wrap: balance; transition: color var(--d-1) var(--ease-out);
-  }
-  .mega__promise { font: 400 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--fg-2); text-wrap: pretty; }
-  .mega__link:hover::before, .mega__link:focus-visible::before { height: 2px; background: var(--accent); }
-  .mega__link:hover .mega__title, .mega__link:focus-visible .mega__title { color: var(--link); }
-  .mega__link:focus-visible { outline-offset: 6px; }
+  .mega__icon { display: inline-flex; color: var(--blue-700); }
+  .mega__title { font: 700 1rem/1.3 var(--font-sans); color: var(--head); text-wrap: balance; transition: color var(--d-1) var(--ease-out); }
+  .mega__link:hover .mega__title, .mega__link:focus-visible .mega__title { color: var(--link); text-decoration: underline; text-underline-offset: .22em; }
+  .mega__link:focus-visible { outline-offset: 2px; }
 
-  /* Items blur-fade in (40ms stagger) once the panel is open; they leave together, fast. */
-  .mega__fx {
-    opacity: 0; transform: translateY(-6px); filter: blur(4px);
-    transition: opacity 120ms var(--ease-out), transform 0s linear 120ms, filter 0s linear 120ms;
+  .mega__list { margin: 0; padding: 0; list-style: none; }
+  .mega__ind {
+    display: flex; align-items: center; min-height: 42px;
+    font: 500 .9375rem/1.3 var(--font-sans); color: var(--fg); text-decoration: none;
   }
+  .mega__ind:hover, .mega__ind:focus-visible { color: var(--link); text-decoration: underline; text-underline-offset: .22em; }
+  .mega__foot { display: flex; flex-wrap: wrap; gap: 0 var(--s-6); margin-top: var(--s-3); }
+
+  .mega__fx { opacity: 0; transform: translateY(-4px); transition: opacity 120ms var(--ease-out), transform 0s linear 120ms; }
   .mega.is-open .mega__fx {
-    opacity: 1; transform: none; filter: none;
-    transition: opacity var(--d-3) var(--ease-out), transform var(--d-3) var(--ease-out), filter var(--d-3) var(--ease-out);
-    transition-delay: calc(60ms + var(--i, 0) * 40ms);
+    opacity: 1; transform: none;
+    transition: opacity var(--d-2) var(--ease-out), transform var(--d-2) var(--ease-out);
+    transition-delay: calc(40ms + var(--i, 0) * 30ms);
   }
   @media (prefers-reduced-motion: reduce) {
-    .mega, .mega.is-open, .mega__fx, .mega.is-open .mega__fx { transition: none; filter: none; transform: none; }
+    .mega, .mega.is-open, .mega__fx, .mega.is-open .mega__fx { transition: none; transform: none; }
   }
 </style>

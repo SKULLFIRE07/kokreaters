@@ -43,6 +43,9 @@ export const articleCopy = {
   storyLabel: 'Impact story',
   readStory: 'Read the story',
   meetAuthor: { label: 'Meet Ganeaysh', href: '/about' },
+  /** Pack 3 (brief, Insights): the "Related service" box at the end of every article. COMPOSED labels. */
+  relatedService: 'Related service',
+  exploreService: 'Explore the service',
 } as const;
 
 /**

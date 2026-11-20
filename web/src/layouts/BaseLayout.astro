@@ -9,20 +9,21 @@
  * PageHero (`crumbs`); here `breadcrumbs` feeds the JSON-LD BreadcrumbList, and only `showCrumbs={true}` also prints
  * the trail at the top of <main>. `cta` = boolean, or the CtaBand props for this page (e.g. { ground: 'white' }).
  * `footerNewsletter`: kept for compile only. Pack 2 (item 33): the footer always carries the compact newsletter.
- * Chat: the "Ask KoKreaters" widget mounts on every page except /contact; PUBLIC_CHAT=off (site.chat in src/config/site.ts) switches it off site-wide
- * (brief item 1's feature flag, for a launch without the assistant's back end).
+ * Chat: the "Ask KoKreaters" widget is OFF by default (pack 3 lead decision 5; PUBLIC_CHAT=on mounts it on every page
+ * except /contact). With chat off, phones get the floating WhatsApp button instead (pack 3), except on /contact.
  * Motion: site.ts boots src/scripts/motion.ts (GSAP + ScrollTrigger + Lenis, lazy chunk; data-gsap hooks).
  * Mobile: nothing layout-specific here; every chrome component carries its own mobile behaviour.
  */
 import '@/styles/global.css';
 import SeoHead from '@/components/seo/SeoHead.astro';
-import { breadcrumbs as breadcrumbNode, organization, professionalService, website, type SeoProps, type Crumb } from '@/components/seo/schema';
+import { breadcrumbs as breadcrumbNode, organization, professionalService, person, website, type SeoProps, type Crumb } from '@/components/seo/schema';
 import SkipLink from '@/components/chrome/SkipLink.astro';
 import AnnouncementBar from '@/components/chrome/AnnouncementBar.astro';
 import Header from '@/components/chrome/Header.astro';
 import Footer from '@/components/chrome/Footer.astro';
 import CookieConsent from '@/components/chrome/CookieConsent.astro';
 import ChatWidget from '@/components/chrome/ChatWidget.astro';
+import WhatsAppButton from '@/components/chrome/WhatsAppButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Container from '@/components/ui/Container.astro';
 import CtaBand from '@/components/ui/CtaBand.astro';
@@ -33,7 +34,7 @@ type Page = 'home' | 'expertise' | 'pillar' | 'industries' | 'approach' | 'impac
 type CtaProps = {
   title?: string; body?: string;
   primary?: { label: string; href: string }; secondary?: { label: string; href: string };
-  newsletter?: boolean; ground?: 'grey' | 'navy' | 'white' | 'delft';
+  newsletter?: boolean; ground?: 'grey' | 'navy' | 'white' | 'delft'; accent?: boolean;
 };
 interface Props {
   page: Page;
@@ -59,7 +60,7 @@ const noindex = page === 'notfound' ? true : seo.noindex;
 
 // JSON-LD: home carries org + service + website by default; breadcrumb trail added when given.
 const graph = [...(seo.jsonLd ?? [])];
-if (page === 'home' && graph.length === 0) graph.push(organization(), professionalService(), website());
+if (page === 'home' && graph.length === 0) graph.push(organization(), professionalService(), person(), website());
 if (breadcrumbs.length && !graph.some((n) => n['@type'] === 'BreadcrumbList')) graph.push(breadcrumbNode(breadcrumbs));
 const seoFinal: SeoProps = { ...seo, noindex, jsonLd: graph };
 const bodyGround = ground === 'cloud' ? 'grey' : ground;
@@ -93,6 +94,7 @@ d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest
     <Footer />
     <CookieConsent />
     {chatOn && <ChatWidget />}
+    {!chatOn && page !== 'contact' && <WhatsAppButton />}
     <script>import '@/scripts/site.ts';</script>
   </body>
 </html>

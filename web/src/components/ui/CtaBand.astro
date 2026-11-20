@@ -7,9 +7,12 @@
  * button full width.
  * Props stay backward compatible: `ground` grey | navy | white | delft (default delft); on light grounds the button is
  * the primary Deep Delft fill instead of saffron. `newsletter` adds the newsletter form under a hairline.
+ * Pack 3: the default button is "Book a 30-minute call" → bookingHref() (Plausible "book-call"). `accent={false}`
+ * gives a white button on Deep Delft, for pages whose one saffron button is elsewhere (Home: the hero).
  */
 import Section from './Section.astro';
 import Button from './Button.astro';
+import { bookingHref, bookingIsExternal, bookingLabel } from '@/lib/booking';
 import NewsletterForm from './NewsletterForm.astro';
 import { cta } from '@/data/home';
 import { footer } from '@/data/nav';
@@ -23,15 +26,20 @@ interface Props {
   secondary?: Link;
   newsletter?: boolean;
   ground?: 'grey' | 'navy' | 'white' | 'delft';
+  /** false: white button on dark grounds (the page's saffron button is elsewhere). Default true. */
+  accent?: boolean;
 }
 const {
   title = cta.headline,
   body = cta.body,
-  primary = { label: cta.button, href: cta.href },
+  primary = { label: bookingLabel, href: bookingHref() },
   secondary = { label: footer.contact.email.label, href: `mailto:${site.email}` },
   newsletter = false,
   ground = 'delft',
+  accent = true,
 } = Astro.props;
+const booking = primary.href === bookingHref();
+const ext = booking && bookingIsExternal();
 const dark = ground === 'delft' || ground === 'navy';
 ---
 <Section ground={ground} labelledby="cta-heading" class="cta-band">
@@ -41,7 +49,8 @@ const dark = ground === 'delft' || ground === 'navy';
       {body && <p class="cta-band__body">{body}</p>}
     </div>
     <div class="cta-band__actions">
-      <Button href={primary.href} size="lg" variant={ground === 'delft' ? 'saffron' : 'primary'} class="cta-band__primary">{primary.label}</Button>
+      <Button href={primary.href} size="lg" variant={!dark ? 'primary' : accent && ground === 'delft' ? 'saffron' : 'on-dark'} class="cta-band__primary"
+        data-event={booking ? 'book-call' : undefined} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>{primary.label}</Button>
       {secondary && <a class="cta-band__secondary u-hover" href={secondary.href}><span class="u-draw">{secondary.label}</span></a>}
     </div>
     {newsletter && (

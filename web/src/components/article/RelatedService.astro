@@ -1,0 +1,47 @@
+---
+/**
+ * "Related service" box at the end of every article (pack 3, brief Insights). A Delft Ice panel with a 3px Deep Delft
+ * top rule: the label "Related service", the article's pillar icon and name (Bodoni 28, links to the service page), its
+ * one-line promise, then the service's specific offer when STORY has set one (pillars.ts `offer`), and two actions:
+ * "Explore the service" and "Book a 30-minute call" (bookingHref(), data-event="book-call").
+ * ≥ 600px: icon left of the text; phones: icon above, buttons full width.
+ */
+import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
+import Button from '@/components/ui/Button.astro';
+import { getPillar, pillarHref } from '@/lib/pillars';
+import { bookingHref, bookingIsExternal, bookingLabel } from '@/lib/booking';
+import { articleCopy } from '@/data/insights';
+import type { PillarKey } from '@/data/types';
+
+interface Props { pillar: PillarKey; }
+const p = getPillar(Astro.props.pillar);
+const href = pillarHref(p.key);
+const ext = bookingIsExternal();
+---
+<aside class="rsvc" aria-labelledby="rsvc-h">
+  <span class="rsvc__icon" aria-hidden="true"><ExpertiseIcon pillar={p.key} size={32} /></span>
+  <div class="rsvc__text">
+    <p class="rsvc__label">{articleCopy.relatedService}</p>
+    <h2 id="rsvc-h" class="rsvc__title"><a href={href}>{p.name}</a></h2>
+    <p class="rsvc__promise">{p.promise}</p>
+    {p.offer && <p class="rsvc__offer"><strong>{p.offer.title}.</strong> {p.offer.line}</p>}
+    <div class="rsvc__actions">
+      <Button href={href} variant="secondary" icon="arrow">{articleCopy.exploreService}</Button>
+      <Button href={bookingHref()} variant="primary" icon={ext ? 'external' : 'arrow'} data-event="book-call" {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>{bookingLabel}</Button>
+    </div>
+  </div>
+</aside>
+<style>
+  .rsvc { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); padding: var(--s-6) var(--s-5); background: var(--ice); border-top: 3px solid var(--link); }
+  .rsvc__icon { display: grid; place-items: center; width: 56px; height: 56px; background: var(--white); color: var(--link); }
+  .rsvc__label { margin: 0; font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--label); }
+  .rsvc__title { margin: var(--s-2) 0 0; font: 400 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); text-wrap: balance; }
+  .rsvc__title a { color: inherit; text-decoration: none; }
+  .rsvc__title a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .15em; text-decoration-color: var(--accent); }
+  .rsvc__promise { margin: var(--s-3) 0 0; max-width: 56ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
+  .rsvc__offer { margin: var(--s-4) 0 0; max-width: 56ch; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); }
+  .rsvc__offer strong { color: var(--head); }
+  .rsvc__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-6); }
+  @media (max-width: 599px) { .rsvc__actions :global(.btn) { flex: 1 1 100%; } }
+  @media (min-width: 600px) { .rsvc { grid-template-columns: 56px minmax(0, 1fr); column-gap: var(--s-6); padding: var(--s-7); } }
+</style>

@@ -1,6 +1,7 @@
 ---
 /**
  * The end of every article (brief item 35), in the article column after the share row, in this order:
+ *  0 RelatedService — pack 3: the article's service, its offer, "Explore the service" and "Book a 30-minute call".
  *  1 AuthorBox — photo, "Ganeaysh Kulkarni · Founder and Principal, KoKreaters · Former Global Product & Process Design
  *    Director, Cargill" (item 8 allows the company here), the short bio, "Meet Ganeaysh".
  *  2 The full newsletter block (NewsletterForm variant="full", Delft Ice panel).
@@ -12,6 +13,7 @@
  */
 import type { CollectionEntry } from 'astro:content';
 import AuthorBox from './AuthorBox.astro';
+import RelatedService from './RelatedService.astro';
 import RelatedStory from './RelatedStory.astro';
 import NewsletterForm from '@/components/ui/NewsletterForm.astro';
 import InsightTile from '@/components/insights/InsightTile.astro';
@@ -29,6 +31,9 @@ const stories = [...new Set(storyIds)].map((id) => getStory(id)).filter((s): s i
 type Item = { kind: 'article'; e: CollectionEntry<'insights'> } | { kind: 'story'; s: ImpactStory };
 const items: Item[] = [...articles.map((e) => ({ kind: 'article' as const, e })), ...stories.map((s) => ({ kind: 'story' as const, s }))];
 ---
+<div class="a-end container">
+<div class="a-end__col">
+<RelatedService pillar={entry.data.pillar} />
 <AuthorBox />
 <NewsletterForm id="nl-article" variant="full" />
 {items.length > 0 && (
@@ -52,8 +57,15 @@ const items: Item[] = [...articles.map((e) => ({ kind: 'article' as const, e }))
     </ul>
   </section>
 )}
+</div>
+</div>
 <style>
-  .a-end-rel { padding-top: var(--s-6); border-top: 1px solid var(--rule); }
+  /* Pack 3: ArticleLayout places this block after the <article>, outside the body column: it sets its own container
+     and the body's 44rem measure (centred from 1360px, like the body column beside the contents rail). */
+  .a-end { padding-bottom: var(--section, clamp(4rem, 3rem + 4vw, 7rem)); }
+  .a-end__col { width: 100%; max-width: 44rem; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
+  @media (min-width: 1360px) { .a-end__col { margin-inline: auto; } }
+  .a-end-rel { padding-top: var(--s-6); border-top: 1px solid var(--rule); min-width: 0; }
   .a-end-rel__title { margin: 0 0 var(--s-6); font: 400 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
   .a-end-rel__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap); }
   .a-end-rel__list > li { min-width: 0; }

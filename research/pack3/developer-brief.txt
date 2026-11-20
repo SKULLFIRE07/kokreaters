@@ -1,0 +1,673 @@
+KoKreaters website v3: review and developer brief
+
+
+
+
+KoKreaters website v3: review and developer
+brief
+  ​Nov 20, 2026        ·   ​@Ganeaysh
+
+
+
+
+Verdict in brief
+Version 3 is a strong, credible base: the structure, the six services, the four ways to
+engage and the nine impact stories already read like a serious consultancy. It does not yet
+feel like 25 years of senior work, for five reasons, and fixing those five gives most of the
+gain.
+
+What already works (keep it): the navy-and-saffron palette, the Bodoni Moda and
+Manrope pairing, the rapeseed hero, the six services with "Typical deliverables", the
+challenge / what was done / result format on the Impact page, the career timeline, the free
+3-MCPD playbook and the "Confidential by default" line.
+
+The five changes with the biggest impact:
+
+   1. Bring back the original logo, refined (Option A, approved). Network nodes,
+      overlapping circles, the rising arrow and the tagline "Connect · Collaborate · Create",
+      redrawn to consulting standard (next section).
+   2. Stop the site sounding new. The line "From our founder's 25-year career, before
+      KoKreaters" appears under almost every figure on the site. Said once, it is honest; said
+      ten times, it tells visitors the firm itself has no track record. Say it once, in one
+      footnote style, and let the 25 years lead.
+   3. Put the person and the proof above the fold. The founder photo, name and "25 years ·
+      8 sites · 5 countries · 3 regions" sit near the bottom of the Home page. A buyer of
+      senior consulting buys the person: show him in the first screen.
+   4. Add the proof a 25-year expert would have: scale numbers (plants, tonnes, teams,
+       value), recognitions, talks and publications, professional memberships, and two or
+       three named or anonymised client quotes.
+   5. Make contact effortless. A "Book a 30-minute call" calendar link, a visible top
+      navigation on desktop and a contact button in the header on every page.
+
+The page-by-page list below carries everything else, including six small bugs to fix first.
+
+
+
+
+                                                                                        Page 1 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+Logo: the original, refined (Option A, approved)
+Ganeaysh has chosen Option A: the original KoKreaters logo, redrawn to consulting
+standard. It keeps everything people already know (the connected nodes, the three
+overlapping circles for Connect, Collaborate and Create, the rising arrow under the name
+and the tagline), with cleaner craft and the website's colours. It replaces the current "K"
+logo everywhere.
+
+What changed from the original:
+
+       Colour. The node colours are kept but deepened to match the site: Delft Navy
+       #0E1F4D, red #C8333A, Saffron #E8A93A, sky #5B8BD9 and blue #2D5BC4. The
+       purple circle becomes a muted indigo.
+       Depth. The three circles are translucent with a soft radial gradient, so they overlap
+       with depth instead of flat pastel. Each node has a white ring and a light centre.
+       Wordmark. The rounded letters become Manrope ExtraBold, the site's own text font,
+       in navy.
+       Arrow. One smooth stroke from under the "K", rising past the "s", with an open saffron
+       arrowhead. It no longer touches the letters.
+       Tagline. "Connect · Collaborate · Create" is back, with saffron dots, and "Collaborate"
+       in Deep Delft (saffron on dark backgrounds).
+       Production-ready. All text is converted to outlines, so the files need no fonts.
+
+Where each file goes (all in kokreaters-logo-A.zip ):
+
+
+  Use                                               File                          Size on screen
+
+  Header, desktop (1024 px                          svg/kokreaters-logo-A-        60–64 px tall, so the
+  and wider)                                        navy.svg                      tagline is at least 10 px
+                                                                                  high
+
+  Header, mobile, and the                           svg/kokreaters-logo-A-navy-   36–40 px tall
+  shrunken header on scroll                         no-tagline.svg
+
+  Footer and any navy or dark                       svg/kokreaters-logo-A-        56–64 px tall
+  background                                        white.svg (transparent
+                                                    background)
+
+  About page beside "Ko +                           png/kokreaters-logo-A-navy-   as needed
+  Kreaters", documents, email                       1200.png or -600.png
+  signature
+
+
+
+
+                                                                                                      Page 2 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+  Use                                               File                                Size on screen
+
+  Browser tab                                       favicon/favicon.svg and             16–48 px
+                                                    favicon/favicon.ico
+                                                    (simplified: nodes only, readable
+                                                    at 16 px)
+
+  Phone home screen and                             favicon/apple-touch-icon.png ,      180–512 px
+  web app                                           favicon/icon-192.png ,
+                                                    favicon/icon-512.png
+
+  LinkedIn company page,                            png/kokreaters-avatar-A-            400 px
+  YouTube, social avatars                           400.png
+
+  Link previews ( og:image )                        png/kokreaters-social-share-        1200 × 630 px
+                                                    1200x630.png
+
+  Small spaces, loading                             svg/kokreaters-mark-A.svg           24 px and up
+  screen
+
+
+Favicon code for the page head:
+
+   <link rel="icon" href="/favicon.ico" sizes="any">
+   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+   <link rel="manifest" href="/site.webmanifest">
+
+
+In site.webmanifest , use icon-192.png and icon-512.png with "theme_color":
+"#0E1F4D" .
+
+Rules:
+
+       Keep clear space equal to the height of the "K" on all sides.
+       Use the navy version on white or Porcelain, and the white version on navy or the
+       footer. Never place the logo on a photo.
+       Never stretch, recolour, add shadows or redraw the arrow.
+       Alt text everywhere: "KoKreaters: Connect, Collaborate, Create"; the header link
+       reads "KoKreaters home".
+       Delete the current K-mark files ( kokreaters-logo-navy-no-tagline , kokreaters-
+       logo-white and the old favicon) once the new logo is in.
+
+The images below show the approved logo on white and on the dark footer, then the
+favicon, app icon and link-preview image.
+
+
+
+
+                                                                                                         Page 3 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+Fix first: bugs on the live site
+Six issues were visible on 20 November 2026 in a 1030 px wide desktop window; fix them
+before any redesign work.
+
+
+  #           Where                                 What happens                      Fix
+
+  1           Home hero                             The three proof points            Give the proof line its own row
+                                                    ("Former global R&D               below the buttons, with at
+                                                    director… · Two national          least 32 px space; test at 1024,
+                                                    industry firsts · Trans-fat       1280 and 1440 px
+                                                    work…") print on top of the
+                                                    two hero buttons, so neither is
+                                                    readable
+
+  2           Home track                            The counters animate through      Animate only the number and
+              record                                wrong grammar ("1 national        set the label in its final form;
+                                                    firsts") and the "8 sites · 5     split into two tiles: "8 sites"
+                                                    countries" tile breaks over two   and "5 countries"
+                                                    lines
+
+  3           Home insights                         The "Download the playbook"       Make the button full width of
+                                                    button sticks out past the        the card, or let it wrap
+                                                    right edge of its card
+
+  4           Home and                              The note "From our founder's      One footnote per page at
+              expertise pages                       25-year career, before            most, worded as in the next
+                                                    KoKreaters." repeats under        section
+                                                    almost every figure (about
+                                                    nine times across the site)
+
+
+
+                                                                                                                 Page 4 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+  #           Where                                 What happens                      Fix
+
+  5           Founder block,                        Three different titles:           Use the same three lines
+              About                                 "Founder and Principal", "Chief   everywhere, in this order:
+                                                    Catalyst" and "Former Global      "Founder and Principal,
+                                                    Product & Process Design          KoKreaters" (main title),
+                                                    Director, Cargill"                "Former Global Product &
+                                                                                      Process Design Director,
+                                                                                      Cargill" (second line), and
+                                                                                      "Chief Catalyst" only as a small
+                                                                                      italic flourish in the founder
+                                                                                      block and on About
+
+  6           Header at 1024–                       Navigation collapses to a         Show the full top navigation
+              1280 px                               "Menu" button on normal           from 1024 px up
+                                                    laptop widths, so visitors see
+                                                    no services or contact link
+
+
+Also check on a phone: the About hero headline was cut off mid-animation, and the
+duplicated Service and Industry filter rows on the Impact page should show only one set
+per screen size.
+
+
+Make 25 years felt
+The site should read as a senior practice built on 25 years of work, and today it reads as a
+new firm with an experienced founder. These changes move it, without overstating
+anything.
+
+1. Lead with the experience, not the firm's age.
+
+       Hero eyebrow: "25 years · Agri, food and feed · Plant floor to boardroom".
+       Replace every "From our founder's 25-year career, before KoKreaters" with one small
+       footnote at the end of the Impact section: "Results delivered by Ganeaysh Kulkarni in
+       senior roles at global agri-food companies. Client and employer details are kept
+       confidential."
+       Write "we" for the practice and "Ganeaysh" for results, consistently. Never show a
+       founding year on the site (the footer copyright year is fine).
+
+2. Show the person in the first screen. Add a small founder card in the hero, or a band
+directly under it: portrait, "Ganeaysh Kulkarni, Founder and Principal", one line "25 years
+leading R&D, plants and food safety across 5 countries and 3 continents", and a "Book a
+call" button. Senior clients buy a person first.
+
+
+
+
+                                                                                                                Page 5 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+3. Add scale, so the numbers carry weight. Use these six career figures. They are draft
+figures: Ganeaysh will confirm or correct each one before the site goes live, so build
+them as editable content, not hard-coded text.
+
+
+  #           Figure                  Label under the figure
+
+  1           3,000 t/day             processing and refining capacity led across sites
+
+  2           500 t/day               largest single refinery designed and commissioned
+
+  3           100 t/day               specialty fats capacity built from scratch, India's
+                                      first integrated facility
+
+  4           100 people              largest team led, across plants and functions
+
+  5           40 people               global product and process design team, across
+                                      the Americas, EMEA and Asia-Pacific
+
+  6           30 people               technical services, R&D and food-safety team built
+                                      in India
+
+
+Where they go:
+
+       Home, Track record strip (six tiles): 25 years · 8 sites in 5 countries · 3 regions · 2
+       national firsts · 3,000 t/day · 100 people. Number in Bodoni, label in Manrope; no
+       counting animation.
+       About page: all six figures in a band under the intro, plus the current 25 years, 8 sites
+       and 5 languages.
+       Impact page: figures 1, 2 and 4 in the strip at the top, with the existing 21%, 15% and
+       −25 °C.
+       One footnote under each strip: "Results delivered by Ganeaysh Kulkarni in senior
+       roles at global agri-food companies. Client and employer details are kept confidential."
+
+4. Add a credentials strip. One quiet band on Home and About: education (CSIR-CFTRI,
+IIM Ahmedabad, UC Berkeley programme), professional memberships (for example
+AOCS, OTAI, IFT, if held), talks and conference appearances, publications or patents, and
+the WHO recognition. Text only, no third-party logos.
+
+5. Add voices. Two or three short testimonials from former colleagues, customers or
+current clients, with name and role, or role and company type if they prefer to stay
+anonymous. Ask for them on LinkedIn; one real quote is worth more than any claim.
+
+6. Show breadth across agri, food and feed. Today almost all proof is oils and fats. Add
+one story or a short "also worked on" line each for feed and animal nutrition, agri and
+oilseeds, and nutrition, so visitors from those industries see themselves. If there is no
+story yet, give each industry three concrete "questions we help answer".
+
+
+                                                                                             Page 6 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+7. Give visitors a reason to click.
+
+       Header button on every page: "Book a 30-minute call" (Calendly or Microsoft
+       Bookings link).
+       Each service page ends with one specific offer, for example "Book a 2-week
+       diagnostic sprint" on Process, or "Get a contaminant risk review" on Food safety.
+       Keep the WhatsApp link, and add a floating WhatsApp button only on mobile.
+       Add a downloadable one-page capability statement (PDF) for procurement teams.
+
+8. Signal what is current. Add a short "Where we help now" line on Home with live
+themes: EU Deforestation Regulation (EUDR) readiness for palm, soy and cocoa supply
+chains; 3-MCPD and GE limits; trans-fat and saturated-fat reduction; AI-assisted
+formulation; cost-in-use under volatile oil prices. Ganeaysh confirms which he wants to be
+found for.
+
+
+Look and feel
+Keep the design system and tighten it in six places; the aim is the calm authority of
+McKinsey or BCG with warmer, plant-floor imagery.
+
+
+  Area                      Today                                   Change to
+
+  Fonts                     Bodoni Moda headings, Manrope           Keep both. Bodoni only at 28 px and
+                            text                                    up (it gets thin and fussy smaller);
+                                                                    Manrope for all labels, buttons,
+                                                                    numbers in tables and anything
+                                                                    under 28 px. Body text 18 px, line
+                                                                    height 1.6, maximum 70 characters a
+                                                                    line
+
+  Big                       Bodoni numerals in the track record     Keep Bodoni, but use lining figures
+  numbers                   and impact bands                        and one size (72–80 px desktop); put
+                                                                    the unit in Manrope beside the
+                                                                    number
+
+  Colour                    Navy, Deep Delft, Saffron, Porcelain,   Keep. Body text in navy #0E1F4D, not
+                            Ice                                     black. Saffron only for one button per
+                                                                    page, thin rules and the logo's spark.
+                                                                    The CTA band in Deep Delft is good;
+                                                                    keep red only for "New" tags
+
+
+
+
+                                                                                                    Page 7 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+  Area                      Today                                 Change to
+
+  Layout                    Long single column of text-only       Shorten Home to 8–10 screens (see
+                            cards; Home runs to 12 sections       Page by page). Give the six services
+                                                                  small line icons or a thumbnail each
+                                                                  so the grid is not all text. Use a 12-
+                                                                  column grid with 1200 px maximum
+                                                                  content width
+
+  Navigation                "Menu" button at every width          Full top navigation from 1024 px:
+                                                                  Expertise · Industries · Impact ·
+                                                                  Insights · About, plus a solid "Book a
+                                                                  call" button. A mega-menu under
+                                                                  Expertise listing the six services and
+                                                                  six industries. Header shrinks on
+                                                                  scroll to the no-tagline logo
+
+  Imagery                   Good stock photos (rapeseed, oil,     Keep, and add 4–6 real photos of
+                            silos, cocoa, dough)                  Ganeaysh at work: on a plant floor in
+                                                                  PPE, in a lab, presenting, in a
+                                                                  workshop. Real work photos are the
+                                                                  strongest signal of experience. One
+                                                                  consistent colour grade (slightly
+                                                                  cool, navy-tinted shadows)
+
+  Motion                    Counters and text reveals             Keep motion subtle: fade-up 200–300
+                                                                  ms, no counting through wrong
+                                                                  labels, and respect the "reduce
+                                                                  motion" setting
+
+  Footer                    Two columns, wide empty right side,   Four columns: Expertise · Industries ·
+                            no company details                    Company · Contact and social
+                                                                  (LinkedIn company page, LinkedIn
+                                                                  profile, YouTube when live).
+                                                                  Company line with KvK and VAT
+                                                                  numbers. White logo with tagline
+
+
+
+
+Page by page
+Every page was read in full on 20 November 2026; changes are listed in the order they
+appear on each page.
+
+
+Home
+Recommended order, shorter than today:
+
+
+
+                                                                                                   Page 8 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+   1. Hero. Keep the headline "Deep expertise, turned into products, plants and markets."
+       Eyebrow "25 years · Agri, food and feed · Plant floor to boardroom". Buttons "Book a
+       30-minute call" (saffron) and "Explore our expertise". Proof line on its own row (bug 1).
+   2. Founder strip (new): portrait, name, title, one line of career, "Meet Ganeaysh" link.
+   3. Track record: six tiles, with the new scale figures (Make 25 years felt, point 3).
+   4. What we do: the six services with icons.
+   5. Impact: three stories as now, plus one footnote.
+   6. Credentials strip and one testimonial (new).
+   7. Industries: the six image tiles as now.
+   8. Insights with the playbook download.
+   9. CTA band.
+
+Move "How we engage" and "From the lab, to the plant, to the market" to the Approach
+page (link to it from Home), and merge "A Dutch base. A global reach." into the founder
+strip or the About page. Remove the "Confidential by default" band from Home and keep
+it on Approach and Contact.
+
+
+Expertise (overview)
+       Good structure. Add one sentence per service on who it is for (owner, plant head, R&D
+       head, investor).
+       Add a small "Typical engagement" line per service, for example "Diagnostic sprint, 2–3
+       weeks".
+
+
+The six service pages
+       All six: end with one specific offer and the "Book a call" button; add one short client or
+       colleague quote where available; hide "In preparation … Soon" cards until the article
+       exists (empty promises read as unfinished).
+       Product development: add feed, pet food and nutrition examples beside specialty
+       fats; mention AI-assisted formulation here too, it is a differentiator.
+       Process development: the refining step strip (Crude → Degumming → … → Spec) is
+       excellent; add enzymatic processing and oilseed crushing to it, and one capacity
+       figure.
+       Market access and strategy: add the Go/No-Go flow as a drawn diagram rather than a
+       numbered list; mention investor-grade reports for mineral and ingredient companies.
+       Food safety, quality and regulatory: strongest page. Add EUDR and sustainability
+       compliance, and "multinational customer audit readiness" as a named offer.
+
+
+
+
+                                                                                           Page 9 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+       Deals and due diligence: thinnest page (about 1,000 characters). Add a short "What
+       we look at" checklist (assets, process, quality system, people, technology, capex) and
+       a sample red-flag summary layout.
+       Technology and R&D leadership on demand: add how it works in practice: days per
+       month, typical 6–12 month term, what the board receives each month.
+
+
+Industries
+       Give the five "Also" industries their own short cards, or fold them into the six main
+       ones; today they read as an afterthought.
+       Per industry add "Questions we help answer" (three bullets) and one linked story.
+       Feed and animal nutrition and Agri and oilseeds need real substance, since the brand
+       promise is agri, food and feed.
+
+
+Approach
+       Very good page. Bring "How we engage" here as the main section, with the four
+       models and a typical duration and outcome for each.
+       The FAQ answer "How are fees agreed?" is thin; add: "Fees are agreed per stage,
+       based on the value at stake, before any work starts. You decide at each stage gate
+       whether to continue."
+
+
+Impact
+       Nine stories in challenge / what was done / result form: keep. Add a number to every
+       result where possible (the bakery, contaminants, asset-light and due-diligence stories
+       have none).
+       Add one photo per story (plant, product or team; no client logos).
+       Add the footnote once at the top, and the WHO link ("Verify: his published
+       commentary") as a proper source link.
+
+
+Insights
+       Two articles plus three "Coming soon" cards makes the section look new. Publish at
+       least four more before launch, or hide the "Coming soon" cards.
+       Add author byline with photo and title on every article, and a "Related service" box at
+       the end.
+       Plan one article a month, reused as LinkedIn posts and, later, YouTube videos.
+
+
+
+
+                                                                                         Page 10 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+About
+       Open with achievements, not education: start the timeline at 2001 (Wilmar), and put
+       education in a separate small block.
+       Add one achievement line to each timeline step (for example "Built India's first
+       integrated specialty fats facility" under Wilmar).
+       Keep the Ko + Kreaters = Connect, Collaborate, Create section and show the new
+       logo beside it.
+       Add the credentials strip, languages, and a downloadable short bio and high-
+       resolution portrait for event organisers.
+
+
+Contact
+       Put the calendar booking first ("Book a 30-minute call"), the form second.
+       Reduce required fields to Name, Email, Company and Message; make Country and
+       Area of interest optional.
+       Show the time zone (CET, the Netherlands) and the response promise.
+
+
+Privacy, Cookies, Terms
+       Add legal name, KvK number, VAT (BTW) number and address to Privacy and the
+       footer.
+       Check the cookie banner offers "Reject all" as clearly as "Accept".
+
+
+Content to supply
+Three decisions are already made: logo Option A, the title order (Founder and Principal;
+Former Global Product & Process Design Director, Cargill; Chief Catalyst as a flourish),
+and the six draft career figures, which Ganeaysh will confirm. Build everything else with
+placeholders; none may go live as placeholder text.
+
+       Confirm or correct the six career figures (Make 25 years felt, point 3)
+       Credentials: memberships, talks, publications, patents, awards
+       Two or three testimonials with permission to publish
+       Professional portrait and 4–6 real work photos (plant floor, lab, workshop, speaking)
+       Booking link (Calendly or Microsoft Bookings)
+       KvK number, VAT number, legal name and business address (city)
+       Founder email (for example ganeaysh@KoKreaters.com) beside
+       office@KoKreaters.com
+       LinkedIn company page URL (and YouTube when live)
+
+
+
+
+                                                                                          Page 11 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+       Four more Insights articles, or approval to hide "Coming soon" cards
+       One story or three "questions we help answer" each for feed, agri and oilseeds, and
+       nutrition
+       One-page capability statement (PDF)
+
+
+Technical, SEO and legal checks
+Every page already has its own title and meta description; these checks finish the job
+before the move from the Vercel preview to KoKreaters.com.
+
+       Domain: serve the site on https://kokreaters.com with www redirecting to it; set
+       the preview ( kokreaters-v3.vercel.app ) to noindex .
+       Structured data: ProfessionalService for KoKreaters and Person for Ganeaysh
+       (jobTitle, alumniOf, sameAs LinkedIn), with no founding date.
+       Social share image: one 1200 × 630 px image with the new logo and headline, set as
+        og:image on every page.
+       Search terms to target in headings and articles: specialty fats consultant, edible oil
+       refinery consultant, 3-MCPD and glycidyl esters mitigation, trans-fat elimination,
+       cocoa butter equivalent, food technical due diligence, fractional CTO food industry,
+       feed process consulting.
+       Speed: images as AVIF or WebP with srcset ; fonts self-hosted with font-display:
+       swap ; Lighthouse 90+ on mobile.
+       Accessibility: saffron never as text on white; visible focus outlines; alt text on every
+       image (already good).
+       Forms: spam protection without a CAPTCHA puzzle (honeypot field is already there);
+       send a copy to office@KoKreaters.com and an automatic reply to the sender; the
+       playbook PDF delivered by email.
+       Analytics: a cookie-free tool such as Plausible, so the cookie banner can stay minimal;
+       track "Book a call", form sends and playbook downloads.
+       Legal (Netherlands): KvK number, legal name and VAT number in the footer and
+       Privacy; privacy policy names the processor for forms and newsletter.
+
+
+Still open from the earlier brief
+Most of the earlier developer brief (the 42-item version) is already built into v3; these
+items from it are not yet live and stay in scope.
+
+
+
+
+                                                                                          Page 12 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+  Earlier item                                      Still to do
+
+  3 · Search engines                                The preview correctly says noindex, nofollow .
+                                                    Remove it on KoKreaters.com at launch, and submit
+                                                    the sitemap to Google Search Console and Bing
+
+  10 · Company details                              KvK number, legal name, VAT number and city in
+                                                    the footer and Privacy (not yet on the site)
+
+  24 · "Who he has worked alongside"                Short About section naming types of
+                                                    organisations, not logos: global agri-food majors,
+                                                    Fortune 500 food brands, national refiners, start-
+                                                    ups, investors
+
+  25 · Credentials                                  Four-column band (Education · Executive
+                                                    education · Memberships · Recognition); today only
+                                                    education shows
+
+  26 · Testimonials                                 Three quote slots on Home and About, hidden until
+                                                    real quotes arrive
+
+  37 · Contact details                              Founder email beside office@KoKreaters.com; set
+                                                    SPF, DKIM and DMARC on the domain so replies do
+                                                    not land in spam
+
+  42 · Photo shoot                                  Waist-up portrait (navy or charcoal jacket, light
+                                                    shirt, soft daylight; 4:5 and 3:2 crops), plus plant-
+                                                    floor, lab and workshop shots. Replaces the current
+                                                    portrait on Home, About and Contact
+
+  1 · Chat assistant                                If an "Ask KoKreaters" assistant is added back, it
+                                                    must answer reliably; otherwise leave it off
+
+  35 · Article pages                                Remove any "Photo: Unsplash" credit lines under
+                                                    article images
+
+
+
+
+Order of work
+Do the work in this order, so the site can go live on KoKreaters.com after step 4 and keep
+improving afterwards.
+
+   1. Fix the six bugs (Fix first).
+   2. Install logo Option A, the favicons and the link-preview image from kokreaters-logo-
+       A.zip; rebuild header and footer.
+   3. Rework Home in the new order, with the founder strip and the single footnote.
+
+
+
+
+                                                                                                     Page 13 of 14
+KoKreaters website v3: review and developer brief
+
+
+
+
+   4. Add booking link, KvK and VAT details, and the legal updates; move the domain; go
+       live.
+   5. Add the six career figures (draft now, final once Ganeaysh confirms), the credentials
+       band and the testimonial slots.
+   6. Deepen Industries, the Deals page and the R&D leadership page; add story photos.
+   7. Publish the next four articles and set a monthly rhythm.
+
+
+
+
+                                                                                     Page 14 of 14
+

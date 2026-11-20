@@ -7,6 +7,7 @@ export const microcopy = {
   /* ── Brief 7 ── */
   primaryCta: 'Start a conversation',
   bookingCta: 'Book a 30-minute call',
+  bookingShort: 'Book a call', // pack 3 header button
   pillarLink: 'Learn more',
   insightsLink: 'Read the insight',
   impactLink: 'See the impact',
@@ -19,7 +20,7 @@ export const microcopy = {
   required: 'Please fill this in so we can reply.',
   cookieBanner: 'We use essential cookies to run this site and, with your consent, analytics cookies to improve it.',
   cookieAccept: 'Accept all',
-  cookieReject: 'Reject non-essential',
+  cookieReject: 'Reject all',   // pack 3: as clear as "Accept all"
   cookieSettingsButton: 'Settings',
   notFound: 'This page hasn’t been created yet. Let’s connect you back.',
   notFoundHeadline: 'This page hasn’t been created yet.',

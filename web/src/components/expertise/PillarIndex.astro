@@ -4,10 +4,13 @@
  * object-fit cover, data-gsap="parallax", zooms 1.04 on hover) in 7 of 12 columns and, beside it, the number "01" in
  * Deep Delft, the name in Bodoni Moda (28 → 40px), the home line (`promise`), "Typical deliverables" as a short list on a
  * thin rule and "Learn more →". The name link covers the whole row. Rows alternate photo left / right from 900px.
+ * Pack 3 (brief, Expertise overview): the service icon beside the number, then two short rows under the home line:
+ * "Who it is for" (one sentence) and "Typical engagement" (e.g. "Diagnostic sprint, 2–3 weeks").
  * Mobile: photo then text, 64px between rows.
  */
 import Photo from '@/components/ui/Photo.astro';
 import Icon from '@/components/ui/Icon.astro';
+import ExpertiseIcon from '@/components/ui/ExpertiseIcon.astro';
 import { microcopy } from '@/data/microcopy';
 import { pillarPage, pillarPhoto } from '@/data/pillars';
 import { pillarHref, pillarNumber } from '@/lib/pillars';
@@ -28,14 +31,18 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
           />
         </div>
         <div class="pidx__text">
-          <p class="pidx__n">{pillarNumber(p)}</p>
+          <p class="pidx__n"><ExpertiseIcon pillar={p.key} size={32} /><span>{pillarNumber(p)}</span></p>
           <h3 class="pidx__title"><a class="pidx__link" href={pillarHref(p.key)}>{p.name}</a></h3>
           <p class="pidx__promise">{p.promise}</p>
+          {(p.audience || p.engagement) && (
+            <dl class="pidx__facts">
+              {p.audience && <div><dt class="t-label">{pillarPage.audience}</dt><dd>{p.audience}</dd></div>}
+              {p.engagement && <div><dt class="t-label">{pillarPage.engagement}</dt><dd>{p.engagement}</dd></div>}
+            </dl>
+          )}
           <div class="pidx__deliv">
             <p class="pidx__dlabel t-label">{pillarPage.deliverables}</p>
-            <ul class="pidx__dlist" role="list">
-              {p.deliverables.map((d) => <li>{cap(d)}</li>)}
-            </ul>
+            <p class="pidx__dline">{p.deliverables.map((d, n) => <>{n > 0 && <span class="pidx__dot" aria-hidden="true"> · </span>}<span class="pidx__d">{cap(d)}</span></>)}</p>
           </div>
           <p class="pidx__more" aria-hidden="true"><span class="u-draw">{microcopy.pillarLink}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></p>
         </div>
@@ -48,7 +55,11 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   .pidx__item { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); }
   .pidx__media { position: relative; overflow: hidden; }
   .pidx__text { position: relative; padding-top: var(--s-6); border-top: 1px solid var(--rule); }
-  .pidx__n { font-size: .875rem; font-weight: 700; color: var(--label); font-variant-numeric: lining-nums tabular-nums; }
+  .pidx__n { display: flex; align-items: center; gap: var(--s-4); font-size: .875rem; font-weight: 700; color: var(--label); font-variant-numeric: lining-nums tabular-nums; }
+  .pidx__facts { margin: var(--s-5) 0 0; display: grid; gap: var(--s-3); }
+  .pidx__facts div { display: grid; gap: 2px; }
+  .pidx__facts dt { color: var(--label); }
+  .pidx__facts dd { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--head); font-weight: 600; max-width: 40ch; text-wrap: pretty; }
   .pidx__title {
     margin-top: var(--s-3);
     font-family: var(--font-serif); font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); line-height: 1.15; font-weight: 400;
@@ -62,6 +73,8 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   .pidx__promise { margin-top: var(--s-4); font-size: 1.0625rem; line-height: 1.6; color: var(--fg-2); text-wrap: pretty; max-width: 36ch; }
   .pidx__deliv { margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--rule); }
   .pidx__dlabel { margin-bottom: var(--s-3); }
+  .pidx__dline { font-size: 1rem; line-height: 1.6; color: var(--fg-2); max-width: 44ch; }
+  .pidx__dot { color: var(--label); font-weight: 700; }
   .pidx__dlist { list-style: none; margin: 0; padding: 0; font-size: 1rem; line-height: 1.5; color: var(--fg); }
   .pidx__dlist li { position: relative; padding-left: 18px; }
   .pidx__dlist li + li { margin-top: 6px; }

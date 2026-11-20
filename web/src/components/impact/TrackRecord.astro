@@ -1,53 +1,56 @@
 ---
 /**
- * Impact-page track record (pack 2, brief item 27; different from the home and About strips): label "Our track record"
- * with the footnote at the right (small, grey), then the figures in Bodoni Moda 64px navy (data-gsap="count"), each on
- * a top rule: 3px saffron for the lead figure, 1px rule for the others (data-gsap="rule"). The first word of each label
- * is bold, as on the home strip. Data: impact.ts `impactStrip`.
- * Placeholder rule: the fourth figure (⟦≥ 50%⟧, Part K 6) renders only in staging, with its <Confirm>; elsewhere the
- * strip has three figures and the columns follow the count.
- * Mobile: one column below 480px, two from 480px, all in one row from 1000px.
+ * Impact-page track record (pack 3, brief "Make 25 years felt" point 3): career figures 1, 2 and 4 from career.ts
+ * (3,000 t/day · 500 t/day · 100 people) and the existing 21%, 15% and −25 °C (impact.ts `impactStrip`).
+ * Label "Track record", then the page's ONE footnote (career.ts `careerFootnote`, the brief's "footnote once at the
+ * top"), then six figures on top rules (3px saffron for the first, 1px for the rest; data-gsap="rule" draws the rule,
+ * never hides content). Number in Bodoni lining figures at one size (72–80px desktop), unit in Manrope beside it,
+ * label under it. No counting animation (lead decision 1).
+ * Draft career figures render in staging and preview only (career.ts `isVisible`); staging marks them with <Confirm>.
+ * Columns: 3 from 900px (two rows of three), 2 from 560px, 1 below.
  */
 import Section from '@/components/ui/Section.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import { impactStrip } from '@/data/impact';
-import { showConfirm } from '@/lib/mode';
+import { isVisible } from '@/data/career';
 
 interface Props { ground?: 'white' | 'grey' }
 const { ground = 'grey' } = Astro.props;
-const items = impactStrip.items.filter((it) => !it.pending || showConfirm);
-const head = (t: string) => t.split(' ')[0];
-const tail = (t: string) => t.split(' ').slice(1).join(' ');
+const items = impactStrip.items.filter(isVisible);
 ---
 <Section ground={ground} labelledby="record-h" class="record">
   <div class="record__top">
     <h2 id="record-h" class="t-label record__h">{impactStrip.label}</h2>
     <p class="record__src">{impactStrip.source}</p>
   </div>
-  <ul class="record__list" role="list" style={`--n: ${items.length}`}>
+  <ul class="record__list" role="list">
     {items.map((it, i) => (
       <li class:list={['stat', i === 0 && 'stat--lead']}>
         <span class="stat__rule" aria-hidden="true" data-gsap="rule"></span>
-        <p class="stat__value" data-gsap={it.pending ? undefined : 'count'}>{it.value}</p>
-        <p class="stat__label"><strong>{head(it.label)}</strong> {tail(it.label)}</p>
-        {it.pending && <p class="stat__confirm"><Confirm id={it.pending.confirm} note={it.pending.note} /></p>}
+        <p class="stat__value"><span class="stat__num">{it.value}</span>{it.unit && <span class="stat__unit">{it.unit}</span>}</p>
+        <p class="stat__label">{it.label}</p>
+        {it.status === 'draft' && <p class="stat__confirm"><Confirm id="P-figures" note="draft career figure, Ganeaysh to confirm" /></p>}
       </li>
     ))}
   </ul>
 </Section>
 <style>
   .record { --_pad: clamp(4rem, 3rem + 2.5vw, 5.5rem); }
-  .record__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 32px; margin-bottom: 40px; }
-  .record__src { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 60ch; text-align: right; text-wrap: pretty; }
-  .record__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .stat { position: relative; padding-top: 26px; min-width: 0; }
+  .record__top { display: grid; gap: var(--s-3); margin-bottom: var(--s-7); padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule); }
+  .record__src { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); max-width: 70ch; text-wrap: pretty; }
+  .record__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--grid-gap); }
+  .stat { position: relative; padding-top: 24px; min-width: 0; }
   .stat__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transform-origin: left center; }
   .stat--lead .stat__rule { height: 3px; background: var(--saffron); }
-  .stat__value { font-family: var(--font-serif); font-size: clamp(3rem, 2.6rem + 1.6vw, 4rem); line-height: 1; font-weight: 400; color: var(--head); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
-  .stat__label { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--fg-2); max-width: 26ch; text-wrap: pretty; }
-  .stat__label strong { color: var(--head); font-weight: 700; }
+  .stat__value { display: flex; align-items: baseline; gap: .3rem; white-space: nowrap; color: var(--head); }
+  .stat__num { font-family: var(--font-serif); font-size: clamp(3.25rem, 2.4rem + 2.6vw, 5rem); line-height: 1; font-weight: 400; font-variant-numeric: lining-nums proportional-nums; }
+  .stat__unit { font: 700 clamp(1.125rem, 1rem + .4vw, 1.5rem)/1 var(--font-sans); }
+  .stat__label { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--fg-2); max-width: 30ch; text-wrap: pretty; }
   .stat__confirm { margin-top: 8px; }
-  @media (max-width: 599px) { .record__src { text-align: left; } }
-  @media (min-width: 480px) { .record__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1000px) { .record__list { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); } }
+  @media (min-width: 560px) { .record__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) {
+    .record__top { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s-8); align-items: baseline; }
+    .record__src { justify-self: end; text-align: right; }
+    .record__list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--s-8); }
+  }
 </style>

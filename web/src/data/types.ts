@@ -1,5 +1,6 @@
 /** Shared content types (DESIGN-SPEC 4.1). The shape mirrors a later CMS schema (C-4). */
 import type { ImageMetadata } from 'astro';
+import type { PhotoSlug } from './photos';
 
 export type PillarKey = 'innovation' | 'process' | 'quality' | 'strategy' | 'deals' | 'capability';
 export type PillarSlug = 'product-innovation' | 'process-design' | 'food-safety-quality' | 'strategy-feasibility' | 'due-diligence' | 'technology-leadership';
@@ -12,8 +13,18 @@ export interface Pillar {
   inkText: boolean;                                      // Saffron + Sky: labels stay Ink, dot gets --ring-ink
   impactId?: string;                                     // related founder result (CONFIRM mapping C-8)
   shortLabel: string;                                    // filter label on /insights
+  /* pack 3 (brief, Expertise overview + service pages) */
+  audience?: string;                                     // one sentence: who it is for
+  engagement?: string;                                   // "Typical engagement" line
+  offer?: { title: string; line: string };              // the one specific offer that ends the service page
 }
-export interface Industry { slug: string; n: number; name: string; copy: string; pillars: PillarKey[]; image?: ImageMetadata; imageAlt?: string; }
+export interface Industry {
+  slug: string; n: number; name: string; copy: string; pillars: PillarKey[]; image?: ImageMetadata; imageAlt?: string;
+  /* pack 3 (brief, Industries): three "questions we help answer", one linked story, and the folded "Also" industries */
+  questions?: string[];
+  storyId?: `story-${string}`;
+  covers?: string[];                 // slugs of otherIndustries folded into this card
+}
 export interface FounderResult {
   id: 'india' | 'indonesia' | 'ukraine' | 'tfa';
   dateline: string;                 // home row sidenote, e.g. "India" (pack 2: no employer names)
@@ -31,7 +42,11 @@ export interface FounderResult {
  */
 export interface Unconfirmed { confirmed: false; confirm: `P-${number}`; note: string; }
 export interface StoryFigure { value: string; label: string; pending?: Unconfirmed; }
-export interface StoryLink { label: string; href: string | null; pending?: Unconfirmed; }
+export interface StoryLink {
+  label: string; href: string | null; pending?: Unconfirmed;
+  /** pack 3: a proper source citation (the WHO story): the article title, its author and the publication. */
+  cite?: { title: string; author: string; publication: string };
+}
 /** One of the nine Impact stories (brief item 28). `id` is the /impact anchor (story 4 = 'story-who'). */
 export interface ImpactStory {
   id: `story-${string}`; n: number;
@@ -44,6 +59,7 @@ export interface ImpactStory {
   pillars: PillarKey[];              // service chips, in brief order
   industries: string[];              // industry chips: exact industries.ts names
   homeLine?: string;                 // brief item 17 home card line (stories 2, 3, 4)
+  photo?: PhotoSlug;                 // pack 3: one photo per story (plant, product or team; no client logos)
 }
 export interface StripItem { value: string; label: string; pending?: Unconfirmed; }
 

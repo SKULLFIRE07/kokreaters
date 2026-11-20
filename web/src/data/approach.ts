@@ -37,7 +37,7 @@ export const steps: MethodStep[] = [
     duration: 'Typically half a day to two days of training, then a set number of days each month if you want ongoing support.',
   },
 ];
-export const stepLabels = { whatWeDo: 'What we do', whatYouGet: 'What you get', duration: 'Typical duration', step: 'Step' };
+export const stepLabels = { whatWeDo: 'What we do', whatYouGet: 'What you get', duration: 'Typical duration', step: 'Step', outcome: 'Outcome' };
 /** v3: h2 over the three Connect / Collaborate / Create columns (the column names carry the tagline itself). */
 export const stepsHeading = 'How we work';   // COMPOSED (same wording as the home "How we work" link)
 
@@ -59,10 +59,14 @@ export const engage = {
   title: 'How we engage',
   intro: 'Four ways to work together. Every engagement starts with a 30-minute conversation, at no cost.',
   items: [
-    { n: 1, title: 'Diagnostic sprint', copy: 'Two to three weeks. A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step.' },
-    { n: 2, title: 'Defined project', copy: 'A fixed scope with clear stages and deliverables, from first trial to commercial scale. You decide at each stage gate whether to continue.' },
-    { n: 3, title: 'Leadership on demand', copy: 'A set number of days each month as your CTO or Head of R&D. We own the technical agenda with your team and build its capability as we go.' },
-    { n: 4, title: 'Expert review', copy: 'Fast, independent opinions for owners, investors and lenders on an asset, a technology, a partner or a plan.' },
+    /* pack 3 (brief, Approach): "the four models and a typical duration and outcome for each". Durations: the brief's
+       own (2–3 weeks; 6–12 months for leadership on demand) and the approved v3 project range (4 to 16 weeks); the
+       expert review has no number in any brief, so it says "Days to weeks, to your deadline" (COMPOSED). Outcomes are
+       COMPOSED from each model's own copy. */
+    { n: 1, title: 'Diagnostic sprint', icon: 'search', duration: '2–3 weeks', outcome: 'A prioritised roadmap with the value at stake', copy: 'Two to three weeks. A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step.' },
+    { n: 2, title: 'Defined project', icon: 'list-checks', duration: '4–16 weeks, fixed scope', outcome: 'Agreed deliverables, stage by stage, to commercial scale', copy: 'A fixed scope with clear stages and deliverables, from first trial to commercial scale. You decide at each stage gate whether to continue.' },
+    { n: 3, title: 'Leadership on demand', icon: 'user-check', duration: '6–12 months, set days a month', outcome: 'A technical agenda owned, and a stronger team', copy: 'A set number of days each month as your CTO or Head of R&D. We own the technical agenda with your team and build its capability as we go.' },
+    { n: 4, title: 'Expert review', icon: 'scale', duration: 'Days to weeks, to your deadline', outcome: 'An independent opinion you can take to the board', copy: 'Fast, independent opinions for owners, investors and lenders on an asset, a technology, a partner or a plan.' },
   ],
   confidential: 'Confidential by default. We work under NDA, client names are shared only with their consent, and nothing learned with one client or a former employer is ever used for another.',
   href: '/approach#engage',
@@ -92,7 +96,7 @@ const firstName = founderName.split(' ')[0];
 export const faqHeading = 'Frequently asked questions';   // COMPOSED
 export const faq: { q: string; a: string; confirm?: string }[] = [
   { q: 'Do you sign an NDA?', a: `Yes. ${principles[4].copy} We are happy to sign yours before the first detailed conversation.` },
-  { q: 'How are fees agreed?', a: 'We agree the scope and fee with you before any work starts.' },
+  { q: 'How are fees agreed?', a: 'Fees are agreed per stage, based on the value at stake, before any work starts. You decide at each stage gate whether to continue.' },   // pack 3 brief, verbatim
   {
     q: 'Do you work on site or remotely?',
     a: 'Both, depending on the work. We start where the problem lives: on your plant floor, in your lab, with your customers. A diagnostic or audit typically means 2 to 5 days on site, with the report within two weeks. For longer engagements, the balance of site visits and remote work is agreed with you in the scope.',

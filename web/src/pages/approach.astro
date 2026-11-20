@@ -1,7 +1,8 @@
 ---
 /**
- * /approach (v4 Delft). Grounds: navy photo hero → white (promise) → Delft Ice (lab → plant → market photo cards)
- * → white (how we work) → Porcelain (principles) → white (#engage: how we engage) → Porcelain (FAQ) → CtaBand → footer.
+ * /approach (pack 3). Grounds: navy photo hero → white (#engage: How we engage, the main section) → white (how we work,
+ * ruled) → Delft Ice (lab → plant → market photo cards) → Porcelain (principles) → Porcelain (FAQ, ruled) → CtaBand.
+ * Pack 3 (owner: "very sharp, not too much text"): the Positioning statement band is dropped (the hero already says it).
  *  1 PillarHero: a working session under the navy gradient; label "Approach", H1, the intro.
  *  2 Positioning: label, h2, the promise as a Bodoni statement, the range paragraph.
  *  3 ApproachLanes: Develop / Scale / Access (client design wording), each linking to its service.
@@ -10,7 +11,6 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PillarHero from '@/components/expertise/PillarHero.astro';
-import Positioning from '@/components/approach/Positioning.astro';
 import ApproachLanes from '@/components/approach/ApproachLanes.astro';
 import Steps from '@/components/approach/Steps.astro';
 import Principles from '@/components/approach/Principles.astro';
@@ -31,10 +31,9 @@ const lead = approach.intro.replace(/(\d+) (years?)\b/g, '$1 $2');
     eyebrow={approach.overline} title={title} lead={lead} crumbs={crumbs}
     image={photo.src} imageAlt={photo.alt} imagePosition="62% 46%" titleId="ap-title"
   />
-  <Positioning />
-  <ApproachLanes />
-  <Steps />
-  <Principles />
   <Engage />
+  <Steps />
+  <ApproachLanes />
+  <Principles />
   <Faq />
 </BaseLayout>

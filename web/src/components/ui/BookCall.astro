@@ -1,0 +1,13 @@
+---
+/**
+ * "Book a 30-minute call" button (pack 3 lead decision 2). Links to bookingHref(): the booking tool when
+ * PUBLIC_BOOKING_URL is set (new tab), else /contact#start. Sends the Plausible "book-call" event (data-event, site.ts).
+ * Props pass through to Button (variant, size, full, class…). `short` = "Book a call" (header).
+ */
+import Button from './Button.astro';
+import { bookingHref, bookingIsExternal, bookingLabel, bookingLabelShort } from '@/lib/booking';
+interface Props { short?: boolean; label?: string; [key: string]: unknown }
+const { short = false, label, ...rest } = Astro.props;
+const ext = bookingIsExternal();
+---
+<Button href={bookingHref()} data-event="book-call" {...(ext ? { target: '_blank', rel: 'noopener' } : {})} {...rest}>{label ?? (short ? bookingLabelShort : bookingLabel)}</Button>

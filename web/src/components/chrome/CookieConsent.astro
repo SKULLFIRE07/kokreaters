@@ -3,7 +3,9 @@
  * Cookie consent (REDESIGN-V3 §3 chrome; DESIGN-SPEC 3.6, C-6). Renders only when PUBLIC_ANALYTICS=1: a quiet bar
  * (bottom-left card on desktop, full-width sheet edge on phones) asking once, plus the settings <dialog> that the
  * footer's "Cookie settings" button opens. With analytics off the site sets no non-essential cookies, so neither the
- * bar, the dialog nor the footer button exist. Behaviour: src/scripts/consent.ts (booted by site.ts).
+ * bar, the dialog nor the footer button exist. Plausible (PUBLIC_PLAUSIBLE_DOMAIN) is cookie-free and needs no banner.
+ * Pack 3 (brief "Privacy, Cookies, Terms"): "Reject all" is exactly as prominent as "Accept all": same style, same
+ * size, side by side (Reject first, so it is never the weaker option). Behaviour: src/scripts/consent.ts.
  */
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
@@ -31,10 +33,10 @@ import { site } from '@/config/site';
     <section class="cookie-bar" role="region" aria-label="Cookie consent" data-cookie-bar hidden>
       <p class="cookie-bar__text">{microcopy.cookieBanner}</p>
       <div class="cookie-bar__actions">
+        <button type="button" class="btn btn--primary btn--md" data-consent-reject>{microcopy.cookieReject}</button>
         <button type="button" class="btn btn--primary btn--md" data-consent-accept>{microcopy.cookieAccept}</button>
-        <button type="button" class="btn btn--secondary btn--md" data-consent-reject>{microcopy.cookieReject}</button>
-        <button type="button" class="btn btn--tertiary btn--md" data-consent-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettingsButton}</button>
       </div>
+      <button type="button" class="btn btn--tertiary btn--md cookie-bar__settings" data-consent-settings aria-haspopup="dialog" aria-controls="cookie-settings">{microcopy.cookieSettingsButton}</button>
     </section>
   </>
 )}
@@ -66,5 +68,7 @@ import { site } from '@/config/site';
     background: var(--white); color: var(--ink); box-shadow: var(--shadow-panel);
   }
   .cookie-bar__text { margin: 0 0 var(--s-4); font-size: var(--fs-small); line-height: var(--lh-small); }
-  .cookie-bar__actions { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); }
+  .cookie-bar__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
+  .cookie-bar__actions :global(.btn) { padding-inline: var(--s-4); }
+  .cookie-bar :global(.cookie-bar__settings) { margin-top: var(--s-2); }
 </style>

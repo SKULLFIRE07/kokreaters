@@ -1,48 +1,38 @@
 ---
 /**
- * About · career (brief item 22). Grey band, aria-labelledby="journey-title".
- * SectionHeader (h2 "From CFTRI Mysore to KoKreaters", lead "Eight places, five countries, three continents of teams."),
- * then an <ol> of the seven rows exactly as the brief's table, on a vertical spine with the ringed-node signature (the
- * logo's node on a 1px hairline). Each stop: the years as a Deep Delft label ("1996–1999" … "Today"), the organisation
- * as a Bodoni h3 and its one line. The last row, "Today · KoKreaters", takes the saffron node.
- * Under the timeline, the places line: "Mundra · Medan · Odessa · Kakinada · Gurugram · Balikesir · Pune · Amsterdam"
- * (a list, separators decorative), small caps on a hairline.
- * ≥ 1200px: the header sits in columns 1–5 and stays pinned (sticky, under the header) while the stops scroll past in
- *   columns 7–12. 900–1199px: header above, the stops in columns 3–12. Mobile: header above; stops stacked on the left
- *   spine, years over organisation over line; the places wrap.
+ * About · career timeline (pack 3: "Open with achievements, not education"). White band, aria-labelledby="journey-title".
+ * Starts at 2001 (Wilmar); education lives in the small credentials block further down. Five steps from
+ * src/data/about.ts `timeline`, each with ONE achievement line (the brief's ask), the role as a quiet meta line.
+ * The ringed-node signature (the logo's node) sits on a 1px hairline; "Today · KoKreaters" takes the saffron node.
+ * Year: Bodoni lining figures (≥ 28px, lead decision 4), the end year in Manrope beside it.
+ * ≥ 1200px: a horizontal track, five columns on one hairline (node above each column).
+ * < 1200px (incl. the 1030px review width): a vertical spine; year column left (≥ 600px) or above (phones), the
+ * organisation, achievement and role to its right.
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import { timeline, timelineSection } from '@/data/about';
 ---
-<Section ground="grey" labelledby="journey-title" class="career">
-  <div class="career__grid">
-    <div class="career__head">
-      <SectionHeader id="journey-title" title={timelineSection.heading} lead={timelineSection.subtitle} layout="stack" />
-    </div>
-    <ol class="tl" role="list">
-      {timeline.map((t) => (
-        <li class:list={['tl__stop', t.now && 'tl__stop--now']}>
-          <span class="tl__node" aria-hidden="true"></span>
-          <p class="tl__years tnum">{t.years}</p>
-          <div class="tl__text">
-            <h3 class="tl__org">{t.org}</h3>
-            <p class="tl__role">{t.line}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
-    <ul class="career__places" role="list" aria-label={timelineSection.placesLabel}>
-      {timelineSection.places.map((p, i) => (
-        <li>{p}{i < timelineSection.places.length - 1 && <span class="career__sep" aria-hidden="true">·</span>}</li>
-      ))}
-    </ul>
-  </div>
+<Section ground="white" labelledby="journey-title" class="career">
+  <SectionHeader id="journey-title" title={timelineSection.heading} lead={timelineSection.subtitle} />
+  <ol class="tl" role="list">
+    {timeline.map((t) => (
+      <li class:list={['tl__stop', t.now && 'tl__stop--now']}>
+        <span class="tl__node" aria-hidden="true"></span>
+        <p class="tl__years">
+          <span class="tl__from">{t.from}</span>
+          {t.to && <span class="tl__to"><span class="visually-hidden"> to </span><span aria-hidden="true">–</span>{t.to}</span>}
+        </p>
+        <div class="tl__text">
+          <h3 class="tl__org">{t.org}</h3>
+          <p class="tl__win">{t.achievement}</p>
+          <p class="tl__role">{t.role}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
 </Section>
 <style>
-  .career__grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
-  .career__head :global(.sh) { margin-bottom: 0; }
-
   .tl { --node: 18px; list-style: none; margin: 0; padding: 0; position: relative; }
   .tl__stop {
     position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2);
@@ -50,44 +40,50 @@ import { timeline, timelineSection } from '@/data/about';
   }
   .tl__stop:last-child { padding-bottom: 0; }
   .tl__stop:not(:last-child)::before {
-    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) / 2 + 2px); bottom: calc(var(--node) / -2 - 2px);
+    content: ""; position: absolute; left: calc(var(--node) / 2 - .5px); top: calc(var(--node) + 6px); bottom: 2px;
     width: 1px; background: var(--rule);
   }
   .tl__node {
-    position: absolute; left: 0; top: 2px; z-index: 1;
+    position: absolute; left: 0; top: 10px; z-index: 1;
     width: var(--node); height: var(--node); border-radius: 50%;
     background: var(--bg); border: 2px solid var(--link); box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 10px var(--link);
   }
   .tl__stop--now .tl__node { border-color: var(--saffron); box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 10px var(--saffron); }
 
-  .tl__years {
-    margin: 0; font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
-    color: var(--label); font-variant-numeric: lining-nums tabular-nums;
-  }
+  .tl__years { display: flex; align-items: baseline; gap: .35rem; margin: 0; color: var(--head); }
+  .tl__from { font-family: var(--font-serif); font-weight: 400; font-size: 2.25rem; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+  .tl__to { font: 700 var(--fs-small)/1 var(--font-sans); color: var(--label); font-variant-numeric: lining-nums tabular-nums; }
   .tl__text { min-width: 0; }
-  .tl__org { margin: 0; font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2; font-weight: 400; }
-  .tl__role { margin: var(--s-2) 0 0; max-width: 48ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); text-wrap: pretty; }
-
-  .career__places {
-    list-style: none; margin: 0; padding: var(--s-5) 0 0; border-top: 1px solid var(--rule);
-    display: flex; flex-wrap: wrap; gap: var(--s-2) 0;
-    font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--head);
+  .tl__org {
+    margin: 0; font: 700 var(--fs-label)/1.6 var(--font-sans); letter-spacing: var(--tr-label); text-transform: uppercase;
+    color: var(--label);
   }
-  .career__places li { white-space: nowrap; }
-  .career__sep { display: inline-block; padding-inline: .7em; color: var(--saffron); }
+  .tl__win { margin: var(--s-1) 0 0; max-width: 40ch; font: 600 1.1875rem/1.45 var(--font-sans); color: var(--head); text-wrap: pretty; }
+  .tl__role { margin: var(--s-2) 0 0; max-width: 52ch; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); text-wrap: pretty; }
 
-  @media (min-width: 900px) {
-    .career__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-    .career__head { grid-column: 1 / -1; }
-    .tl { grid-column: 3 / -1; }
-    .tl__stop { padding-bottom: var(--s-8); }
-    .career__places { grid-column: 1 / -1; }
+  /* tablets and the 1030px review width: the year in its own column beside the spine */
+  @media (min-width: 600px) and (max-width: 1199px) {
+    .tl__stop { grid-template-columns: 9rem minmax(0, 1fr); column-gap: var(--s-8); padding-left: 0; }
+    .tl__node { left: calc(9rem + var(--s-8) / 2 - var(--node) / 2); }
+    .tl__stop:not(:last-child)::before { left: calc(9rem + var(--s-8) / 2 - .5px); }
+    .tl__years { flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+    .tl__years { padding-top: 2px; }
+  }
+  @media (min-width: 900px) and (max-width: 1199px) {
+    .tl__stop { grid-template-columns: 12rem minmax(0, 1fr); }
+    .tl__node { left: calc(12rem + var(--s-8) / 2 - var(--node) / 2); }
+    .tl__stop:not(:last-child)::before { left: calc(12rem + var(--s-8) / 2 - .5px); }
   }
 
-  /* ≥ 1200: the header pinned in columns 1–5 while the stops scroll past in 7–12 */
+  /* ≥ 1200px: one horizontal track, five columns */
   @media (min-width: 1200px) {
-    .career__head { grid-column: 1 / 6; grid-row: 1 / span 2; position: sticky; top: calc(var(--header-h) + var(--s-8)); align-self: start; }
-    .tl { grid-column: 7 / -1; }
-    .career__places { grid-column: 7 / -1; }
+    .tl { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: var(--grid-gap); padding-top: 40px; }
+    .tl::before { content: ""; position: absolute; left: 0; right: 0; top: calc(var(--node) / 2); height: 1px; background: var(--rule); }
+    .tl__stop { padding: 0; align-content: start; }
+    .tl__stop:not(:last-child)::before { content: none; }
+    .tl__node { top: -40px; }
+    .tl__from { font-size: 2.75rem; }
+    .tl__text { padding-top: var(--s-3); border-top: 0; }
+    .tl__win { font-size: var(--fs-body); }
   }
 </style>

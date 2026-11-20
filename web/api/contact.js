@@ -7,8 +7,9 @@
  *   company_website  honeypot: filled → { ok: true } and nothing is sent
  *   started_at       time trap: ms timestamp of page load; missing, or sent < 3 s after it → { ok: true }, nothing sent
  *   chat_transcript  optional, from the chat widget: the questions and answers so far (capped)
- * Server-side checks: required fields, email format, length caps, select options, consent; per-IP rate limit
- * (5 per 10 minutes, in memory, best effort); same-origin guard.
+ * Server-side checks: required fields (pack 3: only name, email, company and message; country, area of interest and
+ * the rest optional; the contact page has no consent tick box, the chat form may still send consent=yes), email
+ * format, length caps, select options; per-IP rate limit (5 per 10 minutes, in memory, best effort); same-origin guard.
  *
  * Delivery:
  *   RESEND_API_KEY set → Resend REST API (https://api.resend.com/emails): the enquiry to CONTACT_TO
@@ -62,8 +63,10 @@ export function validate(input) {
 const recipients = () => (process.env.CONTACT_TO || CONTACT_EMAIL || 'office@kokreaters.com').split(',').map((s) => s.trim()).filter(Boolean);
 const sender = () => process.env.RESEND_FROM || 'KoKreaters website <website@kokreaters.com>';
 const subjectFor = (v) => `New enquiry: ${v.name}, ${v.company}`.replace(/[\r\n]+/g, ' ').slice(0, 200);
+// An optional tick box that was not ticked (the contact page has none) is left out of the email.
 const rows = (v) => [
-  ...CONTACT_FIELDS.map((f) => [f.type === 'checkbox' ? 'Consent to store details' : f.label, f.type === 'checkbox' ? (v[f.name] ? 'Yes' : 'No') : v[f.name] || '']),
+  ...CONTACT_FIELDS.filter((f) => f.type !== 'checkbox' || f.required || v[f.name])
+    .map((f) => [f.type === 'checkbox' ? 'Consent to store details' : f.label, f.type === 'checkbox' ? (v[f.name] ? 'Yes' : 'No') : v[f.name] || '']),
   ...(v.chat_transcript ? [['Chat transcript', v.chat_transcript]] : []),
 ];
 

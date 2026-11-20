@@ -9,14 +9,16 @@ interface ImportMetaEnv {
   readonly PUBLIC_FORM_ENDPOINT?: string;
   /** Newsletter endpoint. Empty = mailto:office@kokreaters.com?subject=Subscribe. */
   readonly PUBLIC_NEWSLETTER_ENDPOINT?: string;
-  /** Booking URL. Empty = /contact#form. CONFIRM 9 */
+  /** Booking URL (Calendly / Microsoft Bookings). Empty = every "Book a call" goes to /contact#start. CONFIRM 9 */
   readonly PUBLIC_BOOKING_URL?: string;
   /** Cloudflare Turnstile site key. Empty = honeypot + time trap only. */
   readonly PUBLIC_TURNSTILE_SITEKEY?: string;
   /** Empty/0 = no analytics and no consent banner. 1 = banner shown. */
   readonly PUBLIC_ANALYTICS?: string;
-  /** "off" = no "Ask KoKreaters" chat widget on any page; unset = on. */
+  /** "on" = "Ask KoKreaters" chat widget; unset or anything else = off (pack 3). */
   readonly PUBLIC_CHAT?: string;
+  /** Plausible domain (e.g. kokreaters.com). Empty = no analytics script. */
+  readonly PUBLIC_PLAUSIBLE_DOMAIN?: string;
 }
 
 interface ImportMeta {

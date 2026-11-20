@@ -32,7 +32,7 @@
 }
 .prose h3:not([class]) {
   font-family: var(--font-serif);
-  font-size: 1.5rem; line-height: 1.25; font-weight: 400; letter-spacing: 0;   /* 24: the Bodoni floor */
+  font-size: var(--fs-h3); line-height: 1.25; font-weight: 400; letter-spacing: 0;   /* 28: the Bodoni floor (pack 3) */
   margin-top: 2em;
 }
 .prose h4:not([class]) {

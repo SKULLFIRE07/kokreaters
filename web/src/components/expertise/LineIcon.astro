@@ -1,0 +1,45 @@
+---
+/**
+ * Pack 3 (STORY): thin-line Lucide glyphs for the expertise, industries, approach and impact pages (the ui Icon set is
+ * owned by CHROME-HOME and has no domain glyphs). Same drawing rules as ExpertiseIcon: 24-unit viewBox, stroke scaled
+ * so it renders at 1.5px, currentColor (brand blue via --label). Decorative (aria-hidden); the text beside it names it.
+ */
+import factory from 'lucide-static/icons/factory.svg?raw';
+import cog from 'lucide-static/icons/cog.svg?raw';
+import shieldCheck from 'lucide-static/icons/shield-check.svg?raw';
+import users from 'lucide-static/icons/users.svg?raw';
+import cpu from 'lucide-static/icons/cpu.svg?raw';
+import banknote from 'lucide-static/icons/banknote.svg?raw';
+import circleHelp from 'lucide-static/icons/circle-help.svg?raw';
+import search from 'lucide-static/icons/search.svg?raw';
+import listChecks from 'lucide-static/icons/list-checks.svg?raw';
+import calendarDays from 'lucide-static/icons/calendar-days.svg?raw';
+import calendarRange from 'lucide-static/icons/calendar-range.svg?raw';
+import fileCheck from 'lucide-static/icons/file-check.svg?raw';
+import fileText from 'lucide-static/icons/file-text.svg?raw';
+import scale from 'lucide-static/icons/scale.svg?raw';
+import clock from 'lucide-static/icons/clock.svg?raw';
+import gauge from 'lucide-static/icons/gauge.svg?raw';
+import target from 'lucide-static/icons/target.svg?raw';
+import userCheck from 'lucide-static/icons/user-check.svg?raw';
+
+const raw = {
+  factory, cog, 'shield-check': shieldCheck, users, cpu, banknote, 'circle-help': circleHelp, search,
+  'list-checks': listChecks, 'calendar-days': calendarDays, 'calendar-range': calendarRange, 'file-check': fileCheck,
+  'file-text': fileText, scale, clock, gauge, target, 'user-check': userCheck,
+} as const;
+export type LineIconName = keyof typeof raw;
+
+interface Props { name: LineIconName; size?: number; class?: string; }
+const { name, size = 28, class: cls } = Astro.props;
+const stroke = +(1.5 * 24 / size).toFixed(3);
+const body = raw[name].replace(/<!--[\s\S]*?-->/g, '').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').replace(/\s+/g, ' ').trim();
+---
+<svg
+  class:list={['licon', cls]} width={size} height={size} viewBox="0 0 24 24"
+  fill="none" stroke="currentColor" stroke-width={stroke} stroke-linecap="round" stroke-linejoin="round"
+  aria-hidden="true" focusable="false" set:html={body}
+/>
+<style>
+  .licon { display: block; flex: none; color: var(--label); }
+</style>

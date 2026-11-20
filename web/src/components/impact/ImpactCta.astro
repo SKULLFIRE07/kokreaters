@@ -1,35 +1,28 @@
 ---
 /**
- * End of /impact (pack 2, brief item 30): "Your plant, product or market could be the next story." with two buttons,
- * Start a conversation (saffron, → /contact) and Book a 30-minute call. The booking link is a placeholder (Part K 13):
- * in staging the second button shows with its <Confirm>; in preview and production it is not rendered, and the band
- * keeps the site's usual email line under the one button instead.
- * Same look and class as the site CtaBand (Deep Delft band, `.cta-band`), so chrome that watches the final CTA band
- * (the chat button hides while it is in view) treats it the same. BaseLayout's own CtaBand is switched off on /impact.
- * Mobile: one column, buttons full width and stacked.
+ * End of /impact (pack 2 item 30; pack 3 lead decision 2): "Your plant, product or market could be the next story."
+ * ONE saffron button, "Book a 30-minute call" → bookingHref() (the booking tool, or /contact#start until it exists),
+ * and the email line under it. Same look and class as the site CtaBand (Deep Delft band, `.cta-band`), so chrome
+ * that watches the final CTA band treats it the same. BaseLayout's own CtaBand is switched off on /impact.
+ * Mobile: one column, the button full width.
  */
 import Section from '@/components/ui/Section.astro';
 import Button from '@/components/ui/Button.astro';
-import Confirm from '@/components/ui/Confirm.astro';
 import { impactPage } from '@/data/impact';
 import { footer } from '@/data/nav';
 import { site } from '@/config/site';
-import { showConfirm } from '@/lib/mode';
+import { bookingHref, bookingIsExternal } from '@/lib/booking';
 
 const { cta } = impactPage;
-const booking = cta.booking.href || showConfirm ? cta.booking : undefined;
+const ext = bookingIsExternal();
 ---
 <Section ground="delft" labelledby="cta-heading" class="cta-band impact-cta">
   <div class="ic__grid">
     <h2 id="cta-heading" class="ic__title">{cta.title}</h2>
     <div class="ic__actions">
       <div class="ic__buttons">
-        <Button href={cta.primary.href} size="lg" variant="saffron" class="ic__btn">{cta.primary.label}</Button>
-        {booking && (
-          <Button href={booking.href ?? '/contact'} size="lg" variant="ghost-on-dark" icon="calendar" class="ic__btn">{booking.label}</Button>
-        )}
+        <Button href={bookingHref()} size="lg" variant="saffron" icon="calendar" class="ic__btn" data-event="book-call" {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>{cta.booking.label}</Button>
       </div>
-      {booking && !booking.href && <Confirm id={cta.booking.pending.confirm} note={cta.booking.pending.note} />}
       <a class="ic__secondary u-hover" href={`mailto:${site.email}`}><span class="u-draw">{footer.contact.email.label}</span></a>
     </div>
   </div>

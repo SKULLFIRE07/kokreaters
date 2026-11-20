@@ -1,48 +1,20 @@
 ---
 /**
- * NodeMark: the KoKreaters "K" mark alone (pack 2 brand, kokreaters-mark.svg geometry): three strokes, four nodes, the
- * centre node a ring, and the one saffron node at the top right (the spark). Used in the chat launcher and panel, the
- * 404 page and the article end mark.
- *  color — navy strokes (the brand file itself, as a cached <img>).
- *  white / blue — the same geometry drawn in currentColor (white; --label on light grounds); the centre ring is cut by a
- *                 mask so it reads on any ground; the saffron node stays saffron.
- * Decorative unless `label` is given. Mobile: fixed `size` px (default 48).
+ * NodeMark: the logo A mark alone (kokreaters-mark-A.svg: the connected nodes over three overlapping circles), as a
+ * cached <img>. Used in small spaces: the chat launcher and panel, the 404 page, the article end mark.
+ * `tone` is kept for the v3 signature; the artwork is never recoloured (brief logo rules), so every tone shows the same
+ * file. Decorative unless `label` is given. Mobile: fixed `size` px (default 48).
  */
-import markUrl from '@/assets/brand/svg/kokreaters-mark.svg?url';
+import markUrl from '@/assets/brand/svg/kokreaters-mark-A.svg?url';
 interface Props {
   size?: number;
   tone?: 'color' | 'white' | 'blue';
   label?: string;
   class?: string;
 }
-const { size = 48, tone = 'color', label, class: cls } = Astro.props;
-// geometry from kokreaters-mark.svg (viewBox 0 0 64 64)
-const lines = ['M18 10 L18 54', 'M18 32 L47 10', 'M18 32 L47 54'];
-const dots = [{ x: 18, y: 10 }, { x: 18, y: 54 }, { x: 47, y: 54 }];
-const g = globalThis as { __kkNodeMark?: number };
-g.__kkNodeMark = (g.__kkNodeMark ?? 0) + 1;
-const mid = `nodemark-${g.__kkNodeMark}`;
-const a11y = label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': 'true' as const };
+const { size = 48, label, class: cls } = Astro.props;
 ---
-{tone === 'color' ? (
-  <img class:list={['nodemark', cls]} src={markUrl} width={size} height={size} alt={label ?? ''} loading="lazy" decoding="async" />
-) : (
-  <svg class:list={['nodemark', `nodemark--${tone}`, cls]} width={size} height={size} viewBox="0 0 64 64" focusable="false" {...a11y}>
-    <defs>
-      <mask id={mid} maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
-        <rect width="64" height="64" fill="#fff" />
-        <circle cx="18" cy="32" r="3.5" fill="#000" />
-      </mask>
-    </defs>
-    <g mask={`url(#${mid})`}>
-      <g stroke="currentColor" stroke-width="4.2" stroke-linecap="round" fill="none">{lines.map((d) => <path d={d} />)}</g>
-      <g fill="currentColor">{dots.map((n) => <circle cx={n.x} cy={n.y} r="5.2" />)}<circle cx="18" cy="32" r="6.9" /></g>
-    </g>
-    <circle cx="47" cy="10" r="6.4" fill="#D9A43A" />
-  </svg>
-)}
+<img class:list={['nodemark', cls]} src={markUrl} width={size} height={size} alt={label ?? ''} loading="lazy" decoding="async" />
 <style>
   .nodemark { display: block; flex: none; }
-  .nodemark--white { color: var(--white); }
-  .nodemark--blue { color: var(--label); }
 </style>

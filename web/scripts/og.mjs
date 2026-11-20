@@ -1,24 +1,13 @@
 #!/usr/bin/env node
 /**
- * Open Graph images and SEO checks (REDESIGN-V3 §1, §7; DESIGN-SPEC 3.7).
+ * Open Graph image and SEO checks (REDESIGN-V3 §1, §7; DESIGN-SPEC 3.7; pack 3 lead decision 6).
  *
- *   PUBLIC_SITE_MODE=preview node scripts/og.mjs   render public/og/*.png (1200×630) from scripts/og/template.html:
- *                                  one card per route (home, expertise hub, six pillars, industries, approach, impact,
- *                                  insights, about, contact, privacy, cookies, terms, default) plus one per insight
- *                                  visible in that mode (staging/preview: every non-coming-soon entry; production:
- *                                  published + approved only). Cards no longer in the list are deleted.
- *   node scripts/og.mjs check [dist]   validate a built site: titles, descriptions, canonicals, og:image files and
- *                                  size, JSON-LD, sitemap, robots (keyed on `indexable`) and, for a production build,
- *                                  that no unapproved insight is built, listed or linked. Mode comes from
- *                                  dist/build-info.json (src/pages/build-info.json.ts).
- *
- * Pack 2 look (brief item 13): Delft Navy #0E1F4D field, Ganeaysh's white logo (kokreaters-logo-white.svg, mark +
- * wordmark + tagline, vector, inline), Manrope label, Bodoni Moda title (the page's own H1; home: "Deep expertise,
- * turned into products, plants and markets."), and a hairline foot with the domain and the hero overline.
- * Copy comes from src/data/* and the insight frontmatter only (no new claims). Node strips the
- * TypeScript types itself; a resolve hook maps the `@/` alias and extensionless imports.
- * Rendering uses headless Chrome (/usr/bin/google-chrome or $CHROME) against a throwaway local
- * server on 127.0.0.1:4412 so the self-hosted woff2 files load exactly as on the site.
+ *   node scripts/og.mjs            install the one link-preview image (Ganeaysh's kokreaters-social-share-1200x630.png,
+ *                                  logo A + headline) via prepare-brand.mjs and verify it is 1200×630.
+ *   node scripts/og.mjs check [dist]   validate a built site: titles, descriptions, canonicals, og:image (the one
+ *                                  image on every page) and size, JSON-LD, sitemap, robots (keyed on `indexable`) and,
+ *                                  for a production build, that no unapproved insight is built, listed or linked.
+ *                                  Mode comes from dist/build-info.json (src/pages/build-info.json.ts).
  */
 import { registerHooks } from 'node:module';
 import { createServer } from 'node:http';
@@ -78,121 +67,14 @@ const routedInProduction = (e) => e.status === 'published' && e.review === 'appr
 const routedIn = (mode) => (mode === 'production' ? routedInProduction : routedWithDrafts);
 
 /* ── Card list: label + title mirror each page's PageHero eyebrow + H1 ── */
-async function cards() {
-  const { hero, insights: insightsCopy, method } = await import('@/data/home');
-  const { pillars, expertiseOverview } = await import('@/data/pillars');
-  const { industriesPage } = await import('@/data/industries');
-  const { approach } = await import('@/data/approach');
-  const { impactPage } = await import('@/data/impact');
-  const { about, founderName } = await import('@/data/founder');
-  const { contact } = await import('@/data/contact');
-  const { microcopy } = await import('@/data/microcopy');
-  const lead = hero.overline.split(' · ')[0]; // "Independent technical and strategy consulting"
-  const legal = (slug) => {
-    const fm = readFileSync(join(SRC, 'pages', `${slug}.mdx`), 'utf8').match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
-    return { key: slug, overline: microcopy.legalDateline, title: fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1] ?? slug };
-  };
-  const list = [
-    { key: 'home', overline: lead, title: hero.headline },
-    { key: 'expertise', overline: expertiseOverview.overline, title: expertiseOverview.headline },
-    ...pillars.map((p) => ({ key: p.slug, overline: `${expertiseOverview.overline} · ${p.name}`, title: p.headline })),
-    { key: 'industries', overline: industriesPage.overline, title: industriesPage.headline },
-    { key: 'approach', overline: approach.overline, title: approach.headline },
-    { key: 'impact', overline: impactPage.overline, title: impactPage.headline },
-    { key: 'insights', overline: insightsCopy.overline, title: insightsCopy.headline },
-    { key: 'about', overline: `${about.overline} · ${founderName}`, title: about.headline },
-    { key: 'contact', overline: contact.overline, title: contact.headline },
-    legal('privacy'), legal('cookies'), legal('terms'),
-    { key: 'default', overline: lead, title: method.headline },
-  ];
-  const pillarName = Object.fromEntries(pillars.map((p) => [p.key, p.name]));
-  for (const e of insightEntries().filter(routedIn(MODE))) {
-    list.push({ key: `insights-${e.id}`, overline: [insightsCopy.overline, pillarName[e.pillar]].filter(Boolean).join(' · '), title: e.title });
-  }
-  return list;
-}
-
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-/** The white logo (pack 2 brand file: mark + wordmark + tagline, outlined), vector, inline. */
-function logoSvg() {
-  return readFileSync(join(SRC, 'assets', 'brand', 'svg', 'kokreaters-logo-white.svg'), 'utf8')
-    .replace(/<!--[\s\S]*?-->/g, '').replace(/<title>[\s\S]*?<\/title>/g, '').replace(/\s+id="[^"]*"/g, '')
-    .replace(/\s(role|aria-label|width|height)="[^"]*"/g, '')
-    .replace('<svg ', '<svg aria-hidden="true" ');
-}
-
-function serve(pages, foot) {
-  const template = readFileSync(join(WEB, 'scripts', 'og', 'template.html'), 'utf8');
-  const logo = logoSvg();
-  const types = { '.woff2': 'font/woff2', '.png': 'image/png' };
-  const server = createServer((req, res) => {
-    const url = decodeURIComponent((req.url ?? '/').split('?')[0]);
-    let file = null;
-    if (url.startsWith('/card/')) {
-      const card = pages.get(url.slice(6));
-      if (!card) { res.writeHead(404).end(); return; }
-      const html = template.replace('{{LABEL}}', esc(card.overline)).replace('{{TITLE}}', esc(card.title)).replace('{{LOGO}}', logo).replace('{{FOOT}}', esc(foot));
-      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }).end(html);
-      return;
-    }
-    if (url.startsWith('/fonts/')) file = join(WEB, 'public', 'fonts', url.slice(7));
-    if (!file || file.includes('..') || !existsSync(file)) { res.writeHead(404).end(); return; }
-    res.writeHead(200, { 'content-type': types[file.slice(file.lastIndexOf('.'))] ?? 'application/octet-stream' }).end(readFileSync(file));
-  });
-  return new Promise((ok) => server.listen(PORT, '127.0.0.1', () => ok(server)));
-}
-
-function shoot(key, out) {
-  const profile = mkdtempSync(join(tmpdir(), 'kk-og-'));
-  return new Promise((ok, fail) => {
-    const p = spawn(CHROME, [
-      '--headless=new', '--no-sandbox', '--hide-scrollbars', '--disable-gpu', '--no-first-run',
-      '--force-device-scale-factor=1', `--user-data-dir=${profile}`,
-      `--window-size=${W},${H}`, '--virtual-time-budget=8000', `--screenshot=${out}`,
-      `http://127.0.0.1:${PORT}/card/${encodeURIComponent(key)}`,
-    ], { stdio: ['ignore', 'ignore', 'pipe'] });
-    let err = '';
-    p.stderr.on('data', (d) => { err += d; });
-    p.on('close', (code) => { rmSync(profile, { recursive: true, force: true }); code === 0 && existsSync(out) ? ok() : fail(new Error(`chrome failed for ${key} (${code}): ${err.slice(-400)}`)); });
-  });
-}
-
+/** Pack 3 (lead decision 6): the one link-preview image is Ganeaysh's file, installed by prepare-brand.mjs. */
+const OG_IMAGE = '/og/kokreaters-social-share-1200x630.png';
 async function render() {
-  for (const f of ['bodoni-moda-latin-opsz-normal.woff2', 'manrope-latin-wght-normal.woff2']) {
-    if (!existsSync(join(WEB, 'public', 'fonts', f))) {
-      await new Promise((ok) => spawn(process.execPath, [join(WEB, 'scripts', 'copy-fonts.mjs')], { stdio: 'inherit' }).on('close', ok));
-      break;
-    }
-  }
-  if (!existsSync(CHROME)) throw new Error(`Chrome not found at ${CHROME} (set $CHROME)`);
-  const list = await cards();
-  const pages = new Map(list.map((c) => [c.key, c]));
-  mkdirSync(OUT, { recursive: true });
-  const tmp = mkdtempSync(join(tmpdir(), 'kk-og-shots-'));
-  const { hero } = await import('@/data/home');
-  const server = await serve(pages, hero.overline);
-  try {
-    const queue = [...list];
-    const worker = async () => {
-      for (let c; (c = queue.shift()); ) {
-        const raw = join(tmp, `${c.key}.png`);
-        await shoot(c.key, raw);
-        const meta = await sharp(raw).metadata();
-        if (meta.width !== W || meta.height !== H) throw new Error(`${c.key}: screenshot is ${meta.width}×${meta.height}, want ${W}×${H}`);
-        await sharp(raw).png({ compressionLevel: 9, effort: 10 }).toFile(join(OUT, `${c.key}.png`));
-        console.log(`og: public/og/${c.key}.png`);
-      }
-    };
-    await Promise.all([worker(), worker(), worker()]);
-  } finally {
-    server.close();
-    rmSync(tmp, { recursive: true, force: true });
-  }
-  // Cards that no longer belong to a route in this mode (e.g. a draft insight before a production build) go.
-  const keep = new Set(list.map((c) => `${c.key}.png`));
-  for (const f of readdirSync(OUT)) if (f.endsWith('.png') && !keep.has(f)) { rmSync(join(OUT, f)); console.log(`og: removed stale public/og/${f}`); }
-  console.log(`og: ${list.length} images, ${W}×${H} (${MODE} mode)`);
+  await new Promise((ok, fail) => spawn(process.execPath, [join(WEB, 'scripts', 'prepare-brand.mjs')], { stdio: 'inherit' })
+    .on('close', (c) => (c === 0 ? ok() : fail(new Error(`prepare-brand exited ${c}`)))));
+  const m = await sharp(join(WEB, 'public', OG_IMAGE.slice(1))).metadata();
+  if (m.width !== W || m.height !== H) throw new Error(`${OG_IMAGE} is ${m.width}×${m.height}, want ${W}×${H}`);
+  console.log(`og: public${OG_IMAGE} (${W}×${H}), the one link-preview image for every page`);
 }
 
 /* ── check ── */
@@ -215,7 +97,7 @@ const REQUIRED = {
   BreadcrumbList: ['itemListElement'],
 };
 const EXPECT = (route) => {
-  if (route === '/') return ['Organization', 'ProfessionalService', 'WebSite'];
+  if (route === '/') return ['Organization', 'ProfessionalService', 'Person', 'WebSite'];
   if (route === '/about') return ['Person', 'BreadcrumbList'];
   if (route.startsWith('/insights/')) return ['Article', 'BreadcrumbList'];
   if (route === '/404') return [];
@@ -280,8 +162,8 @@ async function check(distArg) {
         const m = await sharp(local).metadata();
         if (m.width !== W || m.height !== H) e(`${img} is ${m.width}×${m.height}`);
       }
-      // every route has its own card (npm run og); only the 404 uses the default
-      if (p[1] === 'og:image' && /\/og\/default\.png$/.test(img) && route !== '/404') warnings.push(`${route}: uses /og/default.png`);
+      // pack 3: one link-preview image for every page
+      if (img !== `${SITE}${OG_IMAGE}`) e(`${p[1]} ${img} is not ${OG_IMAGE}`);
     }
     const ogW = metas(html, 'property', 'og:image:width')[0], ogH = metas(html, 'property', 'og:image:height')[0];
     if (ogW !== String(W) || ogH !== String(H)) e(`og:image:width/height ${ogW}×${ogH}`);

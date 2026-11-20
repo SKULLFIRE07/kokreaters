@@ -1,12 +1,15 @@
 /**
  * Impact (pack 2, 20 Nov 2026: brief items 7, 8, 17, 27–30).
- * Past results are always "from our founder’s career", never KoKreaters projects. Employer names
+ * Past results are Ganeaysh’s, delivered in senior roles before KoKreaters (pack 3: said once per page, in the
+ * career.ts footnote, never repeated under figures). Employer names
  * appear only in the founder line and on the About page (item 8), so nothing in this file names them.
  * Placeholders (brief ⟦…⟧, Part K): modelled as `pending: { confirmed: false, confirm: 'P-n', note }`. They render in
  * staging only, beside a <Confirm id="P-n">; in preview and production the figure / sentence / link is not rendered.
  */
-import type { Engagement, FounderResult, ImpactStory, StripItem, Unconfirmed } from './types';
+import type { Engagement, FounderResult, ImpactStory, Unconfirmed } from './types';
+import { careerFootnote, figure, impactFigures, type CareerFigure } from './career';
 import { minus25 } from '@/lib/typography';
+import { bookingHref } from '@/lib/booking';
 
 const pending = (confirm: Unconfirmed['confirm'], note: string): Unconfirmed => ({ confirmed: false, confirm, note });
 
@@ -17,16 +20,18 @@ const pending = (confirm: Unconfirmed['confirm'], note: string): Unconfirmed => 
  */
 export const impactStories: ImpactStory[] = [
   {
+    photo: 'refinery-01',
     id: 'story-india', n: 1, tag: 'PRODUCT AND PROCESS · INDIA',
     title: 'India’s first world-class integrated specialty fats facility',
     figures: [{ value: '1st', label: 'of its kind in India' }],
     challenge: 'India’s bakers, confectioners and food-service chains depended on imported specialty fats or on vanaspati. No facility in the country brought refining, fractionation, interesterification and blending together to world standards.',
     done: 'Ganeaysh led the technical build-up and start-up of the facility, from process design and product development to customer trials, so that it could make specialty fats to order rather than to stock.',
     result: 'New product lines for customers, and multi-million-dollar businesses built on them.',
-    resultMore: { text: 'Capacity: X tonnes per day.', pending: pending('P-3', 'specialty fats facility capacity') },
+    resultMore: { text: `Capacity: ${figure('specialty').value}\u00A0${figure('specialty').unit}.`, pending: pending('P-3', 'draft career figure 3, to confirm') },
     pillars: ['innovation', 'process'], industries: ['Edible oils and specialty fats'],
   },
   {
+    photo: 'cold-01',
     id: 'story-ukraine', n: 2, tag: 'PROCESS · UKRAINE',
     title: `A tropical oil, refined through a ${minus25} winter`,
     figures: [{ value: minus25, label: 'operating temperature' }, { value: '15%', label: 'lower cost structure' }],
@@ -37,6 +42,7 @@ export const impactStories: ImpactStory[] = [
     homeLine: 'Ukraine’s first cold-climate crude palm oil refinery, with a 15% lower cost structure.',
   },
   {
+    photo: 'plant-01',
     id: 'story-indonesia', n: 3, tag: 'OPERATIONS · INDONESIA',
     title: '21% growth from the same plant',
     figures: [{ value: '21%', label: 'business growth' }],
@@ -48,6 +54,7 @@ export const impactStories: ImpactStory[] = [
     homeLine: 'Business growth after reshaping manufacturing: throughput, yield, quality and cost.',
   },
   {
+    photo: 'oils-02',
     id: 'story-who', n: 4, tag: 'FOOD SAFETY · GLOBAL',
     title: 'Trans-fat work praised by the WHO Director-General',
     figures: [{ value: 'WHO', label: 'Director-General recognition' }],
@@ -56,12 +63,17 @@ export const impactStories: ImpactStory[] = [
     result: 'The company’s commitment to the WHO trans-fat standard was praised publicly by the WHO Director-General, Dr Tedros Adhanom Ghebreyesus.',
     verify: [
       { label: 'Dr Tedros’s post on X', href: null, pending: pending('P-5', 'URL of Dr Tedros’s post on X') },
-      { label: 'His published commentary', href: 'https://english.aawsat.com/home/article/4153266/tedros-adhanom-ghebreyesus/food-should-be-source-health-not-cause-disease' },
+      {
+        label: 'His published commentary',
+        href: 'https://english.aawsat.com/home/article/4153266/tedros-adhanom-ghebreyesus/food-should-be-source-health-not-cause-disease',
+        cite: { title: 'Food should be a source of health, not a cause of disease', author: 'Dr Tedros Adhanom Ghebreyesus', publication: 'Asharq Al-Awsat' },   // pack 3: a proper source link (title and outlet from the URL)
+      },
     ],
     pillars: ['quality', 'innovation'], industries: [],
     homeLine: 'Trans-fat elimination work praised publicly by the WHO Director-General.',
   },
   {
+    photo: 'lab-01',
     id: 'story-contaminants', n: 5, tag: 'FOOD SAFETY · INDIA AND EUROPE',
     title: 'Process contaminants, removed at the source',
     figures: [{ value: '≥\u00A050%', label: 'reduction in 3-MCPD and glycidyl esters', pending: pending('P-6', 'contaminant reduction figure') }],
@@ -71,6 +83,7 @@ export const impactStories: ImpactStory[] = [
     pillars: ['quality', 'process'], industries: ['Nutrition and specialty ingredients'],
   },
   {
+    photo: 'bakery-02',
     id: 'story-bakery', n: 6, tag: 'TECHNOLOGY TRANSFER · THREE CONTINENTS',
     title: 'One bakery playbook, from the Americas to Asia',
     figures: [{ value: '3', label: 'continents' }],
@@ -81,6 +94,7 @@ export const impactStories: ImpactStory[] = [
     pillars: ['innovation'], industries: ['Bakery and food service'],
   },
   {
+    photo: 'chocolate-01',
     id: 'story-asset-light', n: 7, tag: 'GROWTH · ASIA AND EMEA',
     title: 'Building business without building plants',
     figures: [{ value: '$X\u00A0m', label: 'new business, asset-light', pending: pending('P-8', 'asset-light business value') }],
@@ -90,6 +104,7 @@ export const impactStories: ImpactStory[] = [
     pillars: ['strategy'], industries: ['Cocoa, chocolate and confectionery', 'Plant-based'],
   },
   {
+    photo: 'develop-pipette',
     id: 'story-ai-design', n: 8, tag: 'INNOVATION · GLOBAL',
     title: 'Product design at global scale, with AI in the loop',
     figures: [{ value: 'X', label: 'new product platforms', pending: pending('P-9', 'number of product platforms') }],
@@ -99,6 +114,7 @@ export const impactStories: ImpactStory[] = [
     pillars: ['innovation', 'capability'], industries: [],
   },
   {
+    photo: 'people-03',
     id: 'story-deals', n: 9, tag: 'DEALS · GLOBAL',
     title: 'Seeing what is really behind an acquisition',
     figures: [{ value: 'X', label: 'transactions supported', pending: pending('P-10', 'number of transactions supported') }],
@@ -112,15 +128,19 @@ export const impactStories: ImpactStory[] = [
 export const storyHref = (id: ImpactStory['id']): string => `/impact#${id}`;
 export const getStory = (id: string): ImpactStory | undefined => impactStories.find((s) => s.id === id);
 
-/** /impact strip (brief item 27; different from the home and About strips). The fourth figure is P-6. */
-export const impactStrip: { label: string; source: string; items: StripItem[] } = {
-  label: 'Our track record',
-  source: 'Stories from our founder’s career before KoKreaters. Client and employer confidential details are omitted.',
+/**
+ * /impact strip (pack 3, brief "Make 25 years felt" point 3): career figures 1, 2 and 4 (career.ts, draft until
+ * Ganeaysh confirms: staging and preview only) and the existing 21%, 15% and −25 °C. The footnote is the page's one
+ * footnote, set once at the top (career.ts `careerFootnote`). The P-6 contaminant figure stays on its story only.
+ */
+export const impactStrip: { label: string; source: string; items: CareerFigure[] } = {
+  label: 'Track record',
+  source: careerFootnote,
   items: [
-    { value: '21%', label: 'business growth, Indonesia' },
-    { value: '15%', label: 'lower cost structure, Ukraine' },
-    { value: minus25, label: 'refinery operating temperature' },
-    { value: '≥\u00A050%', label: 'reduction in process contaminants at commercial scale', pending: pending('P-6', 'contaminant reduction figure') },
+    ...impactFigures,
+    { id: 'indonesia', value: '21', unit: '%', label: 'business growth from the same plant, Indonesia', status: 'confirmed' },
+    { id: 'ukraine-cost', value: '15', unit: '%', label: 'lower cost structure, Ukraine', status: 'confirmed' },
+    { id: 'ukraine-cold', value: '−25', unit: '°C', label: 'refinery operating temperature, Ukraine', status: 'confirmed' },
   ],
 };
 
@@ -129,11 +149,11 @@ export const impactPage = {
   overline: 'Impact',
   headline: 'Results that started on the plant floor.',
   lead: 'Nine stories from 25\u00A0years of building plants, products and markets: what was at stake, what was done, and what changed.',
-  partOne: 'From our founder’s career',
+  partOne: 'Nine stories',                             // pack 3 (was "From our founder’s career")
   partTwo: 'KoKreaters engagements',
   anonymised: 'Anonymised',
   engagementDateline: 'KoKreaters engagement',
-  labels: { challenge: 'The challenge', done: 'What was done', result: 'The result', verify: 'Verify' },
+  labels: { challenge: 'The challenge', done: 'What was done', result: 'The result', verify: 'Source' },
   storiesTitle: 'Nine stories',                         // COMPOSED (brief item 27 intro: "Nine stories …")
   filters: { group: 'Filter the stories', service: 'Service', industry: 'Industry', all: 'All' },   // COMPOSED UI labels
   count: '{n} stories', countOne: '1 story',            // COMPOSED live count
@@ -147,7 +167,7 @@ export const impactPage = {
   cta: {
     title: 'Your plant, product or market could be the next story.',
     primary: { label: 'Start a conversation', href: '/contact' },
-    booking: { label: 'Book a 30-minute call', href: null as string | null, pending: pending('P-13', 'booking link (Cal.com or Calendly)') },
+    booking: { label: 'Book a 30-minute call', href: bookingHref() as string | null },   // pack 3: bookingHref() (lib/booking), always shown
   },
 };
 
@@ -180,7 +200,7 @@ export const founderResults: FounderResult[] = [
     context: 'Operations · Indonesia',
     outcome: '21% growth from the same plant',
     challenge: impactStories[2].challenge, done: impactStories[2].done, result: impactStories[2].result,
-    figure: { value: '21%', source: 'From our founder’s career, Indonesia' },
+    figure: { value: '21%', source: 'Indonesia' },
     pillars: ['process'], sectors: ['Edible oils and specialty fats'] },
   { id: 'ukraine', dateline: 'Ukraine',
     homeLine: `Ukraine’s first cold-climate crude palm oil refinery, at ${minus25}, with a 15% lower cost structure.`,
@@ -188,7 +208,7 @@ export const founderResults: FounderResult[] = [
     context: 'Process · Ukraine',
     outcome: 'Ukraine’s first cold-climate crude palm oil refinery',
     challenge: impactStories[1].challenge, done: impactStories[1].done, result: impactStories[1].result,
-    figure: { value: minus25, source: 'From our founder’s career, Ukraine', frost: true },
+    figure: { value: minus25, source: 'Ukraine', frost: true },
     pillars: ['process'], sectors: ['Edible oils and specialty fats'] },
   { id: 'tfa', dateline: 'Global',
     homeLine: 'Trans-fat elimination work praised publicly by the WHO Director-General.',

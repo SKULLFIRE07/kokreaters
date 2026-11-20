@@ -5,7 +5,7 @@
  *   1. Header: eyebrow "The name" (the h2) + a serif statement.
  *   2. Two dictionary-style entries side by side, joined by a large accent "+":
  *      "Ko" (together) and "Kreaters" (the makers), each with its own definition from data.
- *   3. "=" row: the full white KoKreaters lockup, then the tagline method drawn as three ringed nodes on a hairline
+ *   3. "=" row: the new logo (Option A, white with tagline: the brief's file for navy grounds) beside the equation, then the tagline method drawn as three ringed nodes on a hairline
  *      (the logo's own motif): Connect, Collaborate, Create, each with its one-line meaning from src/data/approach.ts.
  *   4. The founder's words as a pull quote with an accent rule.
  * Mobile (< 900px): entries stack with the "+" between them; method nodes run vertically on the hairline.
@@ -46,7 +46,7 @@ const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
 
   <div class="np__result">
     <span class="np__op np__op--eq" aria-hidden="true">=</span>
-    <Logo variant="full-white" alt={name.lockupAlt} width={300} class="np__lockup" />
+    <Logo variant="white" width="clamp(240px, 18rem + 8vw, 440px)" class="np__lockup" />
   </div>
 
   <ol class="np__method" aria-label="The method in the logo's tagline">
@@ -97,7 +97,7 @@ const quoteText = name.quote.replace(/^In Ganeaysh’s words, /, '');
     margin-top: clamp(40px, 4vw, 72px); padding-top: clamp(32px, 3vw, 56px); border-top: 1px solid var(--rule);
   }
   .np__op--eq { justify-self: auto; }
-  :global(.np__lockup) { max-width: min(300px, 70vw); height: auto; }
+  .np__result :global(.np__lockup) { flex: 0 1 auto; min-width: 0; }
 
   /* the method: ringed nodes on a hairline (the logo's motif) */
   .np__method { list-style: none; margin: clamp(40px, 4vw, 72px) 0 0; padding: 0; position: relative; display: grid; row-gap: var(--s-6); }

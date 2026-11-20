@@ -2,6 +2,7 @@
  * keys stay stable. */
 import type { Pillar } from './types';
 import type { PhotoSlug } from './photos';
+import { careerFootnote } from './career';
 
 export const pillars: Pillar[] = [
   {
@@ -12,13 +13,17 @@ export const pillars: Pillar[] = [
     intro: 'We turn consumer and customer needs into clear technical briefs, then into products your plants can make profitably. Our roots are in oils and fats, so we are at our best where fat functionality decides whether a product succeeds: texture, bloom, shelf life, mouthfeel and cost.',
     helpWith: [
       'Specialty fats: cocoa butter equivalents (CBE), confectionery and filling fats, bakery shortenings, margarines and laminating fats', // CONFIRM 7
-      'Plant-based, dairy and specialised nutrition applications',
+      'Feed, pet food, plant-based, dairy and specialised nutrition applications',   // pack 3 brief: feed, pet food and nutrition
+      'AI-assisted formulation: more options screened, faster, against cost-in-use',   // pack 3 brief; COMPOSED wording
       'Reformulation and renovation: trans-fat elimination, saturated fat reduction, cleaner labels, cost-in-use',
       'Sensory evaluation, consumer insight and foresight',
       'Technical road-mapping and innovation pipelines',
     ],
     deliverables: ['Innovation roadmaps', 'technical briefs', 'formulation and prototype plans', 'lab-to-plant scale-up plans', 'launch support'],
     colourVar: '--pillar-innovation', hex: '#2C509E', inkText: false, impactId: 'story-india', shortLabel: 'Product',
+    audience: 'For R&D heads and business owners who need products that sell and plants that can make them.',   // COMPOSED
+    engagement: 'Defined project, stage by stage from brief to launch',                                         // COMPOSED
+    offer: { title: 'Book a product and cost-in-use review', line: 'One product, one plant: where the recipe, the fat system and the cost can improve.' },   // COMPOSED
   },
   {
     key: 'process', slug: 'process-design', n: 2,
@@ -35,6 +40,9 @@ export const pillars: Pillar[] = [
     ],
     deliverables: ['Process design basis', 'plant assessments', 'debottlenecking plans', 'commissioning support', 'technology transfer packages'],
     colourVar: '--pillar-process', hex: '#5B2A86', inkText: false, impactId: 'story-ukraine', shortLabel: 'Process',
+    audience: 'For plant heads and operations directors building, expanding or fixing a plant.',   // COMPOSED
+    engagement: 'Diagnostic sprint, 2–3 weeks',                                                    // brief example
+    offer: { title: 'Book a 2-week diagnostic sprint', line: 'A site visit, your data and process reviewed, and a prioritised roadmap with the value at stake.' },   // brief offer; line = engage item 1
   },
   {
     key: 'strategy', slug: 'strategy-feasibility', n: 3,
@@ -47,10 +55,13 @@ export const pillars: Pillar[] = [
       'Market analysis, product-market fit and competitive landscapes',
       'Feasibility studies and business plans for new plants and product lines',
       'Business and technology alignment plans and technical roadmaps',
-      'Investor-grade reports and presentations',
+      'Investor-grade reports and presentations, including for mineral and ingredient companies',   // pack 3 brief
     ],
     deliverables: ['Market entry strategies', 'feasibility reports', 'business plans with scenarios', 'investor decks'],
     colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, impactId: 'story-asset-light', shortLabel: 'Market access',
+    audience: 'For owners, boards and investors deciding where to commit capital.',   // COMPOSED
+    engagement: 'Feasibility study as a defined project, with a Go/No-Go gate',      // COMPOSED
+    offer: { title: 'Get a Go/No-Go assessment', line: 'Market, technology and numbers tested before you commit capital.' },   // COMPOSED (the page's three questions)
   },
   {
     key: 'quality', slug: 'food-safety-quality', n: 4,
@@ -60,13 +71,17 @@ export const pillars: Pillar[] = [
     intro: 'Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at one of the world’s largest agri-food companies, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.',
     helpWith: [
       'Process contaminant mitigation: 3-MCPD and glycidyl esters, trans fats, mineral oil hydrocarbons',
-      'Plant and supplier audits; readiness for multinational customer pre-approval audits',
+      'Multinational customer audit readiness: plant and supplier audits before the customer’s pre-approval audit',   // pack 3 brief: named offer
+      'EUDR and sustainability compliance for palm, soy and cocoa supply chains',   // pack 3 brief
       'Building FSQR systems, teams and culture',
       'Packaging-related contaminants, product integrity and shelf life',
       'Regulatory horizon scanning for India and Europe',
     ],
     deliverables: ['Audit reports with photographic evidence', 'gap analyses', 'corrective action plans', 'mitigation programmes', 'training'],
     colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'story-who', shortLabel: 'Food safety',
+    audience: 'For quality heads, suppliers and brand owners facing customer audits and tighter limits.',   // COMPOSED
+    engagement: 'Diagnostic sprint, 2–3 weeks, on site',                                                   // COMPOSED (engage item 1)
+    offer: { title: 'Get a contaminant risk review', line: 'Your raw materials, process and packaging checked for 3-MCPD, GE, trans fats and mineral oils.' },   // brief offer; line COMPOSED from the help list
   },
   {
     key: 'deals', slug: 'due-diligence', n: 5,
@@ -82,6 +97,9 @@ export const pillars: Pillar[] = [
     ],
     deliverables: ['Due diligence reports', 'red-flag summaries', 'integration plans', 'partner assessments'],
     colourVar: '--pillar-deals', hex: '#8C5B88', inkText: false, impactId: 'story-deals', shortLabel: 'Deals',
+    audience: 'For investors, acquirers and lenders who need a technical view before they sign.',   // COMPOSED
+    engagement: 'Expert review, timed to your deal',                                               // COMPOSED (engage item 4)
+    offer: { title: 'Commission a red-flag review', line: 'An independent technical view of the asset, as a one-page red-flag summary, before you sign.' },   // COMPOSED
   },
   {
     key: 'capability', slug: 'technology-leadership', n: 6,
@@ -103,6 +121,9 @@ export const pillars: Pillar[] = [
     ],
     deliverables: ['CTO and Head of R&D roles, on demand', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
     colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'story-ai-design', shortLabel: 'R&D leadership',
+    audience: 'For owners and CEOs who need senior technical judgement without a full-time hire.',   // COMPOSED
+    engagement: 'Leadership on demand, typically 6–12 months',                                      // pack 3 brief
+    offer: { title: 'Scope a leadership-on-demand term', line: 'The days, the term and the monthly board report agreed in one conversation.' },   // COMPOSED
   },
 ];
 
@@ -118,8 +139,13 @@ export const expertiseOverview = {
 export const pillarPage = {
   helpWith: 'What we help with',
   deliverables: 'Typical deliverables',
-  fromTheRecord: 'From our founder’s career',
-  proofSource: 'From our founder’s 25-year career, before KoKreaters.',   // brief item 15 footnote (item 8: no employer names)
+  fromTheRecord: 'From the record',          // pack 3: no "founder's career" lines (brief "Stop the site sounding new")
+  /** pack 3: the one footnote per page (career.ts `careerFootnote`); kept as an alias for older imports. */
+  proofSource: careerFootnote,
+  audience: 'Who it is for',                  // COMPOSED (UI label)
+  engagement: 'Typical engagement',           // brief wording
+  offerLabel: 'Our offer',                    // COMPOSED (UI label)
+  quoteLabel: 'In their words',               // COMPOSED (UI label)
   /* v3 (REDESIGN-V3 §4 expertise detail) */
   challenge: 'The challenge we solve',
   relatedIndustries: 'Related industries',   // COMPOSED
@@ -163,10 +189,85 @@ export const expertiseHubPhoto: { slug: PhotoSlug; position?: string } = { slug:
  */
 export const pillarExhibits: Record<Pillar['key'], { title: string; steps: string[]; from?: string; to?: string[] }> = {
   innovation: { title: 'From unmet need to a product that scales', steps: ['Unmet need', 'Technical brief', 'Prototype', 'Scale-up', 'Launch'] },
-  process: { title: 'Crude oil in, customer specification out', from: 'Crude', steps: ['Degumming', 'Bleaching', 'Deodorisation', 'Fractionation', 'Interesterification'], to: ['Spec'] },
+  process: { title: 'Oilseed in, customer specification out', from: 'Oilseed crushing', steps: ['Crude', 'Degumming', 'Bleaching', 'Deodorisation', 'Fractionation', 'Interesterification'], to: ['Spec'] },
   quality: { title: 'Process contaminants, stopped layer by layer', from: 'Risk', steps: ['3-MCPD and GE', 'Trans fats', 'Mineral oil hydrocarbons'], to: ['Your brand'] },
   strategy: { title: 'Three questions before you commit capital', from: 'Your idea', steps: ['Is the market real?', 'Does the technology work?', 'Do the numbers hold?'], to: ['Go', 'No-Go'] },
   deals: { title: 'What the spreadsheet shows, and what it does not', from: 'What the spreadsheet shows', steps: ['A tired refinery', 'A fragile quality system', 'A technology that will not transfer'] },
   capability: { title: 'Lead, then leave stronger teams behind', steps: ['Lead', 'Train', 'Transfer', 'Coach'], to: ['Stronger teams'] },
 };
 
+
+/* ───────────────────────── pack 3 (Ganeaysh's v3 review, 20 Nov 2026): per-page additions ───────────────────────── */
+
+/**
+ * Process development: the refining strip gains oilseed crushing (first step, in pillarExhibits.process) and enzymatic
+ * processing (an option on degumming and interesterification), plus one capacity figure from career.ts.
+ */
+export const processStrip = {
+  enzymatic: { steps: ['Degumming', 'Interesterification'], note: 'Enzymatic processing: an option at degumming and interesterification' },   // pack 3 brief
+  figureId: 'refinery',          // career.ts: 500 t/day, largest single refinery designed and commissioned (draft)
+};
+
+/**
+ * Market access: the Go/No-Go flow as a drawn diagram (brief: "rather than a numbered list"). The same chain as
+ * pillarExhibits.strategy; each gate also says what "no" leads to, so the diagram reads as a decision, not a list.
+ */
+export const goNoGo = {
+  title: 'Three gates before you commit capital',            // COMPOSED (from pillarExhibits.strategy)
+  start: 'Your idea',
+  gates: [
+    { q: 'Is the market real?', yes: 'Demand, price and customers confirmed', no: 'Rethink the market' },          // COMPOSED short labels
+    { q: 'Does the technology work?', yes: 'Process and product proven at scale', no: 'Adapt the technology' },
+    { q: 'Do the numbers hold?', yes: 'Capex, margins and payback hold up', no: 'Rework the business case' },
+  ],
+  go: 'Go: a route to market you can follow',
+  noGo: 'No-Go: capital kept for a better bet',
+  caption: 'Each gate is tested with market data, plant reality and the numbers; you decide at each one whether to continue.',
+};
+
+/** Deals: "What we look at" (brief: assets, process, quality system, people, technology, capex). One short line each. COMPOSED. */
+export const dealChecklist = {
+  title: 'What we look at',
+  items: [
+    { key: 'assets', name: 'Assets', line: 'Condition, capacity and remaining life of the plant.' },
+    { key: 'process', name: 'Process', line: 'Yields, losses and bottlenecks against the business plan.' },
+    { key: 'quality', name: 'Quality system', line: 'Audit history, open findings and customer approvals.' },
+    { key: 'people', name: 'People', line: 'Key technical roles, depth and retention risk.' },
+    { key: 'technology', name: 'Technology', line: 'Know-how, licences and whether they transfer.' },
+    { key: 'capex', name: 'Capex', line: 'Deferred maintenance and the upgrades the plan needs.' },
+  ],
+} as const;
+
+/**
+ * Deals: a sample red-flag summary (brief: "a sample red-flag summary layout"). Neutral example rows, clearly
+ * labelled "Example layout": they show the shape of the deliverable, not a real finding. COMPOSED.
+ */
+export const redFlagSample = {
+  title: 'A red-flag summary, on one page',
+  badge: 'Example layout',
+  note: 'Illustrative rows only, not findings from any engagement.',
+  columns: { area: 'Area', finding: 'Finding', rating: 'Rating', action: 'Before signing' },
+  ratings: { high: 'High', medium: 'Medium', low: 'Low' },
+  rows: [
+    { area: 'Assets', finding: 'Bleaching section near the end of its life', rating: 'high', action: 'Price the replacement into the offer' },
+    { area: 'Quality system', finding: 'Two open findings from the last customer audit', rating: 'medium', action: 'Agree a close-out plan with the seller' },
+    { area: 'Process', finding: 'Yields in line with the business plan', rating: 'low', action: 'None' },
+    { area: 'People', finding: 'Process know-how held by one shift leader', rating: 'medium', action: 'Retention terms for key staff' },
+  ],
+} as const;
+
+/** Technology and R&D leadership: how it works in practice (brief: days per month, 6–12 month term, the monthly board pack). */
+export const leadershipInPractice = {
+  title: 'How it works in practice',          // brief wording
+  items: [
+    { key: 'days', label: 'Days per month', value: 'A set number', line: 'Agreed up front, on site and remote.', confirm: 'typical days per month' },   // brief: "days per month" (no figure given)
+    { key: 'term', label: 'Typical term', value: '6–12 months', line: 'Long enough to set the agenda and build the team.' },   // brief: 6–12 months
+    { key: 'board', label: 'The board receives', value: 'A monthly report', line: 'Progress, technical risks and the decisions needed.' },   // COMPOSED
+  ],
+} as const;
+
+/**
+ * One short client or colleague quote per service page (brief: "where available"). Empty until real quotes with
+ * permission arrive; staging shows the slot with a <Confirm>, preview and production render nothing.
+ */
+export const pillarQuotes: Partial<Record<Pillar['key'], { quote: string; name: string; role: string }>> = {};

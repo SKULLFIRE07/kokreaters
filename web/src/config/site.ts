@@ -19,7 +19,9 @@ export const site = {
    *  footer link and JSON-LD Organization.sameAs are omitted while it is null. */
   linkedinCompany: null as string | null,
   base: 'Based in the Netherlands, working worldwide',
-  bookingUrl: (env.PUBLIC_BOOKING_URL as string | undefined) || '/contact#form',      // CONFIRM 9
+  /** Pack 3 lead decision 2: Calendly / Microsoft Bookings URL (env PUBLIC_BOOKING_URL), null until Ganeaysh sends it.
+   *  Never read directly for a button: use bookingHref() from '@/lib/booking' (falls back to /contact#start). */
+  bookingUrl: ((env.PUBLIC_BOOKING_URL as string | undefined) || null) as string | null,      // CONFIRM 9
   /**
    * Contact form endpoint. Default: the same-origin Vercel Function /api/contact (Resend, or FormSubmit until a Resend
    * key is set; see ../CHATBOT-AND-EMAIL-SETUP.md). 'none' = no endpoint (mailto only). An absolute URL posts there.
@@ -28,9 +30,12 @@ export const site = {
   newsletterEndpoint: (env.PUBLIC_NEWSLETTER_ENDPOINT as string | undefined) || '',
   turnstileSiteKey: (env.PUBLIC_TURNSTILE_SITEKEY as string | undefined) || '',
   analytics: env.PUBLIC_ANALYTICS === '1',
-  /** "Ask KoKreaters" chat widget (brief item 1 feature flag). PUBLIC_CHAT=off → not rendered on any page (no launcher,
-   *  no panel, and its lazy chat.ts chunk is never requested); unset or any other value = on. */
-  chat: env.PUBLIC_CHAT !== 'off',
+  /** Pack 3: cookie-free Plausible analytics, off by default. Set PUBLIC_PLAUSIBLE_DOMAIN (e.g. kokreaters.com) to load it.
+   *  Events: book-call, form-send, playbook-download (src/lib/analytics.ts). */
+  plausibleDomain: ((env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined) || null) as string | null,
+  /** "Ask KoKreaters" chat widget. Pack 3 lead decision 5: OFF by default; PUBLIC_CHAT=on turns it back on. When off it
+   *  is not rendered on any page (no launcher, no panel, and its lazy chat.ts chunk is never requested). */
+  chat: env.PUBLIC_CHAT === 'on',
   legal: { registration: null as string | null },             // CONFIRM 11 e.g. "KvK 00000000 · VAT NL000000000B00"
   trademark: '™',                                             // CONFIRM 12
 } as const;

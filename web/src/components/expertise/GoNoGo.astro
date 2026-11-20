@@ -1,0 +1,148 @@
+---
+/**
+ * Pack 3 (brief, Market access and strategy): the Go/No-Go flow as a drawn diagram, not a numbered list. On Delft Ice.
+ * Desktop (≥ 900px): an inline SVG (aria-hidden): the idea's ringed node, three diamond gates on one line, "Yes" on the
+ * main line to a filled Go box, "No" dropping from every gate onto a dashed rail into the outlined No-Go box.
+ * The accessible content is the real <ol> next to it (screen readers read it at every width; it is the visible
+ * diagram below 900px, drawn with CSS: diamonds on a vertical spine, the No branch under each question), plus the
+ * <figcaption>. Data: pillars.ts `goNoGo`. Static (no motion).
+ */
+import Section from '@/components/ui/Section.astro';
+import Head from './Head.astro';
+import { goNoGo } from '@/data/pillars';
+import { microcopy } from '@/data/microcopy';
+
+const g = goNoGo;
+const W = 1000;
+const lineY = 120;
+const railY = 268;
+const gx = [240, 480, 720];
+const boxX = 852;
+const boxW = 146;
+/** two-line split near the middle, for the small labels */
+const split2 = (t: string): [string, string] => {
+  const w = t.split(' ');
+  if (w.length < 3) return [t, ''];
+  let best = 1; let diff = Infinity;
+  for (let i = 1; i < w.length; i++) {
+    const d = Math.abs(w.slice(0, i).join(' ').length - w.slice(i).join(' ').length);
+    if (d < diff) { diff = d; best = i; }
+  }
+  return [w.slice(0, best).join(' '), w.slice(best).join(' ')];
+};
+const capFirst = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+const goOut = split2(capFirst(g.go.replace(/^Go:\s*/, '')));
+const noOut = split2(capFirst(g.noGo.replace(/^No-Go:\s*/, '')));
+---
+<Section ground="white" class="band--ice gng-band" labelledby="gng-title">
+  <Head id="gng-title" label={microcopy.exhibit} title={g.title} />
+  <figure class="gng" aria-labelledby="gng-title">
+    <svg class="gng__svg" viewBox={`0 36 ${W} 310`} width="100%" aria-hidden="true" focusable="false">
+      <defs>
+        <marker id="gng-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M1 1 L9 5 L1 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </marker>
+      </defs>
+      <!-- main line: idea → gates → Go -->
+      <line class="gng__line" x1="40" y1={lineY} x2={boxX - 6} y2={lineY} marker-end="url(#gng-arrow)" />
+      <!-- start node (the logo's ringed node) -->
+      <circle cx="40" cy={lineY} r="11" class="gng__node" />
+      <circle cx="40" cy={lineY} r="4" class="gng__node-dot" />
+      <text x="40" y={lineY + 40} class="gng__t gng__t--strong" text-anchor="middle">{g.start}</text>
+
+      {g.gates.map((gate, i) => {
+        const x = gx[i];
+        const no = split2(gate.no);
+        return (
+          <g>
+            <text x={x} y={lineY - 52} class="gng__q" text-anchor="middle">{gate.q}</text>
+            <rect x={x - 22} y={lineY - 22} width="44" height="44" transform={`rotate(45 ${x} ${lineY})`} class="gng__gate" />
+            <text x={x} y={lineY + 6} class="gng__n" text-anchor="middle">{i + 1}</text>
+            <text x={x + 62} y={lineY - 10} class="gng__yes" text-anchor="middle">Yes</text>
+            <line class="gng__no-line" x1={x} y1={lineY + 32} x2={x} y2={railY} />
+            <text x={x + 10} y={(lineY + railY) / 2 + 6} class="gng__no">No</text>
+            <text x={x} y={railY + 30} class="gng__t" text-anchor="middle">{no[0]}</text>
+            {no[1] && <text x={x} y={railY + 50} class="gng__t" text-anchor="middle">{no[1]}</text>}
+          </g>
+        );
+      })}
+
+      <!-- No rail → No-Go -->
+      <line class="gng__no-line" x1={gx[0]} y1={railY} x2={boxX - 6} y2={railY} marker-end="url(#gng-arrow)" />
+
+      <!-- Go (filled Deep Delft) and No-Go (outlined) -->
+      <rect x={boxX} y={lineY - 26} width={boxW} height="52" class="gng__go" />
+      <text x={boxX + boxW / 2} y={lineY + 7} class="gng__go-t" text-anchor="middle">Go</text>
+      <text x={boxX + boxW / 2} y={lineY - 58} class="gng__t" text-anchor="middle">{goOut[0]}</text>
+      {goOut[1] && <text x={boxX + boxW / 2} y={lineY - 38} class="gng__t" text-anchor="middle">{goOut[1]}</text>}
+
+      <rect x={boxX} y={railY - 26} width={boxW} height="52" class="gng__nogo" />
+      <text x={boxX + boxW / 2} y={railY + 7} class="gng__nogo-t" text-anchor="middle">No-Go</text>
+      <text x={boxX + boxW / 2} y={railY + 50} class="gng__t" text-anchor="middle">{noOut[0]}</text>
+      {noOut[1] && <text x={boxX + boxW / 2} y={railY + 70} class="gng__t" text-anchor="middle">{noOut[1]}</text>}
+    </svg>
+
+    <ol class="gng__list" role="list">
+      <li class="gng__step gng__step--start"><span class="gng__mark" aria-hidden="true"></span><span class="gng__lq">{g.start}</span></li>
+      {g.gates.map((gate, i) => (
+        <li class="gng__step">
+          <span class="gng__mark gng__mark--gate" aria-hidden="true"><span>{i + 1}</span></span>
+          <span class="gng__lq">{gate.q}</span>
+          <span class="gng__lyes"><strong>Yes:</strong> {gate.yes}</span>
+          <span class="gng__lno"><strong>No:</strong> {gate.no}</span>
+        </li>
+      ))}
+      <li class="gng__step gng__step--end">
+        <span class="gng__mark gng__mark--go" aria-hidden="true"></span>
+        <span class="gng__lq">{g.go}</span>
+        <span class="gng__lno">{g.noGo}</span>
+      </li>
+    </ol>
+    <figcaption class="gng__cap">{g.caption}</figcaption>
+  </figure>
+</Section>
+<style>
+  .gng { margin: 0; padding-top: var(--s-7); border-top: 1px solid var(--rule); }
+  .gng__svg { display: none; max-width: 1100px; height: auto; overflow: visible; color: var(--label); }
+  .gng__cap { margin-top: var(--s-6); font-size: var(--fs-small); line-height: 1.55; color: var(--fg-2); max-width: 70ch; }
+
+  /* SVG marks */
+  .gng__line { stroke: var(--head); stroke-width: 2; }
+  .gng__no-line { stroke: var(--label); stroke-width: 1.5; stroke-dasharray: 5 5; fill: none; }
+  .gng__node { fill: var(--label); stroke: var(--white); stroke-width: 4; paint-order: stroke; }
+  .gng__node-dot { fill: var(--white); }
+  .gng__gate { fill: var(--white); stroke: var(--head); stroke-width: 2; }
+  .gng__n { font: 700 18px var(--font-sans); fill: var(--head); }
+  .gng__q { font: 700 18px var(--font-sans); fill: var(--head); }
+  .gng__t { font: 500 15px var(--font-sans); fill: var(--fg-2); }
+  .gng__t--strong { font-weight: 700; fill: var(--head); }
+  .gng__yes, .gng__no { font: 700 14px var(--font-sans); fill: var(--label); letter-spacing: .04em; }
+  .gng__go { fill: var(--blue-700); }
+  .gng__go-t { font: 700 19px var(--font-sans); fill: var(--white); }
+  .gng__nogo { fill: var(--white); stroke: var(--head); stroke-width: 1.5; }
+  .gng__nogo-t { font: 700 19px var(--font-sans); fill: var(--head); }
+
+  /* the list: the visible diagram below 900px (a vertical spine), screen-reader content above it */
+  .gng__list { list-style: none; margin: 0; padding: 0; position: relative; }
+  .gng__list::before { content: ""; position: absolute; left: 21px; top: 22px; bottom: 40px; width: 2px; background: var(--head); }
+  .gng__step { position: relative; display: grid; gap: 6px; padding: 0 0 var(--s-6) 64px; min-height: 44px; }
+  .gng__mark { position: absolute; left: 10px; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--label); box-shadow: 0 0 0 4px var(--ice); }
+  .gng__step--start .gng__mark::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--white); }
+  .gng__mark--gate {
+    left: 6px; top: 2px; width: 32px; height: 32px; border-radius: 0; background: var(--white); border: 2px solid var(--head);
+    transform: rotate(45deg); box-shadow: 0 0 0 4px var(--ice); display: grid; place-items: center;
+  }
+  .gng__mark--gate span { transform: rotate(-45deg); font: 700 14px/1 var(--font-sans); color: var(--head); }
+  .gng__mark--go { left: 4px; width: 36px; height: 30px; border-radius: 0; background: var(--blue-700); }
+  .gng__lq { font-size: 1.0625rem; line-height: 1.4; font-weight: 700; color: var(--head); padding-top: 4px; }
+  .gng__lyes, .gng__lno { font-size: var(--fs-small); line-height: 1.45; color: var(--fg-2); }
+  .gng__lno { padding-left: 12px; border-left: 2px dashed var(--label); }
+  .gng__lyes strong, .gng__lno strong { color: var(--label); }
+  .gng__step--end { padding-bottom: 0; }
+
+  @media (min-width: 900px) {
+    .gng { padding-top: var(--s-8); }
+    .gng__svg { display: block; }
+    .gng__list { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  }
+</style>

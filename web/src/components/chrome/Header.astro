@@ -1,23 +1,20 @@
 ---
 /**
- * Site header (v4 developer guide: white, visible navigation, Deep Delft "Start a conversation"). Pack 2: the navy logo
- * without tagline (brief item 11), 44px tall on desktop, 34px on mobile; img alt="KoKreaters", link aria-label
- * "KoKreaters home" (item 5). Sticky solid white bar with a 1px #E3E8F1 hairline; 88px on desktop, compacting to 72px
- * on scroll (site.ts adds .is-scrolled; the logo scales 44 → 40px). The outer <header> keeps --header-h in flow and lets clicks through; only
- * the inner bar resizes, so compacting never shifts the page.
- * Desktop ≥ 1120px: the logo · Expertise ▾ (MegaMenu) ·
- * Industries ▾ (IndustriesMenu) · Approach · Insights · About · "Start a conversation" ([data-header-cta];
- * aria-current="page" on /contact). One 2px Deep Delft bar on the header's bottom edge glides between hovered items and
- * rests under the current section (no-JS: a static bar under aria-current).
- * Mobile < 1120px: 64px bar, logo 34px + a "Menu" button (hamburger, mobile only; turns into a cross) that opens
- * MobileMenu below the bar. No-JS: the Menu link jumps to the footer sitemap.
+ * Site header (pack 3, brief "Navigation" + bug 6). Sticky solid white bar with a 1px hairline.
+ * Desktop ≥ 1024px: logo A with tagline (62px tall, so the tagline is ≥ 10px) · Expertise ▾ (MegaMenu: six services +
+ * six industries) · Industries · Impact · Insights · About · solid "Book a call" ([data-header-cta], bookingHref()).
+ * On scroll (site.ts adds .is-scrolled past 8px) the bar shrinks 92 → 64px and the logo swaps to the no-tagline file
+ * at 38px (crossfade). The outer <header> keeps --header-h in flow and lets clicks through; only the inner bar
+ * resizes, so compacting never shifts the page. One 2px Deep Delft bar glides between hovered items and rests under
+ * the current section (no-JS: a static bar under aria-current).
+ * Mobile < 1024px: 64px bar, no-tagline logo 38px, "Book a call" from 480px, and a "Menu" button that opens MobileMenu.
+ * No-JS: the Menu link jumps to the footer sitemap. Logo link aria-label "KoKreaters home" (lead decision 9).
  */
 import Logo from '@/components/brand/Logo.astro';
-import Button from '@/components/ui/Button.astro';
+import BookCall from '@/components/ui/BookCall.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Container from '@/components/ui/Container.astro';
 import MegaMenu from './MegaMenu.astro';
-import IndustriesMenu from './IndustriesMenu.astro';
 import MobileMenu from './MobileMenu.astro';
 import { main, header as labels } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
@@ -28,28 +25,28 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/'
 const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
 const current = (href: string) =>
   isCurrent(href) || (href === '/expertise' && (page === 'expertise' || page === 'pillar')) || (href === '/insights' && page === 'article');
-const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' : p ? 'mega' : null);
 ---
 <header class="site-header" data-header>
   <div class="site-header__bar">
     <Container class="site-header__inner">
-      <Logo variant="navy" href="/" label={labels.homeLabel} height={44} loading="eager" class="site-header__logo" />
+      <a class="site-header__home" href="/" aria-label={labels.homeLabel}>
+        <Logo variant="navy-tagline" height={62} loading="eager" class="site-header__logo site-header__logo--full" alt="" />
+        <Logo variant="navy" height={38} loading="eager" class="site-header__logo site-header__logo--short" alt="" />
+      </a>
 
       <nav class="site-nav" aria-label={labels.navLabel}>
         <ul class="site-nav__list" role="list" data-glide-list>
           {main.map((item) => {
-            const k = kind(item.panel);
             const on = current(item.href);
-            const id = k === 'mega' ? 'mega-expertise' : 'menu-industries';
-            return k ? (
-              <li class:list={['site-nav__item', k === 'list' && 'site-nav__item--anchor']} data-nav-scope>
+            return item.panel ? (
+              <li class="site-nav__item" data-nav-scope>
                 <button type="button" class:list={['site-nav__link', 'js-only', on && 'is-current']}
-                  aria-expanded="false" aria-controls={id} data-nav-toggle data-glide-item>
+                  aria-expanded="false" aria-controls="mega-expertise" data-nav-toggle data-glide-item>
                   <span>{item.label}</span><span class="site-nav__chev"><Icon name="chevron-down" size={16} /></span>
                 </button>
                 <a class:list={['site-nav__link', 'nojs-only', on && 'is-current']} href={item.href}
                   aria-current={on ? 'page' : undefined}>{item.label}</a>
-                {k === 'mega' ? <MegaMenu id={id} /> : <IndustriesMenu id={id} />}
+                <MegaMenu id="mega-expertise" />
               </li>
             ) : (
               <li class="site-nav__item">
@@ -62,7 +59,7 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
       </nav>
 
       <div class="site-header__actions">
-        <Button href="/contact" class="site-header__cta" data-header-cta aria-current={page === 'contact' ? 'page' : undefined}>{microcopy.primaryCta}</Button>
+        <BookCall short class="site-header__cta" data-header-cta />
         <button type="button" class="menu-btn js-only" aria-expanded="false" aria-controls="mobile-menu"
           data-menu-toggle data-label-open={microcopy.menu} data-label-close={microcopy.close}>
           <span class="menu-btn__label" data-menu-label>{microcopy.menu}</span>
@@ -94,32 +91,35 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
     background: var(--white);
     box-shadow: inset 0 -1px 0 #E3E8F1;
     view-transition-name: site-header;
-    transition: height var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out), background-color var(--d-2) var(--ease-out);
+    transition: height var(--d-2) var(--ease-out), box-shadow var(--d-2) var(--ease-out);
   }
-  .site-header.is-scrolled .site-header__bar { height: var(--header-h-compact); box-shadow: inset 0 -1px 0 #E3E8F1, 0 1px 0 rgba(14, 31, 77, .03); }
-  .site-header.has-panel .site-header__bar,
-  :global(html.menu-open) .site-header__bar { background: var(--white); }
+  .site-header.is-scrolled .site-header__bar { height: var(--header-h-compact); box-shadow: inset 0 -1px 0 #E3E8F1, 0 6px 18px -14px rgba(14, 31, 77, .35); }
   :global(html.menu-open) .site-header__bar { box-shadow: inset 0 -1px 0 var(--grey-200); }
   /* While the mobile menu is open the body is position:fixed, so the header is pinned where it was. */
   :global(html.menu-open) .site-header { position: fixed; top: var(--menu-hdr-top, 0px); left: 0; right: 0; }
 
-  .site-header :global(.site-header__inner) { height: 100%; display: flex; align-items: center; gap: var(--s-6); }
-  /* brief item 11: 40–44px tall on desktop, 32–36px on mobile */
-  .site-header :global(.site-header__logo) { --logo-h: 34px !important; flex: none; box-sizing: content-box; padding-block: 2px; margin-block: -2px; transition: height var(--d-2) var(--ease-out); }
-  @media (min-width: 1120px) {
-    .site-header :global(.site-header__logo) { --logo-h: 44px !important; }
-    .site-header.is-scrolled :global(.site-header__logo) { --logo-h: 40px !important; }
+  .site-header :global(.site-header__inner) { height: 100%; display: flex; align-items: center; gap: var(--s-5); }
+
+  /* ── Logo: tagline version (desktop, top) ↔ no-tagline (mobile, and the shrunken bar) ── */
+  .site-header__home { position: relative; display: inline-flex; align-items: center; flex: none; height: 100%; text-decoration: none; }
+  .site-header__home:focus-visible { outline-offset: 2px; }
+  .site-header :global(.site-header__logo) { transition: opacity var(--d-2) var(--ease-out); }
+  .site-header :global(.site-header__logo--full) { display: none; }
+  @media (min-width: 1024px) {
+    .site-header :global(.site-header__logo--full) { display: inline-flex; }
+    .site-header :global(.site-header__logo--short) { position: absolute; left: 0; top: 50%; translate: 0 -50%; opacity: 0; }
+    .site-header.is-scrolled :global(.site-header__logo--full) { opacity: 0; }
+    .site-header.is-scrolled :global(.site-header__logo--short) { opacity: 1; }
   }
 
-  /* ── Desktop nav ── */
+  /* ── Desktop nav (bug 6: from 1024px) ── */
   .site-nav { display: none; height: 100%; margin-left: auto; }
-  @media (min-width: 1120px) { .site-nav { display: block; } }
-  .site-nav__list { display: flex; height: 100%; gap: 32px; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 1024px) { .site-nav { display: block; } }
+  .site-nav__list { display: flex; height: 100%; gap: clamp(20px, 2.2vw, 36px); margin: 0; padding: 0; list-style: none; }
   .site-nav__item { display: flex; align-items: center; height: 100%; }
-  .site-nav__item--anchor { position: relative; }
   .site-nav__link {
     position: relative;
-    display: inline-flex; align-items: center; gap: 6px; height: 44px;
+    display: inline-flex; align-items: center; gap: 4px; height: 44px;
     margin: 0; padding: 0; border: 0; border-radius: var(--r-sm); background: none; cursor: pointer;
     font: 600 var(--fs-nav)/1 var(--font-sans); letter-spacing: 0;
     color: var(--navy-900); text-decoration: none; white-space: nowrap;
@@ -135,7 +135,6 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
   }
   .site-nav__list.has-glide .site-nav__link::after { display: none; }
 
-  /* the sliding highlight (positioned against the bar by site.ts) */
   .site-nav__glide {
     position: absolute; left: 0; bottom: 0; z-index: 3;
     width: 0; height: 2px; background: var(--accent);
@@ -143,14 +142,17 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
     transition: transform var(--d-2) var(--ease-out), width var(--d-2) var(--ease-out), opacity var(--d-1) var(--ease-out);
   }
   .site-nav__glide.is-still { transition: opacity var(--d-1) var(--ease-out); }
-  @media (max-width: 1119px) { .site-nav__glide { display: none; } }
+  @media (max-width: 1023px) { .site-nav__glide { display: none; } }
 
   /* ── Actions ── */
-  .site-header__actions { display: flex; align-items: center; gap: var(--s-4); margin-left: auto; flex: none; }
-  @media (min-width: 1120px) { .site-header__actions { margin-left: clamp(8px, 1.6vw, 40px); } }
+  .site-header__actions { display: flex; align-items: center; gap: var(--s-3); margin-left: auto; flex: none; }
+  @media (min-width: 1024px) { .site-header__actions { margin-left: clamp(8px, 1.6vw, 32px); } }
   .site-header :global(.site-header__cta) { display: none; }
-  @media (min-width: 1120px) {
-    .site-header :global(.site-header__cta) { display: inline-flex; height: 46px; min-height: 46px; padding: 0 22px; }
+  @media (min-width: 480px) {
+    .site-header :global(.site-header__cta) { display: inline-flex; min-height: 42px; height: 42px; padding: 0 16px; font-size: .875rem; }
+  }
+  @media (min-width: 1024px) {
+    .site-header :global(.site-header__cta) { height: 46px; min-height: 46px; padding: 0 22px; font-size: var(--fs-button); }
   }
 
   .menu-btn {
@@ -159,9 +161,9 @@ const kind = (p: true | 'mega' | 'list' | undefined) => (p === 'list' ? 'list' :
     border: 0; border-radius: var(--r-sm); background: none; cursor: pointer;
     font: 600 var(--fs-nav)/1 var(--font-sans); color: var(--navy-900); text-decoration: none;
   }
-  @media (min-width: 1120px) { .menu-btn { display: none !important; } }
+  @media (min-width: 1024px) { .menu-btn { display: none !important; } }
   .menu-btn__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  @media (min-width: 400px) { .menu-btn__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; } }
+  @media (min-width: 400px) and (max-width: 479px), (min-width: 600px) { .menu-btn__label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; } }
   .menu-btn__icon { position: relative; width: 20px; height: 12px; flex: none; }
   .menu-btn__icon span {
     position: absolute; left: 0; width: 100%; height: 1.5px; border-radius: 1px; background: currentColor;

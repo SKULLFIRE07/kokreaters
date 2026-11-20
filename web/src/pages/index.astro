@@ -1,37 +1,39 @@
 ---
 /**
- * Home `/` (v4 "Delft": Ganeaysh's developer guide + homepage design, 20 Nov 2026), 13 sections:
- *  1 top bar (BaseLayout AnnouncementBar) · 2 header · 3 hero (rapeseed; pack 2 proof line) · 4 track record (porcelain)
- *  · 5 what we do (white) + 5b how we engage (white, pack 2 item 16) · 6 our approach (ice) · 7 industries (white) ·
- *  8 impact (navy, three cards) · 8b trust line (porcelain, item 18) · 9 insights (white; third tile = playbook) ·
- *  10 Netherlands band · 11 founder (porcelain) · 12 CTA (Deep Delft; BaseLayout CtaBand) · 13 footer (ink).
- * Every string comes from src/data/* or the insights collection; JSON-LD (Organization + ProfessionalService +
- * WebSite) is added by BaseLayout for page="home". Motion: data-gsap hooks only (src/scripts/motion.ts).
+ * Home `/` (pack 3, Ganeaysh's v3 review, 20 Nov 2026): the brief's nine sections, in its order, 8–10 screens at 1440.
+ *  1 hero (rapeseed; eyebrow, H1, "Book a 30-minute call" + "Explore our expertise", proof line on its own row)
+ *  2 founder strip (white) · 3 track record, six tiles (Porcelain) · 4 what we do, six services with icons + "Where we
+ *  help now" (white) · 5 impact, three stories + the page's one footnote (navy) · 6 credentials + testimonial slot (Ice)
+ *  · 7 industries, six photo tiles (white) · 8 insights + playbook (Porcelain) · 9 CTA band (Deep Delft, BaseLayout;
+ *  white button, since the hero holds the page's one saffron button) · footer.
+ * Moved off Home (brief): "How we engage" and "From the lab, to the plant, to the market" → Approach (linked from
+ * section 4); "A Dutch base. A global reach." → merged into the founder strip; "Confidential by default" → Approach and
+ * Contact. JSON-LD: Organization + ProfessionalService + Person (with the portrait) + WebSite.
  */
+import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import HomeHero from '@/components/home/HomeHero.astro';
+import HomeFounder from '@/components/home/HomeFounder.astro';
 import HomeProof from '@/components/home/HomeProof.astro';
 import HomeExpertise from '@/components/home/HomeExpertise.astro';
-import HomeEngage from '@/components/home/HomeEngage.astro';
-import HomeApproach from '@/components/home/HomeApproach.astro';
-import HomeIndustries from '@/components/home/HomeIndustries.astro';
 import HomeResults from '@/components/home/HomeResults.astro';
-import HomeTrust from '@/components/home/HomeTrust.astro';
+import HomeCredentials from '@/components/home/HomeCredentials.astro';
+import HomeIndustries from '@/components/home/HomeIndustries.astro';
 import HomeInsights from '@/components/home/HomeInsights.astro';
-import HomeNetherlands from '@/components/home/HomeNetherlands.astro';
-import HomeFounder from '@/components/home/HomeFounder.astro';
+import { organization, professionalService, person, website } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
+import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
+
+const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
+const seo = { ...pageSeo('home'), jsonLd: [organization(), professionalService(), person(portraitWebp.src), website()] };
 ---
-<BaseLayout page="home" seo={pageSeo('home')}>
+<BaseLayout page="home" seo={seo} cta={{ accent: false }}>
   <HomeHero />
+  <HomeFounder />
   <HomeProof />
   <HomeExpertise />
-  <HomeEngage />
-  <HomeApproach />
-  <HomeIndustries />
   <HomeResults />
-  <HomeTrust />
+  <HomeCredentials />
+  <HomeIndustries />
   <HomeInsights />
-  <HomeNetherlands />
-  <HomeFounder />
 </BaseLayout>

@@ -16,10 +16,14 @@
  * errors stay inline in the polite status region under the Send button.
  * Turnstile: its script is injected on the first focus inside the form, never on load (no third-party request at load).
  * Booking links that point at the form (a[data-booking="form"]) scroll to it and focus the first field.
+ * Pack 3: required fields are Name, Email, Company and Message (the markup's `required`); no consent tick box on this
+ * page; a successful send records the cookie-free "form-send" event (no-op without PUBLIC_PLAUSIBLE_DOMAIN).
  */
+import { track } from '@/lib/analytics';
+
 const MIN_MS = 3000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const ORDER = ['name', 'company', 'role', 'email', 'phone', 'country', 'interest', 'message', 'source'] as const;
+const ORDER = ['name', 'email', 'company', 'role', 'phone', 'country', 'interest', 'message', 'source'] as const;
 
 type Ctl = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -168,8 +172,7 @@ function initContact(): void {
   function mailtoUrl(): string {
     const v = (n: string) => (ctl(n)?.value ?? '').trim();
     const subject = `Enquiry from ${v('name')}, ${v('company')}`;
-    const text = ORDER.map((n) => `${LABELS[n] ?? n}: ${v(n)}`).join('\n')
-      + `\n${(ctl('consent') as HTMLInputElement | null)?.checked ? 'Consent: yes' : ''}`;
+    const text = ORDER.map((n) => `${LABELS[n] ?? n}: ${v(n)}`).join('\n');
     return `mailto:${d.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   }
 
@@ -201,7 +204,7 @@ function initContact(): void {
       sending = true; busy(true); say('info', '');
       try {
         const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-        if (res.ok) { resetAll(); showDone('sent'); }
+        if (res.ok) { resetAll(); showDone('sent'); track('form-send'); }
         else {
           // /api/contact re-validates: show its field errors inline (rare: the same checks already ran here)
           const out = res.status === 400 ? await res.json().catch(() => null) as { fields?: Record<string, string> } | null : null;

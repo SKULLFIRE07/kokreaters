@@ -73,11 +73,15 @@ for (const key of ['PUBLIC_FORM_ENDPOINT', 'PUBLIC_NEWSLETTER_ENDPOINT']) {
 const turnstile = !!process.env.PUBLIC_TURNSTILE_SITEKEY;
 const TS = 'https://challenges.cloudflare.com';
 if (turnstile) origins.connect.add(TS);
+// Pack 3: cookie-free Plausible analytics, only when PUBLIC_PLAUSIBLE_DOMAIN is set at build time.
+const plausible = !!process.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const PL = 'https://plausible.io';
+if (plausible) origins.connect.add(PL);
 
 const sorted = (s) => [...s].sort();
 const directives = [
   `default-src 'self'`,
-  `script-src ${['\'self\'', ...sorted(hashes), ...(turnstile ? [TS] : [])].join(' ')}`,
+  `script-src ${['\'self\'', ...sorted(hashes), ...(turnstile ? [TS] : []), ...(plausible ? [PL] : [])].join(' ')}`,
   `style-src 'self' 'unsafe-inline'`,
   `img-src 'self' data:`,
   `font-src 'self'`,

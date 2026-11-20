@@ -1,0 +1,39 @@
+---
+/**
+ * Pack 3 (brief, Technology and R&D leadership on demand: "how it works in practice: days per month, typical 6–12
+ * month term, what the board receives each month"). On Delft Ice: Head, then three tiles on top rules (3px saffron on
+ * the first, as the house strip): icon, label (caps), the value in Manrope 700 (24px), one line.
+ * The days figure is not in the brief: its tile says "A set number" and staging adds a <Confirm>.
+ * Three columns from 900px; one column on phones.
+ */
+import Section from '@/components/ui/Section.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import Head from './Head.astro';
+import LineIcon, { type LineIconName } from './LineIcon.astro';
+import { leadershipInPractice } from '@/data/pillars';
+
+const icons: Record<string, LineIconName> = { days: 'calendar-days', term: 'calendar-range', board: 'file-text' };
+const lp = leadershipInPractice;
+---
+<Section ground="white" class="band--ice" labelledby="practice-title">
+  <Head id="practice-title" title={lp.title} />
+  <ul class="lp" role="list">
+    {lp.items.map((it, i) => (
+      <li class:list={['lp__item', i === 0 && 'lp__item--lead']}>
+        <LineIcon name={icons[it.key]} size={32} />
+        <p class="lp__label t-label">{it.label}</p>
+        <p class="lp__value">{it.value}</p>
+        <p class="lp__line">{it.line}{'confirm' in it && <Confirm id="P-days" note={it.confirm} />}</p>
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  .lp { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--grid-gap); }
+  .lp__item { display: grid; gap: var(--s-3); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--rule); }
+  .lp__item--lead { border-top: 3px solid var(--saffron); padding-top: calc(var(--s-5) - 2px); }
+  .lp__label { color: var(--label); margin-top: var(--s-2); }
+  .lp__value { font: 700 1.5rem/1.2 var(--font-sans); color: var(--head); font-variant-numeric: lining-nums; }
+  .lp__line { font-size: 1rem; line-height: 1.55; color: var(--fg-2); max-width: 36ch; text-wrap: pretty; }
+  @media (min-width: 900px) { .lp { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>

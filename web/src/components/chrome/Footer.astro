@@ -1,18 +1,14 @@
 ---
 /**
- * Footer (v4 developer guide, home section 13; pack 2 items 10, 33, 38). Near-black Footer ink (#0A0F1C) band.
- *  Top (≥ 1120px, four columns): the white KoKreaters logo straight on the ink (no plate; img alt="KoKreaters", link
- *  aria-label "KoKreaters home") + one-line statement · Expertise (the six services) · Company · Contact (email,
- *  WhatsApp, "Based in the Netherlands", LinkedIn: the founder's profile; the company page only once its URL exists).
- *  Then the compact newsletter ("The KoKreaters Note": email + Subscribe + consent; ui/NewsletterForm, owned by
- *  PEOPLE-CONTENT) on every page.
- *  Bottom: hairline, "© 2026 KoKreaters. All rights reserved." and the legal line (KoKreaters ⟨legal name⟩ · KvK · BTW ·
- *  city, the Netherlands) once every part is confirmed (Part K 1; CONFIRM P-1 marker in staging only, nothing in
- *  preview/production) · Privacy · Cookies · Terms (+ Cookie settings when analytics is on).
- * Mobile: logo and statement first; below 600px Expertise and Company fold into hairline accordion rows (plus → minus;
- * site.ts [data-ft-group]); Contact, the newsletter and the legal row stay open. Without JS every group renders open
- * (the footer is the no-JS menu). `id="site-footer" tabindex="-1"` is the no-JS target of the header's Menu link.
- * The chat launcher hides while the footer is in view (site.ts, IntersectionObserver).
+ * Footer (pack 3, brief "Footer"): near-black Footer ink band.
+ *  Top: logo A white with tagline (56–64px; link aria-label "KoKreaters home") + one-line statement, and the compact
+ *  newsletter (ui/NewsletterForm, PEOPLE-CONTENT) beside it from 1024px.
+ *  Four columns: Expertise (six services) · Industries (six) · Company · Contact and social (email, WhatsApp, base,
+ *  LinkedIn profile; LinkedIn company page and YouTube only once their URLs exist; staging shows CONFIRM markers).
+ *  Bottom: the company line (legal name · KvK · VAT · city) once confirmed (CONFIRM P-1 in staging only), ©, legal links.
+ * Mobile: logo, statement and newsletter first; below 600px Expertise, Industries and Company fold into hairline
+ * accordion rows (site.ts [data-ft-group]); Contact stays open. Without JS every group renders open (the footer is the
+ * no-JS menu). `id="site-footer" tabindex="-1"` is the no-JS target of the header's Menu link.
  */
 import Logo from '@/components/brand/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
@@ -27,17 +23,23 @@ import { site } from '@/config/site';
 const c = footer.contact;
 const groups = [
   { key: 'expertise', id: 'ft-expertise', heading: footer.expertise.heading, links: footer.expertise.links },
+  { key: 'industries', id: 'ft-industries', heading: footer.industries.heading, links: footer.industries.links },
   { key: 'company', id: 'ft-company', heading: footer.company.heading, links: footer.company.links },
 ] as const;
 const legalText = legalLine();
 ---
 <footer id="site-footer" class="site-footer band--navy" tabindex="-1" data-chat-hide>
   <Container>
-    <div class="ft-cols">
+    <div class="ft-top">
       <div class="ft-brand">
-        <Logo variant="white" href="/" label={footer.homeLabel} height={56} class="ft-logo" />
+        <Logo variant="white" href="/" label={footer.homeLabel} height={60} class="ft-logo" />
         <p class="ft-statement">{footer.statement}</p>
       </div>
+      <div class="ft-news">
+        <NewsletterForm id="nl-footer" variant="compact" tone="dark" />
+      </div>
+    </div>
+    <div class="ft-cols">
       {groups.map((g) => (
         <nav class="ft-col ft-col--group" aria-labelledby={g.id} data-ft-col>
           <div class="ft-headrow">
@@ -75,20 +77,21 @@ const legalText = legalLine();
           ) : showConfirm && (
             <li class="ft-base"><Confirm id="P-14" note="LinkedIn company page URL" /></li>
           )}
+          {c.youtube.href ? (
+            <li><a class="ft-social" href={c.youtube.href} rel="noopener"><span>{c.youtube.label}</span></a></li>
+          ) : showConfirm && (
+            <li class="ft-base"><Confirm id="P-14" note="YouTube channel, when live" /></li>
+          )}
         </ul>
       </div>
     </div>
 
-    <div class="ft-news">
-      <NewsletterForm id="nl-footer" variant="compact" tone="dark" />
-    </div>
-
     <div class="ft-bottom">
       <p class="ft-copy">
-        <span>{footer.copyright}</span>
         {legalText
           ? <span class="ft-reg">{legalText}</span>
           : showConfirm && <Confirm id="P-1" note={footer.legalNote} />}
+        <span>{footer.copyright}</span>
       </p>
       <p class="ft-legal">
         {legal.map((l) => <a href={l.href}>{l.label}</a>)}
@@ -110,16 +113,15 @@ const legalText = legalLine();
   }
   .site-footer:focus { outline: none; }
 
-  .ft-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--s-7); padding-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
-  @media (min-width: 600px) { .ft-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ft-brand { grid-column: 1 / -1; } }
-  @media (min-width: 1120px) {
-    .ft-cols { grid-template-columns: 1.15fr 1fr 1fr 1fr; column-gap: 40px; }
-    .ft-brand { grid-column: auto; }
-  }
+  .ft-top { display: grid; gap: var(--s-6); padding-bottom: var(--s-7); border-bottom: 1px solid var(--rule); }
+  @media (min-width: 1024px) { .ft-top { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--grid-gap); align-items: end; } }
+  .ft-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--s-7); padding-block: var(--s-7) clamp(2.5rem, 2rem + 2vw, 3.5rem); }
+  @media (min-width: 600px) { .ft-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .ft-cols { grid-template-columns: 1.25fr 1fr .8fr 1.1fr; column-gap: var(--grid-gap); } }
 
   .ft-brand { display: grid; gap: 18px; justify-items: start; align-content: start; }
-  .ft-brand :global(.ft-logo) { --logo-h: 48px !important; box-sizing: content-box; padding-block: 2px; margin-block: -2px; }
-  @media (min-width: 900px) { .ft-brand :global(.ft-logo) { --logo-h: 56px !important; } }
+  .ft-brand :global(.ft-logo) { --logo-h: 56px !important; box-sizing: content-box; padding-block: 2px; margin-block: -2px; }
+  @media (min-width: 900px) { .ft-brand :global(.ft-logo) { --logo-h: 60px !important; } }
   .ft-statement { margin: 0; max-width: 32ch; font: 400 .875rem/1.6 var(--font-sans); color: var(--fg-2); }
 
   .ft-head { margin: 0 0 14px; font: 700 .875rem/1.3 var(--font-sans); letter-spacing: 0; color: var(--white); }
@@ -132,14 +134,13 @@ const legalText = legalLine();
   }
   .ft-list a { transition: color var(--d-1) var(--ease-out); }
   .ft-list a:hover, .ft-legal a:hover { color: var(--white); text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: .25em; }
-  @media (min-width: 1120px) { .ft-list a, .ft-base { min-height: 32px; padding-block: 5px; } }
+  @media (min-width: 1024px) { .ft-list a, .ft-base { min-height: 32px; padding-block: 5px; } }
 
   /* phone accordion (< 600px, once site.ts has booted) */
   .ft-headrow { position: relative; }
   .ft-head__btn { display: none; }
   @media (max-width: 599px) {
     :global(html.chrome-ready) .ft-cols { row-gap: 0; }
-    :global(html.chrome-ready) .ft-brand { padding-bottom: var(--s-6); }
     :global(html.chrome-ready) .ft-col--group { border-top: 1px solid var(--rule); }
     :global(html.chrome-ready) .ft-col--group + .ft-col--contact { border-top: 1px solid var(--rule); padding-top: var(--s-6); }
     :global(html.chrome-ready) .ft-headrow { display: flex; align-items: center; min-height: 56px; padding-right: 40px; }
@@ -164,8 +165,8 @@ const legalText = legalLine();
     :global(html.chrome-ready) .ft-panel .ft-list { padding-bottom: var(--s-4); }
   }
 
-  .ft-news { padding-block: var(--s-6); border-top: 1px solid var(--rule); }
-  .ft-news > :global(*) { max-width: 720px; }
+  .ft-news > :global(*) { max-width: 640px; }
+  @media (min-width: 1024px) { .ft-news { justify-self: end; width: 100%; max-width: 640px; } }
 
   .ft-bottom {
     display: flex; flex-direction: column; gap: var(--s-2);
@@ -180,5 +181,5 @@ const legalText = legalLine();
     background: none; border: 0; padding: 0; cursor: pointer;
   }
   .ft-settings:hover { color: var(--white); }
-  .ft-reg::before { content: "·"; content: "·" / ""; margin-right: var(--s-3); }
+  .ft-reg { color: #B9C3D8; }
 </style>

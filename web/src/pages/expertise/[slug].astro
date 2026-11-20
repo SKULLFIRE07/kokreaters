@@ -6,12 +6,16 @@
  *  1 PillarHero (photo + navy gradient): crumbs, "Expertise · 0n", H1 = the service name, lead = its headline.
  *  2 The challenge we solve (white rail): the intro, a Bodoni opening (≥ 24px) then Manrope.
  *  3 What we help with (Porcelain): numbered list on thin rules beside the detail photo.
- *  4 Exhibit (Delft Ice), process and strategy only.
+ *  4 Exhibit (Delft Ice), pack 3: process = the refining strip (with crushing, the enzymatic note and one capacity
+ *    figure); strategy = the drawn Go/No-Go diagram (GoNoGo); deals = What we look at + the sample red-flag summary
+ *    (DealsLook); capability = How it works in practice (LeadershipPractice).
  *  5 Typical deliverables (white rail; hairline when it follows white).
- *  6 From our founder’s career (navy): the matching Impact story (pillars.ts impactId) in an 84px Bodoni figure.
- *  7 Related insights (white rail) and related industries (photo tiles), each omitted when empty.
+ *  6 From the record (navy): the matching Impact story (pillars.ts impactId), the page's one footnote.
+ *  6b A client or colleague quote (pillars.ts pillarQuotes; staging-only slot with <Confirm> while empty).
+ *  7 Related insights (white rail; pack 3: no "In preparation" titles) and related industries, each omitted when empty.
  *  7b Food safety only: the playbook download band (<PlaybookCard variant="band" />, brief item 34).
- *  8 Previous / next service, then BaseLayout's CtaBand.
+ *  8 Previous / next service, then the page's one specific offer as the CtaBand (title = the offer, body = its line,
+ *    button "Book a 30-minute call" → bookingHref()).
  * Acronyms: first use per page gets <abbr title>; FSQR / 3-MCPD expansions print as a small note.
  */
 import type { GetStaticPaths } from 'astro';
@@ -20,23 +24,28 @@ import PillarHero from '@/components/expertise/PillarHero.astro';
 import Confirm from '@/components/ui/Confirm.astro';
 import RailSection from '@/components/expertise/RailSection.astro';
 import PillarHelp from '@/components/expertise/PillarHelp.astro';
-import PillarExhibit from '@/components/expertise/PillarExhibit.astro';
 import PillarProof from '@/components/expertise/PillarProof.astro';
 import PillarInsights from '@/components/expertise/PillarInsights.astro';
 import PillarIndustries from '@/components/expertise/PillarIndustries.astro';
 import PillarPager from '@/components/expertise/PillarPager.astro';
+import GoNoGo from '@/components/expertise/GoNoGo.astro';
+import RefiningStrip from '@/components/expertise/RefiningStrip.astro';
+import DealsLook from '@/components/expertise/DealsLook.astro';
+import LeadershipPractice from '@/components/expertise/LeadershipPractice.astro';
+import LineIcon from '@/components/expertise/LineIcon.astro';
 import Section from '@/components/ui/Section.astro';
 import PlaybookCard from '@/components/ui/PlaybookCard.astro';
 import { createAbbreviator } from '@/components/expertise/abbr';
-import { expertiseOverview, pillarHelpConfirm, pillarPage, pillarPhoto, pillars } from '@/data/pillars';
+import { expertiseOverview, pillarHelpConfirm, pillarPage, pillarPhoto, pillarQuotes, pillars } from '@/data/pillars';
+import { bookingHref, bookingLabel } from '@/lib/booking';
 import { photos } from '@/data/photos';
 import { getStory } from '@/data/impact';
 import { industries } from '@/data/industries';
-import { byPillar, comingSoonByPillar } from '@/lib/insights';
+import { byPillar } from '@/lib/insights';
 import { pillarHref, pillarNumber } from '@/lib/pillars';
 import { pageSeo } from '@/lib/seo';
 import { showConfirm } from '@/lib/mode';
-import type { Pillar, PillarKey } from '@/data/types';
+import type { Pillar } from '@/data/types';
 
 export const getStaticPaths = (() => pillars.map((p) => ({ params: { slug: p.slug }, props: { pillar: p } }))) satisfies GetStaticPaths;
 
@@ -60,14 +69,9 @@ const helpNotes = pillar.helpWith.flatMap((t) => expand(t).notes);
 const helpConfirm = showConfirm ? pillarHelpConfirm[pillar.key] : undefined;
 
 /*
- * 4 · exhibits only where the chain is a true sequence AND adds something the page does not already say:
- *  process  — the refining chain (contract §4), nowhere else on the page;
- *  strategy — the Go/No-Go gate (idea → three questions → decision).
- * Skipped: quality (layers, not a sequence), deals (a contrast, not a chain), innovation (its title repeats the H1 and
- * its steps repeat the deliverables), capability (three verbs already in the intro).
+ * 4 · one visual per page where it adds something the text does not (pack 3): process RefiningStrip, strategy GoNoGo,
+ * deals DealsLook, capability LeadershipPractice. Product and food safety need none (their lists carry the content).
  */
-const EXHIBIT: PillarKey[] = ['process', 'strategy'];
-const hasExhibit = EXHIBIT.includes(pillar.key);
 
 /* 5 · deliverables are stored as a sentence continuation ("Innovation roadmaps, technical briefs, …"): capitalise. */
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -76,19 +80,23 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const story = pillar.impactId ? getStory(pillar.impactId) : undefined;
 const hasProof = !!story || showConfirm;   // no story: staging shows the band with a Confirm (C-8); elsewhere omitted
 const related = await byPillar(pillar.key);
-const coming = await comingSoonByPillar(pillar.key);
-const hasInsights = related.length > 0 || coming.length > 0;
+const hasInsights = related.length > 0;   // pack 3: "In preparation … Soon" titles stay hidden until the article exists
+const quote = pillarQuotes[pillar.key];
+const hasQuote = !!quote || showConfirm;
 const relatedIndustries = industries.filter((i) => i.pillars.includes(pillar.key));
 
 /* grounds: white · Porcelain · (Ice) · white · (navy) · white …; a hairline where two whites touch. */
-const beforeInsights = hasProof ? 'navy' : 'white';
+const beforeInsights = hasQuote ? 'grey' : hasProof ? 'navy' : 'white';
 const insightsRule = beforeInsights === 'white';
 const industriesRule = hasInsights || beforeInsights === 'white';
 /* 7b · pack 2 (brief item 34): the gated 3-MCPD and GE playbook on the Food safety page, at the end of the content. */
 const hasPlaybook = pillar.key === 'quality';
 const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 || beforeInsights === 'white';
 ---
-<BaseLayout page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}>
+<BaseLayout
+  page="pillar" pillar={pillar.key} seo={pageSeo(pillar.slug)} breadcrumbs={crumbs}
+  cta={pillar.offer ? { title: pillar.offer.title, body: pillar.offer.line, primary: { label: bookingLabel, href: bookingHref() } } : undefined}
+>
   <PillarHero
     image={photo.src} imageAlt={photo.alt} imagePosition={hero.position ?? photo.position}
     crumbs={crumbs} crumbsCurrentShort={pillar.shortLabel} eyebrow={`${expertiseOverview.overline} · ${pillarNumber(pillar)}`}
@@ -99,6 +107,12 @@ const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 ||
     <div class="challenge">
       {introParts.map((x, i) => <p class:list={['challenge__p', i === 0 && 'challenge__p--lede']} set:html={x.html} />)}
       {introNotes.length > 0 && <p class="note">{introNotes.join(' · ')}</p>}
+      {(pillar.audience || pillar.engagement) && (
+        <dl class="facts">
+          {pillar.audience && <div class="facts__row"><LineIcon name="target" size={24} /><dt class="t-label">{pillarPage.audience}</dt><dd>{pillar.audience}</dd></div>}
+          {pillar.engagement && <div class="facts__row"><LineIcon name="clock" size={24} /><dt class="t-label">{pillarPage.engagement}</dt><dd>{pillar.engagement}</dd></div>}
+        </dl>
+      )}
     </div>
   </RailSection>
 
@@ -108,7 +122,10 @@ const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 ||
     )}
   </PillarHelp>
 
-  {hasExhibit && <PillarExhibit pillar={pillar.key} />}
+  {pillar.key === 'process' && <RefiningStrip />}
+  {pillar.key === 'strategy' && <GoNoGo />}
+  {pillar.key === 'deals' && <DealsLook />}
+  {pillar.key === 'capability' && <LeadershipPractice />}
 
   <RailSection id="deliverables-title" title={pillarPage.deliverables}>
     <ul class="deliv" role="list">
@@ -118,7 +135,21 @@ const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 ||
 
   {hasProof && <PillarProof story={story} />}
 
-  {hasInsights && <PillarInsights visible={related} coming={coming} rule={insightsRule} />}
+  {hasQuote && (
+    <Section ground="grey" pad="tight" labelledby="quote-h" class="pq">
+      <h2 id="quote-h" class="t-label pq__label">{pillarPage.quoteLabel}</h2>
+      {quote ? (
+        <figure class="pq__fig">
+          <blockquote class="pq__q"><p>“{quote.quote}”</p></blockquote>
+          <figcaption class="pq__by">{quote.name}, {quote.role}</figcaption>
+        </figure>
+      ) : (
+        <p><Confirm id={8} note="one short client or colleague quote for this service, with permission" /></p>
+      )}
+    </Section>
+  )}
+
+  {hasInsights && <PillarInsights visible={related} coming={[]} rule={insightsRule} />}
 
   {relatedIndustries.length > 0 && <PillarIndustries items={relatedIndustries} rule={industriesRule} />}
 
@@ -136,18 +167,31 @@ const pagerFlush = hasPlaybook || hasInsights || relatedIndustries.length > 0 ||
   .challenge__p { font-size: 1.0625rem; line-height: 1.65; color: var(--fg-2); text-wrap: pretty; max-width: 60ch; }
   .challenge__p + .challenge__p { margin-top: var(--s-5); }
   .challenge__p--lede {
-    font-family: var(--font-serif); font-size: clamp(1.5rem, 1.25rem + .9vw, 2.25rem);
+    font-family: var(--font-serif); font-size: clamp(1.75rem, 1.5rem + .8vw, 2.25rem);
     line-height: 1.3; font-weight: 400; color: var(--head); max-width: 34ch; text-wrap: pretty;
   }
   .challenge :global(abbr[title]) { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
 
+  /* pack 3: who it is for + typical engagement, two quiet rows under the intro */
+  .facts { margin: var(--s-7) 0 0; display: grid; gap: 0; max-width: 60ch; }
+  .facts__row { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: var(--s-4); row-gap: 4px; padding-block: var(--s-4); border-top: 1px solid var(--rule); }
+  .facts__row :global(.licon) { grid-row: span 2; margin-top: 2px; }
+  .facts dt { color: var(--label); }
+  .facts dd { margin: 0; font-size: 1.0625rem; line-height: 1.5; font-weight: 600; color: var(--head); text-wrap: pretty; }
+
+  .pq__label { color: var(--label); margin-bottom: var(--s-4); }
+  .pq__fig { margin: 0; padding-left: var(--s-5); border-left: 2px solid var(--saffron); }
+  .pq__q { margin: 0; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-quote); line-height: 1.3; color: var(--head); max-width: 40ch; }
+  .pq__q p { margin: 0; }
+  .pq__by { margin-top: var(--s-3); font-size: var(--fs-small); color: var(--fg-2); }
+
   .note { margin-top: var(--s-5); font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); }
 
-  /* 5 · deliverables: Bodoni 24px items on thin rules, numbered; two columns from 600px */
+  /* 5 · deliverables (pack 3: Manrope, Bodoni only from 28px): items on thin rules, numbered; two columns from 600px */
   .deliv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--s-7); counter-reset: d; }
   .deliv li {
     counter-increment: d; display: grid; gap: 6px; padding-block: 20px 24px; border-top: 1px solid var(--rule);
-    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.25; font-weight: 400; color: var(--head); text-wrap: pretty;
+    font-family: var(--font-sans); font-size: 1.1875rem; line-height: 1.4; font-weight: 600; color: var(--head); text-wrap: pretty;
   }
   .deliv li::before {
     content: counter(d, decimal-leading-zero); font-family: var(--font-sans); font-size: .875rem; line-height: 1; font-weight: 700;

@@ -1,6 +1,8 @@
 ---
 /**
- * Contact form, right column (REDESIGN-V3 §4 Contact; fields brief 6.8 in brief order).
+ * Contact form, right column (REDESIGN-V3 §4 Contact). Pack 3: required fields only Name, Email, Company and Message
+ * (Country, Area of interest and the rest optional, src/data/contact.ts); no consent tick box: a short privacy line
+ * with the policy link sits above Send.
  * Works with no JS: a text/plain mailto to office@ (or a native POST when PUBLIC_FORM_ENDPOINT is an absolute URL);
  * with JS, scripts/pages/contact.ts POSTs to site.formEndpoint (default: the same-origin function /api/contact);
  * the browser's own required/email checks guard that submit. scripts/pages/contact.ts (loaded by the page) sets
@@ -15,8 +17,8 @@
  * v4 "Delft": the form sits on a Delft Ice panel (square, no shadow). Inputs are white, square, 52px (56px from 900px),
  * 1px #7F8DAB border (3:1 on white), clear Manrope 700 labels above, 16px text; the focused field's border turns Deep
  * Delft. Heading in Bodoni 28 over a thin rule, generous row gaps, a large Deep Delft "Send" button.
- * Layout: one column; two columns of short fields once the form itself is ≥ 480px wide (container query), so it
- * adapts to the page column rather than the viewport. Mobile: one column, full-width Send button, 44px consent hit box.
+ * Layout: one column; two columns of short fields once the form itself is ≥ 400px wide (container query), so it
+ * adapts to the page column rather than the viewport. Mobile: one column, full-width Send button.
  */
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
@@ -29,20 +31,21 @@ import { site } from '@/config/site';
 const nativeEndpoint = /^https?:\/\//.test(site.formEndpoint) ? site.formEndpoint : '';
 const action = nativeEndpoint || `mailto:${site.email}`;
 const enctype = nativeEndpoint ? 'multipart/form-data' : 'text/plain';
-const consent = fields.find((f) => f.type === 'checkbox')!;
-const [consentBefore, consentAfter] = (() => {
-  const i = consent.label.indexOf(consentLink.text);
-  return i < 0 ? [consent.label, ''] : [consent.label.slice(0, i), consent.label.slice(i + consentLink.text.length)];
+const [noteBefore, noteAfter] = (() => {
+  const i = contactPage.privacyNote.indexOf(consentLink.text);
+  return i < 0 ? [contactPage.privacyNote, ''] : [contactPage.privacyNote.slice(0, i), contactPage.privacyNote.slice(i + consentLink.text.length)];
 })();
 const inputs = fields.filter((f) => f.type !== 'checkbox');
 const id = (n: string) => `f-${n}`;
 const wide = (n: string, t: string) => t === 'textarea' || t === 'select' || n === 'source';
 const d = contactPage.done;
+interface Props { /** "Or send a message" when the booking block sits above (pack 3). */ heading?: string; }
+const { heading } = Astro.props;
 ---
 <div class="cf-wrap" id="form" data-form-wrap>
   <div class="cf-body" data-form-body>
     <div class="cf-head">
-      <h2 id="contact-form-h" class="cf-head__title">{contactPage.formHeading}</h2>
+      <h2 id="contact-form-h" class="cf-head__title">{heading ?? contactPage.formHeading}</h2>
       <p class="cf-head__note" aria-hidden="true">{contactPage.requiredNote}</p>
     </div>
 
@@ -91,25 +94,13 @@ const d = contactPage.done;
           </div>
         ))}
 
-        <div class="cf__field cf__field--wide cf__consent" data-field="consent">
-          {/* One <label> wraps box and text, so the whole 44px box around the 20px checkbox toggles it on touch. */}
-          <label class="cf__check" for={id('consent')}>
-            <span class="cf__box">
-              <input id={id('consent')} name="consent" type="checkbox" value="yes" required={consent.required} class="cf__checkbox" />
-            </span>
-            <span class="cf__checklabel">
-              {consentBefore}<a href={consentLink.href} target="_blank" rel="noopener">{consentLink.text}<span class="visually-hidden"> ({consentLink.newTab})</span></a>{consentAfter}
-              <span class="cf__req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span>
-            </span>
-          </label>
-          <p id="consent-error" class="cf__error" hidden><Icon name="error" size={18} /><span data-error-text></span></p>
-        </div>
       </div>
 
       <div class="hp" aria-hidden="true"><label>Website<input name="company_website" tabindex="-1" autocomplete="off" /></label></div>
       <input type="hidden" name="started_at" value="" data-started-at />
       {site.turnstileSiteKey && <div class="cf-turnstile cf__turnstile" data-sitekey={site.turnstileSiteKey}></div>}
 
+      <p class="cf__privacy">{noteBefore}<a href={consentLink.href} target="_blank" rel="noopener">{consentLink.text}<span class="visually-hidden"> ({consentLink.newTab})</span></a>{noteAfter}</p>
       <div class="cf__actions">
         <Button type="submit" variant="primary" size="lg" icon="arrow" class="cf__submit" data-submit>{contact.submit}</Button>
       </div>
@@ -150,7 +141,7 @@ const d = contactPage.done;
   .cf { margin: 0; }
   .cf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6) var(--s-5); }
   @media (min-width: 900px) { .cf__grid { gap: var(--s-7) var(--s-6); } }
-  @container (min-width: 480px) {
+  @container (min-width: 400px) {
     .cf__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cf__field--wide { grid-column: 1 / -1; }
   }
@@ -181,22 +172,15 @@ const d = contactPage.done;
   .cf__error { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; font: 500 var(--fs-meta)/var(--lh-meta) var(--font-sans); color: var(--danger); }
   .cf__error :global(.icon) { flex: none; margin-top: 1px; }
 
-  .cf__consent { margin-top: var(--s-1); padding-top: var(--s-6); border-top: 1px solid var(--rule); }
-  /* the 20px box sits in a 28px column; its 44px hit area overhangs by 12px on the left and into the gap */
-  .cf__check { display: grid; grid-template-columns: 28px minmax(0, 1fr); align-items: start; column-gap: var(--s-2); }
-  .cf__box { width: 44px; height: 44px; display: grid; place-items: center; margin: -10px 0 -10px -12px; cursor: pointer; }
-  .cf__checkbox { width: 20px; height: 20px; margin: 0; accent-color: var(--link); cursor: pointer; }
-  .cf__checkbox[aria-invalid="true"] { outline: 2px solid var(--danger); outline-offset: 2px; }
-  .cf__checkbox:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-  .cf__checklabel { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); cursor: pointer; text-wrap: pretty; }
-  .cf__checklabel a { color: var(--link); text-underline-offset: .2em; }
-  .cf__consent .cf__error { padding-left: calc(28px + var(--s-2)); }
+  /* pack 3: the privacy line above Send (no tick box on this page) */
+  .cf__privacy { margin: var(--s-6) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--rule); max-width: 60ch; font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); text-wrap: pretty; }
+  .cf__privacy a { color: var(--link); text-underline-offset: .2em; }
 
   .hp { position: absolute !important; left: -10000px !important; top: auto; width: 1px; height: 1px; overflow: hidden; }
   .cf__turnstile { margin-top: var(--s-5); }
-  .cf__actions { margin-top: var(--s-7); }
+  .cf__actions { margin-top: var(--s-6); }
   .cf__actions :global(.cf__submit) { min-width: 200px; }
-  @container (max-width: 479px) { .cf__actions :global(.cf__submit) { width: 100%; } }
+  @container (max-width: 399px) { .cf__actions :global(.cf__submit) { width: 100%; } }
 
   .cf__status { margin-top: var(--s-4); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--fg); max-width: 40em; }
   .cf__status:empty { display: none; }
@@ -221,7 +205,7 @@ const d = contactPage.done;
   .cf-done__title:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
   .cf-done__text { margin: var(--s-5) 0 0; max-width: 46ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); text-wrap: pretty; }
   .cf-done__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); margin-top: var(--s-6); }
-  @container (max-width: 479px) {
+  @container (max-width: 399px) {
     .cf-done__actions :global(.btn--secondary) { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) { .cf__input { transition: none; } }

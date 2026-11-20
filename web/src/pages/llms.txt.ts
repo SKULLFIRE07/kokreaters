@@ -21,7 +21,7 @@ export const GET: APIRoute = async () => {
     `> ${POSITIONING_STATEMENT}`,
     '',
     `KoKreaters is a techno-commercial consultancy for agri, food, feed, nutrition and specialty-ingredient businesses, led by Ganeaysh Kulkarni (Founder and Principal; former Global Product & Process Design Director, Cargill). ${site.base}. Contact: ${site.email}`,
-    'Results listed on this site come from the founder’s 25-year career before KoKreaters, not from KoKreaters engagements.',
+    'Results on this site were delivered by Ganeaysh Kulkarni in senior roles at global agri-food companies; client and employer details are kept confidential.',
     '',
     '## Expertise',
     ...pillars.map((p) => `- [${p.name}](${url(`/expertise/${p.slug}`)}): ${p.promise}`),

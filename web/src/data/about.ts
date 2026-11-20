@@ -5,7 +5,7 @@
  * Placeholders (⟦…⟧ in the brief) are `null` or `Unconfirmed` here and render only in staging, with their Part K
  * number, through <Confirm>.
  */
-import type { StripItem, Unconfirmed } from './types';
+import type { Unconfirmed } from './types';
 import { minus25 } from '@/lib/typography';
 
 export const about = {
@@ -49,85 +49,57 @@ export const placesMap = {
   lead: 'His career has taken him across India, Indonesia, Ukraine, Türkiye and the Netherlands, leading teams in the Americas, EMEA and Asia-Pacific.',
 };
 
-/** Item 22. */
+/**
+ * Pack 3 (brief, About): open with achievements, not education. The timeline starts at 2001 (Wilmar) and every step
+ * carries one achievement line; education moves to the small credentials block. Roles and dates as in pack 2 item 22
+ * (CONFIRM 13); each achievement restates a fact from the long bio below (no new claims). The Wilmar line is the
+ * brief's own example plus the second national first from the same paragraph.
+ */
 export const timelineSection = {
-  heading: 'From CFTRI Mysore to KoKreaters',
-  subtitle: 'Eight places, five countries, three continents of teams.',
-  places: ['Mundra', 'Medan', 'Odessa', 'Kakinada', 'Gurugram', 'Balikesir', 'Pune', 'Amsterdam'],
-  /** Accessible name of the places line. COMPOSED. */
-  placesLabel: 'Places he has worked',
+  heading: 'From the plant floor to the boardroom',                            // COMPOSED (the hero eyebrow's phrase)
+  subtitle: 'Twenty-five years, one achievement at each step.',               // COMPOSED
 };
-export interface TimelineRow { years: string; org: string; line: string; now?: boolean; }
+export interface TimelineRow { from: string; to?: string; org: string; role: string; achievement: string; now?: boolean; }
 export const timeline: TimelineRow[] = [
-  { years: '1996–1999', org: 'University of Pune', line: 'BSc Chemistry' },
-  { years: '1999–2001', org: 'CSIR-CFTRI Mysore', line: 'Postgraduate degree in Food Technology' },
-  { years: '2001–2012', org: 'Wilmar', line: 'Technical Head Specialties to Technical Director, across India, Indonesia and Ukraine' },
-  { years: '2012–2021', org: 'Cargill', line: 'Technical services, applications, R&D and FSQR leadership, India' },
-  { years: '2021–2023', org: 'Cargill', line: 'Regional Technical Lead and Bakery Technology Transfer Leader; Category R&D Leader, Confectionery and Plant-based' },
-  { years: '2023–2026', org: 'Cargill', line: 'Global Product & Process Design Director' },
-  { years: 'Today', org: 'KoKreaters', line: 'Founder and Principal, the Netherlands', now: true },
+  { from: '2001', to: '2012', org: 'Wilmar', role: 'Technical Head Specialties to Technical Director, across India, Indonesia and Ukraine', achievement: 'Built India’s first integrated specialty fats facility and Ukraine’s first cold-climate palm oil refinery.' },
+  { from: '2012', to: '2021', org: 'Cargill', role: 'Technical services, applications, R&D and FSQR leadership, India', achievement: 'Aligned food-safety systems with WHO standards for industrial trans fat.' },
+  { from: '2021', to: '2023', org: 'Cargill', role: 'Regional Technical Lead and Bakery Technology Transfer Leader; Category R&D Leader, Confectionery and Plant-based', achievement: 'Led bakery technology transfers across the Americas, Asia and EMEA.' },
+  { from: '2023', to: '2026', org: 'Cargill', role: 'Global Product & Process Design Director', achievement: 'Steered new product platforms, including an AI-enabled formulation system.' },
+  { from: 'Today', org: 'KoKreaters', role: 'Founder and Principal, the Netherlands', achievement: 'The senior, hands-on partner for agri, food and feed businesses.', now: true },   // COMPOSED (from the intro)
 ];
 
-/** Item 23: the About strip (different from home and Impact). Three figures are Part K 2 placeholders. */
-const p2 = (note: string): Unconfirmed => ({ confirmed: false, confirm: 'P-2', note });
-export const aboutStrip: { label: string; items: StripItem[] } = {
+/**
+ * Pack 3: the figures band under the intro reads `aboutFigures` from src/data/career.ts (25 years, 8 sites, 5 languages
+ * and the six draft scale figures; drafts render in staging and preview only). Only the band label lives here.
+ */
+export const aboutStrip = {
   label: 'In numbers',                                                         // COMPOSED (band label)
-  items: [
-    { value: '50+', label: 'products and reformulations taken to market', pending: p2('products taken to market (50+)') },
-    { value: '10+', label: 'plants, lines and facilities designed, commissioned or turned around', pending: p2('plants and lines (10+)') },
-    { value: '100+', label: 'customers co-created with, from start-ups to Fortune 500 companies', pending: p2('customers (100+)') },
-    { value: '5', label: 'working languages: English, Hindi, Marathi, Bahasa Indonesia and Russian' },
-  ],
 };
-/** The languages behind the "5" figure (item 23), for the one-figure layout. */
-export const languages = ['English', 'Hindi', 'Marathi', 'Bahasa Indonesia', 'Russian'];
 
-/** Item 24. Sector icons only, never company logos. `icon` = a lucide-static icon name. */
+/**
+ * Earlier item 24 (pack 3 "Still open"): a short section naming types of organisations, not logos. The tiles are the
+ * brief's five types; the lead is the long bio's own sector list.
+ */
 export const workedAlongside = {
   heading: 'Who he has worked alongside',
-  body: 'Over his career, Ganeaysh has co-developed products and processes with global leaders in infant and medical nutrition, sports and dairy nutrition, FMCG, personal care, oleochemicals and pet food.',
-  /** The sectors named in `body`, in its order (labels are its own words). */
-  sectors: [
-    { label: 'Infant and medical nutrition', icon: 'baby' },
-    { label: 'Sports and dairy nutrition', icon: 'milk' },
-    { label: 'FMCG', icon: 'shopping-basket' },
-    { label: 'Personal care', icon: 'sparkles' },
-    { label: 'Oleochemicals', icon: 'flask-conical' },
-    { label: 'Pet food', icon: 'paw-print' },
+  body: 'Products and processes co-developed with global leaders in infant and medical nutrition, sports and dairy nutrition, FMCG, personal care, oleochemicals and pet food.',
+  /** `icon` = a lucide-static icon name (SectorIcon). */
+  types: [
+    { label: 'Global agri-food majors', icon: 'globe' },
+    { label: 'Fortune 500 food brands', icon: 'award' },
+    { label: 'National refiners', icon: 'factory' },
+    { label: 'Start-ups', icon: 'rocket' },
+    { label: 'Investors', icon: 'landmark' },
   ],
 } as const;
 
-/** Item 25: four columns. A column whose rows are all placeholders (Part K 11) renders only in staging. */
-export interface CredentialRow { main: string; meta?: string; }
-export interface CredentialColumn { heading: string; rows: CredentialRow[]; pending?: Unconfirmed; }
-export const credentials: { heading: string; columns: CredentialColumn[] } = {
-  heading: 'Credentials',
-  columns: [
-    {
-      heading: 'Education',
-      rows: [
-        { main: 'Postgraduate in Food Technology', meta: 'CSIR-CFTRI Mysore' },
-        { main: 'BSc Chemistry', meta: 'University of Pune' },
-      ],
-    },
-    {
-      heading: 'Executive education',
-      rows: [
-        { main: 'Creativity and Innovation', meta: 'IIM Ahmedabad (2014)' },
-        { main: 'EDGE Founder’s Bootcamp', meta: 'Innovation Acceleration Group, UC Berkeley (2021)' },
-      ],
-    },
-    {
-      heading: 'Professional memberships',
-      rows: [],
-      pending: { confirmed: false, confirm: 'P-11', note: 'memberships actually held (e.g. AOCS, SEA India, OTAI, AFST(I), MVO); hidden until confirmed' },
-    },
-    {
-      heading: 'Speaking and publications',
-      rows: [],
-      pending: { confirmed: false, confirm: 'P-11', note: 'talks (title, event, city, year), papers or articles, patents; hidden until confirmed' },
-    },
-  ],
+/**
+ * Pack 3 credentials strip + languages: the groups come from src/data/career.ts `credentials` (draft groups with no
+ * items render only in staging, with <Confirm id="P-11">); the languages column is added here.
+ */
+export const credentialsSection = {
+  heading: 'Education and credentials',                                        // COMPOSED
+  languagesHeading: 'Languages',
 };
 
 /**
@@ -145,14 +117,16 @@ export const testimonials = {
 /** Page labels. */
 export const aboutPage = {
   bioMore: 'Read the long version',
-  /** The one-figure layout of the strip, outside staging: "5" + this label + the languages. */
-  languagesLabel: 'working languages',
-  linkedin: 'View LinkedIn profile',
-  profilePdf: 'Download one-page profile (PDF)',
-  profilePdfShort: 'Download profile (PDF)',
-  profilePdfHref: '/downloads/ganeaysh-kulkarni-profile.pdf',
-  /** The PDF still carries the v3 bio ("KoKreaters 2026", old service names): hidden outside staging until regenerated. */
-  profilePdfCurrent: false,
+  linkedin: 'LinkedIn profile',
+  /** Pack 3: downloadable short bio and high-resolution portrait, for event organisers. */
+  bioPdf: 'Download short bio (PDF)',
+  bioPdfShort: 'Short bio (PDF)',
+  /** Written by `node scripts/make-short-bio.mjs` (headless Chrome) from scripts/short-bio/short-bio.html. */
+  bioPdfHref: '/downloads/ganeaysh-kulkarni-short-bio.pdf',
+  bioPdfName: 'ganeaysh-kulkarni-short-bio.pdf',
+  portrait: 'High-resolution portrait',
+  portraitHref: '/downloads/ganeaysh-kulkarni-portrait.jpg',
+  portraitName: 'ganeaysh-kulkarni-portrait.jpg',
   /** Photo interlude over the Dutch polder: the home Netherlands band's headline (item 20). */
   interludeCaption: 'A Dutch base. A global reach.',
 };

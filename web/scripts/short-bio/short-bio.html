@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+  One-page short bio for event organisers and procurement (pack 3, brief About: "a downloadable short bio and
+  high-resolution portrait for event organisers"). Printed to
+  public/downloads/ganeaysh-kulkarni-short-bio.pdf by `node scripts/make-short-bio.mjs` (headless Chrome).
+  CONFIRMED FACTS ONLY: every line restates copy already live on the site (src/data/about.ts, career.ts
+  careerFacts, pillars.ts). The six draft scale figures (3,000 t/day …) are deliberately NOT here; add them only
+  once Ganeaysh confirms them (career.ts status 'confirmed'), then re-run the script. No founding year.
+  Paths are relative to this file (fonts from public/fonts, written by scripts/copy-fonts.mjs).
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Ganeaysh Kulkarni: short bio</title>
+<style>
+  @font-face { font-family: "Bodoni Moda"; src: url(../../public/fonts/bodoni-moda-latin-opsz-normal.woff2) format("woff2"); font-weight: 400 900; font-style: normal; }
+  @font-face { font-family: "Bodoni Moda"; src: url(../../public/fonts/bodoni-moda-latin-opsz-italic.woff2) format("woff2"); font-weight: 400 900; font-style: italic; }
+  @font-face { font-family: "Manrope"; src: url(../../public/fonts/manrope-latin-wght-normal.woff2) format("woff2"); font-weight: 200 800; font-style: normal; }
+  @page { size: A4; margin: 0; }
+  :root { --navy: #0E1F4D; --delft: #1C3F94; --saffron: #E8A93A; --ink-2: #4A5878; --rule: #D9E0EC; --porcelain: #FAFAF7; --ice: #EEF2F8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 210mm; height: 297mm; overflow: hidden; position: relative;
+    font: 400 9.6pt/1.5 "Manrope", sans-serif; color: var(--navy);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; font-variant-numeric: lining-nums;
+  }
+  .serif { font-family: "Bodoni Moda", serif; font-weight: 400; }
+  .label { margin: 0 0 2.2mm; font: 700 7pt/1.4 "Manrope", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--delft); }
+
+  /* header band */
+  header { display: grid; grid-template-columns: 34mm 1fr; gap: 8mm; padding: 11mm 16mm 8mm; background: var(--navy); color: #fff; position: relative; }
+  header::after { content: ""; position: absolute; left: 16mm; bottom: 0; width: 22mm; height: 1.2mm; background: var(--saffron); }
+  .portrait { width: 34mm; height: 42.5mm; object-fit: cover; object-position: 50% 10%; display: block; }
+  .head-text { display: flex; flex-direction: column; justify-content: flex-end; }
+  .eyebrow { font: 700 7pt/1.4 "Manrope", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--saffron); margin: 0 0 3mm; }
+  h1 { margin: 0; font: 400 28pt/1.05 "Bodoni Moda", serif; color: #fff; }
+  .titles { margin: 3.5mm 0 0; font-size: 9.6pt; line-height: 1.5; color: #fff; }
+  .titles span { display: block; color: #C9D3E8; }
+  .titles strong { font-weight: 700; }
+
+  main { padding: 7mm 16mm 0; }
+  .bio { margin: 0; font: 400 11pt/1.45 "Bodoni Moda", serif; color: var(--navy); }
+
+  /* facts row */
+  .facts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4mm; margin: 5mm 0 0; padding: 0; list-style: none; }
+  .facts li { border-top: 0.3mm solid var(--rule); padding-top: 2.4mm; }
+  .facts li:first-child { border-top: 0.9mm solid var(--saffron); padding-top: 1.8mm; }
+  .facts b { display: block; font: 400 20pt/1 "Bodoni Moda", serif; }
+  .facts span { display: block; margin-top: 1.2mm; font-size: 7.6pt; line-height: 1.35; color: var(--ink-2); }
+
+  .cols { display: grid; grid-template-columns: 1.35fr 1fr; gap: 9mm; margin-top: 6mm; }
+  /* career */
+  .career { list-style: none; margin: 0; padding: 0; }
+  .career li { position: relative; padding: 0 0 2.6mm 6mm; }
+  .career li::before { content: ""; position: absolute; left: 0; top: 1.4mm; width: 2.4mm; height: 2.4mm; border: 0.45mm solid var(--delft); border-radius: 50%; background: #fff; }
+  .career li:not(:last-child)::after { content: ""; position: absolute; left: 1.42mm; top: 4.4mm; bottom: 0; width: 0.25mm; background: var(--rule); }
+  .career li.now::before { border-color: var(--saffron); }
+  .career .yr { font: 700 7.6pt/1.4 "Manrope", sans-serif; letter-spacing: .06em; color: var(--delft); }
+  .career .org { font-weight: 700; }
+  .career .win { display: block; margin-top: .6mm; color: var(--navy); }
+  .career .role { display: block; margin-top: .4mm; font-size: 7.8pt; line-height: 1.4; color: var(--ink-2); }
+
+  .block + .block { margin-top: 4.5mm; }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list li { padding: .9mm 0; border-bottom: 0.25mm solid var(--rule); }
+  .list li:last-child { border-bottom: 0; }
+  .list small { display: block; font-size: 7.8pt; color: var(--ink-2); }
+  .results li b { font: 400 13pt/1 "Bodoni Moda", serif; margin-right: 1.5mm; }
+
+  footer { position: absolute; left: 0; right: 0; bottom: 0; padding: 5mm 16mm 8mm; background: var(--ice); display: grid; grid-template-columns: 1fr auto; gap: 8mm; align-items: end; }
+  .contact { margin: 0; font-size: 8.6pt; line-height: 1.6; }
+  .contact b { font-weight: 700; }
+  .note { margin: 2.5mm 0 0; font-size: 7pt; line-height: 1.4; color: var(--ink-2); max-width: 120mm; }
+  .logo { height: 15mm; width: auto; display: block; }
+</style>
+</head>
+<body>
+  <header>
+    <img class="portrait" src="../../src/assets/photos/ganeaysh-portrait.jpg" alt="Ganeaysh Kulkarni">
+    <div class="head-text">
+      <p class="eyebrow">Short bio · 25 years · Agri, food and feed</p>
+      <h1>Ganeaysh Kulkarni</h1>
+      <p class="titles"><strong>Founder and Principal, KoKreaters</strong><span>Former Global Product &amp; Process Design Director, Cargill</span></p>
+    </div>
+  </header>
+
+  <main>
+    <p class="bio">Ganeaysh is a food technologist who learned the trade where it is hardest: on the refinery floor. He has built facilities that had never existed in their countries, turned around plants in three very different climates, and led global product design for one of the world’s largest food and agriculture companies. Today he brings that whole journey, from the bench to the boardroom, to the businesses he works with.</p>
+
+    <ul class="facts">
+      <li><b>25</b><span>years, from plant floor to global boardroom</span></li>
+      <li><b>8</b><span>sites in 5 countries</span></li>
+      <li><b>3</b><span>regions: the Americas, EMEA and Asia-Pacific</span></li>
+      <li><b>2</b><span>national firsts, in India and Ukraine</span></li>
+      <li><b>5</b><span>working languages</span></li>
+    </ul>
+
+    <div class="cols">
+      <section>
+        <p class="label">Career</p>
+        <ol class="career">
+          <li><span class="yr">2001–2012</span> · <span class="org">Wilmar</span>
+            <span class="win">Built India’s first integrated specialty fats facility and Ukraine’s first cold-climate palm oil refinery.</span>
+            <span class="role">Technical Head Specialties to Technical Director, across India, Indonesia and Ukraine</span></li>
+          <li><span class="yr">2012–2021</span> · <span class="org">Cargill</span>
+            <span class="win">Aligned food-safety systems with WHO standards for industrial trans fat.</span>
+            <span class="role">Technical services, applications, R&amp;D and FSQR leadership, India</span></li>
+          <li><span class="yr">2021–2023</span> · <span class="org">Cargill</span>
+            <span class="win">Led bakery technology transfers across the Americas, Asia and EMEA.</span>
+            <span class="role">Regional Technical Lead and Bakery Technology Transfer Leader; Category R&amp;D Leader, Confectionery and Plant-based</span></li>
+          <li><span class="yr">2023–2026</span> · <span class="org">Cargill</span>
+            <span class="win">Steered new product platforms, including an AI-enabled formulation system.</span>
+            <span class="role">Global Product &amp; Process Design Director</span></li>
+          <li class="now"><span class="yr">Today</span> · <span class="org">KoKreaters</span>
+            <span class="win">The senior, hands-on partner for agri, food and feed businesses.</span>
+            <span class="role">Founder and Principal, the Netherlands</span></li>
+        </ol>
+      </section>
+
+      <aside>
+        <section class="block">
+          <p class="label">Selected results</p>
+          <ul class="list results">
+            <li><b>21%</b>growth from reshaped manufacturing, Indonesia</li>
+            <li><b>15%</b>better regional cost structure, Ukraine</li>
+            <li><b>−25&#8239;°C</b>winters at a tropical-oil refinery, Ukraine</li>
+            <li><b>WHO</b>trans-fat work praised by the Director-General</li>
+          </ul>
+        </section>
+        <section class="block">
+          <p class="label">Education</p>
+          <ul class="list">
+            <li>Postgraduate, Food Technology<small>CSIR-CFTRI Mysore</small></li>
+            <li>BSc Chemistry<small>University of Pune</small></li>
+            <li>Creativity and Innovation<small>IIM Ahmedabad</small></li>
+            <li>EDGE Founder’s Bootcamp<small>UC Berkeley</small></li>
+          </ul>
+        </section>
+        <section class="block">
+          <p class="label">Languages</p>
+          <p style="margin:0">English, Hindi, Marathi, Bahasa Indonesia and Russian</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <p class="contact"><b>office@kokreaters.com</b> · kokreaters.com · linkedin.com/in/ganeayshkulkarni<br>Based in the Netherlands (CET) · working worldwide</p>
+      <p class="note">Results delivered by Ganeaysh Kulkarni in senior roles at global agri-food companies. Client and employer details are kept confidential.</p>
+    </div>
+    <img class="logo" src="../../src/assets/brand/svg/kokreaters-logo-A-navy.svg" alt="KoKreaters: Connect, Collaborate, Create">
+  </footer>
+</body>
+</html>

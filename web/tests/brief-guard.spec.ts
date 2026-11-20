@@ -82,7 +82,7 @@ test('palette: no v2 purple / pink / yellow / red in built CSS (logo SVGs exempt
 });
 
 for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`type: Bodoni Moda headlines, Manrope 16px body, no older fonts @${vp.width}`, async ({ browser }) => {
+  test(`type: Bodoni Moda headlines, Manrope 18px body, no older fonts @${vp.width}`, async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: vp });
     const problems: string[] = [];
     for (const path of ['/', '/expertise/process-design', '/insights', '/about', '/contact', '/privacy']) {
@@ -102,7 +102,7 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       });
       if (!/^"?Bodoni Moda"?/.test(t.h1)) problems.push(`${path}: h1 font-family ${t.h1}`);
       if (!/^"?Manrope"?/.test(t.body)) problems.push(`${path}: body font-family ${t.body}`);
-      if (!(parseFloat(t.bodySize) >= 16 && parseFloat(t.bodySize) <= 17)) problems.push(`${path}: body font-size ${t.bodySize}`);
+      if (!(parseFloat(t.bodySize) >= 17.5 && parseFloat(t.bodySize) <= 18.5)) problems.push(`${path}: body font-size ${t.bodySize}`);
       if (!t.loaded.includes('Bodoni Moda') || !t.loaded.includes('Manrope')) problems.push(`${path}: web fonts not loaded (${t.loaded.join(', ')})`);
       for (const f of fonts) if (/bricolage|ibm-plex|caveat|instrument|fraunces|source-serif|inter-latin/i.test(f)) problems.push(`${path}: v2 font requested ${f}`);
       await page.close();

@@ -2,7 +2,7 @@
  * Site behaviour (REDESIGN-V3 §3 Layout, §1.5 motion). One module, no dependencies, loaded once by BaseLayout.
  *  - header: `.is-scrolled` past 8px (passive listener + rAF)
  *  - header disclosures ([data-nav-toggle] → panel): Expertise mega-menu + Industries dropdown. Click, hover intent
- *    (150ms, fine pointers ≥ 1120px), Esc returns focus, outside pointerdown / focus leaving closes, one open at a time
+ *    (150ms, fine pointers ≥ 1024px), Esc returns focus, outside pointerdown / focus leaving closes, one open at a time
  *  - sliding nav highlight ([data-glide] bar, [data-glide-item]s inside [data-glide-list]): glides between hovered
  *    items on the header's bottom edge, rests under the current section
  *  - mobile menu ([data-menu-toggle] → #mobile-menu): scroll lock without layout jump, `inert` on the rest of the page,
@@ -12,17 +12,21 @@
  *  - footer groups ([data-ft-group] in [data-ft-col]): phone accordion rows; toggles .is-open + aria-expanded (CSS
  *    folds them only below 600px, so the state is inert on wider screens)
  *  - cookie settings (initConsent from ./consent)
+ *  - floating WhatsApp button ([data-wa-float], phones): html.wa-show past the first screen, html.wa-zone while the
+ *    CTA band / footer is in view
+ *  - Plausible events: a click on any [data-event] sends that event (src/lib/analytics.ts; no-op without the script)
  *  - "Ask KoKreaters" launcher ([data-chat-launcher]): imports ./chat (its own chunk) on first intent, then opens it;
  *    hidden (html.chat-zone) while the CTA band / footer / any [data-chat-hide] is in view (IntersectionObserver)
  * Animation lives in CSS; JS only toggles state and waits out close transitions.
  */
 import { initConsent } from './consent';
 import { initMotion } from './motion';
+import { track, type AnalyticsEvent } from '@/lib/analytics';
 
 const html = document.documentElement;
 const mq = (q: string) => window.matchMedia(q);
 const reduced = mq('(prefers-reduced-motion: reduce)');
-const desktop = mq('(min-width: 1120px)');
+const desktop = mq('(min-width: 1024px)');
 const fine = mq('(hover: hover) and (pointer: fine)');
 const wait = (ms: number) => (reduced.matches ? 0 : ms);
 const $$ = <T extends Element = HTMLElement>(s: string, root: ParentNode = document) => Array.from(root.querySelectorAll<T>(s) as NodeListOf<T>);
@@ -277,6 +281,30 @@ function initChatLauncher() {
   window.addEventListener('resize', () => { window.clearTimeout(t); t = window.setTimeout(watchStrip, 200); }, { passive: true });
 }
 
+/* ── Floating WhatsApp button (phones) ───────────────────────────── */
+function initWhatsApp() {
+  if (!document.querySelector('[data-wa-float]')) return;
+  let ticking = false;
+  const update = () => { ticking = false; html.classList.toggle('wa-show', window.scrollY > window.innerHeight * .6); };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+  if (!('IntersectionObserver' in window)) return;
+  const inView = new Set<Element>();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); }
+    html.classList.toggle('wa-zone', inView.size > 0);
+  }, { threshold: 0, rootMargin: '0px 0px 80px 0px' });
+  $$<HTMLElement>('.cta-band, #site-footer, [data-wa-hide]').forEach((z) => io.observe(z));
+}
+
+/* ── Plausible events (cookie-free; no-op unless PUBLIC_PLAUSIBLE_DOMAIN loaded the script) ── */
+function initEvents() {
+  document.addEventListener('click', (e) => {
+    const el = (e.target as Element | null)?.closest<HTMLElement>('[data-event]');
+    if (el?.dataset.event) track(el.dataset.event as AnalyticsEvent);
+  }, { capture: true });
+}
+
 /* ── Boot ────────────────────────────────────────────────────────── */
 function boot() {
   const header = document.querySelector<HTMLElement>('[data-header]');
@@ -290,6 +318,8 @@ function boot() {
   initFooterGroups();
   initConsent();
   initChatLauncher();
+  initWhatsApp();
+  initEvents();
   html.classList.add('chrome-ready', 'motion-booted');
 }
 

@@ -1,23 +1,21 @@
 ---
 /**
- * About /about, pack 2 (brief items 21–26; v4 "Delft" design kept). Grounds: navy hero → Porcelain strip (when it has
- * two or more figures) → white story → Porcelain career → white "worked alongside" → Dutch polder interlude → white
- * map → navy name panel → white credentials → (Porcelain testimonials, once two are confirmed) → CtaBand → footer.
- *  1 PageHero, navy split: the 4:5 portrait right, crumbs, eyebrow, H1 "Twenty-five years of making ingredients work.",
- *    the intro, then LinkedIn (and the one-page profile PDF, only when `aboutPage.profilePdfCurrent`, or in staging with
- *    a <Confirm>: the PDF still carries the v3 bio).
- *  1b AboutStrip (item 23): staging shows all four figures with the Part K 2 markers. Outside staging only the
- *     confirmed figures count: two or more → the band; just one ("5 working languages") → no band, the figure sits in
- *     the story's head column as a quiet fact with the five languages.
- *  2 AboutStory (item 21)    — name, "Founder and Principal, KoKreaters", the former-role line, base, the short bio,
- *                              "Read the long version" (native details) with the five long-bio paragraphs.
- *  3 CareerTimeline (item 22) — seven rows, "Today · KoKreaters" last, the places line under it.
- *  4 WorkedAlongside (item 24) — the sentence and six sector icons; no names, no logos.
- *  · PhotoInterlude (nl-polder): eyebrow "Based in the Netherlands", caption "A Dutch base. A global reach."
- *  5 PlacesMap, 6 NamePanel (v4, unchanged), 7 Credentials (item 25: four columns, placeholder columns hidden),
- *  8 AboutTestimonials (item 26: hidden until two are confirmed).
- * Item 8: Cargill and Wilmar appear on this page (long bio, timeline, former-role line) and nowhere else but the
- * founder line. JSON-LD: Person (with the portrait) + BreadcrumbList.
+ * About /about, pack 3 (Ganeaysh, 20 Nov: "Open with achievements, not education"; owner: "very sharp, not too much
+ * text, good visuals"). Grounds: navy hero → Porcelain figures → white timeline → Porcelain story → white "worked
+ * alongside" → Dutch polder interlude → white map → navy name panel → white credentials → (Porcelain testimonials, once
+ * two are confirmed) → CtaBand → footer.
+ *  1 PageHero, navy, the 4:5 portrait right: crumbs, eyebrow, H1, the intro, then "Download short bio (PDF)" (one
+ *    page, confirmed facts only, scripts/make-short-bio.mjs), "High-resolution portrait" and LinkedIn (event organisers).
+ *  2 AboutStrip     — the figures band from career.ts (25 years, 8 sites, 5 languages + the six drafts; drafts never in
+ *                     production) and the page's one footnote.
+ *  3 CareerTimeline — from 2001 (Wilmar), one achievement line per step; education is not in it.
+ *  4 AboutStory     — name, the three title lines (flourish italic), the short bio, the long version folded.
+ *  5 WorkedAlongside — five organisation types with icons, no names or logos.
+ *  · PhotoInterlude (nl-polder): "A Dutch base. A global reach."
+ *  6 PlacesMap, 7 NamePanel (Ko + Kreaters = the new logo), 8 Credentials (education as a small separate block, with
+ *    executive education, recognition and languages), 9 AboutTestimonials (hidden until two are confirmed).
+ * Cargill and Wilmar appear on this page (timeline, long bio, the former-role line) and nowhere else but the founder
+ * line. JSON-LD: Person (with the portrait) + BreadcrumbList.
  * Mobile: every section states its own layout; hero buttons go full width below 600px.
  */
 import { existsSync } from 'node:fs';
@@ -39,29 +37,20 @@ import { site } from '@/config/site';
 import AboutStrip from '@/components/about/AboutStrip.astro';
 import WorkedAlongside from '@/components/about/WorkedAlongside.astro';
 import AboutTestimonials from '@/components/about/AboutTestimonials.astro';
-import Confirm from '@/components/ui/Confirm.astro';
-import { about, aboutPage, aboutStrip, languages } from '@/data/about';
+import { about, aboutPage } from '@/data/about';
 import { location } from '@/data/contact';
 import { founderName } from '@/components/about/founder-lines';
 import { photos } from '@/data/photos';
 import { microcopy } from '@/data/microcopy';
-import { showConfirm } from '@/lib/mode';
 
 const portraitWebp = await getImage({ src: portrait, format: 'webp', width: 960 });
 const crumbs = [{ label: about.overline, href: '/about' }];
 const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
-// The PDF is a static file written by scripts/make-profile-pdf.mjs; never link to it if it is missing.
-const pdfExists = existsSync(join(process.cwd(), 'public', aboutPage.profilePdfHref));
-const hasPdf = pdfExists && (aboutPage.profilePdfCurrent || showConfirm);
+// Static files in public/downloads (written by scripts/make-short-bio.mjs); never link to one that is missing.
+const has = (href: string) => existsSync(join(process.cwd(), 'public', href));
+const hasBio = has(aboutPage.bioPdfHref);
+const hasPortrait = has(aboutPage.portraitHref);
 const polder = photos['nl-polder'];
-// Item 23: staging shows every figure (placeholders marked); elsewhere only confirmed ones.
-const stripItems = aboutStrip.items.filter((i) => showConfirm || !i.pending);
-const single = stripItems.length === 1 ? stripItems[0] : undefined;
-const fact = single ? {
-  value: single.value,
-  label: `${single.value === '5' ? aboutPage.languagesLabel : single.label}`.replace(/^./, (c) => c.toUpperCase()),
-  detail: single.value === '5' ? languages : undefined,
-} : undefined;
 ---
 <BaseLayout page="about" seo={seo} breadcrumbs={crumbs}>
   <PageHero
@@ -77,20 +66,24 @@ const fact = single ? {
     titleId="about-title"
   >
     <div class="about-actions">
-      {hasPdf && (
-        <Button href={aboutPage.profilePdfHref} icon="download" download="ganeaysh-kulkarni-profile.pdf">
-          <span class="about-pdf--full">{aboutPage.profilePdf}</span><span class="about-pdf--short">{aboutPage.profilePdfShort}</span>
+      {hasBio && (
+        <Button href={aboutPage.bioPdfHref} icon="download" download={aboutPage.bioPdfName}>
+          <span class="about-pdf--full">{aboutPage.bioPdf}</span><span class="about-pdf--short">{aboutPage.bioPdfShort}</span>
         </Button>
       )}
-      {hasPdf && !aboutPage.profilePdfCurrent && <Confirm id="PDF" note="profile PDF still has the v3 bio; regenerate (scripts/make-profile-pdf.mjs), then set aboutPage.profilePdfCurrent" />}
+      {hasPortrait && (
+        <Button href={aboutPage.portraitHref} variant="tertiary" icon="download" download={aboutPage.portraitName} class="about-actions__link">
+          {aboutPage.portrait}<span class="visually-hidden"> (JPG)</span>
+        </Button>
+      )}
       <Button href={site.linkedin.href} variant="tertiary" icon="external" rel="noopener me" class="about-actions__link">
         {aboutPage.linkedin}<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span>
       </Button>
     </div>
   </PageHero>
-  {stripItems.length > 1 && <AboutStrip items={stripItems} />}
-  <AboutStory fact={fact} />
+  <AboutStrip />
   <CareerTimeline />
+  <AboutStory />
   <WorkedAlongside />
   <PhotoInterlude src={polder.src} alt={polder.alt} position={polder.position} size="lg" eyebrow={location.line} caption={aboutPage.interludeCaption} />
   <PlacesMap />
@@ -104,11 +97,20 @@ const fact = single ? {
   @media (max-width: 599px) {
     .about-actions :global(.btn--primary) { flex: 1 1 100%; }
   }
-  /* Below 390px the full label wraps "(PDF)" onto a second line: the shorter label keeps the button one line, 48px.
-     Only one label is ever rendered, so the accessible name follows what is shown. */
+  /* Below 390px the full label would wrap: the shorter label keeps the button one line, 48px. Only one label is ever
+     rendered, so the accessible name follows what is shown. */
   .about-pdf--short { display: none; }
   @media (max-width: 389px) {
     .about-pdf--full { display: none; }
     .about-pdf--short { display: inline; }
   }
+</style>
+<style is:global>
+  /* Pack 3 bug (phone): the shared hero-title reveal (motion.css kk-line-block) wipes the H1 open with a clip-path, so
+     the four-line About headline on a phone was seen cut off mid-animation. Below 900px the About H1 rises and fades in
+     whole instead: nothing is ever clipped, and it is complete at every frame after ~150ms. */
+  @media (prefers-reduced-motion: no-preference) and (max-width: 899px) {
+    #about-title[data-gsap="hero-title"] { animation: kk-about-rise 420ms cubic-bezier(.2, .75, .2, 1) backwards; clip-path: none; }
+  }
+  @keyframes kk-about-rise { from { opacity: .001; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 </style>

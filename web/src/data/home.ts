@@ -1,18 +1,24 @@
-/** Home copy (DESIGN-SPEC 4.3), verbatim from the brief. */
 /**
- * Home copy. v4 "Delft" (Ganeaysh's developer guide + homepage design, 20 Nov 2026): the hero, track record, approach,
- * industries, impact, Netherlands band and CTA follow his design word for word; facts stay those already in src/data.
+ * Home copy. Pack 3 (Ganeaysh's v3 review, 20 Nov 2026): nine sections in the brief's order — hero · founder strip ·
+ * track record · what we do · impact · credentials + testimonial · industries · insights · CTA. Owner: "very sharp, not
+ * too much text, good visuals". Career figures, titles, credentials and the footnote live in src/data/career.ts.
+ * Exports no longer on Home (positioning, method, engage, trustLine, netherlands, proof) stay for the pages that read them.
  */
+import { careerFootnote, founderLine } from './career';
+import type { PhotoSlug } from './photos';
+import { bookingHref, bookingLabel } from '@/lib/booking';
 export const hero = {
-  overline: 'Techno-commercial consulting · Agri, food & feed',
+  /** Pack 3 "Make 25 years felt" point 1, verbatim. */
+  overline: '25 years · Agri, food and feed · Plant floor to boardroom',
   headline: 'Deep expertise, turned into products, plants and markets.',
   /** The H1 as display lines (desktop line breaks of the design; each line rises in its own mask on load). */
   headlineLines: ['Deep expertise,', 'turned into products,', 'plants and markets.'],
   sub: 'KoKreaters helps agri, food, feed, nutrition and specialty-ingredient businesses develop products, run better plants and win new markets, with 25 years of plant-to-boardroom experience behind every recommendation.',
-  primary: { label: 'Start a conversation', href: '/contact' },
+  /** Pack 3: "Book a 30-minute call" (saffron; href from bookingHref()) and "Explore our expertise". */
+  primary: { label: bookingLabel, href: bookingHref() },
   secondary: { label: 'Explore our expertise', href: '/expertise' },
   /**
-   * Pack 2 item 14: the proof line in small caps between thin rules (desktop one line; phones three short lines).
+   * Pack 2 item 14: the proof line in small caps between thin rules. Pack 3 bug 1: on its own row below the buttons.
    * Verbatim; split at the brief's " · ".
    */
   proofLine: [
@@ -25,19 +31,18 @@ export const hero = {
   footLead: 'Experience across',
   footRight: ['India', 'Indonesia', 'Ukraine', 'Türkiye', 'the Netherlands'],
 };
-/**
- * Pack 2 item 15: the home track-record strip (About and Impact have their own). Verbatim. `figure` splits the brief's
- * bold number into numerals (`n`, set large; counted up once) and words (`u`, set smaller) so "8 sites · 5 countries"
- * fits one column.
- */
-export const homeProof: { figure: { n: string; u?: string }[]; label: string }[] = [
-  { figure: [{ n: '25' }], label: 'years, from plant floor to global boardroom' },
-  { figure: [{ n: '8', u: 'sites' }, { n: '5', u: 'countries' }], label: 'India, Indonesia, Ukraine, Türkiye and the Netherlands' },
-  { figure: [{ n: '3', u: 'regions' }], label: 'teams led across the Americas, EMEA and Asia-Pacific' },
-  { figure: [{ n: '2', u: 'national firsts' }], label: 'India’s first integrated specialty fats facility and Ukraine’s first cold-climate palm oil refinery' },
-];
-/** Pack 2 item 15 footnote (small, grey, right-aligned), verbatim. Replaces every "Figures from our founder’s career …" line (item 8). */
-export const homeProofNote = 'From our founder’s 25-year career, before KoKreaters.';
+/** Pack 3 "Make 25 years felt" point 2: the founder strip under the hero. Titles from career.ts founderTitles. */
+export const founderStrip = {
+  label: 'Founder',
+  line: founderLine,
+  /** "A Dutch base. A global reach." merged into the founder strip (brief Home, after the nine sections). */
+  base: 'Based in the Netherlands, working worldwide',
+  link: { label: 'Meet Ganeaysh', href: '/about' },
+};
+/** Home track record (pack 3 point 3): six tiles from career.ts homeTrackRecord; no counting animation. */
+export const trackRecord = { label: 'Our track record' };
+/** Pack 3 lead decision 7: the one footnote (at most once per page; on Home at the end of the Impact section). */
+export const homeProofNote = careerFootnote;
 /**
  * v4 track record. Pack 2: no longer on Home (see `homeProof`); kept only while the About page still imports it
  * (PEOPLE-CONTENT moves About to its own strip, brief item 23). `strong` is the word set in bold.
@@ -48,8 +53,8 @@ export const proof: { value: string; count?: number; strong?: string; label: str
   { value: '5', count: 5, strong: 'countries', label: 'countries of hands-on plant and business leadership' },
   { value: 'WHO', strong: 'Director-General', label: 'Director-General recognition for trans-fat elimination work' },
 ];
-export const proofSource = 'From our founder’s career';
-/** Pack 2 item 8: the neutral footnote (item 15) replaces "Figures from our founder’s career at Wilmar and Cargill." */
+/** Styleguide only (staging); pack 3 footnote wording. */
+export const proofSource = careerFootnote.replace(/\.$/, '');
 export const proofStripSource = homeProofNote;
 export const positioning = {                                  // graft 9, brief 1
   folio: 'Our promise',                                       // COMPOSED (8.3)
@@ -61,39 +66,42 @@ export const whatWeDo = {
   overline: 'What we do',
   headline: 'End-to-end techno-commercial support, from first idea to first sale.',
   intro: 'One partner who understands the chemistry, the plant and the market. We work wherever technology and business meet, and we stay until the result is real.',
+  /** Pack 3: Home links to Approach ("How we engage" moved there). */
+  approachLink: { label: 'How we engage', href: '/approach#engage' },
+};
+/**
+ * Pack 3 "Signal what is current" point 8: the brief's live themes, shortened only where the brief's own words allow.
+ * Ganeaysh confirms which he wants to be found for (CONFIRM marker in staging).
+ */
+export const helpNow = {
+  label: 'Where we help now',
+  themes: [
+    'EUDR readiness for palm, soy and cocoa supply chains',
+    '3-MCPD and GE limits',
+    'Trans-fat and saturated-fat reduction',
+    'AI-assisted formulation',
+    'Cost-in-use under volatile oil prices',
+  ],
+  confirm: 'which live themes Ganeaysh wants to be found for',
 };
 export const method = { overline: 'The KoKreaters way', headline: 'Connect. Collaborate. Create.', link: { label: 'How we work', href: '/approach' } };
-/** Home "Our approach" band: the three tall photo cards (lab → plant → market). */
-export const approach = {
-  overline: 'Our approach',
-  headline: 'From the lab, to the plant, to the market.',
-  link: { label: 'How we work', href: '/approach' },
-  steps: [
-    { n: '01', label: 'Develop', title: 'Concept, formulation and pilot trials', photo: 'develop-pipette', position: '50% 35%' },
-    { n: '02', label: 'Scale', title: 'Process design, scale-up and plant performance', photo: 'scale-tanks', position: '50% 50%' },
-    { n: '03', label: 'Access', title: 'Regulatory, supply chain and market entry', photo: 'access-ship', position: '62% 50%' },
-  ] as const,
-};
 export const impact = {
   overline: 'Impact',
   headline: 'Results that started on the plant floor.',
   link: { label: 'See the impact', href: '/impact' },
-  /** Pack 2 item 8: neutral footnote, no company names. */
-  source: homeProofNote,
+  /** Pack 3: the one footnote, at the end of the Impact section. */
+  source: careerFootnote,
   /**
    * Pack 2 item 17: three cards, verbatim. `href` = the WHO story on the Impact page (item 28 story 4; anchor id
    * `story-who`, agreed with STORY). The figures count up once (motion.ts; WHO is left as it is).
    */
   cards: [
-    { tag: 'OPERATIONS · INDONESIA', figure: '21%', line: 'Business growth after reshaping manufacturing: throughput, yield, quality and cost.' },
-    { tag: 'PROCESS · UKRAINE', figure: '−25 °C', line: 'Ukraine’s first cold-climate crude palm oil refinery, with a 15% lower cost structure.' },
-    { tag: 'FOOD SAFETY · GLOBAL', figure: 'WHO', line: 'Trans-fat elimination work praised publicly by the WHO Director-General.', href: '/impact#story-who', linkLabel: 'Read the WHO story' },
-  ] as { tag: string; figure: string; line: string; href?: string; linkLabel?: string }[],
+    { tag: 'OPERATIONS · INDONESIA', figure: '21%', line: 'Business growth after reshaping manufacturing: throughput, yield, quality and cost.', photo: 'plant-01' },
+    { tag: 'PROCESS · UKRAINE', figure: '−25 °C', line: 'Ukraine’s first cold-climate crude palm oil refinery, with a 15% lower cost structure.', photo: 'cold-01' },
+    { tag: 'FOOD SAFETY · GLOBAL', figure: 'WHO', line: 'Trans-fat elimination work praised publicly by the WHO Director-General.', href: '/impact#story-who', linkLabel: 'Read the WHO story', photo: 'bakery-01' },
+  ] as { tag: string; figure: string; line: string; href?: string; linkLabel?: string; photo: PhotoSlug }[],
 };
-/**
- * Pack 2 item 16 (copy from item 31): the four ways to engage, summarised on Home under "What we do"; the band links to
- * /approach#engage. Titles and lines verbatim from item 31.
- */
+/** Pack 2 item 16 (copy from item 31): the four ways to engage. Pack 3: no longer on Home (moved to Approach). */
 export const engage = {
   headline: 'How we engage',
   intro: 'Four ways to work together. Every engagement starts with a 30-minute conversation, at no cost.',
@@ -105,13 +113,13 @@ export const engage = {
     { n: '04', title: 'Expert review', line: 'Fast, independent opinions for owners, investors and lenders on an asset, a technology, a partner or a plan.' },
   ],
 };
-/** Pack 2 item 18: slim band above Insights, one centred line in small caps (verbatim, split at " · "). */
+/** Pack 2 item 18. Pack 3: removed from Home, kept on Approach and Contact. */
 export const trustLine = ['Confidential by default', 'We work under NDA', 'Client names are shared only with their consent'];
 export const industries = {
   overline: 'Industries',
   headline: 'Where we work',
   link: { label: 'All industries', href: '/industries' },
-  /** Six photo tiles; `anchor` is used only when that slug exists in src/data/industries.ts. */
+  /** Six photo tiles (also the mega-menu and footer industries); `anchor` is used only when that slug exists in src/data/industries.ts. */
   tiles: [
     { name: 'Agri and oilseeds', photo: 'agri-fields', anchor: '' },
     { name: 'Edible oils and specialty fats', photo: 'oils-pour', anchor: 'edible-oils-specialty-fats' },
@@ -142,13 +150,18 @@ export const founderQuote = {
   attribution: 'Ganeaysh Kulkarni, Founder and Principal, KoKreaters',
   link: { label: 'Meet Ganeaysh', href: '/about' },
 };
-/** Closing call to action (every page): Deep Delft band, one saffron button, the email address. */
+/** Closing call to action (every page): Deep Delft band, "Book a 30-minute call" (pack 3), the email address. */
 export const cta = {
   headline: 'Let’s create something together.', swooshPhrase: 'together',
   /** Pack 2 item 2: the reply-time sentence, verbatim. */
   body: 'Ganeaysh reads every message personally and replies within two working days.',
-  button: 'Start a conversation',
+  button: bookingLabel,
   href: '/contact',
+};
+/** Pack 3 point 4–5: the credentials strip and one testimonial (slot hidden outside staging until a real quote exists). */
+export const credentialsBand = {
+  label: 'Credentials',
+  testimonialConfirm: 'one short testimonial with name and role (or role and company type), with permission',
 };
 /**
  * v3 home labels (REDESIGN-V3 §4 Home). Plain UI labels only; every fact stays in the exports above.
@@ -156,7 +169,7 @@ export const cta = {
  *  draft — staging-only badge on draft insight cards (never rendered in preview or production). COMPOSED
  */
 export const homeLabels = {
-  proof: 'Our track record',
+  proof: 'Our track record',   // pack 3: trackRecord.label
   draft: 'Draft',
   soon: 'Coming soon',
 };

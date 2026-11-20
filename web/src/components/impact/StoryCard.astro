@@ -9,11 +9,17 @@
  * open panel only grows the last track.
  * Placeholders (Part K): a pending figure, result sentence or link renders in staging only, beside its <Confirm>; in
  * preview and production it is not rendered (a story whose only figure is pending has no big figure).
- * `id` = the story id (/impact#story-who from the home WHO card). Motion: figures count up (data-gsap="count").
+ * Pack 3: a photo heads every story (impact.ts `photo`: plant, product or team; no client logos), figures are static
+ * (no counting) with the unit in Manrope beside the number, and the WHO story's source is a proper citation link
+ * (title, author, publication, opens in a new tab).
+ * `id` = the story id (/impact#story-who from the home WHO card).
  * Mobile: one column; figures 52px; chips wrap; the button is a full 44px tap target.
  */
 import Tag from '@/components/ui/Tag.astro';
 import Confirm from '@/components/ui/Confirm.astro';
+import Photo from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { splitFigure } from './figure';
 import type { ImpactStory } from '@/data/types';
 import { impactPage } from '@/data/impact';
 import { industries } from '@/data/industries';
@@ -52,7 +58,10 @@ const rows = [
   data-extra={extra ? '' : undefined}
 >
   <article class="story__in" aria-labelledby={titleId}>
-    <span class="story__rule" aria-hidden="true"></span>
+    <div class="story__media">
+      {s.photo && <Photo slug={s.photo} ratio="3/2" sizes="(min-width: 1320px) 400px, (min-width: 1100px) 31vw, (min-width: 700px) 46vw, calc(100vw - 40px)" />}
+      <span class="story__rule" aria-hidden="true"></span>
+    </div>
     <p class="story__tag t-label">{s.tag}</p>
     <h3 id={titleId} class="story__title" set:html={keep(s.title)} />
 
@@ -61,7 +70,7 @@ const rows = [
         <ul class:list={['figs', figures.length > 1 && 'figs--pair']} role="list">
           {figures.map((f) => (
             <li class="fig">
-              <span class="fig__value" data-gsap={f.pending ? undefined : 'count'}>{f.value}</span>
+              <span class="fig__value">{splitFigure(f.value).num}{splitFigure(f.value).unit && <span class="fig__unit">{splitFigure(f.value).unit}</span>}</span>
               <span class="fig__label">{f.label}</span>
               {f.pending && <Confirm id={f.pending.confirm} note={f.pending.note} />}
             </li>
@@ -105,7 +114,12 @@ const rows = [
               <ul class="verify" role="list">
                 {verify.map((l) => (
                   <li>
-                    {l.href ? <a class="verify__a" href={l.href} rel="noopener">{l.label}</a> : <span>{l.label}</span>}
+                    {l.href && l.cite ? (
+                      <cite class="cite">
+                        <a class="verify__a" href={l.href} target="_blank" rel="noopener external">“{l.cite.title}”<Icon name="external" size={14} stroke={2} class="cite__icon" /><span class="visually-hidden"> (opens in a new tab)</span></a>
+                        <span class="cite__by">{l.cite.author}, {l.cite.publication}</span>
+                      </cite>
+                    ) : l.href ? <a class="verify__a" href={l.href} target="_blank" rel="noopener external">{l.label}</a> : <span>{l.label}</span>}
                     {l.pending && <Confirm id={l.pending.confirm} note={l.pending.note} />}
                   </li>
                 ))}
@@ -119,12 +133,14 @@ const rows = [
 </li>
 
 <style>
-  .story { min-width: 0; scroll-margin-top: calc(var(--scroll-offset) + var(--s-5)); display: grid; grid-row: span 6; grid-template-rows: subgrid; }
+  .story { min-width: 0; scroll-margin-top: calc(var(--scroll-offset) + var(--s-5)); display: grid; grid-row: span 7; grid-template-rows: subgrid; }
   .story[hidden] { display: none; }
-  .story__in { position: relative; min-width: 0; display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; align-content: start; padding-top: 24px; padding-bottom: var(--s-8); }
+  .story__in { position: relative; min-width: 0; display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; align-content: start; padding-bottom: var(--s-8); }
+  .story__media { position: relative; min-width: 0; margin-bottom: 24px; }
+  .story__media :global(.photo) { background: var(--navy-900); }
   @supports not (grid-template-rows: subgrid) { .story, .story__in { display: block; } }
-  .story__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transition: background-color var(--d-2) var(--ease-out), height var(--d-2) var(--ease-out); }
-  .story.is-open .story__rule { height: 3px; background: var(--saffron); }
+  .story__rule { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--saffron); transition: height var(--d-2) var(--ease-out); }
+  .story.is-open .story__rule { height: 4px; }
 
   .story__tag { color: var(--label); margin: 0; }
   .story__title {
@@ -142,6 +158,7 @@ const rows = [
     letter-spacing: -0.01em; color: var(--head); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap;
   }
   .figs--pair .fig__value { font-size: clamp(2.75rem, 2.5rem + 1vw, 3.25rem); }
+  .fig__unit { margin-left: .14em; font: 700 .32em/1 var(--font-sans); letter-spacing: 0; }
   .fig__label { font-size: var(--fs-small); line-height: 1.4; color: var(--fg-2); max-width: 22ch; text-wrap: pretty; }
 
   .story__chips { min-width: 0; }
@@ -170,6 +187,9 @@ const rows = [
   .verify { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
   .verify__a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; overflow-wrap: anywhere; }
   .verify__a:hover { text-decoration-thickness: 2px; }
+  .cite { display: grid; gap: 4px; font-style: normal; }
+  .cite :global(.cite__icon) { display: inline-block; margin-left: 6px; vertical-align: -1px; }
+  .cite__by { font-size: var(--fs-small); color: var(--fg-2); }
 
   @media (max-width: 599px) {
     .story__in { padding-bottom: var(--s-7); }

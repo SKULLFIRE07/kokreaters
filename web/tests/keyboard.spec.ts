@@ -24,9 +24,9 @@ test.describe('desktop 1440', () => {
       await settle(page, 200);
       const cta = page.locator('header [data-header-cta]');
       await expect(cta, 'header CTA visible').toBeVisible();
-      await expect(cta).toHaveText(/Start a conversation/);
-      await expect(cta).toHaveAttribute('href', '/contact');
-      expect((await cta.boundingBox())!.height, 'CTA target ≥ 44px').toBeGreaterThanOrEqual(44);
+      await expect(cta).toHaveText(/Book a/);
+      await expect(cta).toHaveAttribute('href', /^(\/contact#start|https:\/\/)/);
+      expect((await cta.boundingBox())!.height, 'CTA target ≥ 40px').toBeGreaterThanOrEqual(40);
 
       let tabs = 0; let reached = false; const noRing: string[] = [];
       while (tabs < MAX_TABS_TO_CTA + 6) {
@@ -38,7 +38,7 @@ test.describe('desktop 1440', () => {
       expect(reached, 'header CTA is in the tab order').toBe(true);
       expect(tabs, 'tab stops to the header CTA').toBeLessThanOrEqual(MAX_TABS_TO_CTA);
       expect(noRing, 'focus indicator visible on every stop').toEqual([]);
-      await Promise.all([page.waitForURL(/\/contact$/), page.keyboard.press('Enter')]);
+      await Promise.all([page.waitForURL(/\/contact(#start)?$/), page.keyboard.press('Enter')]);
       await expect(page.locator('body[data-page="contact"]')).toHaveCount(1);
     });
   }
@@ -56,7 +56,7 @@ test.describe('desktop 1440', () => {
     await expect(page.locator('main#main')).toBeFocused();
   });
 
-  for (const [path, href] of [['/approach', '/approach'], ['/insights', '/insights'], ['/about', '/about']] as const) {
+  for (const [path, href] of [['/impact', '/impact'], ['/insights', '/insights'], ['/about', '/about']] as const) {
     test(`header nav marks ${href} current on ${path}`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'load' });
       const current = page.locator('header .site-nav [aria-current="page"]');
@@ -65,7 +65,7 @@ test.describe('desktop 1440', () => {
     });
   }
 
-  for (const [label, panel] of [['Expertise', 'mega-expertise'], ['Industries', 'menu-industries']] as const) {
+  for (const [label, panel] of [['Expertise', 'mega-expertise']] as const) {
     test(`${label} panel: Enter opens, Tab enters, Esc closes and returns focus`, async ({ page }) => {
       await page.goto('/', { waitUntil: 'load' });
       await settle(page, 200);

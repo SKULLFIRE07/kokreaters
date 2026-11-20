@@ -7,11 +7,11 @@
  *    page".
  *  3 The library (white, opens on a thin rule): the expertise / format filters as square toggles, then one grid in
  *    the homepage's card language: every published insight as a photo card (red "New" tag on the newest only), the
- *    playbook download tile (item 34; it replaces the bleaching-earth "Coming soon" tile, item 32), then the other
- *    pieces in preparation as Delft Ice cards. Two published + the playbook + three in preparation fill a 3 × 2 grid.
+ *    playbook download tile (item 34). Pack 3: no "Coming soon" / in-preparation cards (hidden until the articles
+ *    exist). Two published + the playbook fill one row of three.
  *  4 CtaBand (BaseLayout; no second newsletter: it is at the top), then the footer.
  * The newest card's photo is the page's LCP image (priority). Without JS the filters stay hidden and the full grid shows.
- * Production with no published insight: the grid holds the playbook and in-preparation cards only, with no filters.
+ * Production with no published insight: the grid holds the playbook only, with no filters.
  * Mobile: one column; filters wrap; the in-preparation panels lose their tall frame.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -21,15 +21,13 @@ import Filters from '@/components/insights/Filters.astro';
 import InsightList from '@/components/insights/InsightList.astro';
 import NewsletterForm from '@/components/ui/NewsletterForm.astro';
 import PlaybookCard from '@/components/ui/PlaybookCard.astro';
-import { visibleInsights, comingSoonSorted } from '@/lib/insights';
+import { visibleInsights } from '@/lib/insights';
 import { pageSeo } from '@/lib/seo';
 import { insights as insightsCopy } from '@/data/home';
 import { insightsHub } from '@/data/insights';
 
 const seo = pageSeo('insights');
 const list = await visibleInsights();
-/** Item 32: the bleaching-earth "Coming soon" tile gives its place to the playbook download. */
-const soon = (await comingSoonSorted()).filter((e) => e.id !== 'bleaching-earth');
 const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
 ---
 <BaseLayout page="insights" seo={seo} breadcrumbs={crumbs}>
@@ -46,7 +44,7 @@ const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
       <h2 id="library-h" class="library__title">{insightsHub.libraryTitle}</h2>
       {list.length > 1 && <Filters entries={list} />}
     </div>
-    <InsightList entries={list} soon={soon} priorityFirst filterable={list.length > 1}>
+    <InsightList entries={list} priorityFirst filterable={list.length > 1}>
       <li slot="extra" class="library__playbook"><PlaybookCard variant="tile" id="playbook-insights" /></li>
     </InsightList>
   </Section>

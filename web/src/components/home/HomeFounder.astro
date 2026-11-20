@@ -1,61 +1,67 @@
 ---
 /**
- * Home 11 · Founder (v4 developer guide). Porcelain band: the studio portrait (src/assets/photos/ganeaysh-portrait.jpg)
- * left; right, vertically centred: "Founder" label, the quote in italic Bodoni (40/50), a 56 × 3px saffron rule (draws
- * in once), then (pack 2 item 19) "Ganeaysh Kulkarni" / "Founder and Principal, KoKreaters" / "Former Global Product &
- * Process Design Director, Cargill" / italic "Chief Catalyst", and "Meet Ganeaysh →" (/about).
- * The attribution sits outside the blockquote (WHATWG). The quote is confirmed (item 19: "Keep the quote").
- * Motion: the portrait lifts a touch while it crosses the viewport (data-gsap="lift"); the rule draws in.
- * Mobile: portrait (4:5, up to 400px wide) above the text.
+ * Home 2 · Founder strip (pack 3 "Make 25 years felt" point 2; Home order item 2). White band directly under the hero:
+ * the portrait (4:5), "Ganeaysh Kulkarni", the two title lines in the exact order (founderTitles: "Founder and
+ * Principal, KoKreaters" / "Former Global Product & Process Design Director, Cargill") and the small italic flourish
+ * "Chief Catalyst"; then the one career line in Bodoni ("25 years leading R&D, plants and food safety across 5 countries
+ * and 3 continents"), "Based in the Netherlands, working worldwide" (the merged Dutch-base band) and two actions:
+ * "Meet Ganeaysh →" and an outline "Book a call".
+ * Layout ≥ 900px: portrait (200px) · name block · line + actions, on one row. Mobile: portrait 96px beside the name,
+ * then the line and the actions stacked.
  */
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
-import { founderQuote } from '@/data/home';
-import { founderName, founderRole, founderFormerRole, founderFlourish, portraitAlt } from '@/data/founder';
-import { site } from '@/config/site';
+import BookCall from '@/components/ui/BookCall.astro';
+import { founderStrip } from '@/data/home';
+import { founderTitles } from '@/data/career';
+import { portraitAlt } from '@/data/founder';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
 ---
-<section id="about" class="hf band band--grey" aria-labelledby="founder-heading">
+<section id="founder" class="hf band band--white" aria-labelledby="founder-heading">
   <div class="container hf__grid">
-    <div class="hf__media" data-gsap="lift">
-      <Photo src={portrait} alt={portraitAlt.founder} fill position="50% 20%"
-        sizes="(min-width: 1000px) 460px, min(100vw - 40px, 400px)" widths={[400, 640, 800, 960, 1280]} />
+    <div class="hf__media">
+      <Photo src={portrait} alt={portraitAlt.founder} fill position="50% 18%"
+        sizes="(min-width: 900px) 200px, 104px" widths={[200, 320, 400, 600]} />
+    </div>
+    <div class="hf__who">
+      <p class="t-label hf__label">{founderStrip.label}</p>
+      <h2 id="founder-heading" class="hf__name">{founderTitles.name}</h2>
+      <p class="hf__role">{founderTitles.main}</p>
+      <p class="hf__role hf__role--former">{founderTitles.former}</p>
+      <p class="hf__flourish">{founderTitles.flourish}</p>
     </div>
     <div class="hf__body">
-      <h2 id="founder-heading" class="t-label hf__label">{founderQuote.folio}</h2>
-      <blockquote class="hf__quote"><p>“{founderQuote.quote}”</p></blockquote>
-      <span class="hf__rule" data-gsap="rule" aria-hidden="true"></span>
-      <p class="hf__who">
-        <span class="hf__name">{founderName}</span>
-        <span class="hf__role">{founderRole}, {site.name}</span>
-        <span class="hf__role">{founderFormerRole}</span>
-        <span class="hf__flourish">{founderFlourish}</span>
-      </p>
-      <ArrowLink href={founderQuote.link.href} class="hf__link">{founderQuote.link.label}</ArrowLink>
+      <p class="hf__line">{founderStrip.line}</p>
+      <p class="hf__base">{founderStrip.base}</p>
+      <div class="hf__actions">
+        <ArrowLink href={founderStrip.link.href}>{founderStrip.link.label}</ArrowLink>
+        <BookCall short variant="secondary" />
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hf__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hf__media { position: relative; width: min(100%, 400px); aspect-ratio: 4 / 5; overflow: hidden; background: var(--ice); }
-  .hf__body { display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
-  .hf__label { margin: 0; }
-  .hf__quote { margin: 0; }
-  .hf__quote p {
-    margin: 0; max-width: 22ch;
-    font-family: var(--font-serif); font-style: italic; font-weight: 400;
-    font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem); line-height: 1.25; color: var(--navy-900); text-wrap: pretty;
-    text-indent: -.4em;
+  .hf { --_pad: clamp(2.5rem, 1.8rem + 2.6vw, 4.5rem); border-bottom: 1px solid var(--grey-200); }
+  .hf__grid { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 20px 20px; align-items: center; }
+  .hf__media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ice); }
+  .hf__who { display: flex; flex-direction: column; gap: 2px; }
+  .hf__label { margin: 0 0 6px; }
+  .hf__name { margin: 0; font-family: var(--font-sans); font-size: 1.25rem; line-height: 1.25; font-weight: 800; color: var(--navy-900); }
+  .hf__role { margin: 0; font-size: .9375rem; line-height: 1.45; font-weight: 600; color: var(--navy-900); }
+  .hf__role--former { font-weight: 400; color: var(--fg-2); }
+  .hf__flourish { margin: 4px 0 0; font-size: .9375rem; font-style: italic; color: var(--fg-2); }
+  .hf__body { grid-column: 1 / -1; }
+  .hf__line {
+    margin: 0; max-width: 26ch;
+    font-family: var(--font-serif); font-weight: 500; font-size: 1.75rem; line-height: 1.22; color: var(--navy-900); text-wrap: balance;
   }
-  .hf__rule { display: block; width: 56px; height: 3px; background: var(--saffron); }
-  .hf__who { margin: 0; display: flex; flex-direction: column; gap: 4px; }
-  .hf__name { font-size: 1.125rem; font-weight: 700; color: var(--navy-900); }
-  .hf__role { font-size: .9375rem; line-height: 1.45; color: var(--fg-2); }
-  .hf__flourish { margin-top: 4px; font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--fg-2); }
-  .hf :global(.hf__link) { margin-top: -12px; }
+  .hf__base { margin: 12px 0 0; font-size: .9375rem; color: var(--fg-2); }
+  .hf__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 20px; }
+
   @media (min-width: 900px) {
-    .hf__grid { grid-template-columns: minmax(0, 460px) minmax(0, 1fr); column-gap: clamp(56px, 7vw, 96px); }
-    .hf__media { width: 100%; aspect-ratio: auto; height: 560px; }
+    .hf__grid { grid-template-columns: 200px minmax(0, 4fr) minmax(0, 6fr); column-gap: clamp(32px, 4vw, 64px); }
+    .hf__body { grid-column: auto; padding-left: clamp(32px, 4vw, 64px); border-left: 1px solid var(--grey-200); }
+    .hf__line { font-size: 2rem; }
   }
 </style>

@@ -9,6 +9,8 @@
  * standfirst · date and reading time. Photos follow the client's design (3-MCPD → scale-tanks, trans fats →
  * bakery-dough) and fall back to the entry's own photo.
  * The section always renders (the playbook tile is always there). Mobile: one column; two from 600px; three ≥ 1000.
+ * Pack 3: Porcelain ground; bug 3 — the playbook tile's button is the full width of its card and wraps, so it never
+ * sticks out past the card's right edge (override here; PlaybookCard itself is PEOPLE-CONTENT's).
  */
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
@@ -39,7 +41,7 @@ const latest = (await visibleInsights()).slice(0, 2);
 const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)?.shortLabel;
 ---
 {(
-  <section id="insights" class="hn band band--white" aria-labelledby="hn-heading">
+  <section id="insights" class="hn band band--grey" aria-labelledby="hn-heading">
     <div class="container">
       <header class="hn__head">
         <div>
@@ -91,18 +93,20 @@ const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)
   .hn__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue-700); }
   .hn__new { padding: 3px 7px; background: var(--red); color: var(--white); letter-spacing: .08em; }
   .hn__name {
-    margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; line-height: 1.22; color: var(--navy-900);
+    margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 1.75rem; line-height: 1.2; color: var(--navy-900);
     text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .18em;
     transition: text-decoration-color var(--d-2) var(--ease-out), color var(--d-1) var(--ease-out);
   }
   .hn__card:is(:hover, :focus-visible) .hn__name { color: var(--blue-700); text-decoration-color: currentColor; }
-  .hn__stand { font-size: .9375rem; line-height: 1.6; color: var(--fg-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .hn__stand { font-size: 1rem; line-height: 1.55; color: var(--fg-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .hn__date { font-size: .875rem; color: #5E6B88; }
-  .hn__playbook > :global(*) { flex: 1; }
+  .hn__playbook > :global(*) { flex: 1; min-width: 0; }
+  /* bug 3: full width of the card, label may wrap */
+  .hn__playbook :global(.pbc__action) { width: 100%; }
+  .hn__playbook :global(.pbc__btn) { width: 100% !important; white-space: normal !important; }
   @media (min-width: 600px) { .hn__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1000px) {
     .hn__head { margin-bottom: 52px; }
     .hn__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .hn__name { font-size: 1.625rem; }
   }
 </style>

@@ -8,8 +8,8 @@ export const contact = {
   /** Item 36; the reply-time sentence is item 2's, verbatim everywhere. */
   intro: 'Tell us a little about your challenge. Ganeaysh reads every message personally and replies within two working days.',
   details: { email: 'Email', whatsapp: 'WhatsApp', linkedin: 'LinkedIn', linkedinFounder: 'LinkedIn, Ganeaysh', linkedinCompany: 'LinkedIn, KoKreaters' },
-  /** Item 36: the booking button next to the form (Part K 13: hidden until the Cal.com / Calendly link exists). */
-  booking: 'Book a 30-minute introduction',
+  /** Pack 3: the booking block's heading (= bookingLabel in @/lib/booking). */
+  booking: 'Book a 30-minute call',
   submit: 'Send',            // COMPOSED (C-16)
   visitorFallback: 'You',    // COMPOSED (connection moment)
 };
@@ -41,20 +41,26 @@ export const nextSteps = {
 };
 
 /**
- * Fields in brief order. Labels exactly as written. Interest, message and source carry no `autocomplete` token on
- * purpose: `autocomplete="off"` also stops the browser restoring the typed value on Back, which loses the message.
+ * Pack 3 (brief, Contact): required fields only Name, Email, Company and Message; Country and Area of interest are
+ * optional (as are Role, Phone and Source). Order: the four the visitor must give first in the grid's reading order
+ * (Name · Email, Company · Role), the optional details next, the message last. Interest, message and source carry no
+ * `autocomplete` token on purpose: `autocomplete="off"` also stops the browser restoring the typed value on Back.
+ * The consent entry stays in this list, optional, for the chat widget's inline form (ChatWidget.astro, CHROME-HOME,
+ * which still renders its own tick box). The contact page shows no tick box: replying to an enquiry needs no consent
+ * (GDPR Art. 6(1)(b)/(f)), so it shows `contactPage.privacyNote` above Send instead, and api/contact.js no longer
+ * requires it (generated into api/_lib/knowledge.js CONTACT_FIELDS by scripts/build-knowledge.mjs).
  */
 export const fields: ContactField[] = [
   { name: 'name', label: 'Name', type: 'text', required: true, autocomplete: 'name', maxLength: 120 },
+  { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email', maxLength: 254 },
   { name: 'company', label: 'Company', type: 'text', required: true, autocomplete: 'organization', maxLength: 160 },
   { name: 'role', label: 'Role', type: 'text', required: false, autocomplete: 'organization-title', maxLength: 120 },
-  { name: 'email', label: 'Email', type: 'email', required: true, autocomplete: 'email', maxLength: 254 },
   { name: 'phone', label: 'Phone or WhatsApp', type: 'tel', required: false, autocomplete: 'tel', maxLength: 40 },
-  { name: 'country', label: 'Country', type: 'text', required: true, autocomplete: 'country-name', maxLength: 80 },
-  { name: 'interest', label: 'Area of interest', type: 'select', required: true, options: [...pillars.map((p) => p.name), notSureYet] },
+  { name: 'country', label: 'Country', type: 'text', required: false, autocomplete: 'country-name', maxLength: 80 },
+  { name: 'interest', label: 'Area of interest', type: 'select', required: false, options: [...pillars.map((p) => p.name), notSureYet] },
   { name: 'message', label: 'Message', type: 'textarea', required: true, rows: 6, maxLength: 5000 },
   { name: 'source', label: 'How did you hear about us?', type: 'text', required: false, maxLength: 200 },
-  { name: 'consent', label: 'I agree to KoKreaters storing my details to respond to this enquiry, as described in the privacy policy.', type: 'checkbox', required: true },
+  { name: 'consent', label: 'I agree to KoKreaters storing my details to respond to this enquiry, as described in the privacy policy.', type: 'checkbox', required: false },
 ];
 
 /**
@@ -72,6 +78,14 @@ export const contactPage = {
   detailsHeading: 'Contact details',                 // COMPOSED
   formHeading: 'Send a message',                     // COMPOSED
   requiredNote: 'Fields marked * are required.',     // COMPOSED
+  /** Pack 3: the contact page's privacy line above Send (no tick box). "privacy policy" links to /privacy. COMPOSED. */
+  privacyNote: 'We use your details only to reply to your enquiry, as described in the privacy policy.',
+  /** Pack 3 (brief, Contact): the time zone, shown with the contact details. */
+  timezoneLabel: 'Time zone',
+  timezone: 'CET, the Netherlands',
+  /** Booking block, first on the page once PUBLIC_BOOKING_URL exists (lead decision 2). COMPOSED. */
+  bookingLine: 'Pick a time that suits you. Thirty minutes, at no cost.',
+  formHeadingAfterBooking: 'Or send a message',      // COMPOSED
   selectPlaceholder: 'Choose an area',               // COMPOSED (blank first option of "Area of interest")
   consentRequired: 'Please tick the box so we can reply.',   // COMPOSED (consent checkbox error; "fill this in" does not fit a tick box)
   /** Thank-you panel that replaces the form once it is sent (endpoint) or handed to the mail app (mailto). */

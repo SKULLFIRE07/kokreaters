@@ -2,8 +2,8 @@
 /**
  * Home 7 · Industries (v4 developer guide). White band: label + H2 "Where we work", "All industries →" on the right;
  * six photo tiles (agri-fields, oils-pour, feed-silos, bakery-dough, cocoa-pods, nutrition-spices) with a navy
- * gradient and the name in white Bodoni; then the "Also: …" line for the rest. Each tile links to /industries, or to
- * the matching industry anchor when that slug exists in src/data/industries.ts.
+ * gradient and the name in white Bodoni (28px). Pack 3: no "Also" line (the Industries page carries the rest; the owner
+ * asked for less text). Each tile links to /industries, or to the matching industry anchor when that slug exists.
  * Hover: the photo zooms 1.04 (.u-zoom) and the name underlines. The grid itself stays still (a lifted column read as
  * misalignment in review).
  * Mobile: one column of 240px tiles; two columns from 600px; three from 1000px.
@@ -35,7 +35,6 @@ const hrefFor = (anchor: string) => (anchor && industries.some((i) => i.slug ===
         </li>
       ))}
     </ul>
-    <p class="hi__also">{fold.alsoLabel}: {fold.also.join(' · ')}</p>
   </div>
 </section>
 
@@ -45,22 +44,21 @@ const hrefFor = (anchor: string) => (anchor && industries.some((i) => i.slug ===
   .hi__title { margin: 0; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; }
   .hi :global(.hi__link) { margin-bottom: -10px; }
   .hi__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; margin: 0; padding: 0; list-style: none; }
-  .hi__tile { position: relative; display: block; height: 240px; overflow: hidden; background: var(--navy-900); isolation: isolate; text-decoration: none; }
+  .hi__tile { position: relative; display: block; height: 180px; overflow: hidden; background: var(--navy-900); isolation: isolate; text-decoration: none; }
   .hi__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 40%, rgba(14, 31, 77, .9) 100%); transition: opacity var(--d-2) var(--ease-out); }
   .hi__name {
     position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 22px;
-    font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; line-height: 1.2; color: var(--white);
+    font-family: var(--font-serif); font-weight: 500; font-size: 1.75rem; line-height: 1.15; color: var(--white);
     text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .2em;
     transition: text-decoration-color var(--d-2) var(--ease-out);
   }
   .hi__tile:is(:hover, :focus-visible) .hi__name { text-decoration-color: rgba(255, 255, 255, .7); }
   .hi__tile:focus-visible { outline-offset: 3px; }
-  .hi__also { margin: 32px 0 0; font-size: .9375rem; line-height: 1.7; color: var(--fg-2); }
   @media (min-width: 600px) { .hi__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hi__tile { height: 280px; } }
   @media (min-width: 1000px) {
     .hi__head { margin-bottom: 52px; }
     .hi__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .hi__tile { height: 300px; }
-    .hi__name { left: 28px; right: 28px; bottom: 24px; font-size: 1.625rem; }
+    .hi__name { left: 28px; right: 28px; bottom: 24px; }
   }
 </style>

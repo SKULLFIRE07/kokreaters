@@ -1,5 +1,5 @@
 /* src/styles/base.css — element defaults + type classes (REDESIGN-V3 §1.2).
-   Two voices: Bodoni Moda for headlines, figures and quotes (24px and up); Manrope for everything else.
+   Two voices: Bodoni Moda for headlines, figures and quotes (28px and up, pack 3); Manrope for everything else.
    Bare h1–h4 take their scale step through :where() (zero specificity), so any .t-* class overrides them. */
 html { overflow-x: clip; }   /* anchors offset via [id] { scroll-margin-top } in layout.css */
 
@@ -45,6 +45,8 @@ body {
   font-size: var(--fs-stat); line-height: var(--lh-stat); font-weight: 400; letter-spacing: var(--tr-stat);
   font-variant-numeric: lining-nums tabular-nums;
 }
+/* Pack 3 big number: Bodoni lining figures at the one stat size, the unit in Manrope beside it (ui/Figure.astro). */
+.t-unit { font-family: var(--font-sans); font-size: var(--fs-lead); font-weight: 700; letter-spacing: 0; line-height: 1.2; }
 .t-quote { font-size: var(--fs-quote); line-height: var(--lh-quote); font-weight: 400; font-style: italic; letter-spacing: var(--tr-quote); }
 
 /* ── Sans steps ── */
@@ -79,5 +81,4 @@ a:hover { text-decoration-color: var(--accent); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 main:focus { outline: none; }
 
-/* v4 header metrics (developer guide: logo 52px tall, 18px padding): 88px desktop bar, 72px compact. */
-@media (min-width: 1120px) { :root { --header-h: 88px; --header-h-compact: 72px; } }
+

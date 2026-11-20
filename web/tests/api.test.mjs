@@ -58,6 +58,11 @@ const valid = (over = {}) => ({
   interest: 'Process development and plant performance', message: 'We need help with a refinery.\nSecond line.', source: '',
   consent: 'yes', company_website: '', started_at: String(Date.now() - 60_000), ...over,
 });
+/** Pack 3: the /contact page sends only these four required fields (plus the traps); no consent tick box. */
+const minimal = (over = {}) => ({
+  name: 'Ada Lovelace', email: 'ada@example.com', company: 'Analytical Oils', message: 'We need help with a refinery.',
+  company_website: '', started_at: String(Date.now() - 60_000), ...over,
+});
 async function readNdjson(res) {
   const text = await res.text();
   return text.trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
@@ -131,8 +136,28 @@ test('contact: validation errors per field', async () => {
   const res = await contact.POST(req('/api/contact', valid({ name: '', email: 'not-an-email', interest: 'Astrology', consent: '', message: 'x'.repeat(5001) }), { ip: '10.0.0.5' }));
   assert.equal(res.status, 400);
   const b = await res.json();
-  assert.deepEqual(b.fields, { name: 'required', email: 'email', interest: 'option', message: 'length', consent: 'required' });
+  assert.deepEqual(b.fields, { name: 'required', email: 'email', interest: 'option', message: 'length' });
   assert.equal(calls.length, 0);
+});
+
+test('contact: required fields are only name, email, company and message (pack 3)', async () => {
+  const res = await contact.POST(req('/api/contact', { company_website: '', started_at: String(Date.now() - 60_000) }, { ip: '10.0.0.6' }));
+  assert.equal(res.status, 400);
+  const b = await res.json();
+  assert.deepEqual(b.fields, { name: 'required', email: 'required', company: 'required', message: 'required' });
+  assert.equal(calls.length, 0);
+});
+
+test('contact: the four required fields alone are accepted; country, interest and consent are optional', async () => {
+  const res = await contact.POST(req('/api/contact', minimal(), { ip: '10.0.0.7' }));
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true });
+  assert.equal(calls.length, 1);
+  const b = JSON.parse(calls[0].body);
+  assert.equal(b.Company, 'Analytical Oils');
+  assert.equal(b.Country, '');
+  assert.equal(b['Area of interest'], '');
+  assert.equal('Consent to store details' in b, false);   // no tick box on the page: no consent row in the email
 });
 
 test('contact: honeypot and time trap look successful and send nothing', async () => {

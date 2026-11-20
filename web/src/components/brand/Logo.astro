@@ -1,33 +1,31 @@
 ---
 /**
- * KoKreaters logo, vector (pack 2, brief items 5 and 11). The SVGs are Ganeaysh's 20 Nov 2026 brand files
- * (research/pack2/brand → src/assets/brand/svg/ via scripts/prepare-brand.mjs): the "K" mark with one saffron node and
- * the Bodoni Moda wordmark, text converted to outlines. The artwork is never recoloured, stretched or re-set: only the
- * whole logo is scaled uniformly. Every variant loads as a cached <img> (crisp at any DPR); `inline` renders inline SVG.
+ * KoKreaters logo, Option A (pack 3, approved 20 Nov 2026): the original logo refined — network nodes, three translucent
+ * overlapping circles, the Manrope ExtraBold wordmark, the rising saffron-tipped arrow and (where shown) the tagline
+ * "Connect · Collaborate · Create". Files from research/pack3/kokreaters-logo-A via scripts/prepare-brand.mjs, text
+ * outlined. Never recoloured, stretched or redrawn: only the whole logo is scaled uniformly. Never placed on a photo.
+ * Always a cached <img> (the SVGs share gradient ids, so they are never inlined).
  *
- * Variants
- *  - navy: mark + wordmark, no tagline (kokreaters-logo-navy-no-tagline.svg). Website header on a light ground.
- *  - navy-tagline: with "Connect · Collaborate · Create" (kokreaters-logo-navy.svg). Documents, about page.
- *  - white: white mark + wordmark + tagline (kokreaters-logo-white.svg). Footer and any navy ground.
- *  - mark: the K mark alone (kokreaters-mark.svg; `size`, default 64).
- *  Old v3 names are kept as aliases so every caller compiles and shows the new logo:
- *  horizontal / wordmark → navy, full → navy-tagline, full-white / full-reversed / horizontal-white / wordmark-white →
- *  white, cluster → mark.
- * Size: `height` (px, sets --logo-h; the CSS can override --logo-h per breakpoint) or `width` (any CSS length).
- * Accessible name (brief item 5): the image always has alt="KoKreaters" (or `alt`); inside a link (`href`) the link
- * also carries aria-label=`label` (default "KoKreaters home").
- * Mobile: scales with `height` / `width`; never wider than its container.
+ * Variants (brief "Where each file goes")
+ *  - navy-tagline: header desktop ≥ 1024px (60–64px tall, tagline ≥ 10px), documents, About.
+ *  - navy: no tagline. Mobile header and the shrunken header on scroll (36–40px).
+ *  - white: with tagline, transparent ground. Footer and any navy or dark ground (56–64px).
+ *  - white-no-tagline: dark grounds where height is short.
+ *  - mark: the nodes alone (kokreaters-mark-A.svg; `size`, default 64). Small spaces, loading.
+ *  Older names are aliases so every caller compiles: horizontal / wordmark → navy, full → navy-tagline,
+ *  full-white / full-reversed / horizontal-white / wordmark-white → white, cluster → mark.
+ * Size: `height` (px, the visible artwork's height; sets --logo-h, CSS may override it per breakpoint) or `width`
+ * (any CSS length, the artwork's width).
+ * Accessible name (lead decision 9): alt "KoKreaters: Connect, Collaborate, Create"; inside a link the link carries
+ * aria-label `label` (default "KoKreaters home") and the image is then decorative to avoid a double announcement.
  */
-import navyRaw from '@/assets/brand/svg/kokreaters-logo-navy-no-tagline.svg?raw';
-import navyUrl from '@/assets/brand/svg/kokreaters-logo-navy-no-tagline.svg?url';
-import navyTagRaw from '@/assets/brand/svg/kokreaters-logo-navy.svg?raw';
-import navyTagUrl from '@/assets/brand/svg/kokreaters-logo-navy.svg?url';
-import whiteRaw from '@/assets/brand/svg/kokreaters-logo-white.svg?raw';
-import whiteUrl from '@/assets/brand/svg/kokreaters-logo-white.svg?url';
-import markRaw from '@/assets/brand/svg/kokreaters-mark.svg?raw';
-import markUrl from '@/assets/brand/svg/kokreaters-mark.svg?url';
+import navyUrl from '@/assets/brand/svg/kokreaters-logo-A-navy-no-tagline.svg?url';
+import navyTagUrl from '@/assets/brand/svg/kokreaters-logo-A-navy.svg?url';
+import whiteUrl from '@/assets/brand/svg/kokreaters-logo-A-white.svg?url';
+import whiteNoTagUrl from '@/assets/brand/svg/kokreaters-logo-A-white-no-tagline.svg?url';
+import markUrl from '@/assets/brand/svg/kokreaters-mark-A.svg?url';
 
-type Base = 'navy' | 'navy-tagline' | 'white' | 'mark';
+type Base = 'navy' | 'navy-tagline' | 'white' | 'white-no-tagline' | 'mark';
 export type LogoVariant = Base
   | 'horizontal' | 'horizontal-white' | 'full' | 'full-white' | 'full-reversed' | 'wordmark' | 'wordmark-white' | 'cluster';
 interface Props {
@@ -38,61 +36,73 @@ interface Props {
   height?: number;
   width?: number | string;
   size?: number;
+  /** v3 prop, ignored (logo A is always an <img>). */
   inline?: boolean;
   loading?: 'lazy' | 'eager';
   class?: string;
   id?: string;
 }
 const ALIAS: Record<LogoVariant, Base> = {
-  navy: 'navy', 'navy-tagline': 'navy-tagline', white: 'white', mark: 'mark',
+  navy: 'navy', 'navy-tagline': 'navy-tagline', white: 'white', 'white-no-tagline': 'white-no-tagline', mark: 'mark',
   horizontal: 'navy', wordmark: 'navy', full: 'navy-tagline',
-  'full-white': 'white', 'full-reversed': 'white', 'horizontal-white': 'white', 'wordmark-white': 'white', cluster: 'mark',
+  'full-white': 'white', 'full-reversed': 'white', 'horizontal-white': 'white-no-tagline', 'wordmark-white': 'white-no-tagline', cluster: 'mark',
 };
-const { label = 'KoKreaters home', class: cls, id, inline = false } = Astro.props;
+/**
+ * Each file: viewBox size, and the box of the visible artwork inside it (measured; the rest is the built-in clear
+ * space). `height` sizes the ARTWORK (brief: header 60–64px "so the tagline is at least 10px high"); the clear space
+ * hangs outside the box as negative margin, so layouts align to the art itself.
+ */
+type Box = { url: string; vbW: number; vbH: number; x: number; y: number; w: number; h: number };
+const FILES: Record<Base, Box> = {
+  navy: { url: navyUrl, vbW: 902, vbH: 230, x: 38, y: 38, w: 832, h: 154 },
+  'navy-tagline': { url: navyTagUrl, vbW: 946, vbH: 276, x: 41, y: 41, w: 873, h: 194 },
+  white: { url: whiteUrl, vbW: 946, vbH: 276, x: 41, y: 41, w: 873, h: 194 },
+  'white-no-tagline': { url: whiteNoTagUrl, vbW: 902, vbH: 230, x: 38, y: 38, w: 832, h: 154 },
+  mark: { url: markUrl, vbW: 256, vbH: 256, x: 0, y: 0, w: 256, h: 256 },
+};
+const LOGO_ALT = 'KoKreaters: Connect, Collaborate, Create';
+
+const { label = 'KoKreaters home', class: cls, id } = Astro.props;
 const variant = ALIAS[Astro.props.variant ?? 'navy'];
 const href = Astro.props.href ?? null;
 const Tag = href ? 'a' : 'span';
 const loading = Astro.props.loading ?? 'lazy';
-
-const files: Record<Base, readonly [string, string]> = {
-  navy: [navyRaw, navyUrl], 'navy-tagline': [navyTagRaw, navyTagUrl], white: [whiteRaw, whiteUrl], mark: [markRaw, markUrl],
-};
-const [raw, url] = files[variant];
-
-/** Inner markup of an SVG file (no comment, title, ids or outer <svg>). */
-const inner = (s: string) => s.replace(/<!--[\s\S]*?-->/g, '').replace(/<title>[\s\S]*?<\/title>/g, '').replace(/\s+id="[^"]*"/g, '')
-  .replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
-const viewBox = (raw.match(/viewBox="([^"]+)"/) ?? [])[1] ?? '0 0 100 100';
-const [, , vbW, vbH] = viewBox.split(/\s+/).map(Number);
-const ratio = vbW / vbH;
+const box = FILES[variant];
+const { url } = box;
+const ratio = box.w / box.h;
+/** css vars: art ratio, image scale (vbH / art h), offsets as fractions of the art height */
+const vars = `--logo-ratio:${ratio};--logo-k:${box.vbH / box.h};--logo-kw:${box.vbW / box.h};--logo-dx:${box.x / box.h};--logo-dy:${box.y / box.h}`;
 
 const byHeight = Astro.props.width === undefined && (Astro.props.height !== undefined || variant !== 'mark');
 const height = Astro.props.height ?? (variant === 'mark' ? (Astro.props.size ?? 64) : 44);
 const w = Astro.props.width ?? (variant === 'mark' ? (Astro.props.size ?? 64) : '100%');
 const cssW = typeof w === 'number' ? `${w}px` : w;
 const pxW = typeof w === 'number' ? w : 600;
-const imgW = byHeight ? Math.round(height * ratio) : pxW;
-const imgH = byHeight ? height : Math.round(pxW / ratio);
-
-const name = Astro.props.alt ?? 'KoKreaters';
+const imgW = byHeight ? Math.round(height * box.vbW / box.h) : Math.round(pxW * box.vbW / box.w);
+const imgH = byHeight ? Math.round(height * box.vbH / box.h) : Math.round(pxW * box.vbH / box.w);
+const alt = href ? '' : (Astro.props.alt ?? LOGO_ALT);
 ---
 <Tag
   href={href ?? undefined} id={id}
   class:list={['logo', `logo--${variant}`, byHeight ? 'logo--h' : 'logo--w', cls]}
   aria-label={href ? label : undefined}
-  style={byHeight ? `--logo-h:${height}px;--logo-ratio:${ratio}` : `--logo-w:${cssW};--logo-ratio:${ratio}`}
+  style={byHeight ? `--logo-h:${height}px;${vars}` : `--logo-w:${cssW};${vars}`}
 >
-  {inline ? (
-    <svg class="logo__img" viewBox={viewBox} focusable="false" role="img" aria-label={name} set:html={inner(raw)} />
-  ) : (
-    <img class="logo__img" src={url} alt={name} width={imgW} height={imgH} loading={loading} decoding="async" />
-  )}
+  <img class="logo__img" src={url} alt={alt} width={imgW} height={imgH} loading={loading} decoding="async" />
 </Tag>
 <style>
   .logo { display: inline-flex; align-items: center; text-decoration: none; color: inherit; line-height: 0; flex: none; }
-  .logo__img { display: block; overflow: visible; max-width: none; }
-  .logo--h { height: var(--logo-h); }
-  .logo--h .logo__img { height: 100%; width: auto; aspect-ratio: var(--logo-ratio); }
-  .logo--w { width: var(--logo-w); max-width: 100%; }
-  .logo--w .logo__img { width: 100%; height: auto; aspect-ratio: var(--logo-ratio); }
+  .logo__img { display: block; max-width: none; flex: none; }
+  /* the box is the artwork; the file's clear space hangs outside it */
+  .logo--h { height: var(--logo-h); width: calc(var(--logo-h) * var(--logo-ratio)); }
+  .logo--h .logo__img {
+    height: calc(var(--logo-h) * var(--logo-k)); width: calc(var(--logo-h) * var(--logo-kw));
+    margin: calc(var(--logo-h) * var(--logo-dy) * -1) 0 0 calc(var(--logo-h) * var(--logo-dx) * -1);
+    align-self: flex-start;
+  }
+  .logo--w { width: var(--logo-w); max-width: 100%; aspect-ratio: var(--logo-ratio); align-items: flex-start; }
+  .logo--w .logo__img {
+    width: calc(100% * var(--logo-kw) / var(--logo-ratio)); height: auto;
+    margin-left: calc(-100% * var(--logo-dx) / var(--logo-ratio)); margin-top: calc(-100% * var(--logo-dy) / var(--logo-ratio));
+  }
 </style>

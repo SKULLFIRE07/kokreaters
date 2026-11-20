@@ -1,17 +1,20 @@
 ---
 /**
- * /industries (v4 Delft): the six featured industries, then the rest.
- *  Featured (white): Head (label "Industries", h2, the rest of the page intro as the lead), then six cards in a 3 × 2
- *   grid: a photo tile (4:3, square, navy gradient, Bodoni name on the photo, data-gsap="parallax" + "lift") over the
- *   industry's line and its "Relevant expertise" links on a thin rule. Each <article> carries id={slug}.
- *  Also (Porcelain): the other industries as a two-column list on thin rules (Manrope 700 name, line, expertise links).
- * Mobile: one column (two from 600px); 48px between cards.
+ * /industries (pack 3): six industry cards, nothing "Also" left over (brief: "fold the five 'Also' into cards").
+ * White band: Head (h2, the rest of the page intro as the lead), then six cards, each <article id={slug}>:
+ *  photo tile (4:3, navy gradient, Bodoni name on the photo, data-gsap="parallax" + "lift") → the industry's line →
+ *  "Also covers" (the folded industries; their old anchors sit here as empty id targets, so /industries#snacks still
+ *  lands on the right card) → "Questions we help answer" (three, on thin rules, with a help icon) → one linked story
+ *  where the Impact page has one ("Story" + its title →) → "Relevant expertise" links on a thin rule.
+ * Columns: 3 from 1100px, 2 from 700px, 1 below; 48–64px between cards.
  */
 import Section from '@/components/ui/Section.astro';
 import Photo from '@/components/ui/Photo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Head from '@/components/expertise/Head.astro';
+import LineIcon from '@/components/expertise/LineIcon.astro';
 import { featuredIndustries, otherIndustries, industryPhoto, industriesPage } from '@/data/industries';
+import { getStory, storyHref } from '@/data/impact';
 import { photos } from '@/data/photos';
 import { getPillar, pillarHref } from '@/lib/pillars';
 import type { Industry } from '@/data/types';
@@ -20,6 +23,8 @@ interface Props { lead?: string }
 const { lead } = Astro.props;
 const splitLast = (t: string) => { const i = t.trimEnd().lastIndexOf(' '); return i < 0 ? ['', t] : [t.slice(0, i + 1), t.slice(i + 1)]; };
 const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(getPillar(k).name) }));
+const storyOf = (ind: Industry) => (ind.storyId ? getStory(ind.storyId) : undefined);
+const coveredBy = (ind: Industry) => (ind.covers ?? []).map((slug) => otherIndustries.find((o) => o.slug === slug)).filter((o): o is Industry => !!o);
 ---
 <Section ground="white" labelledby="industries-list-h">
   <Head id="industries-list-h" title={industriesPage.listHeading} lead={lead} />
@@ -29,6 +34,7 @@ const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(g
       return (
         <li>
           <article id={ind.slug} class="ind" aria-labelledby={`${ind.slug}-h`}>
+            {coveredBy(ind).map((o) => <span id={o.slug} class="ind__anchor"></span>)}
             <div class="ind__tile u-zoom" data-gsap="lift">
               <div class="ind__media" data-gsap="parallax">
                 <Photo src={ph.src} alt={ph.alt} position={ph.position} fill sizes="(min-width: 1320px) 400px, (min-width: 900px) 31vw, (min-width: 600px) 48vw, calc(100vw - 40px)" />
@@ -37,6 +43,25 @@ const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(g
               <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
             </div>
             <p class="ind__copy">{ind.copy}</p>
+            {coveredBy(ind).length > 0 && (
+              <p class="ind__covers">
+                <span class="t-label">{industriesPage.covers}</span> {coveredBy(ind).map((o) => o.name).join(' · ')}
+              </p>
+            )}
+            {ind.questions && ind.questions.length > 0 && (
+              <div class="ind__qs">
+                <h4 class="ind__qlabel t-label"><LineIcon name="circle-help" size={20} />{industriesPage.questions}</h4>
+                <ul role="list">
+                  {ind.questions.map((q) => <li>{q}</li>)}
+                </ul>
+              </div>
+            )}
+            {storyOf(ind) && (
+              <a class="ind__story u-hover" href={storyHref(storyOf(ind)!.id)}>
+                <span class="t-label ind__storylabel">{industriesPage.story}</span>
+                <span class="ind__storytitle"><span class="u-draw">{storyOf(ind)!.title}</span><Icon name="arrow-right" size={16} stroke={2} class="u-nudge" /></span>
+              </a>
+            )}
             <div class="ind__xp">
               <p class="t-label ind__xplabel">{industriesPage.relevantExpertise}</p>
               <ul role="list">
@@ -52,24 +77,6 @@ const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(g
   </ul>
 </Section>
 
-<Section ground="grey" labelledby="industries-other-h">
-  <Head id="industries-other-h" label={industriesPage.otherLabel} title={industriesPage.otherHeading} />
-  <ul class="oi" role="list">
-    {otherIndustries.map((ind) => (
-      <li>
-        <article id={ind.slug} class="oi__item" aria-labelledby={`${ind.slug}-h`}>
-          <h3 id={`${ind.slug}-h`} class="oi__name">{ind.name}</h3>
-          <p class="oi__copy">{ind.copy}</p>
-          <p class="oi__xp">
-            {links(ind).map(({ k, parts: [head, last] }, n) => (
-              <>{n > 0 && <span class="oi__sep" aria-hidden="true"> · </span>}<a href={pillarHref(k)} class="u-hover">{head && <span class="u-draw">{head}</span>}<span class="ind__last"><span class="u-draw">{last}</span></span></a></>
-            ))}
-          </p>
-        </article>
-      </li>
-    ))}
-  </ul>
-</Section>
 <style>
   .ig { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px 20px; }
   .ind { display: flex; flex-direction: column; height: 100%; }
@@ -78,31 +85,32 @@ const links = (ind: Industry) => ind.pillars.map((k) => ({ k, parts: splitLast(g
   .ind__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 40%, rgba(14, 31, 77, .92) 100%); }
   .ind__name {
     position: absolute; left: 24px; right: 24px; bottom: 22px;
-    font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.2; font-weight: 400; color: var(--white); text-wrap: balance;
+    font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.15; font-weight: 400; color: var(--white); text-wrap: balance;
   }
   .ind__copy { margin-top: var(--s-5); font-size: 1rem; line-height: 1.625; color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
   .ind__xp { margin-top: auto; padding-top: var(--s-5); }
   .ind__xp > .ind__xplabel { padding-top: var(--s-4); border-top: 1px solid var(--rule); color: var(--fg-2); }
   .ind__xp ul { list-style: none; padding: 0; margin: 2px 0 -10px; }
-  .ind__xp a, .oi__xp a {
+  .ind__xp a {
     display: inline-block; padding-block: 10px;
     font-size: var(--fs-small); line-height: 1.45; font-weight: 700; color: var(--link); text-decoration: none;
   }
   .ind__last { white-space: nowrap; }
   .ind__xp a :global(.icon) { display: inline-block; color: var(--link); vertical-align: -3px; margin-left: 6px; }
 
-  .oi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--s-8); }
-  .oi__item { padding-block: var(--s-5) var(--s-5); border-top: 1px solid var(--rule); height: 100%; }
-  .oi__name { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.35; font-weight: 700; color: var(--head); }
-  .oi__copy { margin-top: var(--s-2); font-size: 1rem; line-height: 1.6; color: var(--fg-2); max-width: 52ch; text-wrap: pretty; }
-  .oi__xp { margin-top: var(--s-1); }
-  .oi__sep { color: var(--fg-2); }
+  .ind__covers { margin-top: var(--s-3); font-size: var(--fs-small); line-height: 1.5; color: var(--head); font-weight: 600; }
+  .ind__covers .t-label { color: var(--label); margin-right: 6px; }
+  .ind__anchor { display: block; height: 0; }
+  .ind__qs { margin-top: var(--s-5); }
+  .ind__qlabel { display: flex; align-items: center; gap: 8px; color: var(--label); margin-bottom: var(--s-2); }
+  .ind__qs ul { list-style: none; margin: 0; padding: 0; }
+  .ind__qs li { position: relative; padding: 10px 0 10px 18px; border-top: 1px solid var(--rule); font-size: 1rem; line-height: 1.5; font-weight: 500; color: var(--head); text-wrap: pretty; }
+  .ind__qs li::before { content: ""; position: absolute; left: 0; top: 1.3em; width: 8px; height: 2px; background: var(--label); }
+  .ind__story { display: grid; gap: 4px; margin-top: var(--s-4); padding: var(--s-4); background: var(--ice); text-decoration: none; }
+  .ind__storylabel { color: var(--label); }
+  .ind__storytitle { font-size: 1rem; line-height: 1.45; font-weight: 700; color: var(--link); text-wrap: pretty; }
+  .ind__storytitle :global(.icon) { display: inline-block; vertical-align: -3px; margin-left: 6px; }
 
-  @media (min-width: 600px) {
-    .ig { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .oi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (min-width: 900px) {
-    .ig { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 64px; }
-  }
+  @media (min-width: 700px) { .ig { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--grid-gap); } }
+  @media (min-width: 1100px) { .ig { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 64px; } }
 </style>

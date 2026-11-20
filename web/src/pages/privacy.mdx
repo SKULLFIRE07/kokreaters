@@ -6,6 +6,7 @@ updated: 2026-11-20
 ---
 import Confirm from '@/components/ui/Confirm.astro';
 import { showConfirm } from '@/lib/mode';
+import { site } from '@/config/site';
 
 {/* LAWYER REVIEW REQUIRED. Placeholder text (DESIGN-SPEC 4.14); every sentence is COMPOSED. */}
 
@@ -13,26 +14,40 @@ import { showConfirm } from '@/lib/mode';
 
 KoKreaters is based in the Netherlands. You can contact us about this policy at [office@KoKreaters.com](mailto:office@kokreaters.com).
 
-{/* Pack 2 items 10 and 41: legal name and form, KvK, BTW and city (Part K 1). Staging only until confirmed; then write it as a plain sentence: "KoKreaters <legal name and form> · KvK <number> · BTW <number> · <City>, the Netherlands". */}
-{showConfirm && <p><Confirm id="P-1" note="legal name and legal form, KvK number, BTW number and city; this line is hidden outside staging until confirmed" /></p>}
+{/* Pack 3 (brief, Privacy): legal name, KvK, VAT (BTW) and address. The slot reads src/config/site.ts `legal.registration` (the same line as the footer, CHROME-HOME); while it is null the line renders only in staging, as its <Confirm>. */}
+{site.legal.registration
+  ? <p>{site.legal.registration}</p>
+  : showConfirm && <p><Confirm id="P-1" note="legal name and legal form, KvK number, BTW number and address (city): set site.legal.registration; this line is hidden outside staging until then" /></p>}
 
 ## What we collect
 
 We collect only what you enter yourself:
 
-- in the contact form: your name, company, role, email address, phone or WhatsApp number, country, area of interest, message, and how you heard about us;
+- in the contact form: your name, email address, company and message, and, if you choose to give them, your role, phone or WhatsApp number, country, area of interest and how you heard about us;
 - in the newsletter form (The KoKreaters Note): your email address, and the record that you ticked the consent box and confirmed your subscription;
 - in the playbook download form: your name, company, email address and country, and whether you also asked for The KoKreaters Note.
 
 ## Why we use it, and the legal basis
 
-We use these details to reply to your enquiry, to send you the newsletter, or to send you the playbook you asked for. We do this on the basis of your consent (GDPR Article 6(1)(a)). You can withdraw your consent at any time by writing to [office@KoKreaters.com](mailto:office@kokreaters.com).
+We use the details from the contact form only to reply to your enquiry. The legal basis is taking steps at your request before a possible agreement, and our legitimate interest in answering the people who write to us (GDPR Article 6(1)(b) and (f)).
+
+We send the newsletter and the playbook on the basis of your consent (GDPR Article 6(1)(a)), given with the tick box on those forms. You can withdraw your consent at any time by writing to [office@KoKreaters.com](mailto:office@kokreaters.com).
 
 The newsletter uses double opt-in: you are subscribed only after you confirm your address from the email we send you. Every issue has a link to unsubscribe in one click.
 
 ## Who processes it
 
-Your details are handled by the form service <Confirm id={9} note="form provider" /> and by our email provider (Google Workspace). The newsletter is sent with Brevo, an email service based in the European Union (France), which stores your address and your subscription for us. We share your details with no other third parties, and we never sell personal data.
+We use these processors to handle your details for us:
+
+- **Vercel** (Vercel Inc., United States) hosts the website and runs the forms; like any web host it processes your IP address to deliver the pages.
+- **Resend** (Resend Inc., United States) delivers the messages you send with the contact and playbook forms to our inbox, and sends you the confirmation email. If Resend cannot deliver a message, it is passed to **FormSubmit** (formsubmit.co) instead, which forwards it to our inbox.
+- **Google Workspace** (Google Ireland Ltd.) is our email provider, where your message is stored and answered.
+- **Brevo** (Sendinblue SAS, France) sends the newsletter and stores your address and your subscription for us.
+
+{site.chat && <p>If you use the “Ask KoKreaters” assistant, your questions are sent to an AI model provider (OpenRouter, United States, or Anthropic, United States) to write the answer; they are not used to identify you.</p>}
+{showConfirm && <p><Confirm id="legal" note="lawyer: data processing agreements and the transfer basis for the US processors (EU–US Data Privacy Framework or standard contractual clauses)" /></p>}
+
+We share your details with no other third parties, and we never sell personal data.
 
 ## The playbook download
 
@@ -49,9 +64,11 @@ When you download a KoKreaters playbook, we use your name, company, email addres
 
 You have the right to access, correct and delete your personal data, to restrict or object to its processing, and to data portability. To use any of these rights, write to [office@KoKreaters.com](mailto:office@kokreaters.com). You also have the right to complain to the Dutch data protection authority, the Autoriteit Persoonsgegevens.
 
-## Fonts and embeds
+## Fonts, embeds and analytics
 
-The fonts on this site are self-hosted. The site has no third-party embeds and no analytics.
+{site.plausibleDomain
+  ? <p>The fonts on this site are self-hosted, and the site has no third-party embeds. We count visits with Plausible Analytics (Plausible Insights OÜ, Estonia), which uses no cookies and stores no personal data: it records page views, the country and the type of device, without identifying you.</p>
+  : <p>The fonts on this site are self-hosted. The site has no third-party embeds and no analytics.</p>}
 
 ## Changes
 

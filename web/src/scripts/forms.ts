@@ -17,6 +17,8 @@
  *   data-endpoint (/api/playbook) → the thank-you panel replaces the form and takes focus. Reopening after a send shows
  *   a fresh form.
  */
+import { track } from '@/lib/analytics';
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MIN_MS = 3000;
 const loadedAt = Math.round(performance.timeOrigin || Date.now() - performance.now());
@@ -241,7 +243,7 @@ function initPlaybook(): void {
       if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
       try {
         const res = await post(d.endpoint || '/api/playbook', payload(form));
-        if (res.ok) { showThanks(); return; }
+        if (res.ok) { showThanks(); track('playbook-download'); return; }
         const out = res.status === 400 ? (await res.json().catch(() => null)) as { fields?: Record<string, string> } | null : null;
         const bad = out?.fields ? fields().filter((f) => out.fields![f.name]) : [];
         bad.forEach((f) => setFieldError(f, errEl(f), out!.fields![f.name] === 'email' ? d.msgEmail ?? '' : f.type === 'checkbox' ? d.msgConsent ?? '' : d.msgRequired ?? ''));

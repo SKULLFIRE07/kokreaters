@@ -1,33 +1,29 @@
 ---
 /**
- * Mobile menu, < 1120px (REDESIGN-V3 §3 chrome). A full-screen white sheet under the header bar; the bar stays visible
+ * Mobile menu, < 1024px (REDESIGN-V3 §3 chrome; pack 3). A full-screen white sheet under the header bar; the bar stays visible
  * and its Menu button becomes the close button (label swap + the icon turns into a cross).
- * Order: Expertise (accordion → six areas + "All expertise"), Industries (accordion → nine + "All industries"),
- * Approach, Impact, Insights, About, Contact — 24px serif rows on hairlines — then a full-width "Start a conversation"
- * button, the email address and LinkedIn.
+ * Order (pack 3): Expertise (accordion → six areas + "All expertise"), Industries, Impact, Insights, About, Approach,
+ * Contact — 28px serif rows on hairlines — then a full-width "Book a 30-minute call" button, email, WhatsApp, LinkedIn.
  * Behaviour (site.ts): body scroll lock without layout jump, `inert` on the rest of the page, focus trapped between the
  * Menu button and the sheet, Esc closes and returns focus, any link closes. Motion: the sheet fades in (240ms) and the
  * rows settle up with a 30ms stagger (no blur); accordions ease their height (grid rows 0fr → 1fr). Reduced motion: instant.
  */
 import Container from '@/components/ui/Container.astro';
-import Button from '@/components/ui/Button.astro';
+import BookCall from '@/components/ui/BookCall.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { main, mobile, expertiseLinks, industryLinks, megaMenu, industriesMenu, header as labels, emailDisplay } from '@/data/nav';
+import { main, mobile, expertiseLinks, megaMenu, header as labels, emailDisplay } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
 import { site } from '@/config/site';
 
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`);
-const groups = main.filter((l) => l.panel).map((l) => {
-  const list = l.panel === 'list';
-  return {
-    id: list ? 'm-menu-industries' : 'm-menu-expertise',
-    label: l.label,
-    current: isCurrent(l.href),
-    links: list ? industryLinks : expertiseLinks,
-    all: list ? industriesMenu.all : megaMenu.all,
-  };
-});
+const groups = main.filter((l) => l.panel).map((l) => ({
+  id: 'm-menu-expertise',
+  label: l.label,
+  current: isCurrent(l.href),
+  links: expertiseLinks,
+  all: megaMenu.all,
+}));
 ---
 <div id="mobile-menu" class="m-menu" data-lenis-prevent hidden>
   <Container class="m-menu__inner">
@@ -58,9 +54,10 @@ const groups = main.filter((l) => l.panel).map((l) => {
       </ul>
     </nav>
     <div class="m-menu__foot m-menu__fx" style={`--i:${groups.length + mobile.length}`}>
-      <Button href="/contact" full size="lg">{microcopy.primaryCta}</Button>
+      <BookCall full size="lg" variant="saffron" />
       <ul class="m-menu__contact" role="list">
         <li><a href={`mailto:${site.email}`}><Icon name="mail" size={20} />{emailDisplay}</a></li>
+        <li><a href={site.whatsapp.href} rel="noopener"><Icon name="whatsapp" size={20} />WhatsApp {site.whatsapp.display}</a></li>
         <li><a href={site.linkedin.href} rel="me noopener"><Icon name="linkedin" size={20} />LinkedIn<span class="visually-hidden"> ({microcopy.opensLinkedIn})</span></a></li>
       </ul>
     </div>
@@ -78,7 +75,7 @@ const groups = main.filter((l) => l.panel).map((l) => {
     transition: opacity var(--d-1) var(--ease-in-out);
   }
   .m-menu.is-open { opacity: 1; transition: opacity var(--d-2) var(--ease-out); }
-  @media (min-width: 1120px) { .m-menu { display: none !important; } }
+  @media (min-width: 1024px) { .m-menu { display: none !important; } }
 
   .m-menu :global(.m-menu__inner) { padding-block: var(--s-3) calc(var(--s-8) + env(safe-area-inset-bottom, 0px)); }
   .m-menu__list { margin: 0; padding: 0; list-style: none; }
@@ -86,7 +83,7 @@ const groups = main.filter((l) => l.panel).map((l) => {
   .m-menu__link {
     display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
     width: 100%; min-height: 64px; margin: 0; padding: var(--s-3) 0; border: 0; background: none; cursor: pointer; text-align: left;
-    font: 420 1.5rem/1.2 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.005em;
+    font: 420 1.75rem/1.2 var(--font-serif); font-optical-sizing: auto; letter-spacing: -0.005em;
     color: var(--head); text-decoration: none;
   }
   .m-menu__link.is-current { color: var(--link); }

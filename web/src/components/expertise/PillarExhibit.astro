@@ -1,6 +1,7 @@
 ---
 /**
  * v4 Delft: on Delft Ice, PAGES-A Head, thin #D9E0EC rule over the flow.
+ * Pack 3: a default slot under the flow (process: the enzymatic note and the capacity figure).
  * Pillar exhibit: one quiet static diagram on a grey band (REDESIGN-V3 §4 detail 4). Eyebrow "Exhibit", the exhibit
  * title as the h2, then the foundation ProcessFlow (ringed nodes on a hairline). The chain is read from
  * `pillarExhibits` (from → steps → to); several `to` outcomes are one final node ("Go / No-Go").
@@ -43,6 +44,7 @@ const steps = [ex.from, ...ex.steps, ex.to?.length ? ex.to.join(' / ') : undefin
   <Head id="exhibit-title" label={microcopy.exhibit} title={ex.title} />
   <div class="exhibit">
     <ProcessFlow steps={steps} />
+    <slot />
   </div>
 </Section>
 <style>

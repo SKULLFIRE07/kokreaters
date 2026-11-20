@@ -1,13 +1,12 @@
 ---
 /**
- * Home 8 · Impact (pack 2 item 17). Delft Navy band: saffron label (with its rule) + H2 "Results that started on the
- * plant floor.", "See the impact →" on the right; three results in large Bodoni figures, each on a hairline:
- * OPERATIONS · INDONESIA 21% · PROCESS · UKRAINE −25 °C · FOOD SAFETY · GLOBAL WHO. The WHO card links to the WHO story
- * on the Impact page (/impact#story-who, the anchor STORY gives story 4). Then the neutral footnote (item 8).
- * Copy lives in src/data/home.ts (impact.cards), verbatim from the brief.
- * Motion: hairlines draw in; "21%" and "−25 °C" count their digits up once (sign and unit stay); "WHO" is left alone.
- * Mobile: one column, figures at 64px; three columns from 900px.
+ * Home 5 · Impact (pack 3: "three stories as now, plus one footnote"). Delft Navy band: saffron label + H2 "Results that
+ * started on the plant floor.", "See the impact →" on the right; three cards, each a 3:2 photo (plant · cold-climate
+ * tank farm · bakery; navy gradient, never a logo) then the tag, the big Bodoni figure (72–80px, no counting) and one
+ * line. The WHO card links to /impact#story-who. Then the page's ONE footnote (career.ts careerFootnote, exact).
+ * Motion: photos drift gently (parallax); hairlines draw in. Mobile: one column; three from 900px.
  */
+import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
 import { impact } from '@/data/home';
@@ -24,9 +23,13 @@ import { impact } from '@/data/home';
     <ul class="hr__grid" role="list">
       {impact.cards.map((it) => (
         <li class="hr__item">
-          <span class="hr__rule" data-gsap="rule" aria-hidden="true"></span>
-          <p class="hr__date">{it.tag}</p>
-          <p class="hr__fig" data-gsap="count">{it.figure}</p>
+          <div class="hr__media">
+            <Photo slug={it.photo} ratio="3/2" parallax class="hr__photo"
+              sizes="(min-width: 1290px) 380px, (min-width: 900px) 30vw, calc(100vw - 40px)" widths={[400, 640, 800, 1000]} />
+            <span class="hr__shade" aria-hidden="true"></span>
+            <p class="hr__tag">{it.tag}</p>
+          </div>
+          <p class="hr__fig">{it.figure}</p>
           <p class="hr__line">{it.line}</p>
           {it.href && <ArrowLink href={it.href} class="hr__more">{it.linkLabel}</ArrowLink>}
         </li>
@@ -37,26 +40,27 @@ import { impact } from '@/data/home';
 </section>
 
 <style>
-  .hr__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: 48px; }
+  .hr__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px 32px; margin-bottom: clamp(32px, 2vw + 20px, 52px); }
   .hr :global(.hr__label) { margin: 0 0 18px; }
   .hr__title { margin: 0; max-width: 22ch; font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; color: var(--white); }
   .hr :global(.hr__link) { margin-bottom: -10px; color: var(--white); }
-  .hr :global(.hr__link .arrow-link__icon) { color: var(--white); }
-  .hr__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px 64px; margin: 0; padding: 0; list-style: none; }
-  .hr__item { position: relative; display: flex; flex-direction: column; gap: 14px; padding-top: 28px; }
-  .hr__rule { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, .25); }
-  .hr__date { margin: 0; font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #AFC0E0; }
+  .hr :global(.hr__link .arrow-link__icon) { color: var(--saffron); }
+  .hr__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px var(--grid-gap); margin: 0; padding: 0; list-style: none; }
+  .hr__item { display: flex; flex-direction: column; gap: 14px; }
+  .hr__media { position: relative; overflow: hidden; margin-bottom: 10px; background: var(--navy-800); }
+  .hr__media :global(.hr__photo) { display: block; }
+  .hr__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, .05) 40%, rgba(14, 31, 77, .78) 100%); pointer-events: none; }
+  .hr__tag {
+    position: absolute; left: 18px; right: 18px; bottom: 14px; margin: 0;
+    font-size: .8125rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--white);
+  }
   .hr__fig {
-    margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 4rem; line-height: 1; letter-spacing: -0.01em;
+    margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: var(--fs-stat); line-height: 1; letter-spacing: -0.01em;
     color: var(--white); white-space: nowrap; font-variant-numeric: lining-nums;
   }
-  .hr__line { margin: 0; max-width: 460px; font-size: 1.0625rem; line-height: 1.6; color: #DCE4F2; }
-  .hr :global(.hr__more) { margin-top: 4px; color: var(--white); }
-  .hr :global(.hr__more .arrow-link__icon) { color: var(--white); }
-  .hr__source { margin: 40px 0 0; font-size: .875rem; color: #AFC0E0; text-align: right; }
-  @media (min-width: 900px) {
-    .hr__head { margin-bottom: 56px; }
-    .hr__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .hr__fig { font-size: clamp(4rem, 2rem + 3.4vw, 5.25rem); }
-  }
+  .hr__line { margin: 0; max-width: 36ch; font-size: 1.0625rem; line-height: 1.55; color: #DCE4F2; }
+  .hr :global(.hr__more) { margin-top: -4px; color: var(--white); }
+  .hr :global(.hr__more .arrow-link__icon) { color: var(--saffron); }
+  .hr__source { margin: clamp(40px, 2vw + 28px, 56px) 0 0; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .18); max-width: 70ch; font-size: .875rem; line-height: 1.5; color: #AFC0E0; }
+  @media (min-width: 900px) { .hr__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>

@@ -7,6 +7,7 @@ import { pillars } from '@/data/pillars';
 import { shortBio, founderName, founderRole } from '@/data/founder';
 import { microcopy } from '@/data/microcopy';
 import { footer } from '@/data/nav';
+import { OG_IMAGE } from '@/lib/seo';
 
 export interface SeoProps {
   title: string;               // full title, exactly as in src/data/seo.ts
@@ -38,6 +39,14 @@ export const POSITIONING_STATEMENT =
 
 /** Brief section 8 target search terms (verbatim). */
 const TARGET_TERMS = [
+  // pack 3 brief "Search terms to target"
+  'edible oil refinery consultant',
+  '3-MCPD and glycidyl esters mitigation',
+  'trans-fat elimination',
+  'cocoa butter equivalent',
+  'food technical due diligence',
+  'fractional CTO food industry',
+  'feed process consulting',
   'specialty fats consultant',
   'oils and fats consultant',
   'edible oil refining consultant',
@@ -68,7 +77,8 @@ export function organization(): GraphNode {
     '@id': ID.org,
     name: site.name,
     url: `${BASE}/`,
-    logo: `${BASE}/brand/kokreaters-mark-512.png`,
+    logo: `${BASE}/brand/kokreaters-mark-A-512.png`,
+    image: abs(OG_IMAGE),
     email: site.email,
     founder: { '@id': ID.person },
     areaServed: AREA_SERVED,
@@ -87,6 +97,9 @@ export function professionalService(): GraphNode {
     address: { '@type': 'PostalAddress', addressCountry: 'NL' },
     email: site.email,
     telephone: '+31622157910',
+    logo: `${BASE}/brand/kokreaters-mark-A-512.png`,
+    image: abs(OG_IMAGE),
+    founder: { '@id': ID.person },
     knowsAbout: [...pillars.map((p) => p.name), ...TARGET_TERMS],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -122,7 +135,13 @@ export function person(image?: string): GraphNode {
     description: shortBio,
     ...(image ? { image: abs(image) } : {}),
     knowsLanguage: ['en', 'hi', 'mr', 'id', 'ru'],
-    alumniOf: 'CSIR-Central Food Technological Research Institute',
+    // Pack 3 brief "Structured data": jobTitle, alumniOf, sameAs LinkedIn; no founding date.
+    alumniOf: [
+      { '@type': 'CollegeOrUniversity', name: 'CSIR-Central Food Technological Research Institute' },
+      { '@type': 'CollegeOrUniversity', name: 'University of Pune' },
+      { '@type': 'CollegeOrUniversity', name: 'Indian Institute of Management Ahmedabad' },
+      { '@type': 'CollegeOrUniversity', name: 'University of California, Berkeley' },
+    ],
     knowsAbout: FOUNDER_KNOWS_ABOUT,
     address: { '@type': 'PostalAddress', addressCountry: 'NL' },
     sameAs: [site.linkedin.href],
@@ -153,7 +172,7 @@ export function article(entry: ArticleInput): GraphNode {
     ...(modified ? { dateModified: modified } : {}),
     author: { '@id': ID.person, '@type': 'Person', name: founderName },
     publisher: { '@id': ID.org },
-    image: abs(entry.ogImage ?? '/og/default.png'),
+    image: abs(entry.ogImage ?? OG_IMAGE),
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     ...(entry.section ? { articleSection: entry.section } : {}),
     inLanguage: 'en-GB',

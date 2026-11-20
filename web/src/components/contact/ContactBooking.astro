@@ -1,0 +1,52 @@
+---
+/**
+ * Contact · the booking block (pack 3, brief Contact: "Put the calendar booking first, the form second"; lead decision
+ * 2). Rendered first in the white band, carrying `id="start"` (where every "Book a 30-minute call" fallback lands),
+ * only when PUBLIC_BOOKING_URL is set (`hasBooking`). Staging without the URL shows the slot pointing at the form,
+ * with <Confirm id="P-13">; preview and production leave it out (the form then carries #start).
+ * A Delft Ice panel: calendar icon, "Book a 30-minute call" (Bodoni 28), one line, the time zone, and the solid
+ * button to the booking tool (new tab, data-event="book-call" for the cookie-free analytics).
+ * ≥ 900px: text left, button right on one row. Phones: stacked, full-width button.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import Confirm from '@/components/ui/Confirm.astro';
+import { contact, contactPage } from '@/data/contact';
+import { hasBooking, bookingHref, bookingLabel } from '@/lib/booking';
+import { showConfirm } from '@/lib/mode';
+
+const show = hasBooking || showConfirm;
+const href = hasBooking ? bookingHref() : '#form';
+---
+{show && (
+  <div class="cbk" id="start">
+    <div class="cbk__icon" aria-hidden="true"><Icon name="calendar" size={28} /></div>
+    <div class="cbk__text">
+      <h2 class="cbk__title">{contact.booking}</h2>
+      <p class="cbk__line">{contactPage.bookingLine} <span class="nowrap">{contactPage.timezone}.</span></p>
+      {!hasBooking && <Confirm id="P-13" note="booking link (Calendly or Microsoft Bookings): set PUBLIC_BOOKING_URL; this block is hidden outside staging until then" />}
+    </div>
+    <div class="cbk__action">
+      <Button
+        href={href} variant="primary" size="lg" icon={hasBooking ? 'external' : 'arrow'}
+        data-event="book-call"
+        {...(hasBooking ? { target: '_blank', rel: 'noopener' } : { 'data-booking': 'form' })}
+      >{bookingLabel}{hasBooking && <span class="visually-hidden"> (opens in a new tab)</span>}</Button>
+    </div>
+  </div>
+)}
+<style>
+  .cbk {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5);
+    margin-bottom: var(--s-9); padding: var(--s-6) var(--s-5); background: var(--ice); border-top: 3px solid var(--link);
+  }
+  @media (max-width: 599px) { .cbk { margin-inline: calc(-1 * var(--gutter-x)); padding-inline: var(--gutter-x); } }
+  .cbk__icon { display: grid; place-items: center; width: 56px; height: 56px; background: var(--white); color: var(--link); }
+  .cbk__title { margin: 0; font: 400 1.75rem/1.2 var(--font-serif); letter-spacing: 0; color: var(--head); }
+  .cbk__line { margin: var(--s-2) 0 0; max-width: 52ch; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-2); }
+  .cbk__action :global(.btn) { width: 100%; }
+  @media (min-width: 600px) { .cbk { padding: var(--s-7); } .cbk__action :global(.btn) { width: auto; } }
+  @media (min-width: 900px) {
+    .cbk { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-6); }
+  }
+</style>

@@ -1,10 +1,10 @@
 ---
 /**
- * About · "Who he has worked alongside" (brief item 24). White band, aria-labelledby="alongside-h".
- * SectionHeader (h2 + the brief's sentence as the lead), then the six sectors the sentence names as a list of tiles:
- * a 32px Lucide glyph in Deep Delft over the sector's name, each on a 1px top rule. Sector icons only: never company
- * names or logos (Ganeaysh decides later whether to name companies).
- * ≥ 1200px six across; 600–1199px three; phones two (≥ 48px rows).
+ * About · "Who he has worked alongside" (earlier item 24, pack 3 "Still open"). White band, aria-labelledby="alongside-h".
+ * SectionHeader (h2 + the long bio's sector sentence as the lead), then the brief's five types of organisation as
+ * tiles: a 32px Lucide glyph in Deep Delft on an Ice square over the type's name, each on a 1px top rule. Types only:
+ * never company names or logos.
+ * ≥ 1200px five across; 600–1199px three; phones two (≥ 48px rows).
  */
 import Section from '@/components/ui/Section.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
@@ -14,7 +14,7 @@ import { workedAlongside } from '@/data/about';
 <Section ground="white" labelledby="alongside-h" class="along">
   <SectionHeader id="alongside-h" title={workedAlongside.heading} lead={workedAlongside.body} />
   <ul class="along__list" role="list">
-    {workedAlongside.sectors.map((s) => (
+    {workedAlongside.types.map((s) => (
       <li class="along__item">
         <span class="along__icon"><SectorIcon name={s.icon} /></span>
         <span class="along__name">{s.label}</span>
@@ -28,5 +28,5 @@ import { workedAlongside } from '@/data/about';
   .along__icon { display: grid; place-items: center; width: 64px; height: 64px; background: var(--ice); color: var(--link); }
   .along__name { font: 700 var(--fs-body)/1.35 var(--font-sans); color: var(--head); text-wrap: balance; }
   @media (min-width: 600px) { .along__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  @media (min-width: 1200px) { .along__list { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { .along__list { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 </style>

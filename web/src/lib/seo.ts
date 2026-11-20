@@ -2,6 +2,10 @@
 import { seo, articleOgPattern, type SeoEntry, type SeoKey } from '@/data/seo';
 import { site } from '@/config/site';
 
+/** Pack 3 lead decision 6: the one link-preview image (new logo + headline) for every page; public/og via prepare-brand. */
+export const OG_IMAGE = '/og/kokreaters-social-share-1200x630.png';
+export const OG_ALT = 'KoKreaters: Connect, Collaborate, Create. Deep expertise, turned into products, plants and markets.';
+
 export const TITLE_MAX = 60;
 export const DESCRIPTION_MAX = 155;
 
