@@ -1,0 +1,259 @@
+KoKreaters website redesign – developer guide
+20 November 2026 · Ganeaysh Kulkarni
+
+
+What changes
+
+The site keeps its structure and content but gets a new look: a darker “Delft blue” palette, new fonts, the real
+KoKreaters logo, food and agri photos in place of the petrochemical refinery, and calmer, static sections without
+blur-in effects.
+
+         Homepage design: KoKreaters_Homepage_Design.html (open in any browser) and
+         KoKreaters_Homepage_Design.png (full-page picture). This is the target layout.
+         Style guide: KoKreaters_Style_Guide.html and .png list every colour, font size and button.
+         Current site: kokreaters.com (Astro).
+         Logo: use the full-colour KoKreaters logo from the business card (network mark plus “Connect ·
+         Collaborate · Create”), the file kokreaters-logo.jpg in the digital-card repository. Export it as a transparent
+         PNG or SVG for the header.
+
+In the digital-card repository, use_this_logo.png and logo.svg are Cargill logos, not KoKreaters ones. Do not use
+them; they are best deleted.
+
+
+Colours
+
+Navy replaces black everywhere: all body text and headings are Delft Navy, and near-black appears only in the
+footer. Saffron and red are accents, used sparingly.
+
+ Name                            Hex                           Use                               Share of page
+
+ Delft Navy                      #0E1F4D                       All text, headings, dark bands,   ~20%
+                                                               image gradients
+
+ Deep Delft                      #1C3F94                       Buttons, links, section labels,   ~5%
+                                                               CTA band
+
+ White                           #FFFFFF                       Main background                   ~50%
+
+ Porcelain                       #FAFAF7                       Warm alternate sections (track    ~10%
+                                                               record, founder)
+
+ Delft Ice                       #EEF2F8                       Cool alternate sections           ~10%
+                                                               (approach), coming-soon
+                                                               cards
+
+ Saffron                         #E8A93A                       Thin rules, lead-stat top rule,   ~4%
+                                                               labels on dark, one CTA button
+                                                               per page
+
+ Signal Red                      #C8333A                       A small dot in the top bar,       ~1%
+                                                               “New” tags only
+
+ Secondary text                  #4A5878                       Supporting sentences,             –
+                                                               captions
+
+ Lines                           #D9E0EC                       Dividers, card rules              –
+
+ Footer ink                      #0A0F1C                       Footer background only            –
+
+
+The logo’s own blue (#2D5BC4) stays inside the logo. Saffron is never used for text on white, because it fails
+contrast; on navy it passes.
+
+
+              :root {
+                --kk-navy: #0E1F4D;
+                --kk-delft: #1C3F94;
+                 --kk-white: #FFFFFF;
+                 --kk-porcelain: #FAFAF7;
+                 --kk-ice: #EEF2F8;
+                 --kk-saffron: #E8A93A;
+                 --kk-red: #C8333A;
+                 --kk-text-2: #4A5878;
+                 --kk-line: #D9E0EC;
+                 --kk-ink: #0A0F1C;
+             }
+
+
+
+
+Fonts and type sizes
+
+Headlines use Bodoni Moda and everything else uses Manrope; both are free on Google Fonts and replace
+Source Serif 4 and Inter. Bodoni Moda is only used at 24 px and above.
+
+Element                     Font                  Size / line height        Weight            Colour
+
+Hero title (H1)             Bodoni Moda           76 / 80 px (mobile 44 /   500               White on hero
+                                                  48)
+
+Section title (H2)          Bodoni Moda           52 / 56 px (mobile 36 /   500               Navy
+                                                  40)
+
+Card title                  Bodoni Moda           28 / 34 px                400               Navy
+
+Big numbers                 Bodoni Moda           64 px; 84 px in the       400               Navy or white
+                                                  impact band
+
+Quote                       Bodoni Moda italic    40 / 50 px                400               Navy
+
+Intro text                  Manrope               18–19 / 30 px             400               Navy or #E4EAF5 on
+                                                                                              dark
+
+Body text                   Manrope               16 / 26 px                400               #4A5878
+
+Section label               Manrope               13 px, capitals, 0.16em   700               Deep Delft; white or
+                                                  spacing                                     saffron on dark
+
+Navigation, links,          Manrope               15 px                     700               Navy / Deep Delft
+buttons
+
+
+
+         <link href="https://fonts.googleapis.com/css2?
+ family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Manrope:wght@400..800&display=swap"
+ rel="stylesheet">
+
+
+For best speed, self-host both fonts with @fontsource/bodoni-moda and @fontsource/manrope in Astro rather than
+loading them from Google.
+
+
+Layout and component rules
+
+      Grid: content max width 1240 px, 40 px side padding (20 px on mobile), 12 columns.
+      Spacing: 104–120 px above and below each section on desktop, 64–72 px on mobile.
+      Header: white, logo 52 px tall, navigation visible on desktop (Expertise, Industries, Approach, Insights,
+      About) plus a Deep Delft “Start a conversation” button. The hamburger menu is for mobile only.
+      Buttons: square corners, no shadows, 15–16 px padding. Primary = Deep Delft fill; secondary = Deep
+      Delft outline; on dark = white fill or white outline; saffron fill with navy text for one CTA per page only.
+      Labels: a 40 × 2 px saffron line before section labels on dark backgrounds; the lead statistic gets a 3 px
+      saffron top rule, the others a 1 px line.
+      Photos: square corners, object-fit: cover. Wherever text sits on a photo, add a navy gradient
+      (rgba(14,31,77,0.92) fading to transparent).
+      Motion: remove the blur-in and fade-in effects on scroll. Content shows the moment the page loads. A
+      gentle hover (underline on links, slight image zoom on tiles) is enough.
+     “Ask KoKreaters” chat button: keep it if it is useful, but make it smaller and Deep Delft, so it does not
+     compete with the main buttons.
+     Accessibility: text contrast at least 4.5:1, real <a> and <button> elements, alt text on every photo.
+
+
+Homepage structure, section by section
+
+The homepage runs in 13 sections, top to bottom; the attached homepage file shows each one at full size.
+
+   1. Top bar (navy): red dot, “Latest insight” and a link to the newest article.
+   2. Header (white): logo, visible navigation, “Start a conversation” button.
+   3. Hero: rapeseed-field photo with a navy gradient on the left. Label “Techno-commercial consulting · Agri,
+     food & feed”, title “Deep expertise, turned into products, plants and markets.”, intro text, two buttons, and
+     a bottom line “Based in the Netherlands” plus the five countries.
+   4. Track record (porcelain): 25 years in industry, 14 years in oils, fats and food ingredients, 5 countries,
+      WHO recognition.
+   5. What we do (white): six numbered services in a 3 × 2 grid with thin rules: product development; process
+     development and plant performance; market access and strategy; food safety, quality and regulatory;
+      deals, due diligence and partnerships; fractional CTO and Head of R&D.
+   6. Our approach (ice): three tall photo cards, Develop (lab), Scale (process plant), Access (bulk carrier).
+   7. Industries (white): six photo tiles (agri and oilseeds; edible oils and specialty fats; feed and animal
+     nutrition; bakery and food service; cocoa, chocolate and confectionery; nutrition and specialty ingredients)
+     plus a text line for the rest.
+   8. Impact (navy): −25 °C refinery in Ukraine and the WHO recognition, in large Bodoni numbers.
+  9. Insights (white): the two published articles and the bleaching-earth explainer as “coming soon”.
+ 10. Netherlands band: Dutch polder photo, “A Dutch base. A global reach.”
+ 11. Founder (porcelain): portrait, quote in italic, “Ganeaysh Kulkarni, Chief Catalyst and Founder, KoKreaters”.
+ 12. Call to action (Deep Delft): “Let’s create something together.”, saffron button, office@KoKreaters.com.
+ 13. Footer (near-black ink): logo on a white plate, link columns, contact, legal links.
+
+
+Content fixes
+
+These texts on the current site disagree with each other or with the business card, so fix them along with the
+redesign.
+
+Where                                  Now                                         Change to
+
+Hero vs track record                   Hero says 25 years; track record leads      Show both: “25 years in industry” and
+                                       with 14 years                               “14 years in oils, fats and food
+                                                                                   ingredients”
+
+Track record                           “2 regions of teams led: Americas, EMEA,    Ganeaysh to confirm the right number
+                                       Asia-Pacific” (three regions named)
+
+Founder title                          “Founder, KoKreaters”                       “Chief Catalyst and Founder, KoKreaters”
+                                                                                   (matches the business card)
+
+Hero intro                             “food, nutrition and specialty-ingredient   “agri, food, feed, nutrition and specialty-
+                                       businesses”                                 ingredient businesses”
+
+Location                               Netherlands only at the end of a country    “Based in the Netherlands” in the hero
+                                       list                                        and its own band lower down
+
+Services                               Six boxes that do not match the services    The six services in section 5 above,
+                                       offered                                     including the fractional CTO / Head of
+                                                                                   R&D offer
+
+Brand name                             Mixed spellings                             Always “KoKreaters” (both K’s capital)
+                                                                                   and “KoKreaters.com”
+Photos
+
+All 14 photos are free to use commercially, with no attribution needed. Each one was checked on its Unsplash
+page on 20 Nov 2026 and shows no readable brands and no identifiable faces. Download the full-size original
+from each link; the homepage file uses screen-size copies only.
+
+Use on the site                             Photo                                Note
+
+Hero                                        Rapeseed field under blue sky        Crop to keep the sky on the left for the
+                                                                                 title
+
+Industries: agri and oilseeds               Patchwork of farm fields
+
+Approach: Develop                           Gloved hand with pipette             US CDC photo, public domain
+
+Approach: Scale; insight on 3-MCPD          Stainless steel tanks and pipework
+
+Approach: Access                            Bulk carrier at sea at dawn          Ship name on the bow is tiny; blur it if
+                                                                                 shown large
+
+Industries: feed                            Grain silos behind a maize field     A small flag on one silo; crop if wanted
+
+Industries: oils and fats                   Golden oil pouring between spoons
+
+Industries: bakery; insight on trans fats   Hands holding dough
+
+Industries: cocoa and confectionery         Cocoa pods on a branch
+
+Industries: nutrition and specialty         Spice powders on black
+ingredients
+
+Netherlands band                            Dutch polder and canal
+
+Spare: process plant                        Clean food-processing hall           For the process service page
+
+Spare: grains                               Wheat field                          For agri or bakery pages
+
+Spare: feed ingredients                     Maize kernels                        For the feed page
+
+
+The Unsplash licence does not cover logos, brands or recognisable people shown in a photo. For any new photo
+you add, keep to shots with no visible brand names and no faces. Export at 2000 px wide for full-bleed images
+and 1200 px for tiles, as WebP or AVIF, and let Astro’s <Image> component make the smaller sizes.
+
+
+Implementation checklist
+
+Most of the change is a theme update in the existing Astro project, so it can ship in stages.
+
+       Add the colour variables and switch all text from #1A1A1A to Delft Navy
+       Replace Source Serif 4 and Inter with Bodoni Moda and Manrope (self-hosted with Fontsource)
+       Replace the header logo with the business-card KoKreaters logo; show the desktop navigation
+       Rebuild the hero with the rapeseed photo, the navy gradient and the new copy
+       Remove the blur-in and fade-in scroll effects
+       Rebuild What we do (six services), Our approach and Industries with the new photos
+       Add the Netherlands band and update the founder section (Chief Catalyst title)
+       Apply the content fixes above
+       Restyle buttons, CTA band and footer
+       Check every page at 390 px (phone) and 1440 px wide, and run a Lighthouse check for speed and contrast
+       Carry the same style through the expertise, industry, insight and about pages
+
+Open question for Ganeaysh: how many regions of teams led to state on the track record (the current text says 2
+but names 3).
+

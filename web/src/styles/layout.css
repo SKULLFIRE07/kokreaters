@@ -56,22 +56,38 @@
   --bg: var(--white); --fg: var(--ink); --fg-2: var(--ink-2); --head: var(--navy-900); --label: var(--blue-700);
   --link: var(--blue-700); --accent: var(--blue-500); --figure: var(--blue-500); --rule: var(--grey-200); --rule-strong: var(--navy-900);
   --focus: var(--blue-500); --surface: var(--white); --surface-hover: var(--grey-50);
-  --btn-bg: var(--navy-900); --btn-fg: var(--white); --btn-bg-hover: var(--navy-800);
-  --field-bg: var(--white); --field-border: var(--grey-500); --selection: rgba(48, 111, 224, .18);
+  --btn-bg: var(--blue-700); --btn-fg: var(--white); --btn-bg-hover: var(--navy-900);
+  --field-bg: var(--white); --field-border: var(--grey-500); --selection: rgba(28, 63, 148, .16);
 }
 .band--grey {
   --bg: var(--grey-50); --fg: var(--ink); --fg-2: var(--ink-2); --head: var(--navy-900); --label: var(--blue-700);
   --link: var(--blue-700); --accent: var(--blue-500); --figure: var(--blue-500); --rule: var(--grey-200); --rule-strong: var(--navy-900);
   --focus: var(--blue-500); --surface: var(--white); --surface-hover: var(--white);
-  --btn-bg: var(--navy-900); --btn-fg: var(--white); --btn-bg-hover: var(--navy-800);
-  --field-bg: var(--white); --field-border: var(--grey-500); --selection: rgba(48, 111, 224, .18);
+  --btn-bg: var(--blue-700); --btn-fg: var(--white); --btn-bg-hover: var(--navy-900);
+  --field-bg: var(--white); --field-border: var(--grey-500); --selection: rgba(28, 63, 148, .16);
 }
 .band--navy {
   --bg: var(--navy-900); --fg: var(--on-navy); --fg-2: var(--on-navy-2); --head: var(--white); --label: var(--blue-300);
   --link: var(--white); --accent: var(--blue-300); --figure: var(--white); --rule: var(--rule-on-navy); --rule-strong: var(--white);
   --focus: var(--white); --surface: var(--navy-800); --surface-hover: var(--navy-700);
-  --btn-bg: var(--white); --btn-fg: var(--navy-900); --btn-bg-hover: #E4ECFB;
-  --field-bg: rgba(255, 255, 255, .06); --field-border: rgba(255, 255, 255, .56); --selection: rgba(141, 178, 247, .35);
+  --btn-bg: var(--white); --btn-fg: var(--navy-900); --btn-bg-hover: #EEF2F8;
+  --field-bg: rgba(255, 255, 255, .06); --field-border: rgba(255, 255, 255, .56); --selection: rgba(232, 169, 58, .35);
+}
+
+/* v4: Delft Ice (cool alternate) and Deep Delft (CTA band). Porcelain is .band--grey. */
+.band--ice {
+  --bg: var(--ice); --fg: var(--ink); --fg-2: var(--ink-2); --head: var(--navy-900); --label: var(--blue-700);
+  --link: var(--blue-700); --accent: var(--blue-500); --figure: var(--navy-900); --rule: var(--grey-200); --rule-strong: var(--navy-900);
+  --focus: var(--blue-500); --surface: var(--white); --surface-hover: var(--white);
+  --btn-bg: var(--blue-700); --btn-fg: var(--white); --btn-bg-hover: var(--navy-900);
+  --field-bg: var(--white); --field-border: var(--grey-500); --selection: rgba(28, 63, 148, .16);
+}
+.band--delft {
+  --bg: var(--blue-700); --fg: var(--white); --fg-2: #E4EAF5; --head: var(--white); --label: var(--saffron);
+  --link: var(--white); --accent: var(--saffron); --figure: var(--white); --rule: rgba(255, 255, 255, .22); --rule-strong: var(--white);
+  --focus: var(--white); --surface: rgba(255, 255, 255, .06); --surface-hover: rgba(255, 255, 255, .1);
+  --btn-bg: var(--saffron); --btn-fg: var(--navy-900); --btn-bg-hover: #F0BA57;
+  --field-bg: rgba(255, 255, 255, .08); --field-border: rgba(255, 255, 255, .6); --selection: rgba(232, 169, 58, .35);
 }
 
 /* Top hairline inside the container (Section rule) — the separator when two identical grounds touch. */

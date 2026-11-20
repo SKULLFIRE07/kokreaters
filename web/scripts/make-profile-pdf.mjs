@@ -57,9 +57,9 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const b64 = async (p) => (await readFile(resolve(WEB, p))).toString('base64');
 
 const [serif, serifItalic, sans, logoSvg, portrait] = await Promise.all([
-  b64('public/fonts/source-serif-4-latin-opsz-normal.woff2'),
-  b64('public/fonts/source-serif-4-latin-opsz-italic.woff2'),
-  b64('public/fonts/inter-latin-opsz-normal.woff2'),
+  b64('public/fonts/bodoni-moda-latin-opsz-normal.woff2'),
+  b64('public/fonts/bodoni-moda-latin-opsz-italic.woff2'),
+  b64('public/fonts/manrope-latin-wght-normal.woff2'),
   readFile(resolve(WEB, 'src/assets/brand/svg/kokreaters-logo-horizontal-white.svg'), 'utf8'),
   sharp(resolve(WEB, 'src/assets/photos/ganeaysh-portrait.jpg')).resize({ width: 720 }).jpeg({ quality: 84, mozjpeg: true }).toBuffer(),
 ]);
@@ -78,14 +78,14 @@ const splitParen = (s) => { const m = s.match(/^(.*?)\s*\((.+)\)$/); return m ? 
 const html = `<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8"><title>${esc(L.title)}</title>
 <style>
-  @font-face { font-family: "Source Serif 4"; src: url(data:font/woff2;base64,${serif}) format("woff2"); font-weight: 200 900; font-style: normal; }
-  @font-face { font-family: "Source Serif 4"; src: url(data:font/woff2;base64,${serifItalic}) format("woff2"); font-weight: 200 900; font-style: italic; }
-  @font-face { font-family: "Inter"; src: url(data:font/woff2;base64,${sans}) format("woff2"); font-weight: 100 900; font-style: normal; }
+  @font-face { font-family: "Bodoni Moda"; src: url(data:font/woff2;base64,${serif}) format("woff2"); font-weight: 200 900; font-style: normal; }
+  @font-face { font-family: "Bodoni Moda"; src: url(data:font/woff2;base64,${serifItalic}) format("woff2"); font-weight: 200 900; font-style: italic; }
+  @font-face { font-family: "Manrope"; src: url(data:font/woff2;base64,${sans}) format("woff2"); font-weight: 100 900; font-style: normal; }
   @page { size: A4; margin: 0; }
   :root {
     --navy-900: #0B1B33; --navy-800: #13284A; --blue-700: #2C509E; --blue-500: #306FE0; --blue-300: #8DB2F7;
     --grey-50: #F2F2F0; --grey-200: #D9D9D4; --ink: #1A1A1A; --ink-2: #5A5A5A; --on-navy-2: rgba(255,255,255,.74);
-    --serif: "Source Serif 4", Georgia, serif; --sans: "Inter", Arial, sans-serif; --gx: 15mm; --side: 64mm;
+    --serif: "Bodoni Moda", Georgia, serif; --sans: "Manrope", Arial, sans-serif; --gx: 15mm; --side: 64mm;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 210mm; height: 297mm; }

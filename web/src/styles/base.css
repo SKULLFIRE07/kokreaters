@@ -1,5 +1,5 @@
 /* src/styles/base.css — element defaults + type classes (REDESIGN-V3 §1.2).
-   Two voices: Source Serif 4 for headlines, figures and quotes; Inter for everything else.
+   Two voices: Bodoni Moda for headlines, figures and quotes (24px and up); Manrope for everything else.
    Bare h1–h4 take their scale step through :where() (zero specificity), so any .t-* class overrides them. */
 html { overflow-x: clip; }   /* anchors offset via [id] { scroll-margin-top } in layout.css */
 
@@ -29,16 +29,16 @@ body {
   text-wrap: balance;
   font-variant-numeric: lining-nums;
 }
-.t-display { font-size: var(--fs-display); line-height: var(--lh-display); font-weight: 420; letter-spacing: var(--tr-display); }
-:where(h1), .t-h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 420; letter-spacing: var(--tr-h1); }
-:where(h2), .t-h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 430; letter-spacing: var(--tr-h2); }
-:where(h3), .t-h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 500; letter-spacing: var(--tr-h3); }
-:where(h4), .t-h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 560; letter-spacing: 0; }
+.t-display { font-size: var(--fs-display); line-height: var(--lh-display); font-weight: 500; letter-spacing: var(--tr-display); }
+:where(h1), .t-h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 500; letter-spacing: var(--tr-h1); }
+:where(h2), .t-h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 500; letter-spacing: var(--tr-h2); }
+:where(h3), .t-h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 400; letter-spacing: var(--tr-h3); }
+:where(h4), .t-h4 { font-family: var(--font-sans); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 700; letter-spacing: 0; }   /* Bodoni only at 24px and up */
 .t-display { max-width: 18ch; }
 .t-h1 { max-width: 22ch; }
 .t-h2 { max-width: 28ch; }
 .t-stat {
-  font-size: var(--fs-stat); line-height: var(--lh-stat); font-weight: 500; letter-spacing: var(--tr-stat);
+  font-size: var(--fs-stat); line-height: var(--lh-stat); font-weight: 400; letter-spacing: var(--tr-stat);
   font-variant-numeric: lining-nums tabular-nums;
 }
 .t-quote { font-size: var(--fs-quote); line-height: var(--lh-quote); font-weight: 400; font-style: italic; letter-spacing: var(--tr-quote); }
@@ -49,7 +49,7 @@ body {
 .t-small { font-size: var(--fs-small); line-height: var(--lh-small); }
 .t-meta { font-size: var(--fs-meta); line-height: var(--lh-meta); color: var(--fg-2); font-variant-numeric: lining-nums tabular-nums; }
 .t-label {
-  font-family: var(--font-sans); font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 600;
+  font-family: var(--font-sans); font-size: var(--fs-label); line-height: var(--lh-label); font-weight: 700;
   text-transform: uppercase; letter-spacing: var(--tr-label); color: var(--label);
 }
 .tnum { font-variant-numeric: lining-nums tabular-nums; }

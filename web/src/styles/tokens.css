@@ -1,21 +1,25 @@
-/* src/styles/tokens.css — REDESIGN-V3 §1 (v3 "Editorial"). Whole file replaced for v3.
+/* src/styles/tokens.css — v4 "Delft" palette + type (Ganeaysh's developer guide, 20 Nov 2026) on the v3 role system.
    Palette → role tokens → type → space → shape → motion. Components read ROLE tokens only (--bg, --fg, --head …),
    so they work on any ground: `.band--grey` and `.band--navy` (layout.css) re-declare the roles locally.
    Purple, pink, yellow and red exist only inside the logo artwork; they are not tokens. */
 :root {
   /* ── 1.1 Palette ── */
-  --navy-900: #0B1B33;   /* hero bands, footer, dark sections, primary buttons */
-  --navy-800: #13284A;   /* raised surface on navy, primary button hover */
-  --navy-700: #1D3660;   /* borders that must read on navy */
-  --blue-700: #2C509E;   /* brand blue: small links, labels, icons (7.64:1 on white, 6.82:1 on grey-50) */
-  --blue-500: #306FE0;   /* accent: big figures ≥ 24px, arrows, hover rules, focus (4.69:1 on white only) */
-  --blue-300: #8DB2F7;   /* accent on navy: labels, arrows, small text (8.08:1 on navy-900) */
-  --grey-50:  #F2F2F0;   /* warm light grey: alternate bands */
-  --grey-100: #E7E7E3;   /* card hover on grey, skeleton */
-  --grey-200: #D9D9D4;   /* hairline on white / grey */
+  --navy-900: #0E1F4D;   /* Delft Navy: all text, headings, dark bands, image gradients */   /* hero bands, footer, dark sections, primary buttons */
+  --navy-800: #162A61;   /* raised surface on navy, primary button hover */
+  --navy-700: #2A4079;   /* borders that must read on navy */
+  --blue-700: #1C3F94;   /* Deep Delft: buttons, links, section labels, CTA band */   /* brand blue: small links, labels, icons (7.64:1 on white, 6.82:1 on grey-50) */
+  --blue-500: #1C3F94;   /* accent: big figures ≥ 24px, arrows, hover rules, focus (4.69:1 on white only) */
+  --blue-300: #E8A93A;   /* Saffron: labels and rules on dark (never text on white) */   /* accent on navy: labels, arrows, small text (8.08:1 on navy-900) */
+  --grey-50:  #FAFAF7;   /* Porcelain: warm alternate sections */
+  --ice:      #EEF2F8;   /* Delft Ice: cool alternate sections, coming-soon cards */
+  --saffron:  #E8A93A;
+  --red:      #C8333A;   /* small top-bar dot and New tags only */
+  --footer-ink: #0A0F1C;   /* warm light grey: alternate bands */
+  --grey-100: #EEF2F8;   /* card hover on grey, skeleton */
+  --grey-200: #D9E0EC;   /* Lines */   /* hairline on white / grey */
   --grey-500: #8A8A85;   /* input borders (3.4:1 vs white), disabled */
-  --ink:      #1A1A1A;   /* body text (17.4:1 on white) */
-  --ink-2:    #5A5A5A;   /* secondary text (6.9:1 on white, 6.15:1 on grey-50) */
+  --ink:      #0E1F4D;   /* body text is Delft Navy */   /* body text (17.4:1 on white) */
+  --ink-2:    #4A5878;   /* secondary text */   /* secondary text (6.9:1 on white, 6.15:1 on grey-50) */
   --white:    #FFFFFF;
   --on-navy:  #FFFFFF;
   --on-navy-2: rgba(255, 255, 255, .74);   /* ≈ #C2C6CC on navy-900: 10.4:1 */
@@ -37,49 +41,49 @@
   --focus: var(--blue-500);
   --surface: var(--white);            /* cards */
   --surface-hover: var(--grey-50);
-  --btn-bg: var(--navy-900);          /* primary button */
+  --btn-bg: var(--blue-700);          /* primary button */
   --btn-fg: var(--white);
-  --btn-bg-hover: var(--navy-800);
+  --btn-bg-hover: var(--navy-900);
   --field-bg: var(--white);
   --field-border: var(--grey-500);
-  --selection: rgba(48, 111, 224, .18);
+  --selection: rgba(28, 63, 148, .16);
 
   /* ── 1.2 Type ── */
-  --font-serif: "Source Serif 4", "Source Serif Fallback", "Source Serif Fallback Times", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-serif: "Bodoni Moda", "Bodoni Fallback", "Times New Roman", Georgia, serif;
+  --font-sans: "Manrope", "Manrope Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 
   /* Fluid 390 → 1440 px: clamp(min, intercept + slope·vw, max). */
-  --fs-display: clamp(2.75rem, 1.922rem + 3.399vw, 6rem);        /* 44 → 96 (390 → 1920; ≈ 80 at 1440) */
-  --fs-h1:      clamp(2.375rem, 1.833rem + 2.222vw, 4.5rem);     /* 38 → 72 (≈ 61 at 1440) */
-  --fs-h2:      clamp(2rem, 1.618rem + 1.569vw, 3.5rem);         /* 32 → 56 (≈ 48 at 1440) */
-  --fs-h3:      clamp(1.375rem, 1.279rem + .392vw, 1.75rem);     /* 22 → 28 */
+  --fs-display: clamp(2.75rem, 1.94rem + 3.33vw, 4.75rem);        /* 44 → 96 (390 → 1920; ≈ 80 at 1440) */
+  --fs-h1: clamp(2.75rem, 1.94rem + 3.33vw, 4.75rem);     /* 38 → 72 (≈ 61 at 1440) */
+  --fs-h2: clamp(2.25rem, 1.88rem + 1.52vw, 3.25rem);         /* 32 → 56 (≈ 48 at 1440) */
+  --fs-h3: clamp(1.5rem, 1.4rem + .4vw, 1.75rem);     /* 22 → 28 */
   --fs-h4:      clamp(1.1875rem, 1.141rem + .19vw, 1.375rem);    /* 19 → 22 */
-  --fs-stat:    clamp(3.25rem, 2.454rem + 3.268vw, 6rem);        /* 52 → 96 (≈ 84 at 1440) */
-  --fs-quote:   clamp(1.625rem, 1.401rem + .915vw, 2.5rem);      /* 26 → 40 */
-  --fs-lead:    clamp(1.25rem, 1.157rem + .381vw, 1.5625rem);    /* 20 → 25 (≈ 23.5 at 1440) */
-  --fs-body:    clamp(1.125rem, 1.079rem + .19vw, 1.1875rem);    /* 18 mobile → 19 desktop */
-  --fs-small:   clamp(1rem, .977rem + .095vw, 1.0625rem);        /* 16 → 17 */
-  --fs-meta:    clamp(.9375rem, .914rem + .095vw, 1rem);         /* 15 → 16 */
-  --fs-label:   .875rem;                                         /* 14 (floor: nothing on the site is smaller) */
-  --fs-nav:     1rem;                                            /* 16 */
-  --fs-button:  clamp(1rem, .977rem + .095vw, 1.0625rem);        /* 16 → 17 */
+  --fs-stat: clamp(3rem, 2.6rem + 1.6vw, 4rem);        /* 52 → 96 (≈ 84 at 1440) */
+  --fs-quote: clamp(1.75rem, 1.45rem + 1.2vw, 2.5rem);      /* 26 → 40 */
+  --fs-lead: clamp(1.0625rem, 1rem + .3vw, 1.1875rem);    /* 20 → 25 (≈ 23.5 at 1440) */
+  --fs-body: 1rem;    /* 18 mobile → 19 desktop */
+  --fs-small: .9375rem;        /* 16 → 17 */
+  --fs-meta: .875rem;         /* 15 → 16 */
+  --fs-label: .8125rem;                                         /* 14 (floor: nothing on the site is smaller) */
+  --fs-nav: .9375rem;                                            /* 16 */
+  --fs-button: .9375rem;        /* 16 → 17 */
 
-  --lh-display: 1.02; --lh-h1: 1.06; --lh-h2: 1.1; --lh-h3: 1.25; --lh-h4: 1.3;
-  --lh-stat: 1; --lh-quote: 1.3; --lh-lead: 1.5; --lh-body: 1.6; --lh-small: 1.55; --lh-meta: 1.45; --lh-label: 1.3;
-  --tr-display: -0.028em; --tr-h1: -0.022em; --tr-h2: -0.016em; --tr-h3: -0.005em; --tr-stat: -0.02em; --tr-quote: -0.01em;
-  --tr-lead: -0.005em; --tr-label: .1em; --tr-button: .005em;
+  --lh-display: 1.05; --lh-h1: 1.05; --lh-h2: 1.08; --lh-h3: 1.2; --lh-h4: 1.3;
+  --lh-stat: 1; --lh-quote: 1.3; --lh-lead: 1.6; --lh-body: 1.625; --lh-small: 1.55; --lh-meta: 1.45; --lh-label: 1.3;
+  --tr-display: -0.01em; --tr-h1: -0.01em; --tr-h2: -0.005em; --tr-h3: 0em; --tr-stat: -0.01em; --tr-quote: 0em;
+  --tr-lead: -0.005em; --tr-label: .16em; --tr-button: .005em;
 
   --measure: 68ch;        /* body */
   --measure-lead: 46ch;   /* leads, intros (the lead is 22–24px on desktop, so fewer characters per line) */
 
   /* ── 1.3 Space, grid, layout ── */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
-  --section: clamp(5rem, 3.406rem + 6.536vw, 11.25rem);          /* 80 (390) → 148 (1440) → 180 (1920) — §9.3 */
+  --section: clamp(4rem, 2.9rem + 4.5vw, 7.5rem);          /* 80 (390) → 148 (1440) → 180 (1920) — §9.3 */
   --section-tight: clamp(3.5rem, 2.703rem + 3.268vw, 7rem);      /* 56 → 112 */
-  --container: 1800px;            /* §9.6: near full bleed — content runs to the gutters up to 1928px screens */
+  --container: 1320px;   /* 1240 content + 2 × 40 padding */            /* §9.6: near full bleed — content runs to the gutters up to 1928px screens */
   --container-narrow: 760px;
-  --container-wide: 1800px;
-  --gutter-x: clamp(20px, 3.2vw, 64px);            /* §9.6: 20 at 390 → 46 at 1440 → 61 at 1920 (Apple/Palantir-tight edges) */
+  --container-wide: 1320px;
+  --gutter-x: clamp(20px, 2.8vw, 40px);            /* §9.6: 20 at 390 → 46 at 1440 → 61 at 1920 (Apple/Palantir-tight edges) */
   --grid-gap: clamp(1rem, .618rem + 1.569vw, 2.5rem);            /* 16 → 40 */
   --ann-real: 44px;               /* AnnouncementBar height as rendered (44 touch / phones, 36 fine pointer ≥ 600) */
   --chrome-top: var(--header-h);  /* header (+ the announcement bar when it shows): what a full-screen hero subtracts */
@@ -89,7 +93,7 @@
   --scroll-offset: calc(var(--header-h-compact) + var(--s-4));
 
   /* ── 1.4 Shape, lines, depth ── */
-  --r-sm: 2px;
+  --r-sm: 0px;   /* square corners everywhere */
   --hairline: 1px;
   --rule-w-strong: 2px;
   --shadow-panel: 0 24px 48px -24px rgba(11, 27, 51, .28);   /* mega-menu + mobile menu only */

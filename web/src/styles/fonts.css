@@ -1,62 +1,42 @@
-/* src/styles/fonts.css — REDESIGN-V3 §1.2. Self-hosted variable faces copied to public/fonts by scripts/copy-fonts.mjs
-   (never import fontsource CSS). Source Serif 4: wght 200–900 + opsz 8–60 (font-optical-sizing: auto gives the display
-   cut at headline sizes). Inter: wght 100–900 + opsz 14–32. Latin subset; it has no → (U+2192): arrows are SVG icons. */
+/* src/styles/fonts.css — v4 "Delft" (Ganeaysh's developer guide, 20 Nov 2026): Bodoni Moda for headlines (only at
+   24px and above), Manrope for everything else. Self-hosted variable woff2 copied to public/fonts by
+   scripts/copy-fonts.mjs (Fontsource; never Google Fonts at runtime). Bodoni Moda: wght 400–900 + opsz 6–96 (optical
+   sizing auto gives the high-contrast display cut at headline sizes). Manrope: wght 200–800. */
 @font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4-latin-opsz-normal.woff2") format("woff2");
-  font-weight: 200 900; font-style: normal; font-display: swap;
+  font-family: "Bodoni Moda";
+  src: url("/fonts/bodoni-moda-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 400 900; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4-latin-opsz-italic.woff2") format("woff2");
-  font-weight: 200 900; font-style: italic; font-display: swap;
+  font-family: "Bodoni Moda";
+  src: url("/fonts/bodoni-moda-latin-opsz-italic.woff2") format("woff2");
+  font-weight: 400 900; font-style: italic; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-latin-opsz-normal.woff2") format("woff2");
-  font-weight: 100 900; font-style: normal; font-display: swap;
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800; font-style: normal; font-display: swap;
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-
-/* ── Metric-matched fallbacks (CLS ≈ 0 on swap). MEASURED 10 Nov 2026 in Chromium (research/v3/scripts/
-   foundation-a-fontmetrics.mjs) against Liberation Serif / Liberation Sans, which are metric clones of Times New Roman
-   and Arial:
-     Source Serif 4, opsz auto: 64px/420 = 1.029 × Times · 42px/430 = 1.047 × · 26px/500 = 1.111 × · italic 30px = 1.018 ×
-       → tuned for the headlines (the LCP H1 and section titles): Times 103.5 %.
-     Georgia is not installed here; it sets ≈ 9 % wider than Times, so Georgia → 95 % (estimate, verify on macOS/Windows).
-     Inter, opsz auto: 18px/400 = 1.053 × Arial · 21px = 1.038 × · 15px/600 = 1.013 × → 105 %.
-   Overrides = the web font's hhea metric ÷ size-adjust (Source Serif 4: ascent 1.036, descent 0.335, gap 0;
-   Inter: ascent 0.969, descent 0.241, gap 0). A face whose local() sources are all missing is skipped, so the stack
-   falls through Georgia-matched → Times-matched → generic. Weight ranges stop the browser synthesising bold. */
+/* Approximate metric-matched fallbacks to keep the swap shift small (Bodoni sets narrower than Times; Manrope a touch
+   wider than Arial). */
 @font-face {
-  font-family: "Source Serif Fallback";
-  src: local("Georgia"), local("Georgia-Regular");
+  font-family: "Bodoni Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("Tinos"), local("Georgia");
   font-weight: 100 900; font-style: normal;
-  size-adjust: 95%; ascent-override: 109.1%; descent-override: 35.3%; line-gap-override: 0%;
+  size-adjust: 96%; ascent-override: 112%; descent-override: 38%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: "Source Serif Fallback";
-  src: local("Georgia Italic"), local("Georgia-Italic");
+  font-family: "Bodoni Fallback";
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("Georgia Italic");
   font-weight: 100 900; font-style: italic;
-  size-adjust: 94%; ascent-override: 110.2%; descent-override: 35.6%; line-gap-override: 0%;
+  size-adjust: 95%; ascent-override: 112%; descent-override: 38%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: "Source Serif Fallback Times";
-  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("LiberationSerif"), local("Tinos");
+  font-family: "Manrope Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
   font-weight: 100 900; font-style: normal;
-  size-adjust: 103.5%; ascent-override: 100.1%; descent-override: 32.4%; line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Source Serif Fallback Times";
-  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"), local("Tinos Italic");
-  font-weight: 100 900; font-style: italic;
-  size-adjust: 101.8%; ascent-override: 101.8%; descent-override: 32.9%; line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Inter Fallback";
-  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo");
-  font-weight: 100 900; font-style: normal;
-  size-adjust: 105%; ascent-override: 92.3%; descent-override: 23%; line-gap-override: 0%;
+  size-adjust: 104%; ascent-override: 102%; descent-override: 29%; line-gap-override: 0%;
 }

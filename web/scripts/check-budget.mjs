@@ -28,7 +28,7 @@ if (!existsSync(DIST)) { console.error(`check-budget: ${DIST} does not exist. Ru
 
 const KB = 1024;
 const BUDGET = { js: 15 * KB, css: 60 * KB, fonts: 330 * KB };
-const FONT_FILES = ['inter-latin-opsz-normal.woff2', 'source-serif-4-latin-opsz-italic.woff2', 'source-serif-4-latin-opsz-normal.woff2'];
+const FONT_FILES = ['bodoni-moda-latin-opsz-italic.woff2', 'bodoni-moda-latin-opsz-normal.woff2', 'manrope-latin-wght-normal.woff2'];
 /** Signatures of the three libraries v3 removed. */
 const BANNED_JS = [
   ['GSAP', /GreenSock|gsap\.registerPlugin|_gsScope|ScrollTrigger\.create|\bgsap\.(?:to|from|timeline)\(/],

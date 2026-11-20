@@ -1,12 +1,13 @@
-/** The six pillars (DESIGN-SPEC 4.4; brief 5). Order and slugs are the brief's. */
+/** The six services. v4 (developer guide 20 Nov 2026): names, home lines (`promise`) and order follow Ganeaysh's list;
+ * keys stay stable. */
 import type { Pillar } from './types';
 import type { BleedSafeSlug, PhotoSlug } from './photos';
 
 export const pillars: Pillar[] = [
   {
     key: 'innovation', slug: 'product-innovation', n: 1,
-    name: 'Product and Category Innovation',
-    promise: 'From unmet need to a product that scales.',
+    name: 'Product development',
+    promise: 'New products, reformulation and cost-in-use, from bench to launch.',
     headline: 'From unmet need to a product that scales.',
     intro: 'We turn consumer and customer needs into clear technical briefs, then into products your plants can make profitably. Our roots are in oils and fats, so we are at our best where fat functionality decides whether a product succeeds: texture, bloom, shelf life, mouthfeel and cost.',
     helpWith: [
@@ -21,8 +22,8 @@ export const pillars: Pillar[] = [
   },
   {
     key: 'process', slug: 'process-design', n: 2,
-    name: 'Process Design and Plant Performance',
-    promise: 'Plants that run better, cost less and grow with you.',
+    name: 'Process development and plant performance',
+    promise: 'Design, debottleneck and run plants that cost less and deliver more.',
     headline: 'Plants that run better, cost less and grow with you.',
     intro: 'We have designed, commissioned and run oils and fats plants in four very different countries, from tropical Indonesia to a refinery operating at −25 °C in Ukraine. We bring that experience to your process, whether you are building new, expanding or fixing what you have.',
     helpWith: [
@@ -36,25 +37,9 @@ export const pillars: Pillar[] = [
     colourVar: '--pillar-process', hex: '#5B2A86', inkText: false, impactId: 'ukraine', shortLabel: 'Process',
   },
   {
-    key: 'quality', slug: 'food-safety-quality', n: 3,
-    name: 'Food Safety, Quality and Contaminants',
-    promise: 'Pass the audit. Protect the brand. Stay ahead of the regulation.',
-    headline: 'Pass the audit. Protect the brand. Stay ahead of the regulation.',
-    intro: 'Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at Cargill, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.',
-    helpWith: [
-      'Process contaminant mitigation: 3-MCPD and glycidyl esters, trans fats, mineral oil hydrocarbons',
-      'Plant and supplier audits; readiness for multinational customer pre-approval audits',
-      'Building FSQR systems, teams and culture',
-      'Packaging-related contaminants, product integrity and shelf life',
-      'Regulatory horizon scanning for India and Europe',
-    ],
-    deliverables: ['Audit reports with photographic evidence', 'gap analyses', 'corrective action plans', 'mitigation programmes', 'training'],
-    colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'tfa', shortLabel: 'Food safety',
-  },
-  {
-    key: 'strategy', slug: 'strategy-feasibility', n: 4,
-    name: 'Strategy, Feasibility and Market Entry',
-    promise: 'Clear answers for Go/No-Go decisions.',
+    key: 'strategy', slug: 'strategy-feasibility', n: 3,
+    name: 'Market access and strategy',
+    promise: 'Feasibility, market entry and clear Go/No-Go decisions, grounded in plant reality.',
     headline: 'Clear answers for Go/No-Go decisions.',
     intro: 'Before you commit capital, you need to know whether the market is real, whether the technology works and whether the numbers hold. We combine market analysis with technical judgement to give boards and investors a decision they can defend.',
     helpWith: [
@@ -68,9 +53,25 @@ export const pillars: Pillar[] = [
     colourVar: '--pillar-strategy', hex: '#F4C841', inkText: true, shortLabel: 'Strategy',   // impact: none (C-8)
   },
   {
+    key: 'quality', slug: 'food-safety-quality', n: 4,
+    name: 'Food safety, quality and regulatory',
+    promise: 'Process contaminants, audits and compliance, solved at the source.',
+    headline: 'Pass the audit. Protect the brand. Stay ahead of the regulation.',
+    intro: 'Certification covers the generic food safety system. Multinational customers look further, at the product- and process-specific risks. With eight years leading FSQR teams at Cargill, we help suppliers see their plant through the auditor’s eyes, and help brand owners understand their suppliers.',
+    helpWith: [
+      'Process contaminant mitigation: 3-MCPD and glycidyl esters, trans fats, mineral oil hydrocarbons',
+      'Plant and supplier audits; readiness for multinational customer pre-approval audits',
+      'Building FSQR systems, teams and culture',
+      'Packaging-related contaminants, product integrity and shelf life',
+      'Regulatory horizon scanning for India and Europe',
+    ],
+    deliverables: ['Audit reports with photographic evidence', 'gap analyses', 'corrective action plans', 'mitigation programmes', 'training'],
+    colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'tfa', shortLabel: 'Food safety',
+  },
+  {
     key: 'deals', slug: 'due-diligence', n: 5,
-    name: 'M&A, Due Diligence and Partnerships',
-    promise: 'See what is really behind the deal.',
+    name: 'Deals, due diligence and partnerships',
+    promise: 'See what is really behind an asset, a partner or a technology.',
     headline: 'See what is really behind the deal.',
     intro: 'Spreadsheets do not show a tired refinery, a fragile quality system or a technology that will not transfer. We give buyers, investors and partners an independent technical view, then help make the integration work.',
     helpWith: [
@@ -84,8 +85,8 @@ export const pillars: Pillar[] = [
   },
   {
     key: 'capability', slug: 'capability', n: 6,
-    name: 'Capability, Leadership and Transformation',
-    promise: 'Leave stronger teams behind.',
+    name: 'Fractional CTO and Head of R&D',
+    promise: 'Senior technical leadership, part-time, for as long as you need it.',
     headline: 'Leave stronger teams behind.',
     intro: 'Lasting change comes from people. We train technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
     helpWith: [

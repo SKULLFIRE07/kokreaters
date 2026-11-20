@@ -1,4 +1,4 @@
-// Copies the self-hosted variable woff2 files (REDESIGN-V3 §1.2: Source Serif 4 + Inter, opsz files) from node_modules
+// Copies the self-hosted variable woff2 files (v4 Delft, developer guide 20 Nov 2026: Bodoni Moda + Manrope) from node_modules
 // into public/fonts.
 // Runs as predev/prebuild. Idempotent: skips files that are already identical.
 import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync, unlinkSync } from 'node:fs';
@@ -9,9 +9,9 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public', 'fonts');
 
 const FILES = [
-  ['@fontsource-variable/source-serif-4', 'source-serif-4-latin-opsz-normal.woff2'],
-  ['@fontsource-variable/source-serif-4', 'source-serif-4-latin-opsz-italic.woff2'],
-  ['@fontsource-variable/inter', 'inter-latin-opsz-normal.woff2'],
+  ['@fontsource-variable/bodoni-moda', 'bodoni-moda-latin-opsz-normal.woff2'],
+  ['@fontsource-variable/bodoni-moda', 'bodoni-moda-latin-opsz-italic.woff2'],
+  ['@fontsource-variable/manrope', 'manrope-latin-wght-normal.woff2'],
 ];
 
 mkdirSync(outDir, { recursive: true });
