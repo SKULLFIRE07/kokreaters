@@ -33,9 +33,8 @@ export const site = {
   /** Pack 3: cookie-free Plausible analytics, off by default. Set PUBLIC_PLAUSIBLE_DOMAIN (e.g. kokreaters.com) to load it.
    *  Events: book-call, form-send, playbook-download (src/lib/analytics.ts). */
   plausibleDomain: ((env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined) || null) as string | null,
-  /** "Ask KoKreaters" chat widget. Pack 3 lead decision 5: OFF by default; PUBLIC_CHAT=on turns it back on. When off it
-   *  is not rendered on any page (no launcher, no panel, and its lazy chat.ts chunk is never requested). */
-  chat: env.PUBLIC_CHAT === 'on',
+  /** V5 combined brief: no assistant is rendered or shipped in the browser. */
+  chat: false,
   legal: { registration: null as string | null },             // CONFIRM 11 e.g. "KvK 00000000 · VAT NL000000000B00"
   trademark: '™',                                             // CONFIRM 12
 } as const;

@@ -1,0 +1,32 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import type { PhotoSlug } from '@/data/photos';
+const steps: { name: string; line: string; photo: PhotoSlug; href: string }[] = [
+  { name: 'Develop', line: 'Concept, formulation and pilot trials', photo: 'develop-pipette', href: '/expertise/product-innovation' },
+  { name: 'Scale', line: 'Process design, scale-up and plant performance', photo: 'scale-tanks', href: '/expertise/process-design' },
+  { name: 'Access', line: 'Regulatory, supply chain and market entry', photo: 'access-ship', href: '/expertise/strategy-feasibility' },
+];
+---
+<section id="our-approach" class="ha band band--ice" aria-labelledby="approach-heading">
+  <div class="container">
+    <div class="ha__head"><h2 id="approach-heading">From the lab, to the plant,<br class="ha__break" /> to the market.</h2><ArrowLink href="/approach">How we work</ArrowLink></div>
+    <ul class="ha__grid" role="list">{steps.map((step) => <li><a class="ha__card u-zoom" href={step.href}>
+      <Photo slug={step.photo} fill sizes="(min-width: 1000px) 380px, (min-width: 700px) 30vw, calc(100vw - 40px)" widths={[400,640,800]} />
+      <div class="ha__shade" aria-hidden="true"></div><div class="ha__text"><p>{step.name}</p><h3>{step.line}</h3></div>
+    </a></li>)}</ul>
+  </div>
+</section>
+<style>
+  .ha__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 36px; }
+  .ha__head h2 { font-size: var(--fs-h2); font-weight: 500; line-height: 1.08; max-width: 24ch; }
+  .ha__grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; list-style: none; padding: 0; margin: 0; }
+  .ha__card { position: relative; isolation: isolate; display: flex; align-items: end; min-height: 360px; text-decoration: none; color: var(--white); background: var(--navy-900); overflow: hidden; }
+  .ha__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,31,77,0) 0%, rgba(14,31,77,0) 35%, rgba(14,31,77,.88) 60%, rgba(14,31,77,.98) 100%); }
+  .ha__text { position: relative; z-index: 1; padding: 28px; }
+  .ha__text p { font: 700 .875rem/1.4 var(--font-sans); color: var(--saffron); margin-bottom: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .ha__text h3 { font-size: 1.875rem; font-weight: 500; line-height: 1.18; color: var(--white); }
+  .ha__card:hover h3 { text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: 1px; }
+  @media (min-width: 700px) { .ha__grid { grid-template-columns: repeat(3,minmax(0,1fr)); } .ha__card { min-height: 440px; } .ha__text { padding: 22px; } }
+  @media (max-width: 599px) { .ha__break { display: none; } }
+</style>

@@ -30,8 +30,7 @@ const current = (href: string) =>
   <div class="site-header__bar">
     <Container class="site-header__inner">
       <a class="site-header__home" href="/" aria-label={labels.homeLabel}>
-        <Logo variant="navy-tagline" height={62} loading="eager" class="site-header__logo site-header__logo--full" alt="" />
-        <Logo variant="navy" height={38} loading="eager" class="site-header__logo site-header__logo--short" alt="" />
+        <Logo variant="navy-tagline" height={60} loading="eager" class="site-header__logo site-header__logo--full" alt="" />
       </a>
 
       <nav class="site-nav" aria-label={labels.navLabel}>
@@ -100,16 +99,20 @@ const current = (href: string) =>
 
   .site-header :global(.site-header__inner) { height: 100%; display: flex; align-items: center; gap: var(--s-5); }
 
-  /* ── Logo: tagline version (desktop, top) ↔ no-tagline (mobile, and the shrunken bar) ── */
+  /* ── Logo: full logo with tagline kept at all times, scaled down on scroll & mobile ── */
   .site-header__home { position: relative; display: inline-flex; align-items: center; flex: none; height: 100%; text-decoration: none; }
   .site-header__home:focus-visible { outline-offset: 2px; }
-  .site-header :global(.site-header__logo) { transition: opacity var(--d-2) var(--ease-out); }
-  .site-header :global(.site-header__logo--full) { display: none; }
+  .site-header :global(.site-header__logo--full) {
+    --logo-h: 42px !important;
+    transition: var(--d-2) var(--ease-out);
+  }
   @media (min-width: 1024px) {
-    .site-header :global(.site-header__logo--full) { display: inline-flex; }
-    .site-header :global(.site-header__logo--short) { position: absolute; left: 0; top: 50%; translate: 0 -50%; opacity: 0; }
-    .site-header.is-scrolled :global(.site-header__logo--full) { opacity: 0; }
-    .site-header.is-scrolled :global(.site-header__logo--short) { opacity: 1; }
+    .site-header :global(.site-header__logo--full) {
+      --logo-h: 60px !important;
+    }
+    .site-header.is-scrolled :global(.site-header__logo--full) {
+      --logo-h: 44px !important;
+    }
   }
 
   /* ── Desktop nav (bug 6: from 1024px) ── */

@@ -8,14 +8,14 @@ export const pillars: Pillar[] = [
   {
     key: 'innovation', slug: 'product-innovation', n: 1,
     name: 'Product development',
-    promise: 'New products, reformulation and cost-in-use, from bench to launch.',
+    promise: 'New foods and reformulation, from whipped toppings and bakery to chocolate, snacks and sauces. Bench to launch, with cost-in-use.',
     headline: 'From unmet need to a product that scales.',
-    intro: 'We turn consumer and customer needs into clear technical briefs, then into products your plants can make profitably. Our roots are in oils and fats, so we are at our best where fat functionality decides whether a product succeeds: texture, bloom, shelf life, mouthfeel and cost.',
+    intro: 'We turn consumer and customer needs into clear technical briefs, then into products your plants can make profitably. Our roots are in specialty ingredients, so we are at our best where ingredient functionality decides whether a product succeeds: taste, texture, stability, shelf life and cost.',
     helpWith: [
-      'Specialty fats: cocoa butter equivalents (CBE), confectionery and filling fats, bakery shortenings, margarines and laminating fats', // CONFIRM 7
-      'Feed, pet food, plant-based, dairy and specialised nutrition applications',   // pack 3 brief: feed, pet food and nutrition
-      'AI-assisted formulation: more options screened, faster, against cost-in-use',   // pack 3 brief; COMPOSED wording
-      'Reformulation and renovation: trans-fat elimination, saturated fat reduction, cleaner labels, cost-in-use',
+      'New foods for finished products: whipped toppings and creams, bakery and patisserie, chocolate and confectionery, snacks, sauces and beverages',
+      'Reformulation and renovation: sugar, salt, trans-fat and saturated-fat reduction, cleaner labels, cost-in-use',
+      'Plant-based, dairy-alternative and specialised nutrition applications, feed and pet food',
+      'Specialty ingredients and fats: cocoa butter equivalents (CBE), filling fats, bakery shortenings, margarines and laminating fats',
       'Sensory evaluation, consumer insight and foresight',
       'Technical road-mapping and innovation pipelines',
     ],
@@ -23,14 +23,14 @@ export const pillars: Pillar[] = [
     colourVar: '--pillar-innovation', hex: '#2C509E', inkText: false, impactId: 'story-india', shortLabel: 'Product',
     audience: 'For R&D heads and business owners who need products that sell and plants that can make them.',   // COMPOSED
     engagement: 'Defined project, stage by stage from brief to launch',                                         // COMPOSED
-    offer: { title: 'Book a product and cost-in-use review', line: 'One product, one plant: where the recipe, the fat system and the cost can improve.' },   // COMPOSED
+    offer: { title: 'Book a product and cost-in-use review', line: 'One product, one plant: where the recipe, the ingredient system and the cost can improve.' },   // COMPOSED
   },
   {
     key: 'process', slug: 'process-design', n: 2,
     name: 'Process development and plant performance',
     promise: 'Design, debottleneck and run plants that cost less and deliver more.',
     headline: 'Plants that run better, cost less and grow with you.',
-    intro: 'We have designed, commissioned and run oils and fats plants in four very different countries, from tropical Indonesia to a refinery operating at −25 °C in Ukraine. We bring that experience to your process, whether you are building new, expanding or fixing what you have.',
+    intro: 'We have designed, commissioned and run food and ingredient plants in four very different countries, from tropical Indonesia to a refinery operating at −25 °C in Ukraine. We bring that experience to your process, whether you are building new, expanding or fixing what you have.',
     helpWith: [
       'Refining, fractionation, interesterification and blending process design',
       'Greenfield and brownfield projects, commissioning and start-up',
@@ -41,8 +41,8 @@ export const pillars: Pillar[] = [
     deliverables: ['Process design basis', 'plant assessments', 'debottlenecking plans', 'commissioning support', 'technology transfer packages'],
     colourVar: '--pillar-process', hex: '#5B2A86', inkText: false, impactId: 'story-ukraine', shortLabel: 'Process',
     audience: 'For plant heads and operations directors building, expanding or fixing a plant.',   // COMPOSED
-    engagement: 'Diagnostic sprint, 2–3 weeks',                                                    // brief example
-    offer: { title: 'Book a 2-week diagnostic sprint', line: 'A site visit, your data and process reviewed, and a prioritised roadmap with the value at stake.' },   // brief offer; line = engage item 1
+    engagement: 'Diagnostic sprint',
+    offer: { title: 'Book a diagnostic sprint', line: 'A site visit, your data and process reviewed, and a prioritised roadmap with the value at stake.' },
   },
   {
     key: 'strategy', slug: 'strategy-feasibility', n: 3,
@@ -80,7 +80,7 @@ export const pillars: Pillar[] = [
     deliverables: ['Audit reports with photographic evidence', 'gap analyses', 'corrective action plans', 'mitigation programmes', 'training'],
     colourVar: '--pillar-quality', hex: '#C8457E', inkText: false, impactId: 'story-who', shortLabel: 'Food safety',
     audience: 'For quality heads, suppliers and brand owners facing customer audits and tighter limits.',   // COMPOSED
-    engagement: 'Diagnostic sprint, 2–3 weeks, on site',                                                   // COMPOSED (engage item 1)
+    engagement: 'Diagnostic sprint, on site',                                                              // V6 brief
     offer: { title: 'Get a contaminant risk review', line: 'Your raw materials, process and packaging checked for 3-MCPD, GE, trans fats and mineral oils.' },   // brief offer; line COMPOSED from the help list
   },
   {
@@ -103,27 +103,23 @@ export const pillars: Pillar[] = [
   },
   {
     key: 'capability', slug: 'technology-leadership', n: 6,
-    name: 'Technology and R&D leadership, on demand',
-    promise: 'A seasoned CTO or Head of R&D in your leadership team, for the days and months you need.',
-    /* v4 pack 2 (brief item 6): renamed (the old part-time CTO wording is retired everywhere on the site). The key stays
-       'capability' (stable data key); the slug and every link follow `slug`. The body restates the brief's own
-       "Leadership on demand" engagement (item 31) and the v3 capability-building content (training, transfer,
-       coaching, organisation design). */
-    headline: 'A seasoned CTO or Head of R&D in your leadership team, for the days and months you need.',
-    intro: 'Not every business needs a full-time CTO or Head of R&D, but every growing one needs that judgement. We join your leadership team for a set number of days each month: we own the technical agenda with your team, steer R&D and advise the board. And because lasting change comes from people, we train your technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
+    name: 'Technology and innovation leadership',
+    promise: 'Senior technical and innovation leadership for your business, built around the outcomes you need.',
+    headline: 'Senior technical and innovation leadership for your business, built around the outcomes you need.',
+    intro: 'Not every business needs a full-time CTO or Head of R&D, but every growing one needs that judgement. We work alongside your leadership team as a long-term partner: we shape the technical and innovation agenda with your team, steer R&D and advise the board. And because lasting change comes from people, we train your technical teams, transfer know-how between sites and coach leaders through growth and change, drawing on experience leading teams across the Americas, EMEA and Asia-Pacific.',
     helpWith: [
-      'Technology and R&D leadership on demand: your CTO, technical director or Head of R&D for a set number of days each month',
+      'Technology and innovation leadership: the senior judgement of a CTO, technical director or Head of R&D, as a long-term partner',
       'R&D steering, board advisory and ongoing technical counsel',
       'Organisation design for R&D, technical services and quality',
-      'Technical training: oils and fats, specialty fats, applications, FSQR',
+      'Technical training: ingredients and applications, processing, FSQR',
       'Technology transfer and site start-up coaching',
       'Leadership development for technical leaders',
     ],
-    deliverables: ['CTO and Head of R&D roles, on demand', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
-    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'story-ai-design', shortLabel: 'R&D leadership',
+    deliverables: ['Technical and innovation leadership', 'R&D steering', 'organisation designs', 'training programmes and academies', 'transfer playbooks'],
+    colourVar: '--pillar-capability', hex: '#4C9BE8', inkText: true, impactId: 'story-product-design', shortLabel: 'Technology leadership',
     audience: 'For owners and CEOs who need senior technical judgement without a full-time hire.',   // COMPOSED
-    engagement: 'Leadership on demand, typically 6–12 months',                                      // pack 3 brief
-    offer: { title: 'Scope a leadership-on-demand term', line: 'The days, the term and the monthly board report agreed in one conversation.' },   // COMPOSED
+    engagement: 'Long-term partnership',
+    offer: { title: 'Scope a long-term partnership', line: 'The agenda, the outcomes and the reporting agreed in one conversation.' },
   },
 ];
 
@@ -256,13 +252,13 @@ export const redFlagSample = {
   ],
 } as const;
 
-/** Technology and R&D leadership: how it works in practice (brief: days per month, 6–12 month term, the monthly board pack). */
+/** Technology and innovation leadership: how it works in practice (V6 brief Table 5 R5). */
 export const leadershipInPractice = {
-  title: 'How it works in practice',          // brief wording
+  title: 'How it works in practice',
   items: [
-    { key: 'days', label: 'Days per month', value: 'A set number', line: 'Agreed up front, on site and remote.', confirm: 'typical days per month' },   // brief: "days per month" (no figure given)
-    { key: 'term', label: 'Typical term', value: '6–12 months', line: 'Long enough to set the agenda and build the team.' },   // brief: 6–12 months
-    { key: 'board', label: 'The board receives', value: 'A monthly report', line: 'Progress, technical risks and the decisions needed.' },   // COMPOSED
+    { key: 'agenda', label: 'The agenda', value: 'Agreed up front', line: 'The outcomes and milestones that matter to your business.' },
+    { key: 'working', label: 'The way of working', value: 'On site and remote', line: 'Set around your priorities.' },
+    { key: 'board', label: 'The board receives', value: 'A regular report', line: 'Progress, technical risks and the decisions needed.' },
   ],
 } as const;
 

@@ -15,8 +15,6 @@
  *  - floating WhatsApp button ([data-wa-float], phones): html.wa-show past the first screen, html.wa-zone while the
  *    CTA band / footer is in view
  *  - Plausible events: a click on any [data-event] sends that event (src/lib/analytics.ts; no-op without the script)
- *  - "Ask KoKreaters" launcher ([data-chat-launcher]): imports ./chat (its own chunk) on first intent, then opens it;
- *    hidden (html.chat-zone) while the CTA band / footer / any [data-chat-hide] is in view (IntersectionObserver)
  * Animation lives in CSS; JS only toggles state and waits out close transitions.
  */
 import { initConsent } from './consent';
@@ -236,51 +234,6 @@ function initFooterGroups() {
   }
 }
 
-/* ── Ask KoKreaters: chat.ts is a separate chunk, imported on the first hover / focus / click of the launcher ── */
-function initChatLauncher() {
-  const btn = document.querySelector<HTMLButtonElement>('[data-chat-launcher]');
-  if (!btn) return;
-  let mod: Promise<typeof import('./chat')> | null = null;
-  const get = () => (mod ??= import('./chat').then((m) => { m.boot(); return m; }));
-  btn.addEventListener('pointerenter', () => { void get(); }, { once: true });
-  btn.addEventListener('focus', () => { void get(); }, { once: true });
-  // until chat.ts has booted (it then owns the click), a click loads it and opens the panel
-  btn.addEventListener('click', () => { if (!btn.dataset.chatReady) void get().then((m) => m.open()); });
-  // Brief item 1: hide the launcher while the closing CTA band or the footer is in view (html.chat-zone), so it never
-  // covers the saffron "Start a conversation" button or the last cards. Without IntersectionObserver it simply stays.
-  // Phones (< 600px) also: while a hero's buttons pass through the bottom strip of the screen where the launcher sits
-  // (bottom 64px), so it never covers "Explore our expertise" or a page hero's second button on first view.
-  if (!('IntersectionObserver' in window)) return;
-  const inView = new Set<Element>();
-  const sync = () => html.classList.toggle('chat-zone', inView.size > 0);
-  const track = (entries: IntersectionObserverEntry[]) => {
-    for (const e of entries) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); }
-    sync();
-  };
-  const zones = $$<HTMLElement>('.cta-band, #site-footer, [data-chat-hide]');
-  // 96px early at the bottom, so it is gone before the band reaches the strip where it sits
-  const io = new IntersectionObserver(track, { threshold: 0, rootMargin: '0px 0px 96px 0px' });
-  zones.forEach((z) => io.observe(z));
-
-  const phone = mq('(max-width: 599px)');
-  const phoneZones = $$<HTMLElement>('.hh__actions, .hero__actions, [data-chat-hide-phone]');
-  let strip: IntersectionObserver | null = null;
-  const watchStrip = () => {
-    strip?.disconnect();
-    phoneZones.forEach((z) => inView.delete(z));
-    strip = null;
-    if (phone.matches && phoneZones.length) {
-      strip = new IntersectionObserver(track, { threshold: 0, rootMargin: `-${Math.max(0, window.innerHeight - 64)}px 0px 0px 0px` });
-      phoneZones.forEach((z) => strip!.observe(z));
-    }
-    sync();
-  };
-  watchStrip();
-  phone.addEventListener('change', watchStrip);
-  let t = 0;
-  window.addEventListener('resize', () => { window.clearTimeout(t); t = window.setTimeout(watchStrip, 200); }, { passive: true });
-}
-
 /* ── Floating WhatsApp button (phones) ───────────────────────────── */
 function initWhatsApp() {
   if (!document.querySelector('[data-wa-float]')) return;
@@ -317,7 +270,6 @@ function boot() {
   initMotion();
   initFooterGroups();
   initConsent();
-  initChatLauncher();
   initWhatsApp();
   initEvents();
   html.classList.add('chrome-ready', 'motion-booted');

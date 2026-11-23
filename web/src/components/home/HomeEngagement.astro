@@ -1,0 +1,24 @@
+---
+import BookCall from '@/components/ui/BookCall.astro';
+import { engage } from '@/data/home';
+---
+<section id="engage" class="he band band--white" aria-labelledby="engage-heading">
+  <div class="container">
+    <div class="he__head"><h2 id="engage-heading">{engage.headline}</h2><p>{engage.intro}</p></div>
+    <ul class="he__grid" role="list">
+      {engage.cards.map((item) => <li><h3>{item.title}</h3><p>{item.line}</p></li>)}
+    </ul>
+    <BookCall variant="secondary" />
+  </div>
+</section>
+<style>
+  .he__head { display: grid; gap: 20px; margin-bottom: 40px; }
+  .he__head h2 { font-size: var(--fs-h2); font-weight: 500; line-height: 1.08; }
+  .he__head > p { max-width: 48ch; color: var(--fg-2); font-size: 1.125rem; line-height: 1.65; }
+  .he__grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 28px; list-style: none; margin: 0 0 36px; padding: 0; }
+  .he__grid li { padding-top: 24px; border-top: 1px solid var(--rule); }
+  .he__grid h3 { font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.2; font-weight: 500; }
+  .he__grid p { margin-top: 16px; font-size: 1rem; line-height: 1.65; color: var(--fg-2); }
+  @media (min-width: 600px) { .he__grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 36px; } }
+  @media (min-width: 1000px) { .he__head { grid-template-columns: 1fr 1fr; align-items: end; gap: 64px; } .he__grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 32px; } }
+</style>

@@ -1,0 +1,17 @@
+---
+import { comingSoon } from '@/lib/insights';
+interface Props { id: string }
+const { id } = Astro.props;
+const planned = (await comingSoon()).filter((entry) => ['bleaching-earth'].includes(entry.id));
+---
+<aside class="preparing" aria-labelledby={id}>
+  <h3 id={id}>In preparation</h3>
+  <ul role="list">{planned.map((entry) => <li>{entry.data.title}</li>)}</ul>
+</aside>
+<style>
+  .preparing { border-top: 1px solid var(--rule); margin-top: 48px; padding-top: 24px; display: grid; gap: 16px 32px; }
+  .preparing h3 { font: 700 .9375rem/1.5 var(--font-sans); color: var(--label); }
+  .preparing ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px 32px; }
+  .preparing li { font-size: 1rem; line-height: 1.6; color: var(--fg-2); max-width: 48ch; }
+  @media (min-width: 900px) { .preparing { grid-template-columns: 160px minmax(0,1fr); } .preparing ul { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+</style>

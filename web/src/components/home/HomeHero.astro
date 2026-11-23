@@ -24,6 +24,7 @@ import { hero } from '@/data/home';
     <h1 id="hero-title" class="hh__title" data-gsap="hero-title">
       {hero.headlineLines.map((l, i) => <span class="ln"><span style={`--ln:${i}`}>{l}</span></span>)}
     </h1>
+    <p class="hh__intro">{hero.sub}</p>
     <div class="hh__actions">
       <BookCall variant="saffron" size="lg" label={hero.primary.label} />
       <Button href={hero.secondary.href} variant="ghost-on-dark" size="lg">{hero.secondary.label}</Button>
@@ -42,17 +43,18 @@ import { hero } from '@/data/home';
     position: absolute; inset: 0; z-index: -1; pointer-events: none;
     background: linear-gradient(180deg, rgba(14, 31, 77, .62) 0%, rgba(14, 31, 77, .86) 45%, rgba(14, 31, 77, .94) 100%);
   }
-  .hh__inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 56px 40px; }
+  .hh__inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 48px 36px; }
   .hh__title {
-    margin: 24px 0 0; max-width: 13ch;
-    font-family: var(--font-serif); font-weight: 500; font-size: 2.75rem; line-height: 1.08; letter-spacing: -0.01em;
+    margin: 24px 0 0; max-width: 17ch;
+    font-family: var(--font-serif); font-weight: 500; font-size: clamp(2.5rem, 7vw, 3.25rem); line-height: 1.08; letter-spacing: -0.01em;
     color: var(--white); text-wrap: initial;
   }
+  .hh__intro { margin-top: 24px; max-width: 58ch; font-size: 1.0625rem; line-height: 1.65; color: #E4EAF5; }
   .hh__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
   /* bug 1: own row, in flow, ≥ 32px below the buttons */
   .hh__proof {
     display: flex; flex-direction: column; gap: 10px;
-    margin: 48px 0 0; padding: 20px 0 0; list-style: none;
+    margin: 36px 0 0; padding: 20px 0 0; list-style: none;
     border-top: 1px solid rgba(255, 255, 255, .22);
     font-size: .9375rem; font-weight: 600; line-height: 1.4; color: #DCE4F2;
     font-variant-caps: all-small-caps; letter-spacing: .06em;
@@ -62,18 +64,19 @@ import { hero } from '@/data/home';
 
   @media (max-width: 599px) {
     .hh__actions :global(.btn) { flex: 1 1 100%; }
-    .hh :global(.hh__eyebrow) { letter-spacing: .1em; font-size: .75rem; gap: 12px; }
+    .hh :global(.hh__eyebrow) { letter-spacing: .08em; font-size: .875rem; gap: 12px; }
     .hh :global(.hh__eyebrow .eyebrow__rule) { width: 28px; }
   }
   @media (min-width: 900px) {
     .hh__scrim {
       background: linear-gradient(90deg, rgba(14, 31, 77, .94) 0%, rgba(14, 31, 77, .82) 42%, rgba(14, 31, 77, .25) 75%, rgba(14, 31, 77, .05) 100%);
     }
-    .hh__inner { padding-block: 72px 48px; }
-    .hh__title { max-width: 16ch; font-size: clamp(3.5rem, 1.6rem + 3.6vw, 5.75rem); line-height: 1.04; }
-    .hh__actions { margin-top: 44px; }
+    .hh__inner { padding-block: clamp(48px, 5vh, 72px) 40px; }
+    .hh__title { max-width: 17ch; font-size: clamp(3.5rem, 1.4rem + 3.3vw, 5.25rem); line-height: 1.04; }
+    .hh__intro { font-size: 1.125rem; max-width: 58ch; }
+    .hh__actions { margin-top: 28px; }
     /* three equal parts on one row, divided by thin rules; each wraps inside its own column */
-    .hh__proof { display: grid; grid-template-columns: 1.35fr 1fr 1.15fr; gap: 0; margin-top: 56px; max-width: 1000px; }
+    .hh__proof { display: grid; grid-template-columns: 1.35fr 1fr 1.15fr; gap: 0; margin-top: 40px; max-width: 1000px; }
     .hh__part { max-width: 34ch; padding-inline: 20px; border-left: 1px solid rgba(255, 255, 255, .3); }
     .hh__part:first-child { padding-left: 0; border-left: 0; }
   }

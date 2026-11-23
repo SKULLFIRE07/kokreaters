@@ -92,7 +92,7 @@ export const credentials: CredentialGroup[] = [
     id: 'education', heading: 'Education', status: 'confirmed',
     items: [
       { main: 'Food Technology', meta: 'CSIR-CFTRI Mysore' },
-      { main: 'BSc Chemistry', meta: 'University of Pune' },
+      { main: 'Chemistry', meta: 'University of Pune' },
     ],
   },
   {

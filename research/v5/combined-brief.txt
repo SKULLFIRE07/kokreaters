@@ -1,0 +1,122 @@
+KoKreaters website: combined brief (v2 + v3 + v4)
+23 November 2026 · Ganeaysh Kulkarni
+Direction
+Please build one combined homepage that takes the warmth and imagery of v2, the engagement structure of v3, and the logo, navigation and credibility of v4. It should look highly professional, read clearly as oils, fats and food, and contain no reference to AI anywhere.
+Versions referred to below:
+v2: the earlier holding page (rapeseed hero, photo cards for Develop / Scale / Access, “A Dutch base. A global reach.”, founder quote). It was deployed on the v3 address before the update.
+v3: the current build at kokreaters-v3.vercel.app (“How we engage”, confidentiality strip, playbook download).
+v4: kokreaters-v4.vercel.app (new logo, top navigation, founder card, six-figure track record, credentials).
+What to keep from each version
+Each version has strengths. Keep these, and drop anything not listed unless it appears in the homepage order below.
+Area
+Take from
+What exactly
+Logo
+v4
+Full-colour network mark, “KoKreaters” wordmark with gold arrow, tagline “Connect · Collaborate · Create”
+Navigation
+v4
+Visible top menu on desktop: Expertise ▾, Industries, Impact, Insights, About, plus a solid “Book a call” button. Hamburger only on mobile
+Hero
+v2 + v4
+v2 rapeseed hero with its intro paragraph; v4 gold primary button “Book a 30-minute call”; v3/v4 three credibility lines underneath
+Founder
+v4
+Founder card with photo directly after the hero
+Track record
+v4
+Six figures: 25 years, 8 sites, 3 regions, 2 national firsts, 3,000 t/day, 100 people
+Services
+v4
+Six services with line icons and arrows; title “Technology and R&D leadership, on demand”
+Where we help now
+v4
+Topic chips, with the changes in the next section
+How we engage
+v3
+Four models: Diagnostic sprint, Defined project, Leadership on demand, Expert review. Keep “Every engagement starts with a 30-minute conversation, at no cost”
+Our approach
+v2
+Three photo cards: Develop, Scale, Access
+Industries
+v2 imagery
+Photo tiles, extended to eight tiles (see food section)
+Impact
+v4
+Photo cards: 21% Indonesia, −25 °C Ukraine, WHO, with “Read the WHO story”
+Confidentiality
+v3
+“Confidential by default · We work under NDA · Client names shared only with their consent”
+Credentials
+v4
+CFTRI Mysore, University of Pune, IIM Ahmedabad, UC Berkeley, WHO recognition, as a compact strip
+Insights
+v3 / v4
+Two articles plus the free 3-MCPD and GE playbook download
+Netherlands
+v2
+“A Dutch base. A global reach.” with the canal photo
+Founder quote
+v2
+“Co-creation and creativity are at the soul of everything we do…”
+Closing
+v3 / v4
+“Let’s create something together.” and “Ganeaysh reads every message personally and replies within two working days.”
+Logo and removing AI references
+Use the v4 logo everywhere: header, footer, favicon, social share image and email signature. Retire the v2 logo and the v3 “K” wordmark completely.
+Nothing on the site should mention AI. Specifically:
+Remove the chip “AI-assisted formulation” from “Where we help now”. Replace it with “Whipped toppings, creams and dairy alternatives”.
+Remove the floating “Ask KoKreaters” button. It reads as a chatbot. If a floating button is wanted, use “Book a call” or a WhatsApp link instead.
+Search all pages, menus, metadata and alt text for “AI”, “artificial intelligence”, “machine learning” and “digital twin”, and remove them.
+Making it read as food
+The site should say clearly that KoKreaters works on finished foods, not only on oils, fats, bakery and chocolate. Four changes do this.
+1. A new homepage band: “Where fats meet food”. Place it right after “What we do”. A horizontal row of warm, appetising food photographs, each with a short label, scrollable on mobile.
+Headline: Where fats meet food.
+Line under it: Oils and fats decide the taste, texture, mouthfeel and shelf life of almost every food. We work from the fat blend to the finished product on the shelf.
+Tiles: Whipped toppings and creams · Non-dairy creamers · Bakery margarines and shortenings · Chocolate, compounds and coatings · Fillings and spreads · Ice cream and frozen desserts · Frying oils and snacks · Mayonnaise, dressings and sauces · Indian sweets and ghee alternatives · Plant-based foods
+Button: Discuss your application
+2. Industries grow from six tiles to eight, in a clean 4 × 2 grid:
+Agri and oilseeds
+Edible oils and specialty fats
+Bakery and food service
+Cocoa, chocolate and confectionery
+Dairy alternatives, toppings and creams (new): whipped toppings, non-dairy creamers, cooking creams, ice cream fats, cheese analogues
+Culinary and prepared foods (new): frying and snacks, sauces and dressings, ready meals, Indian sweets and namkeen
+Nutrition and specialty ingredients
+Feed and animal nutrition
+Each new tile needs its own industry page with the same layout as the existing ones. For dairy alternatives, toppings and creams, the page should cover fat blend and emulsifier design, overrun and foam stability, freeze-thaw and piping performance, homogenisation, UHT and aeration scale-up, and cost-in-use.
+3. Food in the words, not only in the pictures.
+Hero eyebrow: Techno-commercial consulting · Oils, fats and food
+Product development text: New foods and reformulation, from whipped toppings and fillings to bakery fats and chocolate. Bench to launch, with cost-in-use.
+Browser title: KoKreaters | Oils, Fats and Food Product Consulting
+4. Image balance. About half the homepage photographs should be finished food (a whipped-cream dessert, croissant lamination, chocolate snap, frying, mithai), and half field, plant and lab. Use natural light and real food, with no generic stock smiles. Optionally, the hero can cross-fade slowly through three images: rapeseed field, plant, finished dessert, under the line From field, to plant, to plate.
+Combined homepage, top to bottom
+Sixteen blocks, alternating light and dark backgrounds so the page keeps a rhythm.
+Insight bar (all versions): latest article link.
+Header (v4): v4 logo, visible menu, “Book a call”.
+Hero (v2 + v4): rapeseed photo, “Deep expertise, turned into products, plants and markets.”, v2 intro paragraph, gold “Book a 30-minute call” plus “Explore our expertise”, then three credibility lines.
+Founder card (v4).
+Track record (v4): six figures.
+What we do (v4): six services with icons, then the “Where we help now” chips.
+Where fats meet food (new): food applications row.
+How we engage (v3): four models.
+Our approach (v2): Develop / Scale / Access photo cards.
+Industries (v2 imagery): eight tiles.
+Impact (v4): three photo cards, with the v3 confidentiality strip beneath.
+Credentials (v4): one compact strip.
+Insights (v3 / v4): two articles and the playbook download.
+A Dutch base. A global reach. (v2).
+Founder quote (v2).
+Closing call to action and footer (v3 / v4).
+If the page feels long, move Credentials to the About page and keep only the WHO line on the homepage.
+Copy, consistency and build fixes
+Hero overlap (v3): on a laptop screen, the hero buttons sit on top of the credibility lines. Give the credibility row its own space below the buttons.
+Counting numbers (v3): while the figures animate they show wrong values and grammar, e.g. “1 national firsts”. Start the animation only when the block is in view, and make sure each figure lands on its final value.
+One founder title everywhere: Founder and Principal, KoKreaters · Former Global Product & Process Design Director, Cargill · Chief Catalyst. Retire “Chief Catalyst and Founder” from v2.
+One set of figures everywhere: use the v4 numbers. Remove the v2 line “14 years in oils, fats and food ingredients”.
+Article dates: use 11 Nov 2026 (3-MCPD and GE) and 28 Oct 2026 (trans-fat), as in v3 and v4.
+Bleaching earth article: keep it as “In preparation”, and add a second one: Whipped toppings: how the fat blend decides overrun and stability.
+Mobile: the eight industry tiles become 2 × 4, and the food row scrolls sideways.
+Text colour: body text in the site’s dark navy rather than pure black, in line with the logo.
+Next step
+Please build this as a new preview (for example kokreaters-v5.vercel.app) and leave v3 and v4 in place, so I can compare all of them side by side. Once I have reviewed it, we will finalise and host it on the main domain.

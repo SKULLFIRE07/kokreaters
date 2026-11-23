@@ -21,6 +21,7 @@ import Filters from '@/components/insights/Filters.astro';
 import InsightList from '@/components/insights/InsightList.astro';
 import NewsletterForm from '@/components/ui/NewsletterForm.astro';
 import PlaybookCard from '@/components/ui/PlaybookCard.astro';
+import InPreparation from '@/components/insights/InPreparation.astro';
 import { visibleInsights } from '@/lib/insights';
 import { pageSeo } from '@/lib/seo';
 import { insights as insightsCopy } from '@/data/home';
@@ -47,6 +48,7 @@ const crumbs = [{ label: insightsCopy.overline, href: '/insights' }];
     <InsightList entries={list} priorityFirst filterable={list.length > 1}>
       <li slot="extra" class="library__playbook"><PlaybookCard variant="tile" id="playbook-insights" /></li>
     </InsightList>
+    <InPreparation id="insights-preparing" />
   </Section>
 </BaseLayout>
 

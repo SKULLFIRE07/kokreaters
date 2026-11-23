@@ -9,7 +9,7 @@
 import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Eyebrow from '@/components/ui/Eyebrow.astro';
-import { impact } from '@/data/home';
+import { impact, trustLine } from '@/data/home';
 ---
 <section id="impact" class="hr band band--navy" aria-labelledby="hr-heading">
   <div class="container">
@@ -36,6 +36,7 @@ import { impact } from '@/data/home';
       ))}
     </ul>
     <p class="hr__source">{impact.source}</p>
+    <ul class="hr__trust" role="list">{trustLine.map((line) => <li>{line}</li>)}</ul>
   </div>
 </section>
 
@@ -62,5 +63,7 @@ import { impact } from '@/data/home';
   .hr :global(.hr__more) { margin-top: -4px; color: var(--white); }
   .hr :global(.hr__more .arrow-link__icon) { color: var(--saffron); }
   .hr__source { margin: clamp(40px, 2vw + 28px, 56px) 0 0; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .18); max-width: 70ch; font-size: .875rem; line-height: 1.5; color: #AFC0E0; }
+  .hr__trust { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 28px 0 0; padding: 20px 0 0; border-top: 1px solid var(--rule); list-style: none; font-size: .9375rem; line-height: 1.5; color: #E4EAF5; }
+  .hr__trust li:first-child { color: var(--saffron); font-weight: 700; }
   @media (min-width: 900px) { .hr__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>

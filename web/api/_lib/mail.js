@@ -8,6 +8,7 @@
  *     visitor's plain-text email.
  *   FORMS_DRY_RUN=1 (or CONTACT_DRY_RUN=1) → nothing is sent; the caller logs instead.
  */
+import { emailSignature } from './brand.js';
 import { CONTACT_EMAIL } from './knowledge.js';
 import { escapeHtml } from './http.js';
 
@@ -44,7 +45,7 @@ export function visitorEmail(paragraphs, link) {
 <tr><td style="height:28px;"></td></tr>
 ${paragraphs.map(p).join('\n')}
 ${link ? `<tr><td style="padding:4px 28px 24px;"><a href="${escapeHtml(link.href)}" style="display:inline-block;padding:14px 24px;background:#1C3F94;color:#FFFFFF;font:700 15px/1.2 Arial,Helvetica,sans-serif;text-decoration:none;">${escapeHtml(link.label)}</a></td></tr>` : ''}
-<tr><td style="padding:16px 28px 28px;font:14px/1.5 Arial,Helvetica,sans-serif;color:#4A5878;">KoKreaters · Connect · Collaborate · Create<br><a href="https://kokreaters.com" style="color:#1C3F94;">kokreaters.com</a></td></tr>
+<tr><td style="padding:16px 28px 28px;font:14px/1.5 Arial,Helvetica,sans-serif;color:#4A5878;">${emailSignature()}<a href="https://kokreaters.com" style="color:#1C3F94;">kokreaters.com</a></td></tr>
 </table></body></html>`;
   return { text, html };
 }

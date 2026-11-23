@@ -20,6 +20,11 @@ import HomeResults from '@/components/home/HomeResults.astro';
 import HomeCredentials from '@/components/home/HomeCredentials.astro';
 import HomeIndustries from '@/components/home/HomeIndustries.astro';
 import HomeInsights from '@/components/home/HomeInsights.astro';
+import HomeApplications from '@/components/home/HomeApplications.astro';
+import HomeEngagement from '@/components/home/HomeEngagement.astro';
+import HomeApproach from '@/components/home/HomeApproach.astro';
+import HomeNetherlands from '@/components/home/HomeNetherlands.astro';
+import HomeQuote from '@/components/home/HomeQuote.astro';
 import { organization, professionalService, person, website } from '@/components/seo/schema';
 import { pageSeo } from '@/lib/seo';
 import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
@@ -32,8 +37,13 @@ const seo = { ...pageSeo('home'), jsonLd: [organization(), professionalService()
   <HomeFounder />
   <HomeProof />
   <HomeExpertise />
+  <HomeApplications />
+  <HomeEngagement />
+  <HomeApproach />
+  <HomeIndustries />
   <HomeResults />
   <HomeCredentials />
-  <HomeIndustries />
   <HomeInsights />
+  <HomeNetherlands />
+  <HomeQuote />
 </BaseLayout>

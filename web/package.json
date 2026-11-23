@@ -25,7 +25,7 @@
     "lhci": "lhci autorun",
     "contrast": "node scripts/contrast-check.mjs --table",
     "knowledge": "node scripts/build-knowledge.mjs",
-    "test:api": "node --test tests/api.test.mjs"
+    "test:api": "node --test tests/api.test.mjs tests/api-forms.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

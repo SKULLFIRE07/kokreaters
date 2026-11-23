@@ -11,17 +11,17 @@ import { minus25 } from '@/lib/typography';
 export const about = {
   overline: 'About',
   headline: 'Twenty-five years of making ingredients work.',
-  intro: 'After 25 years building and leading technical organisations in edible oils, specialty fats and food ingredients, Ganeaysh Kulkarni created KoKreaters: the senior, hands-on partner he wished he could call when he was running plants and R&D teams.',
+  intro: 'After 25 years building and leading technical organisations in food, agri and specialty ingredients, Ganeaysh Kulkarni created KoKreaters: the senior, hands-on partner he wished he could call when he was running plants and R&D teams.',
 };
 
 /** Item 21: shown by default. */
-export const shortBio = 'Ganeaysh is a food technologist who learned the trade where it is hardest: on the refinery floor. He has built facilities that had never existed in their countries, turned around plants in three very different climates, and led global product design for one of the world’s largest food and agriculture companies. Today he brings that whole journey, from the bench to the boardroom, to the businesses he works with.';
+export const shortBio = 'Ganeaysh is a food technologist who learned the trade where it is hardest: on the plant floor. He has built facilities that had never existed in their countries, turned around plants in three very different climates, and led global product and process design for one of the world’s largest food and agriculture companies. Today he brings that whole journey, from the bench to the boardroom, to the businesses he works with.';
 
 /** Item 21: "Read the long version". Each paragraph opens with its bold lead-in, as in the brief. */
 export const longBio: { lead: string; text: string }[] = [
   {
     lead: 'Where it started.',
-    text: 'Ganeaysh trained in food technology at CSIR-CFTRI Mysore, India’s leading food research institute, after a degree in chemistry from the University of Pune. He began on the plant floor, and that is where his instinct for what really works was formed.',
+    text: 'Ganeaysh trained in food technology at CSIR-CFTRI Mysore, India’s leading food research institute, after studying chemistry at the University of Pune. He began on the plant floor, and that is where his instinct for what really works was formed.',
   },
   {
     lead: 'Building firsts.',
@@ -29,7 +29,7 @@ export const longBio: { lead: string; text: string }[] = [
   },
   {
     lead: 'Going global.',
-    text: 'He then spent fourteen years in technical, R&D and food-safety leadership at Cargill. He led technical services, applications, R&D and FSQR for India, integrating food-safety systems through a major transformation and aligning them with WHO standards for industrial trans fat. He designed a bakery innovation architecture and led technology transfers across the Americas, Asia and EMEA, supported acquisitions with technical due diligence, and led category R&D for confectionery and plant-based foods. Finally, as Global Product & Process Design Director, he steered new product platforms across confectionery, plant-based, bakery and specialised nutrition, including an AI-enabled formulation system, with Fortune 500 customers and start-ups alike.',
+    text: 'He then spent fourteen years in technical, R&D and food-safety leadership at Cargill. He led technical services, applications, R&D and FSQR for India, integrating food-safety systems through a major transformation and aligning them with WHO standards for industrial trans fat. He designed a bakery innovation architecture and led technology transfers across the Americas, Asia and EMEA, supported acquisitions with technical due diligence, and led category R&D for confectionery and plant-based foods. Finally, as Global Product & Process Design Director, he steered new product platforms across confectionery, plant-based, bakery and specialised nutrition, with Fortune 500 customers and start-ups alike.',
   },
   {
     lead: 'What he is known for.',
@@ -64,7 +64,7 @@ export const timeline: TimelineRow[] = [
   { from: '2001', to: '2012', org: 'Wilmar', role: 'Technical Head Specialties to Technical Director, across India, Indonesia and Ukraine', achievement: 'Built India’s first integrated specialty fats facility and Ukraine’s first cold-climate palm oil refinery.' },
   { from: '2012', to: '2021', org: 'Cargill', role: 'Technical services, applications, R&D and FSQR leadership, India', achievement: 'Aligned food-safety systems with WHO standards for industrial trans fat.' },
   { from: '2021', to: '2023', org: 'Cargill', role: 'Regional Technical Lead and Bakery Technology Transfer Leader; Category R&D Leader, Confectionery and Plant-based', achievement: 'Led bakery technology transfers across the Americas, Asia and EMEA.' },
-  { from: '2023', to: '2026', org: 'Cargill', role: 'Global Product & Process Design Director', achievement: 'Steered new product platforms, including an AI-enabled formulation system.' },
+  { from: '2023', to: '2026', org: 'Cargill', role: 'Global Product & Process Design Director', achievement: 'Steered new product platforms.' },
   { from: 'Today', org: 'KoKreaters', role: 'Founder and Principal, the Netherlands', achievement: 'The senior, hands-on partner for agri, food and feed businesses.', now: true },   // COMPOSED (from the intro)
 ];
 
@@ -118,15 +118,12 @@ export const testimonials = {
 export const aboutPage = {
   bioMore: 'Read the long version',
   linkedin: 'LinkedIn profile',
-  /** Pack 3: downloadable short bio and high-resolution portrait, for event organisers. */
+  /** Pack 3: downloadable short bio for event organisers. */
   bioPdf: 'Download short bio (PDF)',
   bioPdfShort: 'Short bio (PDF)',
   /** Written by `node scripts/make-short-bio.mjs` (headless Chrome) from scripts/short-bio/short-bio.html. */
   bioPdfHref: '/downloads/ganeaysh-kulkarni-short-bio.pdf',
   bioPdfName: 'ganeaysh-kulkarni-short-bio.pdf',
-  portrait: 'High-resolution portrait',
-  portraitHref: '/downloads/ganeaysh-kulkarni-portrait.jpg',
-  portraitName: 'ganeaysh-kulkarni-portrait.jpg',
   /** Photo interlude over the Dutch polder: the home Netherlands band's headline (item 20). */
   interludeCaption: 'A Dutch base. A global reach.',
 };

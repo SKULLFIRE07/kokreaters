@@ -1,7 +1,7 @@
 /** Navigation and chrome labels (REDESIGN-V3 §3 chrome; DESIGN-SPEC 4.11). Approach stays top-level (client to decide). */
 import type { Link } from './types';
 import { pillars, expertiseOverview } from './pillars';
-import { industries } from './industries';
+import { industries, industryHref } from './industries';
 import { site } from '@/config/site';
 import { industries as homeIndustries } from './home';
 
@@ -25,7 +25,7 @@ export const approachLink: Link = { label: 'How we work', href: '/approach' };
 export const emailDisplay = 'office@KoKreaters.com';
 
 export const expertiseLinks: Link[] = pillars.map((p) => ({ label: p.name, href: `/expertise/${p.slug}` }));
-export const industryLinks: Link[] = industries.map((i) => ({ label: i.name, href: `/industries#${i.slug}` }));
+export const industryLinks: Link[] = industries.map((i) => ({ label: i.name, href: industryHref(i.slug) }));
 /**
  * The six industries of the mega-menu and the footer (brief: "six services and six industries"): the home tiles, each
  * linking to its Industries card when that anchor exists in industries.ts, else to the Industries page.
@@ -33,7 +33,7 @@ export const industryLinks: Link[] = industries.map((i) => ({ label: i.name, hre
 const industrySlugs = new Set(industries.map((i) => i.slug));
 export const sixIndustries: Link[] = homeIndustries.tiles.map((t) => ({
   label: t.name,
-  href: t.anchor && industrySlugs.has(t.anchor) ? `/industries#${t.anchor}` : '/industries',
+  href: t.anchor && industrySlugs.has(t.anchor) ? industryHref(t.anchor) : '/industries',
 }));
 
 /** Mobile menu links after the Expertise group. */

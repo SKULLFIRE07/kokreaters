@@ -20,7 +20,7 @@ const pending = (confirm: Unconfirmed['confirm'], note: string): Unconfirmed => 
  */
 export const impactStories: ImpactStory[] = [
   {
-    photo: 'refinery-01',
+    photo: 'spare-hall',
     id: 'story-india', n: 1, tag: 'PRODUCT AND PROCESS · INDIA',
     title: 'India’s first world-class integrated specialty fats facility',
     figures: [{ value: '1st', label: 'of its kind in India' }],
@@ -105,11 +105,11 @@ export const impactStories: ImpactStory[] = [
   },
   {
     photo: 'develop-pipette',
-    id: 'story-ai-design', n: 8, tag: 'INNOVATION · GLOBAL',
-    title: 'Product design at global scale, with AI in the loop',
+    id: 'story-product-design', n: 8, tag: 'INNOVATION · GLOBAL',
+    title: 'Product design at global scale',
     figures: [{ value: 'X', label: 'new product platforms', pending: pending('P-9', 'number of product platforms') }],
     challenge: 'A global portfolio across confectionery, plant-based, bakery and specialised nutrition needed faster, better-targeted innovation.',
-    done: 'As Global Product & Process Design Director, Ganeaysh steered the design of new product platforms. He designed an AI-enabled formulation system and pipeline, and built sustainability into product and process design from the start.',
+    done: 'As Global Product & Process Design Director, Ganeaysh steered the design of new product platforms. He built a formulation and development pipeline, with sustainability in product and process design from the start.',
     result: 'A multi-million-dollar innovation pipeline, co-created with Fortune 500 customers and start-ups across the Americas, EMEA and Asia-Pacific.',
     pillars: ['innovation', 'capability'], industries: [],
   },
@@ -122,6 +122,17 @@ export const impactStories: ImpactStory[] = [
     done: 'Ganeaysh carried out technical due diligence and planned post-acquisition integration, covering assets, processes, quality systems and people.',
     result: 'Clear, evidence-based technical findings for decision-makers, and integration plans ready on day one.',
     pillars: ['deals'], industries: [],
+  },
+  {
+    photo: 'food-cream',
+    id: 'story-plantbased', n: 10, tag: 'PRODUCT · EMEA AND ASIA-PACIFIC',
+    title: 'Plant-based foods that eat like the original',
+    figures: [{ value: 'Bench to plant', label: 'scale-up' }],
+    challenge: 'Food manufacturers moving into plant-based and dairy-alternative products needed toppings, creams, fillings and spreads that matched the original in taste, texture and mouthfeel. They had to run on existing lines, hold up through distribution and sell at a price the market would accept.',
+    done: 'As category R&D leader for confectionery and plant-based, Ganeaysh built ingredient-system platforms in which fats, proteins, emulsifiers and stabilisers were designed together rather than one at a time. He ran application trials with customers on their own equipment and took each platform from bench to commercial scale, with cost-in-use worked out at every step.',
+    result: 'New plant-based platforms adopted by food manufacturers across regions, with an eating experience close to the original and a clear cost-in-use case for each customer.',
+    pillars: ['innovation', 'process'],
+    industries: ['Dairy alternatives, toppings and creams', 'Food and beverage products', 'Plant-based'],
   },
 ];
 
@@ -148,13 +159,13 @@ export const impactStrip: { label: string; source: string; items: CareerFigure[]
 export const impactPage = {
   overline: 'Impact',
   headline: 'Results that started on the plant floor.',
-  lead: 'Nine stories from 25\u00A0years of building plants, products and markets: what was at stake, what was done, and what changed.',
-  partOne: 'Nine stories',                             // pack 3 (was "From our founder’s career")
+  lead: 'Ten stories from 25\u00A0years of building plants, products and markets: what was at stake, what was done, and what changed.',
+  partOne: 'Ten stories',                             // pack 3 (was "From our founder’s career")
   partTwo: 'KoKreaters engagements',
   anonymised: 'Anonymised',
   engagementDateline: 'KoKreaters engagement',
   labels: { challenge: 'The challenge', done: 'What was done', result: 'The result', verify: 'Source' },
-  storiesTitle: 'Nine stories',                         // COMPOSED (brief item 27 intro: "Nine stories …")
+  storiesTitle: 'Ten stories',                         // COMPOSED (brief item 27 intro: "Nine stories …")
   filters: { group: 'Filter the stories', service: 'Service', industry: 'Industry', all: 'All' },   // COMPOSED UI labels
   count: '{n} stories', countOne: '1 story',            // COMPOSED live count
   empty: 'No story matches both filters yet.',          // COMPOSED

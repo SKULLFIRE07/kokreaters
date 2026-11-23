@@ -22,13 +22,11 @@ import AnnouncementBar from '@/components/chrome/AnnouncementBar.astro';
 import Header from '@/components/chrome/Header.astro';
 import Footer from '@/components/chrome/Footer.astro';
 import CookieConsent from '@/components/chrome/CookieConsent.astro';
-import ChatWidget from '@/components/chrome/ChatWidget.astro';
 import WhatsAppButton from '@/components/chrome/WhatsAppButton.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Container from '@/components/ui/Container.astro';
 import CtaBand from '@/components/ui/CtaBand.astro';
 import type { PillarKey } from '@/data/types';
-import { site } from '@/config/site';
 
 type Page = 'home' | 'expertise' | 'pillar' | 'industries' | 'approach' | 'impact' | 'insights' | 'article' | 'about' | 'contact' | 'legal' | 'notfound';
 type CtaProps = {
@@ -51,7 +49,6 @@ interface Props {
   footerNewsletter?: boolean;
 }
 const { page, seo, pillar, breadcrumbs = [], ground = 'white', showCrumbs = false, cta } = Astro.props;
-const chatOn = site.chat && page !== 'contact';
 
 const showCta = cta === undefined ? !['contact', 'legal', 'notfound'].includes(page) : cta !== false;
 // v4: every page closes on the Deep Delft CtaBand (CtaBand's default ground), then the near-black footer.
@@ -69,7 +66,7 @@ const bodyGround = ground === 'cloud' ? 'grey' : ground;
 <html lang="en-GB" class="no-js">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <script is:inline>
 (function(d,w){var h=d.documentElement;h.classList.remove('no-js');h.classList.add('js');
 w.setTimeout(function(){if(!h.classList.contains('motion-booted'))h.classList.add('motion-failed');},3000);
@@ -93,8 +90,7 @@ d.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest
     </main>
     <Footer />
     <CookieConsent />
-    {chatOn && <ChatWidget />}
-    {!chatOn && page !== 'contact' && <WhatsAppButton />}
+    {page !== 'contact' && <WhatsAppButton />}
     <script>import '@/scripts/site.ts';</script>
   </body>
 </html>

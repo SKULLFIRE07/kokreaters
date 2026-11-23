@@ -8,8 +8,8 @@ import { careerFootnote, founderLine } from './career';
 import type { PhotoSlug } from './photos';
 import { bookingHref, bookingLabel } from '@/lib/booking';
 export const hero = {
-  /** Pack 3 "Make 25 years felt" point 1, verbatim. */
-  overline: '25 years · Agri, food and feed · Plant floor to boardroom',
+  /** V6 brief: positioning across agri-food, feed, nutrition and specialty ingredients. */
+  overline: 'Techno-commercial consulting · Agri-food, feed, nutrition and specialty ingredients',
   headline: 'Deep expertise, turned into products, plants and markets.',
   /** The H1 as display lines (desktop line breaks of the design; each line rises in its own mask on load). */
   headlineLines: ['Deep expertise,', 'turned into products,', 'plants and markets.'],
@@ -18,11 +18,10 @@ export const hero = {
   primary: { label: bookingLabel, href: bookingHref() },
   secondary: { label: 'Explore our expertise', href: '/expertise' },
   /**
-   * Pack 2 item 14: the proof line in small caps between thin rules. Pack 3 bug 1: on its own row below the buttons.
-   * Verbatim; split at the brief's " · ".
+   * V6 brief: first credibility line updated to product and process design director.
    */
   proofLine: [
-    'Former global R&D director at one of the world’s largest agri-food companies',
+    'Former global product and process design director at one of the world’s largest agri-food companies',
     'Two national industry firsts',
     'Trans-fat work praised by the WHO Director-General',
   ],
@@ -49,7 +48,7 @@ export const homeProofNote = careerFootnote;
  */
 export const proof: { value: string; count?: number; strong?: string; label: string }[] = [
   { value: '25', count: 25, strong: 'years', label: 'years in industry, from plant floor to boardroom' },
-  { value: '14', count: 14, strong: 'years', label: 'years in oils, fats and food ingredients' },
+  { value: '8', count: 8, strong: 'sites', label: 'sites across five countries' },
   { value: '5', count: 5, strong: 'countries', label: 'countries of hands-on plant and business leadership' },
   { value: 'WHO', strong: 'Director-General', label: 'Director-General recognition for trans-fat elimination work' },
 ];
@@ -77,10 +76,10 @@ export const helpNow = {
   label: 'Where we help now',
   themes: [
     'EUDR readiness for palm, soy and cocoa supply chains',
-    '3-MCPD and GE limits',
-    'Trans-fat and saturated-fat reduction',
-    'AI-assisted formulation',
-    'Cost-in-use under volatile oil prices',
+    'Sugar, salt and fat reduction',
+    'Whipped toppings, creams and dairy alternatives',
+    'Plant-based texture and protein',
+    'Cost-in-use under volatile ingredient prices',
   ],
   confirm: 'which live themes Ganeaysh wants to be found for',
 };
@@ -101,32 +100,34 @@ export const impact = {
     { tag: 'FOOD SAFETY · GLOBAL', figure: 'WHO', line: 'Trans-fat elimination work praised publicly by the WHO Director-General.', href: '/impact#story-who', linkLabel: 'Read the WHO story', photo: 'bakery-01' },
   ] as { tag: string; figure: string; line: string; href?: string; linkLabel?: string; photo: PhotoSlug }[],
 };
-/** Pack 2 item 16 (copy from item 31): the four ways to engage. Pack 3: no longer on Home (moved to Approach). */
+/** V6 brief: four ways to engage, value and outcomes, no durations. */
 export const engage = {
   headline: 'How we engage',
   intro: 'Four ways to work together. Every engagement starts with a 30-minute conversation, at no cost.',
   href: '/approach#engage',
   cards: [
-    { n: '01', title: 'Diagnostic sprint', line: 'Two to three weeks. A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step.' },
+    { n: '01', title: 'Diagnostic sprint', line: 'A site visit, a review of your data and process, and a prioritised roadmap with the value at stake in each step.' },
     { n: '02', title: 'Defined project', line: 'A fixed scope with clear stages and deliverables, from first trial to commercial scale. You decide at each stage gate whether to continue.' },
-    { n: '03', title: 'Leadership on demand', line: 'A set number of days each month as your CTO or Head of R&D. We own the technical agenda with your team and build its capability as we go.' },
+    { n: '03', title: 'Long-term partnership', line: 'An ongoing partnership on your innovation and technical agenda, with outcomes and milestones agreed up front. We shape the agenda with your team and build its capability as we go.' },
     { n: '04', title: 'Expert review', line: 'Fast, independent opinions for owners, investors and lenders on an asset, a technology, a partner or a plan.' },
   ],
 };
 /** Pack 2 item 18. Pack 3: removed from Home, kept on Approach and Contact. */
-export const trustLine = ['Confidential by default', 'We work under NDA', 'Client names are shared only with their consent'];
+export const trustLine = ['Confidential by default', 'We work under NDA', 'Client names shared only with their consent'];
 export const industries = {
   overline: 'Industries',
   headline: 'Where we work',
   link: { label: 'All industries', href: '/industries' },
-  /** Six photo tiles (also the mega-menu and footer industries); `anchor` is used only when that slug exists in src/data/industries.ts. */
+  /** Eight photo tiles (also the mega-menu and footer industries); `anchor` is used only when that slug exists in src/data/industries.ts. */
   tiles: [
-    { name: 'Agri and oilseeds', photo: 'agri-fields', anchor: '' },
+    { name: 'Agri and oilseeds', photo: 'agri-fields', anchor: 'agri-oilseeds' },
     { name: 'Edible oils and specialty fats', photo: 'oils-pour', anchor: 'edible-oils-specialty-fats' },
-    { name: 'Feed and animal nutrition', photo: 'feed-silos', anchor: 'pet-food-animal-nutrition' },
-    { name: 'Bakery and food service', photo: 'bakery-dough', anchor: 'bakery' },
-    { name: 'Cocoa, chocolate and confectionery', photo: 'cocoa-pods', anchor: 'confectionery' },
-    { name: 'Nutrition and specialty ingredients', photo: 'nutrition-spices', anchor: 'dairy-nutrition' },
+    { name: 'Bakery and food service', photo: 'food-croissant', anchor: 'bakery-food-service' },
+    { name: 'Cocoa, chocolate and confectionery', photo: 'food-chocolate', anchor: 'cocoa-chocolate-confectionery' },
+    { name: 'Dairy alternatives, toppings and creams', photo: 'food-cream', anchor: 'dairy-alternatives-toppings-creams' },
+    { name: 'Food and beverage products', photo: 'food-mithai', anchor: 'food-beverage-products' },
+    { name: 'Nutrition and specialty ingredients', photo: 'nutrition-spices', anchor: 'nutrition-specialty-ingredients' },
+    { name: 'Feed and animal nutrition', photo: 'feed-silos', anchor: 'feed-animal-nutrition' },
   ] as const,
   alsoLabel: 'Also',
   also: ['dairy and specialised nutrition', 'plant-based', 'snacks', 'personal care and oleochemicals', 'industrial minerals and process inputs'],
@@ -150,11 +151,11 @@ export const founderQuote = {
   attribution: 'Ganeaysh Kulkarni, Founder and Principal, KoKreaters',
   link: { label: 'Meet Ganeaysh', href: '/about' },
 };
-/** Closing call to action (every page): Deep Delft band, "Book a 30-minute call" (pack 3), the email address. */
+/** Closing call to action (every page): Deep Delft band, "Book a 30-minute call" (pack 3), reply time. */
 export const cta = {
   headline: 'Let’s create something together.', swooshPhrase: 'together',
-  /** Pack 2 item 2: the reply-time sentence, verbatim. */
-  body: 'Ganeaysh reads every message personally and replies within two working days.',
+  /** V6 brief Table 10: "We typically reply within two working days." */
+  body: 'We typically reply within two working days.',
   button: bookingLabel,
   href: '/contact',
 };

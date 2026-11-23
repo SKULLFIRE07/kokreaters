@@ -49,6 +49,11 @@
   ],
   "redirects": [
     {
+      "source": "/industries/culinary-prepared-foods",
+      "destination": "/industries/food-beverage-products",
+      "permanent": true
+    },
+    {
       "source": "/expertise/capability",
       "destination": "/expertise/technology-leadership",
       "permanent": true
@@ -64,5 +69,9 @@
       "destination": "https://kokreaters.com/$1",
       "permanent": true
     }
-  ]
+  ],
+  "framework": "astro",
+  "buildCommand": "npm run build:preview",
+  "outputDirectory": "dist",
+  "installCommand": "npm ci"
 }

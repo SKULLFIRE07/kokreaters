@@ -36,7 +36,7 @@ interface Props {
   [key: string]: unknown;
 }
 const {
-  src: srcProp, alt: altProp, slug, ratio, sizes, priority = false, widths = [400, 640, 800, 960, 1280, 1600, 2000, 2560, 3200],
+  src: srcProp, alt: altProp, slug, ratio, sizes, priority = false, widths = [640, 1024, 1600],
   position: posProp, fill = false, settle = false, parallax = false, kenburns = false, class: cls, ...rest
 } = Astro.props;
 const record = slug ? photos[slug] : photoBySrc(srcProp);
@@ -61,7 +61,7 @@ const boxed = !fill && ratio && ratio !== 'auto';
   <Picture
     src={src}
     alt={alt}
-    formats={['avif', 'webp']}
+    formats={['webp']}
     quality={86}
     widths={list}
     sizes={sizes}

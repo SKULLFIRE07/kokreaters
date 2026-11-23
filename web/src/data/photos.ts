@@ -50,7 +50,20 @@ import spareHallV4 from '@/assets/photos/stock/spare-hall.jpg';
 import spareWheatV4 from '@/assets/photos/stock/spare-wheat.jpg';
 import spareMaizeV4 from '@/assets/photos/stock/spare-maize.jpg';
 
+import food0 from '@/assets/photos/stock/food-cream.jpg';
+import food1 from '@/assets/photos/stock/food-croissant.jpg';
+import food2 from '@/assets/photos/stock/food-creamer.jpg';
+import food3 from '@/assets/photos/stock/food-icecream.jpg';
+import food4 from '@/assets/photos/stock/food-spread.jpg';
+import food5 from '@/assets/photos/stock/food-fries.jpg';
+import food6 from '@/assets/photos/stock/food-mithai.jpg';
+import food7 from '@/assets/photos/stock/food-plantbased.jpg';
+import food8 from '@/assets/photos/stock/food-sauce.jpg';
+import food9 from '@/assets/photos/stock/food-chocolate.jpg';
+import foodBeverage from '@/assets/photos/stock/food-beverage.jpg';
+
 export const PHOTO_SLUGS = [
+  'food-cream', 'food-croissant', 'food-creamer', 'food-icecream', 'food-spread', 'food-fries', 'food-mithai', 'food-plantbased', 'food-sauce', 'food-chocolate', 'food-beverage',
   'refinery-01', 'refinery-02', 'plant-01', 'cold-01', 'texture-01', 'texture-02',
   'oils-01', 'oils-02', 'oilseeds-01', 'lab-01', 'lab-02',
   'chocolate-01', 'chocolate-02', 'bakery-01', 'bakery-02', 'factory-01', 'audit-01',
@@ -93,6 +106,17 @@ const P: PhotoLicense = 'Pexels License';
 const file = (slug: string) => `src/assets/photos/stock/${slug}.jpg`;
 
 export const photos: Record<PhotoSlug, Photo> = {
+  'food-cream': { slug: 'food-cream', src: food0, file: file('food-cream'), alt: 'A layered chocolate dessert topped with whipped cream and a strawberry.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Soumia Photography', url: 'https://www.pexels.com/photo/chocolate-mousse-and-whipped-cream-dessert-topped-with-strawberry-14668476/', profile: 'https://www.pexels.com', license: P } },
+  'food-croissant': { slug: 'food-croissant', src: food1, file: file('food-croissant'), alt: 'A golden laminated croissant on a white plate beside a cup of coffee.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Amanda Hemphill', url: 'https://www.pexels.com/photo/close-up-of-chocolate-croissant-7440383/', profile: 'https://www.pexels.com', license: P } },
+  'food-creamer': { slug: 'food-creamer', src: food2, file: file('food-creamer'), alt: 'Cream swirling into a glass of iced coffee.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Eiliv Aceron', url: 'https://www.pexels.com/photo/cream-pouring-into-glass-with-iced-coffee-on-table-6895939/', profile: 'https://www.pexels.com', license: P } },
+  'food-icecream': { slug: 'food-icecream', src: food3, file: file('food-icecream'), alt: 'Purple ice cream scoops in white bowls with a spoon.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Anastasia Belousova', url: 'https://www.pexels.com/photo/ice-cream-in-bowls-8807333/', profile: 'https://www.pexels.com', license: P } },
+  'food-spread': { slug: 'food-spread', src: food4, file: file('food-spread'), alt: 'Chocolate spread on slices of bread in warm natural light.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Darya Grey_Owl', url: 'https://www.pexels.com/photo/artistic-shot-of-bread-with-chocolate-spread-29808181/', profile: 'https://www.pexels.com', license: P } },
+  'food-fries': { slug: 'food-fries', src: food5, file: file('food-fries'), alt: 'Golden french fries served beside a small bowl of mayonnaise.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Pexels', url: 'https://www.pexels.com/photo/close-up-photo-of-fried-french-fries-beside-a-white-dip-10024104/', profile: 'https://www.pexels.com', license: P } },
+  'food-mithai': { slug: 'food-mithai', src: food6, file: file('food-mithai'), alt: 'Squares of Indian mithai topped with sliced almonds and pistachios.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Gaurav Kumar', url: 'https://www.pexels.com/photo/traditional-indian-sweets-18488301/', profile: 'https://www.pexels.com', license: P } },
+  'food-plantbased': { slug: 'food-plantbased', src: food7, file: file('food-plantbased'), alt: 'A plant-based bowl with avocado, tofu and fresh greens.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Pexels', url: 'https://www.pexels.com/photo/bowl-of-salad-1484522/', profile: 'https://www.pexels.com', license: P } },
+  'food-sauce': { slug: 'food-sauce', src: food8, file: file('food-sauce'), alt: 'A bowl of creamy white sauce with garlic and olives on a slate board.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Demian Grygorchuk', url: 'https://www.pexels.com/photo/a-flatlay-of-a-white-sauce-in-a-glass-bowl-8053728/', profile: 'https://www.pexels.com', license: P } },
+  'food-chocolate': { slug: 'food-chocolate', src: food9, file: file('food-chocolate'), alt: 'Dark chocolate bars on a workbench, showing the smooth surface and clean snap.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Daniel Fazio', url: 'https://unsplash.com/photos/chocolate-bar-on-gray-container-JBN6FHP5VXk', profile: 'https://unsplash.com/@danielfazio', license: U } },
+  'food-beverage': { slug: 'food-beverage', src: foodBeverage, file: file('food-beverage'), alt: 'An iced plant-based latte in a tall glass, showing distinct layers of chilled espresso and dairy-free milk.', tags: ['bakery'], orientation: 'portrait', focal: 'center', position: '50% 50%', tone: 'mid', credit: { name: 'Demi DeHerrera', url: 'https://unsplash.com/photos/clear-drinking-glass-with-brown-liquid-L-29YTIPpcY', profile: 'https://unsplash.com/@demideherrera', license: U } },
   'hero-rapeseed': {
     slug: 'hero-rapeseed', src: heroRapeseedV4, file: file('hero-rapeseed'),
     alt: 'A field of yellow rapeseed in flower under a blue sky with light cloud.',
@@ -155,9 +179,9 @@ export const photos: Record<PhotoSlug, Photo> = {
   },
   'nl-polder': {
     slug: 'nl-polder', src: nlPolderV4, file: file('nl-polder'),
-    alt: 'A Dutch polder canal running between green meadows under a wide cloudy sky.',
+    alt: 'Traditional Dutch windmills along a clean canal between green meadows under a bright blue sky at Kinderdijk.',
     tags: [], orientation: 'landscape', focal: 'center', position: '50% 55%', tone: 'mid',
-    credit: { name: 'Unsplash', url: 'https://unsplash.com/photos/a-river-with-grass-on-the-side-ZmO1wsr_3mY', profile: 'https://unsplash.com', license: U },
+    credit: { name: 'Delphine Ducaruge', url: 'https://unsplash.com/photos/three-windmills-near-grass-field-and-body-of-water-O453M2Liufs', profile: 'https://unsplash.com/@delphine_d', license: U },
   },
   'spare-hall': {
     slug: 'spare-hall', src: spareHallV4, file: file('spare-hall'),

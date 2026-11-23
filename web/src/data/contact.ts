@@ -5,8 +5,8 @@ import { pillars } from './pillars';
 export const contact = {
   overline: 'Contact',
   headline: 'Let’s create something together.',
-  /** Item 36; the reply-time sentence is item 2's, verbatim everywhere. */
-  intro: 'Tell us a little about your challenge. Ganeaysh reads every message personally and replies within two working days.',
+  /** Item 36; V6 brief Table 10: "We typically reply within two working days." */
+  intro: 'Tell us a little about your challenge. We typically reply within two working days.',
   details: { email: 'Email', whatsapp: 'WhatsApp', linkedin: 'LinkedIn', linkedinFounder: 'LinkedIn, Ganeaysh', linkedinCompany: 'LinkedIn, KoKreaters' },
   /** Pack 3: the booking block's heading (= bookingLabel in @/lib/booking). */
   booking: 'Book a 30-minute call',
@@ -34,7 +34,7 @@ export const nextSteps = {
   heading: 'What happens next',
   steps: [
     'You share your context, by form, email or a booked call.',
-    'We speak for 30 minutes, at no cost, within two working days.',
+    'We speak for 30 minutes, at no cost.',
     'You receive a short proposal with scope and stages.',
     'We start, under NDA.',
   ],

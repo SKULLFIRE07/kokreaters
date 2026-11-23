@@ -23,6 +23,7 @@
  * Responses: 200 { ok: true } · 400 { ok: false, error: 'invalid', fields: { name: 'required' | 'email' | 'length' | 'option' } }
  *            · 403 origin · 413 too large · 429 rate limited · 502 delivery failed.
  */
+import { emailSignature } from './_lib/brand.js';
 import { CONTACT_FIELDS, CONTACT_EMAIL } from './_lib/knowledge.js';
 import { json, methodNotAllowed, clientIp, originAllowed, rateLimiter, readBody, parseFields, escapeHtml } from './_lib/http.js';
 
@@ -83,9 +84,9 @@ export function enquiryEmail(v, meta = {}) {
   const cell = 'padding:10px 14px;border-bottom:1px solid #D9D9D4;vertical-align:top;font:15px/1.5 Arial,Helvetica,sans-serif;';
   const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#F2F2F0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:680px;margin:0 auto;background:#FFFFFF;border-collapse:collapse;">
-<tr><td colspan="2" style="padding:20px 14px;background:#0B1B33;color:#FFFFFF;font:600 18px/1.3 Georgia,'Times New Roman',serif;">New enquiry from the KoKreaters website${meta.via === 'chat' ? ' <span style="font:400 13px Arial,sans-serif;color:#C2C6CC;">via Ask KoKreaters</span>' : ''}</td></tr>
-${r.map(([k, val]) => `<tr><th align="left" style="${cell}width:30%;color:#5A5A5A;font-weight:600;">${escapeHtml(k)}</th><td style="${cell}color:#1A1A1A;white-space:pre-wrap;">${escapeHtml(val) || '<span style="color:#8A8A85;">(not given)</span>'}</td></tr>`).join('\n')}
-<tr><td colspan="2" style="padding:14px;font:13px/1.5 Arial,sans-serif;color:#5A5A5A;">${meta.page ? `Sent from ${escapeHtml(meta.page)}. ` : ''}Reply to this email to answer ${escapeHtml(v.name)} directly.</td></tr>
+<tr><td colspan="2" style="padding:20px 14px;background:#0E1F4D;color:#FFFFFF;font:600 18px/1.3 Georgia,'Times New Roman',serif;">New enquiry from the KoKreaters website${meta.via === 'chat' ? ' <span style="font:400 13px Arial,sans-serif;color:#C2C6CC;">via Ask KoKreaters</span>' : ''}</td></tr>
+${r.map(([k, val]) => `<tr><th align="left" style="${cell}width:30%;color:#4A5878;font-weight:600;">${escapeHtml(k)}</th><td style="${cell}color:#0E1F4D;white-space:pre-wrap;">${escapeHtml(val) || '<span style="color:#8A8A85;">(not given)</span>'}</td></tr>`).join('\n')}
+<tr><td colspan="2" style="padding:14px;font:13px/1.5 Arial,sans-serif;color:#4A5878;">${meta.page ? `Sent from ${escapeHtml(meta.page)}. ` : ''}Reply to this email to answer ${escapeHtml(v.name)} directly.</td></tr>
 </table></body></html>`;
   return { subject: subjectFor(v), text, html };
 }
@@ -94,9 +95,9 @@ export function confirmationEmail() {
   const text = `${CONFIRMATION}\n\nKoKreaters\nConnect · Collaborate · Create\nhttps://kokreaters.com`;
   const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#F2F2F0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#FFFFFF;border-collapse:collapse;">
-<tr><td style="padding:22px 28px;background:#0B1B33;color:#FFFFFF;font:600 20px/1.2 Georgia,'Times New Roman',serif;">KoKreaters</td></tr>
-<tr><td style="padding:28px 28px 8px;font:17px/1.6 Arial,Helvetica,sans-serif;color:#1A1A1A;">${escapeHtml(CONFIRMATION)}</td></tr>
-<tr><td style="padding:16px 28px 28px;font:14px/1.5 Arial,Helvetica,sans-serif;color:#5A5A5A;">KoKreaters · Connect · Collaborate · Create<br><a href="https://kokreaters.com" style="color:#2C509E;">kokreaters.com</a></td></tr>
+<tr><td style="padding:22px 28px;background:#0E1F4D;color:#FFFFFF;font:600 20px/1.2 Georgia,'Times New Roman',serif;">KoKreaters</td></tr>
+<tr><td style="padding:28px 28px 8px;font:17px/1.6 Arial,Helvetica,sans-serif;color:#0E1F4D;">${escapeHtml(CONFIRMATION)}</td></tr>
+<tr><td style="padding:16px 28px 28px;font:14px/1.5 Arial,Helvetica,sans-serif;color:#4A5878;">${emailSignature()}<a href="https://kokreaters.com" style="color:#1C3F94;">kokreaters.com</a></td></tr>
 </table></body></html>`;
   return { subject: 'Thank you for contacting KoKreaters', text, html };
 }

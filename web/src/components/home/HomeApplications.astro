@@ -1,0 +1,65 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { applications } from '@/data/applications';
+---
+<section id="food-applications" class="food band band--navy" aria-labelledby="food-heading">
+  <div class="container">
+    <div class="food__head">
+      <div>
+        <h2 id="food-heading">From ingredient to finished food.</h2>
+        <p>Every finished food is a system of ingredients and process working together. We work on the whole system, from the first ingredient to the product on the shelf.</p>
+      </div>
+      <div class="food__controls js-only" aria-label="Browse food applications">
+        <button type="button" data-food-prev aria-label="Previous food applications" aria-controls="food-rail" disabled><Icon name="arrow-left" size={20} /></button>
+        <button type="button" data-food-next aria-label="More food applications" aria-controls="food-rail"><Icon name="arrow-right" size={20} /></button>
+      </div>
+    </div>
+    <div id="food-rail" class="food__rail" tabindex="0" role="region" aria-label="Food applications, scroll sideways to explore">
+      <ul class="food__list" role="list">
+        {applications.map((item) => (
+          <li><a class="food__item u-zoom" href={item.href}>
+            <Photo slug={item.photo} ratio="4/5" sizes="(min-width: 1000px) 260px, (min-width: 600px) 230px, 68vw" widths={[320, 480, 640]} />
+            <h3>{item.name}</h3>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+    <div class="food__end"><Button href="/contact?interest=Product%20development#start" variant="on-dark">Discuss your application</Button><span>From formulation to the finished food.</span></div>
+  </div>
+</section>
+<script>
+  const rail = document.querySelector<HTMLElement>('#food-rail');
+  const prev = document.querySelector<HTMLButtonElement>('[data-food-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-food-next]');
+  if (rail && prev && next) {
+    const sync = () => { prev.disabled = rail.scrollLeft < 4; next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4; };
+    const move = (direction: number) => rail.scrollBy({ left: direction * rail.clientWidth * .85, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    rail.addEventListener('scroll', sync, { passive: true });
+    new ResizeObserver(sync).observe(rail);
+    sync();
+  }
+</script>
+<style>
+  .food { overflow: clip; }
+  .food__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 36px; }
+  .food__head h2 { font-size: var(--fs-h2); line-height: 1.08; font-weight: 500; }
+  .food__head p { max-width: 65ch; margin-top: 20px; font-size: 1.0625rem; line-height: 1.65; color: var(--fg-2); }
+  .food__controls { display: flex; gap: 10px; flex: none; }
+  .food__controls button { width: 48px; height: 48px; display: grid; place-items: center; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.5); cursor: pointer; transition: background-color var(--d-2); }
+  .food__controls button:hover:enabled { background: var(--navy-700); }
+  .food__controls button:disabled { opacity: .35; cursor: default; }
+  .food__rail { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--saffron) var(--navy-700); padding: 4px 4px 22px; margin-inline: -4px; }
+  .food__rail:focus-visible { outline-offset: 6px; }
+  .food__list { display: flex; gap: 20px; list-style: none; padding: 0; margin: 0; }
+  .food__list li { flex: 0 0 min(68vw, 260px); scroll-snap-align: start; min-width: 0; }
+  .food__item { display: block; text-decoration: none; color: var(--white); }
+  .food__item h3 { margin-top: 18px; font: 600 1.0625rem/1.45 var(--font-sans); max-width: 23ch; }
+  .food__item:hover h3 { text-decoration: underline; text-underline-offset: .25em; }
+  .food__end { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; margin-top: 32px; }
+  .food__end > span { font-size: .9375rem; color: var(--fg-2); }
+  @media (max-width: 599px) { .food__head { align-items: start; flex-wrap: wrap; } .food__controls { margin-left: auto; } }
+</style>

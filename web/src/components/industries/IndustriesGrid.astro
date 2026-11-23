@@ -13,7 +13,7 @@ import Photo from '@/components/ui/Photo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Head from '@/components/expertise/Head.astro';
 import LineIcon from '@/components/expertise/LineIcon.astro';
-import { featuredIndustries, otherIndustries, industryPhoto, industriesPage } from '@/data/industries';
+import { featuredIndustries, otherIndustries, industryPhoto, industriesPage, industryHasPage, industryHref } from '@/data/industries';
 import { getStory, storyHref } from '@/data/impact';
 import { photos } from '@/data/photos';
 import { getPillar, pillarHref } from '@/lib/pillars';
@@ -43,6 +43,7 @@ const coveredBy = (ind: Industry) => (ind.covers ?? []).map((slug) => otherIndus
               <h3 id={`${ind.slug}-h`} class="ind__name">{ind.name}</h3>
             </div>
             <p class="ind__copy">{ind.copy}</p>
+            {industryHasPage(ind.slug) && <a class="ind__detail" href={industryHref(ind.slug)}>Explore this industry <Icon name="arrow-right" size={16} /></a>}
             {coveredBy(ind).length > 0 && (
               <p class="ind__covers">
                 <span class="t-label">{industriesPage.covers}</span> {coveredBy(ind).map((o) => o.name).join(' · ')}
@@ -87,6 +88,7 @@ const coveredBy = (ind: Industry) => (ind.covers ?? []).map((slug) => otherIndus
     position: absolute; left: 24px; right: 24px; bottom: 22px;
     font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.15; font-weight: 400; color: var(--white); text-wrap: balance;
   }
+  .ind__detail { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 1rem; font-weight: 700; margin-top: 10px; }
   .ind__copy { margin-top: var(--s-5); font-size: 1rem; line-height: 1.625; color: var(--fg-2); text-wrap: pretty; max-width: 44ch; }
   .ind__xp { margin-top: auto; padding-top: var(--s-5); }
   .ind__xp > .ind__xplabel { padding-top: var(--s-4); border-top: 1px solid var(--rule); color: var(--fg-2); }

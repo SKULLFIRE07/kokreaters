@@ -13,9 +13,9 @@ export const microcopy = {
   impactLink: 'See the impact',
   newsletter: 'Field notes from the plant floor and the boardroom, once a month.', // v3 tone: "No noise." aside dropped
   newsletterButton: 'Subscribe',
-  /** Pack 2 item 2: the one reply-time sentence, verbatim everywhere (home CTA band, contact page, chat form). */
-  replyTime: 'Ganeaysh reads every message personally and replies within two working days.',
-  formSuccess: 'Thank you. Your message is with us. Ganeaysh reads every message personally and replies within two working days.',
+  /** V6 brief Table 10: "We typically reply within two working days." */
+  replyTime: 'We typically reply within two working days.',
+  formSuccess: 'Thank you. Your message is with us. We typically reply within two working days.',
   formError: 'Something went wrong. Please try again, or email office@KoKreaters.com.',
   required: 'Please fill this in so we can reply.',
   cookieBanner: 'We use essential cookies to run this site and, with your consent, analytics cookies to improve it.',

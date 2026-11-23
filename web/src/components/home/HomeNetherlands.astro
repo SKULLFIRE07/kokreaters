@@ -1,0 +1,18 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import Button from '@/components/ui/Button.astro';
+import { netherlands } from '@/data/home';
+---
+<section id="netherlands" class="nl band band--navy" aria-labelledby="netherlands-heading">
+  <Photo slug="nl-polder" fill sizes="100vw" widths={[640,960,1440,2000]} position="60% 50%" />
+  <div class="nl__shade" aria-hidden="true"></div>
+  <div class="container nl__inner"><h2 id="netherlands-heading">A Dutch base.<br />A global reach.</h2><p>{netherlands.body(netherlands.city)}</p><Button href={netherlands.button.href} variant="on-dark">{netherlands.button.label}</Button></div>
+</section>
+<style>
+  .nl { isolation: isolate; overflow: hidden; min-height: 500px; display: flex; align-items: center; }
+  .nl__shade { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(14,31,77,.93),rgba(14,31,77,.72) 48%,rgba(14,31,77,.15)); }
+  .nl__inner { position: relative; z-index: 1; }
+  .nl h2 { font-size: var(--fs-h2); font-weight: 500; line-height: 1.1; }
+  .nl p { margin-top: 24px; margin-bottom: 28px; max-width: 46ch; font-size: 1.125rem; line-height: 1.65; color: #E4EAF5; }
+  @media (max-width: 599px) { .nl { min-height: 480px; } .nl__shade { background: rgba(14,31,77,.76); } }
+</style>

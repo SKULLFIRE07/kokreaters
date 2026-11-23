@@ -1,0 +1,24 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import portrait from '@/assets/photos/ganeaysh-portrait.jpg';
+import { founderQuote } from '@/data/home';
+import { founderTitles } from '@/data/career';
+---
+<section id="founder-quote" class="fq band band--grey" aria-label="Our founder’s philosophy">
+  <div class="container fq__grid">
+    <Photo src={portrait} alt="Ganeaysh Kulkarni, Founder and Principal of KoKreaters." ratio="4/5" position="50% 18%" sizes="(min-width: 900px) 380px, (min-width: 600px) 40vw, calc(100vw - 40px)" widths={[400,640,800]} class="fq__portrait" />
+    <figure><blockquote><p>“{founderQuote.quote}”</p></blockquote><figcaption><strong>{founderTitles.name}</strong><span>{founderTitles.main}</span><span class="fq__former">{founderTitles.former}</span><em>{founderTitles.flourish}</em></figcaption><ArrowLink href="/about">Meet Ganeaysh</ArrowLink></figure>
+  </div>
+</section>
+<style>
+  .fq__grid { display: grid; gap: 40px; align-items: center; }
+  .fq :global(.fq__portrait) { max-width: 380px; width: 100%; }
+  .fq figure, .fq blockquote { margin: 0; }
+  .fq blockquote p { font-family: var(--font-serif); font-style: normal; font-weight: 500; font-size: clamp(1.875rem, 1.4rem + 1.8vw, 3.25rem); line-height: 1.24; color: var(--navy-900); max-width: 25ch; }
+  .fq figcaption { display: flex; flex-direction: column; gap: 6px; margin: 28px 0 20px; font-size: .9375rem; line-height: 1.5; }
+  .fq figcaption strong { font-weight: 800; }
+  .fq__former, .fq figcaption em { color: var(--fg-2); }
+  @media (min-width: 700px) { .fq__grid { grid-template-columns: minmax(0,4fr) minmax(0,6fr); gap: clamp(40px,6vw,96px); } }
+  @media (max-width: 599px) { .fq :global(.fq__portrait) { width: 140px; } }
+</style>

@@ -40,10 +40,10 @@ const { id = 'lanes-title' } = Astro.props;
   .lanes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .lane { position: relative; display: block; height: 400px; overflow: hidden; background: var(--navy-900); color: var(--white); text-decoration: none; }
   .lane__media { position: absolute; inset: 0; overflow: hidden; }
-  .lane__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 35%, rgba(14, 31, 77, .92) 100%); }
+  .lane__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14, 31, 77, 0) 0%, rgba(14, 31, 77, 0) 35%, rgba(14, 31, 77, .88) 60%, rgba(14, 31, 77, .98) 100%); }
   .lane__text { position: absolute; left: 32px; right: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
   .lane__label { font-size: var(--fs-label); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--saffron); }
-  .lane__title { font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.15; font-weight: 400; text-wrap: balance; }
+  .lane__title { font-family: var(--font-serif); font-size: 1.75rem; line-height: 1.15; font-weight: 400; color: var(--white); text-wrap: balance; }
   .lane:hover .lane__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
   .lane:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
   @media (min-width: 900px) {

@@ -12,8 +12,8 @@ export const DESCRIPTION_MAX = 155;
 export interface PageSeo { title: string; description: string; path: string; ogImage?: string; noindex?: boolean; ogType?: 'website' | 'article' | 'profile'; }
 
 /** Returns every length violation; throws when `throwOnError` (default) is set and there is any. */
-/** Entries whose title and description are the client's verbatim copy (pack 2 item 39): length limits do not apply. */
-export const LENGTH_EXEMPT: readonly SeoKey[] = ['home'];
+/** Entries whose title and description are the client's verbatim copy (pack 2 item 39, V6 brief): length limits do not apply. */
+export const LENGTH_EXEMPT: readonly SeoKey[] = ['home', 'insights'];
 
 export function assertLengths(throwOnError = true): string[] {
   const errors: string[] = [];

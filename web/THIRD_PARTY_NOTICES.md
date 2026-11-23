@@ -147,3 +147,19 @@ OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 ```
+
+
+## V5 food photography (23 November 2026)
+
+Natural, ungraded photographs used under the Pexels or Unsplash licence.
+
+- food-cream: Soumia Photography, https://www.pexels.com/photo/chocolate-mousse-and-whipped-cream-dessert-topped-with-strawberry-14668476/
+- food-croissant: Amanda Hemphill, https://www.pexels.com/photo/close-up-of-chocolate-croissant-7440383/
+- food-creamer: Eiliv Aceron, https://www.pexels.com/photo/cream-pouring-into-glass-with-iced-coffee-on-table-6895939/
+- food-icecream: Anastasia Belousova, https://www.pexels.com/photo/ice-cream-in-bowls-8807333/
+- food-spread: Darya Grey_Owl, https://www.pexels.com/photo/artistic-shot-of-bread-with-chocolate-spread-29808181/
+- food-fries: Pexels, https://www.pexels.com/photo/close-up-photo-of-fried-french-fries-beside-a-white-dip-10024104/
+- food-mithai: Gaurav Kumar, https://www.pexels.com/photo/traditional-indian-sweets-18488301/
+- food-plantbased: Pexels, https://www.pexels.com/photo/bowl-of-salad-1484522/
+- food-sauce: Demian Grygorchuk, https://www.pexels.com/photo/a-flatlay-of-a-white-sauce-in-a-glass-bowl-8053728/
+- food-chocolate: Daniel Fazio, https://unsplash.com/photos/chocolate-bar-on-gray-container-JBN6FHP5VXk

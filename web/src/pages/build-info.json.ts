@@ -9,6 +9,6 @@ import { mode, indexable, includeDrafts, showConfirm, showPendingConsent } from 
 export const prerender = true;
 
 export const GET: APIRoute = () =>
-  new Response(JSON.stringify({ mode, indexable, includeDrafts, showConfirm, showPendingConsent }) + '\n', {
+  new Response(JSON.stringify({ version: 'v5', mode, indexable, includeDrafts, showConfirm, showPendingConsent }) + '\n', {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
   });

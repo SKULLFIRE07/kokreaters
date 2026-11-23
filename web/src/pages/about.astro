@@ -49,7 +49,6 @@ const seo = { ...pageSeo('about'), jsonLd: [person(portraitWebp.src)] };
 // Static files in public/downloads (written by scripts/make-short-bio.mjs); never link to one that is missing.
 const has = (href: string) => existsSync(join(process.cwd(), 'public', href));
 const hasBio = has(aboutPage.bioPdfHref);
-const hasPortrait = has(aboutPage.portraitHref);
 const polder = photos['nl-polder'];
 ---
 <BaseLayout page="about" seo={seo} breadcrumbs={crumbs}>
@@ -69,11 +68,6 @@ const polder = photos['nl-polder'];
       {hasBio && (
         <Button href={aboutPage.bioPdfHref} icon="download" download={aboutPage.bioPdfName}>
           <span class="about-pdf--full">{aboutPage.bioPdf}</span><span class="about-pdf--short">{aboutPage.bioPdfShort}</span>
-        </Button>
-      )}
-      {hasPortrait && (
-        <Button href={aboutPage.portraitHref} variant="tertiary" icon="download" download={aboutPage.portraitName} class="about-actions__link">
-          {aboutPage.portrait}<span class="visually-hidden"> (JPG)</span>
         </Button>
       )}
       <Button href={site.linkedin.href} variant="tertiary" icon="external" rel="noopener me" class="about-actions__link">

@@ -23,8 +23,8 @@ export const chat = {
   writing: 'KoKreaters is writing',
   /** Appended after the 5th answer (owner's wording), then the inline form opens. */
   handoff: 'For more detail, the best next step is a direct conversation. Please share your details and Ganeaysh will reply by email.',
-  /** Pack 2 item 2: the reply-time sentence verbatim, then the chat note. */
-  formIntro: 'Ganeaysh reads every message personally and replies within two working days. Your questions from this chat are included.',
+  /** V6 brief Table 10: "We typically reply within two working days." */
+  formIntro: 'We typically reply within two working days. Your questions from this chat are included.',
   /** Phone launcher label (brief item 1: icon + "Ask"); the full `launcher` stays the accessible name. */
   launcherShort: 'Ask',
   unavailable: 'The assistant is not available just now. Please share your details and Ganeaysh will reply by email.',

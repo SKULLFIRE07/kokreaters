@@ -1,7 +1,7 @@
 /* src/styles/base.css — element defaults + type classes (REDESIGN-V3 §1.2).
    Two voices: Bodoni Moda for headlines, figures and quotes (28px and up, pack 3); Manrope for everything else.
    Bare h1–h4 take their scale step through :where() (zero specificity), so any .t-* class overrides them. */
-html { overflow-x: clip; }   /* anchors offset via [id] { scroll-margin-top } in layout.css */
+html { overflow-x: clip; background: var(--bg); }   /* anchors offset via [id] { scroll-margin-top } in layout.css; bg prevents dark-mode canvas bleed on ultra-wide screens */
 
 body {
   font-family: var(--font-sans);

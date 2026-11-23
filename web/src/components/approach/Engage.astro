@@ -28,7 +28,6 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–⁠$2');
           <span class="way__n" aria-hidden="true">{pad2(w.n)}</span>
         </div>
         <h3 class="way__title">{w.title}</h3>
-        <p class="way__dur"><LineIcon name="clock" size={20} /><span><span class="visually-hidden">{stepLabels.duration}: </span>{bind(w.duration)}</span></p>
         <p class="way__copy">{w.copy}</p>
         <p class="way__out"><span class="t-label">{stepLabels.outcome}</span>{w.outcome}</p>
       </li>
@@ -39,7 +38,7 @@ const bind = (s: string) => s.replace(/(\d)–(\d)/g, '$1–⁠$2');
 <style>
   .engage { scroll-margin-top: var(--scroll-offset); }
   .ways { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-7) var(--grid-gap); }
-  .way { position: relative; padding-top: 24px; min-width: 0; display: grid; grid-template-rows: subgrid; grid-row: span 5; row-gap: var(--s-3); align-content: start; }
+  .way { position: relative; padding-top: 24px; min-width: 0; display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: var(--s-3); align-content: start; }
   @supports not (grid-template-rows: subgrid) { .way { display: block; } .way > * + * { margin-top: var(--s-3); } }
   .way__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--rule); transform-origin: left center; }
   .way--lead .way__rule { height: 3px; background: var(--saffron); }

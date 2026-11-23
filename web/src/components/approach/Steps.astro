@@ -22,7 +22,7 @@ import { method } from '@/data/home';
 import { showConfirm } from '@/lib/mode';
 import { pad2 } from '@/lib/format';
 
-const FIELDS = ['whatWeDo', 'whatYouGet', 'duration'] as const;
+const FIELDS = ['whatWeDo', 'whatYouGet'] as const;
 /** Keep number ranges whole ("2–5 days" never breaks after the dash), as in the models table and the FAQ. */
 const bind = (v: string | null) => (v === null ? null : v.replace(/(\d)–(\d)/g, '$1–⁠$2'));
 const rowsFor = (s: (typeof steps)[number]) =>
@@ -134,8 +134,8 @@ const slugOf = (s: (typeof steps)[number]) => s.name.toLowerCase();
     .step__copy { margin-top: var(--s-5); }
   }
   @media (min-width: 1200px) {
-    /* the three definitions side by side, each on its own hairline */
-    .step__rows { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-6); margin-top: var(--s-8); }
+    /* the two definitions side by side, each on its own hairline */
+    .step__rows { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-6); margin-top: var(--s-8); }
     .step__row, .step__row:last-child { border-bottom: 0; padding-block: var(--s-4) 0; }
     .step__row dd { font-size: var(--fs-small); line-height: var(--lh-small); }
   }

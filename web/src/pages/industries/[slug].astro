@@ -1,0 +1,59 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PillarHero from '@/components/expertise/PillarHero.astro';
+import Photo from '@/components/ui/Photo.astro';
+import ArrowLink from '@/components/ui/ArrowLink.astro';
+import { industryPages } from '@/data/industry-pages';
+import { featuredIndustries, industryPhoto } from '@/data/industries';
+import { photos } from '@/data/photos';
+import { getPillar, pillarHref } from '@/lib/pillars';
+import { bookingHref, bookingLabel } from '@/lib/booking';
+
+export const getStaticPaths = (() => Object.keys(industryPages).map((slug) => ({ params: { slug }, props: { slug } }))) satisfies GetStaticPaths;
+interface Props { slug: string }
+const { slug } = Astro.props;
+const content = industryPages[slug];
+const industry = featuredIndustries.find((item) => item.slug === slug)!;
+const photo = photos[industryPhoto[slug]];
+const path = `/industries/${slug}`;
+const crumbs = [{ label: 'Industries', href: '/industries' }, { label: content.title, href: path }];
+const seo = { path, title: slug.startsWith('dairy') ? 'Dairy Alternatives, Toppings and Creams | KoKreaters' : 'Food and Beverage Products Consulting | KoKreaters', description: content.description };
+---
+<BaseLayout page="industries" seo={seo} breadcrumbs={crumbs} cta={{ title: 'Let’s discuss your application.', body: 'Tell us what your product needs to do, and where it needs to perform.', primary: { label: bookingLabel, href: bookingHref() } }}>
+  <PillarHero title={content.title} lead={industry.copy} crumbs={crumbs} crumbsCurrentShort={slug.startsWith('dairy') ? 'Dairy alternatives' : 'Food & beverage'} image={photo.src} imageAlt={photo.alt} imagePosition={photo.position} />
+  <section class="industry-intro band band--white" aria-labelledby="application-heading">
+    <div class="container industry-intro__grid">
+      <h2 id="application-heading">The ingredient system.<br />The finished food.</h2>
+      <div><p>{content.opening}</p><ul class="industry-tags" role="list">{content.applications.map((name) => <li>{name}</li>)}</ul></div>
+    </div>
+  </section>
+  <section class="industry-scope band band--grey" aria-labelledby="scope-heading">
+    <div class="container industry-scope__grid">
+      <div class="industry-scope__media"><Photo slug={slug.startsWith('dairy') ? 'food-icecream' : 'food-beverage'} ratio="4/5" sizes="(min-width: 1000px) 420px, calc(100vw - 40px)" widths={[400,640,960]} /><p>From formulation to application performance.</p></div>
+      <div><h2 id="scope-heading">Where we can help</h2><ul class="industry-areas" role="list">{content.areas.map((area) => <li><h3>{area.title}</h3><p>{area.text}</p></li>)}</ul></div>
+    </div>
+  </section>
+  <section class="industry-deliver band band--white" aria-labelledby="deliver-heading">
+    <div class="container industry-deliver__grid"><div><h2 id="deliver-heading">A clear path to the next trial.</h2><p>The scope and deliverables are agreed around your product, plant and decision.</p></div><ul role="list">{content.deliverables.map((line) => <li>{line}</li>)}</ul></div>
+  </section>
+  <section class="industry-related band band--ice" aria-labelledby="related-heading"><div class="container"><h2 id="related-heading">Connected expertise</h2><div class="industry-related__links">{industry.pillars.map((key) => <ArrowLink href={pillarHref(key)}>{getPillar(key).name}</ArrowLink>)}</div><ArrowLink href="/industries">Explore all industries</ArrowLink></div></section>
+</BaseLayout>
+<style>
+  h2 { font-size: var(--fs-h2); font-weight: 500; line-height: 1.1; }
+  .industry-intro__grid, .industry-scope__grid, .industry-deliver__grid { display: grid; gap: 32px; }
+  .industry-intro__grid > div > p { font-size: 1.1875rem; line-height: 1.7; max-width: 65ch; color: var(--fg-2); }
+  .industry-tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 0; padding: 0; list-style: none; }
+  .industry-tags li { padding: 9px 14px; border: 1px solid var(--rule); color: var(--head); font: 600 .9375rem/1.5 var(--font-sans); }
+  .industry-scope__media p { margin-top: 16px; font-size: .9375rem; color: var(--fg-2); }
+  .industry-areas { list-style: none; padding: 0; margin: 28px 0 0; }
+  .industry-areas li { padding-block: 24px; border-top: 1px solid var(--rule); }
+  .industry-areas h3 { font-size: 1.75rem; font-weight: 500; line-height: 1.2; }
+  .industry-areas p { margin-top: 12px; color: var(--fg-2); font-size: 1.0625rem; line-height: 1.7; max-width: 65ch; }
+  .industry-deliver h2 { max-width: 16ch; }
+  .industry-deliver p { margin-top: 24px; max-width: 42ch; color: var(--fg-2); line-height: 1.65; }
+  .industry-deliver ul { padding: 0; margin: 0; list-style: none; }
+  .industry-deliver li { border-top: 1px solid var(--rule); padding: 18px 0; font-weight: 600; line-height: 1.5; }
+  .industry-related__links { display: flex; flex-wrap: wrap; gap: 16px 40px; padding-block: 24px; margin-block: 16px; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 900px) { .industry-intro__grid { grid-template-columns: minmax(0,4fr) minmax(0,7fr); gap: 80px; } .industry-scope__grid { grid-template-columns: minmax(0,4fr) minmax(0,6fr); gap: 80px; align-items: start; } .industry-scope__media { position: sticky; top: 100px; } .industry-deliver__grid { grid-template-columns: 1fr 1fr; gap: 80px; } }
+</style>

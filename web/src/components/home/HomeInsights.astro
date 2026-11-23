@@ -16,6 +16,7 @@ import Photo from '@/components/ui/Photo.astro';
 import ArrowLink from '@/components/ui/ArrowLink.astro';
 import Tag from '@/components/ui/Tag.astro';
 import PlaybookCard from '@/components/ui/PlaybookCard.astro';
+import InPreparation from '@/components/insights/InPreparation.astro';
 import { insights as fold, homeLabels } from '@/data/home';
 import { footer } from '@/data/nav';
 import { microcopy } from '@/data/microcopy';
@@ -41,7 +42,7 @@ const latest = (await visibleInsights()).slice(0, 2);
 const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)?.shortLabel;
 ---
 {(
-  <section id="insights" class="hn band band--grey" aria-labelledby="hn-heading">
+  <section id="insights" class="hn band band--white" aria-labelledby="hn-heading">
     <div class="container">
       <header class="hn__head">
         <div>
@@ -77,6 +78,7 @@ const pillarLabel = (e: Insight) => pillars.find((p) => p.key === e.data.pillar)
           <PlaybookCard variant="tile" id="playbook-home" />
         </li>
       </ul>
+      <InPreparation id="home-preparing" />
     </div>
   </section>
 )}

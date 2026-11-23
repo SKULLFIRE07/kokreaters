@@ -5,6 +5,7 @@ import { pillars } from '@/data/pillars';
 import { POSITIONING_STATEMENT } from '@/components/seo/schema';
 import { visibleInsights, comingSoon, insightHref } from '@/lib/insights';
 import { microcopy } from '@/data/microcopy';
+import { featuredIndustries, industryHref } from '@/data/industries';
 
 export const prerender = true;
 
@@ -25,6 +26,9 @@ export const GET: APIRoute = async () => {
     '',
     '## Expertise',
     ...pillars.map((p) => `- [${p.name}](${url(`/expertise/${p.slug}`)}): ${p.promise}`),
+    '',
+    '## Industries',
+    ...featuredIndustries.map((item) => `- [${item.name}](${url(industryHref(item.slug))}): ${item.copy}`),
     '',
     '## Pages',
     ...pages.map(([label, p]) => `- [${label}](${url(p)})`),
